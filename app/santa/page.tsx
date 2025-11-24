@@ -1,9 +1,11 @@
 import Image from "next/image";
+import SantaForm from "@/components/santaForm";
 
 export default function Home() {
   return (
-    <main className="min-w-screen min-h-screen align-center items-center flex flex-col relative">
-      <h1>santa MEOWMEOW</h1>
+    <main>
+      <h1>santa</h1>
+      <SantaForm />
     </main>
   );
 }
