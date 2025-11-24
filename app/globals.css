@@ -35,3 +35,7 @@ h2,
 p {
   font-family: monospace;
 }
+
+.header {
+  user-select: none;
+}
