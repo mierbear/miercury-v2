@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase-client";
-import SantaForm from "@/components/santaForm";
-import Auth from "@/components/auth";
+import SantaForm from "@/components/pp/santaForm";
+import Auth from "@/components/pp/auth";
 
 const ClientSession = () => {
   const [session, setSession] = useState<any>(null);
@@ -34,7 +34,7 @@ const ClientSession = () => {
       {session ? (
         <div>
           <button onClick={logout}>logout</button>
-          <SantaForm />
+          <SantaForm session={session}/>
         </div>
       ) : (
         <Auth />
