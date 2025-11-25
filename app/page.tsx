@@ -15,11 +15,13 @@ export default function Home() {
       </div>
       <div className="content min-w-screen min-h-[60vh] flex align-center flex-col items-center bg-black text-white">
         <h2 className="text-white">enjoy the stay, keep it mirthful</h2>
-        <p>i have nothing to show off here right now hehe just go back</p>
-        <a href="/santa">santa</a>
-        <a href="/pp">pp</a>
-      </div>
 
+        <div className="flex flex-col justify-center align-bottom items-center h-[50vh]">
+          <p>i have nothing to show off here right now hehe just go back</p>
+          <a href="/santa">santa</a>
+          <a href="/pp">pp</a>
+        </div>
+      </div>
     </main>
   );
 }

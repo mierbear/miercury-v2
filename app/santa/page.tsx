@@ -1,4 +1,4 @@
-import ClientSession from "@/components/pp/clientSession";
+import ClientSession from "@/components/santa/clientSession";
 
 export default function Home() {
 

@@ -4,6 +4,7 @@ type RequestInfo = {
   notes: string;
   email: string;
   image_url: string;
+  name: string;
 };
 
 export default RequestInfo

@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase-client";
-import SantaForm from "@/components/pp/santaForm";
-import Auth from "@/components/pp/auth";
+import SantaForm from "@/components/santa/santaForm";
+import Auth from "@/components/santa/auth";
 
 const ClientSession = () => {
   const [session, setSession] = useState<any>(null);
@@ -30,7 +30,7 @@ const ClientSession = () => {
   }
 
   return (
-    <div className="min-w-screen min-h-screen align-center justify-center items-center flex flex-col relative text-center bg-gray-600">
+    <div className="min-w-screen min-h-screen align-center justify-center items-center flex flex-col relative text-center bg-gray-400">
       {session ? (
         <div>
           <button onClick={logout}>logout</button>
