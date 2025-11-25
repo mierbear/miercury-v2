@@ -51,7 +51,7 @@ export default function SantaForm() {
 
 
   return (
-    <div className="min-w-screen min-h-screen align-center items-center flex flex-col relative">
+    <div>
       <form onSubmit={handleSubmit}>
 
         <input

@@ -1,11 +1,10 @@
-import Image from "next/image";
-import SantaForm from "@/components/santaForm";
+import ClientSession from "@/components/clientSession";
 
 export default function Home() {
+
   return (
-    <main>
-      <h1>santa</h1>
-      <SantaForm />
+    <main className="min-w-screen min-h-screen align-center justify-center items-center flex flex-col relative text-center bg-gray-600">
+      <ClientSession />
     </main>
   );
 }

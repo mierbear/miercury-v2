@@ -13,7 +13,7 @@ export default function Home() {
       <div className="bg-white min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <h1 className={`${boldonse.className} header text-black text-9xl`}>MIERCURY</h1>
       </div>
-      <div className="content min-w-screen min-h-[60vh] flex align-center flex-col items-center">
+      <div className="content min-w-screen min-h-[60vh] flex align-center flex-col items-center bg-black text-white">
         <h2 className="text-white">enjoy the stay, keep it mirthful</h2>
         <p>i have nothing to show off here right now hehe just go back</p>
         <a href="/santa">santa</a>
