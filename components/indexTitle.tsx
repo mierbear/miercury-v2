@@ -24,7 +24,7 @@ const Title = () => {
     tl.from(split.chars, {
       duration: 0.8,
       opacity: 0,
-      yPercent: 120,
+      yPercent: -40,
       stagger: 0.05,
       ease: "power4.out",
     })
