@@ -1,7 +1,9 @@
 "use client";
 import Image from "next/image";
 import Link from 'next/link';
+import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
+import BannerLink from "@/components/indexBannerLink"
 
 export default function Home() {
 
@@ -31,32 +33,11 @@ export default function Home() {
               <Image className="" src="/images/pfp.png" width={280} height={280} alt="pfp" />
             </div>
             <div className="text-white items-center px-2 min-w-full links grid grid-rows-5 gap-1 p-2">
-              <div className="relative w-full bg-[#535961] rounded h-18 flex items-center overflow-hidden linkButton group">
-                <img src="/images/characters.png" className="absolute inset-0 w-full h-full object-cover" />
-                <p className="z-10 px-5">Characters</p>
-                <span className="absolute inset-0 bg-linear-to-r from-[#ffffff]/30 to-transparent -translate-x-full transition-transform duration-300 pointer-events-none group-hover:translate-x-0"></span>
-              </div>
-              <div className="relative w-full bg-[#535961] rounded h-18 flex items-center overflow-hidden linkButton group">
-                <img src="/images/icemage.png" className="absolute inset-0 w-full h-full object-cover" />
-                <p className="z-10 px-5">MTWIM Compendium</p>
-                <span className="absolute inset-0 bg-linear-to-r from-[#ffffff]/30 to-transparent -translate-x-full transition-transform duration-300 pointer-events-none group-hover:translate-x-0"></span>
-              </div>
-              <div className="relative w-full bg-[#535961] rounded h-18 flex items-center overflow-hidden linkButton group">
-                <img src="/images/pp.png" className="absolute inset-0 w-full h-full object-cover" />
-                <p className="z-10 px-5">PP</p>
-                <span className="absolute inset-0 bg-linear-to-r from-[#ffffff]/30 to-transparent -translate-x-full transition-transform duration-300 pointer-events-none group-hover:translate-x-0"></span>
-              </div>
-              <div className="relative w-full bg-[#535961] rounded h-18 flex items-center overflow-hidden linkButton group">
-                <img src="/images/games.png" className="absolute inset-0 w-full h-full object-cover" />
-                <p className="z-10 px-5">Games</p>
-                <span className="absolute inset-0 bg-linear-to-r from-[#ffffff]/30 to-transparent -translate-x-full transition-transform duration-300 pointer-events-none group-hover:translate-x-0"></span>
-              </div>
-              <div className="relative w-full bg-[#535961] rounded h-18 flex items-center overflow-hidden linkButton group">
-                <img src="/images/aboutme.png" className="absolute inset-0 w-full h-full object-cover" />
-                <p className="z-10 px-5">About me</p>
-                <span className="absolute inset-0 bg-linear-to-r from-[#ffffff]/30 to-transparent -translate-x-full transition-transform duration-300 pointer-events-none group-hover:translate-x-0"></span>
-              </div>
-
+              <BannerLink name="Characters" link="characters" />
+              <BannerLink name="MTWIM Compendium" link="icemage" />
+              <BannerLink name="Pacific Purgatory" link="pp" />
+              <BannerLink name="Games" link="games" />
+              <BannerLink name="About Me" link="about" />
             </div>
           </div>
         </div>
@@ -67,6 +48,7 @@ export default function Home() {
           <p>Copyright © {currentYear} Miercury</p>
         </div>
       </footer>
+      <Stars />
     </div>
   );
 }
