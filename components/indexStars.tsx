@@ -16,10 +16,26 @@ const Stars = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const twinkle = (el: HTMLImageElement) => {
+      gsap.to(el, {
+        opacity: gsap.utils.random(0.5, 1),
+        duration: gsap.utils.random(2, 3.2),
+        repeat: -1,
+        yoyo: true,
+        ease: "sine.inOut"
+      });
+    };
+
+    if (stars.current) twinkle(stars.current);
+    if (stars2.current) twinkle(stars2.current);
+  }, []);
+
+
   return (
-    <div className="bg-black min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col fixed">
-    <img src={"/images/stars.png"} ref={stars} className="stars fixed origin-center scale-180 -z-50]" />
-    <img src={"/images/stars2.png"} ref={stars2} className="stars fixed origin-center scale-180 -z-50]" />
+    <div className="bg-[#17171a] min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col fixed">
+    <img src={"/images/stars.png"} ref={stars} className="stars fixed origin-center scale-200 -z-50]" />
+    <img src={"/images/stars2.png"} ref={stars2} className="stars fixed origin-center scale-200 -z-50]" />
     </div>
   )
 }

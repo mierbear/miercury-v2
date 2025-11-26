@@ -36,3 +36,9 @@ p {
 .header {
   user-select: none;
 }
+
+.linkButton:hover {
+  cursor: pointer;
+  filter: drop-shadow(0px 0px 5px #FFFFFF);
+  transition: all .3s ease;
+}
