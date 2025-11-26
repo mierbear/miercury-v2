@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import Link from 'next/link';
-import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
 
 export default function Home() {
@@ -24,17 +23,7 @@ export default function Home() {
             <div className="post p-5 border rounded-2xl w-full m-2">
               <h1>complaint</h1>
               <p>11/16/25</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
-              <p>i hate typescript</p>
+              <p>i love typescript</p>
             </div>
           </div>
           <div className="text-white bg-[#535961]/50 flex flex-col items-center">
@@ -78,7 +67,6 @@ export default function Home() {
           <p>Copyright © {currentYear} Miercury</p>
         </div>
       </footer>
-      <Stars />
     </div>
   );
 }
