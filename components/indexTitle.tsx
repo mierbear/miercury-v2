@@ -36,13 +36,15 @@ const Title = () => {
   }, []);
 
   return (
-    <h1
-      ref={titleRef}
-      className={`${boldonse.className} header text-amber-200 text-9xl z-10`}
-      style={{ visibility: "hidden" }}
-    >
-      MIERCURY
-    </h1>
+    <div className="z-10 justify-end">
+      <h1
+        ref={titleRef}
+        className={`${boldonse.className} header text-gray-300 text-9xl`}
+        style={{ visibility: "hidden" }}
+      >
+        MIERCURY
+      </h1>
+    </div>
   );
 };
 
