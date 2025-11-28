@@ -12,6 +12,7 @@ const boldonse = Boldonse({
 const Landing = () => {
   const buttonRef = useRef<HTMLDivElement | null>(null);
   const landingRef = useRef<HTMLDivElement | null>(null);
+  const listRef = useRef<HTMLDivElement | null>(null);
 
   const openTl = gsap.timeline();
   const closeTl = gsap.timeline();
@@ -25,26 +26,36 @@ const Landing = () => {
     const width = landingRef.current.offsetWidth;
 
     if (isOpen.current) {
-      closeTl.to(landingRef.current, {
+      closeTl
+      .to(landingRef.current, {
         y: -height,
         duration: .7,
         ease: "power1.inOut",
       })
       .to(buttonRef.current, {
         x: width / 2.2,
-        duration: .8,
+        duration: .9,
         ease: "power2.out",
+      })
+      .set(listRef.current, {
+        pointerEvents: "none",
+        visibility: "hidden"
       });
     } else {
-      openTl.to(buttonRef.current, {
+      openTl
+      .set(listRef.current, {
+        pointerEvents: "auto",
+        visibility: "visible"
+      })
+      .to(buttonRef.current, {
         x: 0,
         duration: .4,
-        ease: "power3.out",
+        ease: "power1.out",
       })
       .to(landingRef.current, {
         y: 0,
         duration: .6,
-        ease: "power2.inOut",
+        ease: "power1.Out",
       });
     }
 
@@ -56,7 +67,7 @@ const Landing = () => {
       ref={landingRef}
       className="fixed min-w-screen min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 bg-white/80 shadow-2xl"
     >
-      <div className="grid grid-cols-4">
+      <div ref={listRef} className="grid grid-cols-4">
         <div className="landing-tile flex justify-center items-center bg-[#838177]">
           <span>Characters</span>
         </div>
