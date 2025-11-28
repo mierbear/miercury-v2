@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
+import Landing from "@/components/indexLanding";
 import BannerLink from "@/components/indexBannerLink"
 
 export default function Home() {
@@ -11,6 +12,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#17171a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
+      <Landing />
       <div className="bg-[#17171a] min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <Title />
       </div>
@@ -23,9 +25,17 @@ export default function Home() {
         <div className="grid grid-cols-[7fr_3fr]">
           <div className="text-white bg-[#535961] flex flex-col items-center px-2">
             <div className="post p-5 border rounded-2xl w-full m-2">
-              <h1>complaint</h1>
-              <p>11/16/25</p>
-              <p>i love typescript</p>
+              <h1 className="font-bold text-2xl">to do list</h1>
+              <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
+              <p className="text-sm">- finish the scrollTrigger course</p>
+              <p className="text-sm">- finish the gsap course</p>
+              <p className="text-sm">- revise the landing page</p>
+              <p className="text-sm">- connect this to supabase so you can add blog posts</p>
+              <p className="text-sm">- make a dashboard for blog crud operations</p>
+              <p className="text-sm">- add all old posts from the old miercury websites here</p>
+              <p className="text-sm">- add vercel web analytics functionality</p>
+              <p className="text-sm">- set subdomains for characters/icemage/pp/etc.</p>
+              <p className="text-sm">- </p>
             </div>
           </div>
           <div className="text-white bg-[#535961]/50 flex flex-col items-center">
