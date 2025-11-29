@@ -21,15 +21,38 @@ const NavMenu = (props: { open: boolean }) => {
   
   const isOpen = useRef(props.open ? true : false);
 
+  const menuAppear = () => {
+    const split = new SplitText(homeLinkRef.current, { type: "chars" });
+    const tl = gsap.timeline();
+
+    tl.from(split.chars, {
+        duration: 1,
+        opacity: 0,
+        xPercent: 200,
+        stagger: 0.15,
+        ease: "back.inOut",
+        delay: .5,
+      })
+
+      return () => {
+        tl.kill();
+        split.revert();
+      };
+  }
+
   const toggleLanding = () => {
     if (!landingRef.current) return;
 
     const height = landingRef.current.offsetHeight;
     const width = landingRef.current.offsetWidth;
 
+
     if (isOpen.current) {
       // CLOSE ANIMATION
       closeTl
+      .set(buttonRef.current, {
+        pointerEvents: "none"
+      })
       .to(landingRef.current, {
         y: -height,
         duration: .7,
@@ -43,10 +66,18 @@ const NavMenu = (props: { open: boolean }) => {
       .set(listRef.current, {
         pointerEvents: "none",
         visibility: "hidden"
+      })
+      .set(buttonRef.current, {
+        pointerEvents: "all"
       });
     } else {
       // OPEN ANIMATION
+      menuAppear();
+
       openTl
+      .set(buttonRef.current, {
+        pointerEvents: "none"
+      })
       .set(listRef.current, {
         pointerEvents: "auto",
         visibility: "visible"
@@ -60,6 +91,9 @@ const NavMenu = (props: { open: boolean }) => {
         y: 0,
         duration: .5,
         ease: "power1.inOut",
+      })
+      .set(buttonRef.current, {
+        pointerEvents: "all"
       });
     }
 
@@ -85,6 +119,7 @@ const NavMenu = (props: { open: boolean }) => {
       ease: "power3.out",
       delay: 0.8,
     });
+    menuAppear();
   } else {
     // CLOSE
     gsap.set(landingRef.current, {

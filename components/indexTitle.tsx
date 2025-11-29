@@ -22,11 +22,12 @@ const Title = () => {
     const tl = gsap.timeline();
 
     tl.from(split.chars, {
-      duration: 0.8,
+      duration: 1.2,
       opacity: 0,
       yPercent: 50,
-      stagger: 0.05,
+      stagger: 0.08,
       ease: "power4.out",
+      delay: 0.3,
     })
 
     return () => {
