@@ -9,15 +9,15 @@ const boldonse = Boldonse({
   subsets: ["latin"],
 })
 
-const Landing = () => {
+const NavMenu = (props: { open: boolean }) => {
   const buttonRef = useRef<HTMLDivElement | null>(null);
   const landingRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
 
   const openTl = gsap.timeline();
   const closeTl = gsap.timeline();
-
-  const isOpen = useRef(true);
+  
+  const isOpen = useRef(props.open ? true : false);
 
   const toggleLanding = () => {
     if (!landingRef.current) return;
@@ -26,6 +26,7 @@ const Landing = () => {
     const width = landingRef.current.offsetWidth;
 
     if (isOpen.current) {
+      // CLOSE ANIMATION
       closeTl
       .to(landingRef.current, {
         y: -height,
@@ -42,6 +43,7 @@ const Landing = () => {
         visibility: "hidden"
       });
     } else {
+      // OPEN ANIMATION
       openTl
       .set(listRef.current, {
         pointerEvents: "auto",
@@ -63,21 +65,49 @@ const Landing = () => {
   };
 
   useEffect(() => {
-    if (!landingRef.current) return;
-    gsap.set(landingRef.current, { autoAlpha: 1 });
-    gsap.from(landingRef.current, { yPercent: -200, duration: 4, ease: "power3.out", delay: .8 });
-  }, []);
+      if (!landingRef.current) return;
+      gsap.set(landingRef.current, { autoAlpha: 1 });
+    }, []);
 
-  // useEffect(() => {
-  //   if (!listRef.current) return;
+useEffect(() => {
+  if (!landingRef.current || !buttonRef.current || !listRef.current) return;
 
-  //   (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1fr .6fr 1fr 1fr";
-  // }, [])
+  const height = landingRef.current.offsetHeight;
+  const width = landingRef.current.offsetWidth;
+
+  if (isOpen.current) {
+    // OPEN
+    gsap.from(landingRef.current, {
+      yPercent: -200,
+      duration: 4,
+      ease: "power3.out",
+      delay: 0.8,
+    });
+  } else {
+    // CLOSE
+    gsap.set(landingRef.current, {
+      y: -height,
+      duration: 0.7,
+      ease: "power1.inOut",
+    });
+
+    gsap.set(buttonRef.current, {
+      x: width / 2.2,
+      duration: 0.7,
+      ease: "power2.out",
+    });
+
+    gsap.set(listRef.current, {
+      pointerEvents: "none",
+      visibility: "hidden",
+    });
+  }
+}, []);
+
 
   const listReset = () => {
     (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
   }
-
   const listCharSel = () => {
     (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1.2fr 1.125fr 1.025fr .95fr";
   }
@@ -125,4 +155,4 @@ const Landing = () => {
   );
 };
 
-export default Landing;
+export default NavMenu;

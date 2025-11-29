@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
-import Landing from "@/components/indexLanding";
+import NavMenu from "@/components/NavMenu";
 import BannerLink from "@/components/indexBannerLink"
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#17171a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
-      <Landing />
+      <NavMenu open={true} />
       <div className="bg-[#17171a] min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <Title />
       </div>
@@ -44,7 +44,7 @@ export default function Home() {
             </div>
             <div className="text-white items-center px-2 min-w-full links grid grid-rows-5 gap-1 p-2">
               <BannerLink name="Characters" link="characters" />
-              <BannerLink name="MTWIM Compendium" link="icemage" />
+              <BannerLink name="MTWIM Compendium" link="mtwim" />
               <BannerLink name="Pacific Purgatory" link="pp" />
               <BannerLink name="Games" link="games" />
               <BannerLink name="About Me" link="about" />
