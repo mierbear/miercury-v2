@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from 'next/link';
 import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
-import NavMenu from "@/components/NavMenu";
 import BannerLink from "@/components/indexBannerLink"
 
 export default function Home() {
@@ -12,7 +11,6 @@ export default function Home() {
 
   return (
     <div className="bg-[#17171a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
-      <NavMenu open={true} />
       <div className="bg-[#17171a] min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <Title />
       </div>

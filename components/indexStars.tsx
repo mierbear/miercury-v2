@@ -5,16 +5,10 @@ import { useEffect, useRef } from "react";
 const Stars = () => {
   const stars = useRef<HTMLImageElement | null>(null);
   const stars2 = useRef<HTMLImageElement | null>(null);
-  // const moon = useRef<HTMLImageElement | null>(null);
 
   useEffect(() => {
     gsap.set(stars.current, { autoAlpha: 1 });
     gsap.set(stars2.current, { autoAlpha: 1 });
-    // gsap.set(moon.current, { autoAlpha: 1 });
-
-    // if (moon.current) {
-    //   gsap.to(moon.current, {rotation:360, duration: 1024, repeat: -1, ease: "linear", transformOrigin: "center center"});
-    // }
 
     if (stars.current) {
       gsap.to(stars.current, {rotation:360, duration: 360, repeat: -1, ease: "linear", transformOrigin: "center center"});
@@ -43,7 +37,6 @@ const Stars = () => {
 
   return (
     <div className="bg-[#17171a] min-w-screen min-h-screen flex justify-end align-center items-center flex-col fixed top-0 -translate-y-[20vh]">
-    {/* <img src={"/images/moon.png"} ref={moon} className="moon fixed origin-center scale-200 -z-50]" style={{ visibility: "hidden" }} /> */}
     <img src={"/images/stars.png"} ref={stars} className="stars fixed origin-center scale-200 -z-50]" style={{ visibility: "hidden", pointerEvents: "none" }} />
     <img src={"/images/stars2.png"} ref={stars2} className="stars fixed origin-center scale-200 -z-50]" style={{ visibility: "hidden", pointerEvents: "none" }} />
     </div>

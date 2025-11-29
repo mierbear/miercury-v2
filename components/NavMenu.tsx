@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { Boldonse } from "next/font/google"
 import { useEffect, useRef } from "react";
+import NextLink from "next/link";
 
 const boldonse = Boldonse({
   weight: "400",
@@ -13,6 +14,7 @@ const NavMenu = (props: { open: boolean }) => {
   const buttonRef = useRef<HTMLDivElement | null>(null);
   const landingRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const homeLinkRef = useRef<HTMLAnchorElement | null>(null);
 
   const openTl = gsap.timeline();
   const closeTl = gsap.timeline();
@@ -69,7 +71,7 @@ const NavMenu = (props: { open: boolean }) => {
       gsap.set(landingRef.current, { autoAlpha: 1 });
     }, []);
 
-useEffect(() => {
+  useEffect(() => {
   if (!landingRef.current || !buttonRef.current || !listRef.current) return;
 
   const height = landingRef.current.offsetHeight;
@@ -102,8 +104,17 @@ useEffect(() => {
       visibility: "hidden",
     });
   }
-}, []);
+  
+  }, [isOpen.current]);
 
+  useEffect(() => {
+    if (!buttonRef.current) return;
+    gsap.to(buttonRef.current, {rotation:360, duration: 120, repeat: -1, ease: "linear", transformOrigin: "center center"});
+  })
+
+  const handleLinkClick = () => {
+  if (isOpen.current) toggleLanding();
+  };
 
   const listReset = () => {
     (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
@@ -128,28 +139,35 @@ useEffect(() => {
       style={{ visibility: "hidden" }}
     >
       <div ref={listRef} className="grid list">
-        <div className="landing-tile flex justify-center items-center bg-[#838177]" onMouseEnter={listCharSel} onMouseLeave={listReset}>
+        <NextLink onClick={handleLinkClick} href="/characters" className="landing-tile flex justify-center items-center bg-[#838177]" onMouseEnter={listCharSel} onMouseLeave={listReset}>
           <span>Characters</span>
-        </div>
-        <div className="landing-tile flex justify-center items-center bg-[#8b979b]" onMouseEnter={listIceSel} onMouseLeave={listReset}>
+        </NextLink>
+        <NextLink onClick={handleLinkClick} href="/mtwim" className="landing-tile flex justify-center items-center bg-[#8b979b]" onMouseEnter={listIceSel} onMouseLeave={listReset}>
           <span>MTWIM Compendium</span>
-        </div>
-        <div className="landing-tile flex justify-center items-center bg-[#616d7a]" onMouseEnter={listPpSel} onMouseLeave={listReset}>
+        </NextLink>
+        <NextLink onClick={handleLinkClick} href="/pp" className="landing-tile flex justify-center items-center bg-[#616d7a]" onMouseEnter={listPpSel} onMouseLeave={listReset}>
           <span>Pacific Purgatory</span>
-        </div>
-        <div className="landing-tile flex justify-center items-center bg-[#8a8b7d]" onMouseEnter={listGameSel} onMouseLeave={listReset}>
+        </NextLink>
+        <NextLink onClick={handleLinkClick} href="/games" className="landing-tile flex justify-center items-center bg-[#8a8b7d]" onMouseEnter={listGameSel} onMouseLeave={listReset}>
           <span>Games</span>
-        </div>
+        </NextLink>
       </div>
 
-      <div className="flex flex-col justify-center items-center bg-gray-600/50 relative">
-        <h1>no thanks, take me back to the blog!</h1>
+      <div className="flex flex-row justify-center items-center bg-gray-600/50 relative">
+        <NextLink href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl`}>HOME</NextLink>
+        <h1>no thanks, take me back !</h1>
 
         <div
           ref={buttonRef}
+          className="absolute bottom-0 translate-y-[50%]"
+        >
+          <img src="images/moon.png" onClick={toggleLanding} className="scale-15 cursor-pointer" style={{userSelect: "none"}} draggable="false" />
+        </div>
+        {/* <div
+          ref={buttonRef}
           onClick={toggleLanding}
           className="absolute bottom-0 bg-white rounded-full min-w-[2em] min-h-[2em] text-3xl translate-y-[50%] text-center cursor-pointer"
-        />
+        /> */}
       </div>
     </div>
   );
