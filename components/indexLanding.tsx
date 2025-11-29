@@ -68,23 +68,46 @@ const Landing = () => {
     gsap.from(landingRef.current, { yPercent: -200, duration: 4, ease: "power3.out", delay: .8 });
   }, []);
 
+  // useEffect(() => {
+  //   if (!listRef.current) return;
+
+  //   (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1fr .6fr 1fr 1fr";
+  // }, [])
+
+  const listReset = () => {
+    (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
+  }
+
+  const listCharSel = () => {
+    (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1.2fr 1.125fr 1.025fr .95fr";
+  }
+  const listIceSel = () => {
+    (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1.05fr 1.2fr 1.05fr 1fr";
+  }
+  const listPpSel = () => {
+    (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1fr 1.05fr 1.2fr 1.05fr";
+  }
+  const listGameSel = () => {
+    (listRef.current as HTMLDivElement).style.gridTemplateColumns = ".95fr 1.025fr 1.125fr 1.2fr";
+  }
+
   return (
     <div
       ref={landingRef}
       className="fixed min-w-screen min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 bg-white/80 shadow-2xl"
       style={{ visibility: "hidden" }}
     >
-      <div ref={listRef} className="grid grid-cols-4">
-        <div className="landing-tile flex justify-center items-center bg-[#838177]">
+      <div ref={listRef} className="grid list">
+        <div className="landing-tile flex justify-center items-center bg-[#838177]" onMouseEnter={listCharSel} onMouseLeave={listReset}>
           <span>Characters</span>
         </div>
-        <div className="landing-tile flex justify-center items-center bg-[#8b979b]">
+        <div className="landing-tile flex justify-center items-center bg-[#8b979b]" onMouseEnter={listIceSel} onMouseLeave={listReset}>
           <span>MTWIM Compendium</span>
         </div>
-        <div className="landing-tile flex justify-center items-center bg-[#616d7a]">
+        <div className="landing-tile flex justify-center items-center bg-[#616d7a]" onMouseEnter={listPpSel} onMouseLeave={listReset}>
           <span>Pacific Purgatory</span>
         </div>
-        <div className="landing-tile flex justify-center items-center bg-[#8a8b7d]">
+        <div className="landing-tile flex justify-center items-center bg-[#8a8b7d]" onMouseEnter={listGameSel} onMouseLeave={listReset}>
           <span>Games</span>
         </div>
       </div>
