@@ -34,7 +34,7 @@ const Landing = () => {
       })
       .to(buttonRef.current, {
         x: width / 2.2,
-        duration: .9,
+        duration: .7,
         ease: "power2.out",
       })
       .set(listRef.current, {
@@ -54,18 +54,25 @@ const Landing = () => {
       })
       .to(landingRef.current, {
         y: 0,
-        duration: .6,
-        ease: "power1.Out",
+        duration: .5,
+        ease: "power1.inOut",
       });
     }
 
     isOpen.current = !isOpen.current;
   };
 
+  useEffect(() => {
+    if (!landingRef.current) return;
+    gsap.set(landingRef.current, { autoAlpha: 1 });
+    gsap.from(landingRef.current, { yPercent: -200, duration: 4, ease: "power3.out", delay: .8 });
+  }, []);
+
   return (
     <div
       ref={landingRef}
       className="fixed min-w-screen min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 bg-white/80 shadow-2xl"
+      style={{ visibility: "hidden" }}
     >
       <div ref={listRef} className="grid grid-cols-4">
         <div className="landing-tile flex justify-center items-center bg-[#838177]">
