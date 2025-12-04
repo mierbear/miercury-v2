@@ -11,7 +11,7 @@ const Stars = () => {
     gsap.set(stars2.current, { autoAlpha: 1 });
 
     if (stars.current) {
-      gsap.to(stars.current, {rotation:360, duration: 360, repeat: -1, ease: "linear", transformOrigin: "center center"});
+      gsap.to(stars.current, {rotation:360, duration: 320, repeat: -1, ease: "linear", transformOrigin: "center center"});
     }
 
     if (stars2.current) {
