@@ -109,7 +109,7 @@ const NavMenu = (props: { open: boolean }) => {
       })
       .to(buttonRef.current, {
         scale: 8,
-        yPercent: 350,
+        yPercent: 370,
         ease: "power1.out",
       }, "<")
       .set(buttonRef.current, {
@@ -156,7 +156,7 @@ const NavMenu = (props: { open: boolean }) => {
 
     gsap.to(buttonRef.current, {
       scale: 8,
-      yPercent: 120,
+      yPercent: 370,
       duration: 2,
       ease: "power1.out",
       delay: 2
@@ -240,7 +240,7 @@ const NavMenu = (props: { open: boolean }) => {
             >
               <img
                 ref={buttonImgRef}
-                src="images/moon.png"
+                src="images/moonplace.png"
                 className="cursor-pointer max-h-[14vh] max-w-[14vh] select-none"
                 style={{ userSelect: "none" }}
                 draggable="false"
