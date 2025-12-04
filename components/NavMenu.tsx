@@ -1,9 +1,12 @@
 "use client";
 import gsap from "gsap";
+import { CustomEase } from "gsap/CustomEase";
 import { SplitText } from "gsap/SplitText";
 import { Boldonse } from "next/font/google"
 import { useEffect, useRef } from "react";
 import NextLink from "next/link";
+
+gsap.registerPlugin(CustomEase);
 
 const boldonse = Boldonse({
   weight: "400",
@@ -12,8 +15,10 @@ const boldonse = Boldonse({
 
 const NavMenu = (props: { open: boolean }) => {
   const buttonRef = useRef<HTMLDivElement | null>(null);
+  const buttonImgRef = useRef<HTMLImageElement | null>(null);
   const landingRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const homeRef = useRef<HTMLDivElement | null>(null);
   const homeLinkRef = useRef<HTMLAnchorElement | null>(null);
 
   const openTl = gsap.timeline();
@@ -45,6 +50,7 @@ const NavMenu = (props: { open: boolean }) => {
 
     const height = landingRef.current.offsetHeight;
     const width = landingRef.current.offsetWidth;
+    
 
 
     if (isOpen.current) {
@@ -54,12 +60,17 @@ const NavMenu = (props: { open: boolean }) => {
         pointerEvents: "none"
       })
       .to(landingRef.current, {
-        y: -height,
+        yPercent: -100,
         duration: .7,
         ease: "power1.inOut",
       })
       .to(buttonRef.current, {
-        x: width / 2.2,
+        scale: 1,
+        ease: "power1.out",
+        yPercent: 50,
+      }, "<")
+      .to(buttonRef.current, {
+        xPercent: 600,
         duration: .7,
         ease: "power2.out",
       })
@@ -83,15 +94,24 @@ const NavMenu = (props: { open: boolean }) => {
         visibility: "visible"
       })
       .to(buttonRef.current, {
-        x: 0,
+        xPercent: 0,
         duration: .4,
         ease: "power1.out",
       })
+      .set(homeRef.current, {
+        pointerEvents: "auto",
+        visibility: "visible"
+      })
       .to(landingRef.current, {
-        y: 0,
+        yPercent: 0,
         duration: .5,
         ease: "power1.inOut",
       })
+      .to(buttonRef.current, {
+        scale: 8,
+        yPercent: 350,
+        ease: "power1.out",
+      }, "<")
       .set(buttonRef.current, {
         pointerEvents: "all"
       });
@@ -101,36 +121,59 @@ const NavMenu = (props: { open: boolean }) => {
   };
 
   useEffect(() => {
-      if (!landingRef.current) return;
-      gsap.set(landingRef.current, { autoAlpha: 1 });
+    if (!landingRef.current) return;
+    gsap.set(landingRef.current, { autoAlpha: 1 });
     }, []);
 
   useEffect(() => {
-  if (!landingRef.current || !buttonRef.current || !listRef.current) return;
+    if (!buttonImgRef.current) return;
+    gsap.to(buttonImgRef.current, {rotation:360, duration: 120, repeat: -1, ease: "linear", transformOrigin: "center center"});
+  })
+
+  useEffect(() => {
+  if (!landingRef.current || !buttonRef.current || !listRef.current || !homeRef.current) return;
 
   const height = landingRef.current.offsetHeight;
   const width = landingRef.current.offsetWidth;
 
   if (isOpen.current) {
     // OPEN
+    gsap.set(buttonRef.current, {
+      pointerEvents: "none"
+    })
+
+    gsap.set(homeRef.current, {
+      pointerEvents: "auto",
+      visibility: "visible"
+    })
+
     gsap.from(landingRef.current, {
-      yPercent: -200,
-      duration: 4,
-      ease: "power3.out",
-      delay: 0.8,
+      yPercent: -120,
+      duration: 2,
+      ease: "power4.Out",
+      delay: 2
     });
-  } else {
-    // CLOSE
-    gsap.set(landingRef.current, {
-      y: -height,
-      duration: 0.7,
-      ease: "power1.inOut",
+
+    gsap.to(buttonRef.current, {
+      scale: 8,
+      yPercent: 120,
+      duration: 2,
+      ease: "power1.out",
+      delay: 2
     });
 
     gsap.set(buttonRef.current, {
-      x: width / 2.2,
+      pointerEvents: "all",
+      delay: 4
+    });
+
+    
+  } else {
+    // CLOSE
+    gsap.set(landingRef.current, {
+      yPercent: -100,
       duration: 0.7,
-      ease: "power2.out",
+      ease: "power1.inOut",
     });
 
     gsap.set(listRef.current, {
@@ -140,11 +183,6 @@ const NavMenu = (props: { open: boolean }) => {
   }
   
   }, [isOpen.current]);
-
-  useEffect(() => {
-    if (!buttonRef.current) return;
-    gsap.to(buttonRef.current, {rotation:360, duration: 120, repeat: -1, ease: "linear", transformOrigin: "center center"});
-  })
 
   const handleLinkClick = () => {
   if (isOpen.current) toggleLanding();
@@ -167,41 +205,50 @@ const NavMenu = (props: { open: boolean }) => {
   }
 
   return (
-    <div
-      ref={landingRef}
-      className="fixed min-w-screen min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 bg-white/80 shadow-2xl"
-      style={{ visibility: "hidden" }}
-    >
-      <div ref={listRef} className="grid list">
-        <NextLink onClick={handleLinkClick} href="/characters" className="landing-tile flex justify-center items-center bg-[#838177]" onMouseEnter={listCharSel} onMouseLeave={listReset}>
-          <span>Characters</span>
-        </NextLink>
-        <NextLink onClick={handleLinkClick} href="/mtwim" className="landing-tile flex justify-center items-center bg-[#8b979b]" onMouseEnter={listIceSel} onMouseLeave={listReset}>
-          <span>MTWIM Compendium</span>
-        </NextLink>
-        <NextLink onClick={handleLinkClick} href="/pp" className="landing-tile flex justify-center items-center bg-[#616d7a]" onMouseEnter={listPpSel} onMouseLeave={listReset}>
-          <span>Pacific Purgatory</span>
-        </NextLink>
-        <NextLink onClick={handleLinkClick} href="/games" className="landing-tile flex justify-center items-center bg-[#8a8b7d]" onMouseEnter={listGameSel} onMouseLeave={listReset}>
-          <span>Games</span>
-        </NextLink>
-      </div>
-
-      <div className="flex flex-row justify-center items-center bg-gray-600/50 relative">
-        <NextLink href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl`}>HOME</NextLink>
-        <h1>no thanks, take me back !</h1>
+    <div>
+      <div className="flex justify-center min-h-screen min-w-screen absolute">
 
         <div
-          ref={buttonRef}
-          className="absolute bottom-0 translate-y-[50%]"
+          ref={landingRef}
+          className="fixed min-w-screen min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 shadow-2xl"
+          style={{ visibility: "hidden" }}
         >
-          <img src="images/moon.png" onClick={toggleLanding} className="scale-15 cursor-pointer" style={{userSelect: "none"}} draggable="false" />
+
+          <div ref={listRef} className="grid list">
+            <NextLink onClick={handleLinkClick} href="/characters" className="landing-tile flex justify-center items-center bg-[#838177]" onMouseEnter={listCharSel} onMouseLeave={listReset}>
+              <span>Characters</span>
+            </NextLink>
+            <NextLink onClick={handleLinkClick} href="/mtwim" className="landing-tile flex justify-center items-center bg-[#8b979b]" onMouseEnter={listIceSel} onMouseLeave={listReset}>
+              <span>MTWIM Compendium</span>
+            </NextLink>
+            <NextLink onClick={handleLinkClick} href="/pp" className="landing-tile flex justify-center items-center bg-[#616d7a]" onMouseEnter={listPpSel} onMouseLeave={listReset}>
+              <span>Pacific Purgatory</span>
+            </NextLink>
+            <NextLink onClick={handleLinkClick} href="/games" className="landing-tile flex justify-center items-center bg-[#8a8b7d]" onMouseEnter={listGameSel} onMouseLeave={listReset}>
+              <span>Games</span>
+            </NextLink>
+          </div>
+
+          <div className="flex flex-row justify-center items-center bg-gray-200 relative" ref={homeRef}>
+            <NextLink href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl`}>HOME</NextLink>
+            {/* <h1>no thanks, take me back !</h1> */}
+
+            <div
+              ref={buttonRef}
+              className="z-550 fixed origin-center rounded-full overflow-hidden flex justify-center items-center cursor-pointer"
+              onClick={toggleLanding}
+            >
+              <img
+                ref={buttonImgRef}
+                src="images/moon.png"
+                className="cursor-pointer max-h-[14vh] max-w-[14vh] select-none"
+                style={{ userSelect: "none" }}
+                draggable="false"
+              />
+            </div>
+
+          </div>
         </div>
-        {/* <div
-          ref={buttonRef}
-          onClick={toggleLanding}
-          className="absolute bottom-0 bg-white rounded-full min-w-[2em] min-h-[2em] text-3xl translate-y-[50%] text-center cursor-pointer"
-        /> */}
       </div>
     </div>
   );
