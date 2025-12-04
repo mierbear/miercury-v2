@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import NavMenu from "@/components/NavMenu";
+import NavMenu2 from "@/components/NavMenu2";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -26,7 +27,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <NavMenu open={true} />
+        {/* <NavMenu open={true} /> */}
+        <NavMenu2 open={true} />
         {children}
       </body>
     </html>
