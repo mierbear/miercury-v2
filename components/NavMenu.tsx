@@ -250,7 +250,7 @@ const NavMenu = (props: { open: boolean }) => {
       <div className="flex justify-center min-h-screen min-w-screen absolute">
         <div
           ref={landingRef}
-          className="fixed min-w-screen min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 shadow-2xl"
+          className="fixed min-w-[95vw] min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 shadow-2xl"
           style={{ visibility: "hidden" }}
         >
 
@@ -269,7 +269,7 @@ const NavMenu = (props: { open: boolean }) => {
             </NextLink>
           </div>
 
-          <div className="flex flex-row justify-center items-center bg-gray-200 relative" ref={homeRef}>
+          <div className="flex flex-row justify-center items-center bg-gray-200 relative rounded-b-4xl" ref={homeRef}>
             <NextLink href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl`}>HOME</NextLink>
             {/* <h1>no thanks, take me back !</h1> */}
 
