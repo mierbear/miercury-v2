@@ -20,6 +20,7 @@ const NavMenu = (props: { open: boolean }) => {
   const listRef = useRef<HTMLDivElement | null>(null);
   const homeRef = useRef<HTMLDivElement | null>(null);
   const homeLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
 
   const openTl = gsap.timeline();
   const closeTl = gsap.timeline();
@@ -50,11 +51,20 @@ const NavMenu = (props: { open: boolean }) => {
 
     const height = landingRef.current.offsetHeight;
     const width = landingRef.current.offsetWidth;
-    
-
+  
 
     if (isOpen.current) {
       // CLOSE ANIMATION
+      gsap.to(overlayRef.current, {
+        opacity: 0,
+        duration: .5,
+      })
+
+      gsap.set(overlayRef.current, {
+        display: "none",
+        delay: .5
+      })
+
       closeTl
       .set(buttonRef.current, {
         pointerEvents: "none"
@@ -85,6 +95,15 @@ const NavMenu = (props: { open: boolean }) => {
     } else {
       // OPEN ANIMATION
       menuAppear();
+
+      gsap.set(overlayRef.current, {
+        display: "block",
+      })
+
+      gsap.to(overlayRef.current, {
+        opacity: 1,
+        duration: .5,
+      })
 
       openTl
       .set(buttonRef.current, {
@@ -122,8 +141,9 @@ const NavMenu = (props: { open: boolean }) => {
   };
 
   useEffect(() => {
-    if (!landingRef.current) return;
+    if (!landingRef.current || !overlayRef.current) return;
     gsap.set(landingRef.current, { autoAlpha: 1 });
+    gsap.set(overlayRef.current, { autoAlpha: 1 });
     }, []);
 
   useEffect(() => {
@@ -132,7 +152,7 @@ const NavMenu = (props: { open: boolean }) => {
   })
 
   useEffect(() => {
-  if (!landingRef.current || !buttonRef.current || !listRef.current || !homeRef.current) return;
+  if (!landingRef.current || !buttonRef.current || !listRef.current || !homeRef.current || !overlayRef.current) return;
 
   const height = landingRef.current.offsetHeight;
   const width = landingRef.current.offsetWidth;
@@ -158,6 +178,21 @@ const NavMenu = (props: { open: boolean }) => {
     gsap.set(buttonRef.current, {
       scale: 8,
       yPercent: 2000,
+    })
+
+    gsap.set(overlayRef.current, {
+      display: "none"
+    })
+
+    gsap.set(overlayRef.current, {
+      display: "block",
+      delay: 2
+    })
+
+    gsap.from(overlayRef.current, {
+      opacity: 0,
+      duration: 1.5,
+      delay: 2
     })
 
     gsap.to(buttonRef.current, {
@@ -211,8 +246,8 @@ const NavMenu = (props: { open: boolean }) => {
 
   return (
     <div>
+      
       <div className="flex justify-center min-h-screen min-w-screen absolute">
-
         <div
           ref={landingRef}
           className="fixed min-w-screen min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 shadow-2xl"
@@ -251,10 +286,17 @@ const NavMenu = (props: { open: boolean }) => {
                 draggable="false"
               />
             </div>
-
           </div>
         </div>
       </div>
+
+      <div
+        ref={overlayRef}
+        className="fixed min-w-screen min-h-screen bg-black/50 z-400 backdrop-blur-xs"
+        style={{ visibility: "hidden" }}
+      >
+      </div>
+
     </div>
   );
 };
