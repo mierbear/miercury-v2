@@ -59,16 +59,17 @@ const NavMenu = (props: { open: boolean }) => {
       .set(buttonRef.current, {
         pointerEvents: "none"
       })
-      .to(landingRef.current, {
-        yPercent: -100,
-        duration: .7,
-        ease: "power1.inOut",
-      })
       .to(buttonRef.current, {
+        duration: .3,
         scale: 1,
         ease: "power1.out",
         yPercent: 50,
-      }, "<")
+      })
+      .to(landingRef.current, {
+        yPercent: -100,
+        duration: .5,
+        ease: "power1.inOut",
+      }, "<.15")
       .to(buttonRef.current, {
         xPercent: 600,
         duration: .7,
@@ -111,7 +112,7 @@ const NavMenu = (props: { open: boolean }) => {
         scale: 8,
         yPercent: 370,
         ease: "power1.out",
-      }, "<")
+      }, "<.3")
       .set(buttonRef.current, {
         pointerEvents: "all"
       });
@@ -154,11 +155,15 @@ const NavMenu = (props: { open: boolean }) => {
       delay: 2
     });
 
-    gsap.to(buttonRef.current, {
+    gsap.set(buttonRef.current, {
       scale: 8,
+      yPercent: 2000,
+    })
+
+    gsap.to(buttonRef.current, {
       yPercent: 370,
       duration: 2,
-      ease: "power1.out",
+      ease: "power4.out",
       delay: 2
     });
 
