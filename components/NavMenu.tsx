@@ -81,7 +81,7 @@ const NavMenu = (props: { open: boolean }) => {
         ease: "power1.inOut",
       }, "<.15")
       .to(buttonRef.current, {
-        xPercent: 600,
+        x: width / 2.5,
         duration: .7,
         ease: "power2.out",
       })
@@ -114,7 +114,7 @@ const NavMenu = (props: { open: boolean }) => {
         visibility: "visible"
       })
       .to(buttonRef.current, {
-        xPercent: 0,
+        x: 0,
         duration: .4,
         ease: "power1.out",
       })
@@ -128,8 +128,8 @@ const NavMenu = (props: { open: boolean }) => {
         ease: "power1.inOut",
       })
       .to(buttonRef.current, {
-        scale: 8,
-        yPercent: 370,
+        scale: 9,
+        yPercent: 400,
         ease: "power1.out",
       }, "<.3")
       .set(buttonRef.current, {
@@ -176,7 +176,7 @@ const NavMenu = (props: { open: boolean }) => {
     });
 
     gsap.set(buttonRef.current, {
-      scale: 8,
+      scale: 9,
       yPercent: 2000,
     })
 
@@ -196,7 +196,7 @@ const NavMenu = (props: { open: boolean }) => {
     })
 
     gsap.to(buttonRef.current, {
-      yPercent: 370,
+      yPercent: 400,
       duration: 2,
       ease: "power4.out",
       delay: 2
@@ -228,21 +228,64 @@ const NavMenu = (props: { open: boolean }) => {
   if (isOpen.current) toggleLanding();
   };
 
+  const isDesktop = () => window.innerWidth >= 1280;
+
+  const resetInlineStyles = () => {
+    listRef.current!.style.removeProperty("grid-template-columns");
+    listRef.current!.style.removeProperty("grid-template-rows");
+  };
+
   const listReset = () => {
-    (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
-  }
+    if (!isDesktop()) {
+      resetInlineStyles();
+      return;
+    }
+
+    listRef.current!.style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
+    listRef.current!.style.removeProperty("grid-template-rows");
+  };
+
   const listCharSel = () => {
-    (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1.2fr 1.125fr 1.025fr .95fr";
-  }
+    if (!isDesktop()) return resetInlineStyles();
+    listRef.current!.style.gridTemplateColumns = "1.2fr 1.125fr 1.025fr .95fr";
+  };
+
   const listIceSel = () => {
-    (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1.05fr 1.2fr 1.05fr 1fr";
-  }
+    if (!isDesktop()) return resetInlineStyles();
+    listRef.current!.style.gridTemplateColumns = "1.05fr 1.2fr 1.05fr 1fr";
+  };
+
   const listPpSel = () => {
-    (listRef.current as HTMLDivElement).style.gridTemplateColumns = "1fr 1.05fr 1.2fr 1.05fr";
-  }
+    if (!isDesktop()) return resetInlineStyles();
+    listRef.current!.style.gridTemplateColumns = "1fr 1.05fr 1.2fr 1.05fr";
+  };
+
   const listGameSel = () => {
-    (listRef.current as HTMLDivElement).style.gridTemplateColumns = ".95fr 1.025fr 1.125fr 1.2fr";
-  }
+    if (!isDesktop()) return resetInlineStyles();
+    listRef.current!.style.gridTemplateColumns = ".95fr 1.025fr 1.125fr 1.2fr";
+  };
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (isDesktop()) {
+        listRef.current!.style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
+        listRef.current!.style.removeProperty("grid-template-rows");
+        console.log(`is desktop :3`)
+      } else {
+        listRef.current!.style.removeProperty("grid-template-columns");
+        listRef.current!.style.removeProperty("grid-template-rows");
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+
+
 
   return (
     <div>
@@ -254,7 +297,19 @@ const NavMenu = (props: { open: boolean }) => {
           style={{ visibility: "hidden" }}
         >
 
-          <div ref={listRef} className="grid list">
+          <div 
+            ref={listRef} 
+            className="
+            bg-[#0f0f0f]
+              grid
+              grid-cols-1
+              grid-rows-4
+              xl:grid-cols-4
+              xl:grid-rows-1
+              list
+            "
+          >
+
             <NextLink onClick={handleLinkClick} href="/characters" className="landing-tile flex justify-center items-center bg-[#838177]" onMouseEnter={listCharSel} onMouseLeave={listReset}>
               <span>Characters</span>
             </NextLink>
@@ -269,8 +324,8 @@ const NavMenu = (props: { open: boolean }) => {
             </NextLink>
           </div>
 
-          <div className="flex flex-row justify-center items-center bg-gray-200 relative rounded-b-4xl" ref={homeRef}>
-            <NextLink href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl`}>HOME</NextLink>
+          <div className="flex flex-row justify-center items-center bg-[#0f0f0f] relative rounded-b-4xl" ref={homeRef}>
+            <NextLink href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white`}>HOME</NextLink>
             {/* <h1>no thanks, take me back !</h1> */}
 
             <div
@@ -280,7 +335,7 @@ const NavMenu = (props: { open: boolean }) => {
             >
               <img
                 ref={buttonImgRef}
-                src="images/moonplace.png"
+                src="images/moon.png"
                 className="cursor-pointer max-h-[14vh] max-w-[14vh] select-none"
                 style={{ userSelect: "none" }}
                 draggable="false"
@@ -292,7 +347,7 @@ const NavMenu = (props: { open: boolean }) => {
 
       <div
         ref={overlayRef}
-        className="fixed min-w-screen min-h-screen bg-black/50 z-400 backdrop-blur-xs"
+        className="fixed min-w-screen min-h-screen bg-[#17191a]/10 z-400 backdrop-blur-xs"
         style={{ visibility: "hidden" }}
       >
       </div>

@@ -33,6 +33,10 @@ p {
   font-family: monospace;
 }
 
+::-webkit-scrollbar {
+  width: 0;
+}
+
 .header {
   user-select: none;
 }
@@ -51,7 +55,6 @@ p {
 
 .list {
   transition: all .6s ease;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 
 /* .moon {

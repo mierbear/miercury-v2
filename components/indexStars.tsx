@@ -11,7 +11,7 @@ const Stars = () => {
     gsap.set(stars2.current, { autoAlpha: 1 });
 
     if (stars.current) {
-      gsap.to(stars.current, {rotation:360, duration: 320, repeat: -1, ease: "linear", transformOrigin: "center center"});
+      gsap.to(stars.current, {rotation:360, duration: 360, repeat: -1, ease: "linear", transformOrigin: "center center"});
     }
 
     if (stars2.current) {
@@ -36,7 +36,7 @@ const Stars = () => {
 
 
   return (
-    <div className="bg-[#17171a] min-w-screen min-h-screen flex justify-end align-center items-center flex-col fixed top-0 -translate-y-[30vh]">
+    <div className="min-w-screen min-h-screen flex justify-end align-center items-center flex-col fixed top-0 -translate-y-[30vh]">
     <img src={"/images/stars.png"} ref={stars} className="stars fixed origin-center scale-200 -z-50]" style={{ visibility: "hidden", pointerEvents: "none" }} />
     <img src={"/images/stars2.png"} ref={stars2} className="stars fixed origin-center scale-200 -z-50]" style={{ visibility: "hidden", pointerEvents: "none" }} />
     </div>

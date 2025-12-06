@@ -10,8 +10,8 @@ export default function Home() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <div className="bg-[#17171a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
-      <div className="bg-[#17171a] min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
+    <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
+      <div className="bg-[#17191a] min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <Title />
       </div>
       <div className="content min-w-[60vw] min-h-[60vh] bg-[#00000000] text-black z-10 grid grid-rows-[1.2em_1fr]">
@@ -52,7 +52,7 @@ export default function Home() {
 
       </div>  
       <footer className="z-50">
-        <div className="bg-[#17171a] min-w-screen flex justify-end align-center items-center bottom-0 flex-col text-white">
+        <div className="bg-[#17191a] min-w-screen flex justify-end align-center items-center bottom-0 flex-col text-white">
           <p>Copyright © {currentYear} Miercury</p>
         </div>
       </footer>
