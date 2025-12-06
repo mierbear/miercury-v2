@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 import { SplitText } from "gsap/SplitText";
 import { Boldonse } from "next/font/google"
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import NextLink from "next/link";
 
 gsap.registerPlugin(CustomEase);
@@ -284,8 +284,8 @@ const NavMenu = (props: { open: boolean }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-
-
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
 
   return (
     <div>
@@ -322,13 +322,13 @@ const NavMenu = (props: { open: boolean }) => {
             <NextLink onClick={handleLinkClick} href="/games" className="landing-tile flex justify-center items-center bg-[#8a8b7d]" onMouseEnter={listGameSel} onMouseLeave={listReset}>
               <span>Games</span>
             </NextLink>
-            <NextLink onClick={handleLinkClick} href="/" className={`${boldonse.className} bg-[#0f0f0f] landing-tile text-6xl flex justify-center items-center text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
+            <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/" className={`${boldonse.className} bg-[#0f0f0f] landing-tile text-6xl flex justify-center items-center text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
               <span>HOME</span>
             </NextLink>
           </div>
 
           <div className="flex flex-row justify-center items-center bg-[#0f0f0f] relative rounded-b-4xl" ref={homeRef}>
-            <NextLink href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white invisible xl:visible`}>HOME</NextLink>
+            <NextLink style={{ display: ready ? "flex" : "none" }} href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white invisible xl:visible`}>HOME</NextLink>
 
             <div
               ref={buttonRef}
