@@ -4,8 +4,14 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
   images: {
-    domains: ['rxzxdbjcotfqxzbandfs.supabase.co'],
-  }
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "rxzxdbjcotfqxzbandfs.supabase.co",
+      },
+    ],
+  },
+
 };
 
 export default nextConfig;
