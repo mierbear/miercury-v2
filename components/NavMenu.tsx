@@ -37,7 +37,7 @@ const NavMenu = (props: { open: boolean }) => {
         xPercent: 200,
         stagger: 0.15,
         ease: "back.inOut",
-        delay: .5,
+        // delay: .5,
       })
 
       return () => {
@@ -80,11 +80,11 @@ const NavMenu = (props: { open: boolean }) => {
         duration: .5,
         ease: "power1.inOut",
       }, "<.15")
-      .to(buttonRef.current, {
-        x: width / 2.5,
-        duration: .7,
-        ease: "power2.out",
-      })
+      // .to(buttonRef.current, {
+      //   x: width / 2.5,
+      //   duration: .7,
+      //   ease: "power2.out",
+      // })
       .set(listRef.current, {
         pointerEvents: "none",
         visibility: "hidden"
@@ -113,11 +113,11 @@ const NavMenu = (props: { open: boolean }) => {
         pointerEvents: "auto",
         visibility: "visible"
       })
-      .to(buttonRef.current, {
-        x: 0,
-        duration: .4,
-        ease: "power1.out",
-      })
+      // .to(buttonRef.current, {
+      //   x: 0,
+      //   duration: .4,
+      //   ease: "power1.out",
+      // })
       .set(homeRef.current, {
         pointerEvents: "auto",
         visibility: "visible"
@@ -303,7 +303,7 @@ const NavMenu = (props: { open: boolean }) => {
             bg-[#0f0f0f]
               grid
               grid-cols-1
-              grid-rows-4
+              grid-rows-[2fr_2fr_2fr_2fr_1.5fr]
               xl:grid-cols-4
               xl:grid-rows-1
               list
@@ -322,11 +322,13 @@ const NavMenu = (props: { open: boolean }) => {
             <NextLink onClick={handleLinkClick} href="/games" className="landing-tile flex justify-center items-center bg-[#8a8b7d]" onMouseEnter={listGameSel} onMouseLeave={listReset}>
               <span>Games</span>
             </NextLink>
+            <NextLink onClick={handleLinkClick} href="/" className={`${boldonse.className} bg-[#0f0f0f] landing-tile text-6xl flex justify-center items-center text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
+              <span>HOME</span>
+            </NextLink>
           </div>
 
           <div className="flex flex-row justify-center items-center bg-[#0f0f0f] relative rounded-b-4xl" ref={homeRef}>
-            <NextLink href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white`}>HOME</NextLink>
-            {/* <h1>no thanks, take me back !</h1> */}
+            <NextLink href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white invisible xl:visible`}>HOME</NextLink>
 
             <div
               ref={buttonRef}
