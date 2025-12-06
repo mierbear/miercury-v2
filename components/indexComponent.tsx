@@ -20,8 +20,9 @@ export default function Home() {
           <p>enjoy the stay, keep it mirthful</p>
         </div>
 
-        <div className="grid grid-cols-[7fr_3fr]">
-          <div className="text-white bg-[#535961] flex flex-col items-center px-2">
+        <div className="grid grid-cols-1 sm:grid-cols-[7fr_3fr]">
+
+          <div className="text-white bg-[#535961] flex flex-col items-center px-2 order-2 sm:order-1">
             <div className="post p-5 border rounded-2xl w-full m-2">
               <h1 className="font-bold text-2xl">to do list</h1>
               <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
@@ -36,7 +37,9 @@ export default function Home() {
               <p className="text-sm">- </p>
             </div>
           </div>
-          <div className="text-white bg-[#535961]/50 flex flex-col items-center">
+
+          <div className="text-white bg-[#535961]/50 flex flex-col items-center order-1 sm:order-2">
+
             <div className="bg-[#1d1f22]/40 min-w-full p-5 flex flex-col justify-center items-center">
               <Image className="" src="/images/pfp.png" width={280} height={280} alt="pfp" />
             </div>
@@ -47,7 +50,9 @@ export default function Home() {
               <BannerLink name="Games" link="games" />
               <BannerLink name="About Me" link="about" />
             </div>
+
           </div>
+
         </div>
 
       </div>  

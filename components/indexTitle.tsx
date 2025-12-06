@@ -40,7 +40,14 @@ const Title = () => {
     <div className="z-10 justify-end">
       <h1
         ref={titleRef}
-        className={`${boldonse.className} header text-gray-300 text-9xl`}
+        className={
+          `${boldonse.className}
+          header
+          text-gray-300
+          text-5xl
+          sm:text-8xl
+          lg:text-9xl
+          `}
         style={{ visibility: "hidden" }}
       >
         MIERCURY
