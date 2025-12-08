@@ -37,8 +37,8 @@ const Stars = () => {
 
   return (
     <div className="min-w-screen min-h-screen flex justify-end align-center items-center flex-col fixed top-0 -translate-y-[30vh]">
-    <img src={"/images/stars.png"} ref={stars} className="stars fixed origin-center scale-200 -z-50]" style={{ visibility: "hidden", pointerEvents: "none" }} />
-    <img src={"/images/stars2.png"} ref={stars2} className="stars fixed origin-center scale-200 -z-50]" style={{ visibility: "hidden", pointerEvents: "none" }} />
+    <img src={"/images/stars.png"} ref={stars} className="stars fixed origin-center scale-250 -z-50]" style={{ visibility: "hidden", pointerEvents: "none" }} />
+    <img src={"/images/stars2.png"} ref={stars2} className="stars fixed origin-center scale-250 -z-50]" style={{ visibility: "hidden", pointerEvents: "none" }} />
     </div>
   )
 }

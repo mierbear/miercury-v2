@@ -20,6 +20,7 @@ const NavMenu = (props: { open: boolean }) => {
   const listRef = useRef<HTMLDivElement | null>(null);
   const homeRef = useRef<HTMLDivElement | null>(null);
   const homeLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const clickOverlayRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
   const openTl = gsap.timeline();
@@ -65,6 +66,12 @@ const NavMenu = (props: { open: boolean }) => {
         delay: .5
       })
 
+      gsap.set(clickOverlayRef.current, {
+        display: "block",
+        visibility: "visible",
+        pointerEvents: "auto",
+      })
+
       closeTl
       .set(buttonRef.current, {
         pointerEvents: "none"
@@ -80,18 +87,19 @@ const NavMenu = (props: { open: boolean }) => {
         duration: .5,
         ease: "power1.inOut",
       }, "<.15")
-      // .to(buttonRef.current, {
-      //   x: width / 2.5,
-      //   duration: .7,
-      //   ease: "power2.out",
-      // })
       .set(listRef.current, {
         pointerEvents: "none",
         visibility: "hidden"
       })
       .set(buttonRef.current, {
         pointerEvents: "all"
+      })
+      .set(clickOverlayRef.current, {
+        display: "none",
+        visibility: "hidden",
+        pointerEvents: "none",
       });
+
     } else {
       // OPEN ANIMATION
       menuAppear();
@@ -105,6 +113,12 @@ const NavMenu = (props: { open: boolean }) => {
         duration: .5,
       })
 
+      gsap.set(clickOverlayRef.current, {
+        display: "block",
+        visibility: "visible",
+        pointerEvents: "auto",
+      })
+
       openTl
       .set(buttonRef.current, {
         pointerEvents: "none"
@@ -113,11 +127,6 @@ const NavMenu = (props: { open: boolean }) => {
         pointerEvents: "auto",
         visibility: "visible"
       })
-      // .to(buttonRef.current, {
-      //   x: 0,
-      //   duration: .4,
-      //   ease: "power1.out",
-      // })
       .set(homeRef.current, {
         pointerEvents: "auto",
         visibility: "visible"
@@ -134,6 +143,11 @@ const NavMenu = (props: { open: boolean }) => {
       }, "<.3")
       .set(buttonRef.current, {
         pointerEvents: "all"
+      })
+      .set(clickOverlayRef.current, {
+        display: "none",
+        visibility: "hidden",
+        pointerEvents: "none",
       });
     }
 
@@ -172,7 +186,7 @@ const NavMenu = (props: { open: boolean }) => {
       yPercent: -120,
       duration: 2,
       ease: "power4.Out",
-      delay: 2
+      delay: 1.5
     });
 
     gsap.set(buttonRef.current, {
@@ -186,25 +200,35 @@ const NavMenu = (props: { open: boolean }) => {
 
     gsap.set(overlayRef.current, {
       display: "block",
-      delay: 2
+      delay: 1.5
     })
 
     gsap.from(overlayRef.current, {
       opacity: 0,
       duration: 1.5,
-      delay: 2
+      delay: 1.5
     })
 
     gsap.to(buttonRef.current, {
       yPercent: 400,
       duration: 2,
       ease: "power4.out",
-      delay: 2
+      delay: 1.6
     });
 
     gsap.set(buttonRef.current, {
       pointerEvents: "all",
-      delay: 4
+      delay: 3.5
+    });
+
+    gsap.set(landingRef.current, {
+      pointerEvents: "all",
+      delay: 3.5
+    });
+
+    gsap.set(homeLinkRef.current, {
+      pointerEvents: "all",
+      delay: 3.5
     });
 
     
@@ -293,7 +317,7 @@ const NavMenu = (props: { open: boolean }) => {
       <div className="flex justify-center min-h-screen min-w-screen absolute">
         <div
           ref={landingRef}
-          className="fixed min-w-[95vw] min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 shadow-2xl"
+          className="fixed min-w-[95vw] min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 shadow-2xl pointer-events-none"
           style={{ visibility: "hidden" }}
         >
 
@@ -328,7 +352,7 @@ const NavMenu = (props: { open: boolean }) => {
           </div>
 
           <div className="flex flex-row justify-center items-center bg-[#0f0f0f] relative rounded-b-4xl" ref={homeRef}>
-            <NextLink style={{ display: ready ? "flex" : "none" }} href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white invisible xl:visible`}>HOME</NextLink>
+            <NextLink style={{ display: ready ? "flex" : "none" }} href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white invisible xl:visible pointer-events-none`}>HOME</NextLink>
 
             <div
               ref={buttonRef}
@@ -351,6 +375,13 @@ const NavMenu = (props: { open: boolean }) => {
         ref={overlayRef}
         className="fixed min-w-screen min-h-screen bg-[#17191a]/10 z-400 backdrop-blur-xs"
         style={{ visibility: "hidden" }}
+      >
+      </div>
+
+      <div
+        ref={clickOverlayRef}
+        className="fixed min-w-screen min-h-screen bg-[#00000000] z-1000"
+        style={{ visibility: "hidden", pointerEvents: "none" }}
       >
       </div>
 
