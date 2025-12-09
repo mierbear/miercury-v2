@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from 'next/link';
 import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
+import TitleBot from "@/components/indexTitleBot";
 import BannerLink from "@/components/indexBannerLink"
 
 export default function Home() {
@@ -16,9 +17,7 @@ export default function Home() {
       </div>
       <div className="content min-w-[60vw] min-h-[60vh] bg-[#00000000] text-black z-10 grid grid-rows-[1.2em_1fr]">
 
-        <div className="bg-gray-300 rounded-t-lg flex flex-col justify-center items-center z-11">
-          <p>enjoy the stay, keep it mirthful</p>
-        </div>
+        <TitleBot />
 
         <div className="grid grid-cols-1 sm:grid-cols-[7fr_3fr]">
 
@@ -28,7 +27,7 @@ export default function Home() {
               <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
               <p className="text-sm">- finish the scrollTrigger course</p>
               <p className="text-sm">- finish the gsap course</p>
-              <p className="text-sm">- revise the landing page</p>
+              <p className="text-sm">- make the moon an svg to make it look good on phone..</p>
               <p className="text-sm">- connect this to supabase so you can add blog posts</p>
               <p className="text-sm">- make a dashboard for blog crud operations</p>
               <p className="text-sm">- add all old posts from the old miercury websites here</p>

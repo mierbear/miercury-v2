@@ -244,6 +244,10 @@ const NavMenu = (props: { open: boolean }) => {
       pointerEvents: "none",
       visibility: "hidden",
     });
+
+    gsap.set(overlayRef.current, {
+      display: "none",
+    })
   }
   
   }, [isOpen.current]);
@@ -317,7 +321,7 @@ const NavMenu = (props: { open: boolean }) => {
       <div className="flex justify-center min-h-screen min-w-screen absolute">
         <div
           ref={landingRef}
-          className="fixed min-w-[95vw] min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 shadow-2xl pointer-events-none"
+          className="fixed min-w-[95vw] min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 shadow-sm pointer-events-none"
           style={{ visibility: "hidden" }}
         >
 
