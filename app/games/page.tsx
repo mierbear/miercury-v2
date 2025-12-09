@@ -3,6 +3,9 @@ import NextLink from "next/link";
 import BannerLink from "@/components/indexBannerLink"
 
 export default function Home() {
+
+  const currentYear = new Date().getFullYear();
+
   return (
     <main className="min-w-screen min-h-screen grid grid-rows-[3fr_1fr] text-white z-50">
       
@@ -16,7 +19,7 @@ export default function Home() {
 
       <footer className="z-50">
         <div className="bg-[#17191a] min-w-screen flex justify-end align-center items-center bottom-0 flex-col text-white">
-          <p>Copyright © 2025 Miercury</p>
+          <p>Copyright © {currentYear} Miercury</p>
         </div>
       </footer>
     </main>

@@ -20,6 +20,7 @@ const NavMenu = (props: { open: boolean }) => {
   const listRef = useRef<HTMLDivElement | null>(null);
   const homeRef = useRef<HTMLDivElement | null>(null);
   const homeLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const galleryLinkRef = useRef<HTMLAnchorElement | null>(null);
   const clickOverlayRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
 
@@ -30,7 +31,9 @@ const NavMenu = (props: { open: boolean }) => {
 
   const menuAppear = () => {
     const split = new SplitText(homeLinkRef.current, { type: "chars" });
+    const split2 = new SplitText(galleryLinkRef.current, { type: "chars" });
     const tl = gsap.timeline();
+    const tl2 = gsap.timeline();
 
     tl.from(split.chars, {
         duration: 1,
@@ -41,9 +44,23 @@ const NavMenu = (props: { open: boolean }) => {
         // delay: .5,
       })
 
+    tl2.from(split2.chars, {
+        duration: .8,
+        opacity: 0,
+        xPercent: -200,
+        stagger: {
+          each: 0.08,
+          from: "end"
+        },
+        ease: "back.inOut",
+        delay: .5,
+      })
+
       return () => {
         tl.kill();
+        tl2.kill();
         split.revert();
+        split2.revert();
       };
   }
 
@@ -166,7 +183,7 @@ const NavMenu = (props: { open: boolean }) => {
   })
 
   useEffect(() => {
-  if (!landingRef.current || !buttonRef.current || !listRef.current || !homeRef.current || !overlayRef.current) return;
+  if (!landingRef.current || !buttonRef.current || !listRef.current || !homeRef.current || !galleryLinkRef.current || !overlayRef.current) return;
 
   const height = landingRef.current.offsetHeight;
   const width = landingRef.current.offsetWidth;
@@ -227,6 +244,11 @@ const NavMenu = (props: { open: boolean }) => {
     });
 
     gsap.set(homeLinkRef.current, {
+      pointerEvents: "all",
+      delay: 3.5
+    });
+
+    gsap.set(galleryLinkRef.current, {
       pointerEvents: "all",
       delay: 3.5
     });
@@ -350,13 +372,20 @@ const NavMenu = (props: { open: boolean }) => {
             <NextLink onClick={handleLinkClick} href="/games" className="landing-tile flex justify-center items-center bg-[#8a8b7d]" onMouseEnter={listGameSel} onMouseLeave={listReset}>
               <span>Games</span>
             </NextLink>
-            <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/" className={`${boldonse.className} bg-[#0f0f0f] landing-tile text-6xl flex justify-center items-center text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
-              <span>HOME</span>
-            </NextLink>
+
+            <div className="flex flex-row justify-between items-center">
+              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/" className={`${boldonse.className} bg-[#0f0f0f] pl-12 text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
+                <span>HOME</span>
+              </NextLink>
+              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/gallery" className={`${boldonse.className} bg-[#0f0f0f] pr-12 text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
+                <span>GALLERY</span>
+              </NextLink>
+            </div>
           </div>
 
           <div className="flex flex-row justify-center items-center bg-[#0f0f0f] relative rounded-b-4xl" ref={homeRef}>
             <NextLink style={{ display: ready ? "flex" : "none" }} href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white invisible xl:visible pointer-events-none`}>HOME</NextLink>
+            <NextLink style={{ display: ready ? "flex" : "none" }} href="/gallery" ref={galleryLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute right-5 text-6xl text-white invisible xl:visible pointer-events-none`}>GALLERY</NextLink>
 
             <div
               ref={buttonRef}
