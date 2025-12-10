@@ -1,0 +1,268 @@
+/* GENERAL */
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    display: flex;
+    flex-direction: column;
+    /* height: 100%; */
+    min-height: 100vh;
+    max-height: 100vh;
+    flex: 1;
+    overflow-y: hidden;
+}
+
+.center {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(20, 20, 20);
+}
+
+.game {
+    display: grid;
+    grid-template-columns: 80% 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: 90%;
+    height: 80vh;
+    background-color: rgba(255, 228, 196, 0);
+    gap: 1.5vw;
+}
+
+.game-left {
+    background-color: rgb(195, 195, 195);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    grid-area: span 2;
+}
+
+.game-right {
+    background-color: rgb(236, 241, 242);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.game-right-bottom {
+    background-color: rgb(236, 241, 242);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.credit-img {
+    height: 70%;
+    animation: credit 3.5s infinite;
+}
+
+.arrows {
+    font-size: 2em;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.credit-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgb(61, 126, 224);
+    font-size: .8em;
+}
+
+.arrow-left,
+.arrow-right {
+    transition: all 0.5s ease;
+}
+
+.arrow-left:hover,
+.arrow-right:hover {
+    color: rgb(61, 126, 224);
+    cursor: pointer;
+}
+
+.scores {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.game-right .highscore,
+.game-right .score,
+.game-right .start,
+.game-right-bottom a,
+.scores h4,
+.win h1 {
+    font-family: "Outfit", sans-serif;
+    z-index: 800;
+    transition: all 0.5s ease;
+}
+
+.start:hover,
+.start2:hover {
+    cursor: pointer;
+    color: rgb(61, 126, 224);
+}
+
+.overlay {
+    width: 100%;
+    height: 100vh;
+    display: none;
+    background-color: black;
+    position: absolute;
+    opacity: 0;
+    z-index: 500;
+}
+
+.win {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /* opacity: 0; */
+    /* display: none; */
+    background-color: #ffffffdc;
+    z-index: 1001;
+    padding: 1%;
+    animation: win 2s ease-in-out infinite;
+    box-shadow: 0px 0px 26px -5px #FFFFFF;
+}
+
+.desk {
+    display: grid;
+    width: 100%;
+    height: 83%;
+    background-color: rgba(216, 191, 216, 0);
+    gap: 2px;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    align-items: center;
+    justify-items: center;
+}
+
+.slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 235, 205, 0);
+    height: 13vh;
+    /* width: 13vh; */
+}
+
+.card {
+    max-width: 100%;
+    /* max-height: 100%; */
+    /* animation: flip 2s ease; */
+    /* transition: all 1s ease; */
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.clicked {
+    pointer-events: none;
+}
+
+.correct {
+    pointer-events: none;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+@keyframes win {
+    0% {
+        color: rgb(255, 70, 70);
+    }
+
+    20% {
+        color: rgb(255, 221, 117);
+    }
+
+    40% {
+        color: rgb(167, 255, 140);
+    }
+
+    50% {
+        transform: scale(2);
+    }
+
+    60% {
+        color: rgb(59, 59, 255);
+    }
+
+    80% {
+        color: rgb(225, 94, 255);
+    }
+
+    100% {
+        color: rgb(255, 70, 70);
+    }
+}
+
+@keyframes flip {
+    0% {
+        transform: rotateY(0deg);
+    }
+
+    50% {
+        transform: rotateY(90deg);
+    }
+
+    100% {
+        transform: rotateY(180deg);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes win-glow {
+    0% {
+        filter: drop-shadow(0px 0px 5px #FFFFFF);
+    }
+
+    50% {
+        filter: drop-shadow(0px 0px 5px #ffffff4e);
+    }
+
+    100% {
+        filter: drop-shadow(0px 0px 5px #FFFFFF);
+    }
+}
+
+@keyframes credit {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

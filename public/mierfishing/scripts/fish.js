@@ -1448,6 +1448,7 @@ const preloadAssets = (assets) => {
         img.src = asset;
         img.onload = () => {
             loadedCount++;
+            startTxt.textContent = `loading assets... (${loadedCount}/${totalAssets})`;
             console.log(`Loaded: ${asset}`);
             if (loadedCount === totalAssets) {
                 finishLoading();
@@ -1474,6 +1475,7 @@ const preloadAudio = (audioFiles) => {
         audio.preload = "auto";
         audio.oncanplaythrough = () => {
             loadedCount++;
+            startTxt.textContent = `loading audio... (${loadedCount}/${totalAudio})`;
             console.log(`Loaded audio: ${audioSrc}`);
             if (loadedCount === totalAudio) {
                 finishLoading();

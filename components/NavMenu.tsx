@@ -97,7 +97,7 @@ const NavMenu = (props: { open: boolean }) => {
         duration: .3,
         scale: 1,
         ease: "power1.out",
-        yPercent: 50,
+        yPercent: 45,
       })
       .to(landingRef.current, {
         yPercent: -100,
