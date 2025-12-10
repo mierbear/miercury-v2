@@ -57,6 +57,10 @@ p {
   transition: all .6s ease;
 }
 
+.gameList {
+  transition: all 1s ease;
+}
+
 /* .moon {
   transition: transform .6s ease;
 }
