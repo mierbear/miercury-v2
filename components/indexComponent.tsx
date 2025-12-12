@@ -59,7 +59,7 @@ export default function Home() {
 
       </div>  
       <footer className="z-50">
-        <div className="bg-[#17191a]/80 min-h-[5vh] min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white">
+        <div className="bg-[#101113]/90 min-h-[5vh] min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white">
           <p>Copyright © {currentYear} Miercury. All Rights Reserved.</p>
           <p className="text-gray-300/40 text-xs">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
         </div>
