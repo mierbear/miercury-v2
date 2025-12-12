@@ -23,11 +23,36 @@ const NavMenu = (props: { open: boolean }) => {
   const galleryLinkRef = useRef<HTMLAnchorElement | null>(null);
   const clickOverlayRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
+  const openSoundRef = useRef<HTMLAudioElement | null>(null);
+  const closeSoundRef = useRef<HTMLAudioElement | null>(null);
 
   const openTl = gsap.timeline();
   const closeTl = gsap.timeline();
   
   const isOpen = useRef(props.open ? true : false);
+
+  useEffect(() => {
+    const openSound = new Audio("/audio/open.mp3");
+    const closeSound = new Audio("/audio/close.mp3");
+
+    openSound.load();
+    closeSound.load();
+
+    openSoundRef.current = openSound;
+    closeSoundRef.current = closeSound;
+  }, []);
+
+  const openFX = () => {
+    if (!openSoundRef.current) return;
+    openSoundRef.current.currentTime = 0;
+    openSoundRef.current.play();
+  }
+
+  const closeFX = () => {
+    if (!closeSoundRef.current) return;
+    closeSoundRef.current.currentTime = 0;
+    closeSoundRef.current.play();
+  }
 
   const menuAppear = () => {
     const split = new SplitText(homeLinkRef.current, { type: "chars" });
@@ -62,16 +87,6 @@ const NavMenu = (props: { open: boolean }) => {
         split.revert();
         split2.revert();
       };
-  }
-
-  const openFX = () => {
-    const open = new Audio('/audio/open.mp3');
-    open.play();
-  }
-
-  const closeFX = () => {
-    const close = new Audio('/audio/close.mp3');
-    close.play();
   }
 
   const toggleLanding = () => {
