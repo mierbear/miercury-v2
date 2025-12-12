@@ -64,6 +64,16 @@ const NavMenu = (props: { open: boolean }) => {
       };
   }
 
+  const openFX = () => {
+    const open = new Audio('/audio/open.mp3');
+    open.play();
+  }
+
+  const closeFX = () => {
+    const close = new Audio('/audio/close.mp3');
+    close.play();
+  }
+
   const toggleLanding = () => {
     if (!landingRef.current) return;
 
@@ -73,6 +83,8 @@ const NavMenu = (props: { open: boolean }) => {
 
     if (isOpen.current) {
       // CLOSE ANIMATION
+      closeFX();
+
       gsap.to(overlayRef.current, {
         opacity: 0,
         duration: .5,
@@ -120,6 +132,7 @@ const NavMenu = (props: { open: boolean }) => {
     } else {
       // OPEN ANIMATION
       menuAppear();
+      openFX();
 
       gsap.set(overlayRef.current, {
         display: "block",
@@ -374,18 +387,18 @@ const NavMenu = (props: { open: boolean }) => {
             </NextLink>
 
             <div className="flex flex-row justify-between items-center">
-              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/" className={`${boldonse.className} bg-[#0f0f0f] pl-12 text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
+              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/" className={`${boldonse.className} bg-[#0f0f0f] pl-12 nonsel text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
                 <span>HOME</span>
               </NextLink>
-              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/gallery" className={`${boldonse.className} bg-[#0f0f0f] pr-12 text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
+              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/gallery" className={`${boldonse.className} bg-[#0f0f0f] pr-12 nonsel text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
                 <span>GALLERY</span>
               </NextLink>
             </div>
           </div>
 
           <div className="flex flex-row justify-center items-center bg-[#0f0f0f] relative rounded-b-4xl" ref={homeRef}>
-            <NextLink style={{ display: ready ? "flex" : "none" }} href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white invisible xl:visible pointer-events-none`}>HOME</NextLink>
-            <NextLink style={{ display: ready ? "flex" : "none" }} href="/gallery" ref={galleryLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute right-5 text-6xl text-white invisible xl:visible pointer-events-none`}>GALLERY</NextLink>
+            <NextLink style={{ display: ready ? "flex" : "none" }} href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white nonsel invisible xl:visible pointer-events-none`}>HOME</NextLink>
+            <NextLink style={{ display: ready ? "flex" : "none" }} href="/gallery" ref={galleryLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute right-5 text-6xl text-white nonsel invisible xl:visible pointer-events-none`}>GALLERY</NextLink>
 
             <div
               ref={buttonRef}
@@ -406,7 +419,7 @@ const NavMenu = (props: { open: boolean }) => {
 
       <div
         ref={overlayRef}
-        className="fixed min-w-screen min-h-screen bg-[#17191a]/10 z-400 backdrop-blur-xs"
+        className="fixed min-w-screen min-h-screen bg-[#17191a]/50 z-400 backdrop-blur-sm"
         style={{ visibility: "hidden" }}
       >
       </div>

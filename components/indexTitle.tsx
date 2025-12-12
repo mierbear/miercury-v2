@@ -42,8 +42,8 @@ const Title = () => {
         ref={titleRef}
         className={
           `${boldonse.className}
-          header
-          text-gray-300
+          nonsel
+          text-[#d8e0e3]
           text-5xl
           sm:text-8xl
           lg:text-9xl

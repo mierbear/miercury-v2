@@ -37,7 +37,7 @@ p {
   width: 0;
 }
 
-.header {
+.nonsel {
   user-select: none;
 }
 

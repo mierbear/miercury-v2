@@ -1284,7 +1284,7 @@ const updateMistakes = () => {
 const difficultyShow = document.querySelector(`.difficulty-show`);
 
 const updateDiffCount = () => {
-    if (fishHooked > 0) { diffChange++; }
+    if (fishHooked > 0) { diffChange++ };
     diffChangeEl.textContent = `difficulty change count: ${diffChange}`;
     localStorage.setItem(`diffChange`, JSON.stringify(diffChange));
 }
