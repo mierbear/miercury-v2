@@ -121,11 +121,11 @@ export default function Home() {
 
             <div className="flex flex-row justify-center items-center gap-3 pb-3">
               <NextLink href="https://x.com/miermirth  " target="_blank" rel="noopener noreferrer">
-                <img src="/images/x.svg" className="max-h-[2.1vw] nonsel linkButton transition-all duration-300" draggable="false" />
+                <img src="/images/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
               </NextLink>
-                <img onClick={handleDiscordLink} src="/images/discord.svg" className="max-h-[3vw] nonsel linkButton transition-all duration-300" draggable="false" />
+                <img onClick={handleDiscordLink} src="/images/discord.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
               <NextLink href="https://www.youtube.com/@miermiermiermier" target="_blank" rel="noopener noreferrer">
-                <img src="/images/youtube.svg" className="max-h-[3vw] nonsel linkButton transition-all duration-300" draggable="false" />
+                <img src="/images/youtube.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
               </NextLink>
               <p
               ref={discordUsernameRef} 
@@ -162,6 +162,7 @@ export default function Home() {
 
         </div>
       </footer>
+      <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel" draggable="false" style={{ pointerEvents: "none" }} />
       <Stars />
     </div>
   );
