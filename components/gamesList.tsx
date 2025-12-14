@@ -63,7 +63,7 @@ const GamesList = () => {
   return (
     <div ref={listRef} className="grid grid-cols-[1fr] grid-rows-3 xl:grid-cols-[1fr_1fr_1fr] xl:grid-rows-1 bg-[#535961] z-50 list gameList">
 
-        <NextLink onMouseEnter={listMatchSel} onMouseLeave={listReset} ref={matchRef} href="/match/index.html" target="_blank" rel="noopener noreferrer" className="flex justify-center items-center xl:min-w-[80%] xl:min-h-[50vh] bg-[#858d94]">
+        <NextLink onMouseEnter={listMatchSel} onMouseLeave={listReset} ref={matchRef} href="/match/index.html" target="_blank" rel="noopener noreferrer" className="flex justify-center items-center min-w-[80%] xl:min-h-[50vh] bg-[#858d94]">
           <span>match</span>
         </NextLink>
 

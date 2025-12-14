@@ -1,16 +1,17 @@
 "use client";
 import Image from "next/image";
-import Link from 'next/link';
 import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
 import TitleBot from "@/components/indexTitleBot";
 import BannerLink from "@/components/indexBannerLink"
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import NextLink from "next/link";
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
   const loginRef = useRef<HTMLDivElement | null>(null);
+  const discordUsernameRef = useRef<HTMLHeadingElement | null>(null);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -28,6 +29,37 @@ export default function Home() {
       setOpen(false);
     }
   }
+
+  const handleDiscordLink = () => {
+  navigator.clipboard.writeText("miermiermiermier");
+
+  gsap.killTweensOf(discordUsernameRef.current);
+
+  gsap.set(discordUsernameRef.current, {
+    visibility: "visible",
+    opacity: 1,
+    yPercent: 0,
+  });
+
+  gsap.timeline()
+    .from(discordUsernameRef.current, {
+      opacity: 0,
+      yPercent: 150,
+      duration: 1,
+      ease: "power4.out",
+    })
+    .to(discordUsernameRef.current, {
+      opacity: 0,
+      yPercent: -50,
+      duration: 1,
+      ease: "power4.out",
+    })
+    .set(discordUsernameRef.current, {
+      visibility: "hidden",
+      clearProps: "transform,opacity",
+    });
+};
+
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -77,6 +109,7 @@ export default function Home() {
             <div className="bg-[#1d1f22]/40 min-w-full p-5 flex flex-col justify-center items-center">
               <Image className="" src="/images/pfp.png" width={280} height={280} alt="pfp" />
             </div>
+
             <div className="text-black items-center min-w-full links grid grid-rows-5 gap-1 p-3 nonsel">
               <BannerLink name="Characters" link="characters" />
               <BannerLink name="MTWIM" link="mtwim" />
@@ -84,6 +117,23 @@ export default function Home() {
               <BannerLink name="Games" link="games" />
               <BannerLink name="Gallery" link="gallery" />
               <BannerLink name="About Me" link="about" />
+            </div>
+
+            <div className="flex flex-row justify-center items-center gap-3 pb-3">
+              <NextLink href="https://x.com/miermirth  " target="_blank" rel="noopener noreferrer">
+                <img src="/images/x.svg" className="max-h-[2.1vw] nonsel linkButton transition-all duration-300" draggable="false" />
+              </NextLink>
+                <img onClick={handleDiscordLink} src="/images/discord.svg" className="max-h-[3vw] nonsel linkButton transition-all duration-300" draggable="false" />
+              <NextLink href="https://www.youtube.com/@miermiermiermier" target="_blank" rel="noopener noreferrer">
+                <img src="/images/youtube.svg" className="max-h-[3vw] nonsel linkButton transition-all duration-300" draggable="false" />
+              </NextLink>
+              <p
+              ref={discordUsernameRef} 
+              style={{ visibility: "hidden" }}
+              className="absolute -translate-y-10 bg-[#535961]/90 py-1 px-1.5 rounded text-white"
+              >
+                copied! (miermiermiermier)
+              </p>
             </div>
 
           </div>

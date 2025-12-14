@@ -5,7 +5,7 @@ const Link = (prop: LinkType) => {
   return (
     <NextLink
       href={`/${prop.link}`}
-      className="relative w-full bg-[#535961] rounded h-20 flex items-center overflow-hidden linkButton group"
+      className="relative w-full bg-[#535961] rounded-md h-20 flex items-center overflow-hidden linkButton group"
     >
       <img
         src={`/images/${prop.link}.png`}
