@@ -42,12 +42,16 @@ export default function Home() {
 
           <div className="post-list text-white bg-[#535961]/60 flex flex-col items-center order-2 sm:order-1 px-2 pt-2">
 
-            <div className="post p-5 border rounded-md m-2 mt-0 max-w-[80ch] w-full">
+            <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
               <h1 className="font-bold text-2xl">Lorem ipsum</h1>
               <p className="text-xs pb-5 text-neutral-400">12/13/25</p>
               <p className="text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid, eum vero! Iusto ipsum rem laborum alias ipsa impedit ipsam velit facilis, corrupti inventore animi aperiam sit quae unde amet blanditiis.</p>
             </div>
-            <div className="post p-5 border rounded-md m-2 mt-0 max-w-[80ch] w-full">
+
+            {/* <div className="h-px bg-neutral-500/30 my-6 max-w-[85ch] w-full" /> */}
+            <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full" />
+            
+            <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
               <h1 className="font-bold text-2xl">to do list</h1>
               <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
               <p className="text-sm">- finish the scrollTrigger course</p>
@@ -63,6 +67,8 @@ export default function Home() {
               <p className="text-sm">- </p>
             </div>
             
+            <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full" />
+            
 
           </div>
 
@@ -71,7 +77,7 @@ export default function Home() {
             <div className="bg-[#1d1f22]/40 min-w-full p-5 flex flex-col justify-center items-center">
               <Image className="" src="/images/pfp.png" width={280} height={280} alt="pfp" />
             </div>
-            <div className="text-black items-center px-2 min-w-full links grid grid-rows-5 gap-1 p-2 nonsel">
+            <div className="text-black items-center min-w-full links grid grid-rows-5 gap-1 p-3 nonsel">
               <BannerLink name="Characters" link="characters" />
               <BannerLink name="MTWIM" link="mtwim" />
               <BannerLink name="Pacific Purgatory" link="pp" />
