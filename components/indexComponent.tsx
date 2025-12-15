@@ -10,25 +10,9 @@ import NextLink from "next/link";
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
-  const loginRef = useRef<HTMLDivElement | null>(null);
   const discordUsernameRef = useRef<HTMLHeadingElement | null>(null);
-  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    gsap.set(loginRef.current, { autoAlpha: 1, xPercent: 100 });
-  }, []);
-
-  const openLogin = () => {
-    if (!loginRef.current) return;
-
-    if (!open) {
-      gsap.to(loginRef.current, {xPercent: 0, duration: 0.5 });
-      setOpen(true);
-    } else {
-      gsap.to(loginRef.current, {xPercent: 100, duration: 0.5 });
-      setOpen(false);
-    }
-  }
+  
 
   const handleDiscordLink = () => {
   navigator.clipboard.writeText("miermiermiermier");
@@ -142,22 +126,20 @@ export default function Home() {
 
       </div>  
       <footer className="z-50">
-        <div className="bg-[#101113]/90 min-h-[5vh] min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white">
-          <p>Copyright © {currentYear} Miercury. All Rights Reserved.</p>
-          <p className="text-gray-300/40 text-xs">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
-          <p className="absolute right-5 cursor-pointer nonsel" onClick={openLogin} >log in</p>
+        <div className="bg-[#101113]/90 min-h-[5vh] min-w-screen grid grid-cols-3 bottom-0 text-white">
+          <div className="flex flex-col justify-center items-center">
+            {/* <h1>meow</h1> */}
+          </div>
 
-          <div 
-          ref={loginRef}
-          className="absolute right-0 bottom-[7vh] min-h-[10vh] min-w-[20vh] bg-[#535961]/20 flex flex-col justify-center items-center rounded-l-md gap-2 p-3.5 nonsel"
-          style={{ visibility: "hidden" }}
-          >
-            <p className="absolute left-0.5 top-0 nonsel cursor-pointer" draggable="false" onClick={openLogin}>🞮</p>
-            <div className="flex flex-col gap-0.5">
-              <input className="bg-[#101113]/90 p-2 rounded-md" type="text" placeholder="username" />
-              <input className="bg-[#101113]/90 p-2 rounded-md" type="text" placeholder="password" />
-            </div>
-            <button className="bg-[#101113]/90 p-2 rounded-md cursor-pointer">log in</button>
+          <div className="flex flex-col justify-center items-center">
+            <p>Copyright © {currentYear} Miercury. All Rights Reserved.</p>
+            <p className="text-gray-300/40 text-xs">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
+          </div>
+
+          <div className="flex flex-col justify-center items-end">
+            <NextLink href="/admin">
+              <p className="pr-5 text-gray-100/90 text-xs hover:underline login">log in</p>
+            </NextLink>
           </div>
 
         </div>
