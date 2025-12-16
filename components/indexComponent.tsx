@@ -93,7 +93,7 @@ export default function Home() {
               <del className="text-sm">- connect this to supabase so you can add blog posts</del>
               <p className="text-sm">- make a dashboard for blog crud operations</p>
               <p className="text-sm">- add all old posts from the old miercury websites here</p>
-              <p className="text-sm">- add vercel web analytics functionality</p>
+              <del className="text-sm">- add vercel web analytics functionality</del>
               <p className="text-sm">- set subdomains for characters/icemage/pp/etc.</p>
               <p className="text-sm">- add mier widget. (potentially make it persist across all routes)</p>
               <p className="text-sm">- add more to the space background </p>
