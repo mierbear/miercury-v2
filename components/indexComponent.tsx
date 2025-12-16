@@ -90,7 +90,7 @@ export default function Home() {
               <p className="text-sm">- finish the scrollTrigger course</p>
               <p className="text-sm">- finish the gsap course</p>
               <p className="text-sm">- make the moon an svg to make it look good on phone..</p>
-              <p className="text-sm">- connect this to supabase so you can add blog posts</p>
+              <del className="text-sm">- connect this to supabase so you can add blog posts</del>
               <p className="text-sm">- make a dashboard for blog crud operations</p>
               <p className="text-sm">- add all old posts from the old miercury websites here</p>
               <p className="text-sm">- add vercel web analytics functionality</p>
