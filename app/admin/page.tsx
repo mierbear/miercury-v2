@@ -3,6 +3,8 @@ import { use, useEffect, useRef, useState } from "react";
 import supabase from "@/lib/supabaseClient";
 import PostType from "@/types/postType";
 
+export const dynamic = "force-dynamic";
+
 export default function page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
