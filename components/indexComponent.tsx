@@ -49,7 +49,7 @@ export default function Home() {
     const { error, data } = await supabase
       .from("posts")
       .select("*")
-      .order("date", { ascending: true });
+      .order("date", { ascending: false });
 
     if (error) {
       console.error("fetch failed: ", error.message);
@@ -153,21 +153,14 @@ export default function Home() {
 
       </div>  
       <footer className="z-50">
-        <div className="bg-[#101113]/90 min-h-[5vh] min-w-screen grid grid-cols-3 bottom-0 text-white">
-          <div className="flex flex-col justify-center items-center">
-            {/* <h1>meow</h1> */}
-          </div>
+        <div className="bg-[#101113]/90 min-h-[5vh] min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white">
 
-          <div className="flex flex-col justify-center items-center">
-            <p>Copyright © {currentYear} Miercury. All Rights Reserved.</p>
-            <p className="text-gray-300/40 text-xs">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
-          </div>
+          <p>Copyright © {currentYear} Miercury. All Rights Reserved.</p>
+          <p className="text-gray-300/40 text-xs">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
 
-          <div className="flex flex-col justify-center items-end">
-            <NextLink href="/admin">
-              <p className="pr-5 text-gray-100/90 text-xs hover:underline login">log in</p>
-            </NextLink>
-          </div>
+          <NextLink href="/admin" className="right-1 absolute">
+            <p className="pr-5 text-gray-100/90 text-xs hover:underline login">log in</p>
+          </NextLink>
 
         </div>
       </footer>

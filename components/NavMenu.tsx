@@ -402,18 +402,18 @@ const NavMenu = (props: { open: boolean }) => {
             </NextLink>
 
             <div className="flex flex-row justify-between items-center">
-              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/" className={`${boldonse.className} bg-[#0f0f0f] pl-12 nonsel text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
+              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/" className={`${boldonse.className} bg-[#0f0f0f] pl-12 nonsel linkButton transition-all duration-300 text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
                 <span>HOME</span>
               </NextLink>
-              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/gallery" className={`${boldonse.className} bg-[#0f0f0f] pr-12 nonsel text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
+              <NextLink style={{ display: ready ? "flex" : "none" }} onClick={handleLinkClick} href="/gallery" className={`${boldonse.className} bg-[#0f0f0f] pr-12 nonsel linkButton transition-all duration-300 text-3xl sm:text-4xl md:text-5xl xl:text-[1px] text-white visible xl:invisible xl:h-0 z-500 translate-y-6`}>
                 <span>GALLERY</span>
               </NextLink>
             </div>
           </div>
 
           <div className="flex flex-row justify-center items-center bg-[#0f0f0f] relative rounded-b-4xl" ref={homeRef}>
-            <NextLink style={{ display: ready ? "flex" : "none" }} href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white nonsel invisible xl:visible pointer-events-none`}>HOME</NextLink>
-            <NextLink style={{ display: ready ? "flex" : "none" }} href="/gallery" ref={galleryLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute right-5 text-6xl text-white nonsel invisible xl:visible pointer-events-none`}>GALLERY</NextLink>
+            <NextLink style={{ display: ready ? "flex" : "none" }} href="/" ref={homeLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute left-5 text-6xl text-white nonsel linkButton transition-all duration-300 invisible xl:visible pointer-events-none`}>HOME</NextLink>
+            <NextLink style={{ display: ready ? "flex" : "none" }} href="/gallery" ref={galleryLinkRef} onClick={handleLinkClick} className={`${boldonse.className} absolute right-5 text-6xl text-white nonsel linkButton transition-all duration-300 invisible xl:visible pointer-events-none`}>GALLERY</NextLink>
 
             <div
               ref={buttonRef}

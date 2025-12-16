@@ -2,6 +2,7 @@
 import { use, useEffect, useRef, useState } from "react";
 import supabase from "@/lib/supabaseClient";
 import PostType from "@/types/postType";
+import gsap from "gsap";
 
 export const dynamic = "force-dynamic";
 
@@ -12,6 +13,8 @@ export default function page() {
   const loginRef = useRef<HTMLFormElement | null>(null);
   const titleRef = useRef<HTMLInputElement | null>(null);
   const contentRef = useRef<HTMLTextAreaElement | null>(null);
+  const postButtonRef = useRef<HTMLButtonElement | null>(null);
+  const postFormRef = useRef<HTMLFormElement | null>(null);
   const [posts, setPosts] = useState<PostType[]>([]);
 
   const fetchSession = async () => {
@@ -68,6 +71,18 @@ export default function page() {
     contentRef.current!.value = "";
   }
 
+  const handleDelete = async (id: number) => {
+
+    const {error} = await supabase.from("posts").delete().eq("id", id);
+
+    if (error) {
+      console.error("delete failed: ", error.message);
+      return;
+    }
+    
+    fetchPosts();
+  }
+
   const fetchPosts = async () => {
     const { error, data } = await supabase.from("posts").select("*");
     if (error) {
@@ -81,27 +96,40 @@ export default function page() {
   useEffect(() => {
     fetchPosts();
   }, []);
-
+  
   return (
     <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50">
 
     {
     isLoggedIn ?(
       <div className="z-50 min-h-screen min-w-screen justify-end align-center items-center flex flex-col">
-        <div className="grid grid-cols-[1fr_3fr] min-w-screen min-h-[85vh]">
-          <div className="bg-gray-400 flex flex-col justify-center items-center">
+        <div className="grid grid-cols-[1fr_4fr] min-w-screen min-h-[85vh] max-h-[85vh]">
+          <div className="bg-gray-400 flex flex-col items-center min-h-[85vh] max-h-[85vh] overflow-y-auto scroll-smooth">
+
             {posts.map((post) => {
               return (
-                <div key={post.id}>
-                  <p>{post.title}</p>
-                  <p>{post.date}</p>
-                  <p>{post.content}</p>
+                <div
+                  key={post.id}
+                  className="flex items-center justify-between bg-black px-5 min-h-[10vh] w-full"
+                >
+                  <div className="flex flex-col">
+                    <p className="text-xl">{post.title}</p>
+                    <p className="text-xs text-neutral-400/60">{post.date}</p>
+                  </div>
+
+                  <img
+                    src="/images/trash.svg"
+                    alt="Delete"
+                    className="cursor-pointer max-h-5 linkButton"
+                    onClick={() => {handleDelete(post.id)}}
+                  />
                 </div>
               );
             })}
           </div>
           <div className="bg-gray-300 flex flex-col justify-center items-center">
             <form
+              ref={postFormRef}
               className="flex flex-col justify-center items-center bg-neutral-800 p-5 min-h-[50vh] min-w-[50vh] rounded text-white"
               onSubmit={handleSubmit}
             >
@@ -122,7 +150,9 @@ export default function page() {
               }}
             />
             <button
+              ref={postButtonRef}
               type="submit"
+              className="cursor-pointer"
             >
               post..
             </button>
