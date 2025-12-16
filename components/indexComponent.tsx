@@ -4,16 +4,17 @@ import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
 import TitleBot from "@/components/indexTitleBot";
 import BannerLink from "@/components/indexBannerLink"
+import PostType from "@/types/postType";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import NextLink from "next/link";
+import supabase from "@/lib/supabaseClient";
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
   const discordUsernameRef = useRef<HTMLHeadingElement | null>(null);
-
+  const [posts, setPosts] = useState<PostType[]>([]);
   
-
   const handleDiscordLink = () => {
   navigator.clipboard.writeText("miermiermiermier");
 
@@ -42,8 +43,25 @@ export default function Home() {
       visibility: "hidden",
       clearProps: "transform,opacity",
     });
-};
+  };
 
+  const fetchPosts = async () => {
+    const { error, data } = await supabase
+      .from("posts")
+      .select("*")
+      .order("date", { ascending: true });
+
+    if (error) {
+      console.error("fetch failed: ", error.message);
+      return;
+    }
+    
+    setPosts(data);
+  }
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -62,10 +80,9 @@ export default function Home() {
               <h1 className="font-bold text-2xl">Lorem ipsum</h1>
               <p className="text-xs pb-5 text-neutral-400">12/13/25</p>
               <p className="text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid, eum vero! Iusto ipsum rem laborum alias ipsa impedit ipsam velit facilis, corrupti inventore animi aperiam sit quae unde amet blanditiis.</p>
+              <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
             </div>
 
-            {/* <div className="h-px bg-neutral-500/30 my-6 max-w-[85ch] w-full" /> */}
-            <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full" />
             
             <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
               <h1 className="font-bold text-2xl">to do list</h1>
@@ -81,10 +98,20 @@ export default function Home() {
               <p className="text-sm">- add mier widget. (potentially make it persist across all routes)</p>
               <p className="text-sm">- add more to the space background </p>
               <p className="text-sm">- </p>
+              <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
             </div>
             
-            <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full" />
             
+            {posts.map((post) => {
+              return (
+                <div key={post.id} className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
+                  <h1 className="font-bold text-2xl">{post.title}</h1>
+                  <p className="text-xs pb-5 pt-0.5 text-neutral-400">{post.date}</p>
+                  <p className="text-sm">{post.content}</p>
+                  <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
+                </div>
+              );
+            })}
 
           </div>
 
