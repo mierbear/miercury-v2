@@ -146,9 +146,9 @@ export default function Home() {
                 <img src="/images/youtube.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
               </NextLink>
               <p
-              ref={discordUsernameRef} 
-              style={{ visibility: "hidden" }}
-              className="absolute -translate-y-10 bg-[#535961]/90 py-1 px-1.5 rounded text-white"
+                ref={discordUsernameRef} 
+                style={{ visibility: "hidden" }}
+                className="absolute -translate-y-10 bg-[#535961]/90 py-1 px-1.5 rounded text-white"
               >
                 copied! (miermiermiermier)
               </p>
@@ -160,13 +160,13 @@ export default function Home() {
 
       </div>  
       <footer className="z-50">
-        <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white">
+        <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white text-xs">
 
           <p>Copyright © {currentYear} Miercury. All Rights Reserved.</p>
           <p>
             <a href="mailto:admin@miercury.com">admin@miercury.com</a>
           </p>
-          <p className="text-gray-300/40 text-xs">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
+          <p className="text-gray-300/40">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
 
           <NextLink href="/admin" className="right-1 absolute">
             <p className="pr-5 text-gray-100/90 text-xs hover:underline login">log in</p>

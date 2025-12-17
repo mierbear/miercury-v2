@@ -2,6 +2,7 @@
 import { use, useEffect, useRef, useState } from "react";
 import supabase from "@/lib/supabaseClient";
 import PostType from "@/types/postType";
+import Tiptap from "@/components/tiptap/Tiptap";
 import gsap from "gsap";
 
 export const dynamic = "force-dynamic";
@@ -122,6 +123,13 @@ export default function page() {
     fetchPosts();
   }, []);
   
+  const [post, setPost] = useState("");
+
+  const onChange = (content: string) => {
+    setPost(content);
+    console.log(content);
+  };
+
   return (
     <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50">
 
@@ -154,7 +162,10 @@ export default function page() {
             })}
           </div>
           <div className="bg-gray-300 flex flex-col justify-center items-center">
-            <form
+
+            <Tiptap content={post} onChange={onChange} />
+
+            {/* <form
               ref={postFormRef}
               className="flex flex-col justify-center items-center bg-neutral-800 p-5 min-h-[50vh] min-w-[50vh] rounded text-white"
               onSubmit={handleSubmit}
@@ -183,7 +194,8 @@ export default function page() {
               post..
             </button>
 
-            </form>
+            </form> */}
+            
           </div>
         </div>
       </div>
