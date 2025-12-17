@@ -5,14 +5,17 @@ import StarterKit from "@tiptap/starter-kit";
 import MenuBar from "./MenuBar";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
+import { useEffect } from "react";
 
 interface RichTextEditorProps {
   content: string;
   onChange: (content: string) => void;
+  onEditorReady?: (editor: any) => void;
 }
 export default function RichTextEditor({
   content,
   onChange,
+  onEditorReady, 
 }: RichTextEditorProps) {
   const editor = useEditor({
     extensions: [
@@ -44,6 +47,12 @@ export default function RichTextEditor({
       onChange(editor.getHTML());
     },
   });
+
+  useEffect(() => {
+    if (editor && onEditorReady) {
+      onEditorReady(editor);
+    }
+  }, [editor]);
 
   return (
     <div>

@@ -9,10 +9,12 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
+import { log } from "console";
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
   const discordUsernameRef = useRef<HTMLHeadingElement | null>(null);
+  const loginTextRef = useRef<HTMLParagraphElement | null>(null);
   const [posts, setPosts] = useState<PostType[]>([]);
   
   const handleDiscordLink = () => {
@@ -44,6 +46,14 @@ export default function Home() {
       clearProps: "transform,opacity",
     });
   };
+
+  const loginTexts = ["log in", "are you sure?", "ur not even admin go away", ">:p"]
+  let currentText = 0;
+
+  const handleLoginClick = () => {
+    currentText++;
+    loginTextRef.current!.textContent = loginTexts[currentText % loginTexts.length];
+  }
 
   const fetchPosts = async () => {
     const { error, data } = await supabase
@@ -114,7 +124,11 @@ export default function Home() {
                 <div key={post.id} className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
                   <h1 className="font-bold text-2xl">{post.title}</h1>
                   <p className="text-xs pb-5 pt-0.5 text-neutral-400">{post.date}</p>
-                  <p className="text-sm">{post.content}</p>
+                  {/* {post.content} */}
+                  <div
+                    className="prose prose-invert max-w-none"
+                    dangerouslySetInnerHTML={{ __html: post.content }}
+                  />
                   <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
                 </div>
               );
@@ -168,9 +182,9 @@ export default function Home() {
           </p>
           <p className="text-gray-300/40">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
 
-          <NextLink href="/admin" className="right-1 absolute">
-            <p className="pr-5 text-gray-100/90 text-xs hover:underline login">log in</p>
-          </NextLink>
+          <div className="right-1 absolute">
+            <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 text-xs hover:underline login cursor-pointer nonsel">log in</p>
+          </div>
 
         </div>
       </footer>

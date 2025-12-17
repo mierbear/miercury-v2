@@ -3,9 +3,9 @@ import { use, useEffect, useRef, useState } from "react";
 import supabase from "@/lib/supabaseClient";
 import PostType from "@/types/postType";
 import Tiptap from "@/components/tiptap/Tiptap";
-import gsap from "gsap";
-
 export const dynamic = "force-dynamic";
+import type { Editor } from "@tiptap/react";
+
 
 export default function page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -13,10 +13,10 @@ export default function page() {
   const [password, setPassword] = useState("");
   const loginRef = useRef<HTMLFormElement | null>(null);
   const titleRef = useRef<HTMLInputElement | null>(null);
-  const contentRef = useRef<HTMLTextAreaElement | null>(null);
   const postButtonRef = useRef<HTMLButtonElement | null>(null);
   const postFormRef = useRef<HTMLFormElement | null>(null);
   const [posts, setPosts] = useState<PostType[]>([]);
+  const editorRef = useRef<Editor | null>(null);
 
   const fetchSession = async () => {
     const currentSession = await supabase.auth.getSession();
@@ -91,7 +91,7 @@ export default function page() {
 
     fetchPosts();
     titleRef.current!.value = "";
-    contentRef.current!.value = "";
+    editorRef.current!.commands.clearContent();
   }
 
   const handleDelete = async (id: number) => {
@@ -123,18 +123,19 @@ export default function page() {
     fetchPosts();
   }, []);
   
-  const [post, setPost] = useState("");
+  const [postContent, setPostContent] = useState("");
 
   const onChange = (content: string) => {
-    setPost(content);
+    setNewPost((prev) => ({ ...prev, content: content }));
+    setPostContent(content);
     console.log(content);
   };
 
   return (
     <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50">
 
-    {
-    isLoggedIn ?(
+    {isLoggedIn ?(
+
       <div className="z-50 min-h-screen min-w-screen justify-end align-center items-center flex flex-col">
         <div className="grid grid-cols-[1fr_4fr] min-w-screen min-h-[85vh] max-h-[85vh]">
           <div className="bg-gray-400 flex flex-col items-center min-h-[85vh] max-h-[85vh] overflow-y-auto scroll-smooth">
@@ -146,7 +147,7 @@ export default function page() {
                   className="flex items-center justify-between bg-black px-5 min-h-[10vh] w-full"
                 >
                   <div className="flex flex-col">
-                    <p className="text-xl">{post.title}</p>
+                    <p className="text-xl">- {post.title}</p>
                     <p className="text-xs text-neutral-400/60">{post.date}</p>
                     <p className="text-xs text-neutral-400/60">{post.spec_date}</p>
                   </div>
@@ -163,9 +164,9 @@ export default function page() {
           </div>
           <div className="bg-gray-300 flex flex-col justify-center items-center">
 
-            <Tiptap content={post} onChange={onChange} />
 
-            {/* <form
+
+            <form
               ref={postFormRef}
               className="flex flex-col justify-center items-center bg-neutral-800 p-5 min-h-[50vh] min-w-[50vh] rounded text-white"
               onSubmit={handleSubmit}
@@ -179,13 +180,9 @@ export default function page() {
                 setNewPost((prev) => ({ ...prev, title: e.target.value }))
               }}
             />
-            <textarea
-              ref={contentRef}
-              placeholder="enter text here..."
-              onChange={(e) => {
-                setNewPost((prev) => ({ ...prev, content: e.target.value }))
-              }}
-            />
+
+            <Tiptap content={postContent} onChange={onChange} onEditorReady={(editor) => (editorRef.current = editor)} />
+            
             <button
               ref={postButtonRef}
               type="submit"
@@ -194,12 +191,14 @@ export default function page() {
               post..
             </button>
 
-            </form> */}
+            </form>
             
           </div>
         </div>
       </div>
+      
     ): 
+
       <form 
         ref={loginRef}
         className="absolute min-h-[10vh] min-w-[20vh] bg-[#535961]/20 flex flex-col justify-center items-center gap-2 p-3.5 nonsel"
