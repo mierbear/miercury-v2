@@ -72,17 +72,34 @@ export default function page() {
       }).format(date).replace("at", " ✦");
     }
 
-    const {error} = await supabase.from("posts").insert({
-      title: newPost.title,
-      content: newPost.content,
-      date: getDate(),
-      spec_date: getSpecDate(),
-    });
+    if (!editingPost) {
+      const {error} = await supabase.from("posts").insert({
+        title: newPost.title,
+        content: newPost.content,
+        date: getDate(),
+        spec_date: getSpecDate(),
+      });
 
-    if (error) {
-      console.error("post failed: ", error.message);
-      return;
+      if (error) {
+        console.error("post failed: ", error.message);
+        return;
+      }
+
+    } else {
+      const {error} = await supabase.from("posts").update({
+        title: newPost.title,
+        content: newPost.content,
+        updated_date: getDate(),
+        updated_spec_date: getSpecDate(),
+      }).eq("id", editingPost);
+
+      if (error) {
+        console.error("update failed: ", error.message);
+        return;
+      }
     }
+
+    
 
     setNewPost({
       title: "",
@@ -131,6 +148,37 @@ export default function page() {
     console.log(content);
   };
 
+  const [editingPost, setEditingPost] = useState<number | null>(null);
+
+  const newPostRef = useRef<HTMLButtonElement | null>(null);
+  
+  const handleNewPost = () => {
+    setEditingPost(null);
+    console.log(editingPost);
+    setNewPost({
+      title: "",
+      content: "",
+    })
+
+    fetchPosts();
+    titleRef.current!.value = "";
+    editorRef.current!.commands.clearContent();
+  }
+
+  const handlePostListClick = (id: number) => {
+    console.log(id)
+    setEditingPost(id);
+    const post = posts.find((post) => post.id === id);
+    if (post) {
+      setNewPost({
+        title: post.title,
+        content: post.content,
+      })
+      titleRef.current!.value = post.title;
+      editorRef.current!.commands.setContent(post.content);
+    }
+  }
+
   return (
     <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50">
 
@@ -144,7 +192,8 @@ export default function page() {
               return (
                 <div
                   key={post.id}
-                  className="flex items-center justify-between bg-black px-5 min-h-[10vh] w-full"
+                  className="flex items-center justify-between bg-black px-5 min-h-[10vh] w-full cursor-pointer adminPost"
+                  onClick={() => {handlePostListClick(post.id)}}
                 >
                   <div className="flex flex-col">
                     <p className="text-xl">- {post.title}</p>
@@ -193,6 +242,15 @@ export default function page() {
 
             </form>
             
+            <div>
+              <button
+                ref={newPostRef}
+                className="bg-[#101113]/90 p-2 rounded-md cursor-pointer"
+                onClick={handleNewPost}
+              >
+                new post?
+              </button>
+            </div>
           </div>
         </div>
       </div>

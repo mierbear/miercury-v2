@@ -99,7 +99,6 @@ export default function Home() {
               <p className="text-sm">● finish the scrollTrigger course</p>
               <p className="text-sm">● finish the gsap course</p>
               <p className="text-sm">● make the moon an svg to make it look good on phone..</p>
-              <p className="text-sm">● implement editing posts with tiptap</p>
               <p className="text-sm">● add all old posts from the old miercury websites here</p>
               <p className="text-sm">● set subdomains for characters/icemage/pp/etc.</p>
               <p className="text-sm">● add more to the space background </p>
@@ -109,6 +108,7 @@ export default function Home() {
               <p className="text-sm">● add mier widget. (potentially make it persist across all routes)</p>
               <br></br>
               <p className="text-xl font-bold">DONE: </p>
+              <p className="text-sm">✔ implement editing posts with tiptap</p>
               <p className="text-sm">✔ implement tiptap on post dashboard</p>
               <p className="text-sm">✔ make a dashboard for blog crud operations</p>
               <p className="text-sm">✔ connect this to supabase so you can add blog posts</p>
@@ -121,8 +121,11 @@ export default function Home() {
               return (
                 <div key={post.id} className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
                   <h1 className="font-bold text-2xl">{post.title}</h1>
-                  {/* <p className="text-xs pb-5 pt-0.5 text-neutral-400 ">{post.spec_date}</p> */}
-                  <p className="text-xs pt-0.5 text-neutral-400 underline nonsel" onClick={clickDate}>{properDate ? post.spec_date : post.date}</p>
+                  <div className="text-xs pt-0.5 text-neutral-400 nonsel flex" onClick={clickDate}>
+                    <p className="underline">{properDate ? (post.spec_date) : post.date}</p>
+                    {post.updated_date === null ? null : (<p className="pl-2">last updated at:</p>)}
+                    {post.updated_spec_date && properDate ? (<p className="pl-2 underline">{post.updated_spec_date}</p>) : (<p className="pl-2 underline">{post.updated_date}</p>)}
+                  </div>
                   <div
                     className="prose prose-invert pt-5 max-w-none"
                     dangerouslySetInnerHTML={{ __html: post.content }}
