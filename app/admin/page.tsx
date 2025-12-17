@@ -47,19 +47,40 @@ export default function page() {
     content: "",
   });
 
+  
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const date = new Date().toLocaleString().replaceAll('/', '-');
-    
+    const getDate = (date = new Date()) => {
+    const yy = String(date.getFullYear()).slice(-2);
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+
+    return `${yy}.${mm}.${dd}`;
+    }
+
+    const getSpecDate = (date = new Date()) => {
+      return new Intl.DateTimeFormat("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      }).format(date).replace("at", " ✦");
+    }
+
     const {error} = await supabase.from("posts").insert({
       title: newPost.title,
       content: newPost.content,
-      date: date,
+      date: getDate(),
+      spec_date: getSpecDate(),
     });
 
     if (error) {
       console.error("post failed: ", error.message);
+      return;
     }
 
     setNewPost({
@@ -67,6 +88,7 @@ export default function page() {
       content: "",
     })
 
+    fetchPosts();
     titleRef.current!.value = "";
     contentRef.current!.value = "";
   }
@@ -84,7 +106,10 @@ export default function page() {
   }
 
   const fetchPosts = async () => {
-    const { error, data } = await supabase.from("posts").select("*");
+    const { error, data } = await supabase
+      .from("posts")
+      .select("*")
+      .order("date_created", { ascending: false });
     if (error) {
       console.error("fetch failed: ", error.message);
       return;
@@ -115,6 +140,7 @@ export default function page() {
                   <div className="flex flex-col">
                     <p className="text-xl">{post.title}</p>
                     <p className="text-xs text-neutral-400/60">{post.date}</p>
+                    <p className="text-xs text-neutral-400/60">{post.spec_date}</p>
                   </div>
 
                   <img

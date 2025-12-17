@@ -49,7 +49,7 @@ export default function Home() {
     const { error, data } = await supabase
       .from("posts")
       .select("*")
-      .order("date", { ascending: false });
+      .order("date_created", { ascending: false });
 
     if (error) {
       console.error("fetch failed: ", error.message);
@@ -87,17 +87,24 @@ export default function Home() {
             <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
               <h1 className="font-bold text-2xl">to do list</h1>
               <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
-              <p className="text-sm">- finish the scrollTrigger course</p>
-              <p className="text-sm">- finish the gsap course</p>
-              <p className="text-sm">- make the moon an svg to make it look good on phone..</p>
-              <del className="text-sm">- connect this to supabase so you can add blog posts</del>
-              <p className="text-sm">- make a dashboard for blog crud operations</p>
-              <p className="text-sm">- add all old posts from the old miercury websites here</p>
-              <del className="text-sm">- add vercel web analytics functionality</del>
-              <p className="text-sm">- set subdomains for characters/icemage/pp/etc.</p>
-              <p className="text-sm">- add mier widget. (potentially make it persist across all routes)</p>
-              <p className="text-sm">- add more to the space background </p>
-              <p className="text-sm">- </p>
+              <p className="text-xl font-bold">TO-DO: </p>
+              <p className="text-sm">● finish the scrollTrigger course</p>
+              <p className="text-sm">● finish the gsap course</p>
+              <p className="text-sm">● make the moon an svg to make it look good on phone..</p>
+              <p className="text-sm">● implement tiptap on post dashboard</p>
+              <p className="text-sm">● implement editing posts with tiptap</p>
+              <p className="text-sm">● add all old posts from the old miercury websites here</p>
+              <p className="text-sm">● set subdomains for characters/icemage/pp/etc.</p>
+              <p className="text-sm">● add more to the space background </p>
+              <p className="text-sm">● make assets (a lot of it...)</p>
+              <p className="text-sm">● make assets for mtwim</p>
+              <p className="text-sm">● make assets for characters</p>
+              <p className="text-sm">● add mier widget. (potentially make it persist across all routes)</p>
+              <br></br>
+              <p className="text-xl font-bold">DONE: </p>
+              <p className="text-sm">✔ make a dashboard for blog crud operations</p>
+              <p className="text-sm">✔ connect this to supabase so you can add blog posts</p>
+              <p className="text-sm">✔ add vercel web analytics functionality</p>
               <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
             </div>
             
@@ -153,9 +160,12 @@ export default function Home() {
 
       </div>  
       <footer className="z-50">
-        <div className="bg-[#101113]/90 min-h-[5vh] min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white">
+        <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white">
 
           <p>Copyright © {currentYear} Miercury. All Rights Reserved.</p>
+          <p>
+            <a href="mailto:admin@miercury.com">admin@miercury.com</a>
+          </p>
           <p className="text-gray-300/40 text-xs">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
 
           <NextLink href="/admin" className="right-1 absolute">
