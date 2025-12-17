@@ -73,6 +73,12 @@ export default function Home() {
     fetchPosts();
   }, []);
 
+  const [properDate, setProperDate] = useState(false);
+
+  const clickDate = () => {
+    setProperDate(!properDate);
+  }
+
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
       <div className="bg-[#17191a] min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
@@ -87,21 +93,12 @@ export default function Home() {
           <div className="post-list text-white bg-[#535961]/60 flex flex-col items-center order-2 sm:order-1 px-2 pt-2">
 
             <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
-              <h1 className="font-bold text-2xl">Lorem ipsum</h1>
-              <p className="text-xs pb-5 text-neutral-400">12/13/25</p>
-              <p className="text-sm">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aliquid, eum vero! Iusto ipsum rem laborum alias ipsa impedit ipsam velit facilis, corrupti inventore animi aperiam sit quae unde amet blanditiis.</p>
-              <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
-            </div>
-
-            
-            <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
               <h1 className="font-bold text-2xl">to do list</h1>
               <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
               <p className="text-xl font-bold">TO-DO: </p>
               <p className="text-sm">● finish the scrollTrigger course</p>
               <p className="text-sm">● finish the gsap course</p>
               <p className="text-sm">● make the moon an svg to make it look good on phone..</p>
-              <p className="text-sm">● implement tiptap on post dashboard</p>
               <p className="text-sm">● implement editing posts with tiptap</p>
               <p className="text-sm">● add all old posts from the old miercury websites here</p>
               <p className="text-sm">● set subdomains for characters/icemage/pp/etc.</p>
@@ -112,6 +109,7 @@ export default function Home() {
               <p className="text-sm">● add mier widget. (potentially make it persist across all routes)</p>
               <br></br>
               <p className="text-xl font-bold">DONE: </p>
+              <p className="text-sm">✔ implement tiptap on post dashboard</p>
               <p className="text-sm">✔ make a dashboard for blog crud operations</p>
               <p className="text-sm">✔ connect this to supabase so you can add blog posts</p>
               <p className="text-sm">✔ add vercel web analytics functionality</p>
@@ -123,10 +121,10 @@ export default function Home() {
               return (
                 <div key={post.id} className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
                   <h1 className="font-bold text-2xl">{post.title}</h1>
-                  <p className="text-xs pb-5 pt-0.5 text-neutral-400">{post.date}</p>
-                  {/* {post.content} */}
+                  {/* <p className="text-xs pb-5 pt-0.5 text-neutral-400 ">{post.spec_date}</p> */}
+                  <p className="text-xs pt-0.5 text-neutral-400 underline nonsel" onClick={clickDate}>{properDate ? post.spec_date : post.date}</p>
                   <div
-                    className="prose prose-invert max-w-none"
+                    className="prose prose-invert pt-5 max-w-none"
                     dangerouslySetInnerHTML={{ __html: post.content }}
                   />
                   <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
