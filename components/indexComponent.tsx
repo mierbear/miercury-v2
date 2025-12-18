@@ -81,7 +81,7 @@ export default function Home() {
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
-      <div className="bg-[#17191a] min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
+      <div className="min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <Title />
       </div>
       <div className="content min-w-[40vw] min-h-[60vh] bg-[#00000000] text-black z-10 grid grid-rows-[1.2em_1fr]">
@@ -96,18 +96,19 @@ export default function Home() {
               <h1 className="font-bold text-2xl">to do list</h1>
               <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
               <p className="text-xl font-bold">TO-DO: </p>
+              <p className="text-sm">● perhaps have the blog be its own page instead</p>
               <p className="text-sm">● finish the scrollTrigger course</p>
               <p className="text-sm">● finish the gsap course</p>
               <p className="text-sm">● make the moon an svg to make it look good on phone..</p>
               <p className="text-sm">● add all old posts from the old miercury websites here</p>
               <p className="text-sm">● set subdomains for characters/icemage/pp/etc.</p>
-              <p className="text-sm">● add more to the space background </p>
               <p className="text-sm">● make assets (a lot of it...)</p>
               <p className="text-sm">● make assets for mtwim</p>
               <p className="text-sm">● make assets for characters</p>
               <p className="text-sm">● add mier widget. (potentially make it persist across all routes)</p>
               <br></br>
               <p className="text-xl font-bold">DONE: </p>
+              <p className="text-sm">✔ add more to the space background </p>
               <p className="text-sm">✔ implement editing posts with tiptap</p>
               <p className="text-sm">✔ implement tiptap on post dashboard</p>
               <p className="text-sm">✔ make a dashboard for blog crud operations</p>
@@ -121,9 +122,9 @@ export default function Home() {
               return (
                 <div key={post.id} className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
                   <h1 className="font-bold text-2xl">{post.title}</h1>
-                  <div className="text-xs pt-0.5 text-neutral-400 nonsel flex" onClick={clickDate}>
+                  <div className="text-xs pt-0.5 text-gray-400 nonsel flex" onClick={clickDate}>
                     <p className="underline">{properDate ? (post.spec_date) : post.date}</p>
-                    {post.updated_date === null ? null : (<p className="pl-2">last updated at:</p>)}
+                    {post.updated_date === null ? null : (<p className="pl-5">last updated at:</p>)}
                     {post.updated_spec_date && properDate ? (<p className="pl-2 underline">{post.updated_spec_date}</p>) : (<p className="pl-2 underline">{post.updated_date}</p>)}
                   </div>
                   <div
@@ -140,6 +141,7 @@ export default function Home() {
           <div className="text-white bg-[#535961]/50 flex flex-col items-center order-1 sm:order-2">
 
             <div className="bg-[#1d1f22]/40 min-w-full p-5 flex flex-col justify-center items-center">
+              <img src="images/santahat.png" className="absolute z-1000 rotate-20 scale-30 -translate-y-44 translate-x-30 nonsel" draggable="false" style={{ userSelect: "none" }}/>
               <Image className="" src="/images/pfp.png" width={280} height={280} alt="pfp" />
             </div>
 

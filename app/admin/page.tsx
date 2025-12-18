@@ -196,8 +196,7 @@ export default function page() {
                   onClick={() => {handlePostListClick(post.id)}}
                 >
                   <div className="flex flex-col">
-                    <p className="text-xl">- {post.title}</p>
-                    <p className="text-xs text-neutral-400/60">{post.date}</p>
+                    <p className="text-xl">{post.title}</p>
                     <p className="text-xs text-neutral-400/60">{post.spec_date}</p>
                   </div>
 

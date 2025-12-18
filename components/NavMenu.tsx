@@ -129,7 +129,7 @@ const NavMenu = (props: { open: boolean }) => {
       .to(landingRef.current, {
         yPercent: -100,
         duration: .5,
-        ease: "power1.inOut",
+        ease: "power1.in",
       }, "<.15")
       .set(listRef.current, {
         pointerEvents: "none",
