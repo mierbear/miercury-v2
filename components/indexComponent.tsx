@@ -15,6 +15,7 @@ export default function Home() {
   const currentYear = new Date().getFullYear();
   const discordUsernameRef = useRef<HTMLHeadingElement | null>(null);
   const loginTextRef = useRef<HTMLParagraphElement | null>(null);
+  const mierTakethRef = useRef<HTMLImageElement | null>(null);
   const [posts, setPosts] = useState<PostType[]>([]);
   
   const handleDiscordLink = () => {
@@ -51,8 +52,41 @@ export default function Home() {
   let currentText = 0;
 
   const handleLoginClick = () => {
-    currentText++;
-    loginTextRef.current!.textContent = loginTexts[currentText % loginTexts.length];
+    if (currentText < 6) {
+
+      currentText++;
+      loginTextRef.current!.textContent = loginTexts[currentText % loginTexts.length];
+
+    } else {
+
+      const tl = gsap.timeline();
+
+      tl
+      .set(loginTextRef.current, {
+        pointerEvents: "none",
+      })
+      .set(mierTakethRef.current, {
+        visibility: "visible",
+      })
+      .to(mierTakethRef.current, {
+        xPercent: -75,
+        duration: 1,
+        ease: "power2.inOut",
+        yoyo: true,
+        repeat: 1
+      })
+      .to(loginTextRef.current, {
+        xPercent: 125,
+        duration: 1,
+        ease: "power2.inOut",
+      }, "<1")
+      .set(mierTakethRef.current, {
+        visibility: "hidden",
+      })
+      .set(loginTextRef.current, {
+        visibility: "hidden",
+      })
+    }
   }
 
   const fetchPosts = async () => {
@@ -96,8 +130,15 @@ export default function Home() {
               <h1 className="font-bold text-2xl">to do list</h1>
               <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
               <p className="text-xl font-bold">TO-DO: </p>
+              <p className="text-sm">● finish secret santa</p>
+              <p className="text-sm">● make the pp page</p>
+              <p className="text-sm">● make the about me page</p>
+              <p className="text-sm">● make the ocs page</p>
+              <p className="text-sm">● make the gallery page</p>
+              <p className="text-sm">● make the mtwim page</p>
               <p className="text-sm">● perhaps have the blog be its own page instead</p>
               <p className="text-sm">● finish the scrollTrigger course</p>
+              <p className="text-sm">● add more ppl to stars bg</p>
               <p className="text-sm">● finish the gsap course</p>
               <p className="text-sm">● make the moon an svg to make it look good on phone..</p>
               <p className="text-sm">● add all old posts from the old miercury websites here</p>
@@ -192,6 +233,7 @@ export default function Home() {
         </div>
       </footer>
       <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel" draggable="false" style={{ pointerEvents: "none" }} />
+      <img ref={mierTakethRef} src="/images/miertaketh.png" className="absolute z-100 nonsel -right-80 bottom-4 invisible" draggable="false" style={{ pointerEvents: "none" }} />
       <Stars />
     </div>
   );
