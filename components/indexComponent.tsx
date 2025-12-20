@@ -81,10 +81,10 @@ export default function Home() {
         ease: "power2.inOut",
       }, "<1")
       .set(mierTakethRef.current, {
-        visibility: "hidden",
+        display: "none",
       })
       .set(loginTextRef.current, {
-        visibility: "hidden",
+        display: "none",
       })
     }
   }
