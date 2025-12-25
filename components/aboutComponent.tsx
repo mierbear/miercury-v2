@@ -25,7 +25,7 @@ export default function Home() {
       {  tag: "", name: "Kinoue64", img: "kinoue64.jpg",
       tag2: "", name2: "Dusqk", img2: "dusqk.jpg" },
     
-      {  tag: "", name: "Porter Pobinson", img: "porterrobinson.jpg",
+      {  tag: "love", name: "Porter Pobinson", img: "porterrobinson.jpg",
       tag2: "love", name2: "Kanye West", img2: "kanye.jpg" },
     
       {  tag: "", name: "Kinoko Teikoku", img: "kinokoteikoku.jpg",
@@ -48,7 +48,7 @@ export default function Home() {
       {  tag: "best", name: "Rimworld", img: "rimworld.jpg",
       tag2: "", name2: "Risk of Rain 2", img2: "ror2.jpg" },
 
-      {  tag: "best", name: "osu!", img: "osu.jpg",
+      {  tag: "best", name: "7k osu!mania", img: "osu.jpg",
       tag2: "", name2: "Skyrim", img2: "skyrim.jpg" },
     
       {  tag: "love", name: "Starbound", img: "starbound.jpg",
@@ -109,15 +109,27 @@ export default function Home() {
   const [activeList, setActiveList] = useState<"anime" | "music" | "games" | null>(null);
 
   const openGames = () => {
-    setActiveList("games");
+    if (activeList === "games") {
+      closeList();
+    } else {
+      setActiveList("games");
+    }
   }
 
   const openMusic = () => {
-    setActiveList("music");
+    if (activeList === "music") {
+      closeList();
+    } else {
+      setActiveList("music");
+    }
   }
 
   const openAnime = () => {
-    setActiveList("anime");
+    if (activeList === "anime") {
+      closeList();
+    } else {
+      setActiveList("anime");
+    }
   }
 
   const closeList = () => {
@@ -129,103 +141,137 @@ export default function Home() {
   }, [activeList]);
 
   return (
-    <div className="min-w-screen min-h-screen grid grid-cols-[3.5fr_1fr] z-50">
-      <div className="grid grid-rows-[1fr_6fr_1fr] z-50 bg-[#17191a]">
-        <div className="flex items-end flex-col z-50 bg-[#17191a]">
-          {activeList === null || (
-            <h1 className="text-white pt-2 pr-4 text-4xl cursor-pointer x nonsel" onClick={closeList}>✖</h1>
-          )}
+    <div className="min-w-screen min-h-screen max-h-screen grid grid-rows-[1.5fr_2fr] grid-cols-1 md:grid-rows-1 md:grid-cols-[4fr_2fr] z-50">
+      
+      <div className="py-8 md:py-0 relative grid grid-rows-[0fr_6fr_0fr] md:grid-rows-[1fr_6fr_1fr] z-50 bg-[#17191a] order-2 md:order-1">
+
+        <div className="flex items-end flex-col z-100">
         </div>
         
         <div className="overflow-hidden flex items-center justify-center" ref={carouselRef}>
           <div className="overflow-hidden flex items-center justify-center" ref={emblaRef}>
-          <div className="flex">
-          {/* ANIME */}
-            {activeList === "anime" && favAnime.map((anime, index) => (
-              <div
-                key={index}
-                className="flex-[0_0_80%] sm:flex-[0_0_25%] flex flex-col items-center py-2 nonsel"
-                draggable="false"
-              >
-                <Image
-                  src={`/images/about/anime/${anime.img}`}
-                  alt={anime.name}
-                  width={300}
-                  height={300}
-                  className="rounded-xl"
+            <div className="flex">
+            {/* ANIME */}
+              {activeList === "anime" && favAnime.map((anime, index) => (
+                <div
+                  key={index}
+                  className="flex-[0_0_7%] flex flex-col items-center py-2 nonsel"
+                  draggable="false"
+                >
+                  <div className="relative w-48 h-72 sm:w-52 sm:h-78 xl:w-64 xl:h-96">
+                    <Image
+                      src={`/images/about/anime/${anime.img}`}
+                      alt={anime.name}
+                      fill
+                      sizes="
+                      (max-width: 640px) 128px,
+                      (max-width: 1280px) 160px,
+                      192px
+                      "
+                      className="rounded-xl object-cover"
+                    />
+                  </div>
+                  <p className={`text-white mt-2 text-center ${anime.tag}`}>{anime.name}</p>
+                </div>
+              ))}
+
+            {/* MUSIC */}
+              {activeList === "music" && favMusic.map((music, index) => (
+                <div
+                  key={index}
+                  className="flex-[0_0_12%] flex flex-col items-center py-2 nonsel"
+                  draggable="false"
+                >
+                  <div className="relative w-48 h-48 sm:w-40 sm:h-40 xl:w-64 xl:h-64">
+                    <Image
+                      src={`/images/about/music/${music.img}`}
+                      alt={music.name}
+                      fill
+                      sizes="
+                      (max-width: 640px) 128px,
+                      (max-width: 1280px) 160px,
+                      192px
+                      "
+                      className="rounded-xl object-cover"
+                    />
+                  </div>
+                  <p className={`text-white mt-2 text-center ${music.tag}`}>{music.name}</p>
+                  <br></br>
+                  <div className="relative w-48 h-48 sm:w-40 sm:h-40 xl:w-64 xl:h-64">
+                    <Image
+                      src={`/images/about/music/${music.img2}`}
+                      alt={music.name2}
+                      fill
+                      sizes="
+                      (max-width: 640px) 128px,
+                      (max-width: 1280px) 160px,
+                      192px
+                      "
+                      className="rounded-xl object-cover"
+                    />
+                  </div>
+                  <p className={`text-white mt-2 text-center ${music.tag2}`}>{music.name2}</p>
+                </div>
+              ))}
+
+              {/* GAMES */}
+              {activeList === "games" && favGames.map((game, index) => (
+                <div
+                  key={index}
+                  className="flex-[0_0_12%] flex flex-col items-center py-2 nonsel"
+                  draggable="false"
                   style={{ pointerEvents: "none" }}
-                />
-                <p className={`text-white mt-2 text-center ${anime.tag}`}>{anime.name}</p>
-              </div>
-            ))}
+                >
+                  <div className="relative w-32 h-48 sm:w-40 sm:h-60 xl:w-48 xl:h-72">
+                    <Image
+                      src={`/images/about/games/${game.img}`}
+                      alt={game.name}
+                      fill
+                      sizes="
+                      (max-width: 640px) 128px,
+                      (max-width: 1280px) 160px,
+                      192px
+                      "
+                      className="rounded-xl object-cover"
+                    />
+                  </div>
 
-          {/* MUSIC */}
-            {activeList === "music" && favMusic.map((music, index) => (
-              <div
-                key={index}
-                className="sm:flex-[0_0_40%] md:flex-[0_0_30%] xl:flex-[0_0_20%] flex flex-col items-center py-2 nonsel"
-                draggable="false"
-              >
-                <Image
-                  src={`/images/about/music/${music.img}`}
-                  alt={music.name}
-                  width={300}
-                  height={300}
-                  className="rounded-xl"
-                  style={{ pointerEvents: "none" }}
-                />
-                <p className={`text-white mt-2 text-center ${music.tag}`}>{music.name}</p>
-                <br></br>
-                <Image
-                  src={`/images/about/music/${music.img2}`}
-                  alt={music.name2}
-                  width={300}
-                  height={300}
-                  className="rounded-xl"
-                />
-                <p className={`text-white mt-2 text-center ${music.tag2}`}>{music.name2}</p>
-              </div>
-            ))}
+                    <p className={`text-white mt-2 text-center ${game.tag}`}>{game.name}</p>
+                  <br></br>
+                  <div className="relative w-32 h-48 sm:w-40 sm:h-60 xl:w-48 xl:h-72">
+                    <Image
+                      src={`/images/about/games/${game.img2}`}
+                      alt={game.name2}
+                      fill
+                      sizes="
+                      (max-width: 640px) 128px,
+                      (max-width: 1280px) 160px,
+                      192px
+                      "
+                      className="rounded-xl object-cover"
+                    />
+                  </div>
+                  <p className={`text-white mt-2 text-center ${game.tag2}`}>{game.name2}</p>
+                </div>
+              ))}
 
-            {/* GAMES */}
-            {activeList === "games" && favGames.map((game, index) => (
-              <div
-                key={index}
-                className="sm:flex-[0_0_40%] md:flex-[0_0_30%] xl:flex-[0_0_15%] flex flex-col items-center py-2 nonsel"
-                draggable="false"
-              >
-                <Image
-                  src={`/images/about/games/${game.img}`}
-                  alt={game.name}
-                  width={200}
-                  height={200}
-                  className="rounded-xl"
-                  style={{ pointerEvents: "none" }}
-                />
-                  <p className={`text-white mt-2 text-center ${game.tag}`}>{game.name}</p>
-                <br></br>
-                <Image
-                  src={`/images/about/games/${game.img2}`}
-                  alt={game.name2}
-                  width={200}
-                  height={200}
-                  className="rounded-xl"
-                />
-                <p className={`text-white mt-2 text-center ${game.tag2}`}>{game.name2}</p>
-              </div>
-            ))}
-
-          </div>
-
+            </div>
           </div>
         </div>
-        <div className="flex items-center justify-end flex-col z-50 bg-[#17191a]">
+
+        <div className="flex items-center justify-end flex-col z-50">
           {activeList === null || (
             <p className="text-xs text-white/70 pb-1 nonsel">© respective creators / I don't own any images used above</p>
           )}
         </div>
+
+        <div className="absolute flex z-60 bg-linear-to-l from-black via-transparent to-transparent pointer-events-none top-0 right-0 h-full w-36 md:visible invisible">
+        </div>
+
       </div>
-      <div className="flex px-5 justify-center flex-col z-50 bg-[#535961]/50 text-white">
+
+
+      <div className="flex p-8 justify-center max-h-screen flex-col z-60 bg-linear-to-r bg-black text-white order-1 md:order-2 md:text-sm text-xs">
 
         <h1 className="font-bold">about me</h1>
         <h4>KYLE | 23 | INTJ | LIBRA</h4>
