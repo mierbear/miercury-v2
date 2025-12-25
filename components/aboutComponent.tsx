@@ -6,9 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 export default function Home() {
-  const musicRef = useRef<HTMLDivElement | null>(null);
-  const animeRef = useRef<HTMLDivElement | null>(null);
-  const gamesRef = useRef<HTMLDivElement | null>(null);
+  const carouselRef = useRef<HTMLDivElement | null>(null);
 
   const favMusic = [
     { name: "TAK / DORIDORI", img: "tak.jpg", name2: "Chikoi The Maid", img2: "chikoi.jpg" },
@@ -23,6 +21,19 @@ export default function Home() {
     { name: "xi", img: "xi.jpg", name2: "ginkiha", img2: "ginkiha.jpg" },
     { name: "System of a Down", img: "soad.jpg", name2: "Linkin Park", img2: "linkinpark.jpg" },
   ];
+
+  const favGames = [
+    { name: "osu!", img: "osu.jpg", name2: "Skyrim", img2: "skyrim.jpg" },
+    { name: "Starbound", img: "starbound.jpg", name2: "Terraria", img2: "terraria.jpg" },
+    { name: "Rimworld", img: "rimworld.jpg", name2: "Risk of Rain 2", img2: "ror2.jpg" },
+    { name: "Undertale", img: "undertale.jpg", name2: "Omori", img2: "omori.jpg" },
+    { name: "Dead Cells", img: "deadcells.jpg", name2: "Escape from Duckov", img2: "duckov.jpg" },
+    { name: "Echo Point Nova", img: "echopointnova.jpg", name2: "Elden Ring", img2: "eldenring.jpg" },
+    { name: "Monster Hunter Rise", img: "mhr.jpg", name2: "Fear and Hunger", img2: "fah.jpg" },
+    { name: "Minecraft", img: "minecraft.jpg", name2: "Left 4 Dead 2", img2: "l4d2.jpg" },
+    { name: "Balatro", img: "balatro.jpg", name2: "Slay The Spire", img2: "slaythespire.jpg" },
+    { name: "Cry of Fear", img: "cof.jpg", name2: "Metaphor: ReFantazio", img2: "metaphor.jpg" },
+  ]
 
   const favAnime = [
     { name: "Migi & Dali", img: "migianddali.jpg" },
@@ -72,6 +83,10 @@ export default function Home() {
     setActiveList(null);
   }
 
+  useEffect(() => {
+    gsap.fromTo(carouselRef.current, { opacity: 0, }, { opacity: 1, duration: 1, ease: "power2.out" });
+  }, [activeList]);
+
   return (
     <div className="min-w-screen min-h-screen grid grid-cols-[3.5fr_1fr] z-50">
       <div className="grid grid-rows-[1fr_6fr_1fr] z-50 bg-[#17191a]">
@@ -80,10 +95,11 @@ export default function Home() {
             <h1 className="text-white pt-2 pr-4 text-4xl cursor-pointer x nonsel" onClick={closeList}>✖</h1>
           )}
         </div>
-        <div className="overflow-hidden flex items-center justify-center">
+        
+        <div className="overflow-hidden flex items-center justify-center" ref={carouselRef}>
           <div className="overflow-hidden flex items-center justify-center" ref={emblaRef}>
-          {/* ANIME */}
           <div className="flex">
+          {/* ANIME */}
             {activeList === "anime" && favAnime.map((anime, index) => (
               <div
                 key={index}
@@ -101,10 +117,11 @@ export default function Home() {
               </div>
             ))}
 
+          {/* MUSIC */}
             {activeList === "music" && favMusic.map((music, index) => (
               <div
                 key={index}
-                className="sm:flex-[0_0_40%] md:flex-[0_0_30%] xl:flex-[0_0_20%] flex flex-col items-center justify-center py-2 nonsel"
+                className="sm:flex-[0_0_40%] md:flex-[0_0_30%] xl:flex-[0_0_20%] flex flex-col items-center py-2 nonsel"
                 draggable="false"
               >
                 <Image
@@ -127,6 +144,35 @@ export default function Home() {
                 <p className="text-white mt-2">{music.name2}</p>
               </div>
             ))}
+
+            {/* GAMES */}
+            {activeList === "games" && favGames.map((game, index) => (
+              <div
+                key={index}
+                className="sm:flex-[0_0_40%] md:flex-[0_0_30%] xl:flex-[0_0_15%] flex flex-col items-center py-2 nonsel"
+                draggable="false"
+              >
+                <Image
+                  src={`/images/about/games/${game.img}`}
+                  alt={game.name}
+                  width={200}
+                  height={200}
+                  className="rounded-xl"
+                  style={{ pointerEvents: "none" }}
+                />
+                <p className="text-white mt-2">{game.name}</p>
+                <br></br>
+                <Image
+                  src={`/images/about/games/${game.img2}`}
+                  alt={game.name2}
+                  width={200}
+                  height={200}
+                  className="rounded-xl"
+                />
+                <p className="text-white mt-2">{game.name2}</p>
+              </div>
+            ))}
+
           </div>
 
           </div>
