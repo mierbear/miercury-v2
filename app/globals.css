@@ -100,6 +100,54 @@ p {
   transform: translateY(5px);
 } */
 
+.best {
+  animation: rainbow 0.5s ease-in-out infinite;
+}
+
+.love {
+  animation: love 1s ease-in-out infinite;
+}
+
+@keyframes rainbow {
+  0% {
+    color: rgb(255, 70, 70);
+  }
+
+  20% {
+    color: rgb(255, 221, 117);
+  }
+
+  40% {
+    color: rgb(167, 255, 140);
+  }
+
+  60% {
+    color: rgb(59, 59, 255);
+  }
+
+  80% {
+    color: rgb(225, 94, 255);
+  }
+
+  100% {
+    color: rgb(255, 70, 70);
+  }
+}
+
+@keyframes love {
+  0% {
+    color: rgb(255, 227, 113);
+  }
+
+  50% {
+    color: rgb(255, 255, 255);
+  }
+
+  100% {
+    color: rgb(255, 220, 80);
+  }
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

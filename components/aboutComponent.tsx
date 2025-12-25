@@ -8,55 +8,96 @@ import gsap from "gsap";
 export default function Home() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
+  // this code is such a mess LOL
   const favMusic = [
-    { name: "TAK / DORIDORI", img: "tak.jpg", name2: "Chikoi The Maid", img2: "chikoi.jpg" },
-    { name: "Pink Guy", img: "pinkguy.jpg", name2: "Joji", img2: "joji.jpg" },
-    { name: "Uplift Spice", img: "upliftspice.jpg", name2: "Kikuo", img2: "kikuo.jpg" },
-    { name: "Sasuke Haraguchi", img: "sasukeharaguchi.jpg", name2: "Deco*27", img2: "deco27.jpg" },
-    { name: "Kinoue64", img: "kinoue64.jpg", name2: "Dusqk", img2: "dusqk.jpg" },
-    { name: "Porter Pobinson", img: "porterrobinson.jpg", name2: "Kanye West", img2: "kanye.jpg" },
-    { name: "Kinoko Teikoku", img: "kinokoteikoku.jpg", name2: "My Dead Girlfriend", img2: "mydeadgirlfriend.jpg" },
-    { name: "Pacific Purgatory", img: "pacificpurgatory.jpg", name2: "Steakfry", img2: "steakfry.jpg" },
-    { name: "Creepy Nuts", img: "creepynuts.jpg", name2: "Vaundy", img2: "vaundy.jpg" },
-    { name: "xi", img: "xi.jpg", name2: "ginkiha", img2: "ginkiha.jpg" },
-    { name: "System of a Down", img: "soad.jpg", name2: "Linkin Park", img2: "linkinpark.jpg" },
+      {  tag: "love", name: "TAK / DORIDORI", img: "tak.jpg",
+      tag2: "love", name2: "Chikoi The Maid", img2: "chikoi.jpg" },
+    
+      {  tag: "best", name: "Pink Guy", img: "pinkguy.jpg",
+      tag2: "", name2: "Joji", img2: "joji.jpg" },
+    
+      {  tag: "love", name: "Sasuke Haraguchi", img: "sasukeharaguchi.jpg",
+      tag2: "love", name2: "Deco*27", img2: "deco27.jpg" },
+      
+      {  tag: "", name: "Uplift Spice", img: "upliftspice.jpg",
+      tag2: "", name2: "Kikuo", img2: "kikuo.jpg" },
+    
+      {  tag: "", name: "Kinoue64", img: "kinoue64.jpg",
+      tag2: "", name2: "Dusqk", img2: "dusqk.jpg" },
+    
+      {  tag: "", name: "Porter Pobinson", img: "porterrobinson.jpg",
+      tag2: "love", name2: "Kanye West", img2: "kanye.jpg" },
+    
+      {  tag: "", name: "Kinoko Teikoku", img: "kinokoteikoku.jpg",
+      tag2: "", name2: "My Dead Girlfriend", img2: "mydeadgirlfriend.jpg" },
+    
+      {  tag: "", name: "Pacific Purgatory", img: "pacificpurgatory.jpg",
+      tag2: "", name2: "Steakfry", img2: "steakfry.jpg" },
+    
+      {  tag: "love", name: "Creepy Nuts", img: "creepynuts.jpg",
+      tag2: "", name2: "Vaundy", img2: "vaundy.jpg" },
+    
+      {  tag: "", name: "xi", img: "xi.jpg",
+      tag2: "", name2: "ginkiha", img2: "ginkiha.jpg" },
+    
+      {  tag: "", name: "System of a Down", img: "soad.jpg",
+      tag2: "love", name2: "Linkin Park", img2: "linkinpark.jpg" },
   ];
 
   const favGames = [
-    { name: "osu!", img: "osu.jpg", name2: "Skyrim", img2: "skyrim.jpg" },
-    { name: "Starbound", img: "starbound.jpg", name2: "Terraria", img2: "terraria.jpg" },
-    { name: "Rimworld", img: "rimworld.jpg", name2: "Risk of Rain 2", img2: "ror2.jpg" },
-    { name: "Undertale", img: "undertale.jpg", name2: "Omori", img2: "omori.jpg" },
-    { name: "Dead Cells", img: "deadcells.jpg", name2: "Escape from Duckov", img2: "duckov.jpg" },
-    { name: "Echo Point Nova", img: "echopointnova.jpg", name2: "Elden Ring", img2: "eldenring.jpg" },
-    { name: "Monster Hunter Rise", img: "mhr.jpg", name2: "Fear and Hunger", img2: "fah.jpg" },
-    { name: "Minecraft", img: "minecraft.jpg", name2: "Left 4 Dead 2", img2: "l4d2.jpg" },
-    { name: "Balatro", img: "balatro.jpg", name2: "Slay The Spire", img2: "slaythespire.jpg" },
-    { name: "Cry of Fear", img: "cof.jpg", name2: "Metaphor: ReFantazio", img2: "metaphor.jpg" },
+      {  tag: "best", name: "Rimworld", img: "rimworld.jpg",
+      tag2: "", name2: "Risk of Rain 2", img2: "ror2.jpg" },
+
+      {  tag: "best", name: "osu!", img: "osu.jpg",
+      tag2: "", name2: "Skyrim", img2: "skyrim.jpg" },
+    
+      {  tag: "love", name: "Starbound", img: "starbound.jpg",
+      tag2: "love", name2: "Terraria", img2: "terraria.jpg" },
+    
+      {  tag: "", name: "Undertale", img: "undertale.jpg",
+      tag2: "", name2: "Omori", img2: "omori.jpg" },
+    
+      {  tag: "", name: "Dead Cells", img: "deadcells.jpg",
+      tag2: "", name2: "Escape from Duckov", img2: "duckov.jpg" },
+    
+      {  tag: "", name: "Echo Point Nova", img: "echopointnova.jpg",
+      tag2: "", name2: "Elden Ring", img2: "eldenring.jpg" },
+    
+      {  tag: "", name: "Monster Hunter Rise", img: "mhr.jpg",
+      tag2: "", name2: "Fear and Hunger", img2: "fah.jpg" },
+    
+      {  tag: "", name: "Minecraft", img: "minecraft.jpg",
+      tag2: "", name2: "Left 4 Dead 2", img2: "l4d2.jpg" },
+    
+      {  tag: "", name: "Balatro", img: "balatro.jpg",
+      tag2: "", name2: "Slay The Spire", img2: "slaythespire.jpg" },
+    
+      {  tag: "", name: "Cry of Fear", img: "cof.jpg",
+      tag2: "", name2: "Metaphor: ReFantazio", img2: "metaphor.jpg" },
   ]
 
   const favAnime = [
-    { name: "Migi & Dali", img: "migianddali.jpg" },
-    { name: "My Happy Marriage", img: "myhappymarriage.jpg" },
-    { name: "Assassination Classroom", img: "assassinationclassroom.jpg" },
-    { name: "The Apothecary Diaries", img: "apothecarydiaries.jpg" },
-    { name: "From Bureaucrat to Villainess: Dad's Been Reincarnated!", img: "villainess.jpg" },
-    { name: "Welcome to Demon School! Iruma-kun", img: "iruma.jpg" },
-    { name: "To Your Eternity", img: "toyoureternity.jpg" },
-    { name: "Detective Conan", img: "detectiveconan.jpg" },
-    { name: "Cowboy Bebop", img: "cowboybebop.jpg" },
-    { name: "One Piece", img: "onepiece.jpg" },
-    { name: "Odd Taxi", img: "oddtaxi.jpg" },
-    { name: "Paprika", img: "paprika.jpg" },
-    { name: "Monster", img: "monster.jpg" },
-    { name: "Frieren: Beyond Journey's End", img: "frieren.jpg" },
-    { name: "Gankutsuou: The Mount of Monte Cristo", img: "gankutsuou.jpg" },
-    { name: "Vinland Saga", img: "vinlandsaga.jpg" },
-    { name: "Ranking of Kings", img: "rankingofkings.jpg" },
-    { name: "Made in Abyss", img: "madeinabyss.jpg" },
-    { name: "Spy x Family", img: "spyxfamily.jpg" },
-    { name: "Gurren Lagann", img: "gurrenlagann.jpg" },
-    { name: "Code Geass", img: "codegeass.jpg" },
+    {  tag: "best", name: "Code Geass", img: "codegeass.jpg" },
+    {  tag: "best", name: "Gurren Lagann", img: "gurrenlagann.jpg" },
+    {  tag: "best", name: "Gankutsuou: The Mount of Monte Cristo", img: "gankutsuou.jpg" },
+    {  tag: "best", name: "Monster", img: "monster.jpg" },
+    {  tag: "love", name: "Ranking of Kings", img: "rankingofkings.jpg" },
+    {  tag: "love", name: "Vinland Saga", img: "vinlandsaga.jpg" },
+    {  tag: "love", name: "Made in Abyss", img: "madeinabyss.jpg" },
+    {  tag: "love", name: "Spy x Family", img: "spyxfamily.jpg" },
+    {  tag: "", name: "Migi & Dali", img: "migianddali.jpg" },
+    {  tag: "", name: "My Happy Marriage", img: "myhappymarriage.jpg" },
+    {  tag: "", name: "Assassination Classroom", img: "assassinationclassroom.jpg" },
+    {  tag: "", name: "The Apothecary Diaries", img: "apothecarydiaries.jpg" },
+    {  tag: "", name: "From Bureaucrat to Villainess: Dad's Been Reincarnated!", img: "villainess.jpg" },
+    {  tag: "", name: "Welcome to Demon School! Iruma-kun", img: "iruma.jpg" },
+    {  tag: "", name: "To Your Eternity", img: "toyoureternity.jpg" },
+    {  tag: "", name: "Detective Conan", img: "detectiveconan.jpg" },
+    {  tag: "", name: "Cowboy Bebop", img: "cowboybebop.jpg" },
+    {  tag: "", name: "One Piece", img: "onepiece.jpg" },
+    {  tag: "", name: "Odd Taxi", img: "oddtaxi.jpg" },
+    {  tag: "", name: "Paprika", img: "paprika.jpg" },
+    {  tag: "", name: "Frieren: Beyond Journey's End", img: "frieren.jpg" },
   ]
 
   const [emblaRef] = useEmblaCarousel({
@@ -111,9 +152,10 @@ export default function Home() {
                   alt={anime.name}
                   width={300}
                   height={300}
-                  className="rounded-xl"style={{ pointerEvents: "none" }}
+                  className="rounded-xl"
+                  style={{ pointerEvents: "none" }}
                 />
-                <p className="text-white mt-2 text-center">{anime.name}</p>
+                <p className={`text-white mt-2 text-center ${anime.tag}`}>{anime.name}</p>
               </div>
             ))}
 
@@ -132,7 +174,7 @@ export default function Home() {
                   className="rounded-xl"
                   style={{ pointerEvents: "none" }}
                 />
-                <p className="text-white mt-2">{music.name}</p>
+                <p className={`text-white mt-2 text-center ${music.tag}`}>{music.name}</p>
                 <br></br>
                 <Image
                   src={`/images/about/music/${music.img2}`}
@@ -141,7 +183,7 @@ export default function Home() {
                   height={300}
                   className="rounded-xl"
                 />
-                <p className="text-white mt-2">{music.name2}</p>
+                <p className={`text-white mt-2 text-center ${music.tag2}`}>{music.name2}</p>
               </div>
             ))}
 
@@ -160,7 +202,7 @@ export default function Home() {
                   className="rounded-xl"
                   style={{ pointerEvents: "none" }}
                 />
-                <p className="text-white mt-2">{game.name}</p>
+                  <p className={`text-white mt-2 text-center ${game.tag}`}>{game.name}</p>
                 <br></br>
                 <Image
                   src={`/images/about/games/${game.img2}`}
@@ -169,7 +211,7 @@ export default function Home() {
                   height={200}
                   className="rounded-xl"
                 />
-                <p className="text-white mt-2">{game.name2}</p>
+                <p className={`text-white mt-2 text-center ${game.tag2}`}>{game.name2}</p>
               </div>
             ))}
 
