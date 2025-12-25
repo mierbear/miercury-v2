@@ -9,7 +9,6 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
-import { log } from "console";
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
@@ -130,7 +129,6 @@ export default function Home() {
               <h1 className="font-bold text-2xl">to do list</h1>
               <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
               <p className="text-xl font-bold">TO-DO: </p>
-              <p className="text-sm">● finish secret santa</p>
               <p className="text-sm">● make the pp page</p>
               <p className="text-sm">● make the about me page</p>
               <p className="text-sm">● make the ocs page</p>
@@ -141,6 +139,7 @@ export default function Home() {
               <p className="text-sm">● add more ppl to stars bg</p>
               <p className="text-sm">● finish the gsap course</p>
               <p className="text-sm">● make the moon an svg to make it look good on phone..</p>
+              <p className="text-sm">● add image uploading function for tiptap</p>
               <p className="text-sm">● add all old posts from the old miercury websites here</p>
               <p className="text-sm">● set subdomains for characters/icemage/pp/etc.</p>
               <p className="text-sm">● make assets (a lot of it...)</p>
@@ -149,6 +148,7 @@ export default function Home() {
               <p className="text-sm">● add mier widget. (potentially make it persist across all routes)</p>
               <br></br>
               <p className="text-xl font-bold">DONE: </p>
+              <p className="text-sm">✔ finish secret santa</p>
               <p className="text-sm">✔ add more to the space background </p>
               <p className="text-sm">✔ implement editing posts with tiptap</p>
               <p className="text-sm">✔ implement tiptap on post dashboard</p>
