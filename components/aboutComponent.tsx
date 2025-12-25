@@ -21,8 +21,32 @@ export default function Home() {
     { name: "Pacific Purgatory", img: "pacificpurgatory.jpg", name2: "Steakfry", img2: "steakfry.jpg" },
     { name: "Creepy Nuts", img: "creepynuts.jpg", name2: "Vaundy", img2: "vaundy.jpg" },
     { name: "xi", img: "xi.jpg", name2: "ginkiha", img2: "ginkiha.jpg" },
-    { name: "System Of A Down", img: "soad.jpg", name2: "Linkin Park", img2: "linkinpark.jpg" },
+    { name: "System of a Down", img: "soad.jpg", name2: "Linkin Park", img2: "linkinpark.jpg" },
   ];
+
+  const favAnime = [
+    { name: "Migi & Dali", img: "migianddali.jpg" },
+    { name: "My Happy Marriage", img: "myhappymarriage.jpg" },
+    { name: "Assassination Classroom", img: "assassinationclassroom.jpg" },
+    { name: "The Apothecary Diaries", img: "apothecarydiaries.jpg" },
+    { name: "From Bureaucrat to Villainess: Dad's Been Reincarnated!", img: "villainess.jpg" },
+    { name: "Welcome to Demon School! Iruma-kun", img: "iruma.jpg" },
+    { name: "To Your Eternity", img: "toyoureternity.jpg" },
+    { name: "Detective Conan", img: "detectiveconan.jpg" },
+    { name: "Cowboy Bebop", img: "cowboybebop.jpg" },
+    { name: "One Piece", img: "onepiece.jpg" },
+    { name: "Odd Taxi", img: "oddtaxi.jpg" },
+    { name: "Paprika", img: "paprika.jpg" },
+    { name: "Monster", img: "monster.jpg" },
+    { name: "Frieren: Beyond Journey's End", img: "frieren.jpg" },
+    { name: "Gankutsuou: The Mount of Monte Cristo", img: "gankutsuou.jpg" },
+    { name: "Vinland Saga", img: "vinlandsaga.jpg" },
+    { name: "Ranking of Kings", img: "rankingofkings.jpg" },
+    { name: "Made in Abyss", img: "madeinabyss.jpg" },
+    { name: "Spy x Family", img: "spyxfamily.jpg" },
+    { name: "Gurren Lagann", img: "gurrenlagann.jpg" },
+    { name: "Code Geass", img: "codegeass.jpg" },
+  ]
 
   const [emblaRef] = useEmblaCarousel({
     loop: true,
@@ -30,64 +54,54 @@ export default function Home() {
     dragFree: true,
   });
 
-  const [openList, setOpenList] = useState(true);
+  const [activeList, setActiveList] = useState<"anime" | "music" | "games" | null>(null);
 
-  // const listCheck = () => {
-  //   if (openList) {
-  //     setOpenList(false);
-  //   } else {
-  //     setOpenList(true);
-  //   }
-  // }
+  const openGames = () => {
+    setActiveList("games");
+  }
 
   const openMusic = () => {
-    gsap.set(musicRef.current, { display: "flex" });
-    // setOpenList(true);
+    setActiveList("music");
   }
-  
+
+  const openAnime = () => {
+    setActiveList("anime");
+  }
+
   const closeList = () => {
-    gsap.set(musicRef.current, { display: "none" });
+    setActiveList(null);
   }
 
   return (
     <div className="min-w-screen min-h-screen grid grid-cols-[3.5fr_1fr] z-50">
       <div className="grid grid-rows-[1fr_6fr_1fr] z-50 bg-[#17191a]">
         <div className="flex items-end flex-col z-50 bg-[#17191a]">
-          <h1 className="text-white pt-2 pr-4 text-4xl cursor-pointer x nonsel" onClick={closeList}>✖</h1>
+          {activeList === null || (
+            <h1 className="text-white pt-2 pr-4 text-4xl cursor-pointer x nonsel" onClick={closeList}>✖</h1>
+          )}
         </div>
-        <div className="overflow-hidden flex items-center justify-center" ref={emblaRef}>
+        <div className="overflow-hidden flex items-center justify-center">
+          <div className="overflow-hidden flex items-center justify-center" ref={emblaRef}>
           {/* ANIME */}
-          {/* <div className="flex">
-            {favMusic.map((music, index) => (
+          <div className="flex">
+            {activeList === "anime" && favAnime.map((anime, index) => (
               <div
                 key={index}
-                className="flex-[0_0_80%] sm:flex-[0_0_25%] flex flex-col items-center justify-center py-2 nonsel"
+                className="flex-[0_0_80%] sm:flex-[0_0_25%] flex flex-col items-center py-2 nonsel"
                 draggable="false"
               >
                 <Image
-                  src={`/images/about/music/${music.img}`}
-                  alt={music.name}
+                  src={`/images/about/anime/${anime.img}`}
+                  alt={anime.name}
                   width={300}
                   height={300}
-                  className="rounded-xl"
+                  className="rounded-xl"style={{ pointerEvents: "none" }}
                 />
-                <p className="text-white mt-2">{music.name}</p>
-                <br></br>
-                <Image
-                  src={`/images/about/music/${music.img2}`}
-                  alt={music.name2}
-                  width={300}
-                  height={300}
-                  className="rounded-xl"
-                />
-                <p className="text-white mt-2">{music.name2}</p>
+                <p className="text-white mt-2 text-center">{anime.name}</p>
               </div>
             ))}
-          </div> */}
-          
-          {/* MUSIC */}
-          <div className="flex gap-2" ref={musicRef}>
-            {favMusic.map((music, index) => (
+
+            {activeList === "music" && favMusic.map((music, index) => (
               <div
                 key={index}
                 className="sm:flex-[0_0_40%] md:flex-[0_0_30%] xl:flex-[0_0_20%] flex flex-col items-center justify-center py-2 nonsel"
@@ -99,6 +113,7 @@ export default function Home() {
                   width={300}
                   height={300}
                   className="rounded-xl"
+                  style={{ pointerEvents: "none" }}
                 />
                 <p className="text-white mt-2">{music.name}</p>
                 <br></br>
@@ -113,9 +128,13 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          </div>
         </div>
         <div className="flex items-center justify-end flex-col z-50 bg-[#17191a]">
-          <p className="text-xs text-white/70 pb-1 nonsel">© respective creators / I don't own any images used above</p>
+          {activeList === null || (
+            <p className="text-xs text-white/70 pb-1 nonsel">© respective creators / I don't own any images used above</p>
+          )}
         </div>
       </div>
       <div className="flex px-5 justify-center flex-col z-50 bg-[#535961]/50 text-white">
@@ -128,8 +147,8 @@ export default function Home() {
         <p>● spirituality/mysticism</p>
         <p>● hermeticism/gnosticism/etc.</p>
         <p>● calisthenics/lifting</p>
-        <p className="italic">? <span className="underline cursor-pointer">games</span></p>
-        <p className="italic">? <span className="underline cursor-pointer">anime</span></p>
+        <p className="italic">? <span className="underline cursor-pointer" onClick={openGames}>games</span></p>
+        <p className="italic">? <span className="underline cursor-pointer" onClick={openAnime}>anime</span></p>
         <p className="italic">? <span className="underline cursor-pointer" onClick={openMusic}>music</span></p>
         <p>● coding</p>
         <p>● drawing</p>
