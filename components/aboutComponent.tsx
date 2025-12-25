@@ -2,8 +2,13 @@
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 
 export default function Home() {
+  const musicRef = useRef<HTMLDivElement | null>(null);
+  const animeRef = useRef<HTMLDivElement | null>(null);
+  const gamesRef = useRef<HTMLDivElement | null>(null);
 
   const favMusic = [
     { name: "TAK / DORIDORI", img: "tak.jpg", name2: "Chikoi The Maid", img2: "chikoi.jpg" },
@@ -23,14 +28,35 @@ export default function Home() {
     loop: true,
     align: "center",
     dragFree: true,
-    });
+  });
+
+  const [openList, setOpenList] = useState(true);
+
+  // const listCheck = () => {
+  //   if (openList) {
+  //     setOpenList(false);
+  //   } else {
+  //     setOpenList(true);
+  //   }
+  // }
+
+  const openMusic = () => {
+    gsap.set(musicRef.current, { display: "flex" });
+    // setOpenList(true);
+  }
+  
+  const closeList = () => {
+    gsap.set(musicRef.current, { display: "none" });
+  }
 
   return (
     <div className="min-w-screen min-h-screen grid grid-cols-[3.5fr_1fr] z-50">
       <div className="grid grid-rows-[1fr_6fr_1fr] z-50 bg-[#17191a]">
-        <div className="flex items-center justify-center flex-col z-50 bg-[#17191a]">
+        <div className="flex items-end flex-col z-50 bg-[#17191a]">
+          <h1 className="text-white pt-2 pr-4 text-4xl cursor-pointer x nonsel" onClick={closeList}>✖</h1>
         </div>
         <div className="overflow-hidden flex items-center justify-center" ref={emblaRef}>
+          {/* ANIME */}
           {/* <div className="flex">
             {favMusic.map((music, index) => (
               <div
@@ -58,11 +84,13 @@ export default function Home() {
               </div>
             ))}
           </div> */}
-          <div className="flex">
+          
+          {/* MUSIC */}
+          <div className="flex gap-2" ref={musicRef}>
             {favMusic.map((music, index) => (
               <div
                 key={index}
-                className="flex-[0_0_80%] sm:flex-[0_0_25%] flex flex-col items-center justify-center py-2 nonsel"
+                className="sm:flex-[0_0_40%] md:flex-[0_0_30%] xl:flex-[0_0_20%] flex flex-col items-center justify-center py-2 nonsel"
                 draggable="false"
               >
                 <Image
@@ -86,7 +114,8 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="flex items-center justify-center flex-col z-50 bg-[#17191a]">
+        <div className="flex items-center justify-end flex-col z-50 bg-[#17191a]">
+          <p className="text-xs text-white/70 pb-1 nonsel">© respective creators / I don't own any images used above</p>
         </div>
       </div>
       <div className="flex px-5 justify-center flex-col z-50 bg-[#535961]/50 text-white">
@@ -101,7 +130,7 @@ export default function Home() {
         <p>● calisthenics/lifting</p>
         <p className="italic">? <span className="underline cursor-pointer">games</span></p>
         <p className="italic">? <span className="underline cursor-pointer">anime</span></p>
-        <p className="italic">? <span className="underline cursor-pointer">music</span></p>
+        <p className="italic">? <span className="underline cursor-pointer" onClick={openMusic}>music</span></p>
         <p>● coding</p>
         <p>● drawing</p>
         <br></br>

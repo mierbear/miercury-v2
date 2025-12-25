@@ -87,6 +87,11 @@ p {
   background-color: rgb(32, 33, 34);
 }
 
+.x:hover {
+  color: red;
+  cursor: pointer;
+}
+
 /* .moon {
   transition: transform .6s ease;
 }
