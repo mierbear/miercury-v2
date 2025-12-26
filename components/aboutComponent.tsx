@@ -4,101 +4,103 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import TooltipComponent from "@/components/tooltipComponent";
 
 export default function Home() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
+  const aboutRef = useRef<HTMLDivElement | null>(null);
 
   // this code is such a mess LOL
   const favMusic = [
-      {  tag: "love", name: "TAK / DORIDORI", img: "tak.jpg",
-      tag2: "love", name2: "Chikoi The Maid", img2: "chikoi.jpg" },
+      {  comment: "", tag: "love", name: "TAK / DORIDORI", img: "tak.jpg",
+      comment2: "", tag2: "love", name2: "Chikoi The Maid", img2: "chikoi.jpg" },
     
-      {  tag: "best", name: "Pink Guy", img: "pinkguy.jpg",
-      tag2: "", name2: "Joji", img2: "joji.jpg" },
+      {  comment: "", tag: "best", name: "Pink Guy", img: "pinkguy.jpg",
+      comment2: "", tag2: "best", name2: "Joji", img2: "joji.jpg" },
     
-      {  tag: "love", name: "Sasuke Haraguchi", img: "sasukeharaguchi.jpg",
-      tag2: "love", name2: "Deco*27", img2: "deco27.jpg" },
+      {  comment: "", tag: "love", name: "Sasuke Haraguchi", img: "sasukeharaguchi.jpg",
+      comment2: "", tag2: "love", name2: "Deco*27", img2: "deco27.jpg" },
       
-      {  tag: "", name: "Uplift Spice", img: "upliftspice.jpg",
-      tag2: "", name2: "Kikuo", img2: "kikuo.jpg" },
+      {  comment: "", tag: "", name: "Uplift Spice", img: "upliftspice.jpg",
+      comment2: "", tag2: "", name2: "Kikuo", img2: "kikuo.jpg" },
     
-      {  tag: "", name: "Kinoue64", img: "kinoue64.jpg",
-      tag2: "", name2: "Dusqk", img2: "dusqk.jpg" },
+      {  comment: "", tag: "", name: "Kinoue64", img: "kinoue64.jpg",
+      comment2: "", tag2: "", name2: "Dusqk", img2: "dusqk.jpg" },
     
-      {  tag: "love", name: "Porter Pobinson", img: "porterrobinson.jpg",
-      tag2: "love", name2: "Kanye West", img2: "kanye.jpg" },
+      {  comment: "", tag: "love", name: "Porter Pobinson", img: "porterrobinson.jpg",
+      comment2: "", tag2: "love", name2: "Kanye West", img2: "kanye.jpg" },
     
-      {  tag: "", name: "Kinoko Teikoku", img: "kinokoteikoku.jpg",
-      tag2: "", name2: "My Dead Girlfriend", img2: "mydeadgirlfriend.jpg" },
+      {  comment: "", tag: "", name: "Kinoko Teikoku", img: "kinokoteikoku.jpg",
+      comment2: "", tag2: "", name2: "My Dead Girlfriend", img2: "mydeadgirlfriend.jpg" },
     
-      {  tag: "", name: "Pacific Purgatory", img: "pacificpurgatory.jpg",
-      tag2: "", name2: "Steakfry", img2: "steakfry.jpg" },
+      {  comment: "", tag: "", name: "Pacific Purgatory", img: "pacificpurgatory.jpg",
+      comment2: "", tag2: "", name2: "Steakfry", img2: "steakfry.jpg" },
     
-      {  tag: "love", name: "Creepy Nuts", img: "creepynuts.jpg",
-      tag2: "", name2: "Vaundy", img2: "vaundy.jpg" },
+      {  comment: "", tag: "love", name: "Creepy Nuts", img: "creepynuts.jpg",
+      comment2: "", tag2: "", name2: "Vaundy", img2: "vaundy.jpg" },
     
-      {  tag: "", name: "xi", img: "xi.jpg",
-      tag2: "", name2: "ginkiha", img2: "ginkiha.jpg" },
+      {  comment: "", tag: "", name: "xi", img: "xi.jpg",
+      comment2: "", tag2: "", name2: "ginkiha", img2: "ginkiha.jpg" },
     
-      {  tag: "", name: "System of a Down", img: "soad.jpg",
-      tag2: "love", name2: "Linkin Park", img2: "linkinpark.jpg" },
+      {  comment: "", tag: "", name: "System of a Down", img: "soad.jpg",
+      comment2: "", tag2: "love", name2: "Linkin Park", img2: "linkinpark.jpg" },
   ];
 
   const favGames = [
-      {  tag: "best", name: "Rimworld", img: "rimworld.jpg",
-      tag2: "", name2: "Risk of Rain 2", img2: "ror2.jpg" },
+      {  comment: "everytime i start the game i end up playing for more than 20 hours xd", tag: "best", name: "Rimworld", img: "rimworld.jpg",
+      comment2: "", tag2: "", name2: "Risk of Rain 2", img2: "ror2.jpg" },
 
-      {  tag: "best", name: "7k osu!mania", img: "osu.jpg",
-      tag2: "", name2: "Skyrim", img2: "skyrim.jpg" },
+      {  comment: "7k mania is my crack cocaine...", tag: "best", name: "osu!", img: "osu.jpg",
+      comment2: "", tag2: "", name2: "Skyrim", img2: "skyrim.jpg" },
     
-      {  tag: "love", name: "Starbound", img: "starbound.jpg",
-      tag2: "love", name2: "Terraria", img2: "terraria.jpg" },
+      {  comment: "", tag: "love", name: "Starbound", img: "starbound.jpg",
+      comment2: "", tag2: "love", name2: "Terraria", img2: "terraria.jpg" },
     
-      {  tag: "", name: "Undertale", img: "undertale.jpg",
-      tag2: "", name2: "Omori", img2: "omori.jpg" },
+      {  comment: "", tag: "", name: "Undertale", img: "undertale.jpg",
+      comment2: "legit actually mid but still holds a really special place in my heart lol", tag2: "", name2: "Omori", img2: "omori.jpg" },
     
-      {  tag: "", name: "Dead Cells", img: "deadcells.jpg",
-      tag2: "", name2: "Escape from Duckov", img2: "duckov.jpg" },
+      {  comment: "", tag: "", name: "Dead Cells", img: "deadcells.jpg",
+      comment2: "", tag2: "", name2: "Escape from Duckov", img2: "duckov.jpg" },
     
-      {  tag: "", name: "Echo Point Nova", img: "echopointnova.jpg",
-      tag2: "", name2: "Elden Ring", img2: "eldenring.jpg" },
+      {  comment: "", tag: "", name: "Echo Point Nova", img: "echopointnova.jpg",
+      comment2: "", tag2: "", name2: "Elden Ring", img2: "eldenring.jpg" },
     
-      {  tag: "", name: "Monster Hunter Rise", img: "mhr.jpg",
-      tag2: "", name2: "Fear and Hunger", img2: "fah.jpg" },
+      {  comment: "", tag: "", name: "Monster Hunter Rise", img: "mhr.jpg",
+      comment2: "", tag2: "", name2: "Fear and Hunger", img2: "fah.jpg" },
     
-      {  tag: "", name: "Minecraft", img: "minecraft.jpg",
-      tag2: "", name2: "Left 4 Dead 2", img2: "l4d2.jpg" },
+      {  comment: "rlcraft is the only thing that makes me wanna play it ngl", tag: "", name: "Minecraft", img: "minecraft.jpg",
+      comment2: "", tag2: "", name2: "Left 4 Dead 2", img2: "l4d2.jpg" },
     
-      {  tag: "", name: "Balatro", img: "balatro.jpg",
-      tag2: "", name2: "Slay The Spire", img2: "slaythespire.jpg" },
+      {  comment: "i love gambling", tag: "", name: "Balatro", img: "balatro.jpg",
+      comment2: "", tag2: "", name2: "Slay The Spire", img2: "slaythespire.jpg" },
     
-      {  tag: "", name: "Cry of Fear", img: "cof.jpg",
-      tag2: "", name2: "Metaphor: ReFantazio", img2: "metaphor.jpg" },
-  ]
+      {  comment: "", tag: "", name: "Cry of Fear", img: "cof.jpg",
+      comment2: "", tag2: "", name2: "Metaphor: ReFantazio", img2: "metaphor.jpg" },
+  ];
 
   const favAnime = [
-    {  tag: "best", name: "Code Geass", img: "codegeass.jpg" },
-    {  tag: "best", name: "Gurren Lagann", img: "gurrenlagann.jpg" },
-    {  tag: "best", name: "Gankutsuou: The Mount of Monte Cristo", img: "gankutsuou.jpg" },
-    {  tag: "best", name: "Monster", img: "monster.jpg" },
-    {  tag: "love", name: "Ranking of Kings", img: "rankingofkings.jpg" },
-    {  tag: "love", name: "Vinland Saga", img: "vinlandsaga.jpg" },
-    {  tag: "love", name: "Made in Abyss", img: "madeinabyss.jpg" },
-    {  tag: "love", name: "Spy x Family", img: "spyxfamily.jpg" },
-    {  tag: "", name: "Migi & Dali", img: "migianddali.jpg" },
-    {  tag: "", name: "My Happy Marriage", img: "myhappymarriage.jpg" },
-    {  tag: "", name: "Assassination Classroom", img: "assassinationclassroom.jpg" },
-    {  tag: "", name: "The Apothecary Diaries", img: "apothecarydiaries.jpg" },
-    {  tag: "", name: "From Bureaucrat to Villainess: Dad's Been Reincarnated!", img: "villainess.jpg" },
-    {  tag: "", name: "Welcome to Demon School! Iruma-kun", img: "iruma.jpg" },
-    {  tag: "", name: "To Your Eternity", img: "toyoureternity.jpg" },
-    {  tag: "", name: "Detective Conan", img: "detectiveconan.jpg" },
-    {  tag: "", name: "Cowboy Bebop", img: "cowboybebop.jpg" },
-    {  tag: "", name: "One Piece", img: "onepiece.jpg" },
-    {  tag: "", name: "Odd Taxi", img: "oddtaxi.jpg" },
-    {  tag: "", name: "Paprika", img: "paprika.jpg" },
-    {  tag: "", name: "Frieren: Beyond Journey's End", img: "frieren.jpg" },
-  ]
+    {  comment: "its my absolute favorite. chokes me up when i think about it vro..", tag: "best", name: "Gurren Lagann", img: "gurrenlagann.jpg" },
+    {  comment: "", tag: "best", name: "Code Geass", img: "codegeass.jpg" },
+    {  comment: "crazy tearjerker", tag: "love", name: "Ranking of Kings", img: "rankingofkings.jpg" },
+    {  comment: "", tag: "love", name: "Spy x Family", img: "spyxfamily.jpg" },
+    {  comment: "", tag: "", name: "The Apothecary Diaries", img: "apothecarydiaries.jpg" },
+    {  comment: "", tag: "", name: "My Happy Marriage", img: "myhappymarriage.jpg" },
+    {  comment: "", tag: "", name: "From Bureaucrat to Villainess: Dad's Been Reincarnated!", img: "villainess.jpg" },
+    {  comment: "", tag: "", name: "Welcome to Demon School! Iruma-kun", img: "iruma.jpg" },
+    {  comment: "", tag: "", name: "Migi & Dali", img: "migianddali.jpg" },
+    {  comment: "", tag: "", name: "Assassination Classroom", img: "assassinationclassroom.jpg" },
+    {  comment: "", tag: "", name: "One Piece", img: "onepiece.jpg" },
+    {  comment: "", tag: "", name: "Odd Taxi", img: "oddtaxi.jpg" },
+    {  comment: "", tag: "", name: "Cowboy Bebop", img: "cowboybebop.jpg" },
+    {  comment: "", tag: "", name: "Paprika", img: "paprika.jpg" },
+    {  comment: "", tag: "", name: "Detective Conan", img: "detectiveconan.jpg" },
+    {  comment: "", tag: "", name: "Frieren: Beyond Journey's End", img: "frieren.jpg" },
+    {  comment: "", tag: "love", name: "To Your Eternity", img: "toyoureternity.jpg" },
+    {  comment: "", tag: "love", name: "Made in Abyss", img: "madeinabyss.jpg" },
+    {  comment: "", tag: "love", name: "Vinland Saga", img: "vinlandsaga.jpg" },
+    {  comment: "", tag: "best", name: "Monster", img: "monster.jpg" },
+    {  comment: "", tag: "best", name: "Gankutsuou: The Mount of Monte Cristo", img: "gankutsuou.jpg" },
+  ];
 
   const [emblaRef] = useEmblaCarousel({
     loop: true,
@@ -140,6 +142,37 @@ export default function Home() {
     gsap.fromTo(carouselRef.current, { opacity: 0, }, { opacity: 1, duration: 1, ease: "power2.out" });
   }, [activeList]);
 
+  const birthYear = 2002;
+  const birthMonth = 10;
+  const birthDay = 11;
+
+  const today = new Date();
+  const currentYear = today.getFullYear();
+
+  const birthdayThisYear = new Date(currentYear, birthMonth - 1, birthDay);
+
+  let age = currentYear - birthYear;
+  if (today < birthdayThisYear) {
+    age--;
+  }
+
+  const [tooltipText, setTooltipText] = useState("meowmeow");
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+
+  const hoverHandle = (comment: string) => {
+    if (comment === "") {
+      setTooltipVisible(false);
+    } else {
+      setTooltipVisible(true);
+      setTooltipText(comment);
+    }
+    // console.log(`showing tooltip: ${comment}`);
+  }
+
+  const unhoverHandle = () => {
+    setTooltipVisible(false);
+  }
+
   return (
     <div className="min-w-screen min-h-screen max-h-screen grid grid-rows-[1.5fr_2fr] grid-cols-1 md:grid-rows-1 md:grid-cols-[4fr_2fr] z-50">
       
@@ -168,7 +201,9 @@ export default function Home() {
                       (max-width: 1280px) 160px,
                       192px
                       "
-                      className="rounded-xl object-cover"
+                      className="poster rounded-xl object-cover"
+                      onMouseEnter={() => {hoverHandle(anime.comment)}}
+                      onMouseLeave={unhoverHandle}
                     />
                   </div>
                   <p className={`text-white mt-2 text-center ${anime.tag}`}>{anime.name}</p>
@@ -192,7 +227,9 @@ export default function Home() {
                       (max-width: 1280px) 160px,
                       192px
                       "
-                      className="rounded-xl object-cover"
+                      className="poster rounded-xl object-cover"
+                      onMouseEnter={() => {hoverHandle(music.comment)}}
+                      onMouseLeave={unhoverHandle}
                     />
                   </div>
                   <p className={`text-white mt-2 text-center ${music.tag}`}>{music.name}</p>
@@ -207,7 +244,9 @@ export default function Home() {
                       (max-width: 1280px) 160px,
                       192px
                       "
-                      className="rounded-xl object-cover"
+                      className="poster rounded-xl object-cover"
+                      onMouseEnter={() => {hoverHandle(music.comment2)}}
+                      onMouseLeave={unhoverHandle}
                     />
                   </div>
                   <p className={`text-white mt-2 text-center ${music.tag2}`}>{music.name2}</p>
@@ -220,7 +259,6 @@ export default function Home() {
                   key={index}
                   className="flex-[0_0_12%] flex flex-col items-center py-2 nonsel"
                   draggable="false"
-                  style={{ pointerEvents: "none" }}
                 >
                   <div className="relative w-32 h-48 sm:w-40 sm:h-60 xl:w-48 xl:h-72">
                     <Image
@@ -232,7 +270,9 @@ export default function Home() {
                       (max-width: 1280px) 160px,
                       192px
                       "
-                      className="rounded-xl object-cover"
+                      className="poster rounded-xl object-cover"
+                      onMouseEnter={() => {hoverHandle(game.comment)}}
+                      onMouseLeave={unhoverHandle}
                     />
                   </div>
 
@@ -248,7 +288,9 @@ export default function Home() {
                       (max-width: 1280px) 160px,
                       192px
                       "
-                      className="rounded-xl object-cover"
+                      className="poster rounded-xl object-cover"
+                      onMouseEnter={() => {hoverHandle(game.comment2)}}
+                      onMouseLeave={unhoverHandle}
                     />
                   </div>
                   <p className={`text-white mt-2 text-center ${game.tag2}`}>{game.name2}</p>
@@ -271,10 +313,11 @@ export default function Home() {
       </div>
 
 
-      <div className="flex p-8 justify-center max-h-screen flex-col z-60 bg-linear-to-r bg-black text-white order-1 md:order-2 md:text-sm text-xs">
+      <div className="flex p-8 justify-center max-h-screen flex-col z-60 bg-linear-to-r bg-black text-white order-1 md:order-2 md:text-sm text-xs"
+      ref={aboutRef}>
 
-        <h1 className="font-bold">about me</h1>
-        <h4>KYLE | 23 | INTJ | LIBRA</h4>
+        <h1 className="font-bold">About me:</h1>
+        <h4>Kyle | {age} | INTJ | Libra</h4>
         <br></br>
         <p className="font-bold">things i like:</p>
         <p>● playing piano/guitar</p>
@@ -292,6 +335,9 @@ export default function Home() {
         <p>● ants</p>
           
       </div>
+
+      <TooltipComponent info={tooltipText} status={tooltipVisible} />
+
     </div>
   );
 }

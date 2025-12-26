@@ -50,6 +50,15 @@ p {
   user-select: none;
 }
 
+.poster {
+  transition: all .3s ease;
+}
+
+.poster:hover {
+  filter: drop-shadow(0px 0px 5px #FFFFFF);
+  transform: scale(1.02);
+}
+
 .linkButton:hover {
   cursor: pointer;
   filter: drop-shadow(0px 0px 5px #FFFFFF);
