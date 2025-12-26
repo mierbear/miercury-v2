@@ -2,11 +2,13 @@
 import Image from "next/image";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { useEffect, useRef, useState } from "react";
+import { use, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import TooltipComponent from "@/components/tooltipComponent";
 
 export default function Home() {
+  const moreInfoRef = useRef<HTMLDivElement | null>(null);
+  const moreInfoTextRef = useRef<HTMLDivElement | null>(null);
   const carouselRef = useRef<HTMLDivElement | null>(null);
   const aboutRef = useRef<HTMLDivElement | null>(null);
 
@@ -68,14 +70,14 @@ export default function Home() {
       {  comment: "", tag: "", name: "Monster Hunter Rise", img: "mhr.jpg",
       comment2: "", tag2: "", name2: "Fear and Hunger", img2: "fah.jpg" },
     
-      {  comment: "rlcraft is the only thing that makes me wanna play it ngl", tag: "", name: "Minecraft", img: "minecraft.jpg",
-      comment2: "", tag2: "", name2: "Left 4 Dead 2", img2: "l4d2.jpg" },
-    
       {  comment: "i love gambling", tag: "", name: "Balatro", img: "balatro.jpg",
       comment2: "", tag2: "", name2: "Slay The Spire", img2: "slaythespire.jpg" },
     
       {  comment: "", tag: "", name: "Cry of Fear", img: "cof.jpg",
       comment2: "", tag2: "", name2: "Metaphor: ReFantazio", img2: "metaphor.jpg" },
+
+      {  comment: "rlcraft is the only thing that makes me wanna play it ngl", tag: "love", name: "Minecraft", img: "minecraft.jpg",
+      comment2: "", tag2: "", name2: "Left 4 Dead 2", img2: "l4d2.jpg" },
   ];
 
   const favAnime = [
@@ -99,7 +101,7 @@ export default function Home() {
     {  comment: "", tag: "love", name: "Made in Abyss", img: "madeinabyss.jpg" },
     {  comment: "", tag: "love", name: "Vinland Saga", img: "vinlandsaga.jpg" },
     {  comment: "", tag: "best", name: "Monster", img: "monster.jpg" },
-    {  comment: "", tag: "best", name: "Gankutsuou: The Mount of Monte Cristo", img: "gankutsuou.jpg" },
+    {  comment: "", tag: "best", name: "Gankutsuou: The Count of Monte Cristo", img: "gankutsuou.jpg" },
   ];
 
   const [emblaRef] = useEmblaCarousel({
@@ -172,6 +174,63 @@ export default function Home() {
   const unhoverHandle = () => {
     setTooltipVisible(false);
   }
+
+  const tl = gsap.timeline();
+
+  const [moreInfoVisible, setMoreInfoVisible] = useState(false);
+  
+  const openMoreInfo = () => {
+    tl.set(moreInfoTextRef.current, { pointerEvents: "none" });
+
+    if (moreInfoVisible) {
+      tl
+      .to(moreInfoRef.current, { yPercent: -100, duration: 1, ease: "power2.out" })
+      .to(aboutRef.current, { yPercent: 0, duration: 1, ease: "power2.out" }, "<")
+      moreInfoTextRef.current!.textContent = "more about me";
+      setMoreInfoVisible(false);
+      setHappy(true);
+      changeEmoji();
+    } else {
+      tl
+      .to(moreInfoRef.current, { yPercent: 0, duration: 1, ease: "power2.out" })
+      .to(aboutRef.current, { yPercent: -10, duration: 1, ease: "power2.out" }, "<")
+      moreInfoTextRef.current!.textContent = "less about me..";
+      setMoreInfoVisible(true);
+      setHappy(false);
+      changeEmoji();
+    }
+    
+    tl.set(moreInfoTextRef.current, { pointerEvents: "all"});
+  }
+
+  const [happy, setHappy] = useState(true);
+
+  const sadFaces = ["u_u", "T_T", "ヽ(*。>Д<)o゜",];
+  const happyFaces = [":3", ":D", "(•ˋ _ ˊ•)", "o(〃◕ ヮ ◕〃)o"];
+
+  const randomizer = (arr: string[]) => {
+    return arr[Math.trunc((Math.random() * arr.length))];
+  };
+
+  const [emoji, setEmoji] = useState(":3");
+
+  const changeEmoji = () => {
+    if (happy) {
+      console.log(`meow`);
+      setEmoji(randomizer(sadFaces));      
+    } else {
+      setEmoji(randomizer(happyFaces));
+    }
+  }
+
+  gsap.set(moreInfoRef.current, { autoAlpha: 1 });
+
+  useEffect(() => {
+    if (!moreInfoRef.current) return;
+
+    gsap.set(moreInfoRef.current, { yPercent: -100 });
+  }, []);
+
 
   return (
     <div className="min-w-screen min-h-screen max-h-screen grid grid-rows-[1.5fr_2fr] grid-cols-1 md:grid-rows-1 md:grid-cols-[4fr_2fr] z-50">
@@ -313,27 +372,46 @@ export default function Home() {
       </div>
 
 
-      <div className="flex p-8 justify-center max-h-screen flex-col z-60 bg-linear-to-r bg-black text-white order-1 md:order-2 md:text-sm text-xs"
-      ref={aboutRef}>
+      <div className="flex p-8 justify-center max-h-screen flex-col z-60 bg-linear-to-r bg-black text-white order-1 md:order-2 md:text-sm text-xs">
 
-        <h1 className="font-bold">About me:</h1>
-        <h4>Kyle | {age} | INTJ | Libra</h4>
-        <br></br>
-        <p className="font-bold">things i like:</p>
-        <p>● playing piano/guitar</p>
-        <p>● spirituality/mysticism</p>
-        <p>● hermeticism/gnosticism/etc.</p>
-        <p>● calisthenics/lifting</p>
-        <p className="italic">? <span className="underline cursor-pointer" onClick={openGames}>games</span></p>
-        <p className="italic">? <span className="underline cursor-pointer" onClick={openAnime}>anime</span></p>
-        <p className="italic">? <span className="underline cursor-pointer" onClick={openMusic}>music</span></p>
-        <p>● coding</p>
-        <p>● drawing</p>
-        <br></br>
-        <p className="font-bold">things i dislike:</p>
-        <p>● nihilism/negativity</p>
-        <p>● ants</p>
-          
+        <div className="flex justify-center flex-col mt-5" ref={aboutRef}>
+
+        <div className="bg-black z-55 shadow-below">
+          <h1 className="font-bold">About me:</h1>
+          <h4>Kyle | {age} | INTJ | Libra</h4>
+          <hr className="my-2 border-white/20" />
+          <p className="font-bold">things i like:</p>
+          <p>● playing piano/guitar</p>
+          <p>● spirituality/mysticism</p>
+          <p>● hermeticism/gnosticism/etc.</p>
+          <p>● calisthenics/lifting</p>
+          <p className="italic text-yellow-200">? <span className="underline cursor-pointer" onClick={openGames}>games</span></p>
+          <p className="italic text-yellow-200">? <span className="underline cursor-pointer" onClick={openAnime}>anime</span></p>
+          <p className="italic text-yellow-200">? <span className="underline cursor-pointer" onClick={openMusic}>music</span></p>
+          <p>● coding</p>
+          <p>● drawing</p>
+          <hr className="my-2 border-white/20" />
+          <p className="font-bold">things i dislike:</p>
+          <p>● nihilism/negativity</p>
+          <p>● ants</p>
+          <hr className="my-2 border-white/20" />
+          <h2 className="italic text-yellow-200 cursor-pointer"><span className="underline" onClick={openMoreInfo} ref={moreInfoTextRef} >more about me</span> {emoji}</h2>
+        </div>
+        
+        <div 
+          className="z-50 flex flex-col pt-3 opacity-0 text-xs" 
+          ref={moreInfoRef} 
+        >
+          <p>- im a weeb</p>
+          <p>- i like to ragebait</p>
+          <p>- i like looking into conspiracies theories for fun</p>
+          <p>- dont take everything i say seriously</p>
+          <p>- if i've pissed you off before, i love you</p>
+          <p>- if you think we can be good friends, dont hesitate to reach out</p>
+        </div>
+
+        </div>
+
       </div>
 
       <TooltipComponent info={tooltipText} status={tooltipVisible} />

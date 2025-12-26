@@ -39,18 +39,18 @@ export default function Tooltip({ info, status }: TooltipProps) {
         fixed
         z-1000
         -translate-x-1/2 -translate-y-full
-        bg-black text-white
+        bg-black/80 text-white
         p-1
-        rounded-sm
+        rounded-xs
         text-sm
         border border-white
         transition-opacity duration-150
-        max-w-[20em]
+        max-w-[22em]
         text-center
         ${status? "visible" : "invisible"}
       `}
     >
-      {info}
+      <p>{info}</p>
     </div>
   );
 }

@@ -117,6 +117,14 @@ p {
   animation: love 1s ease-in-out infinite;
 }
 
+.animated {
+  transition: all .6s ease;
+}
+
+.shadow-below {
+  box-shadow: 0px 6px 6px 5px rgba(0, 0, 0, 1);
+}
+
 @keyframes rainbow {
   0% {
     color: rgb(255, 70, 70);
