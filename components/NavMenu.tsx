@@ -5,6 +5,7 @@ import { SplitText } from "gsap/SplitText";
 import { Boldonse } from "next/font/google"
 import { useEffect, useRef, useState } from "react";
 import NextLink from "next/link";
+import { usePathname } from "next/navigation";
 
 gsap.registerPlugin(CustomEase);
 
@@ -78,7 +79,7 @@ const NavMenu = (props: { open: boolean }) => {
           from: "end"
         },
         ease: "back.inOut",
-        delay: .5,
+        delay: .4,
       })
 
       return () => {
@@ -391,6 +392,9 @@ const NavMenu = (props: { open: boolean }) => {
 
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
+
+  const pathname = usePathname();
+  console.log(pathname);
 
   return (
     <div>

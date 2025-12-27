@@ -130,7 +130,8 @@ export default function Home() {
               <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
               <p className="text-xl font-bold">TO-DO: </p>
               <p className="text-sm">● make the pp page</p>
-              <p className="text-sm">● make the about me page</p>
+              <p className="text-sm">● set up atabook</p>
+              <p className="text-sm">● set up different 'moons' for each route</p>
               <p className="text-sm">● make the ocs page</p>
               <p className="text-sm">● make the gallery page</p>
               <p className="text-sm">● make the mtwim page</p>
@@ -145,9 +146,12 @@ export default function Home() {
               <p className="text-sm">● make assets (a lot of it...)</p>
               <p className="text-sm">● make assets for mtwim</p>
               <p className="text-sm">● make assets for characters</p>
+              <p className="text-sm">● add more to the about me page</p>
+              <p className="text-sm">● set up pp newspaper submissions</p>
               <p className="text-sm">● add mier widget. (potentially make it persist across all routes)</p>
               <br></br>
               <p className="text-xl font-bold">DONE: </p>
+              <p className="text-sm">✔ make the about me page</p>
               <p className="text-sm">✔ finish secret santa</p>
               <p className="text-sm">✔ add more to the space background </p>
               <p className="text-sm">✔ implement editing posts with tiptap</p>

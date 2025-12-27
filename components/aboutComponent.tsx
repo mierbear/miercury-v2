@@ -372,38 +372,38 @@ export default function Home() {
       </div>
 
 
-      <div className="flex p-8 justify-center max-h-screen flex-col z-60 bg-linear-to-r bg-black text-white order-1 md:order-2 md:text-sm text-xs">
+      <div className="flex p-8 pb-0 justify-center max-h-screen flex-col z-60 bg-linear-to-r bg-black text-white order-1 md:order-2 md:text-sm text-xs">
 
-        <div className="flex justify-center flex-col mt-5" ref={aboutRef}>
+        <div className="flex justify-center flex-col mt-10" ref={aboutRef}>
 
         <div className="bg-black z-55 shadow-below">
-          <h1 className="font-bold">About me:</h1>
-          <h4>Kyle | {age} | INTJ | Libra</h4>
+          <h1 className="font-bold text-3xl">About me:</h1>
+          <p>Kyle | {age} | INTJ | Libra</p>
           <hr className="my-2 border-white/20" />
-          <p className="font-bold">things i like:</p>
+          <h3 className="font-bold pb-1">things i like:</h3>
           <p>● playing piano/guitar</p>
           <p>● spirituality/mysticism</p>
           <p>● hermeticism/gnosticism/etc.</p>
           <p>● calisthenics/lifting</p>
-          <p className="italic text-yellow-200">? <span className="underline cursor-pointer" onClick={openGames}>games</span></p>
-          <p className="italic text-yellow-200">? <span className="underline cursor-pointer" onClick={openAnime}>anime</span></p>
-          <p className="italic text-yellow-200">? <span className="underline cursor-pointer" onClick={openMusic}>music</span></p>
+          <p className="italic text-yellow-200">● <span className="underline cursor-pointer" onClick={openGames}>games</span></p>
+          <p className="italic text-yellow-200">● <span className="underline cursor-pointer" onClick={openAnime}>anime</span></p>
+          <p className="italic text-yellow-200">● <span className="underline cursor-pointer" onClick={openMusic}>music</span></p>
           <p>● coding</p>
           <p>● drawing</p>
           <hr className="my-2 border-white/20" />
-          <p className="font-bold">things i dislike:</p>
-          <p>● nihilism/negativity</p>
-          <p>● ants</p>
+          <h3 className="font-bold pb-1">things i dislike:</h3>
+          <p>🞨 nihilism/negativity</p>
+          <p>🞨 ants</p>
           <hr className="my-2 border-white/20" />
-          <h2 className="italic text-yellow-200 cursor-pointer"><span className="underline" onClick={openMoreInfo} ref={moreInfoTextRef} >more about me</span> {emoji}</h2>
+          <h2 className="italic text-yellow-200"><span className="underline cursor-pointer" onClick={openMoreInfo} ref={moreInfoTextRef} >more about me</span> {emoji}</h2>
         </div>
         
         <div 
-          className="z-50 flex flex-col pt-3 opacity-0 text-xs" 
+          className="z-50 flex flex-col pt-3 opacity-0" 
           ref={moreInfoRef} 
         >
           <p>- im a weeb</p>
-          <p>- i like to ragebait</p>
+          <p>- i like to ragebait my friends</p>
           <p>- i like looking into conspiracies theories for fun</p>
           <p>- dont take everything i say seriously</p>
           <p>- if i've pissed you off before, i love you</p>

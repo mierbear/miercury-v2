@@ -1,9 +1,8 @@
 import Image from "next/image";
+import PpComponent from "@/components/ppComponent";
 
 export default function Home() {
   return (
-    <main className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col">
-      <h1>pp</h1>
-    </main>
+    <PpComponent />
   );
 }
