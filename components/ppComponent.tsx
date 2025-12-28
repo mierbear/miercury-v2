@@ -2,6 +2,7 @@
 import { Bodoni_Moda, Questrial } from "next/font/google"
 import { use, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
+import Tooltip from "@/components/tooltipComponent";
 
 const font = Bodoni_Moda({
   weight: "400",
@@ -29,18 +30,21 @@ export default function Home() {
   useEffect(() => setReady(true), []);
 
   const [mierHover, setMierHover] = useState(false);
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   const mierHoverHandler = () => {
     setMierHover(true);
+    setTooltipVisible(true);
   }
   
   const mierUnhoverHandler = () => {
     setMierHover(false);
+    setTooltipVisible(false);
   }
 
   const news = [`— the secret santa event is over, thank you to those who participated <3 check out the secret santa gallery to see the results! — have a merry christmas and a happy new year! —`];
 
-  const [currentTab, setCurrentTab] = useState<"about" | "lore" | "characters">("about")
+  const [currentTab, setCurrentTab] = useState<"about" | "lore" | "characters" | "home">("about")
   
   return (
     <main className="min-w-screen min-h-screen flex flex-col z-50 bg-[#c1f8ff]">
@@ -74,11 +78,19 @@ export default function Home() {
 
             </div>
 
-            {/* TABS */}
+
             <div className="grid grid-cols-[1fr_4fr]">
-              <div className="flex flex-col">
+
+               {/* LEFT COL */}
+              <div className="flex flex-col justify-between">
+
+                {/* TABS */}
                 <div className="grid grid-rows-1 pt-4">
                   
+                  <button onClick={() => {setCurrentTab("home")}} className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
+                    Home
+                  </button>
+
                   <button onClick={() => {setCurrentTab("about")}} className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     About
                   </button>
@@ -104,6 +116,8 @@ export default function Home() {
                   </button>
                 
                 </div>
+
+                {/* MIERFISHING LINK */}
                 <div className="pt-[20vh] z-100">
                   <a 
                     href="https://mierbear.github.io/miercury/fish.html"
@@ -118,21 +132,47 @@ export default function Home() {
                     />
                   </a>
                 </div>
+
               </div>
 
-              {/* CONTENT */}
-              <div className="bg-white/20 flex flex-col items-center p-6">
+              {/* RIGHT COL */}
+              <div className="bg-white/30 rounded-xl flex flex-col p-6 m-4 ml-0">
                 {currentTab === "about" && (
-                  <div className="flex items-center text-center flex-col">
-                    <h1 className={`${font2.className} text-3xl`}>About</h1>
-                    <p className={`${font2.className}`}>Pacific Purgatory is a small online community of artists that I <i>somehow</i> managed to cultivate since May of 2023. </p>
+                  <div className="flex flex-col">
+                    <h1 className={`${font2.className} text-3xl`}><b>● About</b></h1>
+                    <p className={`${font2.className}`}>This page is dedicated to my community, Pacific Purgatory, a small online community of artists that I <i>somehow</i> managed to cultivate on Drawpile since May of 2023.
+                    The Drawpile session is online 24/7, so feel free to join and draw with us!
+                    </p>
 
-                    <h1 className={`${font2.className} text-3xl pt-4`}>How to Join?</h1>
-                    <p className={`${font2.className}`}>Join the drawpile.</p>
+                    <hr className="my-6 border-gray-900/20 w-full" />
 
-                    <h1 className={`${font2.className} text-3xl pt-4`}>Discord Server?</h1>
-                    <p className={`${font2.className}`}>I gatekeep it. Come hang out in the drawpile enough and we will see if we like you :]</p>
+                    <h1 className={`${font2.className} text-3xl`}><b>● How do I Join?</b></h1>
+                    <p className={`${font2.className}`}>- Install <a href="https://drawpile.net/download" target="_blank" className="underline cursor-pointer text-[#098899]" rel="noopener noreferrer">Drawpile</a>.</p>
+                    <p className={`${font2.className}`}>- Open Drawpile, click on Session {`>`} Browse.</p>
+                    <p className={`${font2.className}`}>- On the bottom left, click on "Add Server" and enter in <span className="underline bg-amber-100/50">https://pub.drawpile.net/listing/</span></p>
+                    <p className={`${font2.className}`}>- Now you should be able to see and join the server.</p>
+
+                    <p className={`${font2.className} text-sm pt-6`}>The session should be hosted by Mier, but the title might be ridiculous like
+                    <br />
+                    <span className="text-xl">"⚓Pacific Purgatory v2  𓆝 𓆟 𓆞 𓆜 𓆛 ⊹ ࣪ ﹏𓊝﹏𓂁﹏⊹"</span>
+                    <br />
+                    which is what it is right now at the time of writing..
+                    </p>
+
+                    <hr className="my-6 border-gray-900/20 w-full" />
+
+                    <h1 className={`${font2.className} text-3xl`}><b>● Discord Server?</b></h1>
+                    <p className={`${font2.className}`}>I gatekeep it. Come hang out in the Drawpile long enough and ask to see if we like you :]</p>
                     
+                    <hr className="my-6 border-gray-900/20 w-full" />
+
+                    <h1 className={`${font2.className} text-3xl`}><b>● Why "Pacific Purgatory"?</b></h1>
+                    <p className={`${font2.className}`}>
+                    When I started hosting on Drawpile, I chose the session name on a whim based on the musician Pacific Purgatory since I really liked his music at the time (and still do) so it kinda just stuck there overtime.<br />
+                    <br />
+                    <b>Pacific Purgatory (this community)</b> has no connection or relation to <b>Pacific Purgatory (the musician, Ethan Silva)</b>.<br />
+                    In fact, you should support Ethan Silva through <a href="https://pacificpurgatory.bandcamp.com" target="_blank" className="underline cursor-pointer text-[#098899]" rel="noopener noreferrer">Bandcamp</a> and listening to his music on <a href="https://open.spotify.com/artist/0syDmy3yzknmkbJGdExEpW" target="_blank" className="underline cursor-pointer text-[#098899]" rel="noopener noreferrer">Spotify</a>!
+                    </p>
                   </div>
                 )}
                 {currentTab === "lore" && (
@@ -166,6 +206,8 @@ export default function Home() {
           </div>
         </footer>
       </div>
+
+      <Tooltip info="go fishing?" status={tooltipVisible} />
       <video autoPlay muted loop className="object-cover fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[120vw] min-h-[120vh] blur-[10px]">
         <source src="videos/pp.mp4" type="video/mp4" />
       </video>
