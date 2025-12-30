@@ -48,6 +48,20 @@ export default function page() {
     content: "",
   });
 
+  const getSlug = (date: string, title: string) => {
+
+    const n = title
+      .toLowerCase()
+      .replace(/[^\w\s-]/g, "")
+      .replace(/\s+/g, "-")
+      .trim();
+
+    const d = date
+      .replaceAll(".", "-");
+
+    return `${n}-${d}`;
+  }
+
   
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -78,6 +92,7 @@ export default function page() {
         content: newPost.content,
         date: getDate(),
         spec_date: getSpecDate(),
+        slug: getSlug(getDate(), newPost.title),
       });
 
       if (error) {

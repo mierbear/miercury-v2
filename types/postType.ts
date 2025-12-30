@@ -6,6 +6,7 @@ type PostType = {
   spec_date: string,
   updated_date: string,
   updated_spec_date: string,
+  slug: string,
 };
 
 export default PostType;

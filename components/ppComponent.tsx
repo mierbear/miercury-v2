@@ -44,7 +44,7 @@ export default function Home() {
 
   const news = [`— the secret santa event is over, thank you to those who participated <3 check out the secret santa gallery to see the results! — have a merry christmas and a happy new year! —`];
 
-  const [currentTab, setCurrentTab] = useState<"about" | "lore" | "characters" | "home">("about")
+  const [currentTab, setCurrentTab] = useState<"about" | "lore" | "characters" | "home" | "history">("about")
   
   return (
     <main className="min-w-screen min-h-screen flex flex-col z-50 bg-[#c1f8ff]">
@@ -102,6 +102,10 @@ export default function Home() {
                   <button onClick={() => {setCurrentTab("lore")}} className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     "Lore"
                   </button>
+
+                  <button onClick={() => {setCurrentTab("history")}} className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
+                    History
+                  </button>
                   
                   <button className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     Collabs
@@ -126,7 +130,7 @@ export default function Home() {
                   >
                     <img 
                       src={mierHover ? "/images/mierfisheth2.png" : "/images/mierfisheth.png"}
-                      className="origin-bottom-right relative scale-150 nonsel translate-y-[15%] z-100 cursor-pointer" 
+                      className="origin-bottom-right relative scale-150 nonsel translate-y-[15%] lg:translate-x-0 translate-x-[20%] z-100 cursor-pointer" 
                       onMouseEnter={mierHoverHandler}
                       onMouseLeave={mierUnhoverHandler}
                     />
@@ -137,11 +141,16 @@ export default function Home() {
 
               {/* RIGHT COL */}
               <div className="bg-white/30 rounded-xl flex flex-col p-6 m-4 ml-0">
+
+                {/* ABOUT */}
                 {currentTab === "about" && (
                   <div className="flex flex-col">
                     <h1 className={`${font2.className} text-3xl`}><b>● About</b></h1>
                     <p className={`${font2.className}`}>This page is dedicated to my community, Pacific Purgatory, a small online community of artists that I <i>somehow</i> managed to cultivate on Drawpile since May of 2023.
-                    The Drawpile session is online 24/7, so feel free to join and draw with us!
+                    The Drawpile session is online 24/7, so feel free to join and draw with us.
+                    <br />
+                    <br />
+                    <i className="text-sm">Much of the content here consists of inside jokes between me and my friends which can be crass/abrasive, don't take it too seriously.</i>
                     </p>
 
                     <hr className="my-6 border-gray-900/20 w-full" />
@@ -152,7 +161,7 @@ export default function Home() {
                     <p className={`${font2.className}`}>- On the bottom left, click on "Add Server" and enter in <span className="underline bg-amber-100/50">https://pub.drawpile.net/listing/</span></p>
                     <p className={`${font2.className}`}>- Now you should be able to see and join the server.</p>
 
-                    <p className={`${font2.className} text-sm pt-6`}>The session should be hosted by Mier, but the title might be ridiculous like
+                    <p className={`${font2.className} text-sm pt-6`}>The session should be hosted by Mier, but the title might be ridiculous like:
                     <br />
                     <span className="text-xl">"⚓Pacific Purgatory v2  𓆝 𓆟 𓆞 𓆜 𓆛 ⊹ ࣪ ﹏𓊝﹏𓂁﹏⊹"</span>
                     <br />
@@ -175,9 +184,13 @@ export default function Home() {
                     </p>
                   </div>
                 )}
+
+                {/* LORE */}
                 {currentTab === "lore" && (
                   <p>lore</p>
                 )}
+
+                {/* CHARACTERS */}
                 {currentTab === "characters" && (
                   <p>characters</p>
                 )}

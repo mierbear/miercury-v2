@@ -123,6 +123,7 @@ export default function Home() {
 
         <div className="grid grid-cols-1 sm:grid-cols-[7fr_3fr]">
 
+          {/* LEFT COLUMN */}
           <div className="post-list text-white bg-[#535961]/60 flex flex-col items-center order-2 sm:order-1 px-2 pt-2">
 
             <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
@@ -183,6 +184,7 @@ export default function Home() {
 
           </div>
 
+          {/* RIGHT COLUMN */}
           <div className="text-white bg-[#535961]/50 flex flex-col items-center order-1 sm:order-2">
 
             <div className="bg-[#1d1f22]/40 min-w-full p-5 flex flex-col justify-center items-center">
@@ -215,7 +217,7 @@ export default function Home() {
                 copied! (miermiermiermier)
               </p>
             </div>
-
+            
           </div>
 
         </div>
