@@ -56,10 +56,10 @@ const Title = () => {
     const tl = gsap.timeline();
 
     tl.from(split.chars, {
-      duration: 1.2,
+      duration: 1,
       opacity: 0,
-      yPercent: 50,
-      stagger: 0.08,
+      yPercent: 120,
+      stagger: 0.05,
       ease: "power4.out",
       delay: 0.3,
     })
@@ -71,7 +71,7 @@ const Title = () => {
   }, []);
 
   return (
-    <div className="z-10 justify-end">
+    <div className="z-10 justify-end overflow-y-hidden min-h-[20vh] pt-5 items-end flex">
       <h1
         ref={titleRef}
         className={
@@ -81,6 +81,7 @@ const Title = () => {
           text-5xl
           sm:text-8xl
           lg:text-9xl
+          
           `}
         style={{ visibility: "hidden" }}
         onClick={titleAnim}

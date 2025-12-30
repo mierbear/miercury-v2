@@ -126,9 +126,16 @@ export default function Home() {
           {/* LEFT COLUMN */}
           <div className="post-list text-white bg-[#535961]/60 flex flex-col items-center order-2 sm:order-1 px-2 pt-2">
 
+              <div className="flex flex-row w-full p-8 justify-between items-center max-w-[85ch] text-center">
+                <img src="/images/construction.gif" />
+                <h1 className="text-red-600 font-bold">THIS SITE IS STILL VERY UNFINISHED!! <br /> THX FOR VISITING XOXO</h1>
+                <img src="/images/construction.gif" />
+              </div>
+
+            <hr className="my-6 border-gray-500/60 max-w-[80ch] w-full" />
+
             <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
-              <h1 className="font-bold text-2xl">to do list</h1>
-              <p className="text-xs pb-5 text-neutral-400">11/16/25</p>
+              <h1 className="font-bold pb-5 text-2xl">to do list</h1>
               <p className="text-xl font-bold">TO-DO: </p>
               <p className="text-sm">● make the pp page</p>
               <p className="text-sm">● set up atabook</p>
@@ -160,7 +167,7 @@ export default function Home() {
               <p className="text-sm">✔ make a dashboard for blog crud operations</p>
               <p className="text-sm">✔ connect this to supabase so you can add blog posts</p>
               <p className="text-sm">✔ add vercel web analytics functionality</p>
-              <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
+              <hr className="my-6 border-gray-500/60 max-w-[80ch] w-full translate-y-6.5" />
             </div>
             
             
@@ -179,7 +186,7 @@ export default function Home() {
                     className="prose prose-invert pt-5 max-w-none"
                     dangerouslySetInnerHTML={{ __html: post.content }}
                   />
-                  <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
+                  <hr className="my-6 border-gray-500/60 max-w-[80ch] w-full translate-y-6.5" />
                 </div>
               );
             })}
@@ -190,7 +197,11 @@ export default function Home() {
           <div className="text-white bg-[#535961]/50 flex flex-col items-center order-1 sm:order-2">
 
             <div className="bg-[#1d1f22]/40 min-w-full p-5 flex flex-col justify-center items-center">
-              <img src="images/santahat.png" className="absolute z-1000 rotate-20 scale-30 -translate-y-44 translate-x-30 nonsel" draggable="false" style={{ userSelect: "none" }}/>
+
+              {new Date().getMonth() === 11 && (
+                <img src="images/santahat.png" className="absolute z-1000 rotate-20 scale-30 -translate-y-44 translate-x-30 nonsel" draggable="false" style={{ userSelect: "none" }}/>
+              )}
+
               <Image className="" src="/images/pfp.png" width={280} height={280} alt="pfp" />
             </div>
 
