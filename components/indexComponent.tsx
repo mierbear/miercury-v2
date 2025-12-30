@@ -167,7 +167,9 @@ export default function Home() {
             {posts.map((post) => {
               return (
                 <div key={post.id} className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
-                  <h1 className="font-bold text-2xl">{post.title}</h1>
+                  <NextLink href={`/blog/post/${post.slug}`}>
+                    <h1 className="font-bold text-2xl">{post.title}</h1>
+                  </NextLink>
                   <div className="text-xs pt-0.5 text-gray-400 nonsel flex" onClick={clickDate}>
                     <p className="underline">{properDate ? (post.spec_date) : post.date}</p>
                     {post.updated_date === null ? null : (<p className="pl-5">last updated at:</p>)}
