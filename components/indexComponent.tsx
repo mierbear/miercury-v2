@@ -137,13 +137,13 @@ export default function Home() {
             <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
               <h1 className="font-bold pb-5 text-2xl">to do list</h1>
               <p className="text-xl font-bold">TO-DO: </p>
+              <p className="text-sm">● make blog page</p>
               <p className="text-sm">● make the pp page</p>
               <p className="text-sm">● set up atabook</p>
               <p className="text-sm">● set up different 'moons' for each route</p>
               <p className="text-sm">● make the ocs page</p>
               <p className="text-sm">● make the gallery page</p>
               <p className="text-sm">● make the mtwim page</p>
-              <p className="text-sm">● perhaps have the blog be its own page instead</p>
               <p className="text-sm">● finish the scrollTrigger course</p>
               <p className="text-sm">● add more ppl to stars bg</p>
               <p className="text-sm">● finish the gsap course</p>
@@ -159,6 +159,7 @@ export default function Home() {
               <p className="text-sm">● add mier widget. (potentially make it persist across all routes)</p>
               <br></br>
               <p className="text-xl font-bold">DONE: </p>
+              <p className="text-sm">✔ perhaps have the blog be its own page instead</p>
               <p className="text-sm">✔ make the about me page</p>
               <p className="text-sm">✔ finish secret santa</p>
               <p className="text-sm">✔ add more to the space background </p>

@@ -1,8 +1,14 @@
 "use client";
 import { Bodoni_Moda, Questrial } from "next/font/google"
-import { use, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import Tooltip from "@/components/tooltipComponent";
+import Marquee from "react-fast-marquee";
+import NextLink from "next/link";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import Fade from "embla-carousel-fade";
+
 
 const font = Bodoni_Moda({
   weight: "400",
@@ -45,6 +51,41 @@ export default function Home() {
   const news = [`— the secret santa event is over, thank you to those who participated <3 check out the secret santa gallery to see the results! — have a merry christmas and a happy new year! —`];
 
   const [currentTab, setCurrentTab] = useState<"about" | "lore" | "characters" | "home" | "history">("about")
+
+  const autoplay = useRef(
+      Autoplay({
+        delay: 5000,
+        stopOnInteraction: false,
+      })
+    );
+  
+    const [emblaRef, emblaApi] = useEmblaCarousel(
+      {
+        loop: true,
+        align: "center", 
+        duration: 100,
+      },
+      [Fade(), autoplay.current]
+    );
+  
+    const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
+    const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi])
+  
+    const [selectedIndex, setSelectedIndex] = useState(0)
+    const [slides, setSlides] = useState<number[]>([])
+  
+    useEffect(() => {
+      if (!emblaApi) return
+  
+      setSlides(emblaApi.scrollSnapList())
+  
+      const onSelect = () => {
+        setSelectedIndex(emblaApi.selectedScrollSnap())
+      }
+  
+      emblaApi.on('select', onSelect)
+      onSelect()
+    }, [emblaApi])
   
   return (
     <main className="min-w-screen min-h-screen flex flex-col z-50 bg-[#c1f8ff]">
@@ -54,8 +95,11 @@ export default function Home() {
 
         
         <div className="flex flex-col z-100 min-w-screen lg:min-w-[50vw]">
+          {/* TITLE */}
           <div className="flex flex-col justify-end pt-[10vh]">
-            <h1 className={`${font.className} nonsel text-[#1a1d20] text-shadow-md text-6xl z-50 translate-y-1`}>
+            <h1 className={`${font.className} nonsel text-[#1a1d20] text-shadow-md text-6xl z-50 translate-y-1`}
+            draggable="false" style={{ pointerEvents: "none" }}
+            >
               PACIFIC <span className="text-red-600">🞨</span> PURGATORY
             </h1>
           </div>
@@ -63,19 +107,69 @@ export default function Home() {
           <div className="bg-[#c1f8ff]/50 min-h-[50vh] shadow-xl flex flex-col">
             
             {/* MARQUEE */}
-            <div className="bg-[#1a1d20] overflow-x-hidden self-center w-full flex justify-center">
-              <p 
-                className={`${font2.className} bg-[#1a1d20] text-xs text-white inline-block whitespace-nowrap pb-0.5 pt-1`}
-                ref={marqueeRef}
-                style={{ opacity: ready ? 1 : 0 }}
-              >
-                {news}
-              </p>
+            <div className="bg-[#1a1d20] min-h-[1.5em] flex justify-center">
+              <Marquee pauseOnHover>
+                <p 
+                  className={`${font2.className} bg-[#1a1d20] text-xs text-white`}
+                >
+                  {news}
+                </p>
+              </Marquee>
             </div>
             
             {/* CAROUSEL */}
-            <div className="min-h-[40vh] max-h-[40vh] bg-black/50">
+            <div className="bg-black/50 text-white">
+              <div className="flex flex-col justify-center items-center relative">
+                <div
+                  className="overflow-hidden flex items-center justify-center"
+                  onMouseEnter={() => autoplay.current.stop()}
+                  onMouseLeave={() => autoplay.current.play()}
+                  ref={emblaRef}
+                >
+                  <div className={`flex ${ready ? "opacity-100" : "opacity-0"}`}>
+                    <div className="flex-[0_0_100%] relative">
+                      <NextLink href="/gallery" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/banner1.png" className="w-full " />
+                      </NextLink>
+                      <div className="absolute bottom-0 nonsel flex flex-col bg-[#17191a]/50 w-full h-[20%] justify-center pl-6 pb-2">
+                        <h1 className={`${font2.className} text-shadow-lg`}><b>Gallery (PLACEHOLDER)</b></h1>
+                        <p className={`${font2.className} text-xs text-shadow-lg`}>Check out my gallery here.</p>
+                      </div>
+                    </div>
+                    <div className="flex-[0_0_100%]">
+                      <NextLink href="/coocoo" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/banner2.png" className="w-full " />
+                      </NextLink>
+                      <div className="absolute bottom-0 nonsel flex flex-col bg-[#17191a]/50 w-full h-[20%] justify-center pl-6 pb-2">
+                        <h1 className={`${font2.className} text-shadow-lg`}><b>Fear not the astral enemy (PLACEHOLDER)</b></h1>
+                        <p className={`${font2.className} text-xs text-shadow-lg`}>Read about my schizophrenic ramblings here.</p>
+                      </div>
+                    </div>
+                    <div className="flex-[0_0_100%]">
+                      <NextLink href="/pp" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/banner3.png" className="w-full " />
+                      </NextLink>
+                      <div className="absolute bottom-0 nonsel flex flex-col bg-[#17191a]/50 w-full h-[20%] justify-center pl-6 pb-2">
+                        <h1 className={`${font2.className} text-shadow-lg`}><b>Is the ocean calling out to you? (PLACEHOLDER)</b></h1>
+                        <p className={`${font2.className} text-xs text-shadow-lg`}>You're not alone. Enlist and join the ranks within Pacific Purgatory now.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button onClick={scrollPrev} className="absolute cursor-pointer left-4">←</button>
+                <button onClick={scrollNext} className="absolute cursor-pointer right-4">→</button>
+                <div className="flex gap-2 justify-center absolute bottom-2">
+                  {slides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => emblaApi?.scrollTo(i)}
+                      className={`w-2 h-2 rounded-full transition cursor-pointer
+                        ${i === selectedIndex ? 'bg-white' : 'bg-white/30'}`}
+                    />
+                  ))}
+                </div>
 
+              </div>
             </div>
 
 

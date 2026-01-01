@@ -19,29 +19,42 @@ const Title = () => {
 
     const split = new SplitText(titleRef.current, { type: "words" });
 
-    const tl = gsap.timeline();
+    // const tl = gsap.timeline();
 
-    tl.to(split.words, {
-      duration: .8,
-      opacity: 0,
-      stagger: {
-          each: 0.08,
-        },
-      ease: "power4.out",
-      delay: 0.3,
-    })
-    .to(split.words, {
-      duration: 1,
+    // tl.to(split.words, {
+    //   duration: .8,
+    //   opacity: 0,
+    //   stagger: {
+    //       each: 0.08,
+    //     },
+    //   ease: "power4.out",
+    //   delay: 0.3,
+    // })
+    // .to(split.words, {
+    //   duration: 1,
+    //   opacity: 1,
+    //   stagger: {
+    //       each: 0.05,
+    //     },
+    //   ease: "power4.out",
+    //   delay: 0.3,
+    // }, "<.25")
+
+    gsap.to(split.words, {
+      keyframes:{
+        "50%":{yPercent: 120},
+        "100%":{yPercent: 0},
+      },
+      duration: 2,
       opacity: 1,
       stagger: {
           each: 0.05,
         },
       ease: "power4.out",
-      delay: 0.3,
-    }, "<.25")
+    })
 
     return () => {
-      tl.kill();
+      // tl.kill();
       split.revert();
     };
   }
@@ -78,8 +91,9 @@ const Title = () => {
           `${boldonse.className}
           nonsel
           text-[#d8e0e3]
-          text-5xl
-          sm:text-8xl
+          text-6xl
+          sm:text-7xl
+          md:text-8xl
           lg:text-9xl
           
           `}
