@@ -40,7 +40,8 @@ export default function Tooltip({ info, status }: TooltipProps) {
         z-1000
         -translate-x-1/2 -translate-y-full
         bg-black/80 text-white
-        p-1
+        py-1
+        px-2
         rounded-xs
         text-sm
         border border-white

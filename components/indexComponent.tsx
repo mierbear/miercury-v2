@@ -5,10 +5,14 @@ import Title from "@/components/indexTitle";
 import TitleBot from "@/components/indexTitleBot";
 import BannerLink from "@/components/indexBannerLink"
 import PostType from "@/types/postType";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
 import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
+import useEmblaCarousel from "embla-carousel-react";
+import Autoplay from "embla-carousel-autoplay";
+import Fade from "embla-carousel-fade";
+
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
@@ -112,139 +116,317 @@ export default function Home() {
     setProperDate(!properDate);
   }
 
+  const [ready, setReady] = useState(false);
+  useEffect(() => setReady(true), []);
+
+  const autoplay = useRef(
+    Autoplay({
+      delay: 5000,
+      stopOnInteraction: false,
+    })
+  );
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: "center", 
+      duration: 20,
+    },
+    [autoplay.current]
+  );
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi])
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi])
+
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [slides, setSlides] = useState<number[]>([])
+
+  useEffect(() => {
+    if (!emblaApi) return
+
+    setSlides(emblaApi.scrollSnapList())
+
+    const onSelect = () => {
+      setSelectedIndex(emblaApi.selectedScrollSnap())
+    }
+
+    emblaApi.on('select', onSelect)
+    onSelect()
+  }, [emblaApi])
+
+
+  const quotes = [
+    "How can you put forth your best fruit if you are not put forth within yourself first?",
+    "You can only be in hell with your own permission.",
+    "There's not enough room in your mind for some other entity's thoughts.",
+    "Men are second only to God, which is something that the forgetting of is the end of your life prematurely. Which is usually at the beginning.",
+    "The devil makes work of idle hands.",
+    "Become who you are, become who you want to be and who you should be, before you never do.",
+    "The only thing you're in control of are your own thoughts.",
+    "The only thing the devil wants is for you to suffer like it is.",
+    "There is no free will in the world, unless you get less of the world.",
+    "The only thing there is in this life is to purify your soul, so that you're not afraid of death.",
+    "The angels weep for men and women failing to accept the challenge of integrity.",
+    "Truly I tell you, unless you turn and become like children, you will never enter the kingdom of heaven. - Matthew 18:3",
+    "When we experience tears, our souls become like babies.",
+    "There are no coincidences. Nothing is random.",
+    "Fear is not a natural state of man.",
+    "Forgive them for they know not what they do. - Luke 23:34",
+    "The fear of death distresses a man with a guilty conscience, but the man with a good witness within himself longs for death as for life.",
+	  "Your thoughts determine your life.",
+    "Strict adherence to one’s own free will, is the fall.",
+    "Each and every action are equally drastic, therefore no action is drastic. So you don't have to look at something as hard to do.",
+    "It takes control to be addicted. It takes more control to keep it in you than to push it all out.",
+    "Restoration of faith is the knowledge of real free will, which is obedience. Free will is actually obedience, but you are only willing to and enthusiastic of obedience when you have faith to back it up",
+    "You're better off fishing in your own mind",
+    "Lucky is the lion that the human will eat, so that the lion becomes human. And foul is the human that the lion will eat, and the lion still will become human.",
+    "No prophet is welcome on his home turf. Doctors don't cure those who know him.",
+    "Unrealized creativity is one of the most destructive things in the human psyche.",
+    "For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places. - Ephesians 6:12",
+    "Therefore I tell you, whatever you ask for in prayer, believe that you have received it, and it will be yours. - Mark 11:24",
+  ]
+
+  const getQuote = (quotes: string[]): string => {
+    const today = new Date();
+    const day = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 1000 / 60 / 60 / 24);
+    const index = day % quotes.length;
+    return quotes[index];
+  };
+
+
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
       <div className="min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <Title />
       </div>
-      <div className="content min-w-[40vw] min-h-[60vh] bg-[#00000000] text-black z-10 grid grid-rows-[1.2em_1fr]">
+      <div className="content w-270 max-w-screen min-h-[60vh] bg-[#00000000] text-black z-10 grid grid-rows-[1.2em_1fr] relative">
 
         <TitleBot />  
 
-        <div className="grid grid-cols-1 sm:grid-cols-[7fr_3fr]">
+        {/* DONT FORGET TO REMOVE MIN-H-SCREEN FOR THIS DIV AND BOTH COLUMNS */}
+        <div className="bg-[#535961]/60 w-full min-h-screen flex flex-col items-center">
 
-          {/* LEFT COLUMN */}
-          <div className="post-list text-white bg-[#535961]/60 flex flex-col items-center order-2 sm:order-1 px-2 pt-2">
+          <div className="w-full grid grid-cols-[2fr_1fr]">
 
-              <div className="flex flex-row w-full p-8 justify-between items-center max-w-[85ch] text-center">
-                <img src="/images/construction.gif" />
-                <h1 className="text-red-600 font-bold">THIS SITE IS STILL VERY UNFINISHED!! <br /> THX FOR VISITING XOXO</h1>
-                <img src="/images/construction.gif" />
+            {/* LEFT COL */}
+            <div className="m-4 mr-2 min-h-screen flex items-center flex-col">
+
+              {/* CAROUSEL */}
+              <div className="flex flex-col justify-center items-center relative max-h-60 text-white border-[#d8e0e3]/70 border ">
+                <div
+                  className="overflow-hidden flex items-center justify-center"
+                  onMouseEnter={() => autoplay.current.stop()}
+                  onMouseLeave={() => autoplay.current.play()}
+                  ref={emblaRef}
+                >
+                  <div className={`flex ${ready ? "opacity-100" : "opacity-0"}`}>
+
+                    <div className="flex-[0_0_100%]">
+                      <div className="flex flex-row w-full justify-between items-center text-center px-10 h-full nonsel bg-[#17191a]/40">
+                        <img src="/images/construction.gif" />
+                        <h1 className="text-red-600 font-bold">THIS SITE IS STILL VERY UNFINISHED!! <br /> THX FOR VISITING XOXO</h1>
+                        <img src="/images/construction.gif" />
+                      </div>
+                    </div>
+
+                    <div className="flex-[0_0_100%]">
+                      <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/indexbanner.png" className="w-full bg-[#17191a]/40" />
+                      </NextLink>
+                    </div>
+                    
+                    <div className="flex-[0_0_100%]">
+                      <NextLink href="https://vertuously.com/" target="_blank" rel="noopener noreferrer">
+                        <img src="/images/indexbanner2.png" className="w-full bg-[#17191a]/40" />
+                      </NextLink>
+                    </div>
+                    
+                  </div>
+                </div>
+                
+                <button onClick={scrollPrev} className="absolute cursor-pointer left-4">←</button>
+                <button onClick={scrollNext} className="absolute cursor-pointer right-4">→</button>
+                <div className="flex gap-2 justify-center absolute bottom-2">
+                  {slides.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => emblaApi?.scrollTo(i)}
+                      className={`w-2 h-2 rounded-full transition cursor-pointer
+                        ${i === selectedIndex ? 'bg-white' : 'bg-white/30'}`}
+                    />
+                  ))}
+                </div>
+
+              </div>
+                
+              <hr className="mt-4 mb-12 border-gray-500/30 w-full" />
+              
+              {/* ART */}
+              <div className="flex flex-col justify-center items-center relative text-white w-[90%]">
+                <h1 className=" text-white">Latest Artwork</h1>
+                <img src="images/featart.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3]" />
+                <img src="images/featart.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-12 translate-x-10"/>
               </div>
 
-            <hr className="my-6 border-gray-500/60 max-w-[80ch] w-full" />
+              <hr className="mb-4 mt-20 border-gray-500/30 w-full" />
 
-            <div className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
-              <h1 className="font-bold pb-5 text-2xl">to do list</h1>
-              <p className="text-xl font-bold">TO-DO: </p>
-              <p className="text-sm">● make blog page</p>
-              <p className="text-sm">● make the pp page</p>
-              <p className="text-sm">● set up atabook</p>
-              <p className="text-sm">● set up different 'moons' for each route</p>
-              <p className="text-sm">● make the ocs page</p>
-              <p className="text-sm">● make the gallery page</p>
-              <p className="text-sm">● make the mtwim page</p>
-              <p className="text-sm">● finish the scrollTrigger course</p>
-              <p className="text-sm">● add more ppl to stars bg</p>
-              <p className="text-sm">● finish the gsap course</p>
-              <p className="text-sm">● make the moon an svg to make it look good on phone..</p>
-              <p className="text-sm">● add image uploading function for tiptap</p>
-              <p className="text-sm">● add all old posts from the old miercury websites here</p>
-              <p className="text-sm">● set subdomains for characters/icemage/pp/etc.</p>
-              <p className="text-sm">● make assets (a lot of it...)</p>
-              <p className="text-sm">● make assets for mtwim</p>
-              <p className="text-sm">● make assets for characters</p>
-              <p className="text-sm">● add more to the about me page</p>
-              <p className="text-sm">● set up pp newspaper submissions</p>
-              <p className="text-sm">● add mier widget. (potentially make it persist across all routes)</p>
-              <br></br>
-              <p className="text-xl font-bold">DONE: </p>
-              <p className="text-sm">✔ perhaps have the blog be its own page instead</p>
-              <p className="text-sm">✔ make the about me page</p>
-              <p className="text-sm">✔ finish secret santa</p>
-              <p className="text-sm">✔ add more to the space background </p>
-              <p className="text-sm">✔ implement editing posts with tiptap</p>
-              <p className="text-sm">✔ implement tiptap on post dashboard</p>
-              <p className="text-sm">✔ make a dashboard for blog crud operations</p>
-              <p className="text-sm">✔ connect this to supabase so you can add blog posts</p>
-              <p className="text-sm">✔ add vercel web analytics functionality</p>
-              <hr className="my-6 border-gray-500/60 max-w-[80ch] w-full translate-y-6.5" />
-            </div>
-            
-            
-            {posts.map((post) => {
-              return (
-                <div key={post.id} className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
-                  <NextLink href={`/blog/post/${post.slug}`}>
-                    <h1 className="font-bold text-2xl">{post.title}</h1>
-                  </NextLink>
-                  <div className="text-xs pt-0.5 text-gray-400 nonsel flex" onClick={clickDate}>
-                    <p className="underline">{properDate ? (post.spec_date) : post.date}</p>
-                    {post.updated_date === null ? null : (<p className="pl-5">last updated at:</p>)}
-                    {post.updated_spec_date && properDate ? (<p className="pl-2 underline">{post.updated_spec_date}</p>) : (<p className="pl-2 underline">{post.updated_date}</p>)}
-                  </div>
-                  <div
-                    className="prose prose-invert pt-5 max-w-none"
-                    dangerouslySetInnerHTML={{ __html: post.content }}
-                  />
-                  <hr className="my-6 border-gray-500/60 max-w-[80ch] w-full translate-y-6.5" />
+              {/* MISC */}
+              <div className="grid grid-cols-[1.618fr_1fr] text-white w-full gap-4 h-120">
+                
+                {/* 1 */}
+                <div className="flex flex-col justify-center items-center border-[#d8e0e3]/70 border">
+                  latest blog post
                 </div>
-              );
-            })}
+
+                <div className="grid grid-rows-[1fr_1.618fr] gap-4">
+
+                  <div className="grid grid-cols-[1fr_1.618fr] gap-4">
+
+                    {/* 4 */}
+                    <div className="flex flex-col justify-center items-center border-[#d8e0e3]/70 border">
+                      ?
+                    </div>
+
+                    {/* 3 */}
+                    <div className="flex flex-col justify-center items-center border-[#d8e0e3]/70 border">
+                      guestbook
+                    </div>
+
+                  </div>
+                  
+                  {/* 2 */}
+                  <div className="flex flex-col justify-center items-center border-[#d8e0e3]/70 border">
+                    changelog
+                  </div>
+
+                </div>
+
+              </div>
+
+              <hr className="mb-4 mt-4 border-gray-500/30 w-full" />
+
+              {/* TO DO LIST */}
+              <div className="post p-4 pt-0 rounded-md mb-2 max-w-[85ch] w-full text-white">
+                <h1 className="font-bold pb-5 text-2xl">to do list</h1>
+                <p className="text-xl font-bold">TO-DO: </p>
+                <p className="text-xs">● revise about me page (its so ass bruh..)</p>
+                <p className="text-xs">● make blog page</p>
+                <p className="text-xs">● make the pp page</p>
+                <p className="text-xs">● set up atabook</p>
+                <p className="text-xs">● set up different 'moons' for each route</p>
+                <p className="text-xs">● make the ocs page</p>
+                <p className="text-xs">● make the gallery page</p>
+                <p className="text-xs">● make the mtwim page</p>
+                <p className="text-xs">● finish the scrollTrigger course</p>
+                <p className="text-xs">● add more ppl to stars bg</p>
+                <p className="text-xs">● finish the gsap course</p>
+                <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
+                <p className="text-xs">● add image uploading function for tiptap</p>
+                <p className="text-xs">● add all old posts from the old miercury websites here</p>
+                <p className="text-xs">● set subdomains for characters/icemage/pp/etc.</p>
+                <p className="text-xs">● make assets (a lot of it...)</p>
+                <p className="text-xs">● make assets for mtwim</p>
+                <p className="text-xs">● make assets for characters</p>
+                <p className="text-xs">● add more to the about me page</p>
+                <p className="text-xs">● set up pp newspaper submissions</p>
+                <p className="text-xs">● add mier widget. (potentially make it persist across all routes)</p>
+                <br></br>
+                <p className="text-xl font-bold">DONE: </p>
+                <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
+                <p className="text-xs">✔ make the about me page</p>
+                <p className="text-xs">✔ finish secret santa</p>
+                <p className="text-xs">✔ add more to the space background </p>
+                <p className="text-xs">✔ implement editing posts with tiptap</p>
+                <p className="text-xs">✔ implement tiptap on post dashboard</p>
+                <p className="text-xs">✔ make a dashboard for blog crud operations</p>
+                <p className="text-xs">✔ connect this to supabase so you can add blog posts</p>
+                <p className="text-xs">✔ add vercel web analytics functionality</p>
+              </div>
+
+            </div> 
+
+            {/* RIGHT COL */}
+            <div className="m-4 ml-2 min-h-screen">
+
+              {/* INTRO */}
+              <div className="text-white border-[#d8e0e3]/70 relative border flex flex-col items-center pb-14">
+
+                <div className="p-4 flex items-center flex-col">
+                  <img
+                    src="/images/pfp.png"
+                    className="mb-4 max-w-[50%]"
+                  />
+
+                  <p className="text-xs text-justify">
+                    Hello, welcome to Miercury! This is a place for me to share my thoughts, projects and artwork. You can read more about me <a href="/about" className="underline login text-">here.</a>
+                    <br />
+                    <br />
+                    I hope you enjoy your stay.
+                  </p>
+                </div>
+
+                <div className="border-t border-b border-[#d8e0e3]/70 w-full mb-2 p-2 text-center">
+                  <p className="text-sm">
+                    status:
+                  </p>
+                </div>
+
+                <div className="flex flex-row justify-center items-center gap-3 absolute bottom-0 right-0 pb-2 px-4">
+                  <NextLink href="https://x.com/miermirth  " target="_blank" rel="noopener noreferrer">
+                    <img src="/images/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
+                  </NextLink>
+                    <img onClick={handleDiscordLink} src="/images/discord.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
+                  <NextLink href="https://www.youtube.com/@miermiermiermier" target="_blank" rel="noopener noreferrer">
+                    <img src="/images/youtube.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
+                  </NextLink>
+                  <p
+                    ref={discordUsernameRef} 
+                    style={{ visibility: "hidden" }}
+                    className="absolute -translate-y-10 bg-[#535961]/90 py-1 px-1.5 rounded text-white text-center"
+                  >
+                    copied! (miermiermiermier)
+                  </p>
+                </div>
+              </div> 
+
+              {/* <hr className="my-4 border-gray-500/30 w-full" /> */}
+              
+              {/* QOTD */}
+              {/* <div className="text-justify p-4 flex flex-col items-center relative text-white border-[#d8e0e3]/70 border">
+                <h1>quote of the day</h1>
+                <p className="text-xs">{getQuote(quotes)}</p>
+              </div>  */}
+              
+              <hr className="my-4 border-gray-500/30 w-full" />
+
+              {/* NAV */}
+              <div className="p-4 flex flex-col items-center relative border-[#d8e0e3]/70 border gap-4">
+                <BannerLink name="Characters" link="characters" />
+                <BannerLink name="MTWIM" link="mtwim" />
+                <BannerLink name="Pacific Purgatory" link="pp" />
+                <BannerLink name="Games" link="games" />
+                <BannerLink name="Gallery" link="gallery" />
+                <BannerLink name="About Me" link="about" />
+                <BannerLink name="Blog" link="blog" />
+              </div> 
+
+            </div> 
+          
+
+          
 
           </div>
-
-          {/* RIGHT COLUMN */}
-          <div className="text-white bg-[#535961]/50 flex flex-col items-center order-1 sm:order-2">
-
-            <div className="bg-[#1d1f22]/40 min-w-full p-5 flex flex-col justify-center items-center">
-
-              {new Date().getMonth() === 11 && (
-                <img src="images/santahat.png" className="absolute z-1000 rotate-20 scale-30 -translate-y-44 translate-x-30 nonsel" draggable="false" style={{ userSelect: "none" }}/>
-              )}
-
-              <Image className="" src="/images/pfp.png" width={280} height={280} alt="pfp" />
-            </div>
-
-            <div className="text-black items-center min-w-full links grid grid-rows-5 gap-1 p-3 nonsel">
-              <BannerLink name="Characters" link="characters" />
-              <BannerLink name="MTWIM" link="mtwim" />
-              <BannerLink name="Pacific Purgatory" link="pp" />
-              <BannerLink name="Games" link="games" />
-              <BannerLink name="Gallery" link="gallery" />
-              <BannerLink name="About Me" link="about" />
-            </div>
-
-            <div className="flex flex-row justify-center items-center gap-3 pb-3">
-              <NextLink href="https://x.com/miermirth  " target="_blank" rel="noopener noreferrer">
-                <img src="/images/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
-              </NextLink>
-                <img onClick={handleDiscordLink} src="/images/discord.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
-              <NextLink href="https://www.youtube.com/@miermiermiermier" target="_blank" rel="noopener noreferrer">
-                <img src="/images/youtube.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
-              </NextLink>
-              <p
-                ref={discordUsernameRef} 
-                style={{ visibility: "hidden" }}
-                className="absolute -translate-y-10 bg-[#535961]/90 py-1 px-1.5 rounded text-white"
-              >
-                copied! (miermiermiermier)
-              </p>
-            </div>
-            
-          </div>
-
         </div>
-
+       
       </div>  
       <footer className="z-50">
         <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white text-xs">
 
-          <p>Copyright © {currentYear} Miercury. All Rights Reserved.</p>
-          <p>
+          <p className="text-center">
+            Copyright © {currentYear} Miercury. All Rights Reserved.
+            <br />
             <a href="mailto:admin@miercury.com">admin@miercury.com</a>
           </p>
-          <p className="text-gray-300/40">Sound effects obtained from <a className="underline" href="https://www.zapsplat.com/" target="_blank" rel="noreferrer">zapsplat.com</a></p>
 
           <div className="right-1 absolute">
             <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 text-xs hover:underline login cursor-pointer nonsel">log in</p>
@@ -252,7 +434,7 @@ export default function Home() {
 
         </div>
       </footer>
-      <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel" draggable="false" style={{ pointerEvents: "none" }} />
+      <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
       <img ref={mierTakethRef} src="/images/miertaketh.png" className="absolute z-100 nonsel -right-80 bottom-4 invisible" draggable="false" style={{ pointerEvents: "none" }} />
       <Stars />
     </div>

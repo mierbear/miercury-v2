@@ -403,6 +403,8 @@ export default function Home() {
           ref={moreInfoRef} 
         >
           <p>- im a weeb</p>
+          <p>- i have hyperphantasia</p>
+          <p>- i like cliche tropes and messages</p>
           <p>- i like to ragebait my friends</p>
           <p>- i like looking into conspiracies theories for fun</p>
           <p>- dont take everything i say seriously</p>
