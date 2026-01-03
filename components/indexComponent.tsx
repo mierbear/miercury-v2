@@ -408,13 +408,12 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="border-t border-b border-[#d8e0e3]/70 w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80">
+                <div className="border-t border-b border-[#d8e0e3]/70 w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80 nonsel">
                     <p className={`
-                      ${status === "online" ? "text-cyan-300 online-glow" : ""}
+                      ${status === "online" ? "text-[#8fffff] online-glow" : ""}
                       ${status === "idle" ? "text-[#fff671] idle-glow" : ""}
                       ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
                       ${status === "offline" ? "text-gray-400" : ""}
-                      pl-2
                       font-extrabold
                       text-6xl
                       `}>
@@ -423,12 +422,22 @@ export default function Home() {
                       {status === "dnd" ? "BUSY" : ""}
                       {status === "offline" ? "OFFLINE" : ""}
                     </p>
+                  
+                  {currentGame !== null && (
+                    <p className={`
+                      ${status === "online" ? "text-[#8fffff] online-glow" : ""}
+                      ${status === "idle" ? "text-[#fff671] idle-glow" : ""}
+                      ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
+                      ${status === "offline" ? "text-gray-400" : ""}
+                      text-xs
+                      pb-1
+                    `}>
+                      (currently on {currentGame})
+                    </p>
+                  )}
 
                   {status !== "offline" && (
                     <p className="font-bold text-xl">"{bio}"</p>
-                  )}
-                  {currentGame !== null && (
-                    <p className="text-xs pt-0.5 pb-1">currently on {currentGame}</p>
                   )}
                 </div>
 

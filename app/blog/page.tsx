@@ -1,8 +1,5 @@
-import Image from "next/image";
-import BlogComponent from "@/components/blogComponent";
+import { redirect } from "next/navigation";
 
 export default function Home() {
-  return (
-    <BlogComponent />
-  );
+  redirect("/blog/page/1");
 }

@@ -321,11 +321,11 @@ p {
 }
 
 .online-glow {
-  text-shadow: 0 0 5px #53eafd
+  text-shadow: 0 0 5px #5cb6ff
 }
 
 .idle-glow {
-  text-shadow: 0 0 5px #fff671
+  text-shadow: 0 0 5px #ffb950
 }
 
 .dnd-glow {

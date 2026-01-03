@@ -5,10 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import PostType from "@/types/postType";
 
-type Props = {
-  params: { slug: string };
-};
-
 export default function PostPage() {
 
   const { slug } = useParams<{ slug: string }>();
