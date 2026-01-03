@@ -11,7 +11,12 @@ import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import Fade from "embla-carousel-fade";
+import { Xanh_Mono } from "next/font/google"
+
+const xanh = Xanh_Mono({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 
 export default function Home() {
@@ -20,6 +25,7 @@ export default function Home() {
   const loginTextRef = useRef<HTMLParagraphElement | null>(null);
   const mierTakethRef = useRef<HTMLImageElement | null>(null);
   const [posts, setPosts] = useState<PostType[]>([]);
+  const [latestPost, setLatestPost] = useState<PostType | null>(null);
   
   const handleDiscordLink = () => {
   navigator.clipboard.writeText("miermiermiermier");
@@ -96,14 +102,16 @@ export default function Home() {
     const { error, data } = await supabase
       .from("posts")
       .select("*")
-      .order("date_created", { ascending: false });
+      .order("date_created", { ascending: false })
+      .limit(4);
 
     if (error) {
       console.error("fetch failed: ", error.message);
       return;
     }
     
-    setPosts(data);
+    setPosts(data.slice(1));
+    setLatestPost(data[0]);
   }
 
   useEffect(() => {
@@ -259,23 +267,55 @@ export default function Home() {
 
               </div>
                 
-              <hr className="mt-4 mb-12 border-gray-500/30 w-full" />
+              <hr className="mt-4 border-gray-500/30 w-full" />
               
               {/* ART */}
               <div className="flex flex-col justify-center items-center relative text-white w-[90%]">
-                <h1 className=" text-white">Latest Artwork</h1>
+                <h1 className={`${xanh.className} text-white font-bold py-8`}>Latest Artwork</h1>
                 <img src="images/featart.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3]" />
-                <img src="images/featart.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-12 translate-x-10"/>
+                <img src="images/featart.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-6 -translate-x-10 translate-y-5"/>
               </div>
 
               <hr className="mb-4 mt-20 border-gray-500/30 w-full" />
 
               {/* MISC */}
-              <div className="grid grid-cols-[1.618fr_1fr] text-white w-full gap-4 h-120">
+              <div className="grid grid-cols-[1.618fr_1fr] text-white w-full gap-4">
                 
                 {/* 1 */}
-                <div className="flex flex-col justify-center items-center border-[#d8e0e3]/70 border">
-                  latest blog post
+                <div className="flex flex-col items-center border-[#d8e0e3]/70 border pb-4">
+
+                {latestPost === null ? null : (
+                  <div key={latestPost.id} className="post p-4 rounded-md mb-2 max-w-[85ch] w-full">
+                  <NextLink href={`/blog/post/${latestPost.slug}`}>
+                    <h1 className="font-bold text-2xl">{latestPost.title}</h1>
+                  </NextLink>
+                  <div className="text-xs pt-0.5 text-gray-400 nonsel flex" onClick={clickDate}>
+                    <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
+                    {latestPost.updated_date === null ? null : (<p className="pl-5">last updated at:</p>)}
+                  </div>
+                  <div
+                    className="prose prose-invert pt-5 max-w-none"
+                    dangerouslySetInnerHTML={{ __html: latestPost.content }}
+                  />
+                  </div>
+                )}
+                  <hr className="my-4 border-gray-500/60 max-w-[80ch] w-full" />
+                {posts.map((post) => {
+                  return (
+                    <div key={post.id} className="post rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4">
+
+                      <NextLink href={`/blog/post/${post.slug}`}>
+                        <p className="font-bold">{post.title}</p>
+                      </NextLink>
+                      
+                      <div className="text-xs text-gray-400 nonsel flex">
+                        <p className="">— {post.date}</p>
+                      </div>
+
+                    </div>
+                  );
+                })}
+
                 </div>
 
                 <div className="grid grid-rows-[1fr_1.618fr] gap-4">
