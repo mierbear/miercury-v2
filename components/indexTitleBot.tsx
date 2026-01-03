@@ -20,7 +20,7 @@ const TitleBot = () => {
       duration: 1,
       opacity: 0,
       yPercent: 50,
-      stagger: 0.08,
+      stagger: 0.12,
       ease: "power4.out",
       delay: 0.8,
     })
@@ -33,7 +33,7 @@ const TitleBot = () => {
 
   return (
     <div ref={divRef} className="bg-[#d8e0e3] rounded-t-xl flex flex-col justify-center items-center z-11 miercury-platform-glow nonsel">
-      <p ref={textRef} style={{ visibility: "hidden" }} className="text-xs">enjoy the stay, keep it mirthful</p>
+      <p ref={textRef} style={{ visibility: "hidden" }} className="text-xs">welcome to the firmament, keep it mirthful</p>
     </div>
   );
 };

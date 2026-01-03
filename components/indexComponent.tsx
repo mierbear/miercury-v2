@@ -489,11 +489,14 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">TO-DO: </p>
               <p className="text-xs">● revise about me page (its so ass bruh..)</p>
+              <p className="text-xs">● make the admin page actually legible LOL</p>
               <p className="text-xs">● make blog page</p>
+              <p className="text-xs">● set up supabase for pp gallery</p>
               <p className="text-xs">● make the pp page</p>
               <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
               <p className="text-xs">● set up different 'moons' for each route</p>
               <p className="text-xs">● make the ocs page</p>
+              <p className="text-xs">● set up supabase for gallery</p>
               <p className="text-xs">● make the gallery page</p>
               <p className="text-xs">● make the mtwim page</p>
               <p className="text-xs">● finish the scrollTrigger course</p>
@@ -507,7 +510,7 @@ export default function Home() {
               <p className="text-xs">● make assets for characters</p>
               <p className="text-xs">● add more to the about me page</p>
               <p className="text-xs">● set up pp newspaper submissions</p>
-              <p className="text-xs">● add mier widget. (potentially make it persist across all routes)</p>
+              <p className="text-xs">● add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
             </div>
 
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">

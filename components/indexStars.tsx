@@ -1,5 +1,4 @@
 "use client";
-import { time } from "console";
 import gsap from "gsap";
 import { useEffect, useRef } from "react";
 
@@ -34,32 +33,15 @@ const Stars = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const twinkle = (el: HTMLImageElement) => {
-      gsap.set(el, { opacity: 1, delay: 3 });
-
-      setTimeout(() => {
-        gsap.to(el, {
-          opacity: gsap.utils.random(0.5, 1),
-          duration: gsap.utils.random(2, 3.2),
-          repeat: -1,
-          yoyo: true,
-          ease: "sine.inOut",
-        });
-      }, 3100);
-    };
-
-    if (stars.current) twinkle(stars.current);
-    if (stars2.current) twinkle(stars2.current);
-    if (stars3.current) twinkle(stars3.current);
-  }, []);
-
-
   return (
     <div className="min-w-screen min-h-screen flex justify-end align-center items-center flex-col fixed top-0 -translate-y-[30vh]">
-    <img src={"/images/stars.png"} ref={stars} className="stars fixed origin-center scale-250 -z-50" style={{ visibility: "hidden", pointerEvents: "none" }} />
-    <img src={"/images/stars2.png"} ref={stars2} className="stars fixed origin-center scale-250 -z-50" style={{ visibility: "hidden", pointerEvents: "none" }} />
-    <img src={"/images/stars3.png"} ref={stars3} className="stars fixed origin-center scale-250 -z-50" style={{ visibility: "hidden", pointerEvents: "none" }} />
+    <img src={"/images/stars.png"} ref={stars} className="stars nonsel fixed origin-center scale-225 -z-50 twinkle2" style={{ visibility: "hidden", pointerEvents: "none" }} />
+    <img src={"/images/stars2.png"} ref={stars2} className="stars nonsel fixed origin-center scale-225 -z-50 twinkle" style={{ visibility: "hidden", pointerEvents: "none" }} />
+    <img src={"/images/stars3.png"} ref={stars3} className="stars nonsel fixed origin-center scale-225 -z-50" style={{ visibility: "hidden", pointerEvents: "none" }} />
+    <div style={{ pointerEvents: "none" }} className="nonsel lighten translate-y-[30vh]"></div>
+    <div style={{ pointerEvents: "none" }} className="nonsel overlay translate-y-[30vh]"></div>
+    <div style={{ pointerEvents: "none" }} className="nonsel glow translate-y-[30vh]"></div>
+    <img src={"/images/bg.png"} className="fixed -z-60 translate-y-[30vh] min-w-screen min-h-screen object-cover nonsel" style={{ pointerEvents: "none" }} />
     </div>
   )
 }

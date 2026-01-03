@@ -10,9 +10,10 @@ const Link = (prop: LinkType) => {
       <img
         src={`/images/${prop.link}.png`}
         className="absolute inset-0 w-full h-full object-cover opacity-50 hover:opacity-100 transition-opacity duration-300"
+        draggable="false"
       />
 
-      <p className="z-10 px-5 text-sm">{prop.name}</p>
+      <p className="z-10 px-5 text-sm nonsel" style={{ pointerEvents: "none" }}>{prop.name}</p>
 
       <span className="absolute inset-0 bg-linear-to-r from-[#ffffff]/30 to-transparent -translate-x-full transition-transform duration-300 pointer-events-none group-hover:translate-x-0"></span>
     </NextLink>
