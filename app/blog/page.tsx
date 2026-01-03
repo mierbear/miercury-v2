@@ -1,9 +1,8 @@
 import Image from "next/image";
+import BlogComponent from "@/components/blogComponent";
 
 export default function Home() {
   return (
-    <main className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col">
-      <h1>blog</h1>
-    </main>
+    <BlogComponent />
   );
 }

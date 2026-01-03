@@ -16,7 +16,12 @@ import {
 import { Toggle } from "../ui/toggle";
 import { Editor } from "@tiptap/react";
 
-export default function MenuBar({ editor }: { editor: Editor | null }) {
+type Props = {
+  editor: Editor | null;
+  uploadImage: (file: File) => Promise<string>;
+}
+
+export default function MenuBar({ editor, uploadImage }: Props) {
   if (!editor) {
     return null;
   }
@@ -100,6 +105,27 @@ export default function MenuBar({ editor }: { editor: Editor | null }) {
           {option.icon}
         </Toggle>
       ))}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={async (e) => {
+          const file = e.target.files?.[0];
+          if (!file || !editor) return;
+
+          const url = await uploadImage(file);
+
+          editor
+            .chain()
+            .focus()
+            .setResizableImage({
+              src: url,
+              width: 300,
+              height: 200,
+              "data-keep-ratio": true,
+            })
+            .run();
+        }}
+      />
     </div>
   );
 }

@@ -6,12 +6,16 @@ import MenuBar from "./MenuBar";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import { useEffect } from "react";
+import supabase from "@/lib/supabaseClient";
+import { ResizableImage } from 'tiptap-extension-resizable-image';
 
 interface RichTextEditorProps {
   content: string;
   onChange: (content: string) => void;
   onEditorReady?: (editor: any) => void;
 }
+
+
 export default function RichTextEditor({
   content,
   onChange,
@@ -36,6 +40,10 @@ export default function RichTextEditor({
         alignments: ["left", "center", "right", "justify"],
       }),
       Highlight,
+      ResizableImage.configure({
+        defaultWidth: 200,
+        defaultHeight: 200,
+      }),
     ],
     content: content,
     immediatelyRender: false,
@@ -48,16 +56,34 @@ export default function RichTextEditor({
       onChange(editor.getHTML());
     },
   });
-
+  
   useEffect(() => {
     if (editor && onEditorReady) {
       onEditorReady(editor);
     }
   }, [editor]);
+  
+  const uploadImage = async (file: File) => {
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${crypto.randomUUID()}.${fileExt}`;
+    const filePath = `posts/${fileName}`;
+
+    const { error } = await supabase.storage
+      .from("post-images")
+      .upload(filePath, file);
+
+    if (error) throw error;
+
+    const { data } = supabase.storage
+      .from("post-images")
+      .getPublicUrl(filePath);
+
+    return data.publicUrl;
+  };
 
   return (
     <div>
-      <MenuBar editor={editor} />
+      <MenuBar editor={editor} uploadImage={uploadImage} />
       <EditorContent editor={editor} />
     </div>
   );
