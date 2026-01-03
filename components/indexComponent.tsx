@@ -323,7 +323,7 @@ export default function Home() {
               <div className="grid grid-cols-[1.618fr_1fr] text-white w-full gap-4">
                 
                 {/* 1 */}
-                <div className="flex flex-col items-center border-[#d8e0e3]/70 border pb-4">
+                <div className="flex flex-col items-center border-[#d8e0e3]/70 border border-dashed pb-4">
 
                 {latestPost === null ? null : (
                   <div key={latestPost.id} className="post p-4 rounded-md mb-2 max-w-[85ch] w-full relative">
@@ -392,7 +392,7 @@ export default function Home() {
             <div className="m-4 ml-2 min-h-screen">
 
               {/* INTRO */}
-              <div className="text-white border-[#d8e0e3]/70 relative border flex flex-col items-center pb-14">
+              <div className="text-white border-[#d8e0e3]/70 relative border-dotted border flex flex-col items-center pb-14">
 
                 <div className="p-4 flex items-center flex-col">
                   <img
@@ -409,22 +409,23 @@ export default function Home() {
                 </div>
 
                 <div className="border-t border-b border-[#d8e0e3]/70 w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80">
-                  <p className={`text-sm`}>
-                    status:
-                    <span className={`
-                    ${status === "online" ? "text-cyan-300" : ""}
-                    ${status === "idle" ? "text-[#fffeac]" : ""}
-                    ${status === "dnd" ? "text-red-600" : ""}
-                    ${status === "offline" ? "text-black" : ""}
-                    pl-2
-                    font-extrabold
-                    glow
-                    `}>
-                    {status.toUpperCase()}
-                    </span>
-                  </p>
+                    <p className={`
+                      ${status === "online" ? "text-cyan-300 online-glow" : ""}
+                      ${status === "idle" ? "text-[#fff671] idle-glow" : ""}
+                      ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
+                      ${status === "offline" ? "text-gray-400" : ""}
+                      pl-2
+                      font-extrabold
+                      text-6xl
+                      `}>
+                      {status === "online" ? "ONLINE" : ""}
+                      {status === "idle" ? "IDLE" : ""}
+                      {status === "dnd" ? "BUSY" : ""}
+                      {status === "offline" ? "OFFLINE" : ""}
+                    </p>
+
                   {status !== "offline" && (
-                    <p>"{bio}"</p>
+                    <p className="font-bold text-xl">"{bio}"</p>
                   )}
                   {currentGame !== null && (
                     <p className="text-xs pt-0.5 pb-1">currently on {currentGame}</p>
@@ -476,43 +477,54 @@ export default function Home() {
 
         </div>
        
-       <div className="bg-[#535961]/60 w-full flex flex-col p-4">
+      <div className="bg-[#535961]/60 w-full flex flex-col p-4">
+
+      <hr className="my-4 border-gray-500/30 w-full" />
+
         {/* TO DO LIST */}
-        <div className="text-white">
-          <h1 className="font-bold pb-5 text-2xl">to do list</h1>
-          <p className="text-xl font-bold">TO-DO: </p>
-          <p className="text-xs">● revise about me page (its so ass bruh..)</p>
-          <p className="text-xs">● make blog page</p>
-          <p className="text-xs">● make the pp page</p>
-          <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
-          <p className="text-xs">● set up different 'moons' for each route</p>
-          <p className="text-xs">● make the ocs page</p>
-          <p className="text-xs">● make the gallery page</p>
-          <p className="text-xs">● make the mtwim page</p>
-          <p className="text-xs">● finish the scrollTrigger course</p>
-          <p className="text-xs">● add more ppl to stars bg</p>
-          <p className="text-xs">● finish the gsap course</p>
-          <p className="text-xs">● add image uploading function for tiptap</p>
-          <p className="text-xs">● add all old posts from the old miercury websites here</p>
-          <p className="text-xs">● set subdomains for characters/icemage/pp/etc.</p>
-          <p className="text-xs">● make assets (a lot of it...)</p>
-          <p className="text-xs">● make assets for mtwim</p>
-          <p className="text-xs">● make assets for characters</p>
-          <p className="text-xs">● add more to the about me page</p>
-          <p className="text-xs">● set up pp newspaper submissions</p>
-          <p className="text-xs">● add mier widget. (potentially make it persist across all routes)</p>
-          <br></br>
-          <p className="text-xl font-bold">DONE: </p>
-          <p className="text-xs">✔ set up atabook</p>
-          <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
-          <p className="text-xs">✔ make the about me page</p>
-          <p className="text-xs">✔ finish secret santa</p>
-          <p className="text-xs">✔ add more to the space background </p>
-          <p className="text-xs">✔ implement editing posts with tiptap</p>
-          <p className="text-xs">✔ implement tiptap on post dashboard</p>
-          <p className="text-xs">✔ make a dashboard for blog crud operations</p>
-          <p className="text-xs">✔ connect this to supabase so you can add blog posts</p>
-          <p className="text-xs">✔ add vercel web analytics functionality</p>
+        <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col">
+          <h1 className="font-bold pb-5 text-2xl self-center">to do list</h1>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
+              <p className="text-xl font-bold self-center">TO-DO: </p>
+              <p className="text-xs">● revise about me page (its so ass bruh..)</p>
+              <p className="text-xs">● make blog page</p>
+              <p className="text-xs">● make the pp page</p>
+              <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
+              <p className="text-xs">● set up different 'moons' for each route</p>
+              <p className="text-xs">● make the ocs page</p>
+              <p className="text-xs">● make the gallery page</p>
+              <p className="text-xs">● make the mtwim page</p>
+              <p className="text-xs">● finish the scrollTrigger course</p>
+              <p className="text-xs">● add more ppl to stars bg</p>
+              <p className="text-xs">● finish the gsap course</p>
+              <p className="text-xs">● add image uploading function for tiptap</p>
+              <p className="text-xs">● add all old posts from the old miercury websites here</p>
+              <p className="text-xs">● set subdomains for characters/icemage/pp/etc.</p>
+              <p className="text-xs">● make assets (a lot of it...)</p>
+              <p className="text-xs">● make assets for mtwim</p>
+              <p className="text-xs">● make assets for characters</p>
+              <p className="text-xs">● add more to the about me page</p>
+              <p className="text-xs">● set up pp newspaper submissions</p>
+              <p className="text-xs">● add mier widget. (potentially make it persist across all routes)</p>
+            </div>
+
+            <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
+              <p className="text-xl font-bold self-center">DONE: </p>
+              <p className="text-xs">✔ set up atabook</p>
+              <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
+              <p className="text-xs">✔ make the about me page</p>
+              <p className="text-xs">✔ finish secret santa</p>
+              <p className="text-xs">✔ add more to the space background </p>
+              <p className="text-xs">✔ implement editing posts with tiptap</p>
+              <p className="text-xs">✔ implement tiptap on post dashboard</p>
+              <p className="text-xs">✔ make a dashboard for blog crud operations</p>
+              <p className="text-xs">✔ connect this to supabase so you can add blog posts</p>
+              <p className="text-xs">✔ add vercel web analytics functionality</p>
+            </div>
+          </div>
+
         </div>
 
         <hr className="my-4 border-gray-500/30 w-full" />

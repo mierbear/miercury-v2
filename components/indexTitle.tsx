@@ -95,7 +95,7 @@ const Title = () => {
           sm:text-7xl
           md:text-8xl
           lg:text-9xl
-          
+          miercury-glow
           `}
         style={{ visibility: "hidden" }}
         onClick={titleAnim}
