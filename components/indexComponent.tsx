@@ -27,6 +27,7 @@ export default function Home() {
   const mierTakethRef = useRef<HTMLImageElement | null>(null);
   const [posts, setPosts] = useState<PostType[]>([]);
   const [latestPost, setLatestPost] = useState<PostType | null>(null);
+  const [latestPostSnippet, setLatestPostSnippet] = useState<string | null>(null);
   
   const handleDiscordLink = () => {
   navigator.clipboard.writeText("miermiermiermier");
@@ -113,6 +114,9 @@ export default function Home() {
     
     setPosts(data.slice(1));
     setLatestPost(data[0]);
+
+    const snippet = data[0].content.replace(/<[^>]+>/g, "").slice(0, 100);
+    setLatestPostSnippet(snippet);
   }
 
   useEffect(() => {
@@ -315,21 +319,21 @@ export default function Home() {
                 <div className="flex flex-col items-center border-[#d8e0e3]/70 border pb-4">
 
                 {latestPost === null ? null : (
-                  <div key={latestPost.id} className="post p-4 rounded-md mb-2 max-w-[85ch] w-full">
-                  <NextLink href={`/blog/post/${latestPost.slug}`}>
-                    <h1 className="font-bold text-2xl hover:underline blue">{latestPost.title}</h1>
-                  </NextLink>
-                  <div className="text-xs pt-0.5 text-gray-400 nonsel flex" onClick={clickDate}>
-                    <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
-                    {latestPost.updated_date === null ? null : (<p className="pl-5">last updated at:</p>)}
-                  </div>
-                  <div
-                    className="prose prose-invert pt-5 max-w-none"
-                    dangerouslySetInnerHTML={{ __html: latestPost.content.slice(0, 100) + "..." }}
-                  />
+                  <div key={latestPost.id} className="post p-4 rounded-md mb-2 max-w-[85ch] w-full relative">
+                    <NextLink href={`/blog/post/${latestPost.slug}`}>
+                      <h1 className="font-bold text-2xl hover:underline blue">{latestPost.title}</h1>
+                    </NextLink>
+                    <div className="text-xs text-gray-400 nonsel flex" onClick={clickDate}>
+                      <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
+                    </div>
+                    <div className="prose prose-invert pt-5 mb-4">
+                      <p>{latestPostSnippet}...</p>
+                    </div>
+                    
+                    <p className="absolute bottom-0 text-xs hover:underline right-4 blue"><a href={`/blog/post/${latestPost.slug}`}>continue reading?</a></p>
                   </div>
                 )}
-                  <hr className="my-4 border-gray-500/60 max-w-[80ch] w-full" />
+                  <hr className="mb-4 border-gray-500/60 max-w-[80ch] w-full" />
                 {posts.map((post) => {
                   return (
                     <div key={post.id} className="post rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4">
@@ -375,44 +379,6 @@ export default function Home() {
 
               <hr className="mb-4 mt-4 border-gray-500/30 w-full" />
 
-              {/* TO DO LIST */}
-              <div className="post p-4 pt-0 rounded-md mb-2 max-w-[85ch] w-full text-white">
-                <h1 className="font-bold pb-5 text-2xl">to do list</h1>
-                <p className="text-xl font-bold">TO-DO: </p>
-                <p className="text-xs">● revise about me page (its so ass bruh..)</p>
-                <p className="text-xs">● make blog page</p>
-                <p className="text-xs">● make the pp page</p>
-                <p className="text-xs">● set up atabook</p>
-                <p className="text-xs">● set up different 'moons' for each route</p>
-                <p className="text-xs">● make the ocs page</p>
-                <p className="text-xs">● make the gallery page</p>
-                <p className="text-xs">● make the mtwim page</p>
-                <p className="text-xs">● finish the scrollTrigger course</p>
-                <p className="text-xs">● add more ppl to stars bg</p>
-                <p className="text-xs">● finish the gsap course</p>
-                <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
-                <p className="text-xs">● add image uploading function for tiptap</p>
-                <p className="text-xs">● add all old posts from the old miercury websites here</p>
-                <p className="text-xs">● set subdomains for characters/icemage/pp/etc.</p>
-                <p className="text-xs">● make assets (a lot of it...)</p>
-                <p className="text-xs">● make assets for mtwim</p>
-                <p className="text-xs">● make assets for characters</p>
-                <p className="text-xs">● add more to the about me page</p>
-                <p className="text-xs">● set up pp newspaper submissions</p>
-                <p className="text-xs">● add mier widget. (potentially make it persist across all routes)</p>
-                <br></br>
-                <p className="text-xl font-bold">DONE: </p>
-                <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
-                <p className="text-xs">✔ make the about me page</p>
-                <p className="text-xs">✔ finish secret santa</p>
-                <p className="text-xs">✔ add more to the space background </p>
-                <p className="text-xs">✔ implement editing posts with tiptap</p>
-                <p className="text-xs">✔ implement tiptap on post dashboard</p>
-                <p className="text-xs">✔ make a dashboard for blog crud operations</p>
-                <p className="text-xs">✔ connect this to supabase so you can add blog posts</p>
-                <p className="text-xs">✔ add vercel web analytics functionality</p>
-              </div>
-
             </div> 
 
             {/* RIGHT COL */}
@@ -453,7 +419,7 @@ export default function Home() {
                     <p>"{bio}"</p>
                   )}
                   {currentGame !== null && (
-                    <p className="text-xs pt-0.5">currently on {currentGame}</p>
+                    <p className="text-xs pt-0.5 pb-1">currently on {currentGame}</p>
                   )}
                 </div>
 
@@ -498,12 +464,53 @@ export default function Home() {
 
             </div> 
           
-
-          
-
           </div>
+
         </div>
        
+       <div className="bg-[#535961]/60 w-full flex flex-col p-4">
+        {/* TO DO LIST */}
+        <div className="text-white">
+          <h1 className="font-bold pb-5 text-2xl">to do list</h1>
+          <p className="text-xl font-bold">TO-DO: </p>
+          <p className="text-xs">● revise about me page (its so ass bruh..)</p>
+          <p className="text-xs">● make blog page</p>
+          <p className="text-xs">● make the pp page</p>
+          <p className="text-xs">● set up atabook</p>
+          <p className="text-xs">● set up different 'moons' for each route</p>
+          <p className="text-xs">● make the ocs page</p>
+          <p className="text-xs">● make the gallery page</p>
+          <p className="text-xs">● make the mtwim page</p>
+          <p className="text-xs">● finish the scrollTrigger course</p>
+          <p className="text-xs">● add more ppl to stars bg</p>
+          <p className="text-xs">● finish the gsap course</p>
+          <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
+          <p className="text-xs">● add image uploading function for tiptap</p>
+          <p className="text-xs">● add all old posts from the old miercury websites here</p>
+          <p className="text-xs">● set subdomains for characters/icemage/pp/etc.</p>
+          <p className="text-xs">● make assets (a lot of it...)</p>
+          <p className="text-xs">● make assets for mtwim</p>
+          <p className="text-xs">● make assets for characters</p>
+          <p className="text-xs">● add more to the about me page</p>
+          <p className="text-xs">● set up pp newspaper submissions</p>
+          <p className="text-xs">● add mier widget. (potentially make it persist across all routes)</p>
+          <br></br>
+          <p className="text-xl font-bold">DONE: </p>
+          <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
+          <p className="text-xs">✔ make the about me page</p>
+          <p className="text-xs">✔ finish secret santa</p>
+          <p className="text-xs">✔ add more to the space background </p>
+          <p className="text-xs">✔ implement editing posts with tiptap</p>
+          <p className="text-xs">✔ implement tiptap on post dashboard</p>
+          <p className="text-xs">✔ make a dashboard for blog crud operations</p>
+          <p className="text-xs">✔ connect this to supabase so you can add blog posts</p>
+          <p className="text-xs">✔ add vercel web analytics functionality</p>
+        </div>
+
+        <hr className="my-4 border-gray-500/30 w-full" />
+
+      </div>
+                
       </div>  
       <footer className="z-50">
         <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white text-xs">
