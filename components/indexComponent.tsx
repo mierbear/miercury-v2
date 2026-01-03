@@ -220,10 +220,17 @@ export default function Home() {
 
       const json = await res.json();
       setStatus(json.data.discord_status);
-      setBio(`${json.data.activities[0].emoji.name} ${json.data.activities[0].state}`);
+
+      if (json.data.activities[0].emoji) {
+        setBio(`${json.data.activities[0].emoji.name} ${json.data.activities[0].state}`);
+      } else {
+        setBio(`${json.data.activities[0].state}`);
+      }
+
       if (json.data.activities[1]) {
         setCurrentGame(json.data.activities[1].name);
       }
+
       return json.data;
 
     } catch (error) {
@@ -362,9 +369,9 @@ export default function Home() {
                     </div>
 
                     {/* 3 */}
-                    <div className="flex flex-col justify-center items-center border-[#d8e0e3]/70 border">
-                      guestbook
-                    </div>
+                    <NextLink href="https://mier.atabook.org/" target="_blank" rel="noopener noreferrer" className="flex flex-col justify-center w-full items-center border-[#d8e0e3]/70 border">
+                      <p className="text-center">sign my guestbook</p>
+                    </NextLink>
 
                   </div>
                   
@@ -411,6 +418,7 @@ export default function Home() {
                     ${status === "offline" ? "text-black" : ""}
                     pl-2
                     font-extrabold
+                    glow
                     `}>
                     {status.toUpperCase()}
                     </span>
@@ -476,7 +484,7 @@ export default function Home() {
           <p className="text-xs">● revise about me page (its so ass bruh..)</p>
           <p className="text-xs">● make blog page</p>
           <p className="text-xs">● make the pp page</p>
-          <p className="text-xs">● set up atabook</p>
+          <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
           <p className="text-xs">● set up different 'moons' for each route</p>
           <p className="text-xs">● make the ocs page</p>
           <p className="text-xs">● make the gallery page</p>
@@ -484,7 +492,6 @@ export default function Home() {
           <p className="text-xs">● finish the scrollTrigger course</p>
           <p className="text-xs">● add more ppl to stars bg</p>
           <p className="text-xs">● finish the gsap course</p>
-          <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
           <p className="text-xs">● add image uploading function for tiptap</p>
           <p className="text-xs">● add all old posts from the old miercury websites here</p>
           <p className="text-xs">● set subdomains for characters/icemage/pp/etc.</p>
@@ -496,6 +503,7 @@ export default function Home() {
           <p className="text-xs">● add mier widget. (potentially make it persist across all routes)</p>
           <br></br>
           <p className="text-xl font-bold">DONE: </p>
+          <p className="text-xs">✔ set up atabook</p>
           <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
           <p className="text-xs">✔ make the about me page</p>
           <p className="text-xs">✔ finish secret santa</p>
