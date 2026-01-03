@@ -453,7 +453,7 @@ const NavMenu = (props: { open: boolean }) => {
             >
               <img
                 ref={buttonImgRef}
-                src="images/moon.png"
+                src="/images/moon.png"
                 className="cursor-pointer max-h-[14vh] max-w-[14vh] select-none"
                 style={{ userSelect: "none" }}
                 draggable="false"
