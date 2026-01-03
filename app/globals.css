@@ -79,11 +79,8 @@ p {
   transition: all 1s ease;
 }
 
-.login:hover {
+.blue:hover {
   transition: all .6s ease;
-}
-
-.login:hover {
   color: rgb(0, 255, 255);
 }
 

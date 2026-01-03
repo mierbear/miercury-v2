@@ -12,6 +12,7 @@ import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Xanh_Mono } from "next/font/google"
+import { error } from "console";
 
 const xanh = Xanh_Mono({
   weight: "400",
@@ -201,6 +202,35 @@ export default function Home() {
     return quotes[index];
   };
 
+  const [status, setStatus] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
+  const [currentGame, setCurrentGame] = useState<string | null>(null);
+
+  const fetchStatus = async () => {
+    try {
+      const res = await fetch("https://api.lanyard.rest/v1/users/1161647595526045766");
+
+      if (!res.ok) {
+        throw new Error("Failed to fetch status");
+      }
+
+      const json = await res.json();
+      setStatus(json.data.discord_status);
+      setBio(`${json.data.activities[0].emoji.name} ${json.data.activities[0].state}`);
+      if (json.data.activities[1]) {
+        setCurrentGame(json.data.activities[1].name);
+      }
+      return json.data;
+
+    } catch (error) {
+      console.error("fetch failed: ", error);
+      return null;
+    }
+  }
+
+  useEffect(() => {
+    fetchStatus();
+  }, [])
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -287,7 +317,7 @@ export default function Home() {
                 {latestPost === null ? null : (
                   <div key={latestPost.id} className="post p-4 rounded-md mb-2 max-w-[85ch] w-full">
                   <NextLink href={`/blog/post/${latestPost.slug}`}>
-                    <h1 className="font-bold text-2xl">{latestPost.title}</h1>
+                    <h1 className="font-bold text-2xl hover:underline blue">{latestPost.title}</h1>
                   </NextLink>
                   <div className="text-xs pt-0.5 text-gray-400 nonsel flex" onClick={clickDate}>
                     <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
@@ -295,7 +325,7 @@ export default function Home() {
                   </div>
                   <div
                     className="prose prose-invert pt-5 max-w-none"
-                    dangerouslySetInnerHTML={{ __html: latestPost.content }}
+                    dangerouslySetInnerHTML={{ __html: latestPost.content.slice(0, 100) + "..." }}
                   />
                   </div>
                 )}
@@ -305,7 +335,7 @@ export default function Home() {
                     <div key={post.id} className="post rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4">
 
                       <NextLink href={`/blog/post/${post.slug}`}>
-                        <p className="font-bold">{post.title}</p>
+                        <p className="font-bold hover:underline blue">{post.title}</p>
                       </NextLink>
                       
                       <div className="text-xs text-gray-400 nonsel flex">
@@ -398,17 +428,33 @@ export default function Home() {
                   />
 
                   <p className="text-xs text-justify">
-                    Hello, welcome to Miercury! This is a place for me to share my thoughts, projects and artwork. You can read more about me <a href="/about" className="underline login text-">here.</a>
+                    Hello, welcome to Miercury! This is a place for me to share my thoughts, projects and artwork. You can read more about me <a href="/about" className="underline blue text-">here.</a>
                     <br />
                     <br />
                     I hope you enjoy your stay.
                   </p>
                 </div>
 
-                <div className="border-t border-b border-[#d8e0e3]/70 w-full mb-2 p-2 text-center">
-                  <p className="text-sm">
+                <div className="border-t border-b border-[#d8e0e3]/70 w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80">
+                  <p className={`text-sm`}>
                     status:
+                    <span className={`
+                    ${status === "online" ? "text-cyan-300" : ""}
+                    ${status === "idle" ? "text-[#fffeac]" : ""}
+                    ${status === "dnd" ? "text-red-600" : ""}
+                    ${status === "offline" ? "text-black" : ""}
+                    pl-2
+                    font-extrabold
+                    `}>
+                    {status.toUpperCase()}
+                    </span>
                   </p>
+                  {status !== "offline" && (
+                    <p>"{bio}"</p>
+                  )}
+                  {currentGame !== null && (
+                    <p className="text-xs pt-0.5">currently on {currentGame}</p>
+                  )}
                 </div>
 
                 <div className="flex flex-row justify-center items-center gap-3 absolute bottom-0 right-0 pb-2 px-4">
@@ -469,7 +515,7 @@ export default function Home() {
           </p>
 
           <div className="right-1 absolute">
-            <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 text-xs hover:underline login cursor-pointer nonsel">log in</p>
+            <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 text-xs hover:underline blue cursor-pointer nonsel">log in</p>
           </div>
 
         </div>
