@@ -271,7 +271,7 @@ export default function Home() {
                   <div className={`flex ${ready ? "opacity-100" : "opacity-0"}`}>
 
                     <div className="flex-[0_0_100%]">
-                      <div className="flex flex-row w-full justify-between items-center text-center px-10 h-full nonsel bg-[#17191a]/40">
+                      <div className="flex flex-row w-full justify-between items-center text-center px-10 h-full nonsel bg-[#17191a]/40 overflow-x-hidden">
                         <img src="/images/construction.gif" />
                         <h1 className="text-red-600 font-bold">THIS SITE IS STILL VERY UNFINISHED!! <br /> THX FOR VISITING XOXO</h1>
                         <img src="/images/construction.gif" />
@@ -415,7 +415,7 @@ export default function Home() {
                       ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
                       ${status === "offline" ? "text-gray-400" : ""}
                       font-extrabold
-                      text-6xl
+                      text-5xl
                       `}>
                       {status === "online" ? "ONLINE" : ""}
                       {status === "idle" ? "IDLE" : ""}
@@ -437,7 +437,7 @@ export default function Home() {
                   )}
 
                   {status !== "offline" && (
-                    <p className="font-bold text-xl">"{bio}"</p>
+                    <p className="italic text-xs">"{bio}"</p>
                   )}
                 </div>
 
@@ -511,7 +511,6 @@ export default function Home() {
               <p className="text-xs">● finish the scrollTrigger course</p>
               <p className="text-xs">● add more ppl to stars bg</p>
               <p className="text-xs">● finish the gsap course</p>
-              <p className="text-xs">● add image uploading function for tiptap</p>
               <p className="text-xs">● add all old posts from the old miercury websites here</p>
               <p className="text-xs">● set subdomains for characters/icemage/pp/etc.</p>
               <p className="text-xs">● make assets (a lot of it...)</p>
@@ -524,6 +523,10 @@ export default function Home() {
 
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
+              <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ fix bg low opacity bug</p>
+              <p className="text-xs">● add image uploading function for tiptap</p>
+
               <p className="text-xs">✔ set up atabook</p>
               <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
               <p className="text-xs">✔ make the about me page</p>

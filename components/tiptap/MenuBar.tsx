@@ -22,9 +22,24 @@ type Props = {
 }
 
 export default function MenuBar({ editor, uploadImage }: Props) {
+  
   if (!editor) {
     return null;
   }
+
+  const addYoutubeVideo = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const url = prompt('Enter YouTube URL')
+
+    if (url) {
+      editor.commands.setYoutubeVideo({
+        src: url,
+        width: 640,
+        height: 480,
+      })
+    }
+  }
+  
 
   const Options = [
     {
@@ -126,6 +141,9 @@ export default function MenuBar({ editor, uploadImage }: Props) {
             .run();
         }}
       />
+      <button id="add" onClick={addYoutubeVideo}>
+        YT link
+      </button>
     </div>
   );
 }

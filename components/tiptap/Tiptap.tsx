@@ -8,13 +8,13 @@ import Highlight from "@tiptap/extension-highlight";
 import { useEffect } from "react";
 import supabase from "@/lib/supabaseClient";
 import { ResizableImage } from 'tiptap-extension-resizable-image';
+import Youtube from '@tiptap/extension-youtube'
 
 interface RichTextEditorProps {
   content: string;
   onChange: (content: string) => void;
   onEditorReady?: (editor: any) => void;
 }
-
 
 export default function RichTextEditor({
   content,
@@ -43,6 +43,12 @@ export default function RichTextEditor({
       ResizableImage.configure({
         defaultWidth: 200,
         defaultHeight: 200,
+      }),
+      Youtube.configure({
+        controls: true,
+        nocookie: true,
+        modestBranding: true,
+        progressBarColor: 'white',
       }),
     ],
     content: content,
