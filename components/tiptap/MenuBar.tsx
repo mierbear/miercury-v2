@@ -39,7 +39,14 @@ export default function MenuBar({ editor, uploadImage }: Props) {
       })
     }
   }
-  
+
+  const setColor = (color: string) => {
+    editor
+      .chain()
+      .focus()
+      .setColor(color)
+      .run()
+  }
 
   const Options = [
     {
@@ -144,6 +151,10 @@ export default function MenuBar({ editor, uploadImage }: Props) {
       <button id="add" onClick={addYoutubeVideo}>
         YT link
       </button>
+      <input
+        type="color"
+        onChange={e => setColor(e.target.value)}
+      />
     </div>
   );
 }

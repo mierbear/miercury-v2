@@ -5,7 +5,8 @@ import StarterKit from "@tiptap/starter-kit";
 import MenuBar from "./MenuBar";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
-import Link from '@tiptap/extension-link'
+import Link from "@tiptap/extension-link";
+import { TextStyle, Color } from "@tiptap/extension-text-style";
 import supabase from "@/lib/supabaseClient";
 import { useEffect } from "react";
 import { ResizableImage } from 'tiptap-extension-resizable-image';
@@ -59,6 +60,10 @@ export default function RichTextEditor({
         nocookie: true,
         modestBranding: true,
         progressBarColor: 'white',
+      }),
+      TextStyle,
+      Color.configure({
+        types: ['textStyle'],
       }),
     ],
     content: content,
