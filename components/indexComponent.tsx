@@ -401,7 +401,7 @@ export default function Home() {
                   />
 
                   <p className="text-xs text-justify">
-                    Hello, welcome to Miercury! This is a place for me to share my thoughts, projects and artwork. You can read more about me <a href="/about" className="underline blue text-">here.</a>
+                    Hello, welcome to Miercury! This is a place for me to share my thoughts, projects and artworks. You can read more about me <a href="/about" className="underline blue text-">here.</a>
                     <br />
                     <br />
                     I hope you enjoy your stay.
@@ -418,7 +418,7 @@ export default function Home() {
                       text-5xl
                       `}>
                       {status === "online" ? "ONLINE" : ""}
-                      {status === "idle" ? "IDLE" : ""}
+                      {status === "idle" ? "AWAY" : ""}
                       {status === "dnd" ? "BUSY" : ""}
                       {status === "offline" ? "OFFLINE" : ""}
                     </p>
@@ -500,8 +500,9 @@ export default function Home() {
               <p className="text-xs">● revise about me page (its so ass bruh..)</p>
               <p className="text-xs">● make the admin page actually legible LOL</p>
               <p className="text-xs">● make blog page</p>
+              <p className="text-xs">● set up wanted posters for pp</p>
               <p className="text-xs">● set up supabase for pp gallery</p>
-              <p className="text-xs">● make the pp page</p>
+              <p className="text-xs">● set up carousel for pp</p>
               <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
               <p className="text-xs">● set up different 'moons' for each route</p>
               <p className="text-xs">● make the ocs page</p>
@@ -509,9 +510,8 @@ export default function Home() {
               <p className="text-xs">● make the gallery page</p>
               <p className="text-xs">● make the mtwim page</p>
               <p className="text-xs">● finish the scrollTrigger course</p>
-              <p className="text-xs">● add more ppl to stars bg</p>
+              <p className="text-xs">● add more ppl to stars bg (revise it even)</p>
               <p className="text-xs">● finish the gsap course</p>
-              <p className="text-xs">● add all old posts from the old miercury websites here</p>
               <p className="text-xs">● set subdomains for characters/icemage/pp/etc.</p>
               <p className="text-xs">● make assets (a lot of it...)</p>
               <p className="text-xs">● make assets for mtwim</p>
@@ -524,9 +524,10 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ make the pp page</p>
+              <p className="text-xs">✔ add all old posts from the old miercury websites here</p>
               <p className="text-xs">✔ fix bg low opacity bug</p>
-              <p className="text-xs">● add image uploading function for tiptap</p>
-
+              <p className="text-xs">✔ add image uploading function for tiptap</p>
               <p className="text-xs">✔ set up atabook</p>
               <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
               <p className="text-xs">✔ make the about me page</p>

@@ -16,7 +16,6 @@ export default function Blog() {
       .from("posts")
       .select("*")
       .order("date_created", { ascending: false })
-      .limit(4);
 
     if (error) {
       console.error("fetch failed: ", error.message);
