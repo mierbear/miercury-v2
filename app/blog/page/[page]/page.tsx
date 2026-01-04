@@ -56,10 +56,11 @@ export default function Home({
 
   return (
     <BlogComponent
-      p={posts}
-      cp={currentPosts}
-      pg={page}
-      ppp={POSTS_PER_PAGE}
+      type="index"
+      posts={currentPosts}
+      allPosts={posts}
+      currentPage={page}
+      postsPerPage={POSTS_PER_PAGE}
     />
   );
 }
