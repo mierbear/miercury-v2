@@ -326,7 +326,7 @@ export default function Home() {
                 <div className="flex flex-col items-center border-[#d8e0e3]/70 border border-dashed pb-4">
 
                 {latestPost === null ? null : (
-                  <div key={latestPost.id} className="post p-4 rounded-md mb-2 max-w-[85ch] w-full relative">
+                  <div key={latestPost.id} className="p-4 rounded-md mb-2 max-w-[85ch] w-full relative">
                     <NextLink href={`/blog/post/${latestPost.slug}`}>
                       <h1 className="font-bold text-2xl hover:underline blue">{latestPost.title}</h1>
                     </NextLink>
@@ -343,7 +343,7 @@ export default function Home() {
                   <hr className="mb-4 border-gray-500/60 max-w-[80ch] w-full" />
                 {posts.map((post) => {
                   return (
-                    <div key={post.id} className="post rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4">
+                    <div key={post.id} className="rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4">
 
                       <NextLink href={`/blog/post/${post.slug}`}>
                         <p className="font-bold hover:underline blue">{post.title}</p>

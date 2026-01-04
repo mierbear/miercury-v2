@@ -443,6 +443,17 @@ p {
   text-decoration: underline;
 }
 
+.post p {
+  font-size: 14px;
+}
+
+.post h1,
+.post h2,
+.post h3,
+.post p {
+  margin-bottom: 1.25rem;
+}
+
 div[data-youtube-video] {
   display: flex;
   justify-content: center;

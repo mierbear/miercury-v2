@@ -42,7 +42,7 @@ export default function Blog() {
           <h1 className="py-4 font-bold">archive</h1>
           {posts.map((post) => {
             return (
-              <div key={post.id} className="post rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4 z-50">
+              <div key={post.id} className="rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4 z-50">
 
                 <NextLink href={`/blog/post/${post.slug}`}>
                   <p className="hover:underline blue">{post.title}</p>
