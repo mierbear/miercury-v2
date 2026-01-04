@@ -423,3 +423,25 @@ p {
     opacity: 0.2;
   }
 }
+
+/* .tiptap .youtube {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.tiptap .youtube iframe {
+  width: 100%;
+  max-width: 720px;
+  aspect-ratio: 16 / 9;
+  border: none;
+} */
+
+div[data-youtube-video] {
+  display: flex;
+  justify-content: center;
+}
+
+div[data-youtube-video] iframe {
+  max-width: 100%;
+}

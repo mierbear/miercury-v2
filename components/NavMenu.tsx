@@ -399,7 +399,10 @@ const NavMenu = (props: { open: boolean }) => {
   return (
     <div>
       
-      <div className="flex justify-center min-h-screen min-w-screen absolute">
+      <div
+        className="flex justify-center min-h-screen min-w-screen absolute"
+        style={{ pointerEvents: "none" }}
+      >
         <div
           ref={landingRef}
           className="fixed min-w-[95vw] min-h-[90vh] grid grid-rows-[5fr_1fr] z-500 shadow-sm pointer-events-none"
