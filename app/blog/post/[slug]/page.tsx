@@ -43,7 +43,7 @@ export default function PostPage() {
   
 
   return (
-    <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col">
+    <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white">
       <div key={post.id} className="post p-5 rounded-md mb-2 max-w-[85ch] w-full">
         <h1 className="font-bold text-2xl">{post.title}</h1>
         <div className="text-xs pt-0.5 text-gray-400 nonsel flex" onClick={clickDate}>

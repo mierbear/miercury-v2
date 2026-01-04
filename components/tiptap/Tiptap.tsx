@@ -5,8 +5,9 @@ import StarterKit from "@tiptap/starter-kit";
 import MenuBar from "./MenuBar";
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
-import { useEffect } from "react";
+import Link from '@tiptap/extension-link'
 import supabase from "@/lib/supabaseClient";
+import { useEffect } from "react";
 import { ResizableImage } from 'tiptap-extension-resizable-image';
 import Youtube from '@tiptap/extension-youtube'
 
@@ -43,6 +44,15 @@ export default function RichTextEditor({
       ResizableImage.configure({
         defaultWidth: 200,
         defaultHeight: 200,
+      }),
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        linkOnPaste: true,
+        HTMLAttributes: {
+          rel: 'noopener noreferrer nofollow',
+          target: '_blank',
+        },
       }),
       Youtube.configure({
         controls: true,

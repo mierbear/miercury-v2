@@ -437,6 +437,12 @@ p {
   border: none;
 } */
 
+.post a,
+.tiptap a {
+  color: rgb(0, 255, 255);
+  text-decoration: underline;
+}
+
 div[data-youtube-video] {
   display: flex;
   justify-content: center;
