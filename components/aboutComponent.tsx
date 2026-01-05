@@ -392,7 +392,7 @@ export default function Home() {
           <p>● drawing</p>
           <hr className="my-2 border-white/20" />
           <h3 className="font-bold pb-1">things i dislike:</h3>
-          <p>🞨 nihilism/negativity</p>
+          <p>🞨 nihilism</p>
           <p>🞨 ants</p>
           <hr className="my-2 border-white/20" />
           <h2 className="italic text-yellow-200"><span className="underline cursor-pointer" onClick={openMoreInfo} ref={moreInfoTextRef} >more about me</span> {emoji}</h2>

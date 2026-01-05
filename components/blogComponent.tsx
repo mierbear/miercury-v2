@@ -2,6 +2,7 @@
 import { useState } from "react";
 import PostType from "@/types/postType";
 import NextLink from "next/link";
+import BlogPostListComponent from "@/components/blogPostListComponent";
 
 type BlogComponentProps =
   | {
@@ -35,25 +36,7 @@ export default function Blog(props: BlogComponentProps) {
 
         <div className="grid grid-cols-[1fr_2fr] w-240 min-h-screen z-50">
 
-          <div className="bg-[#adb7be]/20 z-50 flex flex-col items-center">
-            <h1 className="py-4 font-bold">archive</h1>
-
-            {allPosts.map((post) => (
-              <div
-                key={post.id}
-                className="rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4 z-50"
-              >
-                <NextLink href={`/blog/post/${post.slug}`}>
-                  <p className="hover:underline blue text-sm">{post.title}</p>
-                </NextLink>
-
-                <div className="text-xs text-gray-400 select-none flex">
-                  <p>— {post.date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
+          <BlogPostListComponent allPosts={allPosts} />
 
           <div className="bg-[#c9d3d6]/20">
             <div key={post.id} className="p-5 rounded-md mb-2 max-w-[85ch] w-full">
@@ -86,24 +69,7 @@ export default function Blog(props: BlogComponentProps) {
 
         <div className="grid grid-cols-[1fr_2fr] w-240 min-h-screen z-50">
 
-          <div className="bg-[#adb7be]/20 z-50 flex flex-col items-center">
-            <h1 className="py-4 font-bold">archive</h1>
-
-            {allPosts.map((post) => (
-              <div
-                key={post.id}
-                className="rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4 z-50"
-              >
-                <NextLink href={`/blog/post/${post.slug}`}>
-                  <p className="hover:underline blue text-sm">{post.title}</p>
-                </NextLink>
-
-                <div className="text-xs text-gray-400 select-none flex">
-                  <p>— {post.date}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <BlogPostListComponent allPosts={allPosts} />
 
           <div className="bg-[#c9d3d6]/20">
             {posts.map((post) => (

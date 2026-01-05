@@ -499,8 +499,8 @@ export default function Home() {
               <p className="text-xl font-bold self-center">TO-DO: </p>
               <p className="text-xs">● revise about me page (its so ass bruh..)</p>
               <p className="text-xs">● make the admin page actually legible LOL</p>
-              <p className="text-xs">● make blog page</p>
               <p className="text-xs">● set up wanted posters for pp</p>
+              <p className="text-xs">● set up images for navmenu</p>
               <p className="text-xs">● set up supabase for pp gallery</p>
               <p className="text-xs">● set up carousel for pp</p>
               <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
@@ -524,6 +524,8 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ implement index and slug pages for blog </p>
+              <p className="text-xs">✔ make blog page</p>
               <p className="text-xs">✔ make the pp page</p>
               <p className="text-xs">✔ add all old posts from the old miercury websites here</p>
               <p className="text-xs">✔ fix bg low opacity bug</p>
