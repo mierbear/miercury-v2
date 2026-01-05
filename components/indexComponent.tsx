@@ -3,7 +3,6 @@ import Image from "next/image";
 import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
 import TitleBot from "@/components/indexTitleBot";
-import BannerLink from "@/components/indexBannerLink"
 import PostType from "@/types/postType";
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
@@ -12,7 +11,7 @@ import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Xanh_Mono } from "next/font/google"
-import { error } from "console";
+import Marquee from "react-fast-marquee";
 
 const xanh = Xanh_Mono({
   weight: "400",
@@ -243,6 +242,62 @@ export default function Home() {
     fetchStatus();
   }, [])
 
+  const blogBookRef = useRef<HTMLImageElement | null>(null);
+  const blogOpenTl = gsap.timeline();
+  const blogCloseTl = gsap.timeline();
+
+  const blogSketches = [
+    "mier",
+    "abri",
+    "vert",
+    "12s",
+    "genki",
+    "feline",
+    "jelly",
+    "jett",
+    "kags",
+    "lance",
+    "partack",
+    "truilt",
+  ];
+
+  const randomizer = (arr: string[]) => {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  const blogHoverOn = () => {
+    if (!blogBookRef.current) return;
+    blogOpenTl.clear();
+    blogCloseTl.clear();
+
+    blogOpenTl
+      .to(blogBookRef.current, {
+        xPercent: 35,
+        duration: 0.3,
+        ease: "power2.out",
+      })
+      .set(blogBookRef.current, {
+        attr: { src: `/images/blogopen-${randomizer(blogSketches)}.png` },
+      }, "<0.15");
+  };
+
+  const blogHoverOff = () => {
+    if (!blogBookRef.current) return;
+    blogOpenTl.clear();
+    blogCloseTl.clear();
+
+    blogCloseTl
+      .set(blogBookRef.current, {
+        attr: { src: "/images/blogclose.png" },
+      })
+      .to(blogBookRef.current, {
+        xPercent: 0,
+        duration: 0.3,
+        ease: "power2.out",
+      });
+  };
+
+
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
       <div className="min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
@@ -471,13 +526,52 @@ export default function Home() {
 
               {/* NAV */}
               <div className="p-4 flex flex-col items-center relative border-[#d8e0e3]/70 border gap-4">
-                <BannerLink name="Characters" link="characters" />
+                {/* <BannerLink name="Characters" link="characters" />
                 <BannerLink name="MTWIM" link="mtwim" />
                 <BannerLink name="Pacific Purgatory" link="pp" />
                 <BannerLink name="Games" link="games" />
                 <BannerLink name="Gallery" link="gallery" />
                 <BannerLink name="About Me" link="about" />
-                <BannerLink name="Blog" link="blog" />
+                <BannerLink name="Blog" link="blog" /> */}
+                <div className="flex flex-col gap-4">
+                  <NextLink href="/characters">
+                    (characters)
+                    <Marquee pauseOnHover speed={80} >
+                      <img src="/images/marquee.png" className="max-h-40" />
+                    </Marquee>
+                  </NextLink>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col items-center justify-start gap-4">
+                      <NextLink href="/mtwim" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border">
+                      mtwim
+                        {/* <img src="/images/pfp.png" className="opacity-70 absolute bottom-0 scale-120 origin-bottom"/> */}
+                      </NextLink>
+                      <NextLink href="pp" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border">
+                      pacific purgatory
+                        {/* <img src="/images/pfp.png" className="opacity-70 absolute bottom-0 scale-120 origin-bottom"/> */}
+                      </NextLink>
+                      <NextLink href="about" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border">
+                      about
+                        {/* <img src="/images/pfp.png" className="opacity-70 absolute bottom-0 scale-120 origin-bottom"/> */}
+                      </NextLink>
+                      {/* <img src="/images/pfp.png"/>
+                      <img src="/images/pfp.png"/> */}
+                    </div>
+                    <div className="flex flex-col items-center gap-4 justify-center pt-16">
+                      <NextLink href="/games" className="relative w-full aspect-square border-[#d8e0e3]/70 z-70 border">
+                        <img src="/images/morozovfishing.png" className="nonsel absolute bottom-0 z-80 scale-200 origin-[10%_50%] pointer-events-none"/>
+                      </NextLink>
+                      <NextLink href="/gallery" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border">
+                        <Marquee speed={20} className="z-70">
+                          <img src="/images/gallery.png" className="nonsel pointer-events-none" />
+                        </Marquee>
+                      </NextLink>
+                      <NextLink href="/blog" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border flex items-center justify-center" onMouseOver={blogHoverOn} onMouseOut={blogHoverOff}>
+                        <img src="/images/blogclose.png" className="absolute scale-150 translate-x-[-35%] pointer-events-none nonsel" ref={blogBookRef} />
+                      </NextLink>
+                    </div>
+                  </div>
+                </div>
               </div> 
 
             </div> 
@@ -519,6 +613,7 @@ export default function Home() {
               <p className="text-xs">● add more to the about me page</p>
               <p className="text-xs">● set up pp newspaper submissions</p>
               <p className="text-xs">● add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
+              <p className="text-xs">● optimize navmenu open/close timeline animations with ctx</p>
             </div>
 
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">

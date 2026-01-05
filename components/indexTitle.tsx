@@ -19,27 +19,6 @@ const Title = () => {
 
     const split = new SplitText(titleRef.current, { type: "words" });
 
-    // const tl = gsap.timeline();
-
-    // tl.to(split.words, {
-    //   duration: .8,
-    //   opacity: 0,
-    //   stagger: {
-    //       each: 0.08,
-    //     },
-    //   ease: "power4.out",
-    //   delay: 0.3,
-    // })
-    // .to(split.words, {
-    //   duration: 1,
-    //   opacity: 1,
-    //   stagger: {
-    //       each: 0.05,
-    //     },
-    //   ease: "power4.out",
-    //   delay: 0.3,
-    // }, "<.25")
-
     gsap.to(split.words, {
       keyframes:{
         "50%":{yPercent: 120},

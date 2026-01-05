@@ -21,17 +21,6 @@ const font2 = Questrial({
 })
 
 export default function Home() {
-  const marqueeRef = useRef<HTMLParagraphElement | null>(null);
-
-  useEffect(() => {
-    if (!marqueeRef.current) return;
-
-    gsap.fromTo(marqueeRef.current,
-      { xPercent: 150 },
-      { xPercent: -150, duration: 25, ease: "none", repeat: -1 }
-    );
-  }, [])
-
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
 

@@ -56,46 +56,38 @@ const NavMenu = (props: { open: boolean }) => {
   }
 
   const menuAppear = () => {
-    const split = new SplitText(homeLinkRef.current, { type: "chars" });
-    const split2 = new SplitText(galleryLinkRef.current, { type: "chars" });
-    const tl = gsap.timeline();
-    const tl2 = gsap.timeline();
+    if (!homeLinkRef.current || !galleryLinkRef.current) return;
 
-    tl.from(split.chars, {
+    const ctx = gsap.context(() => {
+      const split1 = new SplitText(homeLinkRef.current!, { type: "chars" });
+      const split2 = new SplitText(galleryLinkRef.current!, { type: "chars" });
+
+      gsap.from(split1.chars, {
         duration: 1,
         opacity: 0,
         xPercent: 200,
         stagger: 0.15,
         ease: "back.inOut",
-        // delay: .5,
-      })
+      });
 
-    tl2.from(split2.chars, {
-        duration: .8,
+      gsap.from(split2.chars, {
+        duration: 0.8,
         opacity: 0,
         xPercent: -200,
-        stagger: {
-          each: 0.08,
-          from: "end"
-        },
+        stagger: { each: 0.08, from: "end" },
         ease: "back.inOut",
-        delay: .4,
-      })
+        delay: 0.4,
+      });
+    });
 
-      return () => {
-        tl.kill();
-        tl2.kill();
-        split.revert();
-        split2.revert();
-      };
-  }
+    return () => ctx.revert();
+  };
 
   const toggleLanding = () => {
     if (!landingRef.current) return;
-
-    const height = landingRef.current.offsetHeight;
-    const width = landingRef.current.offsetWidth;
   
+    openTl.kill();
+    closeTl.kill();
 
     if (isOpen.current) {
       // CLOSE ANIMATION
