@@ -1,5 +1,5 @@
 "use client";
-import Image from "next/image";
+import NextImage from "next/image";
 import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
 import TitleBot from "@/components/indexTitleBot";
@@ -261,6 +261,32 @@ export default function Home() {
     "truilt",
     "chai",
   ];
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const preload = [
+      '/images/blogopen-mier.png',
+      '/images/blogopen-abri.png',
+      '/images/blogopen-vert.png',
+      '/images/blogopen-12s.png',
+      '/images/blogopen-genki.png',
+      '/images/blogopen-feline.png',
+      '/images/blogopen-jelly.png',
+      '/images/blogopen-jett.png',
+      '/images/blogopen-kags.png',
+      '/images/blogopen-lance.png',
+      '/images/blogopen-partack.png',
+      '/images/blogopen-truilt.png',
+      '/images/blogopen-chai.png',
+    ];
+
+    preload.forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
+
+  }, [])
 
   const randomizer = (arr: string[]) => {
     return arr[Math.floor(Math.random() * arr.length)];
