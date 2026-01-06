@@ -114,7 +114,7 @@ export default function Home() {
     setPosts(data.slice(1));
     setLatestPost(data[0]);
 
-    const snippet = data[0].content.replace(/<[^>]+>/g, "").slice(0, 100);
+    const snippet = data[0].content.replace(/<[^>]+>/g, "").slice(0, 200);
     setLatestPostSnippet(snippet);
   }
 
@@ -259,6 +259,7 @@ export default function Home() {
     "lance",
     "partack",
     "truilt",
+    "chai",
   ];
 
   const randomizer = (arr: string[]) => {
@@ -388,7 +389,7 @@ export default function Home() {
                     <div className="text-xs text-gray-400 nonsel flex" onClick={clickDate}>
                       <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
                     </div>
-                    <div className="prose prose-invert pt-5 mb-4">
+                    <div className="prose prose-invert pt-5 mb-4 text-xs">
                       <p>{latestPostSnippet}...</p>
                     </div>
                     
@@ -533,42 +534,60 @@ export default function Home() {
                 <BannerLink name="Gallery" link="gallery" />
                 <BannerLink name="About Me" link="about" />
                 <BannerLink name="Blog" link="blog" /> */}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4 text-white text-xs meow underline blue-text">
+
+                  {/* characters */}
                   <NextLink href="/characters">
-                    (characters)
                     <Marquee pauseOnHover speed={80} >
                       <img src="/images/marquee.png" className="max-h-40" />
                     </Marquee>
                   </NextLink>
-                  <div className="grid grid-cols-2 gap-4">
+
+                    <p className="z-100 text-center">characters</p>
+                  <div className="grid grid-cols-2 gap-4 ">
                     <div className="flex flex-col items-center justify-start gap-4">
-                      <NextLink href="/mtwim" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border">
-                      mtwim
+
+                      {/* mtwim */}
+                      <NextLink href="/mtwim" className="relative w-full aspect-square border-[#d8e0e3]/40 z-60 border">
                         {/* <img src="/images/pfp.png" className="opacity-70 absolute bottom-0 scale-120 origin-bottom"/> */}
                       </NextLink>
-                      <NextLink href="pp" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border">
-                      pacific purgatory
-                        {/* <img src="/images/pfp.png" className="opacity-70 absolute bottom-0 scale-120 origin-bottom"/> */}
+                        <p className="z-100 text-center">mtwim compendium</p>
+                        
+                      {/* pp */}
+                      <NextLink href="/pp" className="relative w-full aspect-square border-[#d8e0e3]/40 z-70 border">
+                        <img src="/images/anchor.png" className="nonsel absolute bottom-0 z-80 scale-110 origin-center pointer-events-none"/>
                       </NextLink>
-                      <NextLink href="about" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border">
-                      about
-                        {/* <img src="/images/pfp.png" className="opacity-70 absolute bottom-0 scale-120 origin-bottom"/> */}
+                        <p className="z-100 text-center">pacific purgatory</p>
+
+                      {/* about me */}
+                      <NextLink href="/about" className="relative w-full aspect-square border-[#d8e0e3]/40 z-50 border flex items-center justify-center bg-[rgb(23,25,26)]">
+                        <img src="/images/eye.png" className="nonsel absolute z-50 origin-center pointer-events-none"/>
                       </NextLink>
-                      {/* <img src="/images/pfp.png"/>
-                      <img src="/images/pfp.png"/> */}
+                        <p className="z-100 text-center">about me</p>
+
                     </div>
                     <div className="flex flex-col items-center gap-4 justify-center pt-16">
-                      <NextLink href="/games" className="relative w-full aspect-square border-[#d8e0e3]/70 z-70 border">
+
+                      {/* games */}
+                      <NextLink href="/games" className="relative w-full aspect-square border-[#d8e0e3]/40 z-70 border">
                         <img src="/images/morozovfishing.png" className="nonsel absolute bottom-0 z-80 scale-200 origin-[10%_50%] pointer-events-none"/>
                       </NextLink>
-                      <NextLink href="/gallery" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border">
+                        <p className="z-100 text-center">games</p>
+
+                      {/* gallery */}
+                      <NextLink href="/gallery" className="relative w-full aspect-square border-[#d8e0e3]/40 z-60 border">
                         <Marquee speed={20} className="z-70">
                           <img src="/images/gallery.png" className="nonsel pointer-events-none" />
                         </Marquee>
                       </NextLink>
-                      <NextLink href="/blog" className="relative w-full aspect-square border-[#d8e0e3]/70 z-60 border flex items-center justify-center" onMouseOver={blogHoverOn} onMouseOut={blogHoverOff}>
+                        <p className="z-100 text-center">gallery</p>
+
+                      {/* blog */}
+                      <NextLink href="/blog" className="relative w-full aspect-square border-[#d8e0e3]/40 z-60 border flex items-center justify-center" onMouseOver={blogHoverOn} onMouseOut={blogHoverOff}>
                         <img src="/images/blogclose.png" className="absolute scale-150 translate-x-[-35%] pointer-events-none nonsel" ref={blogBookRef} />
                       </NextLink>
+                        <p className="z-100 text-center">blog</p>
+
                     </div>
                   </div>
                 </div>

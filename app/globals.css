@@ -462,3 +462,16 @@ div[data-youtube-video] {
 div[data-youtube-video] iframe {
   max-width: 100%;
 }
+
+.meow {
+  text-shadow:
+    1px 1px 0.5 #000000,
+    1px -1px 0.5 #000000,
+    -1px 1px 0.5 #000000,
+    -1px -1px 0.5 #000000,
+    1px 0px 0.5 #000000,
+    0px 1px 0.5 #000000,
+    -1px 0px 0.5 #000000,
+    0px -1px 0.5 #000000;
+  color: #8fffff;
+}
