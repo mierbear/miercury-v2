@@ -694,6 +694,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
+                <p className="text-xs text-white text-justify pt-4">(there is way too much visual clutter here.. all of these look good visually, reuse them for the carousel above or discard them altogether and simplify these links instead. perhaps something similar to the navmenu, small nice illustration shows up when hovered on each link)</p>
               </div> 
 
             </div> 
