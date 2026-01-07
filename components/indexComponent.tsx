@@ -363,6 +363,20 @@ export default function Home() {
     return () => window.removeEventListener("mousemove", move);
   }, [ready]);
 
+  const morozovFishingRef = useRef<HTMLImageElement | null>(null);
+  const [hooked, setHooked] = useState(false);
+  const fish = [
+    `morozovfish-1.png`
+  ]
+
+  const morozovOnHover = () => {
+    setHooked(true);
+  }
+
+  const morozovOffHover = () => {
+    setHooked(false);
+  }
+
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
       <div className="min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
@@ -627,15 +641,24 @@ export default function Home() {
                     <div className="flex flex-col items-center justify-center pt-24">
 
                       {/* games */}
-                      <NextLink href="/games" className="relative w-full aspect-square border-[#d8e0e3]/40 z-70 border">
-                        <img src="/images/morozovfishing.png" className="nonsel absolute bottom-0 z-80 scale-200 origin-[10%_50%] pointer-events-none"/>
+                      <NextLink
+                        href="/games" 
+                        className="relative w-full aspect-square border-[#d8e0e3]/40 z-70 border"
+                        onMouseOver={morozovOnHover}
+                        onMouseOut={morozovOffHover}
+                      >
+                        <img 
+                          src={hooked ? `/images/${randomizer(fish)}` : "/images/morozovfish-0.png"}
+                          ref={morozovFishingRef} 
+                          className="nonsel absolute bottom-0 z-80 scale-[250%] origin-[22%_60%] pointer-events-none"
+                        />
                       </NextLink>
                         <p className="z-100 pb-6 pt-2 text-center">games</p>
 
                       {/* gallery */}
                       <NextLink href="/gallery" className="relative w-full aspect-square border-[#d8e0e3]/40 z-60 border">
                         <Marquee speed={20} className="z-70">
-                          <img src="/images/gallery.png" className="nonsel pointer-events-none" />
+                          <img src="/images/gallery.png" className="nonsel pointer-events-none max-h-40" />
                         </Marquee>
                       </NextLink>
                         <p className="z-100 pb-6 pt-2 text-center">gallery</p>
@@ -689,6 +712,8 @@ export default function Home() {
               <p className="text-xs">● make assets for characters</p>
               <p className="text-xs">● add more to the about me page</p>
               <p className="text-xs">● set up pp newspaper submissions</p>
+              <p className="text-xs">● add shooting stars</p>
+              <p className="text-xs">● add lots of easter eggs</p>
               <p className="text-xs">● add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
               <p className="text-xs">● optimize navmenu open/close timeline animations with ctx</p>
             </div>
