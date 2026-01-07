@@ -475,3 +475,8 @@ div[data-youtube-video] iframe {
     0px -1px 0.5 #000000;
   color: #8fffff;
 }
+
+.pupil {
+  transition: transform 0.2s cubic-bezier(0.61, 1, 0.88, 1);
+  will-change: transform;
+}
