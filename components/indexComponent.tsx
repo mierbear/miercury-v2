@@ -10,10 +10,15 @@ import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Xanh_Mono } from "next/font/google"
+import { Xanh_Mono, Boldonse } from "next/font/google"
 import Marquee from "react-fast-marquee";
 
 const xanh = Xanh_Mono({
+  weight: "400",
+  subsets: ["latin"],
+})
+
+const nanum = Boldonse({
   weight: "400",
   subsets: ["latin"],
 })
@@ -266,6 +271,10 @@ export default function Home() {
     if (typeof window === 'undefined') return;
 
     const preload = [
+      '/images/morozovfish-1.png',
+      '/images/morozovfish-2.png',
+      '/images/morozovfish-3.png',
+      '/images/morozovfish-4.png',
       '/images/blogopen-mier.png',
       '/images/blogopen-abri.png',
       '/images/blogopen-vert.png',
@@ -366,7 +375,10 @@ export default function Home() {
   const morozovFishingRef = useRef<HTMLImageElement | null>(null);
   const [hooked, setHooked] = useState(false);
   const fish = [
-    `morozovfish-1.png`
+    `morozovfish-1.png`,
+    `morozovfish-2.png`,
+    `morozovfish-3.png`,
+    `morozovfish-4.png`,
   ]
 
   const morozovOnHover = () => {
@@ -605,69 +617,79 @@ export default function Home() {
 
               {/* NAV */}
               <div className="p-4 flex flex-col items-center relative border-[#d8e0e3]/70 border">
-                <div className="flex flex-col text-white text-sm meow underline blue-text">
+                <div className="flex flex-col text-white meow blue-text">
 
                   {/* characters */}
-                  <NextLink href="/characters">
-                    <Marquee pauseOnHover speed={80} >
+                  <NextLink href="/characters" className="relative hover:text-[#ddffff]" >
+                    <Marquee pauseOnHover speed={20} >
                       <img src="/images/marquee.png" className="max-h-40" />
                     </Marquee>
+                    <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1 text-sm`}>CHARACTERS / PROJECTS</p>
                   </NextLink>
-                    <p className="z-100 text-center pb-2 pt-2">characters</p>
 
-                  <div className="grid grid-cols-2 gap-4 ">
+                  <hr className="my-4 border-gray-500/30 w-full" />
+
+                  <div className="grid grid-cols-2 gap-4 text-xs">
                     <div className="flex flex-col items-center justify-start">
 
-                      {/* mtwim */}
-                      <NextLink href="/mtwim" className="relative w-full aspect-square border-[#d8e0e3]/40 z-60 border">
-                        {/* <img src="/images/pfp.png" className="opacity-70 absolute bottom-0 scale-120 origin-bottom"/> */}
+                      {/* gallery */}
+                      <NextLink href="/gallery" className="hover:text-[#ddffff] flex flex-col items-center justify-center relative w-36 h-36 aspect-square border-[#d8e0e3]/40 z-60 border">
+                        <Marquee speed={20} className="z-70" direction="right">
+                          <img src="/images/gallery-marquee.png" className="nonsel pointer-events-none max-h-40" />
+                        </Marquee>
+                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1 self-start`}>GALLERY</p>
                       </NextLink>
-                        <p className="z-100 pb-6 pt-2 text-center">mtwim compendium</p>
                         
+                      <hr className="my-4 border-gray-500/30 w-full" />
+
                       {/* pp */}
-                      <NextLink href="/pp" className="relative w-full aspect-square border-[#d8e0e3]/40 z-70 border">
+                      <NextLink href="/pp" className="hover:text-[#ddffff] relative w-full aspect-square border-[#d8e0e3]/40 z-70 border">
                         <img src="/images/anchor.png" className="nonsel absolute bottom-0 z-80 scale-110 origin-center pointer-events-none"/>
+                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1`}>PP</p>
                       </NextLink>
-                        <p className="z-100 pb-6 pt-2 text-center">pacific purgatory</p>
+
+                      <hr className="my-4 border-gray-500/30 w-full" />
 
                       {/* about me */}
-                      <NextLink href="/about" className="relative w-full aspect-square border-[rgb(23,25,26)] z-50 border flex items-center justify-center bg-[rgb(255,255,255)]">
+                      <NextLink href="/about" className="hover:text-[#ddffff] relative w-full aspect-square border-[rgb(23,25,26)] z-50 border flex flex-col items-center justify-center bg-[rgb(255,255,255)]">
                         <img className="absolute" src="/images/lid.png" />
                         <img className="absolute pupil" src="/images/pupil.png" ref={pupilRef} />
+                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1 self-start`}>ABOUT ME</p>
                       </NextLink>
-                        <p className="z-100 pb-6 pt-2 text-center">about me</p>
 
                     </div>
                     <div className="flex flex-col items-center justify-center pt-24">
 
+                      {/* mtwim */}
+                      <NextLink href="/mtwim" className="hover:text-[#ddffff] relative w-full aspect-square border-[#d8e0e3]/40 z-60 border">
+                        <img src="/images/mtwimlink.png" className="absolute bottom-0 scale-[165%] origin-bottom translate-x-[5%]"/>
+                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1`}>MTWIM</p>
+                      </NextLink>
+
+                      <hr className="my-4 border-gray-500/30 w-full" />
+
                       {/* games */}
                       <NextLink
                         href="/games" 
-                        className="relative w-full aspect-square border-[#d8e0e3]/40 z-70 border"
+                        className="hover:text-[#ddffff] relative w-full aspect-square border-[#d8e0e3]/40 z-70 border"
                         onMouseOver={morozovOnHover}
                         onMouseOut={morozovOffHover}
                       >
                         <img 
                           src={hooked ? `/images/${randomizer(fish)}` : "/images/morozovfish-0.png"}
                           ref={morozovFishingRef} 
-                          className="nonsel absolute bottom-0 z-80 scale-[250%] origin-[22%_60%] pointer-events-none"
+                          className="nonsel absolute bottom-0 z-80 scale-[220%] origin-[13%_50%] pointer-events-none"
                         />
+                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1`}>GAMES</p>
                       </NextLink>
-                        <p className="z-100 pb-6 pt-2 text-center">games</p>
 
-                      {/* gallery */}
-                      <NextLink href="/gallery" className="relative w-full aspect-square border-[#d8e0e3]/40 z-60 border">
-                        <Marquee speed={20} className="z-70">
-                          <img src="/images/gallery.png" className="nonsel pointer-events-none max-h-40" />
-                        </Marquee>
-                      </NextLink>
-                        <p className="z-100 pb-6 pt-2 text-center">gallery</p>
+                      <hr className="my-4 border-gray-500/30 w-full" />
 
                       {/* blog */}
-                      <NextLink href="/blog" className="relative w-full aspect-square border-[#d8e0e3]/40 z-60 border flex items-center justify-center" onMouseOver={blogHoverOn} onMouseOut={blogHoverOff}>
+                      <NextLink href="/blog" className="hover:text-[#ddffff] relative w-36 h-36 aspect-square border-[#d8e0e3]/40 z-90 border flex flex-col items-center justify-center" onMouseOver={blogHoverOn} onMouseOut={blogHoverOff}>
                         <img src="/images/blogclose.png" className="absolute scale-150 translate-x-[-35%] pointer-events-none nonsel" ref={blogBookRef} />
+                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1 self-start`}>BLOG</p>
                       </NextLink>
-                        <p className="z-100 pt-2 text-center">blog</p>
 
                     </div>
                   </div>
@@ -678,11 +700,12 @@ export default function Home() {
           
           </div>
 
+          <hr className="border-gray-500/30 w-full mx-4" />
+          
         </div>
        
       <div className="bg-[#535961]/60 w-full flex flex-col p-4">
 
-      <hr className="my-4 border-gray-500/30 w-full" />
 
         {/* TO DO LIST */}
         <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col">

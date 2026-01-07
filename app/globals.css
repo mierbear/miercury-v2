@@ -465,18 +465,25 @@ div[data-youtube-video] iframe {
 
 .meow {
   text-shadow:
-    1px 1px 0.5 #000000,
-    1px -1px 0.5 #000000,
-    -1px 1px 0.5 #000000,
-    -1px -1px 0.5 #000000,
-    1px 0px 0.5 #000000,
-    0px 1px 0.5 #000000,
-    -1px 0px 0.5 #000000,
-    0px -1px 0.5 #000000;
-  color: #8fffff;
+    2px 2px 1.5 rgb(23, 25, 26),
+    2px -2px 1.5 rgb(23, 25, 26),
+    -2px 2px 1.5 rgb(23, 25, 26),
+    -2px -2px 1.5 rgb(23, 25, 26),
+    2px 0px 1.5 rgb(23, 25, 26),
+    0px 2px 1.5 rgb(23, 25, 26),
+    -2px 0px 1.5 rgb(23, 25, 26),
+    0px -2px 1.5 rgb(23, 25, 26);
+}
+
+.blue-text {
+  color: #d8e0e3;
 }
 
 .pupil {
   transition: transform 0.2s cubic-bezier(0.61, 1, 0.88, 1);
   will-change: transform;
+}
+
+.monospace {
+  font-family: "Inconsolata", monospace;
 }
