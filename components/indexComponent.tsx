@@ -581,13 +581,13 @@ export default function Home() {
               {/* NAV */}
               <div className="text-white p-4 grid grid-rows-[168px_40px_40px_40px_40px_40px_40px] transition-[grid_template-rows] duration-200 relative border-[#d8e0e3]/70 border" ref={linksDivRef}>
                 
-                <NavLinkMarq active={activeLink} link="characters" onHover={handleHover} />
-                <NavLinkImg active={activeLink} link="mtwim" onHover={handleHover} />
-                <NavLinkImg active={activeLink} link="games" onHover={handleHover} />
-                <NavLinkImg active={activeLink} link="pp" onHover={handleHover} />
-                <NavLinkImg active={activeLink} link="gallery" onHover={handleHover} />
-                <NavLinkImg active={activeLink} link="blog" onHover={handleHover} />
-                <NavLinkBot active={activeLink} link="about" onHover={handleHover} />
+                <NavLinkMarq desc="learn about my characters" active={activeLink} link="characters" onHover={handleHover} />
+                <NavLinkImg desc="learn about a story i want to tell" active={activeLink} link="mtwim" onHover={handleHover} />
+                <NavLinkImg desc="play my own games here" active={activeLink} link="games" onHover={handleHover} />
+                <NavLinkImg desc="learn about my own art community" active={activeLink} link="pp" onHover={handleHover} />
+                <NavLinkImg desc="look at my art" active={activeLink} link="gallery" onHover={handleHover} />
+                <NavLinkImg desc="read my ramblings" active={activeLink} link="blog" onHover={handleHover} />
+                <NavLinkBot desc="learn more about me" active={activeLink} link="about" onHover={handleHover} />
 
               </div> 
 
