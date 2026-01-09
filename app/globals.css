@@ -320,6 +320,10 @@ p {
   }
 }
 
+.white-glow {
+  text-shadow: 0 0 2px rgb(255, 254, 206)
+}
+
 .online-glow {
   text-shadow: 0 0 5px #5cb6ff
 }
@@ -486,4 +490,18 @@ div[data-youtube-video] iframe {
 
 .monospace {
   font-family: "Inconsolata", monospace;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 4s linear infinite;
 }

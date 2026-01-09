@@ -11,6 +11,9 @@ import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Xanh_Mono, Boldonse } from "next/font/google"
+import NavLinkMarq from "@/components/indexNavLinkMarquee";
+import NavLinkImg from "@/components/indexNavLinkImg";
+import NavLinkBot from "@/components/indexNavLinkBot";
 import Marquee from "react-fast-marquee";
 
 const xanh = Xanh_Mono({
@@ -247,147 +250,100 @@ export default function Home() {
     fetchStatus();
   }, [])
 
-  const blogBookRef = useRef<HTMLImageElement | null>(null);
-  const blogOpenTl = gsap.timeline();
-  const blogCloseTl = gsap.timeline();
 
-  const blogSketches = [
-    "mier",
-    "abri",
-    "vert",
-    "12s",
-    "genki",
-    "feline",
-    "jelly",
-    "jett",
-    "kags",
-    "lance",
-    "partack",
-    "truilt",
-    "chai",
-  ];
+  // useEffect(() => {
+  //   if (typeof window === 'undefined') return;
 
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
+  //   const preload = [
+  //     '/images/morozovfish-1.png',
+  //   ];
 
-    const preload = [
-      '/images/morozovfish-1.png',
-      '/images/morozovfish-2.png',
-      '/images/morozovfish-3.png',
-      '/images/morozovfish-4.png',
-      '/images/blogopen-mier.png',
-      '/images/blogopen-abri.png',
-      '/images/blogopen-vert.png',
-      '/images/blogopen-12s.png',
-      '/images/blogopen-genki.png',
-      '/images/blogopen-feline.png',
-      '/images/blogopen-jelly.png',
-      '/images/blogopen-jett.png',
-      '/images/blogopen-kags.png',
-      '/images/blogopen-lance.png',
-      '/images/blogopen-partack.png',
-      '/images/blogopen-truilt.png',
-      '/images/blogopen-chai.png',
-    ];
+  //   preload.forEach((src) => {
+  //     const img = new window.Image();
+  //     img.src = src;
+  //   });
 
-    preload.forEach((src) => {
-      const img = new window.Image();
-      img.src = src;
-    });
-
-  }, [])
+  // }, [])
 
   const randomizer = (arr: string[]) => {
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  const blogHoverOn = () => {
-    if (!blogBookRef.current) return;
-    blogOpenTl.clear();
-    blogCloseTl.clear();
+  const leftPupilRef = useRef<HTMLImageElement | null>(null);
+  const rightPupilRef = useRef<HTMLImageElement | null>(null);
 
-    blogOpenTl
-      .to(blogBookRef.current, {
-        xPercent: 35,
-        duration: 0.3,
-        ease: "power2.out",
-      })
-      .set(blogBookRef.current, {
-        attr: { src: `/images/blogopen-${randomizer(blogSketches)}.png` },
-      }, "<0.15");
-  };
+  const movePupil = (
+    pupil: HTMLImageElement,
+    mouseX: number,
+    mouseY: number,
+    maxDistance = 30,
+    radius = 600
+  ) => {
+    const rect = pupil.getBoundingClientRect();
 
-  const blogHoverOff = () => {
-    if (!blogBookRef.current) return;
-    blogOpenTl.clear();
-    blogCloseTl.clear();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
 
-    blogCloseTl
-      .set(blogBookRef.current, {
-        attr: { src: "/images/blogclose.png" },
-      })
-      .to(blogBookRef.current, {
-        xPercent: 0,
-        duration: 0.3,
-        ease: "power2.out",
-      });
-  };
+    const dx = mouseX - centerX;
+    const dy = mouseY - centerY;
 
-  const pupilRef = useRef<HTMLImageElement | null>(null);
+    const distance = Math.hypot(dx, dy);
+    if (distance === 0) return;
+
+    const normalized = Math.min(distance / radius, 1);
+    const scaled = normalized * maxDistance;
+
+    const nx = dx / distance;
+    const ny = dy / distance;
+
+    pupil.style.transform = `translate(${nx * scaled}px, ${ny * scaled}px)`;
+  }
+
 
   useEffect(() => {
     if (!ready) return;
 
     const move = (e: MouseEvent) => {
-      if (!pupilRef.current) return;
+      if (!leftPupilRef.current || !rightPupilRef.current) return;
 
-      const eyeRect = pupilRef.current.getBoundingClientRect();
-
-      const centerX = eyeRect.left + eyeRect.width / 2;
-      const centerY = eyeRect.top + eyeRect.height / 2;
-
-      const dx = e.clientX - centerX
-      const dy = e.clientY - centerY
-
-      const distance = Math.sqrt(dx * dx + dy * dy)
-      if (distance === 0) return;
-
-      const maxDistance = 30;
-      const radius = 600;
-
-      const normalizedDistance = Math.min(distance / radius, 1);
-      const scaled = normalizedDistance * maxDistance;
-
-      const nx = dx / distance
-      const ny = dy / distance
-
-      const moveX = nx * scaled;
-      const moveY = ny * scaled;
-
-      pupilRef.current.style.transform =
-      `translate(${moveX}px, ${moveY}px)`
+      movePupil(leftPupilRef.current, e.clientX, e.clientY);
+      movePupil(rightPupilRef.current, e.clientX, e.clientY);
     };
 
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
   }, [ready]);
 
-  const morozovFishingRef = useRef<HTMLImageElement | null>(null);
-  const [hooked, setHooked] = useState(false);
-  const fish = [
-    `morozovfish-1.png`,
-    `morozovfish-2.png`,
-    `morozovfish-3.png`,
-    `morozovfish-4.png`,
-  ]
+  const linksDivRef = useRef<HTMLDivElement | null>(null);
 
-  const morozovOnHover = () => {
-    setHooked(true);
-  }
+  type LinkKey =
+  | "characters"
+  | "mtwim"
+  | "games"
+  | "pp"
+  | "gallery"
+  | "blog"
+  | "about";
 
-  const morozovOffHover = () => {
-    setHooked(false);
-  }
+  const [activeLink, setActiveLink] = useState<LinkKey>("characters");
+
+  const handleHover = (link: LinkKey) => {
+    if (!linksDivRef.current) return;
+    setActiveLink(link);
+
+    const rows = {
+      characters: "200px 40px 40px 40px 40px 40px 40px",
+      mtwim:       "40px 200px 40px 40px 40px 40px 40px",
+      games:       "40px 40px 200px 40px 40px 40px 40px",
+      pp:          "40px 40px 40px 200px 40px 40px 40px",
+      gallery:     "40px 40px 40px 40px 200px 40px 40px",
+      blog:        "40px 40px 40px 40px 40px 200px 40px",
+      about:       "40px 40px 40px 40px 40px 40px 200px",
+    };
+
+    linksDivRef.current.style.gridTemplateRows = rows[link];
+  };
+
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -435,7 +391,14 @@ export default function Home() {
                         <img src="/images/indexbanner2.png" className="w-full bg-[#17191a]/40" />
                       </NextLink>
                     </div>
-                    
+
+                    <div className="flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a]">
+                      <img className="-translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
+                      <img className="-translate-x-full absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
+                      <img className="translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={rightPupilRef} />
+                      <img className="translate-x-full absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
+                    </div>
+
                   </div>
                 </div>
                 
@@ -616,85 +579,16 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-full" />
 
               {/* NAV */}
-              <div className="p-4 flex flex-col items-center relative border-[#d8e0e3]/70 border">
-                <div className="flex flex-col text-white meow blue-text">
+              <div className="text-white p-4 grid grid-rows-[168px_40px_40px_40px_40px_40px_40px] transition-[grid_template-rows] duration-200 relative border-[#d8e0e3]/70 border" ref={linksDivRef}>
+                
+                <NavLinkMarq active={activeLink} link="characters" onHover={handleHover} />
+                <NavLinkImg active={activeLink} link="mtwim" onHover={handleHover} />
+                <NavLinkImg active={activeLink} link="games" onHover={handleHover} />
+                <NavLinkImg active={activeLink} link="pp" onHover={handleHover} />
+                <NavLinkImg active={activeLink} link="gallery" onHover={handleHover} />
+                <NavLinkImg active={activeLink} link="blog" onHover={handleHover} />
+                <NavLinkBot active={activeLink} link="about" onHover={handleHover} />
 
-                  {/* characters */}
-                  <NextLink href="/characters" className="relative hover:text-[#ddffff]" >
-                    <Marquee pauseOnHover speed={20} >
-                      <img src="/images/marquee.png" className="max-h-40" />
-                    </Marquee>
-                    <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1 text-sm`}>CHARACTERS / PROJECTS</p>
-                  </NextLink>
-
-                  <hr className="my-4 border-gray-500/30 w-full" />
-
-                  <div className="grid grid-cols-2 gap-4 text-xs">
-                    <div className="flex flex-col items-center justify-start">
-
-                      {/* gallery */}
-                      <NextLink href="/gallery" className="hover:text-[#ddffff] flex flex-col items-center justify-center relative w-36 h-36 aspect-square border-[#d8e0e3]/40 z-60 border">
-                        <Marquee speed={20} className="z-70" direction="right">
-                          <img src="/images/gallery-marquee.png" className="nonsel pointer-events-none max-h-40" />
-                        </Marquee>
-                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1 self-start`}>GALLERY</p>
-                      </NextLink>
-                        
-                      <hr className="my-4 border-gray-500/30 w-full" />
-
-                      {/* pp */}
-                      <NextLink href="/pp" className="hover:text-[#ddffff] relative w-full aspect-square border-[#d8e0e3]/40 z-70 border">
-                        <img src="/images/anchor.png" className="nonsel absolute bottom-0 z-80 scale-110 origin-center pointer-events-none"/>
-                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1`}>PP</p>
-                      </NextLink>
-
-                      <hr className="my-4 border-gray-500/30 w-full" />
-
-                      {/* about me */}
-                      <NextLink href="/about" className="hover:text-[#ddffff] relative w-full aspect-square border-[rgb(23,25,26)] z-50 border flex flex-col items-center justify-center bg-[rgb(255,255,255)]">
-                        <img className="absolute" src="/images/lid.png" />
-                        <img className="absolute pupil" src="/images/pupil.png" ref={pupilRef} />
-                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1 self-start`}>ABOUT ME</p>
-                      </NextLink>
-
-                    </div>
-                    <div className="flex flex-col items-center justify-center pt-24">
-
-                      {/* mtwim */}
-                      <NextLink href="/mtwim" className="hover:text-[#ddffff] relative w-full aspect-square border-[#d8e0e3]/40 z-60 border">
-                        <img src="/images/mtwimlink.png" className="absolute bottom-0 scale-[165%] origin-bottom translate-x-[5%]"/>
-                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1`}>MTWIM</p>
-                      </NextLink>
-
-                      <hr className="my-4 border-gray-500/30 w-full" />
-
-                      {/* games */}
-                      <NextLink
-                        href="/games" 
-                        className="hover:text-[#ddffff] relative w-full aspect-square border-[#d8e0e3]/40 z-70 border"
-                        onMouseOver={morozovOnHover}
-                        onMouseOut={morozovOffHover}
-                      >
-                        <img 
-                          src={hooked ? `/images/${randomizer(fish)}` : "/images/morozovfish-0.png"}
-                          ref={morozovFishingRef} 
-                          className="nonsel absolute bottom-0 z-80 scale-[220%] origin-[13%_50%] pointer-events-none"
-                        />
-                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1`}>GAMES</p>
-                      </NextLink>
-
-                      <hr className="my-4 border-gray-500/30 w-full" />
-
-                      {/* blog */}
-                      <NextLink href="/blog" className="hover:text-[#ddffff] relative w-36 h-36 aspect-square border-[#d8e0e3]/40 z-90 border flex flex-col items-center justify-center" onMouseOver={blogHoverOn} onMouseOut={blogHoverOff}>
-                        <img src="/images/blogclose.png" className="absolute scale-150 translate-x-[-35%] pointer-events-none nonsel" ref={blogBookRef} />
-                        <p className={`${nanum.className} absolute bottom-0 pl-2 z-100 underline pb-1 self-start`}>BLOG</p>
-                      </NextLink>
-
-                    </div>
-                  </div>
-                </div>
-                <p className="text-xs text-white text-justify pt-4">(there is way too much visual clutter here.. all of these look good visually, reuse them for the carousel above or discard them altogether and simplify these links instead. perhaps something similar to the navmenu, small nice illustration shows up when hovered on each link)</p>
               </div> 
 
             </div> 
