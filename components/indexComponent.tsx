@@ -228,14 +228,14 @@ export default function Home() {
       const json = await res.json();
       setStatus(json.data.discord_status);
 
-      if (json.data.activities[0].emoji) {
-        setBio(`${json.data.activities[0].emoji.name} ${json.data.activities[0].state}`);
+      if (json.data.activities.find((activity: any) => activity.type === 4)?.emoji) {
+        setBio(`${json.data.activities.find((activity: any) => activity.type === 4).emoji.name} ${json.data.activities.find((activity: any) => activity.type === 4).state}`);
       } else {
-        setBio(`${json.data.activities[0].state}`);
+        setBio(`${json.data.activities.find((activity: any) => activity.type === 4).state}`);
       }
 
-      if (json.data.activities[1]) {
-        setCurrentGame(json.data.activities[1].name);
+      if (json.data.activities.find((activity: any) => activity.type === 0)) {
+        setCurrentGame(json.data.activities.find((activity: any) => activity.type === 0).name);
       }
 
       return json.data;
@@ -579,7 +579,7 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-full" />
 
               {/* NAV */}
-              <div className="text-white p-4 grid grid-rows-[168px_40px_40px_40px_40px_40px_40px] transition-[grid_template-rows] duration-200 relative border-[#d8e0e3]/70 border" ref={linksDivRef}>
+              <div className="text-white p-4 grid grid-rows-[200px_40px_40px_40px_40px_40px_40px] transition-[grid_template-rows] duration-200 relative border-[#d8e0e3]/70 border" ref={linksDivRef}>
                 
                 <NavLinkMarq desc="learn about my characters" active={activeLink} link="characters" onHover={handleHover} />
                 <NavLinkImg desc="learn about a story i want to tell" active={activeLink} link="mtwim" onHover={handleHover} />
