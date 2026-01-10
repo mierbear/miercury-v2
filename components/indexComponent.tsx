@@ -14,6 +14,7 @@ import { Xanh_Mono, Boldonse } from "next/font/google"
 import NavLinkMarq from "@/components/indexNavLinkMarquee";
 import NavLinkImg from "@/components/indexNavLinkImg";
 import NavLinkBot from "@/components/indexNavLinkBot";
+import LogType from "@/types/logType";
 import Marquee from "react-fast-marquee";
 
 const xanh = Xanh_Mono({
@@ -128,6 +129,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchPosts();
+    fetchLogs();
   }, []);
 
   const [properDate, setProperDate] = useState(false);
@@ -345,6 +347,23 @@ export default function Home() {
     linksDivRef.current.style.gridTemplateRows = rows[link];
   };
 
+  const [logs, setLogs] = useState<LogType[] | null>(null);
+  
+  const fetchLogs = async () => {
+    const { error, data } = await supabase
+      .from("logs")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+
+    if (error) {
+      console.error("fetch failed: ", error.message);
+      return;
+    }
+    
+    console.log(data);
+    setLogs(data);
+  }
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -486,8 +505,16 @@ export default function Home() {
                   </div>
                   
                   {/* 2 */}
-                  <div className="flex flex-col justify-center items-center border-[#d8e0e3]/70 border">
-                    changelog
+                  <div className="flex flex-col bg-[#17191a]/50 border-[#d8e0e3]/40 border overflow-y-auto text-xs max-h-50 relative">
+                    <p className="sticky top-0 z-10 bg-[#17191a] p-2 w-full">CHANGELOGS</p>
+                    {logs?.map((log) => {
+                      return (
+                        <div key={log.id} className="p-2">
+                          <p className="text-gray-400">{log.date}</p>
+                          <p className="">{log.log}</p>
+                        </div>
+                      )
+                    })}
                   </div>
 
                 </div>

@@ -6,7 +6,7 @@ import Tiptap from "@/components/tiptap/Tiptap";
 export const dynamic = "force-dynamic";
 import type { Editor } from "@tiptap/react";
 import { Boldonse } from "next/font/google";
-import { log } from "console";
+import LogType from "@/types/logType";
 
 const boldonse = Boldonse({
   weight: "400",
@@ -199,12 +199,6 @@ export default function page() {
       titleRef.current!.value = post.title;
       editorRef.current!.commands.setContent(post.content);
     }
-  }
-
-  type LogType = {
-    id: number;
-    date: string;
-    log: string;
   }
 
   const [currentTab, setCurrentTab] = useState<"blog" | "log" | "art" | "meow">("blog")
