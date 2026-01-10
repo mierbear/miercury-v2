@@ -191,6 +191,7 @@ export default function Home() {
     "When we experience tears, our souls become like babies.",
     "There are no coincidences. Nothing is random.",
     "Fear is not a natural state of man.",
+    "Those who unravel the cube are nailed to the cross.",
     "Forgive them for they know not what they do. - Luke 23:34",
     "The fear of death distresses a man with a guilty conscience, but the man with a good witness within himself longs for death as for life.",
 	  "Your thoughts determine your life.",

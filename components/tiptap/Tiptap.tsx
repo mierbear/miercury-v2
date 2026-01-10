@@ -70,7 +70,7 @@ export default function RichTextEditor({
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: "p-5 rounded-md mb-2 max-w-[85ch] w-full text-white bg-[#535961]/60",
+        class: "p-5 rounded-md mb-2 w-full text-white bg-[#535961]/60",
       },
     },
     onUpdate: ({ editor }) => {
@@ -103,7 +103,7 @@ export default function RichTextEditor({
   };
 
   return (
-    <div className="max-w-160 min-w-160 overflow-y-auto">
+    <div className="w-full overflow-y-auto">
       <MenuBar editor={editor} uploadImage={uploadImage} />
       <EditorContent editor={editor} />
     </div>
