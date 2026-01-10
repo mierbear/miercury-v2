@@ -6,6 +6,7 @@ import Tiptap from "@/components/tiptap/Tiptap";
 export const dynamic = "force-dynamic";
 import type { Editor } from "@tiptap/react";
 import { Boldonse } from "next/font/google";
+import { log } from "console";
 
 const boldonse = Boldonse({
   weight: "400",
@@ -158,6 +159,7 @@ export default function page() {
 
   useEffect(() => {
     fetchPosts();
+    fetchLogs();
   }, []);
   
   const [postContent, setPostContent] = useState("");
@@ -199,7 +201,74 @@ export default function page() {
     }
   }
 
+  type LogType = {
+    id: number;
+    date: string;
+    log: string;
+  }
+
   const [currentTab, setCurrentTab] = useState<"blog" | "log" | "art" | "meow">("blog")
+  const [logContent, setLogContent] = useState("");
+  const logInputRef = useRef<HTMLInputElement | null>(null);
+  const [logs, setLogs] = useState<LogType[] | null>(null);
+
+  const fetchLogs = async () => {
+    const { error, data } = await supabase
+      .from("logs")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+
+    if (error) {
+      console.error("fetch failed: ", error.message);
+      return;
+    }
+    
+    console.log(data);
+    setLogs(data);
+  }
+
+  const logSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const getDate = (date = new Date()) => {
+      const yy = String(date.getFullYear()).slice(-2);
+      const mm = String(date.getMonth() + 1).padStart(2, "0");
+      const dd = String(date.getDate()).padStart(2, "0");
+
+      return `${yy}.${mm}.${dd}`;
+    }
+
+    if (logInputRef.current === null) return;
+    
+    const {error} = await supabase.from("logs").insert({
+      log: logContent,
+      date: getDate(),
+    });
+
+    if (error) {
+      console.error("post failed: ", error.message);
+      return;
+    }
+
+    console.log(`submitted log`);
+    fetchLogs();
+
+    setLogContent("");
+    logInputRef.current.value = "";
+  }
+
+  const handleLogDelete = async (id: number) => {
+
+    const {error} = await supabase.from("logs").delete().eq("id", id);
+
+    if (error) {
+      console.error("delete failed: ", error.message);
+      return;
+    }
+    
+    fetchLogs();
+  }
 
   const handleTabClick = (tab: "blog" | "log" | "art" | "meow") => {
     setCurrentTab(tab);
@@ -254,7 +323,6 @@ export default function page() {
         </div>
         
         {/* BLOG */}
-
         {currentTab === "blog" && (
           <div className="grid grid-cols-[2fr_6fr] w-full">
 
@@ -326,20 +394,63 @@ export default function page() {
         )}
 
         {currentTab === "log" && (
-          <div>
-            <p>log</p>
+          <div className="w-full bg-black grid grid-cols-[1fr_2fr] h-100">
+            <div className="bg-[#535961]/20 p-4 overflow-y-auto h-full">
+              <hr className="my-2 border-gray-500/30 w-full" />
+              {logs?.map((log) => {
+                return (
+                  <div key={log.id}>
+                    <div className="grid grid-cols-[5fr_1fr]" >
+                      <div className="flex justify-center flex-col">
+                        <p className="text-xs text-white/50">{log.date}</p>
+                        <p className="text-md">{log.log}</p>
+                      </div>
+                      <div className="flex justify-center items-center">
+                        <p
+                        className="text-2xl text-red-600 cursor-pointer"
+                        onClick={() => handleLogDelete(log.id)}
+                        >
+                          🞨
+                        </p>
+                      </div>
+                    </div>
+                  <hr className="my-2 border-gray-500/30 w-full" />
+                  </div>
+                )
+              })}
+            </div>
+              <form className="flex flex-col justify-center m-4" onSubmit={logSubmitHandler}>
+                <input
+                type="text"
+                placeholder="input log"
+                className="bg-[#101113]/90 p-4 w-full h-86 text-white monospace"
+                onChange={(e) => {
+                  setLogContent(e.target.value);
+                }}
+                ref={logInputRef}
+                >
+                </input>
+                <button
+                type="submit"
+                className="cursor-pointer h-6 p-2 text-xs monospace">
+                  post..
+                </button>
+              </form>
+            <div>
+
+            </div>
           </div>
         )}
 
 
         {currentTab === "art" && (
-          <div>
+          <div className="w-full bg-black flex flex-col justify-center items-center">
             <p>art</p>
           </div>
         )}
 
         {currentTab === "meow" && (
-          <div>
+          <div className="w-full bg-black flex flex-col justify-center items-center">
             <p>meow</p>
           </div>
         )}

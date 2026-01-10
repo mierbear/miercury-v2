@@ -120,7 +120,7 @@ export default function MenuBar({ editor, uploadImage }: Props) {
   ];
 
   return (
-    <div className="border rounded-md p-2 max-h-20 flex items-center bg-[#535961]/60 z-50">
+    <div className="border rounded-md p-2 flex items-center justify-center bg-[#535961]/60 z-50">
       {Options.map((option, index) => (
         <Toggle
           key={index}
