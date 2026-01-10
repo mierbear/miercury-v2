@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Toggle } from "../ui/toggle";
 import { Editor } from "@tiptap/react";
+import React from "react";
 
 type Props = {
   editor: Editor | null;
@@ -26,6 +27,8 @@ export default function MenuBar({ editor, uploadImage }: Props) {
   if (!editor) {
     return null;
   }
+
+  const addImgRef = React.useRef<HTMLInputElement | null>(null);
 
   const addYoutubeVideo = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -117,7 +120,7 @@ export default function MenuBar({ editor, uploadImage }: Props) {
   ];
 
   return (
-    <div className="border rounded-md p-1 mb-1 bg-[#535961]/60 space-x-2 z-50">
+    <div className="border rounded-md p-2 max-h-20 flex items-center bg-[#535961]/60 z-50">
       {Options.map((option, index) => (
         <Toggle
           key={index}
@@ -130,6 +133,8 @@ export default function MenuBar({ editor, uploadImage }: Props) {
       <input
         type="file"
         accept="image/*"
+        className="hidden"
+        ref={addImgRef}
         onChange={async (e) => {
           const file = e.target.files?.[0];
           if (!file || !editor) return;
@@ -148,9 +153,12 @@ export default function MenuBar({ editor, uploadImage }: Props) {
             .run();
         }}
       />
-      <button id="add" onClick={addYoutubeVideo}>
-        YT link
-      </button>
+      <img
+        onClick={() => addImgRef.current?.click()}
+        src="/images/imgsvg.svg"
+        className="h-4 m-4"
+      >
+      </img>
       <input
         type="color"
         onChange={e => setColor(e.target.value)}

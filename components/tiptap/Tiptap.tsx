@@ -103,7 +103,7 @@ export default function RichTextEditor({
   };
 
   return (
-    <div>
+    <div className="max-w-160 min-w-160 overflow-y-auto">
       <MenuBar editor={editor} uploadImage={uploadImage} />
       <EditorContent editor={editor} />
     </div>

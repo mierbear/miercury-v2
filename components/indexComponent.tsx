@@ -501,7 +501,7 @@ export default function Home() {
             <div className="m-4 ml-2 min-h-screen">
 
               {/* INTRO */}
-              <div className="text-white border-[#d8e0e3]/70 relative border-dotted border flex flex-col items-center pb-14">
+              <div className="text-white border-[#d8e0e3]/40 relative border-dotted border flex flex-col items-center pb-14">
 
                 <div className="p-4 flex items-center flex-col">
                   <img
@@ -517,7 +517,7 @@ export default function Home() {
                   </p>
                 </div>
 
-                <div className="border-t border-b border-[#d8e0e3]/70 w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80 nonsel">
+                <div className="border-t border-b border-[#d8e0e3]/40 border-dotted w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80 nonsel">
                     <p className={`
                       ${status === "online" ? "text-[#8fffff] online-glow" : ""}
                       ${status === "idle" ? "text-[#fff671] idle-glow" : ""}
@@ -579,7 +579,7 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-full" />
 
               {/* NAV */}
-              <div className="text-white p-4 grid grid-rows-[200px_40px_40px_40px_40px_40px_40px] transition-[grid_template-rows] duration-200 relative border-[#d8e0e3]/70 border" ref={linksDivRef}>
+              <div className="text-white grid grid-rows-[200px_40px_40px_40px_40px_40px_40px] transition-[grid_template-rows] duration-200 relative" ref={linksDivRef}>
                 
                 <NavLinkMarq desc="learn about my characters" active={activeLink} link="characters" onHover={handleHover} />
                 <NavLinkImg desc="learn about a story i want to tell" active={activeLink} link="mtwim" onHover={handleHover} />
