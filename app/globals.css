@@ -320,6 +320,10 @@ p {
   }
 }
 
+.txt-glow {
+  text-shadow: 0 0 1.5px rgb(255, 254, 206)
+}
+
 .white-glow {
   text-shadow: 0 0 2px rgb(255, 254, 206)
 }
@@ -504,4 +508,29 @@ div[data-youtube-video] iframe {
 
 .spin {
   animation: spin 4s linear infinite;
+  display: inline-block;
+}
+
+.jelly {
+  animation: jelly 0.5s;
+}
+
+@keyframes jelly {
+
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+
+  75% {
+    transform: scale(0.95, 1.05);
+  }
 }

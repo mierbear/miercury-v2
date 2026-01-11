@@ -333,12 +333,12 @@ export default function page() {
                       <p className="text-xs text-neutral-400/60">{post.date}</p>
                     </div>
 
-                    <img
+                    {/* <img
                       src="/images/trash.svg"
                       alt="Delete"
                       className="cursor-pointer max-h-5 linkButton"
                       onClick={() => {handleDelete(post.id)}}
-                    />
+                    /> */}
                   </div>
                 );
               })}

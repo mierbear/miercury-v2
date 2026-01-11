@@ -15,6 +15,7 @@ import NavLinkMarq from "@/components/indexNavLinkMarquee";
 import NavLinkImg from "@/components/indexNavLinkImg";
 import NavLinkBot from "@/components/indexNavLinkBot";
 import LogType from "@/types/logType";
+import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
 
 const xanh = Xanh_Mono({
@@ -22,7 +23,7 @@ const xanh = Xanh_Mono({
   subsets: ["latin"],
 })
 
-const nanum = Boldonse({
+const boldonse = Boldonse({
   weight: "400",
   subsets: ["latin"],
 })
@@ -365,6 +366,40 @@ export default function Home() {
     setLogs(data);
   }
 
+  const featArtRef = useRef<HTMLImageElement | null>(null);
+  const featArtMiniRef = useRef<HTMLImageElement | null>(null);
+
+  // const featuredArtwork = []
+
+  const artPreviewHandler = (src: string) => {
+    if (!featArtRef.current || !featArtMiniRef.current) return;
+    featArtRef.current.src = `/images/${src}`;
+    featArtMiniRef.current.src = `/images/${src}`;
+  }
+
+  const pfpRef = useRef<HTMLImageElement | null>(null);
+  const [artHover, setArtHover] = useState(false);
+
+  const boing = () => {
+    pfpRef.current?.classList.remove("jelly");
+    void pfpRef.current?.offsetWidth;
+    pfpRef.current?.classList.add("jelly");
+  }
+
+  const mierDrawingRef = useRef<HTMLImageElement | null>(null);
+  const [mierDrawing, setMierDrawing] = useState(true);
+  const [toolTipStatus, setToolTipStatus] = useState(false);
+
+  const mierDrawingHoverHandler = () => {
+    setMierDrawing(false);
+    setToolTipStatus(true);
+  }
+  
+  const mierDrawingUnhoverHandler = () => {
+    setMierDrawing(true);
+    setToolTipStatus(false);
+  }
+
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
       <div className="min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
@@ -374,13 +409,12 @@ export default function Home() {
 
         <TitleBot />  
 
-        {/* DONT FORGET TO REMOVE MIN-H-SCREEN FOR THIS DIV AND BOTH COLUMNS */}
-        <div className="bg-[#535961]/60 w-full min-h-screen flex flex-col items-center">
+        <div className="bg-[#586474]/50 backdrop-blur-[2px] w-full flex flex-col items-center">
 
           <div className="w-full grid grid-cols-[2fr_1fr]">
 
             {/* LEFT COL */}
-            <div className="m-4 mr-2 min-h-screen flex items-center flex-col">
+            <div className="m-4 mr-2 flex items-center flex-col">
 
               {/* CAROUSEL */}
               <div className="flex flex-col justify-center items-center relative max-h-60 text-white border-[#d8e0e3]/70 border ">
@@ -437,16 +471,81 @@ export default function Home() {
 
               </div>
                 
-              <hr className="mt-4 border-gray-500/30 w-full" />
+              <hr className="my-4 border-gray-500/30 w-full" />
               
               {/* ART */}
-              <div className="flex flex-col justify-center items-center relative text-white w-[90%]">
-                <h1 className={`${xanh.className} text-white font-bold py-8`}>Latest Artwork</h1>
-                <img src="images/featart.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3]" />
-                <img src="images/featart.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-6 -translate-x-10 translate-y-5"/>
+              <div
+              className="flex flex-col items-center justify-center w-full px-12 relative pb-12"
+              onMouseEnter={() => setArtHover(true)}
+              onMouseLeave={() => setArtHover(false)}
+              >
+                
+                <p
+                className={`text-2xl font-bold self-start pl-2 h-12 flex items-center justify-center nonsel ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
+                  <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> latest artwork
+                </p>
+
+                <div className="relative flex items-center justify-center flex-col bg-[#17191a] mb-4">
+                  <img ref={featArtRef} src="images/featart1.png" style={{ pointerEvents: "none" }} className="nonsel" />
+                  <img ref={featArtMiniRef} src="images/featart1.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25"/>
+                  <NextLink href="/gallery">
+                    <img ref={mierDrawingRef} src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} className="nonsel absolute bottom-0 right-0 h-60 origin-bottom-right translate-x-10 translate-y-40" onMouseEnter={() => mierDrawingHoverHandler()} onMouseLeave={() => mierDrawingUnhoverHandler()} />
+                  </NextLink>
+                </div>
+                <div className="flex flex-col p-2 self-start w-[50%] border-white border-2 h-24 text-white">
+                  <p className="text-md">title</p>
+                  <p className="text-xs">meow meow meow</p>
+                </div>
+
+                <img src="images/top.png" className="nonsel pointer-events-none absolute top-0 right-0 h-40"></img>
+                <img src="images/bot.png" className="nonsel pointer-events-none absolute bottom-0 left-0 h-40"></img>
               </div>
 
-              <hr className="mb-4 mt-20 border-gray-500/30 w-full" />
+
+              {/* <div className="flex flex-col items-center justify-center w-[80%] mb-12 border-3 border-[#d8e0e3]">
+
+                <div className="flex items-center justify-between text-white bg-[#17191a] p-4">
+
+                  <h1 className={`${xanh.className} font-bold py-4`}>LATEST ARTWORK</h1>
+
+                  <div className="grid grid-cols-3 gap-4 text-xs w-[40%]">
+                    <div
+                    onClick={() => artPreviewHandler("featart0.png")}
+                    className="flex flex-col items-center cursor-pointer justify-center"
+                    >
+                      <img className="object-cover h-full w-full" src="images/featart0.png"></img>
+                      <p>meow</p>
+                    </div>
+                    <div
+                    onClick={() => artPreviewHandler("featart1.png")}
+                    className="flex flex-col items-center cursor-pointer justify-center"
+                    >
+                      <img className="object-cover h-full w-full" src="images/featart1.png"></img>
+                      <p>meow</p>
+                    </div>
+                    <div
+                    onClick={() => artPreviewHandler("featart2.png")}
+                    className="flex flex-col items-center cursor-pointer justify-center"
+                    >
+                      <img className="object-cover h-full w-full" src="images/featart2.png"></img>
+                      <p>meow</p>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div className="grid grid-row-[5fr_1fr] gap-4 relative text-white w-full">
+                
+                  <div className="relative flex items-center justify-center flex-col">
+                    <img ref={featArtRef} src="images/featart0.png" style={{ pointerEvents: "none" }} className="nonsel border border-[#d8e0e3]" />
+                    <img ref={featArtMiniRef} src="images/featart0.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-6 -translate-x-10 translate-y-5"/>
+                  </div>
+
+                  
+                </div>
+              </div> */}
+
+              <hr className="my-4 border-gray-500/30 w-full" />
 
               {/* MISC */}
               <div className="grid grid-cols-[1.618fr_1fr] text-white w-full gap-4">
@@ -526,7 +625,7 @@ export default function Home() {
             </div> 
 
             {/* RIGHT COL */}
-            <div className="m-4 ml-2 min-h-screen">
+            <div className="m-4 ml-2">
 
               {/* INTRO */}
               <div className="text-white border-[#d8e0e3]/40 relative border-dotted border flex flex-col items-center pb-14">
@@ -535,6 +634,8 @@ export default function Home() {
                   <img
                     src="/images/pfp.png"
                     className="mb-4 max-w-[50%]"
+                    onMouseEnter={() => boing()}
+                    ref={pfpRef}
                   />
 
                   <p className="text-xs text-justify">
@@ -627,7 +728,7 @@ export default function Home() {
           
         </div>
        
-      <div className="bg-[#535961]/60 w-full flex flex-col p-4">
+      <div className="bg-[#586474]/50 backdrop-blur-[2px] w-full flex flex-col p-4">
 
 
         {/* TO DO LIST */}
@@ -638,11 +739,9 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">TO-DO: </p>
               <p className="text-xs">● revise about me page (its so ass bruh..)</p>
-              <p className="text-xs">● make the admin page actually legible LOL</p>
               <p className="text-xs">● set up wanted posters for pp</p>
               <p className="text-xs">● set up images for navmenu</p>
               <p className="text-xs">● set up supabase for pp gallery</p>
-              <p className="text-xs">● set up carousel for pp</p>
               <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
               <p className="text-xs">● set up different 'moons' for each route</p>
               <p className="text-xs">● make the ocs page</p>
@@ -667,11 +766,16 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ improve art section in index</p>
+              <p className="text-xs">✔ add changelog to index</p>
+              <p className="text-xs">✔ make the admin page actually legible LOL</p>
+              <p className="text-xs">✔ improve navbar for index</p>
               <p className="text-xs">✔ implement index and slug pages for blog </p>
               <p className="text-xs">✔ make blog page</p>
               <p className="text-xs">✔ make the pp page</p>
               <p className="text-xs">✔ add all old posts from the old miercury websites here</p>
               <p className="text-xs">✔ fix bg low opacity bug</p>
+              <p className="text-xs">✔ set up carousel for pp</p>
               <p className="text-xs">✔ add image uploading function for tiptap</p>
               <p className="text-xs">✔ set up atabook</p>
               <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
@@ -711,6 +815,7 @@ export default function Home() {
       <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
       <img ref={mierTakethRef} src="/images/miertaketh.png" className="absolute z-100 nonsel -right-80 bottom-4 invisible" draggable="false" style={{ pointerEvents: "none" }} />
       <Stars />
+      <Tooltip info="check out gallery?" status={toolTipStatus} />
     </div>
   );
 }

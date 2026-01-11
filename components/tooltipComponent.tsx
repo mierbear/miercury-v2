@@ -38,7 +38,8 @@ export default function Tooltip({ info, status }: TooltipProps) {
         pointer-events-none
         fixed
         z-1000
-        -translate-x-1/2 -translate-y-full
+        translate-x-3
+        -translate-y-1/4
         bg-black/80 text-white
         py-1
         px-2
