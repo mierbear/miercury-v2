@@ -551,7 +551,7 @@ export default function Home() {
               >
                 
                 <p
-                className={`text-2xl font-bold self-start pl-2 h-12 flex items-center justify-center nonsel ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
+                className={`text-2xl font-bold self-start pl-2 h-12 flex items-center justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
                   <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> latest artwork
                 </p>
 

@@ -497,18 +497,31 @@ div[data-youtube-video] iframe {
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
+  to {
     transform: rotate(360deg);
   }
 }
 
 .spin {
-  animation: spin 4s linear infinite;
-  display: inline-block;
+  animation-name: spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.spin-slow {
+  animation-duration: 360s;
+}
+
+.spin-medium {
+  animation-duration: 480s;
+}
+
+.spin-fast {
+  animation-duration: 280s;
+}
+
+.slow-spin {
+  animation: spin 60s linear infinite;
 }
 
 .jelly {

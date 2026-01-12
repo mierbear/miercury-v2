@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-[#17191a]">
-        <NavMenu open={false}/>
+        <NavMenu />
         {children}
         <Analytics />
       </body>
