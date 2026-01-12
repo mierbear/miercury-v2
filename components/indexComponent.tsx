@@ -483,7 +483,7 @@ export default function Home() {
                   <div className={`flex ${ready ? "opacity-100" : "opacity-0"}`}>
 
                     <div className="flex-[0_0_100%]">
-                      <div className="flex flex-row w-full justify-between items-center text-center px-10 h-full nonsel bg-[#17191a]/40 overflow-x-hidden">
+                      <div className="flex flex-row w-full justify-between items-center text-center px-10 h-full nonsel pointer-events-none bg-[#17191a]/40 overflow-x-hidden">
                         <img src="/images/construction.gif" />
                         <h1 className="text-red-600 font-bold">THIS SITE IS STILL VERY UNFINISHED!! <br /> THX FOR VISITING XOXO</h1>
                         <img src="/images/construction.gif" />
@@ -499,12 +499,12 @@ export default function Home() {
                       onMouseEnter={() => {setAdVertHover(true)}}
                       onMouseLeave={() => {setAdVertHover(false)}}
                       >
-                        <div className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col">
+                        <div className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col nonsel pointer-events-none">
                           <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`}`} ref={vertAdRef}>Take a dive?</p>
                           <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-md`}`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
                         </div>
 
-                        <video autoPlay muted loop className="object-cover w-full">
+                        <video autoPlay muted loop className="object-cover w-full nonsel pointer-events-none">
                           <source src="/videos/vert.webm" type="video/webm" />
                         </video>
                       </NextLink>
@@ -512,11 +512,11 @@ export default function Home() {
 
                     <div className="flex-[0_0_100%]">
                       <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/indexbanner.png" className="w-full bg-[#17191a]/40" />
+                        <img src="/images/indexbanner.png" className="w-full bg-[#17191a]/40 nonsel pointer-events-none" />
                       </NextLink>
                     </div>
 
-                    <div className="flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a]">
+                    <div className="flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none">
                       <img className="-translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
                       <img className="-translate-x-full absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
                       <img className="translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={rightPupilRef} />
@@ -556,8 +556,8 @@ export default function Home() {
                 </p>
 
                 <div className="relative flex items-center justify-center flex-col bg-[#17191a] mb-4">
-                  <img ref={featArtRef} src="images/featart1.png" style={{ pointerEvents: "none" }} className="nonsel" />
-                  <img ref={featArtMiniRef} src="images/featart1.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25"/>
+                  <img ref={featArtRef} src="images/featart1.png" style={{ pointerEvents: "none" }} className={`nonsel`} />
+                  <img ref={featArtMiniRef} src="images/featart1.png" style={{ pointerEvents: "none" }} className={`nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
                   <NextLink href="/gallery">
                     <img ref={mierDrawingRef} src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} className="nonsel absolute bottom-0 right-0 h-60 origin-bottom-right translate-x-10 translate-y-40" onMouseEnter={() => mierDrawingHoverHandler()} onMouseLeave={() => mierDrawingUnhoverHandler()} />
                   </NextLink>
@@ -570,50 +570,6 @@ export default function Home() {
                 <img src="images/top.png" className="nonsel pointer-events-none absolute top-0 right-0 h-40"></img>
                 <img src="images/bot.png" className="nonsel pointer-events-none absolute bottom-0 left-0 h-40"></img>
               </div>
-
-
-              {/* <div className="flex flex-col items-center justify-center w-[80%] mb-12 border-3 border-[#d8e0e3]">
-
-                <div className="flex items-center justify-between text-white bg-[#17191a] p-4">
-
-                  <h1 className={`${xanh.className} font-bold py-4`}>LATEST ARTWORK</h1>
-
-                  <div className="grid grid-cols-3 gap-4 text-xs w-[40%]">
-                    <div
-                    onClick={() => artPreviewHandler("featart0.png")}
-                    className="flex flex-col items-center cursor-pointer justify-center"
-                    >
-                      <img className="object-cover h-full w-full" src="images/featart0.png"></img>
-                      <p>meow</p>
-                    </div>
-                    <div
-                    onClick={() => artPreviewHandler("featart1.png")}
-                    className="flex flex-col items-center cursor-pointer justify-center"
-                    >
-                      <img className="object-cover h-full w-full" src="images/featart1.png"></img>
-                      <p>meow</p>
-                    </div>
-                    <div
-                    onClick={() => artPreviewHandler("featart2.png")}
-                    className="flex flex-col items-center cursor-pointer justify-center"
-                    >
-                      <img className="object-cover h-full w-full" src="images/featart2.png"></img>
-                      <p>meow</p>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div className="grid grid-row-[5fr_1fr] gap-4 relative text-white w-full">
-                
-                  <div className="relative flex items-center justify-center flex-col">
-                    <img ref={featArtRef} src="images/featart0.png" style={{ pointerEvents: "none" }} className="nonsel border border-[#d8e0e3]" />
-                    <img ref={featArtMiniRef} src="images/featart0.png" style={{ pointerEvents: "none" }} className="nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-6 -translate-x-10 translate-y-5"/>
-                  </div>
-
-                  
-                </div>
-              </div> */}
 
               <hr className="my-4 border-gray-500/30 w-full" />
 
