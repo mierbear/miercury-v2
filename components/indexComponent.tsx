@@ -475,7 +475,7 @@ export default function Home() {
                 </div>
 
                 <div
-                  className="overflow-hidden flex items-center justify-center"
+                  className="overflow-hidden flex items-center justify-center h-full"
                   onMouseEnter={() => autoplay.current.stop()}
                   onMouseLeave={() => autoplay.current.play()}
                   ref={emblaRef}
@@ -490,19 +490,20 @@ export default function Home() {
                       </div>
                     </div>
                     
-                    <div className="flex-[0_0_100%]">
+                    <div className="flex-[0_0_100%] overflow-hidden relative h-full">
                       <NextLink
                       href="https://vertuously.com/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="relative w-full h-full"
+                      className="relative block w-full h-full"
                       onMouseEnter={() => {setAdVertHover(true)}}
                       onMouseLeave={() => {setAdVertHover(false)}}
                       >
-                        <div className="absolute flex flex-col items-center justify-center w-full h-full">
+                        <div className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col">
                           <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`}`} ref={vertAdRef}>Take a dive?</p>
-                          <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-md`}`} ref={vertAdRef2}>project your thoughts and feelings as you delve deep in the depths</p>
+                          <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-md`}`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
                         </div>
+
                         <video autoPlay muted loop className="object-cover w-full">
                           <source src="/videos/vert.webm" type="video/webm" />
                         </video>
@@ -835,6 +836,7 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ add loading screen for index</p>
               <p className="text-xs">✔ improve art section in index</p>
               <p className="text-xs">✔ add changelog to index</p>
               <p className="text-xs">✔ make the admin page actually legible LOL</p>
