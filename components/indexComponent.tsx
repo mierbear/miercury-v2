@@ -11,7 +11,7 @@ import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Xanh_Mono, Boldonse, Coral_Pixels } from "next/font/google"
+import { Micro_5, Boldonse, Coral_Pixels } from "next/font/google"
 import NavLinkMarq from "@/components/indexNavLinkMarquee";
 import NavLinkImg from "@/components/indexNavLinkImg";
 import NavLinkBot from "@/components/indexNavLinkBot";
@@ -19,7 +19,7 @@ import LogType from "@/types/logType";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
 
-const xanh = Xanh_Mono({
+const micro = Micro_5({
   weight: "400",
   subsets: ["latin"],
 })
@@ -443,6 +443,7 @@ export default function Home() {
     };
   }, []);
 
+  const [adVertHover, setAdVertHover] = useState(false);
   
 
   return (
@@ -495,10 +496,12 @@ export default function Home() {
                       target="_blank"
                       rel="noopener noreferrer"
                       className="relative w-full h-full"
+                      onMouseEnter={() => {setAdVertHover(true)}}
+                      onMouseLeave={() => {setAdVertHover(false)}}
                       >
                         <div className="absolute flex flex-col items-center justify-center w-full h-full">
-                          <p className={`${coral.className} text-5xl `} ref={vertAdRef}>Take a dive?</p>
-                          <p className={`${coral.className} text-xs`} ref={vertAdRef2}>project your thoughts and feelings as you delve deep in the depths</p>
+                          <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`}`} ref={vertAdRef}>Take a dive?</p>
+                          <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-md`}`} ref={vertAdRef2}>project your thoughts and feelings as you delve deep in the depths</p>
                         </div>
                         <video autoPlay muted loop className="object-cover w-full">
                           <source src="/videos/vert.webm" type="video/webm" />
