@@ -6,11 +6,12 @@ import TitleBot from "@/components/indexTitleBot";
 import PostType from "@/types/postType";
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
+import { SplitText } from "gsap/SplitText";
 import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Xanh_Mono, Boldonse } from "next/font/google"
+import { Xanh_Mono, Boldonse, Coral_Pixels } from "next/font/google"
 import NavLinkMarq from "@/components/indexNavLinkMarquee";
 import NavLinkImg from "@/components/indexNavLinkImg";
 import NavLinkBot from "@/components/indexNavLinkBot";
@@ -19,6 +20,11 @@ import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
 
 const xanh = Xanh_Mono({
+  weight: "400",
+  subsets: ["latin"],
+})
+
+const coral = Coral_Pixels({
   weight: "400",
   subsets: ["latin"],
 })
@@ -140,8 +146,10 @@ export default function Home() {
   }
 
   const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
-
+  useEffect(() =>
+    setReady(true),
+  []);
+  
   const autoplay = useRef(
     Autoplay({
       delay: 5000,
@@ -255,19 +263,19 @@ export default function Home() {
   }, [])
 
 
-  // useEffect(() => {
-  //   if (typeof window === 'undefined') return;
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
 
-  //   const preload = [
-  //     '/images/morozovfish-1.png',
-  //   ];
+    const preload = [
+      '/images/mierhover.png',
+    ];
 
-  //   preload.forEach((src) => {
-  //     const img = new window.Image();
-  //     img.src = src;
-  //   });
+    preload.forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
 
-  // }, [])
+  }, [])
 
   const randomizer = (arr: string[]) => {
     return arr[Math.floor(Math.random() * arr.length)];
@@ -400,8 +408,50 @@ export default function Home() {
     setToolTipStatus(false);
   }
 
+  const loadingScreenRef = useRef<HTMLDivElement | null>(null);
+
+  const vertAdRef = useRef<HTMLParagraphElement | null>(null);
+  const vertAdRef2 = useRef<HTMLParagraphElement | null>(null);
+
+  useEffect(() => {
+    const refs = [vertAdRef, vertAdRef2];
+    const splits: SplitText[] = [];
+
+    refs.forEach(ref => {
+      if (!ref.current) return;
+
+      const split = new SplitText(ref.current, { type: "chars" });
+      splits.push(split);
+
+      gsap.to(split.chars, {
+        yPercent: -12,
+        duration: 1.6,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        stagger: {
+          each: 0.08,
+          repeat: -1,
+          yoyo: true,
+        }
+      });
+    });
+
+    return () => {
+      splits.forEach(split => split.revert());
+      gsap.killTweensOf("*");
+    };
+  }, []);
+
+  
+
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
+      
+      <div className={`bg-black z-5000 min-w-screen min-h-screen transition-opacity duration-1000 fixed pointer-events-none nonsel ${ready ? "opacity-0" : "opacity-100"}`} ref={loadingScreenRef}>
+        <h1 className="bottom-20 right-20 text-white absolute">loading</h1>
+      </div>
+
       <div className="min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <Title />
       </div>
@@ -417,7 +467,12 @@ export default function Home() {
             <div className="m-4 mr-2 flex items-center flex-col">
 
               {/* CAROUSEL */}
-              <div className="flex flex-col justify-center items-center relative max-h-60 text-white border-[#d8e0e3]/70 border ">
+              <div className="flex flex-col justify-center items-center relative max-h-60 text-white border-[#d8e0e3]/70 border">
+
+                <div className="w-full h-full absolute bg-[#17191a] mix-blend-lighten z-100 pointer-events-none">
+
+                </div>
+
                 <div
                   className="overflow-hidden flex items-center justify-center"
                   onMouseEnter={() => autoplay.current.stop()}
@@ -433,16 +488,27 @@ export default function Home() {
                         <img src="/images/construction.gif" />
                       </div>
                     </div>
+                    
+                    <div className="flex-[0_0_100%]">
+                      <NextLink
+                      href="https://vertuously.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative w-full h-full"
+                      >
+                        <div className="absolute flex flex-col items-center justify-center w-full h-full">
+                          <p className={`${coral.className} text-5xl `} ref={vertAdRef}>Take a dive?</p>
+                          <p className={`${coral.className} text-xs`} ref={vertAdRef2}>project your thoughts and feelings as you delve deep in the depths</p>
+                        </div>
+                        <video autoPlay muted loop className="object-cover w-full">
+                          <source src="/videos/vert.webm" type="video/webm" />
+                        </video>
+                      </NextLink>
+                    </div>
 
                     <div className="flex-[0_0_100%]">
                       <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
                         <img src="/images/indexbanner.png" className="w-full bg-[#17191a]/40" />
-                      </NextLink>
-                    </div>
-                    
-                    <div className="flex-[0_0_100%]">
-                      <NextLink href="https://vertuously.com/" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/indexbanner2.png" className="w-full bg-[#17191a]/40" />
                       </NextLink>
                     </div>
 

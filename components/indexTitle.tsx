@@ -53,7 +53,7 @@ const Title = () => {
       yPercent: 120,
       stagger: 0.05,
       ease: "power4.out",
-      delay: 0.3,
+      delay: 1,
     })
 
     return () => {

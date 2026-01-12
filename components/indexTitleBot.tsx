@@ -22,7 +22,7 @@ const TitleBot = () => {
       yPercent: 50,
       stagger: 0.12,
       ease: "power4.out",
-      delay: 0.8,
+      delay: 1.6,
     })
 
     return () => {
