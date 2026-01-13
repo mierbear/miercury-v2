@@ -462,10 +462,10 @@ export default function Home() {
 
         <div className="bg-[#586474]/50 backdrop-blur-[2px] w-full flex flex-col items-center">
 
-          <div className="w-full grid grid-cols-[2fr_1fr]">
+          <div className="w-full grid lg:grid-cols-[2fr_1fr] lg:grid-rows-none">
 
             {/* LEFT COL */}
-            <div className="m-4 mr-2 flex items-center flex-col">
+            <div className="m-4 lg:mr-2 flex items-center flex-col lg:order-1 order-2">
 
               {/* CAROUSEL */}
               <div className="flex flex-col justify-center items-center relative max-h-60 text-white border-[#d8e0e3]/70 border">
@@ -651,7 +651,7 @@ export default function Home() {
             </div> 
 
             {/* RIGHT COL */}
-            <div className="m-4 ml-2">
+            <div className="m-4 lg:ml-2 lg:order-2 order-1">
 
               {/* INTRO */}
               <div className="text-white border-[#d8e0e3]/40 relative border-dotted border flex flex-col items-center pb-14">
