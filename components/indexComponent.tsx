@@ -145,10 +145,19 @@ export default function Home() {
     setProperDate(!properDate);
   }
 
+  const contentRef = useRef<HTMLDivElement | null>(null)
+
   const [ready, setReady] = useState(false);
-  useEffect(() =>
+  useEffect(() => {
+    
     setReady(true),
-  []);
+    
+    setTimeout(() => {
+      if (!contentRef.current) return;
+      contentRef.current.style.opacity = "100%"
+    }, 1600);
+    
+  }, []);
   
   const autoplay = useRef(
     Autoplay({
@@ -459,9 +468,12 @@ export default function Home() {
 
         <TitleBot />  
 
-        <div className="bg-[#586474]/50 backdrop-blur-[2px] w-full flex flex-col items-center">
+        <div className={`${ready ? "bg-[#586474]/50" : "bg-[#17191a]"} backdrop-blur-[2px] w-full flex flex-col items-center transition-colors duration-4000`}>
 
-          <div className="w-full grid lg:grid-cols-[2fr_1fr] lg:grid-rows-none">
+          <div
+          className="w-full grid lg:grid-cols-[2fr_1fr] lg:grid-rows-none opacity-0 transition-opacity duration-2000"
+          ref={contentRef}
+          >
 
             {/* LEFT COL */}
             <div className="m-4 lg:mr-2 flex items-center flex-col lg:order-1 order-2">
@@ -511,7 +523,7 @@ export default function Home() {
                       <img className=" absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
                       <img className=" absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
                       <div className="absolute bottom-0 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
-                        <Marquee className="w-full" speed={200}>
+                        <Marquee className="w-full" speed={20}>
                           <p className="text-white text-sm tracking-wide">
                             i know what you're up to.i know what you're up to.i know what you're up to.i know what you're up to.
                           </p>
@@ -764,7 +776,8 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-4">
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">TO-DO: </p>
-              <p className="text-xs">● revise navmenu</p>
+              <p className="text-xs">● </p>
+              <p className="text-xs">● make navmenu look good</p>
               <p className="text-xs">● set up supabase for gallery</p>
               <p className="text-xs">● show latest drawing in index</p>
               <p className="text-xs">● revise about me page (its so ass bruh..)</p>
@@ -797,6 +810,7 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ revise navmenu</p>
               <p className="text-xs">✔ make index page responsive</p>
               <p className="text-xs">✔ turn most gsap animations into plain css</p>
               <p className="text-xs">✔ make adVERT impressive</p>

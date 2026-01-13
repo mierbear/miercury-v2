@@ -24,13 +24,37 @@ const NavMenu = () => {
   const pathname = usePathname();
   console.log(pathname);
 
+  const navMenuRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
   const moonRef = useRef<HTMLDivElement | null>(null);
   const [open, setOpen] = useState(false);
+  
   const moonClickHandler = () => {
+    if (navMenuRef.current === null || overlayRef.current === null || moonRef.current === null) return;
+
     if (open) {
       setOpen(false);
+
+      moonRef.current.style.pointerEvents = "none";
+      overlayRef.current.style.pointerEvents = "none";
+      navMenuRef.current.style.opacity = "0";
+      setTimeout(() => {
+        navMenuRef.current!.style.display = "none";
+        moonRef.current!.style.pointerEvents = "auto";
+        overlayRef.current!.style.pointerEvents = "auto";
+      }, 500);
     } else {
       setOpen(true);
+      moonRef.current!.style.pointerEvents = "none";
+      overlayRef.current!.style.pointerEvents = "none";
+      navMenuRef.current.style.display = "flex";
+      setTimeout(() => {
+        navMenuRef.current!.style.opacity = "100";
+      }, 0);
+      setTimeout(() => {
+        moonRef.current!.style.pointerEvents = "auto";
+        overlayRef.current!.style.pointerEvents = "auto";
+      }, 500);
     }
   }
 
@@ -45,6 +69,13 @@ const NavMenu = () => {
     { desc: "learning about me", href: "/about" },
   ]
 
+  const currentRoute = routes.find((route) =>
+    route.href === "/"
+      ? pathname === "/"
+      : pathname.startsWith(route.href)
+  );
+
+
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
@@ -56,28 +87,50 @@ const NavMenu = () => {
   return (
     <div className="fixed w-screen h-screen flex flex-col justify-center items-center text-white z-5555 pointer-events-none">
 
-      <div className={`bg-black h-[50vh] w-screen lg:w-[80%] flex flex-col justify-center items-center p-4 z-777 ${open ? "visible" : "invisible"} pointer-events-auto`}>
+      <div
+      className={`bg-black/60 h-[50vh] w-screen lg:w-[80%] hidden opacity-0 flex-col justify-center items-center p-4 z-777 pointer-events-auto duration-500 transition-opacity`}
+      ref={navMenuRef}
+      >
         
-        <p>you're currently {routes.find((route) => route.href === pathname)?.desc}</p>
+        <p>you're currently {currentRoute?.desc}</p>
         <div className="text-white border border-white p-4 w-full h-full">
 
            <div className="overflow-hidden h-full w-full" ref={emblaRef}>
             <div className="flex h-full"
             onClick={moonClickHandler}
             >
-              <NavMenuLink title="characters" href="/characters" img="/images/pfp.png" />
-              <NavMenuLink title="mtwim" href="/mtwim" img="/images/pfp.png" />
-              <NavMenuLink title="games" href="/games" img="/images/pfp.png" />
-              <NavMenuLink title="pp" href="/pp" img="/images/pfp.png" />
-              <NavMenuLink title="gallery" href="/gallery" img="/images/pfp.png" />
-              <NavMenuLink title="blog" href="/blog" img="/images/pfp.png" />
-              <NavMenuLink title="home" href="/" img="/images/pfp.png" />
+              <NavMenuLink title="characters" href="/characters" img="/images/characters.png" />
+              <NavMenuLink title="mtwim" href="/mtwim" img="/images/mtwim.png" />
+              <NavMenuLink title="games" href="/games" img="/images/games.png" />
+              <NavMenuLink title="pp" href="/pp" img="/images/pp.png" />
+              <NavMenuLink title="gallery" href="/gallery" img="/images/gallery.png" />
+              <NavMenuLink title="blog" href="/blog/page/1" img="/images/blog.png" />
+              <NavMenuLink title="home" href="/" img="/images/moon.png" />
             </div>
           </div>
         
         </div>
       </div>
 
+      <div
+        className={`
+          z-556
+          fixed
+          left-1/2
+          -translate-x-1/2
+          cursor-grab
+          pointer-events-auto
+          nonsel
+          -translate-y-[50vh]
+          bg-black
+          opacity-0
+          ${open ? "h-200 w-200" : "h-50 w-50"}
+        `}
+        onClick={moonClickHandler}
+        ref={moonRef}
+      >
+        sdfdsfdsfdsf
+      </div>
       <div
         className={`
           z-555
@@ -87,23 +140,21 @@ const NavMenu = () => {
           transition-transform
           duration-500
           ease-in-out
-          cursor-grab
-          pointer-events-auto
+          pointer-events-none
           nonsel
-          ${open ? "-translate-y-[25vh]" : "-translate-y-[50vh]"}
+          -translate-y-[50vh]
         `}
-        onClick={moonClickHandler}
-        ref={moonRef}
       >
         <img 
-        className={`slow-spin ${open ? "h-60" : "h-40"} transition-height origin-center duration-500 ease-in-out`}
+        className={`slow-spin ${open ? "scale-150" : "scale-20"} transition-scale origin-center duration-500 ease-in-out nonsel pointer-events-none`}
         src="/images/moon.png" 
         />
       </div>
       
       <div 
-      className={`${open ? "opacity-100 backdrop-blur-[2px] pointer-events-auto" : "opacity-0 backdrop-blur-0 pointer-events-none"} fixed transition-opacity duration-500 ease-in-out w-screen h-screen nonsel`}
+      className={`${open ? "opacity-100 backdrop-blur-[2px] pointer-events-auto" : "opacity-0 invisible backdrop-blur-0 pointer-events-none"} fixed transition-opacity duration-500 ease-in-out w-screen h-screen nonsel`}
       onClick={() => {moonRef.current?.click()}}
+      ref={overlayRef}
       ></div>
 
     </div>
