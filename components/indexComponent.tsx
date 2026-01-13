@@ -311,15 +311,14 @@ export default function Home() {
     pupil.style.transform = `translate(${nx * scaled}px, ${ny * scaled}px)`;
   }
 
-
   useEffect(() => {
     if (!ready) return;
 
     const move = (e: MouseEvent) => {
-      if (!leftPupilRef.current || !rightPupilRef.current) return;
+      if (!leftPupilRef.current ) return;
 
       movePupil(leftPupilRef.current, e.clientX, e.clientY);
-      movePupil(rightPupilRef.current, e.clientX, e.clientY);
+      // movePupil(rightPupilRef.current, e.clientX, e.clientY);
     };
 
     window.addEventListener("mousemove", move);
@@ -374,17 +373,6 @@ export default function Home() {
     setLogs(data);
   }
 
-  const featArtRef = useRef<HTMLImageElement | null>(null);
-  const featArtMiniRef = useRef<HTMLImageElement | null>(null);
-
-  // const featuredArtwork = []
-
-  const artPreviewHandler = (src: string) => {
-    if (!featArtRef.current || !featArtMiniRef.current) return;
-    featArtRef.current.src = `/images/${src}`;
-    featArtMiniRef.current.src = `/images/${src}`;
-  }
-
   const pfpRef = useRef<HTMLImageElement | null>(null);
   const [artHover, setArtHover] = useState(false);
 
@@ -393,6 +381,17 @@ export default function Home() {
     void pfpRef.current?.offsetWidth;
     pfpRef.current?.classList.add("jelly");
   }
+
+  const featArtRef = useRef<HTMLImageElement | null>(null);
+  const featArtMiniRef = useRef<HTMLImageElement | null>(null);
+
+  // const featuredArtwork = []
+
+  // const artPreviewHandler = (src: string) => {
+  //   if (!featArtRef.current || !featArtMiniRef.current) return;
+  //   featArtRef.current.src = `/images/${src}`;
+  //   featArtMiniRef.current.src = `/images/${src}`;
+  // }
 
   const mierDrawingRef = useRef<HTMLImageElement | null>(null);
   const [mierDrawing, setMierDrawing] = useState(true);
@@ -468,7 +467,7 @@ export default function Home() {
             <div className="m-4 lg:mr-2 flex items-center flex-col lg:order-1 order-2">
 
               {/* CAROUSEL */}
-              <div className="flex flex-col justify-center items-center relative max-h-60 text-white border-[#d8e0e3]/70 border">
+              <div className="flex flex-col justify-center items-center relative w-full aspect-25/9 mx-auto text-white border-[#d8e0e3]/70 border">
 
                 <div className="w-full h-full absolute bg-[#17191a] mix-blend-lighten z-100 pointer-events-none">
 
@@ -481,16 +480,8 @@ export default function Home() {
                   ref={emblaRef}
                 >
                   <div className={`flex ${ready ? "opacity-100" : "opacity-0"}`}>
-
-                    <div className="flex-[0_0_100%]">
-                      <div className="flex flex-row w-full justify-between items-center text-center px-10 h-full nonsel pointer-events-none bg-[#17191a]/40 overflow-x-hidden">
-                        <img src="/images/construction.gif" />
-                        <h1 className="text-red-600 font-bold">THIS SITE IS STILL VERY UNFINISHED!! <br /> THX FOR VISITING XOXO</h1>
-                        <img src="/images/construction.gif" />
-                      </div>
-                    </div>
                     
-                    <div className="flex-[0_0_100%] overflow-hidden relative h-full">
+                    <div className="aspect-25/9 flex-[0_0_100%] overflow-hidden relative">
                       <NextLink
                       href="https://vertuously.com/"
                       target="_blank"
@@ -510,17 +501,22 @@ export default function Home() {
                       </NextLink>
                     </div>
 
-                    <div className="flex-[0_0_100%]">
+                    <div className="aspect-25/9 flex-[0_0_100%]">
                       <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/indexbanner.png" className="w-full bg-[#17191a]/40 nonsel pointer-events-none" />
+                        <img src="/images/indexbanner.png" className="w-full h-full bg-[#17191a]/40 nonsel pointer-events-none object-cover" />
                       </NextLink>
                     </div>
 
-                    <div className="flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
-                      <img className="-translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
-                      <img className="-translate-x-full absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
-                      <img className="translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={rightPupilRef} />
-                      <img className="translate-x-full absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
+                    <div className="relative aspect-25/9 flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
+                      <img className=" absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
+                      <img className=" absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
+                      <div className="absolute bottom-0 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
+                        <Marquee className="w-full" speed={200}>
+                          <p className="text-white text-sm tracking-wide">
+                            i know what you're up to.i know what you're up to.i know what you're up to.i know what you're up to.
+                          </p>
+                        </Marquee>
+                      </div>
                     </div>
 
                   </div>
@@ -574,7 +570,7 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-full" />
 
               {/* MISC */}
-              <div className="grid md:grid-cols-[1.618fr_1fr] grid-rows-[1.618fr_1fr] text-white w-full gap-4">
+              <div className="grid md:grid-cols-[1.618fr_1fr] md:grid-rows-none grid-rows-[1.618fr_1fr] grid-cols-none text-white w-full gap-4">
                 
                 {/* 1 */}
                 <div className="flex flex-col items-center border-[#d8e0e3]/70 border border-dashed pb-4">
@@ -670,6 +666,10 @@ export default function Home() {
                     <br />
                     I hope you enjoy your stay.
                   </p>
+
+                  <div className="flex flex-row justify-between items-center text-center pt-4">
+                    <p className="text-red-600 font-bold text-xs bg-black p-2">This site is still in development, many routes are still unfinished. Thank you for visiting. &lt;3</p>
+                  </div>
                 </div>
 
                 <div className="border-t border-b border-[#d8e0e3]/40 border-dotted w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80 nonsel">
@@ -734,7 +734,7 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-full" />
 
               {/* NAV */}
-              <div className="text-white grid grid-rows-[200px_40px_40px_40px_40px_40px_40px] transition-[grid_template-rows] duration-200 relative" ref={linksDivRef}>
+              <div className="text-white grid grid-rows-[240px_50px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative" ref={linksDivRef}>
                 
                 <NavLinkMarq desc="learn about my characters" active={activeLink} link="characters" onHover={handleHover} />
                 <NavLinkImg desc="learn about a story i want to tell" active={activeLink} link="mtwim" onHover={handleHover} />
