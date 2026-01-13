@@ -56,20 +56,22 @@ const NavMenu = () => {
   return (
     <div className="fixed w-screen h-screen flex flex-col justify-center items-center text-white z-5555 pointer-events-none">
 
-      <div className={`bg-black h-120 w-[70vw] flex flex-col justify-center items-center p-4 z-777 ${open ? "visible" : "invisible"} pointer-events-auto`}>
+      <div className={`bg-black h-[50vh] w-screen lg:w-[80%] flex flex-col justify-center items-center p-4 z-777 ${open ? "visible" : "invisible"} pointer-events-auto`}>
         
         <p>you're currently {routes.find((route) => route.href === pathname)?.desc}</p>
         <div className="text-white border border-white p-4 w-full h-full">
 
            <div className="overflow-hidden h-full w-full" ref={emblaRef}>
-            <div className="flex h-full">
-              <NavMenuLink title="moewmeowmeow" href="/home" img="/images/pfp.png" />
-              <NavMenuLink title="moewmeowmeow" href="/home" img="/images/pfp.png" />
-              <NavMenuLink title="moewmeowmeow" href="/home" img="/images/pfp.png" />
-              <NavMenuLink title="moewmeowmeow" href="/home" img="/images/pfp.png" />
-              <NavMenuLink title="moewmeowmeow" href="/home" img="/images/pfp.png" />
-              <NavMenuLink title="moewmeowmeow" href="/home" img="/images/pfp.png" />
-              <NavMenuLink title="moewmeowmeow" href="/home" img="/images/pfp.png" />
+            <div className="flex h-full"
+            onClick={moonClickHandler}
+            >
+              <NavMenuLink title="characters" href="/characters" img="/images/pfp.png" />
+              <NavMenuLink title="mtwim" href="/mtwim" img="/images/pfp.png" />
+              <NavMenuLink title="games" href="/games" img="/images/pfp.png" />
+              <NavMenuLink title="pp" href="/pp" img="/images/pfp.png" />
+              <NavMenuLink title="gallery" href="/gallery" img="/images/pfp.png" />
+              <NavMenuLink title="blog" href="/blog" img="/images/pfp.png" />
+              <NavMenuLink title="home" href="/" img="/images/pfp.png" />
             </div>
           </div>
         
@@ -88,7 +90,7 @@ const NavMenu = () => {
           cursor-grab
           pointer-events-auto
           nonsel
-          ${open ? "-translate-y-[20vh]" : "-translate-y-[50vh]"}
+          ${open ? "-translate-y-[25vh]" : "-translate-y-[50vh]"}
         `}
         onClick={moonClickHandler}
         ref={moonRef}
