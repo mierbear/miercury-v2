@@ -449,7 +449,7 @@ export default function Home() {
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
       
-      <div className={`bg-black z-5000 min-w-screen min-h-screen transition-opacity duration-1000 fixed pointer-events-none nonsel ${ready ? "opacity-0" : "opacity-100"}`} ref={loadingScreenRef}>
+      <div className={`bg-black z-55555 min-w-screen min-h-screen transition-opacity duration-1000 fixed pointer-events-none nonsel ${ready ? "opacity-0" : "opacity-100"}`} ref={loadingScreenRef}>
         <h1 className="bottom-20 right-20 text-white absolute">loading</h1>
       </div>
 
@@ -764,11 +764,16 @@ export default function Home() {
           <div className="grid grid-cols-2 gap-4">
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">TO-DO: </p>
+              <p className="text-xs">● revise navmenu</p>
+              <p className="text-xs">● set up supabase for gallery</p>
+              <p className="text-xs">● show latest drawing in index</p>
               <p className="text-xs">● revise about me page (its so ass bruh..)</p>
               <p className="text-xs">● set up wanted posters for pp</p>
               <p className="text-xs">● set up images for navmenu</p>
               <p className="text-xs">● set up supabase for pp gallery</p>
+              <p className="text-xs">● learn how to make svgs</p>
               <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
+              <p className="text-xs">● set up favicons for each route</p>
               <p className="text-xs">● set up different 'moons' for each route</p>
               <p className="text-xs">● make the ocs page</p>
               <p className="text-xs">● set up supabase for gallery</p>
@@ -792,6 +797,9 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ turn most gsap animations into plain css</p>
+              <p className="text-xs">✔ make adVERT impressive</p>
+              <p className="text-xs">✔ set up navmenu revision skeleton</p>
               <p className="text-xs">✔ add loading screen for index</p>
               <p className="text-xs">✔ improve art section in index</p>
               <p className="text-xs">✔ add changelog to index</p>
