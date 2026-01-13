@@ -344,13 +344,13 @@ export default function Home() {
     setActiveLink(link);
 
     const rows = {
-      characters: "200px 40px 40px 40px 40px 40px 40px",
-      mtwim:       "40px 200px 40px 40px 40px 40px 40px",
-      games:       "40px 40px 200px 40px 40px 40px 40px",
-      pp:          "40px 40px 40px 200px 40px 40px 40px",
-      gallery:     "40px 40px 40px 40px 200px 40px 40px",
-      blog:        "40px 40px 40px 40px 40px 200px 40px",
-      about:       "40px 40px 40px 40px 40px 40px 200px",
+      characters: "240px 50px 50px 50px 50px 50px 50px",
+      mtwim:       "50px 240px 50px 50px 50px 50px 50px",
+      games:       "50px 50px 240px 50px 50px 50px 50px",
+      pp:          "50px 50px 50px 240px 50px 50px 50px",
+      gallery:     "50px 50px 50px 50px 240px 50px 50px",
+      blog:        "50px 50px 50px 50px 50px 240px 50px",
+      about:       "50px 50px 50px 50px 50px 50px 240px",
     };
 
     linksDivRef.current.style.gridTemplateRows = rows[link];
@@ -500,11 +500,11 @@ export default function Home() {
                       onMouseLeave={() => {setAdVertHover(false)}}
                       >
                         <div className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col nonsel pointer-events-none">
-                          <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`}`} ref={vertAdRef}>Take a dive?</p>
-                          <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-md`}`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
+                          <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8`} ref={vertAdRef}>Take a dive?</p>
+                          <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-md`} text-center px-8`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
                         </div>
 
-                        <video autoPlay muted loop className="object-cover w-full nonsel pointer-events-none">
+                        <video autoPlay muted loop className="object-cover h-full w-full nonsel pointer-events-none">
                           <source src="/videos/vert.webm" type="video/webm" />
                         </video>
                       </NextLink>
@@ -516,7 +516,7 @@ export default function Home() {
                       </NextLink>
                     </div>
 
-                    <div className="flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none">
+                    <div className="flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
                       <img className="-translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
                       <img className="-translate-x-full absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
                       <img className="translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={rightPupilRef} />
@@ -761,7 +761,7 @@ export default function Home() {
         <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col">
           <h1 className="font-bold pb-5 text-2xl self-center">to do list</h1>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">TO-DO: </p>
               <p className="text-xs">● revise navmenu</p>
@@ -797,6 +797,7 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ make index page responsive</p>
               <p className="text-xs">✔ turn most gsap animations into plain css</p>
               <p className="text-xs">✔ make adVERT impressive</p>
               <p className="text-xs">✔ set up navmenu revision skeleton</p>
