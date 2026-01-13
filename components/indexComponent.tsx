@@ -545,7 +545,7 @@ export default function Home() {
               
               {/* ART */}
               <div
-              className="flex flex-col items-center justify-center w-full px-12 relative pb-12"
+              className="flex flex-col items-center justify-center w-full md:px-12 relative pb-12"
               onMouseEnter={() => setArtHover(true)}
               onMouseLeave={() => setArtHover(false)}
               >
@@ -567,14 +567,14 @@ export default function Home() {
                   <p className="text-xs">meow meow meow</p>
                 </div>
 
-                <img src="images/top.png" className="nonsel pointer-events-none absolute top-0 right-0 h-40"></img>
-                <img src="images/bot.png" className="nonsel pointer-events-none absolute bottom-0 left-0 h-40"></img>
+                <img src="images/top.png" className="invisible md:visible nonsel pointer-events-none absolute top-0 right-0 h-40"></img>
+                <img src="images/bot.png" className="invisible md:visible nonsel pointer-events-none absolute bottom-0 left-0 h-40"></img>
               </div>
 
               <hr className="my-4 border-gray-500/30 w-full" />
 
               {/* MISC */}
-              <div className="grid grid-cols-[1.618fr_1fr] text-white w-full gap-4">
+              <div className="grid md:grid-cols-[1.618fr_1fr] grid-rows-[1.618fr_1fr] text-white w-full gap-4">
                 
                 {/* 1 */}
                 <div className="flex flex-col items-center border-[#d8e0e3]/70 border border-dashed pb-4">
