@@ -211,6 +211,7 @@ export default function Home() {
     "When we experience tears, our souls become like babies.",
     "There are no coincidences. Nothing is random.",
     "Fear is not a natural state of man.",
+    "Be lucid. Live with intent.",
     "Those who unravel the cube are nailed to the cross.",
     "Forgive them for they know not what they do. - Luke 23:34",
     "The fear of death distresses a man with a guilty conscience, but the man with a good witness within himself longs for death as for life.",
@@ -468,10 +469,10 @@ export default function Home() {
 
         <TitleBot />  
 
-        <div className={`${ready ? "bg-[#586474]/50" : "bg-[#17191a]"} backdrop-blur-[2px] w-full flex flex-col items-center transition-colors duration-4000`}>
+        <div className={`${ready ? "bg-[#586474]/50" : "bg-[#17191a] pointer-events-none"} backdrop-blur-[2px] w-full flex flex-col items-center transition-colors duration-4000`}>
 
           <div
-          className="w-full grid lg:grid-cols-[2fr_1fr] lg:grid-rows-none opacity-0 transition-opacity duration-2000"
+          className={`w-full grid lg:grid-cols-[2fr_1fr] lg:grid-rows-none opacity-0 transition-opacity duration-2000`}
           ref={contentRef}
           >
 

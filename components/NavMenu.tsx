@@ -59,14 +59,14 @@ const NavMenu = () => {
   }
 
   const routes = [
-    { desc: "home", href: "/" },
-    { desc: "with everyone", href: "/characters" },
-    { desc: "somewhere cold", href: "/mtwim" },
-    { desc: "looking for something to play", href: "/games" },
-    { desc: "in Pacific Purgatory", href: "/pp" },
-    { desc: "in the gallery", href: "/gallery" },
-    { desc: "inside my mind", href: "/blog" },
-    { desc: "learning about me", href: "/about" },
+    { img: "moon.png", desc: "home", href: "/" },
+    { img: "trash.svg", desc: "with everyone", href: "/characters" },
+    { img: "moon.png", desc: "somewhere cold", href: "/mtwim" },
+    { img: "trash.svg", desc: "looking for something to play", href: "/games" },
+    { img: "moon.png", desc: "in Pacific Purgatory", href: "/pp" },
+    { img: "trash.svg", desc: "in the gallery", href: "/gallery" },
+    { img: "moon.png", desc: "inside my mind", href: "/blog" },
+    { img: "trash.svg", desc: "learning about me", href: "/about" },
   ]
 
   const currentRoute = routes.find((route) =>
@@ -106,6 +106,7 @@ const NavMenu = () => {
               <NavMenuLink title="gallery" href="/gallery" img="/images/gallery.png" />
               <NavMenuLink title="blog" href="/blog/page/1" img="/images/blog.png" />
               <NavMenuLink title="home" href="/" img="/images/moon.png" />
+              <NavMenuLink title="about" href="/about" img="/images/about.png" />
             </div>
           </div>
         
@@ -147,7 +148,7 @@ const NavMenu = () => {
       >
         <img 
         className={`slow-spin ${open ? "scale-150" : "scale-20"} transition-scale origin-center duration-500 ease-in-out nonsel pointer-events-none`}
-        src="/images/moon.png" 
+        src={`/images/${currentRoute?.img}`} 
         />
       </div>
       
