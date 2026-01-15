@@ -7,6 +7,7 @@ export const dynamic = "force-dynamic";
 import type { Editor } from "@tiptap/react";
 import { Boldonse } from "next/font/google";
 import LogType from "@/types/logType";
+import ArtType from "@/types/artType";
 
 const boldonse = Boldonse({
   weight: "400",
@@ -160,6 +161,7 @@ export default function page() {
   useEffect(() => {
     fetchPosts();
     fetchLogs();
+    fetchArtworks();
   }, []);
   
   const [postContent, setPostContent] = useState("");
@@ -325,6 +327,24 @@ export default function page() {
     setArtTitle("");
     setArtDescription("");
   }
+
+  const [artworks, setArtworks] = useState<ArtType[] | null>(null);
+
+  const fetchArtworks = async () => {
+    const { error, data } = await supabase
+      .from("art")
+      .select("*")
+      .order("created_at", { ascending: false });
+    
+    if (error) {
+      console.error("fetch failed: ", error.message);
+      return;
+    }
+    
+    console.log(data);
+    setArtworks(data);
+  }
+
 
   return (
     <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50">
@@ -498,10 +518,24 @@ export default function page() {
         {currentTab === "art" && (
           <div className="w-full bg-black grid grid-cols-[5fr_3fr]">
             
-            <div className="bg-[#535961]/20 p-4 overflow-y-auto h-full">
-
+            {/* art list */}
+            <div className="bg-[#535961]/20 p-4 overflow-y-auto h-full w-full grid grid-cols-3 gap-4">
+              {artworks?.map((art) => {
+                return (
+                  <div
+                    className="flex flex-col items-center justify-center"
+                    key={art.id}
+                  >
+                    <img src={art.url} className="w-full h-48 object-cover" />
+                    <p className="font-bold">{art.title}</p>
+                    <p className="">{art.description}</p>
+                    <p className="text-xs text-white/50">{art.date}</p>
+                  </div>
+                )
+              })}
             </div>
             
+            {/* upload art */}
             <div className="bg-bg-[#101113]/90 flex flex-col items-center p-4">
 
               {artUrl ? (
