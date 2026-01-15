@@ -13,6 +13,13 @@ const boldonse = Boldonse({
   subsets: ["latin"],
 })
 
+export const metadata = {
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
+
 export default function page() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
