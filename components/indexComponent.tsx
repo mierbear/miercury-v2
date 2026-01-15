@@ -16,6 +16,7 @@ import NavLinkMarq from "@/components/indexNavLinkMarquee";
 import NavLinkImg from "@/components/indexNavLinkImg";
 import NavLinkBot from "@/components/indexNavLinkBot";
 import LogType from "@/types/logType";
+import ArtType from "@/types/artType";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
 
@@ -137,6 +138,7 @@ export default function Home() {
   useEffect(() => {
     fetchPosts();
     fetchLogs();
+    fetchArt();
   }, []);
 
   const [properDate, setProperDate] = useState(false);
@@ -454,6 +456,23 @@ export default function Home() {
 
   const [adVertHover, setAdVertHover] = useState(false);
   
+  const [artwork, setArtwork] = useState<ArtType | null>(null);
+  
+  const fetchArt = async () => {
+    const { error, data } = await supabase
+      .from("art")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .limit(1);
+    
+    if (error) {
+      console.error("fetch failed: ", error.message);
+      return;
+    }
+    
+    console.log(data);
+    setArtwork(data[0]);
+  }
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -565,15 +584,16 @@ export default function Home() {
                 </p>
 
                 <div className="relative flex items-center justify-center flex-col bg-[#17191a] mb-4">
-                  <img ref={featArtRef} src="images/featart1.png" style={{ pointerEvents: "none" }} className={`nonsel`} />
-                  <img ref={featArtMiniRef} src="images/featart1.png" style={{ pointerEvents: "none" }} className={`nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
+                  <img ref={featArtRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel`} />
+                  <img ref={featArtMiniRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
                   <NextLink href="/gallery">
                     <img ref={mierDrawingRef} src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} className="nonsel absolute bottom-0 right-0 h-60 origin-bottom-right translate-x-10 translate-y-40" onMouseEnter={() => mierDrawingHoverHandler()} onMouseLeave={() => mierDrawingUnhoverHandler()} />
                   </NextLink>
                 </div>
-                <div className="flex flex-col p-2 self-start w-[50%] border-white border-2 h-24 text-white">
-                  <p className="text-md">title</p>
-                  <p className="text-xs">meow meow meow</p>
+                <div className="flex flex-col p-2 pt-1 self-start w-[50%] border-white border-2 h-24 text-white">
+                  <p className="text-xl font-bold">{artwork?.title}</p>
+                  <p className="text-xs text-gray-400 pb-2">{artwork?.date}</p>
+                  <p className="text-xs">{artwork?.description}</p>
                 </div>
 
                 <img src="images/top.png" className="invisible md:visible nonsel pointer-events-none absolute top-0 right-0 h-40"></img>
@@ -779,18 +799,13 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">TO-DO: </p>
               <p className="text-xs">● </p>
-              <p className="text-xs">● set up supabase for gallery</p>
-              <p className="text-xs">● show latest drawing in index</p>
               <p className="text-xs">● revise about me page (its so ass bruh..)</p>
               <p className="text-xs">● set up wanted posters for pp</p>
               <p className="text-xs">● set up images for navmenu</p>
               <p className="text-xs">● set up supabase for pp gallery</p>
-              <p className="text-xs">● learn how to make svgs</p>
-              <p className="text-xs">● make the moon an svg to make it look good on phone..</p>
               <p className="text-xs">● set up favicons for each route</p>
               <p className="text-xs">● set up different 'moons' for each route</p>
               <p className="text-xs">● make the ocs page</p>
-              <p className="text-xs">● set up supabase for gallery</p>
               <p className="text-xs">● make the gallery page</p>
               <p className="text-xs">● make the mtwim page</p>
               <p className="text-xs">● finish the scrollTrigger course</p>
@@ -811,7 +826,10 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ show latest drawing in index</p>
+              <p className="text-xs">✔ set up supabase for gallery</p>
               <p className="text-xs">✔ optimize stars background when unfocused</p>
+              <p className="text-xs">✔ learn how to make svgs</p>
               <p className="text-xs">✔ make navmenu look good</p>
               <p className="text-xs">✔ revise navmenu</p>
               <p className="text-xs">✔ make index page responsive</p>
