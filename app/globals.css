@@ -473,14 +473,14 @@ div[data-youtube-video] iframe {
 
 .meow {
   text-shadow:
-    2px 2px 1.5 rgb(23, 25, 26),
-    2px -2px 1.5 rgb(23, 25, 26),
-    -2px 2px 1.5 rgb(23, 25, 26),
-    -2px -2px 1.5 rgb(23, 25, 26),
-    2px 0px 1.5 rgb(23, 25, 26),
-    0px 2px 1.5 rgb(23, 25, 26),
-    -2px 0px 1.5 rgb(23, 25, 26),
-    0px -2px 1.5 rgb(23, 25, 26);
+    2px 2px 1.5 black,
+    2px -2px 1.5 black,
+    -2px 2px 1.5 black,
+    -2px -2px 1.5 black,
+    2px 0px 1.5 black,
+    0px 2px 1.5 black,
+    -2px 0px 1.5 black,
+    0px -2px 1.5 black;
 }
 
 .blue-text {
@@ -546,4 +546,8 @@ div[data-youtube-video] iframe {
   75% {
     transform: scale(0.95, 1.05);
   }
+}
+
+.page-hidden * {
+  animation-play-state: paused !important;
 }

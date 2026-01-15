@@ -622,7 +622,8 @@ export default function Home() {
 
                 </div>
 
-                <div className="grid grid-rows-[1fr_1.618fr] gap-4">
+                {/* 1/2 */}
+                <div className="grid grid-cols-[1fr_1.618fr] md:grid-cols-none md:grid-rows-[1fr_1.618fr] gap-4">
 
                   <div className="grid grid-cols-[1fr_1.618fr] gap-4">
 
@@ -778,7 +779,6 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">TO-DO: </p>
               <p className="text-xs">● </p>
-              <p className="text-xs">● make navmenu look good</p>
               <p className="text-xs">● set up supabase for gallery</p>
               <p className="text-xs">● show latest drawing in index</p>
               <p className="text-xs">● revise about me page (its so ass bruh..)</p>
@@ -811,6 +811,8 @@ export default function Home() {
             <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
+              <p className="text-xs">✔ optimize stars background when unfocused</p>
+              <p className="text-xs">✔ make navmenu look good</p>
               <p className="text-xs">✔ revise navmenu</p>
               <p className="text-xs">✔ make index page responsive</p>
               <p className="text-xs">✔ turn most gsap animations into plain css</p>

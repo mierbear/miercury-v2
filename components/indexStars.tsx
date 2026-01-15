@@ -11,6 +11,21 @@ const Stars = () => {
     rotation.current = Math.trunc(Math.random() * 361);
   }, []);
 
+  useEffect(() => {
+    const handleVisibility = () => {
+      document.documentElement.classList.toggle(
+        "page-hidden",
+        document.hidden
+      );
+    };
+
+    handleVisibility();
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibility);
+  }, []);
+
   return (
     <div className={`min-w-screen min-h-screen flex justify-end align-center items-center flex-col fixed top-0 -translate-y-[30vh] transition-opacity duration-3000 ${ready ? "opacity-100" : "opacity-0"}`}>
 
