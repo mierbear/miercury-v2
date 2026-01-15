@@ -88,7 +88,7 @@ const NavMenu = () => {
     <div className={`fixed w-screen h-screen flex flex-col justify-center items-center text-white z-5555 pointer-events-none bg-linear-to-t via-transparent to-transparent ${open ? "from-black" : "from-transparent"} duration-1000 transition-colors`}>
 
       <div
-      className={`bg-black/50 rounded-sm h-[50vh] w-screen lg:w-[80%] hidden opacity-0 flex-col justify-center items-center p-4 z-777 pointer-events-auto duration-500 transition-opacity`}
+      className={`bg-black/50 rounded-2xl h-[50vh] w-screen lg:w-[80%] hidden opacity-0 flex-col justify-center items-center p-4 z-777 pointer-events-auto duration-500 transition-opacity`}
       ref={navMenuRef}
       >
         

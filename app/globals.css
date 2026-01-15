@@ -551,3 +551,21 @@ div[data-youtube-video] iframe {
 .page-hidden * {
   animation-play-state: paused !important;
 }
+
+@keyframes breathe {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.breathe {
+  animation: breathe 2s ease-in-out infinite;
+}
