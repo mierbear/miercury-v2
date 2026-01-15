@@ -288,7 +288,7 @@ export default function page() {
 
   const addArtRef = useRef<HTMLInputElement | null>(null);
   const artTitleRef = useRef<HTMLInputElement | null>(null);
-  const artDescRef = useRef<HTMLInputElement | null>(null);
+  const artDescRef = useRef<HTMLTextAreaElement | null>(null);
   const [artUrl, setArtUrl] = useState<string | null>(null);
   const [artTitle, setArtTitle] = useState<string | null>(null);
   const [artDescription, setArtDescription] = useState<string | null>(null);
@@ -317,7 +317,13 @@ export default function page() {
     }
 
     console.log(`submitted art`);
-    
+
+    addArtRef.current!.value = "";
+    artTitleRef.current!.value = "";
+    artDescRef.current!.value = "";
+    setArtUrl("");
+    setArtTitle("");
+    setArtDescription("");
   }
 
   return (
@@ -490,7 +496,7 @@ export default function page() {
 
 
         {currentTab === "art" && (
-          <div className="w-full bg-black grid grid-cols-[2fr_3fr]">
+          <div className="w-full bg-black grid grid-cols-[5fr_3fr]">
             
             <div className="bg-[#535961]/20 p-4 overflow-y-auto h-full">
 
@@ -499,13 +505,22 @@ export default function page() {
             <div className="bg-bg-[#101113]/90 flex flex-col items-center p-4">
 
               {artUrl ? (
-                <img src={artUrl} className="w-full object-cover" />
+                <img
+                src={artUrl}
+                className="w-full object-cover cursor-pointer"
+                onClick={() => addArtRef.current?.click()}
+                />
               ):(
-                <p>no artwork selected..</p>
+                <button 
+                  onClick={() => addArtRef.current?.click()}
+                  className="px-4 py-2 mb-4  monospace border border-white rounded-md cursor-pointer"
+                >
+                  no artwork selected...
+                </button>
               )}
 
 
-              <form className="" onSubmit={artSubmitHandler}>
+              <form className="flex flex-col items-center" onSubmit={artSubmitHandler}>
 
                 <input
                   type="file"
@@ -522,28 +537,20 @@ export default function page() {
                   }}
                 />
 
-                <div className="flex gap-4 items-center justify-center">
-                  <input 
-                    type="text"
-                    placeholder="input title.."
-                    className="w-full mb-4 monospace text-xl"
-                    onChange={(e) => {
-                      setArtTitle(e.target.value);
-                    }}
-                    ref={artTitleRef}
-                  />
-
-                  <img
-                    onClick={() => addArtRef.current?.click()}
-                    src="/images/imgsvg.svg"
-                    className="h-4 m-4"
-                  />
-                </div>
-
                 <input 
                   type="text"
+                  placeholder="input title.."
+                  className="w-full mb-4 monospace text-xl"
+                  onChange={(e) => {
+                    setArtTitle(e.target.value);
+                  }}
+                  ref={artTitleRef}
+                />
+
+
+                <textarea 
                   placeholder="input description.."
-                  className="w-full mb-4 monospace text-xs"
+                  className="w-full mb-4 monospace text-xs h-36"
                   onChange={(e) => {
                     setArtDescription(e.target.value);
                   }}
@@ -552,7 +559,7 @@ export default function page() {
 
                 <button
                 type="submit"
-                className="cursor-pointer h-6 p-2 text-xs monospace"
+                className="cursor-pointer px-4 py-2 text-xs monospace border border-white rounded-md"
                 >
                   post..
                 </button>
