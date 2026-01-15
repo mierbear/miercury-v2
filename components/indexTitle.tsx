@@ -27,10 +27,12 @@ const Title = () => {
       duration: 2,
       opacity: 1,
       stagger: {
-          each: 0.05,
+          each: 0.04,
         },
       ease: "power4.out",
     })
+
+    bellFX();
 
     return () => {
       // tl.kill();
@@ -61,6 +63,22 @@ const Title = () => {
       split.revert();
     };
   }, []);
+
+  const bellSoundRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const bellSound = new Audio("/audio/bells.mp3");
+
+    bellSound.load();
+
+    bellSoundRef.current = bellSound;
+  }, []);
+
+  const bellFX = () => {
+    if (!bellSoundRef.current) return;
+    bellSoundRef.current.currentTime = 0;
+    bellSoundRef.current.play();
+  }
 
   return (
     <div className="z-10 justify-end overflow-y-hidden min-h-[20vh] pt-5 items-end flex">
