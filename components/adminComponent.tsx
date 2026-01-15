@@ -326,6 +326,8 @@ export default function page() {
     setArtUrl("");
     setArtTitle("");
     setArtDescription("");
+
+    fetchArtworks();
   }
 
   const [artworks, setArtworks] = useState<ArtType[] | null>(null);
@@ -343,6 +345,17 @@ export default function page() {
     
     console.log(data);
     setArtworks(data);
+  }
+
+  const handleArtDelete = async (id: number) => {
+    const {error} = await supabase.from("art").delete().eq("id", id);
+
+    if (error) {
+      console.error("delete failed: ", error.message);
+      return;
+    }
+
+    fetchArtworks();
   }
 
 
@@ -523,13 +536,19 @@ export default function page() {
               {artworks?.map((art) => {
                 return (
                   <div
-                    className="flex flex-col items-center justify-center"
+                    className="flex flex-col items-center relative"
                     key={art.id}
                   >
+                    <p
+                    className="text-2xl text-red-600 cursor-pointer absolute top-0.5 right-1"
+                    onClick={() => handleArtDelete(art.id)}
+                    >
+                      🞮
+                    </p>
                     <img src={art.url} className="w-full h-48 object-cover" />
                     <p className="font-bold">{art.title}</p>
-                    <p className="">{art.description}</p>
-                    <p className="text-xs text-white/50">{art.date}</p>
+                    <p className="text-xs">{art.description}</p>
+                    <p className="text-xs text-white/30">{art.date}</p>
                   </div>
                 )
               })}
