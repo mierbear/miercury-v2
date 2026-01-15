@@ -268,6 +268,58 @@ export default function page() {
     setCurrentTab(tab);
   }
 
+  const uploadImage = async (file: File) => {
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${crypto.randomUUID()}.${fileExt}`;
+    const filePath = `posts/${fileName}`;
+
+    const { error } = await supabase.storage
+      .from("art")
+      .upload(filePath, file);
+
+    if (error) throw error;
+
+    const { data } = supabase.storage
+      .from("art")
+      .getPublicUrl(filePath);
+
+    return data.publicUrl;
+  };
+
+  const addArtRef = useRef<HTMLInputElement | null>(null);
+  const artTitleRef = useRef<HTMLInputElement | null>(null);
+  const artDescRef = useRef<HTMLInputElement | null>(null);
+  const [artUrl, setArtUrl] = useState<string | null>(null);
+  const [artTitle, setArtTitle] = useState<string | null>(null);
+  const [artDescription, setArtDescription] = useState<string | null>(null);
+
+  const artSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const getDate = (date = new Date()) => {
+    const yy = String(date.getFullYear()).slice(-2);
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+
+    return `${yy}.${mm}.${dd}`;
+    }
+
+    const { error } = await supabase.from("art").insert({
+      title: artTitle,
+      description: artDescription,
+      date: getDate(), 
+      url: artUrl,
+    })
+
+    if (error) {
+      console.error("post failed: ", error.message);
+      return;
+    }
+
+    console.log(`submitted art`);
+    
+  }
+
   return (
     <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50">
 
@@ -438,8 +490,75 @@ export default function page() {
 
 
         {currentTab === "art" && (
-          <div className="w-full bg-black flex flex-col justify-center items-center">
-            <p>art</p>
+          <div className="w-full bg-black grid grid-cols-[2fr_3fr]">
+            
+            <div className="bg-[#535961]/20 p-4 overflow-y-auto h-full">
+
+            </div>
+            
+            <div className="bg-bg-[#101113]/90 flex flex-col items-center p-4">
+
+              {artUrl ? (
+                <img src={artUrl} className="w-full object-cover" />
+              ):(
+                <p>no artwork selected..</p>
+              )}
+
+
+              <form className="" onSubmit={artSubmitHandler}>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  ref={addArtRef}
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+
+                    const url = await uploadImage(file);
+
+                    setArtUrl(url);
+                  }}
+                />
+
+                <div className="flex gap-4 items-center justify-center">
+                  <input 
+                    type="text"
+                    placeholder="input title.."
+                    className="w-full mb-4 monospace text-xl"
+                    onChange={(e) => {
+                      setArtTitle(e.target.value);
+                    }}
+                    ref={artTitleRef}
+                  />
+
+                  <img
+                    onClick={() => addArtRef.current?.click()}
+                    src="/images/imgsvg.svg"
+                    className="h-4 m-4"
+                  />
+                </div>
+
+                <input 
+                  type="text"
+                  placeholder="input description.."
+                  className="w-full mb-4 monospace text-xs"
+                  onChange={(e) => {
+                    setArtDescription(e.target.value);
+                  }}
+                  ref={artDescRef}
+                />
+
+                <button
+                type="submit"
+                className="cursor-pointer h-6 p-2 text-xs monospace"
+                >
+                  post..
+                </button>
+              </form>
+            </div>
+            
           </div>
         )}
 

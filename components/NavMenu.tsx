@@ -67,6 +67,7 @@ const NavMenu = () => {
     { img: "trash.svg", desc: "in the gallery", href: "/gallery" },
     { img: "moon.png", desc: "in my mind", href: "/blog" },
     { img: "trash.svg", desc: "here with me", href: "/about" },
+    { img: "moon.svg", desc: "in the secret base..", href: "/admin" },
   ]
 
   const currentRoute = routes.find((route) =>
