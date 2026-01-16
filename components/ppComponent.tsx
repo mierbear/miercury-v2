@@ -193,14 +193,6 @@ export default function Home() {
                   <button className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     Collabs
                   </button>
-                  
-                  <button className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
-                    News
-                  </button>
-                  
-                  <button className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
-                    Submit Story
-                  </button>
                 
                 </div>
 

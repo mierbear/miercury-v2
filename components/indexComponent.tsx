@@ -810,13 +810,9 @@ export default function Home() {
               <p className="text-xs">● make the mtwim page</p>
               <p className="text-xs">● finish the scrollTrigger course</p>
               <p className="text-xs">● add more ppl to stars bg (revise it even)</p>
-              <p className="text-xs">● finish the gsap course</p>
-              <p className="text-xs">● set subdomains for characters/icemage/pp/etc.</p>
               <p className="text-xs">● make assets (a lot of it...)</p>
               <p className="text-xs">● make assets for mtwim</p>
               <p className="text-xs">● make assets for characters</p>
-              <p className="text-xs">● add more to the about me page</p>
-              <p className="text-xs">● set up pp newspaper submissions</p>
               <p className="text-xs">● add shooting stars</p>
               <p className="text-xs">● add lots of easter eggs</p>
               <p className="text-xs">● add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
@@ -840,6 +836,7 @@ export default function Home() {
               <p className="text-xs">✔ improve art section in index</p>
               <p className="text-xs">✔ add changelog to index</p>
               <p className="text-xs">✔ make the admin page actually legible LOL</p>
+              <p className="text-xs">✔ add more to the about me page</p>
               <p className="text-xs">✔ improve navbar for index</p>
               <p className="text-xs">✔ implement index and slug pages for blog </p>
               <p className="text-xs">✔ make blog page</p>

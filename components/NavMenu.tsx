@@ -93,8 +93,7 @@ const NavMenu = () => {
       ref={navMenuRef}
       >
         
-        <p className="meow absolute z-5555 pl-0 items-center text-center lg:items-start lg:pl-12 pb-12 bottom-0 text-2xl  w-full flex flex-col ">you're currently {currentRoute?.desc}. where do you wish to go?</p>
-        {/* <p className="bg-black/50 absolute z-5555 items-center text-center mb-[16vh] bottom-0 p-4 text-2xl flex flex-col ">you're currently {currentRoute?.desc}. where do you wish to go?</p> */}
+        <p className="meow absolute z-5555 pl-0 items-center text-center lg:items-start lg:pl-12 pb-12 bottom-0 text-2xl  w-full flex flex-col nonsel">you're currently {currentRoute?.desc}. where do you wish to go?</p>
 
         <div className="text-white w-full h-full">
 
@@ -113,7 +112,6 @@ const NavMenu = () => {
             </div>
           </div>
 
-          {/* <p className="items-center text-center text-2xl w-full flex flex-col ">you're currently {currentRoute?.desc}. where do you wish to go?</p> */}
         </div>
       </div>
 
