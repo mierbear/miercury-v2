@@ -439,9 +439,18 @@ export default function Home() {
     carouselContainerRef.current.style.opacity = "1";
     aboutRef.current.style.pointerEvents = "none";
 
-    if (activeList === category) {
-      closeList();
-    } else {
+    // not the same
+    if (activeList !== category && activeList !== null) {
+      closeList(category);
+    }
+
+    // the same
+    else if (activeList === category) {
+      closeList(category);
+    }
+
+    // nothing
+    else {
       setActiveList(category);
       carouselRef.current.style.opacity = "1";
     }
@@ -452,7 +461,7 @@ export default function Home() {
     }, 500);
   }
 
-  const closeList = () => {
+  const closeList = (category: ListKeys | null) => {
     if (!aboutRef.current || !carouselRef.current || !carouselContainerRef.current) return;
 
     carouselRef.current.style.opacity = "0";
@@ -460,9 +469,26 @@ export default function Home() {
     aboutRef.current.style.pointerEvents = "none";
     
     setTimeout(() => {
-      if (!aboutRef.current) return;
-      aboutRef.current.style.pointerEvents = "auto";
-      setActiveList(null);
+
+      // not the same
+      if (activeList !== category && activeList !== null) {
+        if (!carouselRef.current || !carouselContainerRef.current) return;
+        console.log("NOT THE SAME:", activeList);
+        carouselRef.current.style.opacity = "1";
+        carouselContainerRef.current.style.opacity = "1";
+        setActiveList(category);
+        
+        // the same
+      } else if (activeList === category) {
+        setActiveList(null);
+        console.log("THE SAME:", activeList);
+        
+        // nothing
+      } else {
+        setActiveList(category);
+        console.log("NOTHING:", activeList);
+      }
+      
     }, 500);
   }
 
@@ -472,14 +498,15 @@ export default function Home() {
     <div className="h-screen xl:w-[60vw] lg:w-[80vw] w-screen grid grid-cols-[2fr_3fr]">
       <div className="bg-white flex flex-col items-center justify-center">
       </div>
-      <div className="bg-black flex flex-col items-center" ref={aboutRef}>
-        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl text-white font-bold cursor-pointer nonsel" ref={animeRef} onClick={() => {openList("anime")}}>anime</p>
-        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl text-white font-bold cursor-pointer nonsel" ref={musicRef} onClick={() => {openList("music")}}>music</p>
-        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl text-white font-bold cursor-pointer nonsel" ref={gamesRef} onClick={() => {openList("games")}}>games</p>
+      <div className="bg-black flex flex-col items-center text-white font-bold nonsel" ref={aboutRef}>
+        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl cursor-pointer" ref={animeRef} onClick={() => {openList("anime")}}>anime</p>
+        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl cursor-pointer" ref={musicRef} onClick={() => {openList("music")}}>music</p>
+        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl cursor-pointer" ref={gamesRef} onClick={() => {openList("games")}}>games</p>
+        {activeList ? (<p>{activeList}</p>) : <p>nothing selected</p>}
       </div>
     </div>
 
-    <div className={`w-screen h-[30vh] z-100 self-end bg-yellow-300 py-4 bottom-12 absolute transition-opacity duration-500`}
+    <div className={`w-screen h-[30vh] z-100 self-end bg-yellow-300 py-4 bottom-12 absolute transition-opacity duration-500 ${activeList || "opacity-0"}`}
       ref={carouselContainerRef}
     >
 
