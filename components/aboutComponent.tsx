@@ -4,7 +4,6 @@ import useEmblaCarousel from "embla-carousel-react";
 
 export default function Home() {
   const carouselContainerRef = useRef<HTMLDivElement | null>(null);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
   const aboutRef = useRef<HTMLParagraphElement | null>(null);
   const animeRef = useRef<HTMLParagraphElement | null>(null);
   const musicRef = useRef<HTMLParagraphElement | null>(null);
@@ -18,10 +17,24 @@ export default function Home() {
   // ended up not using this.. good learning experience tho lol
 
   const [emblaRef] = useEmblaCarousel({
-      loop: true,
-      align: "center",
-      dragFree: true,
-    });
+    loop: true,
+    align: "center",
+    dragFree: true,
+  });
+
+  const birthYear = 2002;
+  const birthMonth = 10;
+  const birthDay = 11;
+
+  const today = new Date();
+  const currentYear = today.getFullYear();
+
+  const birthdayThisYear = new Date(currentYear, birthMonth - 1, birthDay);
+
+  let age = currentYear - birthYear;
+  if (today < birthdayThisYear) {
+    age--;
+  }
 
   const favAnime = [
     {  
@@ -434,7 +447,7 @@ export default function Home() {
   const [activeList, setActiveList] = useState<ListKeys | null>(null);
 
   const openList = (category: ListKeys) => {
-    if (!aboutRef.current || !carouselRef.current || !carouselContainerRef.current) return;
+    if (!aboutRef.current || !carouselContainerRef.current) return;
 
     carouselContainerRef.current.style.opacity = "1";
     aboutRef.current.style.pointerEvents = "none";
@@ -452,19 +465,17 @@ export default function Home() {
     // nothing
     else {
       setActiveList(category);
-      carouselRef.current.style.opacity = "1";
     }
 
     setTimeout(() => {
       if (!aboutRef.current) return;
       aboutRef.current.style.pointerEvents = "auto";
-    }, 500);
+    }, 400);
   }
 
   const closeList = (category: ListKeys | null) => {
-    if (!aboutRef.current || !carouselRef.current || !carouselContainerRef.current) return;
+    if (!aboutRef.current || !carouselContainerRef.current) return;
 
-    carouselRef.current.style.opacity = "0";
     carouselContainerRef.current.style.opacity = "0";
     aboutRef.current.style.pointerEvents = "none";
     
@@ -472,9 +483,8 @@ export default function Home() {
 
       // not the same
       if (activeList !== category && activeList !== null) {
-        if (!carouselRef.current || !carouselContainerRef.current) return;
+        if (!carouselContainerRef.current) return;
         console.log("NOT THE SAME:", activeList);
-        carouselRef.current.style.opacity = "1";
         carouselContainerRef.current.style.opacity = "1";
         setActiveList(category);
         
@@ -489,30 +499,81 @@ export default function Home() {
         console.log("NOTHING:", activeList);
       }
       
-    }, 500);
+    }, 400);
   }
 
   return (
     <div className="min-w-screen min-h-screen max-h-screen flex flex-col items-center justify-center">
       
-    <div className="h-screen xl:w-[60vw] lg:w-[80vw] w-screen grid grid-cols-[2fr_3fr]">
+    <div className="h-screen xl:w-[60vw] lg:w-[80vw] w-screen grid grid-cols-[5fr_3fr]">
       <div className="bg-white flex flex-col items-center justify-center">
       </div>
-      <div className="bg-black flex flex-col items-center text-white font-bold nonsel" ref={aboutRef}>
-        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl cursor-pointer" ref={animeRef} onClick={() => {openList("anime")}}>anime</p>
-        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl cursor-pointer" ref={musicRef} onClick={() => {openList("music")}}>music</p>
-        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl cursor-pointer" ref={gamesRef} onClick={() => {openList("games")}}>games</p>
-        {activeList ? (<p>{activeList}</p>) : <p>nothing selected</p>}
+      <div className="bg-black flex flex-col px-12 pt-36 text-white nonsel" ref={aboutRef}>
+        <h1 className="font-bold text-3xl">About me:</h1>
+        <p>Kyle | {age} | INTJ | Libra</p>
+        <hr className="my-2 border-white/20" />
+        <h3 className="font-bold pb-1">things i like:</h3>
+        <p>✦ playing piano/guitar</p>
+        <p>✦ spirituality/mysticism</p>
+        <p>✦ hermeticism/gnosticism/etc.</p>
+        <p>✦ calisthenics/lifting</p>
+
+        <p className={`text-yellow-200 flex`}>
+          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-300 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
+            {activeList === "anime" ? "★" : "✦"}
+          </span>
+
+          <span
+          className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-300 cursor-pointer`}
+          ref={animeRef}
+          onClick={() => {openList("anime")}}>
+            anime
+          </span>
+        </p>
+
+        <p className={`text-yellow-200 flex`}>
+          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-300 ${activeList === "music" && "scale-150 mr-4 spin"}`}>
+            {activeList === "music" ? "★" : "✦"}
+          </span>
+
+          <span
+          className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-300 cursor-pointer`}
+          ref={musicRef}
+          onClick={() => {openList("music")}}>
+            music
+          </span>
+        </p>
+        
+        <p className={`text-yellow-200 flex`}>
+          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-300 ${activeList === "games" && "scale-150 mr-4 spin"}`}>
+            {activeList === "games" ? "★" : "✦"}
+          </span>
+
+          <span
+          className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-300 cursor-pointer`}
+          ref={gamesRef}
+          onClick={() => {openList("games")}}>
+            games
+          </span>
+        </p>
+        
+        <p>✦ coding</p>
+        <p>✦ drawing</p>
+        <hr className="my-2 border-white/20" />
+        <h3 className="font-bold pb-1">things i dislike:</h3>
+        <p>🞨 nihilism</p>
+        <p>🞨 ants</p>
+        <hr className="my-2 border-white/20" />
+
       </div>
     </div>
 
-    <div className={`w-screen h-[30vh] z-100 self-end bg-yellow-300 py-4 bottom-12 absolute transition-opacity duration-500 ${activeList || "opacity-0"}`}
+    <div className={`w-screen h-[30vh] z-100 self-end bg-yellow-300 py-4 bottom-12 absolute transition-opacity duration-400 ${activeList || "opacity-0"}`}
       ref={carouselContainerRef}
     >
 
-      <div className="overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-500"
-        ref={carouselRef}
-      >
+      <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
+
         <div className="overflow-hidden flex items-center justify-center h-full w-full" ref={emblaRef}>
           <div className="flex h-full">
 
