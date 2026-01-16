@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import NavMenu from "@/components/NavMenu";
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import "tiptap-extension-resizable-image/styles.css";
 import "./globals.css";
 
@@ -31,6 +32,7 @@ export default function RootLayout({
         <NavMenu />
         {children}
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
