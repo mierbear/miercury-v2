@@ -3,7 +3,20 @@ import { use, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 
 export default function Home() {
+  const carouselContainerRef = useRef<HTMLDivElement | null>(null);
   const carouselRef = useRef<HTMLDivElement | null>(null);
+  const aboutRef = useRef<HTMLParagraphElement | null>(null);
+  const animeRef = useRef<HTMLParagraphElement | null>(null);
+  const musicRef = useRef<HTMLParagraphElement | null>(null);
+  const gamesRef = useRef<HTMLParagraphElement | null>(null);
+
+  // const listRefs: Record<ListKeys, React.RefObject<HTMLParagraphElement | null>> = {
+  //   anime: animeRef,
+  //   music: musicRef,
+  //   games: gamesRef,
+  // };
+  // ended up not using this.. good learning experience tho lol
+
   const [emblaRef] = useEmblaCarousel({
       loop: true,
       align: "center",
@@ -416,34 +429,41 @@ export default function Home() {
     },
   ];
 
-  const [activeList, setActiveList] = useState<"anime" | "music" | "games" | null>(null);
+  type ListKeys = "anime" | "music" | "games";
 
-  const openGames = () => {
-    if (activeList === "games") {
+  const [activeList, setActiveList] = useState<ListKeys | null>(null);
+
+  const openList = (category: ListKeys) => {
+    if (!aboutRef.current || !carouselRef.current || !carouselContainerRef.current) return;
+
+    carouselContainerRef.current.style.opacity = "1";
+    aboutRef.current.style.pointerEvents = "none";
+
+    if (activeList === category) {
       closeList();
     } else {
-      setActiveList("games");
+      setActiveList(category);
+      carouselRef.current.style.opacity = "1";
     }
-  }
 
-  const openMusic = () => {
-    if (activeList === "music") {
-      closeList();
-    } else {
-      setActiveList("music");
-    }
-  }
-
-  const openAnime = () => {
-    if (activeList === "anime") {
-      closeList();
-    } else {
-      setActiveList("anime");
-    }
+    setTimeout(() => {
+      if (!aboutRef.current) return;
+      aboutRef.current.style.pointerEvents = "auto";
+    }, 500);
   }
 
   const closeList = () => {
-    setActiveList(null);
+    if (!aboutRef.current || !carouselRef.current || !carouselContainerRef.current) return;
+
+    carouselRef.current.style.opacity = "0";
+    carouselContainerRef.current.style.opacity = "0";
+    aboutRef.current.style.pointerEvents = "none";
+    
+    setTimeout(() => {
+      if (!aboutRef.current) return;
+      aboutRef.current.style.pointerEvents = "auto";
+      setActiveList(null);
+    }, 500);
   }
 
   return (
@@ -452,30 +472,35 @@ export default function Home() {
     <div className="h-screen xl:w-[60vw] lg:w-[80vw] w-screen grid grid-cols-[2fr_3fr]">
       <div className="bg-white flex flex-col items-center justify-center">
       </div>
-      <div className="bg-black flex flex-col items-center ">
-        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl text-white font-bold cursor-pointer" onClick={() => {openAnime()}}>anime</p>
-        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl text-white font-bold cursor-pointer" onClick={() => {openMusic()}}>music</p>
-        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl text-white font-bold cursor-pointer" onClick={() => {openGames()}}>games</p>
+      <div className="bg-black flex flex-col items-center" ref={aboutRef}>
+        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl text-white font-bold cursor-pointer nonsel" ref={animeRef} onClick={() => {openList("anime")}}>anime</p>
+        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl text-white font-bold cursor-pointer nonsel" ref={musicRef} onClick={() => {openList("music")}}>music</p>
+        <p className="md:text-8xl lg:text-9xl sm:text-7xl text-6xl text-white font-bold cursor-pointer nonsel" ref={gamesRef} onClick={() => {openList("games")}}>games</p>
       </div>
     </div>
 
-    <div className="w-screen h-[30vh] z-100 self-end bg-yellow-300 py-4 bottom-12 absolute">
+    <div className={`w-screen h-[30vh] z-100 self-end bg-yellow-300 py-4 bottom-12 absolute transition-opacity duration-500`}
+      ref={carouselContainerRef}
+    >
 
-      <div className="overflow-hidden flex items-center justify-center h-full w-full"
+      <div className="overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-500"
         ref={carouselRef}
       >
         <div className="overflow-hidden flex items-center justify-center h-full w-full" ref={emblaRef}>
           <div className="flex h-full">
+
+            {/* anime */}
             {activeList === "anime" && favAnime.map((anime, index) => (
               <div
                 key={index}
-                className="
+                className={`
                 flex-[0_0_28%]
                 sm:flex-[0_0_24%]
                 md:flex-[0_0_18%]
                 lg:flex-[0_0_14%]
                 xl:flex-[0_0_9%]
-                px-1 h-full flex flex-col items-center nonsel relative"
+                px-1 h-full flex flex-col items-center nonsel relative
+                `}
                 draggable="false"
               >
                 <div className="relative w-auto h-full overflow-hidden rounded-xl">
@@ -492,16 +517,18 @@ export default function Home() {
               </div>
             ))}
 
+            {/* music */}
             {activeList === "music" && favMusic.map((music, index) => (
               <div
                 key={index}
-                className="
+                className={`
                 flex-[0_0_43%]
                 sm:flex-[0_0_36%]
                 md:flex-[0_0_27%]
                 lg:flex-[0_0_21%]
                 xl:flex-[0_0_14%]
-                px-1 h-full flex flex-col items-center nonsel relative"
+                px-1 h-full flex flex-col items-center nonsel relative
+                `}
                 draggable="false"
               >
                 <div className="relative w-auto h-full overflow-hidden rounded-xl">
@@ -518,16 +545,18 @@ export default function Home() {
               </div>
             ))}
 
+            {/* games */}
             {activeList === "games" && favGames.map((games, index) => (
               <div
                 key={index}
-                className="
+                className={`
                 flex-[0_0_28%]
                 sm:flex-[0_0_24%]
                 md:flex-[0_0_18%]
                 lg:flex-[0_0_14%]
                 xl:flex-[0_0_9%]
-                px-1 h-full flex flex-col items-center nonsel relative"
+                px-1 h-full flex flex-col items-center nonsel relative
+                `}
                 draggable="false"
               >
                 <div className="relative w-auto h-full overflow-hidden rounded-xl">
