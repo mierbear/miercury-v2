@@ -25,7 +25,7 @@ export default function NavMenuLink(props: Props) {
         <p className="absolute z-100 -top-20 text-9xl rounded text-yellow-300 white-glow breathe">⯁</p>
       )}
       <img src={props.img} className={`w-full h-full object-cover rounded-xl saturate-50 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 ${isActive && "brightness-100 saturate-100"}`} />
-      <p className="absolute bottom-1 text-md bg-black/70 rounded px-2 py-0.5 font-bold">{props.title}</p>
+      <p className="absolute bottom-2 text-md bg-black/70 rounded px-2 py-0.5 font-bold">{props.title}</p>
     </NextLink>
   );
 }

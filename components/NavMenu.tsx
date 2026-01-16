@@ -101,14 +101,14 @@ const NavMenu = () => {
             <div className="flex h-full"
             onClick={moonClickHandler}
             >
-              <NavMenuLink title="characters" href="/characters" img="/images/characters.png" />
-              <NavMenuLink title="mtwim" href="/mtwim" img="/images/mtwim.png" />
-              <NavMenuLink title="games" href="/games" img="/images/games.png" />
-              <NavMenuLink title="pp" href="/pp" img="/images/pp.png" />
-              <NavMenuLink title="gallery" href="/gallery" img="/images/gallery.png" />
-              <NavMenuLink title="blog" href="/blog/page/1" img="/images/blog.png" />
-              <NavMenuLink title="home" href="/" img="/images/moon.png" />
-              <NavMenuLink title="about" href="/about" img="/images/about.png" />
+              <NavMenuLink title="Home" href="/" img="/images/moon.png" />
+              <NavMenuLink title="Characters" href="/characters" img="/images/characters.png" />
+              <NavMenuLink title="Mier: The Weakest Ice Mage" href="/mtwim" img="/images/mtwim.png" />
+              <NavMenuLink title="Games" href="/games" img="/images/games.png" />
+              <NavMenuLink title="Pacific Purgatory" href="/pp" img="/images/pp.png" />
+              <NavMenuLink title="Gallery" href="/gallery" img="/images/gallery.png" />
+              <NavMenuLink title="Blog" href="/blog/page/1" img="/images/blog.png" />
+              <NavMenuLink title="About Me" href="/about" img="/images/about.png" />
             </div>
           </div>
 
