@@ -107,7 +107,7 @@ p {
 } */
 
 .best {
-  animation: rainbow 0.5s ease-in-out infinite;
+  animation: rainbow 2s ease-in-out infinite;
 }
 
 .love {

@@ -41,13 +41,13 @@ export default function Home() {
     {  
       name: "Gurren Lagann",
       img: "gurrenlagann.jpg",
-      comment: "its my absolute favorite. chokes me up when i think about it vro..",
+      comment: "its my absolute favorite. chokes me up when i think about it vro",
       tag: "best",
     },
     {  
       name: "Code Geass",
       img: "codegeass.jpg",
-      comment: "",
+      comment: "JIBUN WOOO SEKAAIII SAEE MOO",
       tag: "best",
     },
     {  
@@ -59,6 +59,18 @@ export default function Home() {
     {  
       name: "Spy x Family",
       img: "spyxfamily.jpg",
+      comment: "",
+      tag: "love",
+    },
+    {  
+      name: "Hunter x Hunter",
+      img: "hunter.jpg",
+      comment: "",
+      tag: "love",
+    },
+    {  
+      name: "Assassination Classroom",
+      img: "assassinationclassroom.jpg",
       comment: "",
       tag: "love",
     },
@@ -84,6 +96,18 @@ export default function Home() {
       name: "Welcome to Demon School! Iruma-kun",
       img: "iruma.jpg",
       comment: "",
+      tag: "love",
+    },
+    {  
+      name: "The Unaware Atelier Meister",
+      img: "meister.jpg",
+      comment: "many dont like it but i found it so stupidly ridiculous that i love it LOL",
+      tag: "",
+    },
+    {  
+      name: "Mashle",
+      img: "mashle.jpg",
+      comment: "",
       tag: "",
     },
     {  
@@ -93,14 +117,50 @@ export default function Home() {
       tag: "",
     },
     {  
-      name: "Assassination Classroom",
-      img: "assassinationclassroom.jpg",
+      name: "One Piece",
+      img: "onepiece.jpg",
       comment: "",
       tag: "",
     },
     {  
-      name: "One Piece",
-      img: "onepiece.jpg",
+      name: "Baki The Grappler",
+      img: "baki.jpg",
+      comment: "",
+      tag: "",
+    },
+    {  
+      name: "Drifting Home",
+      img: "drifting.jpg",
+      comment: "really endearing movie",
+      tag: "love",
+    },
+    {  
+      name: "The Boy and the Beast",
+      img: "bakemono.jpg",
+      comment: "",
+      tag: "",
+    },
+    {  
+      name: "Howl's Moving Castle",
+      img: "howls.jpg",
+      comment: "i love most ghibli films, but these three i adore the most",
+      tag: "",
+    },
+    {  
+      name: "Ponyo",
+      img: "ponyo.jpg",
+      comment: "i especially love this one since this was my childhood favorite",
+      tag: "love",
+    },
+    {  
+      name: "Spirited Away",
+      img: "spirited.jpg",
+      comment: "i love most ghibli films, but these three i adore the most",
+      tag: "",
+    },
+    {  
+      name: "Parasyte: The Maxim",
+      img: "parasyte.jpg",
       comment: "",
       tag: "",
     },
@@ -114,13 +174,13 @@ export default function Home() {
       name: "Cowboy Bebop",
       img: "cowboybebop.jpg",
       comment: "",
-      tag: "",
+      tag: "love",
     },
     {  
       name: "Paprika",
       img: "paprika.jpg",
       comment: "",
-      tag: "",
+      tag: "best",
     },
     {  
       name: "Detective Conan",
@@ -159,6 +219,12 @@ export default function Home() {
       tag: "best",
     },
     {  
+      name: "The Great Pretender",
+      img: "pretender.jpg",
+      comment: "",
+      tag: "best",
+    },
+    {  
       name: "Gankutsuou: The Count of Monte Cristo",
       img: "gankutsuou.jpg",
       comment: "",
@@ -167,135 +233,30 @@ export default function Home() {
   ];
 
   const favGames = [
-    {
-      name: "Rimworld",
-      img: "rimworld.jpg",
-      comment: "everytime i start the game i end up playing for more than 20 hours xd",
-      tag: "best",
-    },
-    {
-      name: "Risk of Rain 2",
-      img: "ror2.jpg",
-      comment: "",
-      tag: "",
-    },
-
-    {
-      name: "osu!",
-      img: "osu.jpg",
-      comment: "7k mania is my crack cocaine...",
-      tag: "best",
-    },
-    {
-      name: "Skyrim",
-      img: "skyrim.jpg",
-      comment: "",
-      tag: "",
-    },
-
-    {
-      name: "Starbound",
-      img: "starbound.jpg",
-      comment: "",
-      tag: "love",
-    },
-    {
-      name: "Terraria",
-      img: "terraria.jpg",
-      comment: "",
-      tag: "love",
-    },
-
-    {
-      name: "Undertale",
-      img: "undertale.jpg",
-      comment: "",
-      tag: "",
-    },
-    {
-      name: "Omori",
-      img: "omori.jpg",
-      comment: "legit actually mid but still holds a really special place in my heart lol",
-      tag: "",
-    },
-
-    {
-      name: "Dead Cells",
-      img: "deadcells.jpg",
-      comment: "",
-      tag: "",
-    },
-    {
-      name: "Escape from Duckov",
-      img: "duckov.jpg",
-      comment: "",
-      tag: "",
-    },
-
-    {
-      name: "Echo Point Nova",
-      img: "echopointnova.jpg",
-      comment: "",
-      tag: "",
-    },
-    {
-      name: "Elden Ring",
-      img: "eldenring.jpg",
-      comment: "",
-      tag: "",
-    },
-
-    {
-      name: "Monster Hunter Rise",
-      img: "mhr.jpg",
-      comment: "",
-      tag: "",
-    },
-    {
-      name: "Fear and Hunger",
-      img: "fah.jpg",
-      comment: "",
-      tag: "",
-    },
-
-    {
-      name: "Balatro",
-      img: "balatro.jpg",
-      comment: "i love gambling",
-      tag: "",
-    },
-    {
-      name: "Slay The Spire",
-      img: "slaythespire.jpg",
-      comment: "",
-      tag: "",
-    },
-
-    {
-      name: "Cry of Fear",
-      img: "cof.jpg",
-      comment: "",
-      tag: "",
-    },
-    {
-      name: "Metaphor: ReFantazio",
-      img: "metaphor.jpg",
-      comment: "",
-      tag: "",
-    },
-
-    {
-      name: "Minecraft",
-      img: "minecraft.jpg",
-      comment: "rlcraft is the only thing that makes me wanna play it ngl",
-      tag: "love",
-    },
-    {
-      name: "Left 4 Dead 2",
-      img: "l4d2.jpg",
-      comment: "",
-      tag: "",
-    },
+    { name: "Rimworld", img: "rimworld.jpg", comment: "everytime i start the game i end up playing for more than 20 hours xd", tag: "best", },
+    { name: "osu!", img: "osu.jpg", comment: "7k mania is my crack cocaine...", tag: "best", },
+    { name: "Skyrim", img: "skyrim.jpg", comment: "", tag: "love", },
+    { name: "Terraria", img: "terraria.jpg", comment: "", tag: "love", },
+    { name: "Starbound", img: "starbound.jpg", comment: "", tag: "love", },
+    { name: "Undertale", img: "undertale.jpg", comment: "", tag: "", },
+    { name: "Omori", img: "omori.jpg", comment: "legit actually mid but still holds a really special place in my heart lol", tag: "", },
+    { name: "Monster Hunter Rise", img: "mhr.jpg", comment: "", tag: "", },
+    { name: "Escape from Duckov", img: "duckov.jpg", comment: "", tag: "", },
+    { name: "Dead Cells", img: "deadcells.jpg", comment: "", tag: "love", },
+    { name: "BlazBlue Entropy Effect", img: "blazblue.jpg", comment: "", tag: "love", },
+    { name: "Grand Chase", img: "grandchase.jpg", comment: "", tag: "", },
+    { name: "Elsword", img: "elsword.jpg", comment: "", tag: "", },
+    { name: "Soul Knight", img: "soulknight.jpg", comment: "legit the only good phone game LOL", tag: "", },
+    { name: "Sephiria", img: "sephiria.jpg", comment: "", tag: "", },
+    { name: "Metaphor: ReFantazio", img: "metaphor.jpg", comment: "", tag: "", },
+    { name: "Fear and Hunger", img: "fah.jpg", comment: "", tag: "", },
+    { name: "Balatro", img: "balatro.jpg", comment: "i love gambling", tag: "", },
+    { name: "Slay The Spire", img: "slaythespire.jpg", comment: "", tag: "", },
+    { name: "Minecraft", img: "minecraft.jpg", comment: "rlcraft is the only thing that makes me wanna play it ngl", tag: "love", },
+    { name: "Cry of Fear", img: "cof.jpg", comment: "", tag: "", },
+    { name: "Echo Point Nova", img: "echopointnova.jpg", comment: "", tag: "", },
+    { name: "Left 4 Dead 2", img: "l4d2.jpg", comment: "", tag: "", },
+    { name: "Risk of Rain 2", img: "ror2.jpg", comment: "i know so many op exploits/glitches on mul-t (700 hours lol..)", tag: "love", },
   ];
 
   const favMusic = [
@@ -311,7 +272,6 @@ export default function Home() {
       comment: "",
       tag: "love",
     },
-
     {
       name: "Pink Guy",
       img: "pinkguy.jpg",
@@ -321,10 +281,9 @@ export default function Home() {
     {
       name: "Joji",
       img: "joji.jpg",
-      comment: "",
+      comment: "i mostly prefer his older songs though",
       tag: "best",
     },
-
     {
       name: "Sasuke Haraguchi",
       img: "sasukeharaguchi.jpg",
@@ -337,7 +296,6 @@ export default function Home() {
       comment: "",
       tag: "love",
     },
-
     {
       name: "Uplift Spice",
       img: "upliftspice.jpg",
@@ -350,7 +308,6 @@ export default function Home() {
       comment: "",
       tag: "",
     },
-
     {
       name: "Kinoue64",
       img: "kinoue64.jpg",
@@ -361,14 +318,13 @@ export default function Home() {
       name: "Dusqk",
       img: "dusqk.jpg",
       comment: "",
-      tag: "",
+      tag: "best",
     },
-
     {
       name: "Porter Robinson",
       img: "porterrobinson.jpg",
       comment: "",
-      tag: "love",
+      tag: "best",
     },
     {
       name: "Kanye West",
@@ -376,7 +332,6 @@ export default function Home() {
       comment: "",
       tag: "love",
     },
-
     {
       name: "Kinoko Teikoku",
       img: "kinokoteikoku.jpg",
@@ -389,7 +344,6 @@ export default function Home() {
       comment: "",
       tag: "",
     },
-
     {
       name: "Pacific Purgatory",
       img: "pacificpurgatory.jpg",
@@ -402,7 +356,6 @@ export default function Home() {
       comment: "",
       tag: "",
     },
-
     {
       name: "Creepy Nuts",
       img: "creepynuts.jpg",
@@ -415,7 +368,6 @@ export default function Home() {
       comment: "",
       tag: "",
     },
-
     {
       name: "xi",
       img: "xi.jpg",
@@ -428,7 +380,6 @@ export default function Home() {
       comment: "",
       tag: "",
     },
-
     {
       name: "System of a Down",
       img: "soad.jpg",
@@ -512,6 +463,7 @@ export default function Home() {
     } else {
       setTooltipVisible(true);
       setTooltipText(comment);
+      // console.log(`showing tooltip: ${comment}`);
     }
   }
 
@@ -526,14 +478,17 @@ export default function Home() {
     <div className="h-screen xl:w-[60vw] lg:w-[80vw] w-screen grid grid-cols-[5fr_3fr]">
       <div className="bg-white flex flex-col items-center justify-center">
       </div>
-      <div className="bg-black flex flex-col px-12 pt-36 text-white nonsel" ref={aboutRef}>
+      <div className="bg-black flex flex-col px-12 pt-36 text-white" ref={aboutRef}>
+
         <h1 className="font-bold text-3xl">About me:</h1>
         <p>Kyle | {age} | INTJ | Libra</p>
+
         <hr className="my-2 border-white/20" />
+
         <h3 className="font-bold pb-1">things i like:</h3>
-        <p>✦ playing piano/guitar</p>
-        <p>✦ spirituality/mysticism</p>
-        <p>✦ hermeticism/gnosticism/etc.</p>
+        <p>✦ playing piano / guitar</p>
+        <p>✦ spirituality / mysticism</p>
+        <p>✦ hermeticism / gnosticism / etc.</p>
         <p>✦ calisthenics/lifting</p>
 
         <p className={`text-yellow-200 flex`}>
@@ -577,10 +532,11 @@ export default function Home() {
         
         <p>✦ coding</p>
         <p>✦ drawing</p>
+
         <hr className="my-2 border-white/20" />
+        
         <h3 className="font-bold pb-1">things i dislike:</h3>
-        <p>🞨 nihilism</p>
-        <p>🞨 ants</p>
+        <p>🞨 nihilism / negativity</p>
         <hr className="my-2 border-white/20" />
 
       </div>
@@ -623,7 +579,7 @@ export default function Home() {
                     className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
                   />
 
-                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white font-bold rounded-md z-250 ${anime.tag}`}>
+                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${anime.tag}`}>
                     {anime.name}
                   </p>
                 </div>
@@ -657,7 +613,7 @@ export default function Home() {
                     className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
                   />
 
-                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white font-bold rounded-md z-250 ${music.tag}`}>
+                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${music.tag}`}>
                     {music.name}
                   </p>
                 </div>
@@ -691,7 +647,7 @@ export default function Home() {
                     className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
                   />
 
-                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white font-bold rounded-md z-250 ${games.tag}`}>
+                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${games.tag}`}>
                     {games.name}
                   </p>
                 </div>
