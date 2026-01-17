@@ -1,6 +1,7 @@
 "use client";
 import { use, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import TooltipComponent from "@/components/tooltipComponent";
 
 export default function Home() {
   const carouselContainerRef = useRef<HTMLDivElement | null>(null);
@@ -470,7 +471,7 @@ export default function Home() {
     setTimeout(() => {
       if (!aboutRef.current) return;
       aboutRef.current.style.pointerEvents = "auto";
-    }, 400);
+    }, 200);
   }
 
   const closeList = (category: ListKeys | null) => {
@@ -499,7 +500,24 @@ export default function Home() {
         console.log("NOTHING:", activeList);
       }
       
-    }, 400);
+    }, 200);
+  }
+
+  const [tooltipText, setTooltipText] = useState("meowmeow");
+  const [tooltipVisible, setTooltipVisible] = useState(false);
+
+  const hoverHandle = (comment: string) => {
+    if (comment === "") {
+      setTooltipVisible(false);
+    } else {
+      setTooltipVisible(true);
+      setTooltipText(comment);
+    }
+  }
+
+  const unhoverHandle = () => {
+    setTooltipText("");
+    setTooltipVisible(false);
   }
 
   return (
@@ -519,12 +537,12 @@ export default function Home() {
         <p>✦ calisthenics/lifting</p>
 
         <p className={`text-yellow-200 flex`}>
-          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-300 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
+          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
             {activeList === "anime" ? "★" : "✦"}
           </span>
 
           <span
-          className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-300 cursor-pointer`}
+          className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
           ref={animeRef}
           onClick={() => {openList("anime")}}>
             anime
@@ -532,12 +550,12 @@ export default function Home() {
         </p>
 
         <p className={`text-yellow-200 flex`}>
-          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-300 ${activeList === "music" && "scale-150 mr-4 spin"}`}>
+          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "music" && "scale-150 mr-4 spin"}`}>
             {activeList === "music" ? "★" : "✦"}
           </span>
 
           <span
-          className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-300 cursor-pointer`}
+          className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
           ref={musicRef}
           onClick={() => {openList("music")}}>
             music
@@ -545,12 +563,12 @@ export default function Home() {
         </p>
         
         <p className={`text-yellow-200 flex`}>
-          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-300 ${activeList === "games" && "scale-150 mr-4 spin"}`}>
+          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "games" && "scale-150 mr-4 spin"}`}>
             {activeList === "games" ? "★" : "✦"}
           </span>
 
           <span
-          className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-300 cursor-pointer`}
+          className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
           ref={gamesRef}
           onClick={() => {openList("games")}}>
             games
@@ -568,7 +586,7 @@ export default function Home() {
       </div>
     </div>
 
-    <div className={`w-screen h-[30vh] z-100 self-end bg-yellow-300 py-4 bottom-12 absolute transition-opacity duration-400 ${activeList || "opacity-0"}`}
+    <div className={`w-screen h-[30vh] z-100 self-end bg-black py-4 bottom-12 absolute transition-opacity duration-400 ${activeList || "opacity-0"}`}
       ref={carouselContainerRef}
     >
 
@@ -591,14 +609,21 @@ export default function Home() {
                 `}
                 draggable="false"
               >
-                <div className="relative w-auto h-full overflow-hidden rounded-xl">
+                <div
+                className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
+                onMouseEnter={() => {hoverHandle(anime.comment)}}
+                onMouseLeave={() => {unhoverHandle()}}
+                >
+                  <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
+                  {/* <div className="absolute h-full w-full bg-[#8f826b] z-200 nonsel group-hover:invisible mix-blend-hue"></div> */}
+
                   <img
                     src={`/images/about/anime/${anime.img}`}
                     alt={anime.name}
-                    className="h-full w-auto object-cover"
+                    className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
                   />
 
-                  <p className={`text-center absolute bottom-2 left-2 right-2 text-xs text-white bg-black/80 p-1 border border-white font-bold rounded-md ${anime.tag}`}>
+                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white font-bold rounded-md z-250 ${anime.tag}`}>
                     {anime.name}
                   </p>
                 </div>
@@ -619,14 +644,20 @@ export default function Home() {
                 `}
                 draggable="false"
               >
-                <div className="relative w-auto h-full overflow-hidden rounded-xl">
+                <div
+                className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
+                onMouseEnter={() => {hoverHandle(music.comment)}}
+                onMouseLeave={() => {unhoverHandle()}}
+                >
+                  <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
+
                   <img
                     src={`/images/about/music/${music.img}`}
                     alt={music.name}
-                    className="h-full w-auto object-cover"
+                    className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
                   />
 
-                  <p className={`text-center absolute bottom-2 left-2 right-2 text-xs text-white bg-black/80 p-1 border border-white font-bold rounded-md ${music.tag}`}>
+                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white font-bold rounded-md z-250 ${music.tag}`}>
                     {music.name}
                   </p>
                 </div>
@@ -647,14 +678,20 @@ export default function Home() {
                 `}
                 draggable="false"
               >
-                <div className="relative w-auto h-full overflow-hidden rounded-xl">
+                <div
+                className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
+                onMouseEnter={() => {hoverHandle(games.comment)}}
+                onMouseLeave={() => {unhoverHandle()}}
+                >
+                  <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
+
                   <img
                     src={`/images/about/games/${games.img}`}
                     alt={games.name}
-                    className="h-full w-auto object-cover"
+                    className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
                   />
 
-                  <p className={`text-center absolute bottom-2 left-2 right-2 text-xs text-white bg-black/80 p-1 border border-white font-bold rounded-md ${games.tag}`}>
+                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white font-bold rounded-md z-250 ${games.tag}`}>
                     {games.name}
                   </p>
                 </div>
@@ -666,7 +703,9 @@ export default function Home() {
       </div>
       
     </div>
-
+    
+    <TooltipComponent info={tooltipText} status={tooltipVisible} />
+    
     </div>
   );
 }
