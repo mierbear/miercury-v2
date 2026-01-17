@@ -9,6 +9,7 @@ export default function Home() {
   const animeRef = useRef<HTMLParagraphElement | null>(null);
   const musicRef = useRef<HTMLParagraphElement | null>(null);
   const gamesRef = useRef<HTMLParagraphElement | null>(null);
+  const meRef = useRef<HTMLParagraphElement | null>(null);
 
   // const listRefs: Record<ListKeys, React.RefObject<HTMLParagraphElement | null>> = {
   //   anime: animeRef,
@@ -394,7 +395,7 @@ export default function Home() {
     },
   ];
 
-  type ListKeys = "anime" | "music" | "games";
+  type ListKeys = "anime" | "music" | "games" | "me";
 
   const [activeList, setActiveList] = useState<ListKeys | null>(null);
 
@@ -480,8 +481,8 @@ export default function Home() {
       </div>
       <div className="bg-black flex flex-col px-12 pt-36 text-white" ref={aboutRef}>
 
-        <h1 className="font-bold text-3xl">About me:</h1>
-        <p>Kyle | {age} | INTJ | Libra</p>
+        <h1 className="font-bold text-3xl">about me:</h1>
+        <p className="">Kyle | {age} | INTJ | Libra</p>
 
         <hr className="my-2 border-white/20" />
 
@@ -537,7 +538,25 @@ export default function Home() {
         
         <h3 className="font-bold pb-1">things i dislike:</h3>
         <p>🞨 nihilism / negativity</p>
+
         <hr className="my-2 border-white/20" />
+
+        <p className={`text-yellow-200 flex font-bold self-center transition-scale duration-200 mt-2 ${activeList === "me" && "scale-150 white-glow"}`}>
+          <span className={`text-yellow-200 mr-2.25 duration-200 ${activeList === "me" && "spin"}`}>
+            {activeList === "me" ? "★" : "✦"}
+          </span>
+
+          <span
+          className={`${activeList === "me" && "font-bold italic underline"} transition-scale duration-200 cursor-pointer`}
+          ref={meRef}
+          onClick={() => {openList("me")}}>
+            more about me?
+          </span>
+
+          <span className={`text-yellow-200 ml-2.25 duration-200 ${activeList === "me" && "spin"}`}>
+            {activeList === "me" ? "★" : "✦"}
+          </span>
+        </p>
 
       </div>
     </div>
@@ -548,7 +567,7 @@ export default function Home() {
 
       <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
 
-        <div className="overflow-hidden flex items-center justify-center h-full w-full" ref={emblaRef}>
+        <div className={`overflow-hidden flex items-center justify-center h-full w-full`} ref={emblaRef}>
           <div className="flex h-full">
 
             {/* anime */}
@@ -653,6 +672,21 @@ export default function Home() {
                 </div>
               </div>
             ))}
+
+            {/* me */}
+            {activeList === "me" && (
+              <div className="text-white">
+                <p>- i have hyperphantasia</p>
+                <p>- im sometimes forgetful lol</p>
+                <p>- you could call me a christian/buddhist</p>
+                <p>- i like cliche tropes and messages</p>
+                <p>- i like to ragebait my friends</p>
+                <p>- i like looking into conspiracies theories for fun</p>
+                <p>- dont take eve  rything i say seriously</p>
+                <p>- if i've pissed you off before, i love you</p>
+                <p>- if you think we can be good friends, dont hesitate to reach out</p>
+              </div>
+            )}
             
           </div>
         </div>
