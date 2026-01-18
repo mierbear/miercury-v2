@@ -484,7 +484,7 @@ export default function Home() {
       <div className="min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <Title />
       </div>
-      <div className="content w-270 max-w-screen min-h-[60vh] bg-[#00000000] text-black z-10 grid grid-rows-[1.2em_1fr] relative">
+      <div className="content w-270 max-w-screen bg-transparent text-black z-10 grid grid-rows-[1.2em_1fr] relative">
 
         <TitleBot />  
 
@@ -605,71 +605,78 @@ export default function Home() {
               {/* MISC */}
               <div className="grid md:grid-cols-[1.618fr_1fr] md:grid-rows-none grid-rows-[1.618fr_1fr] grid-cols-none text-white w-full gap-4">
                 
-                {/* 1 */}
-                <div className="flex flex-col items-center border-[#d8e0e3]/70 border border-dashed pb-4">
+                {/* 1.) LATEST BLOGS */}
+                <div className="flex flex-col items-center justify-between border-[#d8e0e3]/70 border border-dashed pb-4 h-75 w-full">
 
-                {latestPost === null ? null : (
-                  <div key={latestPost.id} className="p-4 rounded-md mb-2 max-w-[85ch] w-full relative">
-                    <NextLink href={`/blog/post/${latestPost.slug}`}>
-                      <h1 className="font-bold text-2xl hover:underline blue">{latestPost.title}</h1>
-                    </NextLink>
-                    <div className="text-xs text-gray-400 nonsel flex" onClick={clickDate}>
-                      <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
-                    </div>
-                    <div className="prose prose-invert pt-5 mb-4 text-xs">
-                      <p>{latestPostSnippet}...</p>
-                    </div>
-                    
-                    <p className="absolute bottom-0 text-xs hover:underline right-4 blue"><a href={`/blog/post/${latestPost.slug}`}>continue reading?</a></p>
-                  </div>
-                )}
-                  <hr className="mb-4 border-gray-500/60 max-w-[80ch] w-full" />
-                {posts.map((post) => {
-                  return (
-                    <div key={post.id} className="rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4">
-
-                      <NextLink href={`/blog/post/${post.slug}`}>
-                        <p className="font-bold hover:underline blue">{post.title}</p>
+                  {latestPost === null ? null : (
+                    <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative">
+                      <NextLink href={`/blog/post/${latestPost.slug}`}>
+                        <h1 className="font-bold text-2xl hover:underline blue">{latestPost.title}</h1>
                       </NextLink>
-                      
-                      <div className="text-xs text-gray-400 nonsel flex">
-                        <p className="">— {post.date}</p>
+                      <div className="text-xs text-gray-400 nonsel flex" onClick={clickDate}>
+                        <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
                       </div>
-
+                      <div className="prose prose-invert pt-5 mb-4 text-xs">
+                        <p>{latestPostSnippet}...</p>
+                      </div>
+                      
+                      <p className="absolute bottom-0 text-xs hover:underline right-4 blue"><a href={`/blog/post/${latestPost.slug}`}>continue reading?</a></p>
                     </div>
-                  );
-                })}
+                  )}
+
+                  <div className="w-full">
+                  <hr className="mb-4 border-gray-500/60 w-full" />
+                    {posts.map((post) => {
+                      return (
+                        <div key={post.id} className="rounded-md w-full flex flex-row items-center justify-between pl-4 pr-4">
+
+                          <NextLink href={`/blog/post/${post.slug}`}>
+                            <p className="font-bold hover:underline blue">{post.title}</p>
+                          </NextLink>
+                          
+                          <div className="text-xs text-gray-400 nonsel flex">
+                            <p className="">— {post.date}</p>
+                          </div>
+
+                        </div>
+                      );
+                    })}
+                  </div>
 
                 </div>
 
-                {/* 1/2 */}
-                <div className="grid grid-cols-[1fr_1.618fr] md:grid-cols-none md:grid-rows-[1fr_1.618fr] gap-4">
+                {/* 2ND CONTAINER */}
+                <div className="grid grid-cols-[1fr_1.618fr] md:grid-cols-none md:grid-rows-[1fr_1.618fr] gap-4 h-75">
 
-                  <div className="grid grid-cols-[1fr_1.618fr] gap-4">
+                  {/* 3RD CONTAINER */}
+                  <div className="grid grid-cols-[1fr_1.618fr] gap-4 h-27">
 
-                    {/* 4 */}
+                    {/* 4.) ? */}
                     <div className="flex flex-col justify-center items-center border-[#d8e0e3]/70 border">
                       ?
                     </div>
 
-                    {/* 3 */}
+                    {/* 3.) GUESTBOOK */}
                     <NextLink href="https://mier.atabook.org/" target="_blank" rel="noopener noreferrer" className="flex flex-col justify-center w-full items-center border-[#d8e0e3]/70 border">
                       <p className="text-center">sign my guestbook</p>
                     </NextLink>
 
                   </div>
                   
-                  {/* 2 */}
-                  <div className="flex flex-col bg-[#17191a]/50 border-[#d8e0e3]/40 border overflow-y-auto text-xs max-h-50 relative">
+                  {/* 2.) CHANGELOGS */}
+                  <div className="flex flex-col bg-[#17191a]/50 border-[#d8e0e3]/40 border h-44 text-xs relative">
                     <p className="sticky top-0 z-10 bg-[#17191a] p-2 w-full">CHANGELOGS</p>
-                    {logs?.map((log) => {
-                      return (
-                        <div key={log.id} className="p-2">
-                          <p className="text-gray-400">{log.date}</p>
-                          <p className="">{log.log}</p>
-                        </div>
-                      )
-                    })}
+                    <div className="scrollbar-visible h-full overflow-y-auto">
+                      {logs?.map((log) => {
+                        return (
+                          <div key={log.id} className="p-2">
+                            <p className="text-gray-400">{log.date}</p>
+                            <p className="">{log.log}</p>
+                          </div>
+                        )
+                      })}
+                    </div>
+
                   </div>
 
                 </div>
@@ -792,11 +799,11 @@ export default function Home() {
 
 
         {/* TO DO LIST */}
-        <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col">
+        <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col ">
           <h1 className="font-bold pb-5 text-2xl self-center">to do list</h1>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
+            <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
               <p className="text-xl font-bold self-center">TO-DO: </p>
               <p className="text-xs">● </p>
               <p className="text-xs">● set up wanted posters for pp</p>
@@ -818,7 +825,7 @@ export default function Home() {
               <p className="text-xs">● optimize navmenu open/close timeline animations with ctx</p>
             </div>
 
-            <div className="flex flex-col p-4 border-[#d8e0e3]/70 border">
+            <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
               <p className="text-xl font-bold self-center">DONE: </p>
               <p className="text-xs">✔ </p>
               <p className="text-xs">✔ revise about me page (its so ass bruh..)</p>

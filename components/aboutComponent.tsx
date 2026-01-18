@@ -524,7 +524,8 @@ export default function Home() {
   return (
     <div className="min-w-screen min-h-screen max-h-screen flex flex-col items-center justify-center">
       
-    <div className="h-screen xl:w-[60vw] lg:w-[80vw] w-screen grid grid-cols-[5fr_3fr]">
+    <div className="h-screen lg:w-[80vw] xl:w-[60vw] w-screen grid grid-cols-[1fr_1fr] lg:grid-cols-[10fr_8fr] xl:grid-cols-[10fr_6fr]">
+
       <div className="bg-white flex flex-col items-center justify-center">
       </div>
 
@@ -532,20 +533,20 @@ export default function Home() {
         
         <div 
           className={`
-        bg-black flex flex-col px-12 py-6 text-white justify-between
+        bg-black flex flex-col py-6 px-6 text-white justify-between
           transition-all duration-500 min-h-0
-          ${meActive ? "flex-85" : "flex-60"}
+          ${meActive ? "flex-100" : "flex-60"}
           `}
         >
 
           {meActive && (
-            <div className="text-white text-xs flex flex-col h-full min-h-0 overflow-y-auto py-12 nonsel">
+            <div className="flex flex-col h-full min-h-0 nonsel overflow-y-auto scrollbar-visible mt-20 px-2">
               {aboutMe.map((info, index) => (
                 <div
                   key={index}
                   draggable="false"
                   className={`
-                    transition-opacity duration-1000
+                    transition-opacity duration-1000 text-xs
                     ${index === 0 && "pb-2"}
                     ${index === aboutMe.length - 1 && "pt-2"}
                     ${index !== 0 && index !== aboutMe.length - 1 && "py-2"}
@@ -558,71 +559,71 @@ export default function Home() {
           )}
 
           {!meActive && (
-            <div className="flex flex-col h-full min-h-0 overflow-y-auto py-12">
+            <div className="flex flex-col h-full min-h-0 nonsel overflow-y-auto scrollbar-visible mt-20 px-2">
               
               <h1 className="font-bold text-3xl">about me:</h1>
               <p className="">Kyle | {age} | INTJ | Libra</p>
 
               <hr className="my-2 border-white/20" />
 
-              <h3 className="font-bold pb-1">things i like:</h3>
-              <p>✦ playing piano / guitar</p>
-              <p>✦ spirituality / mysticism</p>
-              <p>✦ hermeticism / gnosticism / etc.</p>
-              <p>✦ calisthenics/lifting</p>
+              <h3 className="font-bold pb-1">likes:</h3>
 
-              <p className={`text-yellow-200 flex`}>
-                <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
-                  {activeList === "anime" ? "★" : "✦"}
-                </span>
+              <div className="flex flex-col text-sm gap-1">
+                <p>✦ playing piano / guitar</p>
+                <p>✦ spirituality / mysticism</p>
+                <p>✦ hermeticism / gnosticism / etc.</p>
+                <p>✦ calisthenics</p>
+                <p>✦ lifting</p>
+                <p className={`text-yellow-200 flex`}>
+                  <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
+                    {activeList === "anime" ? "★" : "✦"}
+                  </span>
 
-                <span
-                className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
-                ref={animeRef}
-                onClick={() => {openList("anime")}}>
-                  anime
-                </span>
-              </p>
+                  <span
+                  className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                  ref={animeRef}
+                  onClick={() => {openList("anime")}}>
+                    anime
+                  </span>
+                </p>
+                <p className={`text-yellow-200 flex`}>
+                  <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "music" && "scale-150 mr-4 spin"}`}>
+                    {activeList === "music" ? "★" : "✦"}
+                  </span>
 
-              <p className={`text-yellow-200 flex`}>
-                <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "music" && "scale-150 mr-4 spin"}`}>
-                  {activeList === "music" ? "★" : "✦"}
-                </span>
+                  <span
+                  className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                  ref={musicRef}
+                  onClick={() => {openList("music")}}>
+                    music
+                  </span>
+                </p>
+                <p className={`text-yellow-200 flex`}>
+                  <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "games" && "scale-150 mr-4 spin"}`}>
+                    {activeList === "games" ? "★" : "✦"}
+                  </span>
 
-                <span
-                className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
-                ref={musicRef}
-                onClick={() => {openList("music")}}>
-                  music
-                </span>
-              </p>
-              
-              <p className={`text-yellow-200 flex`}>
-                <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "games" && "scale-150 mr-4 spin"}`}>
-                  {activeList === "games" ? "★" : "✦"}
-                </span>
-
-                <span
-                className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
-                ref={gamesRef}
-                onClick={() => {openList("games")}}>
-                  games
-                </span>
-              </p>
-              
-              <p>✦ coding</p>
-              <p>✦ drawing</p>
+                  <span
+                  className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                  ref={gamesRef}
+                  onClick={() => {openList("games")}}>
+                    games
+                  </span>
+                </p>
+                <p>✦ coding</p>
+                <p>✦ drawing</p>
+              </div>
 
               <hr className="my-2 border-white/20" />
             
-              <h3 className="font-bold pb-1">things i dislike:</h3>
-              <p>🞨 nihilism / negativity</p>  
+              <h3 className="font-bold pb-1">dislikes:</h3>
+              <p className="text-sm">🞨 nihilism / negativity</p>  
             </div>
           )}
 
-          <div className={`text-yellow-200 font-bold self-center transition-scale duration-200 mt-2 ${meActive && "white-glow"}`}>
+          <div className={`text-yellow-200 font-bold text-xl pt-6 self-center text-center transition-scale transition-mb duration-500 ${meActive && "white-glow mb-32"}`}>
             <p className="flex">
-              <span className={`text-yellow-200 mr-2.25 duration-200 ${meActive && "spin"}`}>
+              <span className={`text-yellow-200 flex items-center origin-center mr-2.25 duration-200 ${meActive && "spin"}`}>
                 {meActive ? "★" : "✦"}
               </span>
 
@@ -633,7 +634,7 @@ export default function Home() {
                 {meActive ? "less" : "more"} about {meActive ? "me..." : "me?"}
               </span>
 
-              <span className={`text-yellow-200 ml-2.25 duration-200 ${meActive && "spin"}`}>
+              <span className={`text-yellow-200 flex items-center origin-center ml-2.25 duration-200 ${meActive && "spin"}`}>
                 {meActive ? "★" : "✦"}
               </span>
             </p>
@@ -646,11 +647,11 @@ export default function Home() {
         bg-yellow-200 flex flex-col
           transition-all duration-500 min-h-0
           items-center justify-center
-          ${meActive ? "flex-15" : "flex-40"}
+          ${meActive ? "flex-0" : "flex-40"}
           `}
         >
 
-          <div className={`w-screen h-[30vh] z-100 self-end bg-black py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList || "opacity-0"}`}
+          <div className={`w-screen h-[30vh] z-100 self-end bg-black/90 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList || "opacity-0"}`}
             ref={carouselContainerRef}
           >
 
@@ -773,8 +774,6 @@ export default function Home() {
       </div>
     </div>
 
-    
-    
     <TooltipComponent info={tooltipText} status={tooltipVisible} />
     
     </div>
