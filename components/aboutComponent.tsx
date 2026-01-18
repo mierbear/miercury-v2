@@ -524,7 +524,18 @@ export default function Home() {
   return (
     <div className="min-w-screen min-h-screen max-h-screen flex flex-col items-center justify-center">
       
-    <div className="h-screen lg:w-[80vw] xl:w-[60vw] w-screen grid grid-cols-[1fr_1fr] lg:grid-cols-[10fr_8fr] xl:grid-cols-[10fr_6fr]">
+    <div className="
+    w-screen 
+    h-screen 
+    min-[1024px]:w-[80vw]
+    min-[1280px]:w-[70vw]
+    min-[1600px]:w-[60vw]
+    grid
+    grid-cols-[1fr_1fr] 
+    min-[1024px]:grid-cols-[10fr_8fr]
+    min-[1280px]:grid-cols-[10fr_7fr] 
+    min-[1600px]:grid-cols-[10fr_6fr]
+    ">
 
       <div className="bg-white flex flex-col items-center justify-center">
       </div>
@@ -540,7 +551,7 @@ export default function Home() {
         >
 
           {meActive && (
-            <div className="flex flex-col h-full min-h-0 nonsel overflow-y-auto scrollbar-visible mt-20 px-2">
+            <div className="flex flex-col h-full min-h-0 nonsel overflow-y-auto scrollbar-visible mt-18 px-2">
               {aboutMe.map((info, index) => (
                 <div
                   key={index}
@@ -559,7 +570,7 @@ export default function Home() {
           )}
 
           {!meActive && (
-            <div className="flex flex-col h-full min-h-0 nonsel overflow-y-auto scrollbar-visible mt-20 px-2">
+            <div className="flex flex-col h-full min-h-0 nonsel overflow-y-auto scrollbar-visible mt-18 px-2">
               
               <h1 className="font-bold text-3xl">about me:</h1>
               <p className="">Kyle | {age} | INTJ | Libra</p>
@@ -621,7 +632,7 @@ export default function Home() {
             </div>
           )}
 
-          <div className={`text-yellow-200 font-bold text-xl pt-6 self-center text-center transition-scale transition-mb duration-500 ${meActive && "white-glow mb-32"}`}>
+          <div className={`text-yellow-200 font-bold text-xl pt-6 self-center text-center transition-scale transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
             <p className="flex">
               <span className={`text-yellow-200 flex items-center origin-center mr-2.25 duration-200 ${meActive && "spin"}`}>
                 {meActive ? "★" : "✦"}
@@ -664,12 +675,16 @@ export default function Home() {
                     <div
                       key={index}
                       className={`
-                      flex-[0_0_28%]
-                      sm:flex-[0_0_24%]
-                      md:flex-[0_0_18%]
-                      lg:flex-[0_0_14%]
-                      xl:flex-[0_0_9%]
-                      px-1 h-full flex flex-col items-center nonsel relative
+                      flex-[0_0_29%]
+                      min-[640px]:flex-[0_0_24%]
+                      min-[768px]:flex-[0_0_18%]
+                      min-[1024px]:flex-[0_0_14%]
+                      min-[1280px]:flex-[0_0_13%]
+                      min-[1600px]:flex-[0_0_11%]
+                      px-1
+                      min-[1024px]:px-1
+                      min-[1280px]:px-4
+                      h-full flex flex-col items-center nonsel relative
                       `}
                       draggable="false"
                     >
@@ -700,11 +715,15 @@ export default function Home() {
                       key={index}
                       className={`
                       flex-[0_0_43%]
-                      sm:flex-[0_0_36%]
-                      md:flex-[0_0_27%]
-                      lg:flex-[0_0_21%]
-                      xl:flex-[0_0_14%]
-                      px-1 h-full flex flex-col items-center nonsel relative
+                      min-[640px]:flex-[0_0_36%]
+                      min-[768px]:flex-[0_0_27%]
+                      min-[1024px]:flex-[0_0_22%]
+                      min-[1280px]:flex-[0_0_19%]
+                      min-[1600px]:flex-[0_0_16%]
+                      px-1
+                      min-[1024px]:px-1
+                      min-[1280px]:px-4
+                      h-full flex flex-col items-center nonsel relative
                       `}
                       draggable="false"
                     >
@@ -733,12 +752,16 @@ export default function Home() {
                     <div
                       key={index}
                       className={`
-                      flex-[0_0_28%]
-                      sm:flex-[0_0_24%]
-                      md:flex-[0_0_18%]
-                      lg:flex-[0_0_14%]
-                      xl:flex-[0_0_9%]
-                      px-1 h-full flex flex-col items-center nonsel relative
+                      flex-[0_0_29%]
+                      min-[640px]:flex-[0_0_24%]
+                      min-[768px]:flex-[0_0_18%]
+                      min-[1024px]:flex-[0_0_14%]
+                      min-[1280px]:flex-[0_0_13%]
+                      min-[1600px]:flex-[0_0_11%]
+                      px-1
+                      min-[1024px]:px-1
+                      min-[1280px]:px-4
+                      h-full flex flex-col items-center nonsel relative
                       `}
                       draggable="false"
                     >
