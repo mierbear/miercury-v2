@@ -524,7 +524,7 @@ export default function Home() {
                       >
                         <div className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col nonsel pointer-events-none">
                           <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8`} ref={vertAdRef}>Take a dive?</p>
-                          <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-md`} text-center px-8`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
+                          <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
                         </div>
 
                         <video autoPlay muted loop className="object-cover h-full w-full nonsel pointer-events-none">

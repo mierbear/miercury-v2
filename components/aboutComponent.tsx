@@ -399,13 +399,14 @@ export default function Home() {
   const aboutMe = [
     "i have hyperphantasia",
     "im sometimes forgetful lol",
+    "i might have dementia",
     "you could call me a christian/buddhist",
     "i like cliche tropes and messages",
     "i like to ragebait my friends",
     "i like looking into conspiracies theories for fun",
-    "dont take eve  rything i say seriously",
+    "dont take everything i say seriously",
     "if i've pissed you off before, i love you",
-    "if you think we can be good friends, dont hesitate to reach out",
+    "i might have dementia",
   ]
 
   type ListKeys = "anime" | "music" | "games";
@@ -521,6 +522,9 @@ export default function Home() {
     setTooltipVisible(false);
   }
 
+  const factsRef = useRef<HTMLDivElement | null>(null);
+  const infoRef = useRef<HTMLDivElement | null>(null);
+
   return (
     <div className="min-w-screen min-h-screen max-h-screen flex flex-col items-center justify-center">
       
@@ -531,7 +535,10 @@ export default function Home() {
     min-[1280px]:w-[70vw]
     min-[1600px]:w-[60vw]
     grid
-    grid-cols-[1fr_1fr] 
+    grid-cols-[8fr_10fr] 
+    min-[480px]:grid-cols-[1fr_1fr]
+    min-[640px]:grid-cols-[10fr_8fr]
+    min-[768px]:grid-cols-[10fr_8fr]
     min-[1024px]:grid-cols-[10fr_8fr]
     min-[1280px]:grid-cols-[10fr_7fr] 
     min-[1600px]:grid-cols-[10fr_6fr]
@@ -544,42 +551,55 @@ export default function Home() {
         
         <div 
           className={`
-        bg-black flex flex-col py-6 px-6 text-white justify-between
+        bg-black flex flex-col py-6 text-white justify-between
           transition-all duration-500 min-h-0
-          ${meActive ? "flex-100" : "flex-60"}
+          px-2
+          min-[768px]:px-4
+          min-[1280px]:px-6
+          ${meActive ? "flex-100" : "flex-62"}
           `}
         >
 
           {meActive && (
-            <div className="flex flex-col h-full min-h-0 nonsel overflow-y-auto scrollbar-visible mt-18 px-2">
+            <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2" ref={factsRef}>
+              <h1 className="font-bold text-2xl sm:text-3xl">some facts:</h1>
+              <hr className="my-2 border-white/20" />
+
+              <div className="overflow-y-auto scrollbar-visible">
               {aboutMe.map((info, index) => (
                 <div
                   key={index}
                   draggable="false"
                   className={`
-                    transition-opacity duration-1000 text-xs
-                    ${index === 0 && "pb-2"}
-                    ${index === aboutMe.length - 1 && "pt-2"}
-                    ${index !== 0 && index !== aboutMe.length - 1 && "py-2"}
+                    transition-opacity duration-1000 text-xs sm:text-sm
+                    ${index === 0 && "pb-0.5"}
+                    ${index === aboutMe.length - 1 && "pt-0.5"}
+                    ${index !== 0 && index !== aboutMe.length - 1 && "py-0.5"}
                     `}
                 >
                   <p>✦ {info}</p>
                 </div>
               ))}
+              </div>
+
+              <hr className="my-2 border-white/20" />
+              <p className="text-xs sm:text-sm">
+                if you think we can be good friends, dont hesitate to reach out :3
+              </p>
             </div>
           )}
 
           {!meActive && (
-            <div className="flex flex-col h-full min-h-0 nonsel overflow-y-auto scrollbar-visible mt-18 px-2">
+            <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2 overflow-y-auto scrollbar-visible" ref={infoRef}>
               
-              <h1 className="font-bold text-3xl">about me:</h1>
-              <p className="">Kyle | {age} | INTJ | Libra</p>
+              <p className="font-bold text-2xl sm:text-3xl">about me:</p>
+              <p className="text-xs sm:text-sm">Kyle | {age} | INTJ | Libra</p>
 
               <hr className="my-2 border-white/20" />
 
-              <h3 className="font-bold pb-1">likes:</h3>
+              <p className="font-bold pb-1 text-base sm:text-lg">likes:</p>
 
-              <div className="flex flex-col text-sm gap-1">
+              <div className="flex flex-col text-xs sm:text-sm gap-1">
                 <p>✦ playing piano / guitar</p>
                 <p>✦ spirituality / mysticism</p>
                 <p>✦ hermeticism / gnosticism / etc.</p>
@@ -627,12 +647,12 @@ export default function Home() {
 
               <hr className="my-2 border-white/20" />
             
-              <h3 className="font-bold pb-1">dislikes:</h3>
-              <p className="text-sm">🞨 nihilism / negativity</p>  
+              <p className="font-bold pb-1 text-base sm:text-lg">dislikes:</p>
+              <p className="text-xs sm:text-sm">🞨 nihilism / negativity</p>  
             </div>
           )}
 
-          <div className={`text-yellow-200 font-bold text-xl pt-6 self-center text-center transition-scale transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
+          <div className={`text-yellow-200 font-bold text-base sm:text-lg pt-6 self-center text-center transition-scale transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
             <p className="flex">
               <span className={`text-yellow-200 flex items-center origin-center mr-2.25 duration-200 ${meActive && "spin"}`}>
                 {meActive ? "★" : "✦"}
@@ -658,7 +678,7 @@ export default function Home() {
         bg-yellow-200 flex flex-col
           transition-all duration-500 min-h-0
           items-center justify-center
-          ${meActive ? "flex-0" : "flex-40"}
+          ${meActive ? "flex-0" : "flex-38"}
           `}
         >
 
@@ -689,7 +709,7 @@ export default function Home() {
                       draggable="false"
                     >
                       <div
-                      className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
+                      className="relative w-full h-full overflow-hidden rounded-xl group cursor-help"
                       onMouseEnter={() => {hoverHandle(anime.comment)}}
                       onMouseLeave={() => {unhoverHandle()}}
                       >
@@ -699,10 +719,17 @@ export default function Home() {
                         <img
                           src={`/images/about/anime/${anime.img}`}
                           alt={anime.name}
-                          className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
+                          className="
+                            w-full h-full
+                            object-cover
+                            saturate-40 hover:saturate-100
+                            transition-all duration-200
+                            brightness-80 hover:brightness-100
+                            z-150
+                          "
                         />
 
-                        <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${anime.tag}`}>
+                        <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${anime.tag}`}>
                           {anime.name}
                         </p>
                       </div>
@@ -728,7 +755,7 @@ export default function Home() {
                       draggable="false"
                     >
                       <div
-                      className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
+                      className="relative w-full h-full overflow-hidden rounded-xl group cursor-help"
                       onMouseEnter={() => {hoverHandle(music.comment)}}
                       onMouseLeave={() => {unhoverHandle()}}
                       >
@@ -737,10 +764,17 @@ export default function Home() {
                         <img
                           src={`/images/about/music/${music.img}`}
                           alt={music.name}
-                          className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
+                          className="
+                            w-full h-full
+                            object-cover
+                            saturate-40 hover:saturate-100
+                            transition-all duration-200
+                            brightness-80 hover:brightness-100
+                            z-150
+                          "
                         />
 
-                        <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${music.tag}`}>
+                        <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${music.tag}`}>
                           {music.name}
                         </p>
                       </div>
@@ -766,7 +800,7 @@ export default function Home() {
                       draggable="false"
                     >
                       <div
-                      className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
+                      className="relative w-full h-full overflow-hidden rounded-xl group cursor-help"
                       onMouseEnter={() => {hoverHandle(games.comment)}}
                       onMouseLeave={() => {unhoverHandle()}}
                       >
@@ -775,10 +809,17 @@ export default function Home() {
                         <img
                           src={`/images/about/games/${games.img}`}
                           alt={games.name}
-                          className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
+                          className="
+                            w-full h-full
+                            object-cover
+                            saturate-40 hover:saturate-100
+                            transition-all duration-200
+                            brightness-80 hover:brightness-100
+                            z-150
+                          "
                         />
 
-                        <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${games.tag}`}>
+                        <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${games.tag}`}>
                           {games.name}
                         </p>
                       </div>
