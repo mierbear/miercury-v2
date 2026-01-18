@@ -40,15 +40,15 @@ export default function Home() {
 
   const favAnime = [
     {  
-      name: "Gurren Lagann",
-      img: "gurrenlagann.jpg",
-      comment: "its my absolute favorite. chokes me up when i think about it vro",
-      tag: "best",
-    },
-    {  
       name: "Code Geass",
       img: "codegeass.jpg",
       comment: "JIBUN WOOO SEKAAIII SAEE MOO",
+      tag: "best",
+    },
+    {  
+      name: "Gurren Lagann",
+      img: "gurrenlagann.jpg",
+      comment: "its my absolute favorite. chokes me up when i think about it vro",
       tag: "best",
     },
     {  
@@ -150,7 +150,7 @@ export default function Home() {
     {  
       name: "Ponyo",
       img: "ponyo.jpg",
-      comment: "i especially love this one since this was my childhood favorite",
+      comment: "i especially love this one. this was my childhood favorite",
       tag: "love",
     },
     {  
@@ -213,12 +213,7 @@ export default function Home() {
       comment: "",
       tag: "love",
     },
-    {  
-      name: "Monster",
-      img: "monster.jpg",
-      comment: "",
-      tag: "best",
-    },
+    
     {  
       name: "The Great Pretender",
       img: "pretender.jpg",
@@ -228,6 +223,12 @@ export default function Home() {
     {  
       name: "Gankutsuou: The Count of Monte Cristo",
       img: "gankutsuou.jpg",
+      comment: "",
+      tag: "best",
+    },
+    {  
+      name: "Monster",
+      img: "monster.jpg",
       comment: "",
       tag: "best",
     },
@@ -395,13 +396,26 @@ export default function Home() {
     },
   ];
 
-  type ListKeys = "anime" | "music" | "games" | "me";
+  const aboutMe = [
+    "i have hyperphantasia",
+    "im sometimes forgetful lol",
+    "you could call me a christian/buddhist",
+    "i like cliche tropes and messages",
+    "i like to ragebait my friends",
+    "i like looking into conspiracies theories for fun",
+    "dont take eve  rything i say seriously",
+    "if i've pissed you off before, i love you",
+    "if you think we can be good friends, dont hesitate to reach out",
+  ]
+
+  type ListKeys = "anime" | "music" | "games";
 
   const [activeList, setActiveList] = useState<ListKeys | null>(null);
 
   const openList = (category: ListKeys) => {
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
+    carouselContainerRef.current.style.display = "block";
     carouselContainerRef.current.style.opacity = "1";
     aboutRef.current.style.pointerEvents = "none";
 
@@ -450,8 +464,34 @@ export default function Home() {
       } else {
         setActiveList(category);
         console.log("NOTHING:", activeList);
-      }
+      } 
       
+    }, 200);
+  }
+
+  const [meActive, setMeActive] = useState(false);
+
+  const meHandler = () => {
+    console.log("turning off lists")
+    if (!carouselContainerRef.current) return;
+
+    // carouselContainerRef.current.style.display = "none";
+    setMeActive(!meActive);
+    turnOffLists();
+  }
+
+  const turnOffLists = () => {
+    console.log(`hide!!`)
+    if (!aboutRef.current || !carouselContainerRef.current) return;
+
+    carouselContainerRef.current.style.opacity = "0";
+    
+    setTimeout(() => {
+      if (!carouselContainerRef.current) return;
+
+      setActiveList(null);
+      carouselContainerRef.current.style.display = "none";
+      console.log(`hide!!`)
     }, 200);
   }
 
@@ -479,84 +519,108 @@ export default function Home() {
     <div className="h-screen xl:w-[60vw] lg:w-[80vw] w-screen grid grid-cols-[5fr_3fr]">
       <div className="bg-white flex flex-col items-center justify-center">
       </div>
-      <div className="bg-black flex flex-col px-12 pt-36 text-white" ref={aboutRef}>
-
-        <h1 className="font-bold text-3xl">about me:</h1>
-        <p className="">Kyle | {age} | INTJ | Libra</p>
-
-        <hr className="my-2 border-white/20" />
-
-        <h3 className="font-bold pb-1">things i like:</h3>
-        <p>✦ playing piano / guitar</p>
-        <p>✦ spirituality / mysticism</p>
-        <p>✦ hermeticism / gnosticism / etc.</p>
-        <p>✦ calisthenics/lifting</p>
-
-        <p className={`text-yellow-200 flex`}>
-          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
-            {activeList === "anime" ? "★" : "✦"}
-          </span>
-
-          <span
-          className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
-          ref={animeRef}
-          onClick={() => {openList("anime")}}>
-            anime
-          </span>
-        </p>
-
-        <p className={`text-yellow-200 flex`}>
-          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "music" && "scale-150 mr-4 spin"}`}>
-            {activeList === "music" ? "★" : "✦"}
-          </span>
-
-          <span
-          className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
-          ref={musicRef}
-          onClick={() => {openList("music")}}>
-            music
-          </span>
-        </p>
         
-        <p className={`text-yellow-200 flex`}>
-          <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "games" && "scale-150 mr-4 spin"}`}>
-            {activeList === "games" ? "★" : "✦"}
-          </span>
-
-          <span
-          className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
-          ref={gamesRef}
-          onClick={() => {openList("games")}}>
-            games
-          </span>
-        </p>
+      <div className={`flex flex-col h-screen transition-all duration-500`} ref={aboutRef}>
         
-        <p>✦ coding</p>
-        <p>✦ drawing</p>
+        <div className={`bg-black flex flex-col px-12 py-6  text-white nonsel justify-between pt-18 ease-in-out transition-all duration-500 ${meActive ? "flex-[0_0_85vh]" : "flex-[0_0_60vh]"}`}>
 
-        <hr className="my-2 border-white/20" />
-        
-        <h3 className="font-bold pb-1">things i dislike:</h3>
-        <p>🞨 nihilism / negativity</p>
+          {meActive && aboutMe.map((info, index) => (
+            <div
+              key={index}
+              className={`text-white text-xs flex flex-col nonsel relative`}
+              draggable="false"
+            >
+              <p>✦ {info}</p>
+            </div>
+          ))}
 
-        <hr className="my-2 border-white/20" />
+          {!meActive && (
+            <div className="">
+              
+              <h1 className="font-bold text-3xl">about me:</h1>
+              <p className="">Kyle | {age} | INTJ | Libra</p>
 
-        <p className={`text-yellow-200 flex font-bold self-center transition-scale duration-200 mt-2 ${activeList === "me" && "scale-150 white-glow"}`}>
-          <span className={`text-yellow-200 mr-2.25 duration-200 ${activeList === "me" && "spin"}`}>
-            {activeList === "me" ? "★" : "✦"}
-          </span>
+              <hr className="my-2 border-white/20" />
 
-          <span
-          className={`${activeList === "me" && "font-bold italic underline"} transition-scale duration-200 cursor-pointer`}
-          ref={meRef}
-          onClick={() => {openList("me")}}>
-            more about me?
-          </span>
+              <h3 className="font-bold pb-1">things i like:</h3>
+              <p>✦ playing piano / guitar</p>
+              <p>✦ spirituality / mysticism</p>
+              <p>✦ hermeticism / gnosticism / etc.</p>
+              <p>✦ calisthenics/lifting</p>
 
-          <span className={`text-yellow-200 ml-2.25 duration-200 ${activeList === "me" && "spin"}`}>
-            {activeList === "me" ? "★" : "✦"}
-          </span>
-        </p>
+              <p className={`text-yellow-200 flex`}>
+                <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
+                  {activeList === "anime" ? "★" : "✦"}
+                </span>
+
+                <span
+                className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                ref={animeRef}
+                onClick={() => {openList("anime")}}>
+                  anime
+                </span>
+              </p>
+
+              <p className={`text-yellow-200 flex`}>
+                <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "music" && "scale-150 mr-4 spin"}`}>
+                  {activeList === "music" ? "★" : "✦"}
+                </span>
+
+                <span
+                className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                ref={musicRef}
+                onClick={() => {openList("music")}}>
+                  music
+                </span>
+              </p>
+              
+              <p className={`text-yellow-200 flex`}>
+                <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "games" && "scale-150 mr-4 spin"}`}>
+                  {activeList === "games" ? "★" : "✦"}
+                </span>
+
+                <span
+                className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                ref={gamesRef}
+                onClick={() => {openList("games")}}>
+                  games
+                </span>
+              </p>
+              
+              <p>✦ coding</p>
+              <p>✦ drawing</p>
+
+              <hr className="my-2 border-white/20" />
+            
+              <h3 className="font-bold pb-1">things i dislike:</h3>
+              <p>🞨 nihilism / negativity</p>  
+            </div>
+          )}
+
+          <div className={`text-yellow-200 font-bold self-center transition-scale duration-200 mt-2 ${meActive && "white-glow"}`}>
+            <p className="flex">
+              <span className={`text-yellow-200 mr-2.25 duration-200 ${meActive && "spin"}`}>
+                {meActive ? "★" : "✦"}
+              </span>
+
+              <span
+              className={`${meActive && "font-bold italic underline"} transition-scale duration-200 cursor-pointer`}
+              ref={meRef}
+              onClick={() => {meHandler()}}>
+                more about me?
+              </span>
+
+              <span className={`text-yellow-200 ml-2.25 duration-200 ${meActive && "spin"}`}>
+                {meActive ? "★" : "✦"}
+              </span>
+            </p>
+          </div>
+          
+        </div>
+
+        <div className={`bg-yellow-200 flex flex-col px-12 text-white nonsel ease-in-out transition-all duration-500 ${meActive ? "flex-[0_0_85vh]" : "flex-[0_0_60vh]"}`}>
+        </div>
+
 
       </div>
     </div>
@@ -566,7 +630,6 @@ export default function Home() {
     >
 
       <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
-
         <div className={`overflow-hidden flex items-center justify-center h-full w-full`} ref={emblaRef}>
           <div className="flex h-full">
 
@@ -672,21 +735,6 @@ export default function Home() {
                 </div>
               </div>
             ))}
-
-            {/* me */}
-            {activeList === "me" && (
-              <div className="text-white">
-                <p>- i have hyperphantasia</p>
-                <p>- im sometimes forgetful lol</p>
-                <p>- you could call me a christian/buddhist</p>
-                <p>- i like cliche tropes and messages</p>
-                <p>- i like to ragebait my friends</p>
-                <p>- i like looking into conspiracies theories for fun</p>
-                <p>- dont take eve  rything i say seriously</p>
-                <p>- if i've pissed you off before, i love you</p>
-                <p>- if you think we can be good friends, dont hesitate to reach out</p>
-              </div>
-            )}
             
           </div>
         </div>
