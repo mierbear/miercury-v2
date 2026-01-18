@@ -525,6 +525,15 @@ export default function Home() {
   const factsRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
 
+  const sadFaces = ["u_u", "T_T", "ヽ(*。>Д<)o゜",];
+  const happyFaces = [":3", ":D", "(•ˋ _ ˊ•)", "o(〃◕ ヮ ◕〃)o"];
+
+  const randomizer = (arr: string[]) => {
+    return arr[Math.trunc((Math.random() * arr.length))];
+  };
+
+  // OPACITY TRANSITION
+
   return (
     <div className="min-w-screen min-h-screen max-h-screen flex flex-col items-center justify-center">
       
@@ -591,10 +600,8 @@ export default function Home() {
 
           {!meActive && (
             <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2 overflow-y-auto scrollbar-visible" ref={infoRef}>
-              
               <p className="font-bold text-2xl sm:text-3xl">about me:</p>
               <p className="text-xs sm:text-sm">Kyle | {age} | INTJ | Libra</p>
-
               <hr className="my-2 border-white/20" />
 
               <p className="font-bold pb-1 text-base sm:text-lg">likes:</p>
@@ -652,9 +659,9 @@ export default function Home() {
             </div>
           )}
 
-          <div className={`text-yellow-200 font-bold text-base sm:text-lg pt-6 self-center text-center transition-scale transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
-            <p className="flex">
-              <span className={`text-yellow-200 flex items-center origin-center mr-2.25 duration-200 ${meActive && "spin"}`}>
+          <div className={`text-yellow-200 flex flex-col pt-6 self-center text-center transition-scale transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
+            <p className="flex text-base sm:text-lg lg:text-xl font-bold">
+              <span className={`text-yellow-200 flex origin-center mr-2.25 duration-200 ${meActive && "spin"}`}>
                 {meActive ? "★" : "✦"}
               </span>
 
@@ -665,9 +672,15 @@ export default function Home() {
                 {meActive ? "less" : "more"} about {meActive ? "me..." : "me?"}
               </span>
 
-              <span className={`text-yellow-200 flex items-center origin-center ml-2.25 duration-200 ${meActive && "spin"}`}>
+              <span className={`text-yellow-200 flex origin-center ml-2.25 duration-200 ${meActive && "spin"}`}>
                 {meActive ? "★" : "✦"}
               </span>
+            </p>
+            <p
+            className="text-xs sm:text-sm cursor-pointer -translate-y-1"
+            onClick={() => {meHandler()}}
+            >
+              {meActive ? randomizer(sadFaces) : randomizer(happyFaces)}
             </p>
           </div>
           
