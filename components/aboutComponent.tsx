@@ -416,7 +416,12 @@ export default function Home() {
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
     carouselContainerRef.current.style.display = "block";
-    carouselContainerRef.current.style.opacity = "1";
+
+    setTimeout(() => {
+      if (!carouselContainerRef.current) return;
+      carouselContainerRef.current.style.opacity = "1";
+    }, 0);
+
     aboutRef.current.style.pointerEvents = "none";
 
     // not the same
@@ -426,7 +431,9 @@ export default function Home() {
 
     // the same
     else if (activeList === category) {
-      closeList(category);
+      setTimeout(() => {
+        closeList(category);
+      }, 0);
     }
 
     // nothing
@@ -491,6 +498,7 @@ export default function Home() {
 
       setActiveList(null);
       carouselContainerRef.current.style.display = "none";
+      unhoverHandle();
       console.log(`hide!!`)
     }, 200);
   }
@@ -519,23 +527,38 @@ export default function Home() {
     <div className="h-screen xl:w-[60vw] lg:w-[80vw] w-screen grid grid-cols-[5fr_3fr]">
       <div className="bg-white flex flex-col items-center justify-center">
       </div>
-        
-      <div className={`flex flex-col h-screen transition-all duration-500`} ref={aboutRef}>
-        
-        <div className={`bg-black flex flex-col px-12 py-6  text-white nonsel justify-between pt-18 ease-in-out transition-all duration-500 ${meActive ? "flex-[0_0_85vh]" : "flex-[0_0_60vh]"}`}>
 
-          {meActive && aboutMe.map((info, index) => (
-            <div
-              key={index}
-              className={`text-white text-xs flex flex-col nonsel relative`}
-              draggable="false"
-            >
-              <p>✦ {info}</p>
+      <div className="flex flex-col h-screen" ref={aboutRef}>
+        
+        <div 
+          className={`
+        bg-black flex flex-col px-12 py-6 text-white justify-between
+          transition-all duration-500 min-h-0
+          ${meActive ? "flex-85" : "flex-60"}
+          `}
+        >
+
+          {meActive && (
+            <div className="text-white text-xs flex flex-col h-full min-h-0 overflow-y-auto py-12 nonsel">
+              {aboutMe.map((info, index) => (
+                <div
+                  key={index}
+                  draggable="false"
+                  className={`
+                    transition-opacity duration-1000
+                    ${index === 0 && "pb-2"}
+                    ${index === aboutMe.length - 1 && "pt-2"}
+                    ${index !== 0 && index !== aboutMe.length - 1 && "py-2"}
+                    `}
+                >
+                  <p>✦ {info}</p>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
 
           {!meActive && (
-            <div className="">
+            <div className="flex flex-col h-full min-h-0 overflow-y-auto py-12">
               
               <h1 className="font-bold text-3xl">about me:</h1>
               <p className="">Kyle | {age} | INTJ | Libra</p>
@@ -607,7 +630,7 @@ export default function Home() {
               className={`${meActive && "font-bold italic underline"} transition-scale duration-200 cursor-pointer`}
               ref={meRef}
               onClick={() => {meHandler()}}>
-                more about me?
+                {meActive ? "less" : "more"} about {meActive ? "me..." : "me?"}
               </span>
 
               <span className={`text-yellow-200 ml-2.25 duration-200 ${meActive && "spin"}`}>
@@ -618,129 +641,139 @@ export default function Home() {
           
         </div>
 
-        <div className={`bg-yellow-200 flex flex-col px-12 text-white nonsel ease-in-out transition-all duration-500 ${meActive ? "flex-[0_0_85vh]" : "flex-[0_0_60vh]"}`}>
-        </div>
+        <div
+          className={`
+        bg-yellow-200 flex flex-col
+          transition-all duration-500 min-h-0
+          items-center justify-center
+          ${meActive ? "flex-15" : "flex-40"}
+          `}
+        >
 
+          <div className={`w-screen h-[30vh] z-100 self-end bg-black py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList || "opacity-0"}`}
+            ref={carouselContainerRef}
+          >
 
-      </div>
-    </div>
+            <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
+              <div className={`overflow-hidden flex items-center justify-center h-full w-full`} ref={emblaRef}>
+                <div className="flex h-full">
 
-    <div className={`w-screen h-[30vh] z-100 self-end bg-black py-4 bottom-12 absolute transition-opacity duration-400 ${activeList || "opacity-0"}`}
-      ref={carouselContainerRef}
-    >
+                  {/* anime */}
+                  {activeList === "anime" && favAnime.map((anime, index) => (
+                    <div
+                      key={index}
+                      className={`
+                      flex-[0_0_28%]
+                      sm:flex-[0_0_24%]
+                      md:flex-[0_0_18%]
+                      lg:flex-[0_0_14%]
+                      xl:flex-[0_0_9%]
+                      px-1 h-full flex flex-col items-center nonsel relative
+                      `}
+                      draggable="false"
+                    >
+                      <div
+                      className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
+                      onMouseEnter={() => {hoverHandle(anime.comment)}}
+                      onMouseLeave={() => {unhoverHandle()}}
+                      >
+                        <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
+                        {/* <div className="absolute h-full w-full bg-[#8f826b] z-200 nonsel group-hover:invisible mix-blend-hue"></div> */}
 
-      <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
-        <div className={`overflow-hidden flex items-center justify-center h-full w-full`} ref={emblaRef}>
-          <div className="flex h-full">
+                        <img
+                          src={`/images/about/anime/${anime.img}`}
+                          alt={anime.name}
+                          className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
+                        />
 
-            {/* anime */}
-            {activeList === "anime" && favAnime.map((anime, index) => (
-              <div
-                key={index}
-                className={`
-                flex-[0_0_28%]
-                sm:flex-[0_0_24%]
-                md:flex-[0_0_18%]
-                lg:flex-[0_0_14%]
-                xl:flex-[0_0_9%]
-                px-1 h-full flex flex-col items-center nonsel relative
-                `}
-                draggable="false"
-              >
-                <div
-                className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
-                onMouseEnter={() => {hoverHandle(anime.comment)}}
-                onMouseLeave={() => {unhoverHandle()}}
-                >
-                  <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
-                  {/* <div className="absolute h-full w-full bg-[#8f826b] z-200 nonsel group-hover:invisible mix-blend-hue"></div> */}
+                        <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${anime.tag}`}>
+                          {anime.name}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
 
-                  <img
-                    src={`/images/about/anime/${anime.img}`}
-                    alt={anime.name}
-                    className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
-                  />
+                  {/* music */}
+                  {activeList === "music" && favMusic.map((music, index) => (
+                    <div
+                      key={index}
+                      className={`
+                      flex-[0_0_43%]
+                      sm:flex-[0_0_36%]
+                      md:flex-[0_0_27%]
+                      lg:flex-[0_0_21%]
+                      xl:flex-[0_0_14%]
+                      px-1 h-full flex flex-col items-center nonsel relative
+                      `}
+                      draggable="false"
+                    >
+                      <div
+                      className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
+                      onMouseEnter={() => {hoverHandle(music.comment)}}
+                      onMouseLeave={() => {unhoverHandle()}}
+                      >
+                        <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
 
-                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${anime.tag}`}>
-                    {anime.name}
-                  </p>
+                        <img
+                          src={`/images/about/music/${music.img}`}
+                          alt={music.name}
+                          className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
+                        />
+
+                        <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${music.tag}`}>
+                          {music.name}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* games */}
+                  {activeList === "games" && favGames.map((games, index) => (
+                    <div
+                      key={index}
+                      className={`
+                      flex-[0_0_28%]
+                      sm:flex-[0_0_24%]
+                      md:flex-[0_0_18%]
+                      lg:flex-[0_0_14%]
+                      xl:flex-[0_0_9%]
+                      px-1 h-full flex flex-col items-center nonsel relative
+                      `}
+                      draggable="false"
+                    >
+                      <div
+                      className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
+                      onMouseEnter={() => {hoverHandle(games.comment)}}
+                      onMouseLeave={() => {unhoverHandle()}}
+                      >
+                        <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
+
+                        <img
+                          src={`/images/about/games/${games.img}`}
+                          alt={games.name}
+                          className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
+                        />
+
+                        <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${games.tag}`}>
+                          {games.name}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                  
                 </div>
               </div>
-            ))}
-
-            {/* music */}
-            {activeList === "music" && favMusic.map((music, index) => (
-              <div
-                key={index}
-                className={`
-                flex-[0_0_43%]
-                sm:flex-[0_0_36%]
-                md:flex-[0_0_27%]
-                lg:flex-[0_0_21%]
-                xl:flex-[0_0_14%]
-                px-1 h-full flex flex-col items-center nonsel relative
-                `}
-                draggable="false"
-              >
-                <div
-                className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
-                onMouseEnter={() => {hoverHandle(music.comment)}}
-                onMouseLeave={() => {unhoverHandle()}}
-                >
-                  <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
-
-                  <img
-                    src={`/images/about/music/${music.img}`}
-                    alt={music.name}
-                    className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
-                  />
-
-                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${music.tag}`}>
-                    {music.name}
-                  </p>
-                </div>
-              </div>
-            ))}
-
-            {/* games */}
-            {activeList === "games" && favGames.map((games, index) => (
-              <div
-                key={index}
-                className={`
-                flex-[0_0_28%]
-                sm:flex-[0_0_24%]
-                md:flex-[0_0_18%]
-                lg:flex-[0_0_14%]
-                xl:flex-[0_0_9%]
-                px-1 h-full flex flex-col items-center nonsel relative
-                `}
-                draggable="false"
-              >
-                <div
-                className="relative w-auto h-full overflow-hidden rounded-xl group cursor-help"
-                onMouseEnter={() => {hoverHandle(games.comment)}}
-                onMouseLeave={() => {unhoverHandle()}}
-                >
-                  <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
-
-                  <img
-                    src={`/images/about/games/${games.img}`}
-                    alt={games.name}
-                    className="h-full w-auto object-cover saturate-40 hover:saturate-100 transition-saturate duration-200 brightness-80 hover:brightness-100 z-150"
-                  />
-
-                  <p className={`text-center absolute bottom-2 left-2 right-2 text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${games.tag}`}>
-                    {games.name}
-                  </p>
-                </div>
-              </div>
-            ))}
+            </div>
             
           </div>
+          
         </div>
+
+
       </div>
-      
     </div>
+
+    
     
     <TooltipComponent info={tooltipText} status={tooltipVisible} />
     
