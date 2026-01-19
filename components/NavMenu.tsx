@@ -89,11 +89,11 @@ const NavMenu = () => {
     <div className={`fixed w-screen h-screen flex flex-col justify-center items-center text-white z-5555 pointer-events-none bg-linear-to-t via-transparent to-transparent ${open ? "from-black" : "from-transparent"} duration-1000 transition-colors`}>
 
       <div
-      className={`bg-black/50 rounded-2xl h-[50vh] w-screen lg:w-[80%] hidden opacity-0 flex-col justify-center items-center p-4 z-777 pointer-events-auto duration-500 transition-opacity`}
+      className={`bg-black/50 rounded-2xl h-[50vh] w-screen lg:w-[80%] hidden opacity-0 flex-col justify-center items-center p-3.5 z-777 pointer-events-auto duration-500 transition-opacity`}
       ref={navMenuRef}
       >
         
-        <p className="meow absolute z-5555 pl-0 items-center text-center lg:items-start lg:pl-12 pb-12 bottom-0 text-2xl  w-full flex flex-col nonsel">you're currently {currentRoute?.desc}. where do you wish to go?</p>
+        <p className="meow absolute z-5555 items-center text-center lg:items-start px-7 lg:pl-12 pb-12 bottom-0 text-2xl  w-full flex flex-col nonsel">you're currently {currentRoute?.desc}. where do you wish to go?</p>
 
         <div className="text-white w-full h-full">
 
@@ -132,7 +132,6 @@ const NavMenu = () => {
         onClick={moonClickHandler}
         ref={moonRef}
       >
-        sdfdsfdsfdsf
       </div>
       <div
         className={`

@@ -397,16 +397,18 @@ export default function Home() {
   ];
 
   const aboutMe = [
-    "i have hyperphantasia",
-    "im sometimes forgetful lol",
-    "i might have dementia",
+    "i have hyperphantasia (1)",
     "you could call me a christian/buddhist",
     "i like cliche tropes and messages",
-    "i like to ragebait my friends",
-    "i like looking into conspiracies theories for fun",
+    "im a sucker for sad/motivational stories and music",
+    "im sometimes forgetful lol",
+    "i might have dementia",
+    "i like ragebaiting my friends",
+    "i like looking into conspiracy theories for fun",
     "dont take everything i say seriously",
     "if i've pissed you off before, i love you",
     "i might have dementia",
+    "",
   ]
 
   type ListKeys = "anime" | "music" | "games";
@@ -597,16 +599,18 @@ export default function Home() {
           {/* MORE ABOUT ME */}
           {meActive && (
             <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2" ref={factsRef}>
-              <h1 className="font-bold text-2xl sm:text-3xl">some facts:</h1>
+              <h1 className="font-bold text-2xl sm:text-3xl">more about me:</h1>
+
               <hr className="my-2 border-white/20" />
 
-              <div className="overflow-y-auto scrollbar-visible">
+              <div className="overflow-y-auto scrollbar-visible text-xs">
+              <p className="font-bold pb-1 text-base sm:text-lg">some facts:</p>
               {aboutMe.map((info, index) => (
                 <div
                   key={index}
                   draggable="false"
                   className={`
-                    transition-opacity duration-1000 text-xs sm:text-sm
+                    transition-opacity duration-1000
                     ${index === 0 && "pb-0.5"}
                     ${index === aboutMe.length - 1 && "pt-0.5"}
                     ${index !== 0 && index !== aboutMe.length - 1 && "py-0.5"}

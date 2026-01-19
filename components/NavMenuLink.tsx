@@ -19,7 +19,15 @@ export default function NavMenuLink(props: Props) {
   return (
     <NextLink
       href={props.href}
-      className={`flex-[0_0_55%] sm:flex-[0_0_50%] md:flex-[0_0_40%] lg:flex-[0_0_25%] flex items-center justify-center flex-col relative px-2 nonsel ${isActive && "pointer-events-none"}`}
+      className={`
+        flex items-center justify-center flex-col relative px-4 nonsel 
+        flex-[0_0_56%] 
+        min-[768px]:flex-[0_0_50%] 
+        min-[1024px]:flex-[0_0_42%] 
+        min-[1280px]:flex-[0_0_36%]
+        min-[1600px]:flex-[0_0_28%]
+        ${isActive && "pointer-events-none"}
+      `}
     >
       {isActive && (
         <p className="absolute z-100 -top-20 text-9xl rounded text-yellow-300 white-glow breathe">⯁</p>
