@@ -578,11 +578,10 @@ export default function Home() {
 
               </div>
                 
-              <hr className="my-4 border-gray-500/30 w-full" />
+              <hr className="my-4 border-gray-500/30 w-full block lg:hidden" />
               
               {/* ART */}
-              <div
-              className="flex flex-col items-center justify-center w-full md:px-12 relative pb-12"
+              <div className="flex flex-col items-center justify-center w-full md:px-12 relative pb-12 mt-none lg:mt-4 mb-4"
               onMouseEnter={() => setArtHover(true)}
               onMouseLeave={() => setArtHover(false)}
               >
@@ -612,13 +611,11 @@ export default function Home() {
                 <img src="images/bot.png" className="invisible hidden md:flex md:visible nonsel pointer-events-none absolute bottom-0 left-0 h-40"></img>
               </div>
 
-              <hr className="my-4 border-gray-500/30 w-full" />
-
               {/* MISC */}
               <div className="grid md:grid-cols-[1.618fr_1fr] md:grid-rows-none grid-cols-none text-white w-full gap-4">
                 
                 {/* 1.) LATEST BLOGS */}
-                <div className="flex flex-col items-center justify-between border-[#d8e0e3]/70 border border-dashed pb-4 h-75 w-full">
+                <div className="flex flex-col items-center justify-between border-[#d8e0e3]/70 border border-dashed pb-4 h-75 w-full scrollbar-visible overflow-y-auto">
 
                   {latestPost === null ? null : (
                     <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">

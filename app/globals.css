@@ -41,7 +41,7 @@ body {
 }
 
 .scrollbar-visible::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.4);
+  background: #b2c6ce59;
   border-radius: 999px;
 }
 
