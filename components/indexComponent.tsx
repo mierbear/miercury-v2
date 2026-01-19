@@ -19,6 +19,7 @@ import LogType from "@/types/logType";
 import ArtType from "@/types/artType";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
+import { Quote } from "lucide-react";
 
 const micro = Micro_5({
   weight: "400",
@@ -477,13 +478,17 @@ export default function Home() {
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
       
+      {/* LOADING SCREEN */}
       <div className={`bg-black z-55555 min-w-screen min-h-screen transition-opacity duration-1000 fixed pointer-events-none nonsel ${ready ? "opacity-0" : "opacity-100"}`} ref={loadingScreenRef}>
         <h1 className="bottom-20 right-20 text-white absolute">loading</h1>
       </div>
 
+      {/* TITLE */}
       <div className="min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
         <Title />
       </div>
+
+      {/* MAIN CONTENT */}
       <div className="content w-270 max-w-screen bg-transparent text-black z-10 grid grid-rows-[1.2em_1fr] relative">
 
         <TitleBot />  
@@ -543,9 +548,13 @@ export default function Home() {
                       <img className=" absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
                       <img className=" absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
                       <div className="absolute bottom-0 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
-                        <Marquee className="w-full" speed={20}>
+                        <Marquee
+                          className="w-full"
+                          speed={20}
+                          autoFill={true}
+                        >
                           <p className="text-white text-sm tracking-wide">
-                            i know what you're up to.i know what you're up to.i know what you're up to.i know what you're up to.
+                            i know what you're up to.
                           </p>
                         </Marquee>
                       </div>
@@ -682,9 +691,6 @@ export default function Home() {
                 </div>
 
               </div>
-
-              <hr className="mb-4 mt-4 border-gray-500/30 w-full" />
-
             </div> 
 
             {/* RIGHT COL */}
@@ -764,13 +770,18 @@ export default function Home() {
                 </div>
               </div> 
 
-              {/* <hr className="my-4 border-gray-500/30 w-full" /> */}
+              {/* <hr className="mt-4 mb-2 border-gray-500/30 w-full" /> */}
               
               {/* QOTD */}
               {/* <div className="text-justify p-4 flex flex-col items-center relative text-white border-[#d8e0e3]/70 border">
-                <h1>quote of the day</h1>
-                <p className="text-xs">{getQuote(quotes)}</p>
               </div>  */}
+              {/* <Marquee
+                gradient={false}
+                speed={30}
+                className="text-xs text-white nonsel pointer-events-none"
+              >
+                <p>{getQuote(quotes)}</p>
+              </Marquee> */}
               
               <hr className="my-4 border-gray-500/30 w-full" />
 
@@ -791,87 +802,99 @@ export default function Home() {
           
           </div>
 
-          <hr className="border-gray-500/30 w-full mx-4" />
+          <hr className="border-gray-500/30 w-full my-4" />
           
+          <Marquee
+            gradient={false}
+            speed={30}
+            autoFill={true}
+            className="text-xs sm:text-sm md:text-md flex text-white nonsel"
+          >
+            <p className=""><span className="inline-flex backwards-spin">★</span>&nbsp;&nbsp;{getQuote(quotes)}&nbsp;&nbsp;</p>
+          </Marquee>
+
+          <hr className="border-gray-500/30 w-full my-4" />
+
         </div>
        
-      <div className="bg-[#586474]/50 backdrop-blur-[2px] w-full flex flex-col p-4">
-
-
         {/* TO DO LIST */}
-        <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col ">
-          <h1 className="font-bold pb-5 text-2xl self-center">to do list</h1>
+        <div className="bg-[#586474]/50 backdrop-blur-[2px] w-full flex flex-col p-4">
 
-          <div className="grid md:grid-cols-2 gap-4">
-            <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
-              <p className="text-xl font-bold self-center">TO-DO: </p>
-              <p className="text-xs">● </p>
-              <p className="text-xs">● set up wanted posters for pp</p>
-              <p className="text-xs">● set up images for navmenu</p>
-              <p className="text-xs">● set up supabase for pp gallery</p>
-              <p className="text-xs">● set up favicons for each route</p>
-              <p className="text-xs">● set up different 'moons' for each route</p>
-              <p className="text-xs">● make the ocs page</p>
-              <p className="text-xs">● make the gallery page</p>
-              <p className="text-xs">● make the mtwim page</p>
-              <p className="text-xs">● finish the scrollTrigger course</p>
-              <p className="text-xs">● add more ppl to stars bg (revise it even)</p>
-              <p className="text-xs">● make assets (a lot of it...)</p>
-              <p className="text-xs">● make assets for mtwim</p>
-              <p className="text-xs">● make assets for characters</p>
-              <p className="text-xs">● add shooting stars</p>
-              <p className="text-xs">● add lots of easter eggs</p>
-              <p className="text-xs">● add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
-              <p className="text-xs">● optimize navmenu open/close timeline animations with ctx</p>
+          <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col ">
+            <h1 className="font-bold pb-5 text-2xl self-center">to do list</h1>
+
+            <div className="grid md:grid-cols-2 gap-4">
+              <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
+                <p className="text-xl font-bold self-center">TO-DO: </p>
+                <p className="text-xs">● </p>
+                <p className="text-xs">● set up wanted posters for pp</p>
+                <p className="text-xs">● set up images for navmenu</p>
+                <p className="text-xs">● set up supabase for pp gallery</p>
+                <p className="text-xs">● set up favicons for each route</p>
+                <p className="text-xs">● set up different 'moons' for each route</p>
+                <p className="text-xs">● make the ocs page</p>
+                <p className="text-xs">● make the gallery page</p>
+                <p className="text-xs">● make the mtwim page</p>
+                <p className="text-xs">● finish the scrollTrigger course</p>
+                <p className="text-xs">● add more ppl to stars bg (revise it even)</p>
+                <p className="text-xs">● make assets (a lot of it...)</p>
+                <p className="text-xs">● make assets for mtwim</p>
+                <p className="text-xs">● make assets for characters</p>
+                <p className="text-xs">● add shooting stars</p>
+                <p className="text-xs">● add lots of easter eggs</p>
+                <p className="text-xs">● add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
+                <p className="text-xs">● optimize navmenu open/close timeline animations with ctx</p>
+              </div>
+
+              <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
+                <p className="text-xl font-bold self-center">DONE: </p>
+                <p className="text-xs">✔ </p>
+                <p className="text-xs">✔ revise about me page (its so ass bruh..)</p>
+                <p className="text-xs">✔ show latest drawing in index</p>
+                <p className="text-xs">✔ set up supabase for gallery</p>
+                <p className="text-xs">✔ optimize stars background when unfocused</p>
+                <p className="text-xs">✔ learn how to make svgs</p>
+                <p className="text-xs">✔ make navmenu look good</p>
+                <p className="text-xs">✔ revise navmenu</p>
+                <p className="text-xs">✔ make index page responsive</p>
+                <p className="text-xs">✔ turn most gsap animations into plain css</p>
+                <p className="text-xs">✔ make adVERT impressive</p>
+                <p className="text-xs">✔ set up navmenu revision skeleton</p>
+                <p className="text-xs">✔ add loading screen for index</p>
+                <p className="text-xs">✔ improve art section in index</p>
+                <p className="text-xs">✔ add changelog to index</p>
+                <p className="text-xs">✔ make the admin page actually legible LOL</p>
+                <p className="text-xs">✔ add more to the about me page</p>
+                <p className="text-xs">✔ improve navbar for index</p>
+                <p className="text-xs">✔ implement index and slug pages for blog </p>
+                <p className="text-xs">✔ make blog page</p>
+                <p className="text-xs">✔ make the pp page</p>
+                <p className="text-xs">✔ add all old posts from the old miercury websites here</p>
+                <p className="text-xs">✔ fix bg low opacity bug</p>
+                <p className="text-xs">✔ set up carousel for pp</p>
+                <p className="text-xs">✔ add image uploading function for tiptap</p>
+                <p className="text-xs">✔ set up atabook</p>
+                <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
+                <p className="text-xs">✔ make the about me page</p>
+                <p className="text-xs">✔ finish secret santa</p>
+                <p className="text-xs">✔ add more to the space background </p>
+                <p className="text-xs">✔ implement editing posts with tiptap</p>
+                <p className="text-xs">✔ implement tiptap on post dashboard</p>
+                <p className="text-xs">✔ make a dashboard for blog crud operations</p>
+                <p className="text-xs">✔ connect this to supabase so you can add blog posts</p>
+                <p className="text-xs">✔ add vercel web analytics functionality</p>
+              </div>
             </div>
 
-            <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
-              <p className="text-xl font-bold self-center">DONE: </p>
-              <p className="text-xs">✔ </p>
-              <p className="text-xs">✔ revise about me page (its so ass bruh..)</p>
-              <p className="text-xs">✔ show latest drawing in index</p>
-              <p className="text-xs">✔ set up supabase for gallery</p>
-              <p className="text-xs">✔ optimize stars background when unfocused</p>
-              <p className="text-xs">✔ learn how to make svgs</p>
-              <p className="text-xs">✔ make navmenu look good</p>
-              <p className="text-xs">✔ revise navmenu</p>
-              <p className="text-xs">✔ make index page responsive</p>
-              <p className="text-xs">✔ turn most gsap animations into plain css</p>
-              <p className="text-xs">✔ make adVERT impressive</p>
-              <p className="text-xs">✔ set up navmenu revision skeleton</p>
-              <p className="text-xs">✔ add loading screen for index</p>
-              <p className="text-xs">✔ improve art section in index</p>
-              <p className="text-xs">✔ add changelog to index</p>
-              <p className="text-xs">✔ make the admin page actually legible LOL</p>
-              <p className="text-xs">✔ add more to the about me page</p>
-              <p className="text-xs">✔ improve navbar for index</p>
-              <p className="text-xs">✔ implement index and slug pages for blog </p>
-              <p className="text-xs">✔ make blog page</p>
-              <p className="text-xs">✔ make the pp page</p>
-              <p className="text-xs">✔ add all old posts from the old miercury websites here</p>
-              <p className="text-xs">✔ fix bg low opacity bug</p>
-              <p className="text-xs">✔ set up carousel for pp</p>
-              <p className="text-xs">✔ add image uploading function for tiptap</p>
-              <p className="text-xs">✔ set up atabook</p>
-              <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
-              <p className="text-xs">✔ make the about me page</p>
-              <p className="text-xs">✔ finish secret santa</p>
-              <p className="text-xs">✔ add more to the space background </p>
-              <p className="text-xs">✔ implement editing posts with tiptap</p>
-              <p className="text-xs">✔ implement tiptap on post dashboard</p>
-              <p className="text-xs">✔ make a dashboard for blog crud operations</p>
-              <p className="text-xs">✔ connect this to supabase so you can add blog posts</p>
-              <p className="text-xs">✔ add vercel web analytics functionality</p>
-            </div>
           </div>
 
+          <hr className="my-4 border-gray-500/30 w-full" />
+
         </div>
-
-        <hr className="my-4 border-gray-500/30 w-full" />
-
-      </div>
                 
       </div>  
+      
+      {/* FOOTER */}
       <footer className="z-50">
         <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white text-xs">
 

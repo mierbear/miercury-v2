@@ -512,9 +512,22 @@ div[data-youtube-video] iframe {
   }
 }
 
+@keyframes backwards-spin {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
 .spin {
   animation-name: spin;
   animation-duration: 4s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.backwards-spin {
+  animation-name: backwards-spin;
+  animation-duration: 7s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
