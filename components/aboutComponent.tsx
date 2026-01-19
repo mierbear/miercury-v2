@@ -417,12 +417,7 @@ export default function Home() {
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
     carouselContainerRef.current.style.display = "block";
-
-    setTimeout(() => {
-      if (!carouselContainerRef.current) return;
-      carouselContainerRef.current.style.opacity = "1";
-    }, 0);
-
+    carouselContainerRef.current.style.opacity = "1";
     aboutRef.current.style.pointerEvents = "none";
 
     // not the same
@@ -432,9 +427,7 @@ export default function Home() {
 
     // the same
     else if (activeList === category) {
-      setTimeout(() => {
-        closeList(category);
-      }, 0);
+      closeList(category);
     }
 
     // nothing
@@ -447,7 +440,6 @@ export default function Home() {
       aboutRef.current.style.pointerEvents = "auto";
     }, 200);
   }
-
   const closeList = (category: ListKeys | null) => {
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
@@ -480,7 +472,6 @@ export default function Home() {
   const [meActive, setMeActive] = useState(false);
 
   const meHandler = () => {
-    console.log("turning off lists")
     if (!carouselContainerRef.current) return;
 
     // carouselContainerRef.current.style.display = "none";
@@ -489,7 +480,6 @@ export default function Home() {
   }
 
   const turnOffLists = () => {
-    console.log(`hide!!`)
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
     carouselContainerRef.current.style.opacity = "0";
@@ -500,7 +490,6 @@ export default function Home() {
       setActiveList(null);
       carouselContainerRef.current.style.display = "none";
       unhoverHandle();
-      console.log(`hide!!`)
     }, 200);
   }
 
@@ -513,7 +502,6 @@ export default function Home() {
     } else {
       setTooltipVisible(true);
       setTooltipText(comment);
-      // console.log(`showing tooltip: ${comment}`);
     }
   }
 
@@ -531,6 +519,22 @@ export default function Home() {
   const randomizer = (arr: string[]) => {
     return arr[Math.trunc((Math.random() * arr.length))];
   };
+
+  const [face, setFace] = useState<string>(() => 
+    meActive ? randomizer(sadFaces) : randomizer(happyFaces)
+  ); 
+
+  useEffect(() => {
+    setFace(meActive ? randomizer(sadFaces) : randomizer(happyFaces));
+  }, [meActive]);
+
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    setReady(true);
+  }, []);
+
+  if (!ready) return null;
 
   // OPACITY TRANSITION
 
@@ -558,6 +562,7 @@ export default function Home() {
 
       <div className="flex flex-col h-screen" ref={aboutRef}>
         
+        {/* TOP ROW */}
         <div 
           className={`
         bg-black flex flex-col py-6 text-white justify-between
@@ -569,6 +574,7 @@ export default function Home() {
           `}
         >
 
+          {/* MORE ABOUT ME */}
           {meActive && (
             <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2" ref={factsRef}>
               <h1 className="font-bold text-2xl sm:text-3xl">some facts:</h1>
@@ -598,6 +604,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* INFO */}
           {!meActive && (
             <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2 overflow-y-auto scrollbar-visible" ref={infoRef}>
               <p className="font-bold text-2xl sm:text-3xl">about me:</p>
@@ -659,6 +666,7 @@ export default function Home() {
             </div>
           )}
 
+          {/* EMOJI */}
           <div className={`text-yellow-200 flex flex-col pt-6 self-center text-center transition-scale transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
             <p className="flex text-base sm:text-lg lg:text-xl font-bold">
               <span className={`text-yellow-200 flex origin-center mr-2.25 duration-200 ${meActive && "spin"}`}>
@@ -680,12 +688,13 @@ export default function Home() {
             className="text-xs sm:text-sm cursor-pointer -translate-y-1"
             onClick={() => {meHandler()}}
             >
-              {meActive ? randomizer(sadFaces) : randomizer(happyFaces)}
+              {face}
             </p>
           </div>
           
         </div>
 
+        {/* BOTTOM ROW */}
         <div
           className={`
         bg-yellow-200 flex flex-col
@@ -694,11 +703,9 @@ export default function Home() {
           ${meActive ? "flex-0" : "flex-38"}
           `}
         >
-
           <div className={`w-screen h-[30vh] z-100 self-end bg-black/90 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList || "opacity-0"}`}
             ref={carouselContainerRef}
           >
-
             <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
               <div className={`overflow-hidden flex items-center justify-center h-full w-full`} ref={emblaRef}>
                 <div className="flex h-full">
