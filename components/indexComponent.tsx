@@ -77,16 +77,16 @@ export default function Home() {
   };
 
   const loginTexts = ["log in", "are you sure?", "ur not even admin go away", ">:p"]
-  let currentText = 0;
+  const currentText = useRef(0);
+
 
   const handleLoginClick = () => {
-    if (currentText < 6) {
-
-      currentText++;
-      loginTextRef.current!.textContent = loginTexts[currentText % loginTexts.length];
+    
+    if (currentText.current < 6) {
+      currentText.current++;
+      loginTextRef.current!.textContent = loginTexts[currentText.current % loginTexts.length];
 
     } else {
-
       const tl = gsap.timeline();
 
       tl
@@ -586,12 +586,12 @@ export default function Home() {
               onMouseEnter={() => setArtHover(true)}
               onMouseLeave={() => setArtHover(false)}
               >
-                
                 <p
                 className={`text-2xl font-bold self-start pl-2 h-12 flex items-center justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
                   <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> latest artwork
                 </p>
-
+                
+                {/* IMAGES */}
                 <div className="relative flex items-center justify-center flex-col bg-[#17191a] mb-4">
                   <img ref={featArtRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel`} />
                   <img ref={featArtMiniRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
@@ -599,14 +599,17 @@ export default function Home() {
                     <img ref={mierDrawingRef} src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} className="nonsel absolute bottom-0 right-0 h-60 origin-bottom-right translate-x-10 translate-y-40" onMouseEnter={() => mierDrawingHoverHandler()} onMouseLeave={() => mierDrawingUnhoverHandler()} />
                   </NextLink>
                 </div>
+
+                {/* ART INFO */}
                 <div className="flex flex-col p-2 pt-1 self-start w-[50%] border-white border-2 h-24 text-white">
                   <p className="text-xl font-bold">{artwork?.title}</p>
                   <p className="text-xs text-gray-400 pb-2">{artwork?.date}</p>
                   <p className="text-xs">{artwork?.description}</p>
                 </div>
-
-                <img src="images/top.png" className="invisible md:visible nonsel pointer-events-none absolute top-0 right-0 h-40"></img>
-                <img src="images/bot.png" className="invisible md:visible nonsel pointer-events-none absolute bottom-0 left-0 h-40"></img>
+                
+                {/* FRAME */}
+                <img src="images/top.png" className="invisible hidden md:flex md:visible nonsel pointer-events-none absolute top-0 right-0 h-40"></img>
+                <img src="images/bot.png" className="invisible hidden md:flex md:visible nonsel pointer-events-none absolute bottom-0 left-0 h-40"></img>
               </div>
 
               <hr className="my-4 border-gray-500/30 w-full" />
@@ -666,7 +669,18 @@ export default function Home() {
                     </div>
 
                     {/* 3.) GUESTBOOK */}
-                    <NextLink href="https://mier.atabook.org/" target="_blank" rel="noopener noreferrer" className="flex flex-col justify-center h-full w-full items-center border-[#d8e0e3]/70 border">
+                    <NextLink
+                      href="https://mier.atabook.org/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="
+                      h-full w-full
+                      flex flex-col 
+                      justify-center items-center
+                      border-[#d8e0e3]/70 border
+                      p-4 text-xs
+                      "
+                    >
                       <p className="text-center">sign my guestbook</p>
                     </NextLink>
 
@@ -694,7 +708,7 @@ export default function Home() {
             </div> 
 
             {/* RIGHT COL */}
-            <div className="m-4 lg:ml-2 lg:order-2 order-1">
+            <div className="m-4 lg:ml-2 lg:order-2 order-1 flex flex-col mb-0 lg:mb-4">
 
               {/* INTRO */}
               <div className="text-white border-[#d8e0e3]/40 relative border-dotted border flex flex-col items-center pb-14">
@@ -753,7 +767,7 @@ export default function Home() {
                 </div>
 
                 <div className="flex flex-row justify-center items-center gap-3 absolute bottom-0 right-0 pb-2 px-4">
-                  <NextLink href="https://x.com/miermirth  " target="_blank" rel="noopener noreferrer">
+                  <NextLink href="https://x.com/mierursa" target="_blank" rel="noopener noreferrer">
                     <img src="/images/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
                   </NextLink>
                     <img onClick={handleDiscordLink} src="/images/discord.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
@@ -769,19 +783,6 @@ export default function Home() {
                   </p>
                 </div>
               </div> 
-
-              {/* <hr className="mt-4 mb-2 border-gray-500/30 w-full" /> */}
-              
-              {/* QOTD */}
-              {/* <div className="text-justify p-4 flex flex-col items-center relative text-white border-[#d8e0e3]/70 border">
-              </div>  */}
-              {/* <Marquee
-                gradient={false}
-                speed={30}
-                className="text-xs text-white nonsel pointer-events-none"
-              >
-                <p>{getQuote(quotes)}</p>
-              </Marquee> */}
               
               <hr className="my-4 border-gray-500/30 w-full" />
 
@@ -798,11 +799,18 @@ export default function Home() {
 
               </div> 
 
+              <hr className="hidden lg:block my-4 border-gray-500/30 w-full" />
+
+              {/* ?? */}
+              <div className="hidden lg:flex flex-1 flex-col items-center justify-center w-full h-full border-[#d8e0e3]/40 relative border-dotted border">
+              </div>
+
             </div> 
           
           </div>
 
-          <hr className="border-gray-500/30 w-full my-4" />
+          {/* QUOTE OF THE DAY */}
+          <hr className="border-gray-500/30 w-full mb-4" />
           
           <Marquee
             gradient={false}
@@ -810,10 +818,10 @@ export default function Home() {
             autoFill={true}
             className="text-xs sm:text-sm md:text-md flex text-white nonsel"
           >
-            <p className=""><span className="inline-flex backwards-spin">★</span>&nbsp;&nbsp;{getQuote(quotes)}&nbsp;&nbsp;</p>
+            <p className=""><span className="inline-flex backwards-spin items-center justify-center">✦</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{getQuote(quotes)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
           </Marquee>
 
-          <hr className="border-gray-500/30 w-full my-4" />
+          <hr className="border-gray-500/30 w-full mt-4" />
 
         </div>
        
@@ -821,12 +829,13 @@ export default function Home() {
         <div className="bg-[#586474]/50 backdrop-blur-[2px] w-full flex flex-col p-4">
 
           <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col ">
-            <h1 className="font-bold pb-5 text-2xl self-center">to do list</h1>
+            <h1 className="font-bold text-2xl self-center">to do list</h1>
+            <p className="pb-5 text-xs self-center">(will be gone eventually)</p>
 
             <div className="grid md:grid-cols-2 gap-4">
               <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
                 <p className="text-xl font-bold self-center">TO-DO: </p>
-                <p className="text-xs">● </p>
+                {/* <p className="text-xs">● </p> */}
                 <p className="text-xs">● set up wanted posters for pp</p>
                 <p className="text-xs">● set up images for navmenu</p>
                 <p className="text-xs">● set up supabase for pp gallery</p>
@@ -848,7 +857,8 @@ export default function Home() {
 
               <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
                 <p className="text-xl font-bold self-center">DONE: </p>
-                <p className="text-xs">✔ </p>
+                {/* <p className="text-xs">✔ </p> */}
+                <p className="text-xs">✔ add qotd in index (what u see above rn)</p>
                 <p className="text-xs">✔ revise about me page (its so ass bruh..)</p>
                 <p className="text-xs">✔ show latest drawing in index</p>
                 <p className="text-xs">✔ set up supabase for gallery</p>
@@ -888,8 +898,6 @@ export default function Home() {
 
           </div>
 
-          <hr className="my-4 border-gray-500/30 w-full" />
-
         </div>
                 
       </div>  
@@ -901,7 +909,10 @@ export default function Home() {
           <p className="text-center">
             Copyright © {currentYear} Miercury. All Rights Reserved.
             <br />
-            <a href="mailto:admin@miercury.com">admin@miercury.com</a>
+            <a
+            href="mailto:admin@miercury.com"
+            className="hover:underline blue"
+            >admin@miercury.com</a>
           </p>
 
           <div className="right-1 absolute">
