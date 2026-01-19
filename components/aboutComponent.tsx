@@ -396,6 +396,24 @@ export default function Home() {
     },
   ];
 
+  useEffect(() => {
+    const animeSrcs = favAnime.map((song) => `/images/about/anime/${song.img}`);
+    const gamesSrcs = favGames.map((song) => `/images/about/games/${song.img}`);
+    const musicSrcs = favMusic.map((song) => `/images/about/music/${song.img}`);
+
+    const preload = [
+      ...animeSrcs,
+      ...gamesSrcs,
+      ...musicSrcs,
+    ];
+
+    preload.forEach((src) => {
+      const img = new window.Image();
+      img.src = src;
+    });
+
+  }, [])
+
   const aboutMe = [
     "i have hyperphantasia (1)",
     "you could call me a christian/buddhist",
