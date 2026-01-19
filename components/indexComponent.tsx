@@ -603,15 +603,15 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-full" />
 
               {/* MISC */}
-              <div className="grid md:grid-cols-[1.618fr_1fr] md:grid-rows-none grid-rows-[1.618fr_1fr] grid-cols-none text-white w-full gap-4">
+              <div className="grid md:grid-cols-[1.618fr_1fr] md:grid-rows-none grid-cols-none text-white w-full gap-4">
                 
                 {/* 1.) LATEST BLOGS */}
                 <div className="flex flex-col items-center justify-between border-[#d8e0e3]/70 border border-dashed pb-4 h-75 w-full">
 
                   {latestPost === null ? null : (
-                    <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative">
+                    <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">
                       <NextLink href={`/blog/post/${latestPost.slug}`}>
-                        <h1 className="font-bold text-2xl hover:underline blue">{latestPost.title}</h1>
+                        <p className="font-bold text-base xs:text-xl sm:text-2xl hover:underline blue">{latestPost.title}</p>
                       </NextLink>
                       <div className="text-xs text-gray-400 nonsel flex" onClick={clickDate}>
                         <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
@@ -646,18 +646,18 @@ export default function Home() {
                 </div>
 
                 {/* 2ND CONTAINER */}
-                <div className="grid grid-cols-[1fr_1.618fr] md:grid-cols-none md:grid-rows-[1fr_1.618fr] gap-4 h-75">
+                <div className="grid grid-cols-[1fr_1.618fr] md:grid-cols-none md:grid-rows-[1fr_1.618fr] gap-4 md:h-75">
 
                   {/* 3RD CONTAINER */}
-                  <div className="grid grid-cols-[1fr_1.618fr] gap-4 h-27">
+                  <div className="md:grid md:grid-cols-[1fr_1.618fr] md:gap-4 h-full">
 
                     {/* 4.) ? */}
-                    <div className="flex flex-col justify-center items-center border-[#d8e0e3]/70 border">
+                    <div className="md:flex flex-col justify-center items-center border-[#d8e0e3]/70 border hidden">
                       ?
                     </div>
 
                     {/* 3.) GUESTBOOK */}
-                    <NextLink href="https://mier.atabook.org/" target="_blank" rel="noopener noreferrer" className="flex flex-col justify-center w-full items-center border-[#d8e0e3]/70 border">
+                    <NextLink href="https://mier.atabook.org/" target="_blank" rel="noopener noreferrer" className="flex flex-col justify-center h-full w-full items-center border-[#d8e0e3]/70 border">
                       <p className="text-center">sign my guestbook</p>
                     </NextLink>
 
