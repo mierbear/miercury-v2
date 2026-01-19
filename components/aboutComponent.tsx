@@ -416,6 +416,14 @@ export default function Home() {
   const openList = (category: ListKeys) => {
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
+
+    // carouselContainerRef.current.style.opacity = "0";
+    // carouselContainerRef.current.style.display = "block";
+    // setTimeout(() => {
+    //   if (!carouselContainerRef.current) return;
+    //   carouselContainerRef.current.style.opacity = "1";
+    // }, 0);
+
     carouselContainerRef.current.style.display = "block";
     carouselContainerRef.current.style.opacity = "1";
     aboutRef.current.style.pointerEvents = "none";
@@ -432,6 +440,7 @@ export default function Home() {
 
     // nothing
     else {
+      console.log(`null detect`)
       setActiveList(category);
     }
 
@@ -482,15 +491,26 @@ export default function Home() {
   const turnOffLists = () => {
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
-    carouselContainerRef.current.style.opacity = "0";
-    
-    setTimeout(() => {
-      if (!carouselContainerRef.current) return;
+    console.log(`the facts are ${meActive ? "open" : "closed"}`);
 
+    // CLOSE THE FACTS
+    if (meActive) {
+      carouselContainerRef.current.style.display = "block";
       setActiveList(null);
-      carouselContainerRef.current.style.display = "none";
-      unhoverHandle();
-    }, 200);
+
+    // OPEN THE FACTS
+    } else {
+      carouselContainerRef.current.style.opacity = "0";
+      
+      setTimeout(() => {
+        if (!carouselContainerRef.current) return;
+  
+        setActiveList(null);
+        carouselContainerRef.current.style.display = "none";
+        unhoverHandle();
+      }, 200);
+    }
+
   }
 
   const [tooltipText, setTooltipText] = useState("meowmeow");
@@ -667,9 +687,9 @@ export default function Home() {
           )}
 
           {/* EMOJI */}
-          <div className={`text-yellow-200 flex flex-col pt-6 self-center text-center transition-scale transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
+          <div className={`text-yellow-200 flex flex-col pt-6 self-center text-center transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
             <p className="flex text-base sm:text-lg lg:text-xl font-bold">
-              <span className={`text-yellow-200 flex origin-center mr-2.25 duration-200 ${meActive && "spin"}`}>
+              <span className={`text-yellow-200 flex origin-center mr-2.25 duration-500 transition-scale transition-mr ${meActive && "spin scale-150 mr-4"}`}>
                 {meActive ? "★" : "✦"}
               </span>
 
@@ -680,7 +700,7 @@ export default function Home() {
                 {meActive ? "less" : "more"} about {meActive ? "me..." : "me?"}
               </span>
 
-              <span className={`text-yellow-200 flex origin-center ml-2.25 duration-200 ${meActive && "spin"}`}>
+              <span className={`text-yellow-200 flex origin-center ml-2.25 duration-500 transition-scale transition-ml ${meActive && "spin scale-150 ml-4"}`}>
                 {meActive ? "★" : "✦"}
               </span>
             </p>
@@ -703,7 +723,7 @@ export default function Home() {
           ${meActive ? "flex-0" : "flex-38"}
           `}
         >
-          <div className={`w-screen h-[30vh] z-100 self-end bg-black/90 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList || "opacity-0"}`}
+          <div className={`w-screen h-[30vh] z-100 self-end bg-black/90 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
             ref={carouselContainerRef}
           >
             <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
