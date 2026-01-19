@@ -32,16 +32,6 @@ body {
   overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  font-family: "Inconsolata", monospace;
-}
-
 ::-webkit-scrollbar {
   width: 0;
 }
@@ -54,7 +44,6 @@ p {
   background: rgba(255, 255, 255, 0.4);
   border-radius: 999px;
 }
-
 
 .nonsel {
   user-select: none;
@@ -503,7 +492,7 @@ div[data-youtube-video] iframe {
 }
 
 .monospace {
-  font-family: "Inconsolata", monospace;
+  font-family: monospace;
 }
 
 @keyframes spin {

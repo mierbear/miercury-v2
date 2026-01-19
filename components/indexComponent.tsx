@@ -11,7 +11,7 @@ import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Micro_5, Boldonse, Coral_Pixels } from "next/font/google"
+import { Micro_5, Righteous, Coral_Pixels } from "next/font/google"
 import NavLinkMarq from "@/components/indexNavLinkMarquee";
 import NavLinkImg from "@/components/indexNavLinkImg";
 import NavLinkBot from "@/components/indexNavLinkBot";
@@ -31,7 +31,7 @@ const coral = Coral_Pixels({
   subsets: ["latin"],
 })
 
-const boldonse = Boldonse({
+const righteous = Righteous({
   weight: "400",
   subsets: ["latin"],
 })
@@ -727,10 +727,6 @@ export default function Home() {
                     <br />
                     I hope you enjoy your stay.
                   </p>
-
-                  <div className="flex flex-row justify-between items-center text-center pt-4">
-                    <p className="text-red-600 font-bold text-xs bg-black p-2">This site is still in development, many routes are still unfinished. Thank you for visiting. &lt;3</p>
-                  </div>
                 </div>
 
                 <div className="border-t border-b border-[#d8e0e3]/40 border-dotted w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80 nonsel">
@@ -739,7 +735,7 @@ export default function Home() {
                       ${status === "idle" ? "text-[#fff671] idle-glow" : ""}
                       ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
                       ${status === "offline" ? "text-gray-400" : ""}
-                      font-extrabold
+                      ${righteous.className}
                       text-5xl
                       `}>
                       {status === "online" ? "ONLINE" : ""}
@@ -836,6 +832,9 @@ export default function Home() {
               <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
                 <p className="text-xl font-bold self-center">TO-DO: </p>
                 {/* <p className="text-xs">● </p> */}
+                <p className="text-xs">● make daily popup modal</p>
+                <p className="text-xs">● DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
+                <p className="text-xs">● learn how to draw again LOL</p>
                 <p className="text-xs">● set up wanted posters for pp</p>
                 <p className="text-xs">● set up images for navmenu</p>
                 <p className="text-xs">● set up supabase for pp gallery</p>
@@ -846,18 +845,20 @@ export default function Home() {
                 <p className="text-xs">● make the mtwim page</p>
                 <p className="text-xs">● finish the scrollTrigger course</p>
                 <p className="text-xs">● add more ppl to stars bg (revise it even)</p>
-                <p className="text-xs">● make assets (a lot of it...)</p>
                 <p className="text-xs">● make assets for mtwim</p>
                 <p className="text-xs">● make assets for characters</p>
                 <p className="text-xs">● add shooting stars</p>
                 <p className="text-xs">● add lots of easter eggs</p>
+                <p className="text-xs">● make scary easter egg?</p>
                 <p className="text-xs">● add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
                 <p className="text-xs">● optimize navmenu open/close timeline animations with ctx</p>
+                <p className="text-xs">● make another game</p>
               </div>
 
               <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
                 <p className="text-xl font-bold self-center">DONE: </p>
                 {/* <p className="text-xs">✔ </p> */}
+                <p className="text-xs">✔ fix the fcked up font management</p>
                 <p className="text-xs">✔ add qotd in index (what u see above rn)</p>
                 <p className="text-xs">✔ revise about me page (its so ass bruh..)</p>
                 <p className="text-xs">✔ show latest drawing in index</p>

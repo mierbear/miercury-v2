@@ -29,7 +29,7 @@ export default function Blog(props: BlogComponentProps) {
   if (props.type === "slug") {
     const { post, allPosts } = props;
     return (
-      <main className="min-w-screen min-h-screen align-center items-center flex flex-col z-50 text-white">
+      <div className="min-w-screen min-h-screen align-center items-center flex flex-col z-50 text-white">
         <div className="min-h-80 w-240 flex flex-col justify-center items-center z-50">
           <h1>blog</h1>
         </div>
@@ -54,7 +54,7 @@ export default function Blog(props: BlogComponentProps) {
             </div>
           </div>
         </div>
-      </main>
+      </div>
     )
   }
 
@@ -62,7 +62,7 @@ export default function Blog(props: BlogComponentProps) {
     const { posts, allPosts, currentPage, postsPerPage } = props;
     const totalPages = Math.ceil(allPosts.length / postsPerPage);
     return (
-      <main className="min-w-screen min-h-screen align-center items-center flex flex-col z-50 text-white">
+      <div className="min-w-screen min-h-screen align-center items-center flex flex-col z-50 text-white">
         <div className="min-h-80 w-240 flex flex-col justify-center items-center z-50">
           <h1>blog</h1>
         </div>
@@ -105,7 +105,7 @@ export default function Blog(props: BlogComponentProps) {
             )}
           </div>
         </div>
-      </main>
+      </div>
     )
   }
 }

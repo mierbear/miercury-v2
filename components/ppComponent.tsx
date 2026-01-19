@@ -1,7 +1,6 @@
 "use client";
-import { Bodoni_Moda, Questrial } from "next/font/google"
+import { Bodoni_Moda } from "next/font/google"
 import { useEffect, useRef, useState, useCallback } from "react";
-import gsap from "gsap";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
 import NextLink from "next/link";
@@ -9,13 +8,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Fade from "embla-carousel-fade";
 
-
 const font = Bodoni_Moda({
-  weight: "400",
-  subsets: ["latin"],
-})
-
-const font2 = Questrial({
   weight: "400",
   subsets: ["latin"],
 })
@@ -77,7 +70,7 @@ export default function Home() {
     }, [emblaApi])
   
   return (
-    <main className="min-w-screen min-h-screen flex flex-col z-50 bg-[#c1f8ff]">
+    <div className="min-w-screen min-h-screen flex flex-col z-50 bg-[#c1f8ff]">
       <div className="min-w-screen min-h-screen grid grid-cols-[20fr_60fr_20fr] z-50">
         <div className="invisible md:flex">
         </div>
@@ -99,7 +92,7 @@ export default function Home() {
             <div className="bg-[#1a1d20] min-h-[1.5em] flex justify-center">
               <Marquee pauseOnHover>
                 <p 
-                  className={`${font2.className} bg-[#1a1d20] text-xs text-white`}
+                  className={` bg-[#1a1d20] text-xs text-white`}
                 >
                   {news}
                 </p>
@@ -121,8 +114,8 @@ export default function Home() {
                         <img src="/images/banner1.png" className="w-full " />
                       </NextLink>
                       <div className="absolute bottom-0 nonsel flex flex-col bg-[#17191a]/50 w-full h-[20%] justify-center pl-6 pb-2">
-                        <h1 className={`${font2.className} text-shadow-lg`}><b>Gallery (PLACEHOLDER)</b></h1>
-                        <p className={`${font2.className} text-xs text-shadow-lg`}>Check out my gallery here.</p>
+                        <h1 className={` text-shadow-lg`}><b>Gallery (PLACEHOLDER)</b></h1>
+                        <p className={` text-xs text-shadow-lg`}>Check out my gallery here.</p>
                       </div>
                     </div>
                     <div className="flex-[0_0_100%]">
@@ -130,8 +123,8 @@ export default function Home() {
                         <img src="/images/banner2.png" className="w-full " />
                       </NextLink>
                       <div className="absolute bottom-0 nonsel flex flex-col bg-[#17191a]/50 w-full h-[20%] justify-center pl-6 pb-2">
-                        <h1 className={`${font2.className} text-shadow-lg`}><b>Fear not the astral enemy (PLACEHOLDER)</b></h1>
-                        <p className={`${font2.className} text-xs text-shadow-lg`}>Read about my schizophrenic ramblings here.</p>
+                        <h1 className={` text-shadow-lg`}><b>Fear not the astral enemy (PLACEHOLDER)</b></h1>
+                        <p className={` text-xs text-shadow-lg`}>Read about my schizophrenic ramblings here.</p>
                       </div>
                     </div>
                     <div className="flex-[0_0_100%]">
@@ -139,8 +132,8 @@ export default function Home() {
                         <img src="/images/banner3.png" className="w-full " />
                       </NextLink>
                       <div className="absolute bottom-0 nonsel flex flex-col bg-[#17191a]/50 w-full h-[20%] justify-center pl-6 pb-2">
-                        <h1 className={`${font2.className} text-shadow-lg`}><b>Is the ocean calling out to you? (PLACEHOLDER)</b></h1>
-                        <p className={`${font2.className} text-xs text-shadow-lg`}>You're not alone. Enlist and join the ranks within Pacific Purgatory now.</p>
+                        <h1 className={` text-shadow-lg`}><b>Is the ocean calling out to you? (PLACEHOLDER)</b></h1>
+                        <p className={` text-xs text-shadow-lg`}>You're not alone. Enlist and join the ranks within Pacific Purgatory now.</p>
                       </div>
                     </div>
                   </div>
@@ -170,27 +163,27 @@ export default function Home() {
                 {/* TABS */}
                 <div className="grid grid-rows-1 pt-4">
                   
-                  <button onClick={() => {setCurrentTab("home")}} className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
+                  <button onClick={() => {setCurrentTab("home")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     Home
                   </button>
 
-                  <button onClick={() => {setCurrentTab("about")}} className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
+                  <button onClick={() => {setCurrentTab("about")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     About
                   </button>
                   
-                  <button onClick={() => {setCurrentTab("characters")}} className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
+                  <button onClick={() => {setCurrentTab("characters")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     Characters
                   </button>
 
-                  <button onClick={() => {setCurrentTab("lore")}} className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
+                  <button onClick={() => {setCurrentTab("lore")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     "Lore"
                   </button>
 
-                  <button onClick={() => {setCurrentTab("history")}} className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
+                  <button onClick={() => {setCurrentTab("history")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     History
                   </button>
                   
-                  <button className={`${font2.className} bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
+                  <button className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
                     Collabs
                   </button>
                 
@@ -220,8 +213,8 @@ export default function Home() {
                 {/* ABOUT */}
                 {currentTab === "about" && (
                   <div className="flex flex-col">
-                    <h1 className={`${font2.className} text-3xl`}><b>● About</b></h1>
-                    <p className={`${font2.className}`}>This page is dedicated to my community, Pacific Purgatory, a small online community of artists that I <i>somehow</i> managed to cultivate on Drawpile since May of 2023.
+                    <h1 className={` text-3xl`}><b>● About</b></h1>
+                    <p className={``}>This page is dedicated to my community, Pacific Purgatory, a small online community of artists that I <i>somehow</i> managed to cultivate on Drawpile since May of 2023.
                     The Drawpile session is online 24/7, so feel free to join and draw with us.
                     <br />
                     <br />
@@ -230,13 +223,13 @@ export default function Home() {
 
                     <hr className="my-6 border-gray-900/20 w-full" />
 
-                    <h1 className={`${font2.className} text-3xl`}><b>● How do I Join?</b></h1>
-                    <p className={`${font2.className}`}>- Install <a href="https://drawpile.net/download" target="_blank" className="underline cursor-pointer text-[#098899]" rel="noopener noreferrer">Drawpile</a>.</p>
-                    <p className={`${font2.className}`}>- Open Drawpile, click on Session {`>`} Browse.</p>
-                    <p className={`${font2.className}`}>- On the bottom left, click on "Add Server" and enter in <span className="underline bg-amber-100/50">https://pub.drawpile.net/listing/</span></p>
-                    <p className={`${font2.className}`}>- Now you should be able to see and join the server.</p>
+                    <h1 className={` text-3xl`}><b>● How do I Join?</b></h1>
+                    <p className={``}>- Install <a href="https://drawpile.net/download" target="_blank" className="underline cursor-pointer text-[#098899]" rel="noopener noreferrer">Drawpile</a>.</p>
+                    <p className={``}>- Open Drawpile, click on Session {`>`} Browse.</p>
+                    <p className={``}>- On the bottom left, click on "Add Server" and enter in <span className="underline bg-amber-100/50">https://pub.drawpile.net/listing/</span></p>
+                    <p className={``}>- Now you should be able to see and join the server.</p>
 
-                    <p className={`${font2.className} text-sm pt-6`}>The session should be hosted by Mier, but the title might be ridiculous like:
+                    <p className={` text-sm pt-6`}>The session should be hosted by Mier, but the title might be ridiculous like:
                     <br />
                     <span className="text-xl">"⚓Pacific Purgatory v2  𓆝 𓆟 𓆞 𓆜 𓆛 ⊹ ࣪ ﹏𓊝﹏𓂁﹏⊹"</span>
                     <br />
@@ -245,13 +238,13 @@ export default function Home() {
 
                     <hr className="my-6 border-gray-900/20 w-full" />
 
-                    <h1 className={`${font2.className} text-3xl`}><b>● Discord Server?</b></h1>
-                    <p className={`${font2.className}`}>I gatekeep it. Come hang out in the Drawpile long enough and ask to see if we like you :]</p>
+                    <h1 className={` text-3xl`}><b>● Discord Server?</b></h1>
+                    <p className={``}>I gatekeep it. Come hang out in the Drawpile long enough and ask to see if we like you :]</p>
                     
                     <hr className="my-6 border-gray-900/20 w-full" />
 
-                    <h1 className={`${font2.className} text-3xl`}><b>● Why "Pacific Purgatory"?</b></h1>
-                    <p className={`${font2.className}`}>
+                    <h1 className={` text-3xl`}><b>● Why "Pacific Purgatory"?</b></h1>
+                    <p className={``}>
                     When I started hosting on Drawpile, I chose the session name on a whim based on the musician Pacific Purgatory since I really liked his music at the time (and still do) so it kinda just stuck there overtime.<br />
                     <br />
                     <b>Pacific Purgatory (this community)</b> has no connection or relation to <b>Pacific Purgatory (the musician, Ethan Silva)</b>.<br />
@@ -299,6 +292,6 @@ export default function Home() {
       <video autoPlay muted loop className="object-cover fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[120vw] min-h-[120vh] blur-[10px]">
         <source src="videos/pp.mp4" type="video/mp4" />
       </video>
-    </main>
+    </div>
   );
 }

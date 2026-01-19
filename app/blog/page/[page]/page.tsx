@@ -55,12 +55,14 @@ export default function Home({
   }, []);
 
   return (
-    <BlogComponent
-      type="index"
-      posts={currentPosts}
-      allPosts={posts}
-      currentPage={page}
-      postsPerPage={POSTS_PER_PAGE}
-    />
+    <main className={`monospace`}>
+      <BlogComponent
+        type="index"
+        posts={currentPosts}
+        allPosts={posts}
+        currentPage={page}
+        postsPerPage={POSTS_PER_PAGE}
+      />
+    </main>
   );
 }
