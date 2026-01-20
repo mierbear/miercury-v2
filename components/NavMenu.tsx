@@ -94,7 +94,7 @@ const NavMenu = () => {
   return (
     <div 
       className={`
-      fixed w-screen h-screen flex flex-col
+      fixed inset-0 flex flex-col
       justify-center items-center text-white
       z-5555 pointer-events-none bg-linear-to-t
       via-transparent to-transparent

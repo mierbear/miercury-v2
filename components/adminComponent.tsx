@@ -527,7 +527,6 @@ export default function page() {
           </div>
         )}
 
-
         {currentTab === "art" && (
           <div className="w-full bg-black grid grid-cols-[5fr_3fr]">
             

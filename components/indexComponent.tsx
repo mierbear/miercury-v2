@@ -20,7 +20,7 @@ import LogType from "@/types/logType";
 import ArtType from "@/types/artType";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
-import { Quote } from "lucide-react";
+import DailyModal from "@/components/dailyModalComponent";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -511,7 +511,10 @@ export default function Home() {
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
-      
+        
+      {/* DAILY MODAL */}
+      <DailyModal />
+
       {/* LOADING SCREEN */}
       <div className={`bg-black z-55555 min-w-screen min-h-screen transition-opacity duration-1000 fixed pointer-events-none nonsel ${ready ? "opacity-0" : "opacity-100"}`} ref={loadingScreenRef}>
         <h1 className="bottom-20 right-20 text-white absolute">loading</h1>
@@ -697,7 +700,9 @@ export default function Home() {
 
                     {/* 4.) ? */}
                     <div className="md:flex flex-col justify-center items-center border-[#d8e0e3]/20 border hidden">
+                      <p>
                       ?
+                      </p>
                     </div>
 
                     {/* 3.) GUESTBOOK */}
@@ -710,7 +715,7 @@ export default function Home() {
                       flex flex-col 
                       justify-center items-center
                       border-[#d8e0e3]/70 border
-                      p-4 text-xs
+                      p-4
                       "
                     >
                       <p className="text-center">sign my guestbook</p>
@@ -753,7 +758,7 @@ export default function Home() {
                     ref={pfpRef}
                   />
 
-                  <p className="text-xs text-justify">
+                  <p className="text-sm text-justify">
                     Hello, welcome to Miercury! This is a place for me to share my thoughts, projects and artworks. You can read more about me <a href="/about" className="underline blue text-">here.</a>
                     <br />
                     <br />
