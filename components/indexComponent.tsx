@@ -650,7 +650,7 @@ export default function Home() {
               <div className="grid md:grid-cols-[1.618fr_1fr] md:grid-rows-none grid-cols-none text-white w-full gap-4">
                 
                 {/* 1.) LATEST BLOGS */}
-                <div className="flex flex-col items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 h-75 w-full scrollbar-visible overflow-y-auto">
+                <div className="flex flex-col items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 h-75 w-full thin-scrollbar overflow-y-auto">
 
                   {latestPost === null ? null : (
                     <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">
@@ -721,7 +721,7 @@ export default function Home() {
                   {/* 2.) CHANGELOGS */}
                   <div className="flex flex-col bg-[#17191a]/50 border-[#17191a] border-2 h-44 text-xs relative rounded-l-xl rounded-t-xl">
                     <p className="sticky top-0 z-10 bg-[#17191a] p-2 w-full rounded-t-xl">CHANGELOGS</p>
-                    <div className="scrollbar-visible h-full overflow-y-auto">
+                    <div className="thin-scrollbar h-full overflow-y-auto">
                       {logs?.map((log) => {
                         return (
                           <div key={log.id} className="p-2">
@@ -877,7 +877,6 @@ export default function Home() {
             
             {/* TO DO LIST */}
             <div className="w-full flex flex-col p-4">
-
               <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col ">
                 <h1 className="font-bold text-2xl self-center">to do list</h1>
                 <p className="pb-5 text-xs self-center">(will be gone eventually)</p>
@@ -885,7 +884,7 @@ export default function Home() {
                 <div className="grid md:grid-cols-2 gap-4">
                   
                   {/* TO DO */}
-                  <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
+                  <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">TO-DO: </p>
                     {/* <p className="text-xs">● </p> */}
                     <p className="text-xs">● make daily popup modal</p>
@@ -914,7 +913,7 @@ export default function Home() {
                   </div>
 
                   {/* DONE */}
-                  <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar-visible">
+                  <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">DONE: </p>
                     {/* <p className="text-xs">✔ </p> */}
                     <p className="text-xs">✔ fix the fcked up font management</p>

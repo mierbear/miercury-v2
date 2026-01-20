@@ -36,11 +36,20 @@ body {
   width: 0;
 }
 
-.scrollbar-visible::-webkit-scrollbar {
+.scrollbar::-webkit-scrollbar {
   width: 8px;
 }
 
-.scrollbar-visible::-webkit-scrollbar-thumb {
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #b2c6ce59;
+  border-radius: 999px;
+}
+
+.thin-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.thin-scrollbar::-webkit-scrollbar-thumb {
   background: #b2c6ce59;
   border-radius: 999px;
 }

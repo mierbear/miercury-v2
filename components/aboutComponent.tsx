@@ -621,7 +621,7 @@ export default function Home() {
 
               <hr className="my-2 border-white/20" />
 
-              <div className="overflow-y-auto scrollbar-visible text-xs">
+              <div className="overflow-y-auto thin-scrollbar text-xs">
               <p className="font-bold pb-1 text-base sm:text-lg">some facts:</p>
               {aboutMe.map((info, index) => (
                 <div
@@ -648,7 +648,7 @@ export default function Home() {
 
           {/* INFO */}
           {!meActive && (
-            <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2 overflow-y-auto scrollbar-visible" ref={infoRef}>
+            <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2 overflow-y-auto thin-scrollbar" ref={infoRef}>
               <p className="font-bold text-2xl sm:text-3xl">about me:</p>
               <p className="text-xs sm:text-sm">Kyle | {age} | INTJ | Libra</p>
               <hr className="my-2 border-white/20" />
