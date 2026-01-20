@@ -20,7 +20,6 @@ import LogType from "@/types/logType";
 import ArtType from "@/types/artType";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
-import DailyModal from "@/components/dailyModalComponent";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -511,9 +510,6 @@ export default function Home() {
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
-        
-      {/* DAILY MODAL */}
-      <DailyModal />
 
       {/* LOADING SCREEN */}
       <div className={`bg-black z-55555 min-w-screen min-h-screen transition-opacity duration-1000 fixed pointer-events-none nonsel ${ready ? "opacity-0" : "opacity-100"}`} ref={loadingScreenRef}>
