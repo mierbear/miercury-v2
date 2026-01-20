@@ -6,6 +6,7 @@ import TitleBot from "@/components/indexTitleBot";
 import PostType from "@/types/postType";
 import { useEffect, useRef, useState, useCallback } from "react";
 import gsap from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
 import { SplitText } from "gsap/SplitText";
 import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
@@ -20,6 +21,8 @@ import ArtType from "@/types/artType";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
 import { Quote } from "lucide-react";
+
+gsap.registerPlugin(TextPlugin);
 
 const micro = Micro_5({
   weight: "400",
@@ -148,7 +151,8 @@ export default function Home() {
     setProperDate(!properDate);
   }
 
-  const contentRef = useRef<HTMLDivElement | null>(null)
+  const topContentRef = useRef<HTMLDivElement | null>(null)
+  const bottomContentRef = useRef<HTMLDivElement | null>(null)
 
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -156,8 +160,9 @@ export default function Home() {
     setReady(true),
     
     setTimeout(() => {
-      if (!contentRef.current) return;
-      contentRef.current.style.opacity = "100%"
+      if (!topContentRef.current || !bottomContentRef.current) return;
+      topContentRef.current.style.opacity = "100%"
+      bottomContentRef.current.style.opacity = "100%"
     }, 1600);
     
   }, []);
@@ -475,6 +480,35 @@ export default function Home() {
     setArtwork(data[0]);
   }
 
+  const quoteBackdropRef = useRef<HTMLParagraphElement | null>(null);
+
+  useEffect(() => {
+    if (!quoteBackdropRef.current) return;
+
+    const tl = gsap.timeline({
+      repeat: -1,
+      repeatDelay: 1,
+      defaults: { duration: 1 },
+    });
+
+    tl
+    .set(quoteBackdropRef.current, { text: "LIVE BY THESE WORDS" })
+    .to(quoteBackdropRef.current, { text: "NEVER DESPAIR", delay: 4, duration: 2 })
+    .to(quoteBackdropRef.current, { text: "NEVER FEAR", })
+    .to(quoteBackdropRef.current, { text: "NEVER WORRY" })
+    .to(quoteBackdropRef.current, { text: "NEVER GIVE UP" })
+    .to(quoteBackdropRef.current, { text: "NEVER BE SCARED" })
+    .to(quoteBackdropRef.current, { text: "NEVER BE AFRAID" })
+    .to(quoteBackdropRef.current, { text: "NEVER LOSE HOPE" })
+    .to(quoteBackdropRef.current, { text: "NEVER LOSE HEART" })
+    .to(quoteBackdropRef.current, { text: "NEVER LOSE FAITH" })
+    .to(quoteBackdropRef.current, { text: "LIVE BY THESE WORDS", duration: 4 })
+
+    return () => {
+      tl.kill();
+    };
+  }, []);
+
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
       
@@ -495,9 +529,10 @@ export default function Home() {
 
         <div className={`${ready ? "bg-[#586474]/50" : "bg-[#17191a] pointer-events-none"} backdrop-blur-[2px] w-full flex flex-col items-center transition-colors duration-4000`}>
 
+          {/* TOP COLUMNS */}
           <div
-          className={`w-full grid lg:grid-cols-[2fr_1fr] lg:grid-rows-none opacity-0 transition-opacity duration-2000`}
-          ref={contentRef}
+            className={`w-full grid lg:grid-cols-[2fr_1fr] lg:grid-rows-none opacity-0 transition-opacity duration-2000`}
+            ref={topContentRef}
           >
 
             {/* LEFT COL */}
@@ -801,20 +836,43 @@ export default function Home() {
             </div> 
           
           </div>
-
-          {/* QUOTE OF THE DAY */}
-          <hr className="border-gray-500/30 w-full mb-4" />
           
-          <Marquee
-            gradient={false}
-            speed={30}
-            autoFill={true}
-            className="text-xs sm:text-sm md:text-md flex text-white nonsel"
+          {/* BOTTOM ROW */}
+          <div
+            className="relative w-full flex flex-col justify-center opacity-0 transition-opacity duration-2000"
+            ref={bottomContentRef}
           >
-            <p className=""><span className="inline-flex backwards-spin items-center justify-center">✦</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{getQuote(quotes)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
-          </Marquee>
 
-          <hr className="border-gray-500/30 w-full mt-4" />
+            {/* QUOTE OF THE DAY */}
+            <hr className="border-gray-500/30 w-full mb-4" />
+            <p 
+              ref={quoteBackdropRef}
+              className={`
+                absolute text-[#b2c6ce18] 
+                nonsel pointer-events-none -translate-y-px
+                ${righteous.className}
+                text-2xl
+                min-[360px]:text-3xl
+                min-[480px]:text-4xl
+                min-[600px]:text-5xl
+                min-[768px]:text-6xl
+              `}
+            >
+            </p>
+            <Marquee
+              gradient={false}
+              speed={getQuote(quotes).length}
+              autoFill={true}
+              className="text-xs sm:text-sm md:text-md flex text-white nonsel"
+            >
+              <p className="">
+                <span className="inline-flex backwards-spin items-center justify-center">✦</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{getQuote(quotes)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              </p>
+            </Marquee>
+            <hr className="border-gray-500/30 w-full mt-4" />
+            
+          </div>
 
         </div>
        
