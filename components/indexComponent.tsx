@@ -360,11 +360,11 @@ export default function Home() {
     setActiveLink(link);
 
     const rows = {
-      characters: "240px 50px 50px 50px 50px 50px 50px",
-      mtwim:       "50px 240px 50px 50px 50px 50px 50px",
-      games:       "50px 50px 240px 50px 50px 50px 50px",
-      pp:          "50px 50px 50px 240px 50px 50px 50px",
-      gallery:     "50px 50px 50px 50px 240px 50px 50px",
+      characters:  "240px 50px 50px 50px 50px 50px 50px",
+      gallery:     "50px 240px 50px 50px 50px 50px 50px",
+      mtwim:       "50px 50px 240px 50px 50px 50px 50px",
+      games:       "50px 50px 50px 240px 50px 50px 50px",
+      pp:          "50px 50px 50px 50px 240px 50px 50px",
       blog:        "50px 50px 50px 50px 50px 240px 50px",
       about:       "50px 50px 50px 50px 50px 50px 240px",
     };
@@ -820,10 +820,10 @@ export default function Home() {
               <div className="text-white grid grid-rows-[240px_50px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative" ref={linksDivRef}>
                 
                 <NavLinkMarq desc="learn about my characters" active={activeLink} link="characters" onHover={handleHover} />
+                <NavLinkImg desc="look at my art" active={activeLink} link="gallery" onHover={handleHover} />
                 <NavLinkImg desc="learn about a story i want to tell" active={activeLink} link="mtwim" onHover={handleHover} />
                 <NavLinkImg desc="play my own games here" active={activeLink} link="games" onHover={handleHover} />
                 <NavLinkImg desc="learn about my own art community" active={activeLink} link="pp" onHover={handleHover} />
-                <NavLinkImg desc="look at my art" active={activeLink} link="gallery" onHover={handleHover} />
                 <NavLinkImg desc="read my ramblings" active={activeLink} link="blog" onHover={handleHover} />
                 <NavLinkBot desc="learn more about me" active={activeLink} link="about" onHover={handleHover} />
 

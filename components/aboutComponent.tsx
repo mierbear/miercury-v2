@@ -425,8 +425,8 @@ export default function Home() {
     "i like looking into conspiracy theories for fun",
     "dont take everything i say seriously",
     "if i've pissed you off before, i love you",
+    "i never understood fanbases or being obsessed with something",
     "i might have dementia",
-    "",
   ]
 
   type ListKeys = "anime" | "music" | "games";
@@ -582,22 +582,15 @@ export default function Home() {
     <div className="min-w-screen min-h-screen max-h-screen flex flex-col items-center justify-center">
       
     <div className="
-    w-screen 
+    w-240
+    max-w-screen 
     h-screen 
-    min-[1024px]:w-[80vw]
-    min-[1280px]:w-[70vw]
-    min-[1600px]:w-[60vw]
     grid
-    grid-cols-[8fr_10fr] 
-    min-[480px]:grid-cols-[1fr_1fr]
-    min-[640px]:grid-cols-[10fr_8fr]
-    min-[768px]:grid-cols-[10fr_8fr]
-    min-[1024px]:grid-cols-[10fr_8fr]
-    min-[1280px]:grid-cols-[10fr_7fr] 
-    min-[1600px]:grid-cols-[10fr_6fr]
+    grid-cols-[1fr_1fr] 
+    md:grid-cols-[10fr_6fr]
     ">
 
-      <div className="bg-white flex flex-col items-center justify-center">
+      <div className="bg-white/10 flex flex-col items-center justify-center">
       </div>
 
       <div className="flex flex-col h-screen" ref={aboutRef}>
@@ -711,7 +704,7 @@ export default function Home() {
           {/* EMOJI */}
           <div className={`text-yellow-200 flex flex-col pt-6 self-center text-center transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
             <p className="flex text-base sm:text-lg lg:text-xl font-bold">
-              <span className={`text-yellow-200 flex origin-center mr-2.25 duration-500 transition-scale transition-mr ${meActive && "spin scale-150 mr-4"}`}>
+              <span className={`text-yellow-200 flex items-center justify-center origin-center mr-2.25 duration-500 transition-scale transition-mr ${meActive && "spin scale-150 mr-4"}`}>
                 {meActive ? "★" : "✦"}
               </span>
 
@@ -722,7 +715,7 @@ export default function Home() {
                 {meActive ? "less" : "more"} about {meActive ? "me..." : "me?"}
               </span>
 
-              <span className={`text-yellow-200 flex origin-center ml-2.25 duration-500 transition-scale transition-ml ${meActive && "spin scale-150 ml-4"}`}>
+              <span className={`text-yellow-200 flex items-center justify-center origin-center ml-2.25 duration-500 transition-scale transition-ml ${meActive && "spin scale-150 ml-4"}`}>
                 {meActive ? "★" : "✦"}
               </span>
             </p>
