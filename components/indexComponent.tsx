@@ -467,8 +467,7 @@ export default function Home() {
     const { error, data } = await supabase
       .from("art")
       .select("*")
-      .order("created_at", { ascending: false })
-      .limit(1);
+      .eq("featured", true)
     
     if (error) {
       console.error("fetch failed: ", error.message);
@@ -623,7 +622,7 @@ export default function Home() {
               >
                 <p
                 className={`text-2xl font-bold self-start pl-2 h-12 flex items-center justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
-                  <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> latest artwork
+                  <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> featured artwork
                 </p>
                 
                 {/* IMAGES */}
