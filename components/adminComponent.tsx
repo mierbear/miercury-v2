@@ -358,6 +358,29 @@ export default function page() {
     fetchArtworks();
   }
 
+  const handleArtFeature = async (id: number) => {
+    
+    const {error: clearFeaturedErr} = await supabase.from("art").update({
+      featured: false
+    }).eq("featured", true);
+
+    if (clearFeaturedErr) {
+      console.error("clear featured failed: ", clearFeaturedErr.message);
+      return;
+    }
+
+    const {error: featureErr} = await supabase.from("art").update({
+      featured: true
+    }).eq("id", id);
+
+    if (featureErr) {
+      console.error("feature failed: ", featureErr.message);
+      return;
+    }
+
+    fetchArtworks();
+  }
+
 
   return (
     <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50">
@@ -535,17 +558,25 @@ export default function page() {
               {artworks?.map((art) => {
                 return (
                   <div
-                    className="flex flex-col items-center relative"
+                    className="flex flex-col relative"
                     key={art.id}
                   >
                     <p
-                    className="text-2xl text-red-600 cursor-pointer absolute top-0.5 right-1"
-                    onClick={() => handleArtDelete(art.id)}
+                    className={`text-2xl ${art.featured ? "text-yellow-300" : "text-white"} cursor-pointer absolute top-0.5 right-1`}
+                    onClick={() => handleArtFeature(art.id)}
                     >
-                      🞮
+                      {art.featured ? "★" : "✦"}
                     </p>
                     <img src={art.url} className="w-full h-48 object-cover" />
-                    <p className="font-bold">{art.title}</p>
+                    <div className="flex justify-between items-center w-full">
+                      <p className="font-bold text-lg">{art.title}</p>
+                      <p
+                      className="text-2xl text-red-600 cursor-pointer"
+                      onClick={() => handleArtDelete(art.id)}
+                      >
+                        🞮
+                      </p>
+                    </div>
                     <p className="text-xs">{art.description}</p>
                     <p className="text-xs text-white/30">{art.date}</p>
                   </div>

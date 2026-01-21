@@ -424,7 +424,7 @@ body {
   }
 
   25% {
-    opacity: 0.3;
+    opacity: 0.7;
   }
 
   50% {
@@ -432,7 +432,7 @@ body {
   }
 
   85% {
-    opacity: 0.3;
+    opacity: 0.5;
   }
 
   100% {

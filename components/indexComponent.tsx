@@ -517,8 +517,10 @@ export default function Home() {
       </div>
 
       {/* TITLE */}
-      <div className="min-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col">
+      <div className="w-270 max-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col relative">
         <Title />
+
+        <p className="absolute text-white/4 nonsel left-0 z-50">meow</p>
       </div>
 
       {/* MAIN CONTENT */}
@@ -888,7 +890,6 @@ export default function Home() {
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">TO-DO: </p>
                     {/* <p className="text-xs">● </p> */}
-                    <p className="text-xs">● make daily popup modal</p>
                     <p className="text-xs">● DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
                     <p className="text-xs">● make illustration for top right section</p>
                     <p className="text-xs">● learn how to draw again LOL</p>
@@ -917,6 +918,7 @@ export default function Home() {
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">DONE: </p>
                     {/* <p className="text-xs">✔ </p> */}
+                    <p className="text-xs">✔ make daily popup modal</p>
                     <p className="text-xs">✔ fix the fcked up font management</p>
                     <p className="text-xs">✔ add qotd in index (what u see above rn)</p>
                     <p className="text-xs">✔ revise about me page (its so ass bruh..)</p>

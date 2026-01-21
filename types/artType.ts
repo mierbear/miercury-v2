@@ -4,6 +4,7 @@ type ArtType = {
   description: string;
   date: string;
   url: string;
+  featured: boolean;
 }
 
 export default ArtType;
