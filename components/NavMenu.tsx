@@ -66,13 +66,13 @@ const NavMenu = () => {
 
   const routes = [
     { img: "moon.png", desc: "home", href: "/" },
-    { img: "trash.svg", desc: "with everyone", href: "/characters" },
+    { img: "moon.png", desc: "with everyone", href: "/characters" },
     { img: "moon.png", desc: "somewhere cold", href: "/mtwim" },
-    { img: "trash.svg", desc: "looking for something to play", href: "/games" },
+    { img: "moon.png", desc: "looking for something to play", href: "/games" },
     { img: "moon.png", desc: "in Pacific Purgatory", href: "/pp" },
-    { img: "trash.svg", desc: "in the gallery", href: "/gallery" },
+    { img: "moon.png", desc: "in the gallery", href: "/gallery" },
     { img: "moon.png", desc: "in my mind", href: "/blog" },
-    { img: "trash.svg", desc: "here with me", href: "/about" },
+    { img: "moon.png", desc: "here with me", href: "/about" },
     { img: "moon.svg", desc: "in the secret base..", href: "/admin" },
   ]
 
@@ -163,7 +163,7 @@ const NavMenu = () => {
         `}
       >
         <img 
-        className={`slow-spin ${open ? "scale-150" : "lg:scale-20 scale-45"} transition-scale origin-center duration-500 ease-in-out nonsel pointer-events-none`}
+        className={`slow-spin ${open ? "scale-150 translate-y-30" : "lg:scale-20 scale-45 -translate-y-2"} transition-transform origin-center duration-500 ease-in-out nonsel pointer-events-none`}
         src={`/images/${currentRoute?.img}`} 
         />
       </div>
