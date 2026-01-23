@@ -163,7 +163,7 @@ const NavMenu = () => {
         `}
       >
         <img 
-        className={`slow-spin ${open ? "scale-150 translate-y-30" : "lg:scale-20 scale-45 -translate-y-5"} transition-transform origin-center duration-500 ease-in-out nonsel pointer-events-none`}
+        className={`slow-spin ${open ? "scale-150 translate-y-30" : "lg:scale-20 scale-45 -translate-y-4"} transition-transform origin-center duration-500 ease-in-out nonsel pointer-events-none`}
         src={`/images/${currentRoute?.img}`} 
         />
       </div>
