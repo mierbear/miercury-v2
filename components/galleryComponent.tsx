@@ -79,13 +79,24 @@ export default function GalleryComponent() {
         </div>
 
         {/* BOTTOM */}
-        <div className="grid grid-cols-4 gap-2 p-2">
-          {artworks.map((artwork) => (
-            <div key={artwork.id} className="flex flex-col items-center justify-center relative">
-              <p className="absolute bottom-0 text-white px-2 py-0.5 w-full bg-black/60">{artwork.title}</p>
-              <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
-            </div>
-          ))}
+        <div className="flex-col">
+
+          <div className="flex flex-col items-center w-full bg-amber-50">
+            <p className="w-full">gallery</p>
+            <p>gallery</p>
+            <p>im still thinking about how to make the gallery lol</p>
+            <p>i need to focus on drawing stuff for my website first..</p>
+          </div>
+
+          <div className="grid grid-cols-4 gap-2 p-4">
+            {artworks.map((artwork) => (
+              <div key={artwork.id} className="flex flex-col items-center justify-center relative">
+                <p className="absolute bottom-0 text-white pt-1 pb-4 px-2 w-full bg-black/60">{artwork.title}</p>
+                <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
+              </div>
+            ))}
+          </div>
+
         </div>
 
       </div>

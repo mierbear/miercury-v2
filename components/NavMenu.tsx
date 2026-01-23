@@ -66,14 +66,14 @@ const NavMenu = () => {
 
   const routes = [
     { img: "moon.png", desc: "home", href: "/" },
-    { img: "moon.png", desc: "with everyone", href: "/characters" },
-    { img: "moon.png", desc: "somewhere cold", href: "/mtwim" },
-    { img: "moon.png", desc: "looking for something to play", href: "/games" },
-    { img: "moon.png", desc: "in Pacific Purgatory", href: "/pp" },
-    { img: "moon.png", desc: "in the gallery", href: "/gallery" },
-    { img: "moon.png", desc: "in my mind", href: "/blog" },
-    { img: "moon.png", desc: "here with me", href: "/about" },
-    { img: "moon.svg", desc: "in the secret base..", href: "/admin" },
+    { img: "moonblank.png", desc: "with everyone", href: "/characters" },
+    { img: "moonblank.png", desc: "somewhere cold", href: "/mtwim" },
+    { img: "moonblank.png", desc: "looking for something to play", href: "/games" },
+    { img: "moonblank.png", desc: "in Pacific Purgatory", href: "/pp" },
+    { img: "moonblank.png", desc: "in the gallery", href: "/gallery" },
+    { img: "moonblank.png", desc: "in my mind", href: "/blog" },
+    { img: "moonblank.png", desc: "here with me", href: "/about" },
+    { img: "moonblank.png", desc: "in the secret base..", href: "/admin" },
   ]
 
   const currentRoute = routes.find((route) =>
@@ -163,7 +163,7 @@ const NavMenu = () => {
         `}
       >
         <img 
-        className={`slow-spin ${open ? "scale-150 translate-y-30" : "lg:scale-20 scale-45 -translate-y-2"} transition-transform origin-center duration-500 ease-in-out nonsel pointer-events-none`}
+        className={`slow-spin ${open ? "scale-150 translate-y-30" : "lg:scale-20 scale-45 -translate-y-5"} transition-transform origin-center duration-500 ease-in-out nonsel pointer-events-none`}
         src={`/images/${currentRoute?.img}`} 
         />
       </div>
