@@ -43,28 +43,30 @@ const NavMenu = () => {
 
       moonRef.current.style.pointerEvents = "none";
       overlayRef.current.style.pointerEvents = "none";
+      navMenuRef.current.style.opacity = "0";
       setTimeout(() => {
         navMenuRef.current!.style.display = "none";
         moonRef.current!.style.pointerEvents = "auto";
         overlayRef.current!.style.pointerEvents = "auto";
-      }, 1100);
+      }, 500);
     } else {
+      setOpen(true);
+      moonRef.current!.style.pointerEvents = "none";
+      overlayRef.current!.style.pointerEvents = "none";
       navMenuRef.current.style.display = "flex";
       setTimeout(() => {
-        setOpen(true);
-        moonRef.current!.style.pointerEvents = "none";
-        overlayRef.current!.style.pointerEvents = "none";
+        navMenuRef.current!.style.opacity = "100";
       }, 0);
       setTimeout(() => {
         moonRef.current!.style.pointerEvents = "auto";
         overlayRef.current!.style.pointerEvents = "auto";
-      }, 1000);
+      }, 500);
     }
   }
 
   const routes = [
     { img: "moon.png", desc: "home", href: "/" },
-    { img: "moon.png", desc: "with everyone", href: "/characters" },
+    { img: "moon-characters.png", desc: "with everyone", href: "/characters" },
     { img: "moonblank.png", desc: "somewhere cold", href: "/mtwim" },
     { img: "moonblank.png", desc: "looking for something to play", href: "/games" },
     { img: "moonblank.png", desc: "in Pacific Purgatory", href: "/pp" },
@@ -80,66 +82,54 @@ const NavMenu = () => {
       : pathname.startsWith(route.href)
   );
 
-  const menuRef = useRef<HTMLDivElement | null>(null);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
+    {
+      loop: true,
+      align: "center", 
+      dragFree: true,
+    },
+  );
 
   return (
     <div 
       className={`
-      fixed inset-0 flex
+      fixed inset-0 flex flex-col
       justify-center items-center text-white
       z-5555 pointer-events-none bg-linear-to-t
       via-transparent to-transparent
       duration-1000 transition-colors
-      ${open ? "from-black/50" : "from-transparent"}
+      ${open ? "from-black" : "from-transparent"}
       ${sono.className}
     `}>
 
-      {/* MESSAGE */}
-      <p 
-      className={`
-        meow absolute z-5555 items-center
-        text-center lg:items-start
-        px-7 lg:pl-12 pb-12 bottom-0
-        text-2xl w-full flex flex-col nonsel
-        transition-opacity duration-1000
-        ${open ? "opacity-100" : "opacity-0"}`}
-      >
-        you're currently {currentRoute?.desc}. where do you wish to go?
-      </p>
-
-      {/* NAVMENU */}
       <div
-        ref={navMenuRef}
-        className={`
-        bg-black/50 rounded-b-2xl h-[80vh]
-        w-screen md:w-[90%]
-        flex-col self-start justify-center 
-        items-center z-777 pointer-events-auto 
-        transition-all overflow-hidden
-        ${open ? "translate-y-0 duration-1000 ease-in-out" : "translate-y-[-100vh] duration-1100 ease-out"}
-      `}
+      className={`bg-black/50 rounded-2xl h-[50vh] w-screen lg:w-[80%] hidden opacity-0 flex-col justify-center items-center p-3.5 z-777 pointer-events-auto duration-500 transition-opacity`}
+      ref={navMenuRef}
       >
         
-        <div className="w-full h-full flex-col">
-          <div className="bg-amber-100 w-full h-full grid grid-cols-4" ref={menuRef}>
-            <NextLink href="/characters" className="landing-tile flex justify-center items-center bg-[#838177]">
-              <span>Characters</span>
-            </NextLink>
-            <NextLink href="/gallery" className="landing-tile flex justify-center items-center bg-[#616d7a]">
-              <span>Gallery</span>
-            </NextLink>
-            <NextLink href="/mtwim" className="landing-tile flex justify-center items-center bg-[#8b979b]">
-              <span>MTWIM Compendium</span>
-            </NextLink>
-            <NextLink href="/games" className="landing-tile flex justify-center items-center bg-[#8a8b7d]">
-              <span>Games</span>
-            </NextLink>
-          </div>
-        </div>
+        <p className="meow absolute z-5555 items-center text-center lg:items-start px-7 lg:pl-12 pb-12 bottom-0 text-2xl  w-full flex flex-col nonsel">you're currently {currentRoute?.desc}. where do you wish to go?</p>
 
+        <div className="text-white w-full h-full">
+
+           <div className="overflow-hidden h-full w-full rounded-xl" ref={emblaRef}>
+            <div className="flex h-full"
+            onClick={moonClickHandler}
+            >
+              <NavMenuLink title="Home" href="/" img="/images/moon.png" />
+              <NavMenuLink title="Characters" href="/characters" img="/images/characters.png" />
+              <NavMenuLink title="Mier: The Weakest Ice Mage" href="/mtwim" img="/images/mtwim.png" />
+              <NavMenuLink title="Games" href="/games" img="/images/games.png" />
+              <NavMenuLink title="Pacific Purgatory" href="/pp" img="/images/pp.png" />
+              <NavMenuLink title="Gallery" href="/gallery" img="/images/gallery.png" />
+              <NavMenuLink title="Blog" href="/blog/page/1" img="/images/blog.png" />
+              <NavMenuLink title="About Me" href="/about" img="/images/about.png" />
+            </div>
+          </div>
+
+        </div>
       </div>
-      
-      {/* MOON HITBOX */}
+
       <div
         className={`
           z-556
@@ -149,24 +139,23 @@ const NavMenu = () => {
           cursor-grab
           pointer-events-auto
           nonsel
+          -translate-y-[50vh]
           bg-black
           opacity-0
-          ${open ? "translate-y-[50vh] h-100 w-100" : "-translate-y-[50vh] h-50 w-50"}
+          ${open ? "h-200 w-200" : "h-50 w-50"}
         `}
         onClick={moonClickHandler}
         ref={moonRef}
       >
       </div>
-      
-      {/* MOON IMAGE */}
       <div
         className={`
-          z-778
+          z-555
           fixed
           left-1/2
           -translate-x-1/2
           transition-transform
-          duration-1000
+          duration-500
           ease-in-out
           pointer-events-none
           nonsel
@@ -174,16 +163,15 @@ const NavMenu = () => {
         `}
       >
         <img 
-          className={`slow-spin ${open ? "translate-y-[100vh] lg:scale-40 scale-90 duration-700" : "lg:scale-20 scale-45 duration-1100"}  transition-transform origin-center  ease-in-out nonsel pointer-events-none`}
-          src={`/images/${currentRoute?.img}`} 
+        className={`slow-spin ${open ? "scale-150 translate-y-30" : "lg:scale-20 scale-45 -translate-y-4"} transition-transform origin-center duration-500 ease-in-out nonsel pointer-events-none`}
+        src={`/images/${currentRoute?.img}`} 
         />
       </div>
       
-      {/* BLUR */}
       <div 
-        className={`${open ? "opacity-100 backdrop-blur-[2px] pointer-events-auto" : "opacity-0 invisible backdrop-blur-0 pointer-events-none"} fixed transition-opacity duration-1000 ease-in-out w-screen h-screen nonsel`}
-        onClick={() => {moonRef.current?.click()}}
-        ref={overlayRef}
+      className={`${open ? "opacity-100 backdrop-blur-[2px] pointer-events-auto" : "opacity-0 invisible backdrop-blur-0 pointer-events-none"} fixed transition-opacity duration-500 ease-in-out w-screen h-screen nonsel`}
+      onClick={() => {moonRef.current?.click()}}
+      ref={overlayRef}
       ></div>
 
     </div>
