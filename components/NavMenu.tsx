@@ -128,10 +128,21 @@ const NavMenu = () => {
         
         {/* MENU */}
         <div className="w-full h-full flex-col">
-          <div className="bg-amber-100 w-full h-full grid grid-rows-4 grid-cols-none lg:grid-cols-4 lg:grid-rows-none rounded-b-2xl overflow-hidden" ref={menuRef}>
-            <NextLink href="/characters" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#838177]">
-              <span>Characters</span>
+          <div className="w-full h-full grid grid-rows-4 grid-cols-none lg:grid-cols-4 lg:grid-rows-none rounded-b-2xl overflow-hidden relative" ref={menuRef}>
+            <NextLink
+              href="/characters"
+              onClick={moonClickHandler}
+              className="landing-tile flex justify-center items-center bg-[#838177] overflow-hidden"
+            >
+              <div className="aspect-square h-full flex justify-center items-center">
+                <img
+                  src="/images/moon-characters.png"
+                  className="slower-spin w-auto"
+                />
+              </div>
+              <p className="absolute bottom-0 text-4xl">Characters</p>
             </NextLink>
+
             <NextLink href="/gallery" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#616d7a]">
               <span>Gallery</span>
             </NextLink>
