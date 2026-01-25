@@ -121,17 +121,17 @@ const NavMenu = () => {
       >
         
         <div className="w-full h-full flex-col">
-          <div className="bg-amber-100 w-full h-full grid grid-cols-4" ref={menuRef}>
-            <NextLink href="/characters" className="landing-tile flex justify-center items-center bg-[#838177]">
+          <div className="bg-amber-100 w-full h-full grid grid-rows-4 grid-cols-none lg:grid-cols-4 lg:grid-rows-none" ref={menuRef}>
+            <NextLink href="/characters" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#838177]">
               <span>Characters</span>
             </NextLink>
-            <NextLink href="/gallery" className="landing-tile flex justify-center items-center bg-[#616d7a]">
+            <NextLink href="/gallery" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#616d7a]">
               <span>Gallery</span>
             </NextLink>
-            <NextLink href="/mtwim" className="landing-tile flex justify-center items-center bg-[#8b979b]">
+            <NextLink href="/mtwim" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#8b979b]">
               <span>MTWIM Compendium</span>
             </NextLink>
-            <NextLink href="/games" className="landing-tile flex justify-center items-center bg-[#8a8b7d]">
+            <NextLink href="/games" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#8a8b7d]">
               <span>Games</span>
             </NextLink>
           </div>
