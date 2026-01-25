@@ -1,11 +1,9 @@
 "use client";
 import gsap from "gsap";
 import { CustomEase } from "gsap/CustomEase";
-import { SplitText } from "gsap/SplitText";
 import { Boldonse } from "next/font/google"
 import { useEffect, useRef, useState } from "react";
 import NextLink from "next/link";
-import useEmblaCarousel from "embla-carousel-react";
 import { usePathname } from "next/navigation";
 import NavMenuLink from "./NavMenuLink";
 import { Sono } from "next/font/google";
@@ -36,20 +34,22 @@ const NavMenu = () => {
   const [open, setOpen] = useState(false);
   
   const moonClickHandler = () => {
-    if (navMenuRef.current === null || overlayRef.current === null || moonRef.current === null) return;
+    if (navMenuRef.current === null || overlayRef.current === null || moonRef.current === null || menuRef.current === null) return;
 
     if (open) {
       setOpen(false);
-
       moonRef.current.style.pointerEvents = "none";
       overlayRef.current.style.pointerEvents = "none";
+      menuRef.current.style.pointerEvents = "none";
       setTimeout(() => {
         navMenuRef.current!.style.display = "none";
         moonRef.current!.style.pointerEvents = "auto";
         overlayRef.current!.style.pointerEvents = "auto";
+        menuRef.current!.style.pointerEvents = "auto";
       }, 1100);
     } else {
       navMenuRef.current.style.display = "flex";
+      menuRef.current.style.pointerEvents = "none";
       setTimeout(() => {
         setOpen(true);
         moonRef.current!.style.pointerEvents = "none";
@@ -58,6 +58,7 @@ const NavMenu = () => {
       setTimeout(() => {
         moonRef.current!.style.pointerEvents = "auto";
         overlayRef.current!.style.pointerEvents = "auto";
+        menuRef.current!.style.pointerEvents = "auto";
       }, 1000);
     }
   }
@@ -93,35 +94,40 @@ const NavMenu = () => {
       ${open ? "from-black/50" : "from-transparent"}
       ${sono.className}
     `}>
-
-      {/* MESSAGE */}
-      <p 
+      
+      {/* HOME LINK */}
+      <NextLink 
+      href="/"
+      onClick={moonClickHandler}
       className={`
-        meow absolute z-5555 items-center
-        text-center lg:items-start
-        px-7 lg:pl-12 pb-12 bottom-0
-        text-2xl w-full flex flex-col nonsel
+        meow absolute z-5555
+        bottom-0 right-0
+        p-5 pointer-events-auto
+        text-2xl flex flex-col nonsel
         transition-opacity duration-1000
-        ${open ? "opacity-100" : "opacity-0"}`}
+        ${currentRoute?.href === "/" && "hidden"}
+        ${boldonse.className}
+        ${open ? "opacity-100" : "opacity-0"}
+      `}
       >
-        you're currently {currentRoute?.desc}. where do you wish to go?
-      </p>
+        GO HOME?
+      </NextLink>
 
       {/* NAVMENU */}
       <div
         ref={navMenuRef}
         className={`
-        bg-black/50 rounded-b-2xl h-[80vh]
+        h-[80vh]
         w-screen md:w-[90%]
         flex-col self-start justify-center 
         items-center z-777 pointer-events-auto 
-        transition-all overflow-hidden
+        transition-all
         ${open ? "translate-y-0 duration-1000 ease-in-out" : "translate-y-[-100vh] duration-1100 ease-out"}
       `}
       >
         
         <div className="w-full h-full flex-col">
-          <div className="bg-amber-100 w-full h-full grid grid-rows-4 grid-cols-none lg:grid-cols-4 lg:grid-rows-none" ref={menuRef}>
+          <div className="bg-amber-100 w-full h-full grid grid-rows-4 grid-cols-none lg:grid-cols-4 lg:grid-rows-none rounded-b-2xl overflow-hidden" ref={menuRef}>
             <NextLink href="/characters" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#838177]">
               <span>Characters</span>
             </NextLink>
@@ -137,6 +143,17 @@ const NavMenu = () => {
           </div>
         </div>
 
+        <p 
+        className={`
+          meow absolute z-5555 items-center
+          text-center
+          -bottom-12
+          text-lg w-full flex flex-col nonsel
+          transition-opacity duration-1000
+          ${open ? "opacity-100" : "opacity-0"}`}
+        >
+          you're currently {currentRoute?.desc}. where do you wish to go?
+        </p>
       </div>
       
       {/* MOON HITBOX */}
@@ -161,7 +178,7 @@ const NavMenu = () => {
       {/* MOON IMAGE */}
       <div
         className={`
-          z-778
+          z-776
           fixed
           left-1/2
           -translate-x-1/2
