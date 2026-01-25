@@ -100,10 +100,10 @@ const NavMenu = () => {
       href="/"
       onClick={moonClickHandler}
       className={`
-        meow absolute z-5555
-        bottom-0 right-0
-        p-5 pointer-events-auto
-        text-2xl flex flex-col nonsel
+        absolute z-5555 lg:rounded-tl-4xl rounded-tl-2xl
+        bottom-0 right-0 bg-[#17191a]/80
+        p-3 lg:p-6 pointer-events-auto
+        text-xl lg:text-4xl flex flex-col nonsel
         transition-opacity duration-1000
         ${currentRoute?.href === "/" && "hidden"}
         ${boldonse.className}
@@ -126,6 +126,7 @@ const NavMenu = () => {
       `}
       >
         
+        {/* MENU */}
         <div className="w-full h-full flex-col">
           <div className="bg-amber-100 w-full h-full grid grid-rows-4 grid-cols-none lg:grid-cols-4 lg:grid-rows-none rounded-b-2xl overflow-hidden" ref={menuRef}>
             <NextLink href="/characters" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#838177]">
@@ -143,12 +144,14 @@ const NavMenu = () => {
           </div>
         </div>
 
+        {/* MESSAGE */}
         <p 
         className={`
           meow absolute z-5555 items-center
           text-center
-          -bottom-12
-          text-lg w-full flex flex-col nonsel
+          -bottom-12 px-4
+          text-sm lg:text-lg 
+          w-full flex flex-col nonsel
           transition-opacity duration-1000
           ${open ? "opacity-100" : "opacity-0"}`}
         >
@@ -191,7 +194,12 @@ const NavMenu = () => {
         `}
       >
         <img 
-          className={`slow-spin ${open ? "translate-y-[100vh] lg:scale-40 scale-90 duration-700" : "lg:scale-20 scale-45 duration-1100"}  transition-transform origin-center  ease-in-out nonsel pointer-events-none`}
+          className={`
+            slow-spin 
+            ${open ? "translate-y-[100vh] scale-90 md:scale-74 lg:scale-60 xl:scale-40 duration-700" : "scale-45 md:scale-37 lg:scale-30 xl:scale-20 duration-1100"}
+            transition-transform origin-center
+            ease-in-out nonsel pointer-events-none
+          `}
           src={`/images/${currentRoute?.img}`} 
         />
       </div>
