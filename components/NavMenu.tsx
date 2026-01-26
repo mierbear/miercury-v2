@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import NavMenuLink from "./NavMenuLink";
 import { Sono } from "next/font/google";
 import { useRouter } from "next/navigation";
-
+import Label from "@/components/NavMenuLabel";
 
 const sono = Sono({
   weight: "400",
@@ -214,6 +214,7 @@ const NavMenu = () => {
         <div className="w-full h-full flex-col">
           <div className="w-full h-full grid grid-rows-2 grid-cols-2 xl:grid-cols-4 xl:grid-rows-none rounded-b-4xl overflow-hidden relative transition-grid ease-in-out duration-500" ref={menuRef}>
 
+            {/* CHARACTERS */}
             <div
               onClick={() => {
                 if (activeLink === "characters") {
@@ -234,26 +235,10 @@ const NavMenu = () => {
                 />
               </div>
 
-              <div className={`absolute bottom-0 h-18 xl:h-24 pb-1 w-full bg-black/70 flex flex-col items-center justify-center transition-all duration-400 ${activeLink === "characters" ? "text-yellow-200 opacity-100" : "text-white opacity-50"}`}>
-
-                <p className={`text-xl md:text-2xl lg:text-3xl transition-transform duration-500 ${activeLink === "characters" ? "translate-y-0 scale-100" : "translate-y-2.5 scale-80"} flex items-center gap-4`}>
-                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "characters" ? "spin scale-100" : "scale-80"}`}>
-                  {activeLink === "characters" ? "★" : "✦"}
-                  </span>
-
-                  CHARACTERS
-
-                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "characters" ? "spin scale-100" : "scale-80"}`}>
-                  {activeLink === "characters" ? "★" : "✦"}
-                  </span>
-                </p>
-
-                <p className={`text-sm transition-opacity duration-300 ${activeLink === "characters" ? "opacity-100" : "opacity-0"} text-nowrap`}>learn about my characters here!</p>
-
-              </div>
-              
+              <Label activeLink={activeLink} link="characters" title="CHARACTERS" desc="learn about my characters here!" />
             </div>
 
+            {/* GALLERY */}
             <div 
               onClick={() => {
                 if (activeLink === "gallery") {
@@ -267,25 +252,10 @@ const NavMenu = () => {
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#616d7a] overflow-hidden relative`}
             >
               
-              <div className={`absolute bottom-0 h-18 xl:h-24 pb-1 w-full bg-black/70 flex flex-col items-center justify-center transition-all duration-400 ${activeLink === "gallery" ? "text-yellow-200 opacity-100" : "text-white opacity-50"}`}>
-
-                <p className={`text-xl md:text-2xl lg:text-3xl transition-transform duration-500 ${activeLink === "gallery" ? "translate-y-0 scale-100" : "translate-y-2.5 scale-80"} flex items-center gap-4`}>
-                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "gallery" ? "spin scale-100" : "scale-80"}`}>
-                  {activeLink === "gallery" ? "★" : "✦"}
-                  </span>
-
-                  GALLERY
-
-                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "gallery" ? "spin scale-100" : "scale-80"}`}>
-                  {activeLink === "gallery" ? "★" : "✦"}
-                  </span>
-                </p>
-
-                <p className={`text-sm transition-opacity duration-300 ${activeLink === "gallery" ? "opacity-100" : "opacity-0"} text-nowrap`}>gaze upon my art!</p>
-
-              </div>
-
+              <Label activeLink={activeLink} link="gallery" title="GALLERY" desc="gaze upon my art!" />
             </div>
+
+            {/* MTWIM */}
             <div 
               onClick={() => {
                 if (activeLink === "mtwim") {
@@ -299,25 +269,10 @@ const NavMenu = () => {
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative`}
             >
               
-              <div className={`absolute bottom-0 h-18 xl:h-24 pb-1 w-full bg-black/70 flex flex-col items-center justify-center transition-all duration-400 ${activeLink === "mtwim" ? "text-yellow-200 opacity-100" : "text-white opacity-50"}`}>
-
-                <p className={`text-xl md:text-2xl lg:text-3xl transition-transform duration-500 ${activeLink === "mtwim" ? "translate-y-0 scale-100" : "translate-y-2.5 scale-80"} flex items-center gap-4`}>
-                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "mtwim" ? "spin scale-100" : "scale-80"}`}>
-                  {activeLink === "mtwim" ? "★" : "✦"}
-                  </span>
-
-                  MTWIM
-
-                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "mtwim" ? "spin scale-100" : "scale-80"}`}>
-                  {activeLink === "mtwim" ? "★" : "✦"}
-                  </span>
-                </p>
-
-                <p className={`text-sm transition-opacity duration-300 ${activeLink === "mtwim" ? "opacity-100" : "opacity-0"} text-nowrap`}>learn about a story i want to tell!</p>
-
-              </div>
-
+              <Label activeLink={activeLink} link="mtwim" title="MTWIM" desc="learn about a story i want to tell!" />
             </div>
+            
+            {/* GAMES */}
             <div 
               onClick={() => {
                 if (activeLink === "games") {
@@ -331,25 +286,9 @@ const NavMenu = () => {
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8a8b7d] overflow-hidden relative`}
             >
               
-              <div className={`absolute bottom-0 h-18 xl:h-24 pb-1 w-full bg-black/70 flex flex-col items-center justify-center transition-all duration-400 ${activeLink === "games" ? "text-yellow-200 opacity-100" : "text-white opacity-50"}`}>
-
-                <p className={`text-xl md:text-2xl lg:text-3xl transition-transform duration-500 ${activeLink === "games" ? "translate-y-0 scale-100" : "translate-y-2.5 scale-80"} flex items-center gap-4`}>
-                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "games" ? "spin scale-100" : "scale-80"}`}>
-                  {activeLink === "games" ? "★" : "✦"}
-                  </span>
-
-                  GAMES
-
-                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "games" ? "spin scale-100" : "scale-80"}`}>
-                  {activeLink === "games" ? "★" : "✦"}
-                  </span>
-                </p>
-
-                <p className={`text-sm transition-opacity duration-300 ${activeLink === "games" ? "opacity-100" : "opacity-0"} text-nowrap`}>play my games here!</p>
-
-              </div>
-
+              <Label activeLink={activeLink} link="games" title="GAMES" desc="play my games here!" />
             </div>
+
           </div>
         </div>
 
