@@ -1,19 +1,17 @@
 "use client";
-import gsap from "gsap";
-import { CustomEase } from "gsap/CustomEase";
 import { Boldonse } from "next/font/google"
 import { useEffect, useRef, useState } from "react";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
 import NavMenuLink from "./NavMenuLink";
 import { Sono } from "next/font/google";
+import { useRouter } from "next/navigation";
+
 
 const sono = Sono({
   weight: "400",
   subsets: ["latin"],
 })
-
-gsap.registerPlugin(CustomEase);
 
 const boldonse = Boldonse({
   weight: "400",
@@ -21,9 +19,11 @@ const boldonse = Boldonse({
 })
 
 const NavMenu = () => {
-
+  
   const [ready, setReady] = useState(false);
   useEffect(() => setReady(true), []);
+  
+  const router = useRouter();
 
   const pathname = usePathname();
   console.log(pathname);
@@ -46,6 +46,7 @@ const NavMenu = () => {
 
     if (open) {
       setOpen(false);
+      setActiveLink(null);
       moonRef.current.style.pointerEvents = "none";
       overlayRef.current.style.pointerEvents = "none";
       menuRef.current.style.pointerEvents = "none";
@@ -113,16 +114,19 @@ const NavMenu = () => {
   | "mtwim"
   | "games"
 
+  const [activeLink, setActiveLink] = useState<LinkKey | null>(null);
+
   const navMenuSelectHandler = (link: LinkKey) => {
     if (!menuRef.current) return;
     resetInlineStyles();
+    setActiveLink(link);
 
     if (isDesktop()) {
     const cols = {
-      characters:  "2fr 1fr 1fr 1fr",
-      gallery:     "1fr 2fr 1fr 1fr",
-      mtwim:       "1fr 1fr 2fr 1fr",
-      games:       "1fr 1fr 1fr 2fr",
+      characters:  "2fr 1.125fr 1.025fr .95fr",
+      gallery:     "1.05fr 2fr 1.05fr 1fr",
+      mtwim:       "1fr 1.05fr 2fr 1.05fr",
+      games:       ".95fr 1.025fr 1.125fr 2fr",
     }
 
     menuRef.current.style.gridTemplateColumns = cols[link];
@@ -210,9 +214,16 @@ const NavMenu = () => {
         <div className="w-full h-full flex-col">
           <div className="w-full h-full grid grid-rows-2 grid-cols-2 xl:grid-cols-4 xl:grid-rows-none rounded-b-2xl overflow-hidden relative transition-grid ease-in-out duration-500" ref={menuRef}>
             <div
-              onClick={() => navMenuSelectHandler("characters")}
+              onClick={() => {
+                if (activeLink === "characters") {
+                  moonClickHandler();
+                  router.push("/characters");
+                } else {
+                  navMenuSelectHandler("characters");
+                }
+              }}
               onMouseEnter={() => navMenuSelectHandler("characters")}
-              className="landing-tile flex justify-center items-center bg-[#838177] overflow-hidden relative"
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#838177] overflow-hidden relative ${activeLink === "characters" && "text-yellow-300"}`}
             >
 
               <div className="aspect-square h-[110%] md:h-[130%] xl:h-[90%] flex justify-center items-center">
@@ -226,27 +237,48 @@ const NavMenu = () => {
             </div>
 
             <div 
-              onClick={() => navMenuSelectHandler("gallery")}
+              onClick={() => {
+                if (activeLink === "gallery") {
+                  moonClickHandler();
+                  router.push("/gallery");
+                } else {
+                  navMenuSelectHandler("gallery");
+                }
+              }}
               onMouseEnter={() => navMenuSelectHandler("gallery")}
-              className="landing-tile flex justify-center items-center bg-[#616d7a]"
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#616d7a] ${activeLink === "gallery" && "text-yellow-300"}`}
             >
               
               <span>Gallery</span>
 
             </div>
             <div 
-              onClick={() => navMenuSelectHandler("mtwim")}
+              onClick={() => {
+                if (activeLink === "mtwim") {
+                  moonClickHandler();
+                  router.push("/mtwim");
+                } else {
+                  navMenuSelectHandler("mtwim");
+                }
+              }}
               onMouseEnter={() => navMenuSelectHandler("mtwim")}
-              className="landing-tile flex justify-center items-center bg-[#8b979b]"
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] ${activeLink === "mtwim" && "text-yellow-300"}`}
             >
               
               <span>MTWIM Compendium</span>
 
             </div>
             <div 
-              onClick={() => navMenuSelectHandler("games")}
+              onClick={() => {
+                if (activeLink === "games") {
+                  moonClickHandler();
+                  router.push("/games");
+                } else {
+                  navMenuSelectHandler("games");
+                }
+              }}
               onMouseEnter={() => navMenuSelectHandler("games")}
-              className="landing-tile flex justify-center items-center bg-[#8a8b7d]"
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8a8b7d] ${activeLink === "games" && "text-yellow-300"}`}
             >
               
               <span>Games</span>
