@@ -34,7 +34,15 @@ const NavMenu = () => {
   const [open, setOpen] = useState(false);
   
   const moonClickHandler = () => {
+    listReset();
     if (navMenuRef.current === null || overlayRef.current === null || moonRef.current === null || menuRef.current === null) return;
+
+    if (isDesktop()) {
+      menuRef.current.style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
+    } else {
+      menuRef.current.style.gridTemplateColumns = "1fr 1fr";
+      menuRef.current.style.gridTemplateRows = "1fr 1fr";
+    }
 
     if (open) {
       setOpen(false);
@@ -82,6 +90,78 @@ const NavMenu = () => {
   );
 
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const isDesktop = () => window.innerWidth >= 1280;
+
+  const resetInlineStyles = () => {
+    menuRef.current!.style.removeProperty("grid-template-columns");
+    menuRef.current!.style.removeProperty("grid-template-rows");
+  };
+
+  const listReset = () => {
+    if (!isDesktop()) {
+      resetInlineStyles();
+      return;
+    }
+
+    menuRef.current!.style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
+    menuRef.current!.style.removeProperty("grid-template-columns");
+  };
+
+  type LinkKey =
+  | "characters"
+  | "gallery"
+  | "mtwim"
+  | "games"
+
+  const navMenuSelectHandler = (link: LinkKey) => {
+    if (!menuRef.current) return;
+    resetInlineStyles();
+
+    if (isDesktop()) {
+    const cols = {
+      characters:  "2fr 1fr 1fr 1fr",
+      gallery:     "1fr 2fr 1fr 1fr",
+      mtwim:       "1fr 1fr 2fr 1fr",
+      games:       "1fr 1fr 1fr 2fr",
+    }
+
+    menuRef.current.style.gridTemplateColumns = cols[link];
+    } else {
+    
+    const cols = {
+      characters:  "2fr 1fr",
+      gallery:     "1fr 2fr",
+      mtwim:       "2fr 1fr",
+      games:       "1fr 2fr",
+    }
+    
+    const rows = {
+      characters:  "2fr 1fr",
+      gallery:     "2fr 1fr",
+      mtwim:       "1fr 2fr",
+      games:       "1fr 2fr",
+    }
+
+    menuRef.current.style.gridTemplateRows = rows[link];
+    menuRef.current.style.gridTemplateColumns = cols[link];
+    }
+
+  };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (isDesktop()) {
+        console.log(`is desktop :3`)
+      } else {
+        resetInlineStyles();
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <div 
@@ -128,30 +208,50 @@ const NavMenu = () => {
         
         {/* MENU */}
         <div className="w-full h-full flex-col">
-          <div className="w-full h-full grid grid-rows-2 grid-cols-2 xl:grid-cols-4 xl:grid-rows-none rounded-b-2xl overflow-hidden relative" ref={menuRef}>
-            <NextLink
-              href="/characters"
-              onClick={moonClickHandler}
+          <div className="w-full h-full grid grid-rows-2 grid-cols-2 xl:grid-cols-4 xl:grid-rows-none rounded-b-2xl overflow-hidden relative transition-grid ease-in-out duration-500" ref={menuRef}>
+            <div
+              onClick={() => navMenuSelectHandler("characters")}
+              onMouseEnter={() => navMenuSelectHandler("characters")}
               className="landing-tile flex justify-center items-center bg-[#838177] overflow-hidden relative"
             >
-              <div className="aspect-square h-[110%] xl:h-[90%] flex justify-center items-center">
+
+              <div className="aspect-square h-[110%] md:h-[130%] xl:h-[90%] flex justify-center items-center">
                 <img
                   src="/images/moon-characters.png"
                   className="slower-spin w-auto"
                 />
               </div>
               <p className="absolute bottom-0 text-4xl">Characters</p>
-            </NextLink>
+              
+            </div>
 
-            <NextLink href="/gallery" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#616d7a]">
+            <div 
+              onClick={() => navMenuSelectHandler("gallery")}
+              onMouseEnter={() => navMenuSelectHandler("gallery")}
+              className="landing-tile flex justify-center items-center bg-[#616d7a]"
+            >
+              
               <span>Gallery</span>
-            </NextLink>
-            <NextLink href="/mtwim" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#8b979b]">
+
+            </div>
+            <div 
+              onClick={() => navMenuSelectHandler("mtwim")}
+              onMouseEnter={() => navMenuSelectHandler("mtwim")}
+              className="landing-tile flex justify-center items-center bg-[#8b979b]"
+            >
+              
               <span>MTWIM Compendium</span>
-            </NextLink>
-            <NextLink href="/games" onClick={moonClickHandler} className="landing-tile flex justify-center items-center bg-[#8a8b7d]">
+
+            </div>
+            <div 
+              onClick={() => navMenuSelectHandler("games")}
+              onMouseEnter={() => navMenuSelectHandler("games")}
+              className="landing-tile flex justify-center items-center bg-[#8a8b7d]"
+            >
+              
               <span>Games</span>
-            </NextLink>
+
+            </div>
           </div>
         </div>
 
