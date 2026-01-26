@@ -128,13 +128,13 @@ const NavMenu = () => {
         
         {/* MENU */}
         <div className="w-full h-full flex-col">
-          <div className="w-full h-full grid grid-rows-4 grid-cols-none lg:grid-cols-4 lg:grid-rows-none rounded-b-2xl overflow-hidden relative" ref={menuRef}>
+          <div className="w-full h-full grid grid-rows-2 grid-cols-2 xl:grid-cols-4 xl:grid-rows-none rounded-b-2xl overflow-hidden relative" ref={menuRef}>
             <NextLink
               href="/characters"
               onClick={moonClickHandler}
-              className="landing-tile flex justify-center items-center bg-[#838177] overflow-hidden"
+              className="landing-tile flex justify-center items-center bg-[#838177] overflow-hidden relative"
             >
-              <div className="aspect-square h-full flex justify-center items-center">
+              <div className="aspect-square h-[110%] xl:h-[90%] flex justify-center items-center">
                 <img
                   src="/images/moon-characters.png"
                   className="slower-spin w-auto"
