@@ -91,7 +91,11 @@ const NavMenu = () => {
   );
 
   const menuRef = useRef<HTMLDivElement | null>(null);
+
   const isDesktop = () => window.innerWidth >= 1280;
+
+  const isPhone = typeof window !== "undefined" &&
+  window.matchMedia("(pointer: coarse)").matches;
 
   const resetInlineStyles = () => {
     menuRef.current!.style.removeProperty("grid-template-columns");
@@ -228,7 +232,7 @@ const NavMenu = () => {
             {/* CHARACTERS */}
             <div
               onClick={() => handleSelect("characters")}
-              onMouseEnter={() => navMenuSelectHandler("characters")}
+              onMouseEnter={!isPhone ? () => navMenuSelectHandler("characters") : undefined}
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#838177] overflow-hidden relative`}
             >
 
@@ -245,7 +249,7 @@ const NavMenu = () => {
             {/* GALLERY */}
             <div 
               onClick={() => handleSelect("gallery")}
-              onMouseEnter={() => navMenuSelectHandler("gallery")}
+              onMouseEnter={!isPhone ? () => navMenuSelectHandler("gallery") : undefined}
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#616d7a] overflow-hidden relative`}
             >
               
@@ -255,7 +259,7 @@ const NavMenu = () => {
             {/* MTWIM */}
             <div 
               onClick={() => handleSelect("mtwim")}
-              onMouseEnter={() => navMenuSelectHandler("mtwim")}
+              onMouseEnter={!isPhone ? () => navMenuSelectHandler("mtwim") : undefined}
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative`}
             >
               
@@ -265,7 +269,7 @@ const NavMenu = () => {
             {/* GAMES */}
             <div 
               onClick={() => handleSelect("games")}
-              onMouseEnter={() => navMenuSelectHandler("games")}
+              onMouseEnter={!isPhone ? () => navMenuSelectHandler("games") : undefined}
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8a8b7d] overflow-hidden relative`}
             >
               
