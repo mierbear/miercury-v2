@@ -167,6 +167,17 @@ const NavMenu = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const handleSelect = (link: LinkKey) => {
+    if (activeLink === link) {
+      moonClickHandler();
+      router.push(`/${link}`);
+    } else {
+      setActiveLink(link);
+      navMenuSelectHandler(link);
+    }
+  };
+
+
   return (
     <div 
       className={`
@@ -216,14 +227,7 @@ const NavMenu = () => {
 
             {/* CHARACTERS */}
             <div
-              onClick={() => {
-                if (activeLink === "characters") {
-                  moonClickHandler();
-                  router.push("/characters");
-                } else {
-                  navMenuSelectHandler("characters");
-                }
-              }}
+              onClick={() => handleSelect("characters")}
               onMouseEnter={() => navMenuSelectHandler("characters")}
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#838177] overflow-hidden relative`}
             >
@@ -240,14 +244,7 @@ const NavMenu = () => {
 
             {/* GALLERY */}
             <div 
-              onClick={() => {
-                if (activeLink === "gallery") {
-                  moonClickHandler();
-                  router.push("/gallery");
-                } else {
-                  navMenuSelectHandler("gallery");
-                }
-              }}
+              onClick={() => handleSelect("gallery")}
               onMouseEnter={() => navMenuSelectHandler("gallery")}
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#616d7a] overflow-hidden relative`}
             >
@@ -257,14 +254,7 @@ const NavMenu = () => {
 
             {/* MTWIM */}
             <div 
-              onClick={() => {
-                if (activeLink === "mtwim") {
-                  moonClickHandler();
-                  router.push("/mtwim");
-                } else {
-                  navMenuSelectHandler("mtwim");
-                }
-              }}
+              onClick={() => handleSelect("mtwim")}
               onMouseEnter={() => navMenuSelectHandler("mtwim")}
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative`}
             >
@@ -274,14 +264,7 @@ const NavMenu = () => {
             
             {/* GAMES */}
             <div 
-              onClick={() => {
-                if (activeLink === "games") {
-                  moonClickHandler();
-                  router.push("/games");
-                } else {
-                  navMenuSelectHandler("games");
-                }
-              }}
+              onClick={() => handleSelect("games")}
               onMouseEnter={() => navMenuSelectHandler("games")}
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8a8b7d] overflow-hidden relative`}
             >
