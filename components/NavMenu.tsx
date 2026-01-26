@@ -212,7 +212,8 @@ const NavMenu = () => {
         
         {/* MENU */}
         <div className="w-full h-full flex-col">
-          <div className="w-full h-full grid grid-rows-2 grid-cols-2 xl:grid-cols-4 xl:grid-rows-none rounded-b-2xl overflow-hidden relative transition-grid ease-in-out duration-500" ref={menuRef}>
+          <div className="w-full h-full grid grid-rows-2 grid-cols-2 xl:grid-cols-4 xl:grid-rows-none rounded-b-4xl overflow-hidden relative transition-grid ease-in-out duration-500" ref={menuRef}>
+
             <div
               onClick={() => {
                 if (activeLink === "characters") {
@@ -223,16 +224,33 @@ const NavMenu = () => {
                 }
               }}
               onMouseEnter={() => navMenuSelectHandler("characters")}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#838177] overflow-hidden relative ${activeLink === "characters" && "text-yellow-300"}`}
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#838177] overflow-hidden relative`}
             >
 
-              <div className="aspect-square h-[110%] md:h-[130%] xl:h-[90%] flex justify-center items-center">
+              <div className="aspect-square h-[110%] md:h-[130%] xl:h-[95%] flex justify-center items-center">
                 <img
                   src="/images/moon-characters.png"
                   className="slower-spin w-auto"
                 />
               </div>
-              <p className="absolute bottom-0 text-4xl">Characters</p>
+
+              <div className={`absolute bottom-0 h-18 xl:h-24 pb-1 w-full bg-black/70 flex flex-col items-center justify-center transition-all duration-400 ${activeLink === "characters" ? "text-yellow-200 opacity-100" : "text-white opacity-50"}`}>
+
+                <p className={`text-xl md:text-2xl lg:text-3xl transition-transform duration-500 ${activeLink === "characters" ? "translate-y-0 scale-100" : "translate-y-2.5 scale-80"} flex items-center gap-4`}>
+                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "characters" ? "spin scale-100" : "scale-80"}`}>
+                  {activeLink === "characters" ? "★" : "✦"}
+                  </span>
+
+                  CHARACTERS
+
+                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "characters" ? "spin scale-100" : "scale-80"}`}>
+                  {activeLink === "characters" ? "★" : "✦"}
+                  </span>
+                </p>
+
+                <p className={`text-sm transition-opacity duration-300 ${activeLink === "characters" ? "opacity-100" : "opacity-0"} text-nowrap`}>learn about my characters here!</p>
+
+              </div>
               
             </div>
 
@@ -246,10 +264,26 @@ const NavMenu = () => {
                 }
               }}
               onMouseEnter={() => navMenuSelectHandler("gallery")}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#616d7a] ${activeLink === "gallery" && "text-yellow-300"}`}
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#616d7a] overflow-hidden relative`}
             >
               
-              <span>Gallery</span>
+              <div className={`absolute bottom-0 h-18 xl:h-24 pb-1 w-full bg-black/70 flex flex-col items-center justify-center transition-all duration-400 ${activeLink === "gallery" ? "text-yellow-200 opacity-100" : "text-white opacity-50"}`}>
+
+                <p className={`text-xl md:text-2xl lg:text-3xl transition-transform duration-500 ${activeLink === "gallery" ? "translate-y-0 scale-100" : "translate-y-2.5 scale-80"} flex items-center gap-4`}>
+                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "gallery" ? "spin scale-100" : "scale-80"}`}>
+                  {activeLink === "gallery" ? "★" : "✦"}
+                  </span>
+
+                  GALLERY
+
+                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "gallery" ? "spin scale-100" : "scale-80"}`}>
+                  {activeLink === "gallery" ? "★" : "✦"}
+                  </span>
+                </p>
+
+                <p className={`text-sm transition-opacity duration-300 ${activeLink === "gallery" ? "opacity-100" : "opacity-0"} text-nowrap`}>gaze upon my art!</p>
+
+              </div>
 
             </div>
             <div 
@@ -262,10 +296,26 @@ const NavMenu = () => {
                 }
               }}
               onMouseEnter={() => navMenuSelectHandler("mtwim")}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] ${activeLink === "mtwim" && "text-yellow-300"}`}
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative`}
             >
               
-              <span>MTWIM Compendium</span>
+              <div className={`absolute bottom-0 h-18 xl:h-24 pb-1 w-full bg-black/70 flex flex-col items-center justify-center transition-all duration-400 ${activeLink === "mtwim" ? "text-yellow-200 opacity-100" : "text-white opacity-50"}`}>
+
+                <p className={`text-xl md:text-2xl lg:text-3xl transition-transform duration-500 ${activeLink === "mtwim" ? "translate-y-0 scale-100" : "translate-y-2.5 scale-80"} flex items-center gap-4`}>
+                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "mtwim" ? "spin scale-100" : "scale-80"}`}>
+                  {activeLink === "mtwim" ? "★" : "✦"}
+                  </span>
+
+                  MTWIM
+
+                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "mtwim" ? "spin scale-100" : "scale-80"}`}>
+                  {activeLink === "mtwim" ? "★" : "✦"}
+                  </span>
+                </p>
+
+                <p className={`text-sm transition-opacity duration-300 ${activeLink === "mtwim" ? "opacity-100" : "opacity-0"} text-nowrap`}>learn about a story i want to tell!</p>
+
+              </div>
 
             </div>
             <div 
@@ -278,10 +328,26 @@ const NavMenu = () => {
                 }
               }}
               onMouseEnter={() => navMenuSelectHandler("games")}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8a8b7d] ${activeLink === "games" && "text-yellow-300"}`}
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8a8b7d] overflow-hidden relative`}
             >
               
-              <span>Games</span>
+              <div className={`absolute bottom-0 h-18 xl:h-24 pb-1 w-full bg-black/70 flex flex-col items-center justify-center transition-all duration-400 ${activeLink === "games" ? "text-yellow-200 opacity-100" : "text-white opacity-50"}`}>
+
+                <p className={`text-xl md:text-2xl lg:text-3xl transition-transform duration-500 ${activeLink === "games" ? "translate-y-0 scale-100" : "translate-y-2.5 scale-80"} flex items-center gap-4`}>
+                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "games" ? "spin scale-100" : "scale-80"}`}>
+                  {activeLink === "games" ? "★" : "✦"}
+                  </span>
+
+                  GAMES
+
+                  <span className={`flex items-center justify-center origin-center text-3xl transition-scale duration-300 ease-in-out ${activeLink === "games" ? "spin scale-100" : "scale-80"}`}>
+                  {activeLink === "games" ? "★" : "✦"}
+                  </span>
+                </p>
+
+                <p className={`text-sm transition-opacity duration-300 ${activeLink === "games" ? "opacity-100" : "opacity-0"} text-nowrap`}>play my games here!</p>
+
+              </div>
 
             </div>
           </div>
