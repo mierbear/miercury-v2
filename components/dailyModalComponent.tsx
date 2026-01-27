@@ -1,5 +1,11 @@
 'use client';
 import { useEffect, useState } from "react";
+import { Silkscreen } from "next/font/google";
+
+const tiny5 = Silkscreen({
+  weight: "400",
+  subsets: ["latin"],
+});
 
 export default function DailyModal() {
   const [open, setOpen] = useState(false);
@@ -25,7 +31,7 @@ export default function DailyModal() {
   if (!open) return null;
 
   return (
-    <div className={`fixed left-0 right-0 bottom-12 flex items-center justify-center z-555 transition-opacity duration-3000`}>
+    <div className={`fixed left-0 right-0 bottom-12 flex items-center justify-center z-555 transition-opacity duration-3000 ${tiny5.className}`}>
       <div className="bg-white py-4 px-6 rounded-lg flex flex-col relative">
         <img src="/images/construction.gif" className="nonsel pointer-events-none fixed -translate-x-[140%]"/>
         <img src="/images/construction.gif" className="nonsel pointer-events-none fixed self-end translate-x-[140%]"/>

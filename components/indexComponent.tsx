@@ -140,7 +140,7 @@ export default function Home() {
     setPosts(data.slice(1));
     setLatestPost(data[0]);
 
-    const snippet = data[0].content.replace(/<[^>]+>/g, "").slice(0, 200);
+    const snippet = data[0].content.replace(/<[^>]+>/g, " ").slice(0, 200);
     setLatestPostSnippet(snippet);
   }
 
@@ -642,7 +642,7 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-full block lg:hidden" />
               
               {/* ART */}
-              <div className="flex flex-col items-center justify-center w-full md:px-12 relative pb-12 mt-none lg:mt-4 mb-4"
+              <div className="flex flex-col items-center justify-center w-full md:px-12 relative md:pb-12 mt-none lg:mt-4 md:mb-4"
               onMouseEnter={() => setArtHover(true)}
               onMouseLeave={() => setArtHover(false)}
               >
@@ -678,6 +678,8 @@ export default function Home() {
                 <img src="images/top.png" className="invisible hidden md:flex md:visible nonsel pointer-events-none absolute top-0 right-0 h-40"></img>
                 <img src="images/bot.png" className="invisible hidden md:flex md:visible nonsel pointer-events-none absolute bottom-0 left-0 h-40"></img>
               </div>
+
+              <hr className="my-4 border-gray-500/30 w-full block md:hidden" />
 
               {/* MISC */}
               <div className="grid md:grid-cols-[1.618fr_1fr] md:grid-rows-none grid-cols-none text-white w-full gap-4">
@@ -933,7 +935,6 @@ export default function Home() {
                     <p className="text-xs">● set up favicons for each route</p>
                     <p className="text-xs">● set up different 'moons' for each route</p>
                     <p className="text-xs">● make the ocs page</p>
-                    <p className="text-xs">● make the gallery page</p>
                     <p className="text-xs">● make the mtwim page</p>
                     <p className="text-xs">● finish the scrollTrigger course</p>
                     <p className="text-xs">● add more ppl to stars bg (revise it even)</p>
@@ -950,6 +951,10 @@ export default function Home() {
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">DONE: </p>
                     {/* <p className="text-xs">✔ </p> */}
+                    <p className="text-xs">✔ bring back old drawer navmenu style</p>
+                    <p className="text-xs">✔ make gallery page</p>
+                    <p className="text-xs">✔ show featured art in index</p>
+                    <p className="text-xs">✔ make daily popup modal persist across routes</p>
                     <p className="text-xs">✔ make daily popup modal</p>
                     <p className="text-xs">✔ fix the fcked up font management</p>
                     <p className="text-xs">✔ add qotd in index (what u see above rn)</p>
@@ -1014,7 +1019,7 @@ export default function Home() {
             >admin@miercury.com</a>
           </p>
 
-          <div className="right-1 absolute">
+          <div className={`right-1 absolute flex items-center justify-center lg:visible invisible`}>
             <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 text-xs hover:underline blue cursor-pointer nonsel">log in</p>
           </div>
 

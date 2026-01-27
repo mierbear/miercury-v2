@@ -239,7 +239,7 @@ const NavMenu = () => {
               <div className="aspect-square h-[110%] md:h-[130%] xl:h-[95%] flex justify-center items-center">
                 <img
                   src="/images/moon-characters.png"
-                  className="slower-spin w-auto"
+                  className="slower-spin w-auto nonsel pointer-events-none"
                 />
               </div>
 
