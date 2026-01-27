@@ -20,6 +20,7 @@ import LogType from "@/types/logType";
 import ArtType from "@/types/artType";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
+import { useRouter } from "next/navigation";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -48,6 +49,11 @@ export default function Home() {
   const [latestPost, setLatestPost] = useState<PostType | null>(null);
   const [latestPostSnippet, setLatestPostSnippet] = useState<string | null>(null);
   
+  const isPhone = typeof window !== "undefined" &&
+  window.matchMedia("(pointer: coarse)").matches;
+  
+  const router = useRouter();
+
   const handleDiscordLink = () => {
   navigator.clipboard.writeText("miermiermiermier");
 
@@ -410,20 +416,6 @@ export default function Home() {
   //   featArtMiniRef.current.src = `/images/${src}`;
   // }
 
-  const mierDrawingRef = useRef<HTMLImageElement | null>(null);
-  const [mierDrawing, setMierDrawing] = useState(true);
-  const [toolTipStatus, setToolTipStatus] = useState(false);
-
-  const mierDrawingHoverHandler = () => {
-    setMierDrawing(false);
-    setToolTipStatus(true);
-  }
-  
-  const mierDrawingUnhoverHandler = () => {
-    setMierDrawing(true);
-    setToolTipStatus(false);
-  }
-
   const loadingScreenRef = useRef<HTMLDivElement | null>(null);
 
   const vertAdRef = useRef<HTMLParagraphElement | null>(null);
@@ -506,6 +498,40 @@ export default function Home() {
       tl.kill();
     };
   }, []);
+
+  const mierDrawingRef = useRef<HTMLImageElement | null>(null);
+  const [mierDrawing, setMierDrawing] = useState(true);
+  const [toolTipStatus, setToolTipStatus] = useState(false);
+  const mierTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const mierDrawingHoverHandler = () => {
+    setMierDrawing(false);
+    setToolTipStatus(true);
+  }
+  
+  const mierDrawingUnhoverHandler = () => {
+    setMierDrawing(true);
+    setToolTipStatus(false);
+  }
+
+  const mierDrawingClickHandler = () => {
+    if (mierDrawing) {
+      setMierDrawing(false);
+
+      if (mierTimerRef.current) {
+        clearTimeout(mierTimerRef.current);
+      }
+
+      mierTimerRef.current = setTimeout(() => {
+        setMierDrawing(true);
+        mierTimerRef.current = null;
+      }, 2000);
+
+    } else {
+      router.push("/gallery");
+    }
+  };
+
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -629,9 +655,16 @@ export default function Home() {
                 <div className="relative flex items-center justify-center flex-col bg-[#17191a] mb-4">
                   <img ref={featArtRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel`} />
                   <img ref={featArtMiniRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
-                  <NextLink href="/gallery">
-                    <img ref={mierDrawingRef} src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} className="nonsel absolute bottom-0 right-0 h-60 origin-bottom-right translate-x-10 translate-y-40" onMouseEnter={() => mierDrawingHoverHandler()} onMouseLeave={() => mierDrawingUnhoverHandler()} />
-                  </NextLink>
+                  <div>
+                    <img 
+                      ref={mierDrawingRef} 
+                      src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} 
+                      className="nonsel absolute bottom-0 right-0 h-60 origin-bottom-right translate-x-10 translate-y-40 cursor-pointer" 
+                      onClick={() => mierDrawingClickHandler()}
+                      onMouseEnter={!isPhone ? () => mierDrawingHoverHandler() : undefined} 
+                      onMouseLeave={() => mierDrawingUnhoverHandler()}
+                    />
+                  </div>
                 </div>
 
                 {/* ART INFO */}
