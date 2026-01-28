@@ -596,3 +596,25 @@ div[data-youtube-video] iframe {
 .active-tab {
   box-shadow: 0px 0px 15px 10px #FFFFFF;
 }
+
+@keyframes figure-breathe {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.figure-breathe {
+  animation: figure-breathe 4s ease-in-out infinite;
+}
+
+.figure-breathe-slow {
+  animation: figure-breathe 6s ease-in-out infinite;
+}

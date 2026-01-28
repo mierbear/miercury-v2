@@ -285,14 +285,14 @@ const NavMenu = () => {
                 <div className="relative overflow-hidden">
                   <img
                     src="/images/kaninfigure.png"
-                    className="absolute right-2 h-full w-auto max-w-none nonsel pointer-events-none scale-x-[-1]"
+                    className="absolute right-2 h-full w-auto max-w-none nonsel figure-breathe pointer-events-none scale-x-[-1]"
                   />
                 </div>
 
                 <div className="relative overflow-hidden">
                   <img
                     src="/images/mierfigure.png"
-                    className="absolute left-2 h-full w-auto max-w-none nonsel pointer-events-none"
+                    className="absolute left-2 h-full w-auto max-w-none nonsel figure-breathe-slow pointer-events-none"
                   />
                 </div>
               </div>
