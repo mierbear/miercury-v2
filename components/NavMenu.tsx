@@ -281,8 +281,22 @@ const NavMenu = () => {
                 <img ref={featArtRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel landing-tile-img`} />
               </div>
 
-              <img src="/images/kaninfigure.png" className="absolute bottom-0 -left-6 h-[30%] scale-x-[-1]" />
-              <img src="/images/mierfigure.png" className="absolute bottom-0 -right-6 h-[30%]" />
+              <div className="absolute bottom-0 w-full h-[50%] xl:h-[40%] grid grid-cols-2">
+                <div className="relative overflow-hidden">
+                  <img
+                    src="/images/kaninfigure.png"
+                    className="absolute right-2 h-full w-auto max-w-none scale-x-[-1]"
+                  />
+                </div>
+
+                <div className="relative overflow-hidden">
+                  <img
+                    src="/images/mierfigure.png"
+                    className="absolute left-2 h-full w-auto max-w-none"
+                  />
+                </div>
+              </div>
+              {/* <img src="/images/mierfigure.png" className="absolute bottom-0 -right-6 h-[30%]" /> */}
 
               <Label activeLink={activeLink} link="gallery" title="GALLERY" desc="gaze upon my art!" />
             </div>
