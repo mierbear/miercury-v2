@@ -257,13 +257,13 @@ const NavMenu = () => {
             <div
               onClick={() => handleSelect("characters")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("characters") : undefined}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#838177] overflow-hidden relative`}
+              className={`cursor-pointer flex justify-center items-center bg-[#838177] overflow-hidden relative`}
             >
 
               <div className="aspect-square h-[110%] md:h-[130%] xl:h-[95%] flex justify-center items-center">
                 <img
                   src="/images/moon-characters.png"
-                  className="slower-spin w-auto nonsel pointer-events-none"
+                  className="slower-spin w-auto nonsel pointer-events-none landing-tile-img"
                 />
               </div>
 
@@ -274,12 +274,15 @@ const NavMenu = () => {
             <div 
               onClick={() => handleSelect("gallery")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("gallery") : undefined}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#616d7a] overflow-hidden relative`}
+              className={`cursor-pointer flex justify-center items-center bg-[#616d7a] overflow-hidden relative`}
             >
 
               <div className="h-[90%] absolute flex justify-center items-center">
-                <img ref={featArtRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel`} />
+                <img ref={featArtRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel landing-tile-img`} />
               </div>
+
+              <img src="/images/kaninfigure.png" className="absolute bottom-0 -left-6 h-[30%] scale-x-[-1]" />
+              <img src="/images/mierfigure.png" className="absolute bottom-0 -right-6 h-[30%]" />
 
               <Label activeLink={activeLink} link="gallery" title="GALLERY" desc="gaze upon my art!" />
             </div>
