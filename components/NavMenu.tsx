@@ -7,6 +7,8 @@ import NavMenuLink from "./NavMenuLink";
 import { Sono } from "next/font/google";
 import { useRouter } from "next/navigation";
 import Label from "@/components/NavMenuLabel";
+import ArtType from "@/types/artType";
+import supabase from "@/lib/supabaseClient";
 
 const sono = Sono({
   weight: "400",
@@ -21,7 +23,6 @@ const boldonse = Boldonse({
 const NavMenu = () => {
   
   const [ready, setReady] = useState(false);
-  useEffect(() => setReady(true), []);
   
   const router = useRouter();
 
@@ -181,6 +182,29 @@ const NavMenu = () => {
     }
   };
 
+  const featArtRef = useRef<HTMLImageElement | null>(null);
+  const [artwork, setArtwork] = useState<ArtType | null>(null);
+    
+  const fetchArt = async () => {
+    const { error, data } = await supabase
+      .from("art")
+      .select("*")
+      .eq("featured", true)
+    
+    if (error) {
+      console.error("fetch failed: ", error.message);
+      return;
+    }
+    
+    console.log(data);
+    setArtwork(data[0]);
+  }
+
+  useEffect(() => {
+    setReady(true);
+    fetchArt();
+  }, []);
+
 
   return (
     <div 
@@ -252,7 +276,11 @@ const NavMenu = () => {
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("gallery") : undefined}
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#616d7a] overflow-hidden relative`}
             >
-              
+
+              <div className="h-[90%] absolute flex justify-center items-center">
+                <img ref={featArtRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel`} />
+              </div>
+
               <Label activeLink={activeLink} link="gallery" title="GALLERY" desc="gaze upon my art!" />
             </div>
 
