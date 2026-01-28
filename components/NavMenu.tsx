@@ -263,7 +263,7 @@ const NavMenu = () => {
               <div className="aspect-square h-[110%] md:h-[130%] xl:h-[95%] flex justify-center items-center">
                 <img
                   src="/images/moon-characters.png"
-                  className="slower-spin w-auto nonsel pointer-events-none landing-tile-img"
+                  className="slower-spin w-auto nonsel pointer-events-none"
                 />
               </div>
 
@@ -278,25 +278,24 @@ const NavMenu = () => {
             >
 
               <div className="h-[90%] absolute flex justify-center items-center">
-                <img ref={featArtRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel landing-tile-img`} />
+                <img ref={featArtRef} src={artwork?.url} className={`w-full h-full object-cover nonsel pointer-events-none`} />
               </div>
 
               <div className="absolute bottom-0 w-full h-[50%] xl:h-[40%] grid grid-cols-2">
                 <div className="relative overflow-hidden">
                   <img
                     src="/images/kaninfigure.png"
-                    className="absolute right-2 h-full w-auto max-w-none scale-x-[-1]"
+                    className="absolute right-2 h-full w-auto max-w-none nonsel pointer-events-none scale-x-[-1]"
                   />
                 </div>
 
                 <div className="relative overflow-hidden">
                   <img
                     src="/images/mierfigure.png"
-                    className="absolute left-2 h-full w-auto max-w-none"
+                    className="absolute left-2 h-full w-auto max-w-none nonsel pointer-events-none"
                   />
                 </div>
               </div>
-              {/* <img src="/images/mierfigure.png" className="absolute bottom-0 -right-6 h-[30%]" /> */}
 
               <Label activeLink={activeLink} link="gallery" title="GALLERY" desc="gaze upon my art!" />
             </div>
