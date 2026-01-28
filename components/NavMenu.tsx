@@ -317,7 +317,7 @@ const NavMenu = () => {
                   {crowd[0] && (
                     <img
                       src={`/images/figure-${crowd[0].name}.png`}
-                      className={`absolute right-5 h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[0].pace}`}
+                      className={`absolute ${crowd[0].name === "ignatius" ? "right-0" : "right-5"} h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[0].pace}`}
                     />
                   )}
                 </div>
@@ -326,7 +326,7 @@ const NavMenu = () => {
                   {crowd[1] && (
                     <img
                       src={`/images/figure-${crowd[1].name}.png`}
-                      className={`absolute left-5 h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[1].pace}`}
+                      className={`absolute ${crowd[0].name === "ignatius" ? "left-0" : "left-5"} h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[1].pace}`}
                     />
                   )}
                 </div>
