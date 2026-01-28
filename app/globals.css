@@ -603,7 +603,7 @@ div[data-youtube-video] iframe {
   }
 
   50% {
-    transform: translateY(4px);
+    transform: translateY(3px);
   }
 
   100% {
@@ -611,7 +611,11 @@ div[data-youtube-video] iframe {
   }
 }
 
-.figure-breathe {
+.figure-breathe-fast {
+  animation: figure-breathe 2.5s ease-in-out infinite;
+}
+
+.figure-breathe-medium {
   animation: figure-breathe 4s ease-in-out infinite;
 }
 

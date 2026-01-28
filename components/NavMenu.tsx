@@ -9,6 +9,7 @@ import { useRouter } from "next/navigation";
 import Label from "@/components/NavMenuLabel";
 import ArtType from "@/types/artType";
 import supabase from "@/lib/supabaseClient";
+import { get } from "http";
 
 const sono = Sono({
   weight: "400",
@@ -205,6 +206,36 @@ const NavMenu = () => {
     fetchArt();
   }, []);
 
+  type CrowdType = {
+    name: string;
+    pace: string;
+    position: string;
+  }
+
+  const potentialCrowd = [
+    { name: "aurelius", pace: "medium", position: "right" },
+    { name: "rufus" , pace: "fast", position: "right" },
+    { name: "brutus" , pace: "slow", position: "left" },
+    { name: "ignatius" , pace: "fast", position: "left" },
+  ];
+
+  const [crowd, setCrowd] = useState<CrowdType[]>([])
+
+  const randomizer = (arr: CrowdType[]) => {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  const getCrowd = () => {
+    const data = [];
+    data.push(randomizer(potentialCrowd.filter((person) => person.position === "left")))
+    data.push(randomizer(potentialCrowd.filter((person) => person.position === "right")))
+    console.log(data);
+    setCrowd(data); 
+  }
+
+  useEffect(() => {
+    getCrowd();
+  }, [])
 
   return (
     <div 
@@ -283,17 +314,21 @@ const NavMenu = () => {
 
               <div className="absolute bottom-0 w-full h-[50%] xl:h-[40%] grid grid-cols-2">
                 <div className="relative overflow-hidden">
-                  <img
-                    src="/images/kaninfigure.png"
-                    className="absolute right-2 h-full w-auto max-w-none nonsel figure-breathe pointer-events-none scale-x-[-1]"
-                  />
+                  {crowd[0] && (
+                    <img
+                      src={`/images/figure-${crowd[0].name}.png`}
+                      className={`absolute right-5 h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[0].pace}`}
+                    />
+                  )}
                 </div>
 
                 <div className="relative overflow-hidden">
-                  <img
-                    src="/images/mierfigure.png"
-                    className="absolute left-2 h-full w-auto max-w-none nonsel figure-breathe-slow pointer-events-none"
-                  />
+                  {crowd[1] && (
+                    <img
+                      src={`/images/figure-${crowd[1].name}.png`}
+                      className={`absolute left-5 h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[1].pace}`}
+                    />
+                  )}
                 </div>
               </div>
 
