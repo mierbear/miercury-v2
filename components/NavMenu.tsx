@@ -288,7 +288,7 @@ const NavMenu = () => {
             <div
               onClick={() => handleSelect("characters")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("characters") : undefined}
-              className={`cursor-pointer flex justify-center items-center bg-[#838177] overflow-hidden relative`}
+              className={`cursor-pointer flex justify-center items-center bg-[#838177] overflow-hidden relative transition-saturate duration-400 ${activeLink === "characters" ? "saturate-100 brightness-100" : "saturate-60 brightness-60"}`}
             >
 
               <div className="aspect-square h-[110%] md:h-[130%] xl:h-[95%] flex justify-center items-center">
@@ -305,13 +305,13 @@ const NavMenu = () => {
             <div 
               onClick={() => handleSelect("gallery")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("gallery") : undefined}
-              className={`cursor-pointer flex justify-center items-center bg-[#393a3b] overflow-hidden relative`}
+              className={`cursor-pointer flex justify-center items-center bg-[#393a3b] overflow-hidden relative duration-400 ${activeLink === "gallery" ? "saturate-100 brightness-100" : "saturate-60 brightness-60"}`}
             >
               
               {/* LIGHTS */}
               <div className="absolute w-full h-full grid grid-cols-2 z-800 opacity-70">
-                <img className="w-full h-full" src="/images/light.png" />
-                <img className="w-full h-full scale-x-[-1]" src="/images/light.png" />
+                <img className="w-full h-full nonsel pointer-events-none" src="/images/light.png" />
+                <img className="w-full h-full nonsel pointer-events-none scale-x-[-1]" src="/images/light.png" />
               </div>
 
               {/* FEATURED ARTWORK */}
@@ -351,7 +351,7 @@ const NavMenu = () => {
             <div 
               onClick={() => handleSelect("mtwim")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("mtwim") : undefined}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative`}
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative duration-400 ${activeLink === "mtwim" ? "saturate-100 brightness-100" : "saturate-60 brightness-60"}`}
             >
               
               <Label activeLink={activeLink} link="mtwim" title="MTWIM" desc="learn about a story i want to tell!" />
@@ -361,7 +361,7 @@ const NavMenu = () => {
             <div 
               onClick={() => handleSelect("games")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("games") : undefined}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8a8b7d] overflow-hidden relative`}
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8a8b7d] overflow-hidden relative duration-400 ${activeLink === "games" ? "saturate-100 brightness-100" : "saturate-60 brightness-60"}`}
             >
               
               <Label activeLink={activeLink} link="games" title="GAMES" desc="play my games here!" />
