@@ -305,7 +305,7 @@ const NavMenu = () => {
             <div 
               onClick={() => handleSelect("gallery")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("gallery") : undefined}
-              className={`cursor-pointer flex justify-center items-center bg-[#616d7a] overflow-hidden relative`}
+              className={`cursor-pointer flex justify-center items-center bg-[#393a3b] overflow-hidden relative`}
             >
 
               <div className="h-[90%] absolute flex justify-center items-center">
@@ -313,20 +313,20 @@ const NavMenu = () => {
               </div>
 
               <div className="absolute bottom-0 w-full h-[50%] xl:h-[40%] grid grid-cols-2">
-                <div className="relative overflow-hidden">
+                <div className="relative">
                   {crowd[0] && (
                     <img
                       src={`/images/figure-${crowd[0].name}.png`}
-                      className={`absolute ${crowd[0].name === "ignatius" ? "right-0" : "right-5"} h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[0].pace}`}
+                      className={`absolute ${crowd[0].name === "ignatius" ? "-right-4" : "right-5"} h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[0].pace}`}
                     />
                   )}
                 </div>
 
-                <div className="relative overflow-hidden">
+                <div className="relative">
                   {crowd[1] && (
                     <img
                       src={`/images/figure-${crowd[1].name}.png`}
-                      className={`absolute ${crowd[0].name === "ignatius" ? "left-0" : "left-5"} h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[1].pace}`}
+                      className={`absolute ${crowd[0].name === "ignatius" ? "left-4" : "left-5"} h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[1].pace}`}
                     />
                   )}
                 </div>
