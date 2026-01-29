@@ -624,8 +624,8 @@ export default function Home() {
                   </div>
                 </div>
                 
-                <button onClick={scrollPrev} className="absolute cursor-pointer left-4">←</button>
-                <button onClick={scrollNext} className="absolute cursor-pointer right-4">→</button>
+                <button onClick={scrollPrev} className="absolute cursor-pointer text-xl h-full transition-bg duration-400 hover:bg-black/50 px-4 left-0">🠴</button>
+                <button onClick={scrollNext} className="absolute cursor-pointer text-xl h-full transition-bg duration-400 hover:bg-black/50 px-4 right-0">🠶</button>
                 <div className="flex gap-2 justify-center absolute bottom-2">
                   {slides.map((_, i) => (
                     <button
