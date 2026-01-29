@@ -307,12 +307,22 @@ const NavMenu = () => {
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("gallery") : undefined}
               className={`cursor-pointer flex justify-center items-center bg-[#393a3b] overflow-hidden relative`}
             >
+              
+              {/* LIGHTS */}
+              <div className="absolute w-full h-full grid grid-cols-2 z-800 opacity-70">
+                <img className="w-full h-full" src="/images/light.png" />
+                <img className="w-full h-full scale-x-[-1]" src="/images/light.png" />
+              </div>
 
+              {/* FEATURED ARTWORK */}
               <div className="h-[90%] absolute flex justify-center items-center">
                 <img ref={featArtRef} src={artwork?.url} className={`w-full h-full object-cover nonsel pointer-events-none`} />
               </div>
 
+              {/* CHARACTERS */}
               <div className="absolute bottom-0 w-full h-[50%] xl:h-[40%] grid grid-cols-2">
+
+                {/* LEFT SIDE */}
                 <div className="relative">
                   {crowd[0] && (
                     <img
@@ -322,6 +332,7 @@ const NavMenu = () => {
                   )}
                 </div>
 
+                {/* RIGHT SIDE */}
                 <div className="relative">
                   {crowd[1] && (
                     <img
@@ -330,6 +341,7 @@ const NavMenu = () => {
                     />
                   )}
                 </div>
+
               </div>
 
               <Label activeLink={activeLink} link="gallery" title="GALLERY" desc="gaze upon my art!" />
