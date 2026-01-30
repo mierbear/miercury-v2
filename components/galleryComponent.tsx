@@ -1,7 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import supabase from "@/lib/supabaseClient";
 import ArtType from "@/types/artType";
+import { useReactNodeView } from "@tiptap/react";
 
 export default function GalleryComponent() {
 
@@ -46,15 +47,24 @@ export default function GalleryComponent() {
     fetchArtworks();
   }, []);
 
-  return (
-    <main className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col">
+  const lightBoxRef = useRef<HTMLDivElement | null>(null);
+  const [lightBoxOpen, setLightBoxOpen] = useState(false);
+  const [currentArt, setCurrentArt] = useState<string>("/images/pfp.png");
 
+  const openLightBox = (url: string) => {
+    setCurrentArt(url);
+    setLightBoxOpen(true);
+  }
+
+  return (
+    <main className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative">
+
+      {/* HEADER */}
       <div className="w-300 max-w-screen flex flex-col justify-end items-center h-[12vh]">
         <p className="text-white">gallery</p>  
       </div>
 
       {/* CONTENT */}
-      {/* DONT FORGET TO REMOVE MIN H SCREEN */}
       <div className="bg-white/50 w-300 max-w-screen min-h-screen flex flex-col border-2 border-black border-b-0">
 
         {/* TOP */}
@@ -90,7 +100,7 @@ export default function GalleryComponent() {
 
           <div className="grid grid-cols-4 gap-2 p-4">
             {artworks.map((artwork) => (
-              <div key={artwork.id} className="flex flex-col items-center justify-center relative">
+              <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer" onClick={() => openLightBox(artwork.url)}>
                 <p className="absolute bottom-0 text-white pt-1 pb-4 px-2 w-full bg-black/60">{artwork.title}</p>
                 <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
               </div>
@@ -100,5 +110,15 @@ export default function GalleryComponent() {
         </div>
 
       </div>
+
+      {/* LIGHTBOX */}
+      <div
+        className={`${lightBoxOpen ? "fixed" : "hidden"} inset-0 w-screen h-screen backdrop-blur-lg bg-black/50 z-55555 flex items-center justify-center`}
+        ref={lightBoxRef}
+        onClick={() => {setLightBoxOpen(false)}}
+      >
+        <img src={currentArt} className="h-[90%] nonsel pointer-events-none"/>
+      </div>
+
     </main>
   )};
