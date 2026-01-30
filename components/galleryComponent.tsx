@@ -5,6 +5,7 @@ import ArtType from "@/types/artType";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Captions from "yet-another-react-lightbox/plugins/captions";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 
 export default function GalleryComponent() {
 
@@ -125,7 +126,7 @@ export default function GalleryComponent() {
         close={() => setLightBoxOpen(false)}
         slides={slides}
         index={currentIndex}
-        plugins={[Zoom, Captions]}
+        plugins={[Zoom, Captions, Fullscreen]}
         zoom={{
           scrollToZoom: true,
           maxZoomPixelRatio: 10,
@@ -140,6 +141,7 @@ export default function GalleryComponent() {
             backgroundColor: "rgba(23, 25, 26, 0.60)",
             backdropFilter: "blur(4px)",
           },
+          
         }}
         captions={{
           showToggle: true,
