@@ -51,6 +51,7 @@ export default function GalleryComponent() {
   }, []);
 
   const [lightBoxOpen, setLightBoxOpen] = useState(false);
+  const [featuredLightBoxOpen, setFeaturedLightBoxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const openLightBox = (index: number) => {
@@ -81,7 +82,10 @@ export default function GalleryComponent() {
 
           {/* FEATURED ART */}
           <div className="flex flex-col items-center bg-black/20 ">
-            <img src={featArtwork?.url} style={{ pointerEvents: "none" }} className={`nonsel max-h-152`} />
+            <img src={featArtwork?.url}
+              className={`nonsel max-h-152 cursor-pointer`} 
+              onClick={() => setFeaturedLightBoxOpen(true)}
+            />
           </div>
 
           {/* INFO */}
@@ -141,11 +145,41 @@ export default function GalleryComponent() {
             backgroundColor: "rgba(23, 25, 26, 0.60)",
             backdropFilter: "blur(4px)",
           },
-          
         }}
         captions={{
           showToggle: true,
           descriptionTextAlign: "center",
+        }}
+      />
+
+      {/* FEATURED ART LIGHTBOX */}
+      <Lightbox
+        open={featuredLightBoxOpen}
+        close={() => setFeaturedLightBoxOpen(false)}
+        slides={[{ src: featArtwork?.url || "", title: featArtwork?.title || "", description: featArtwork?.description || "" }]}
+        plugins={[Zoom, Captions, Fullscreen]}
+        zoom={{
+          scrollToZoom: true,
+          maxZoomPixelRatio: 10,
+          zoomInMultiplier: 1.5,
+          doubleTapDelay: 300,
+          doubleClickDelay: 300,
+          wheelZoomDistanceFactor: 600,
+          pinchZoomDistanceFactor: 600,
+        }}
+        styles={{
+          container: {
+            backgroundColor: "rgba(23, 25, 26, 0.60)",
+            backdropFilter: "blur(4px)",
+          },
+        }}
+        captions={{
+          showToggle: true,
+          descriptionTextAlign: "center",
+        }}
+        render={{
+          buttonPrev: () => null,
+          buttonNext: () => null,
         }}
       />
 
