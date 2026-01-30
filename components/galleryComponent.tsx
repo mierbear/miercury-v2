@@ -4,7 +4,7 @@ import supabase from "@/lib/supabaseClient";
 import ArtType from "@/types/artType";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
-import "yet-another-react-lightbox/styles.css";
+import Captions from "yet-another-react-lightbox/plugins/captions";
 
 export default function GalleryComponent() {
 
@@ -50,12 +50,19 @@ export default function GalleryComponent() {
   }, []);
 
   const [lightBoxOpen, setLightBoxOpen] = useState(false);
-  const [currentArt, setCurrentArt] = useState<string>("/images/pfp.png");
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const openLightBox = (url: string) => {
-    setCurrentArt(url);
+  const openLightBox = (index: number) => {
+    setCurrentIndex(index);
     setLightBoxOpen(true);
   }
+
+  const slides = artworks.map((art) => ({
+    src: art.url,
+    title: art.title,
+    description: art.description,
+  }));
+
 
   return (
     <main className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative">
@@ -100,8 +107,8 @@ export default function GalleryComponent() {
           </div>
 
           <div className="grid grid-cols-4 gap-2 p-4">
-            {artworks.map((artwork) => (
-              <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer" onClick={() => openLightBox(artwork.url)}>
+            {artworks.map((artwork, index) => (
+              <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer" onClick={() => openLightBox(index)}>
                 <p className="absolute bottom-0 text-white pt-1 pb-4 px-2 w-full bg-black/60">{artwork.title}</p>
                 <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
               </div>
@@ -116,16 +123,27 @@ export default function GalleryComponent() {
       <Lightbox
         open={lightBoxOpen}
         close={() => setLightBoxOpen(false)}
-        slides={[{ src: currentArt }]}
-        plugins={[Zoom]}
+        slides={slides}
+        index={currentIndex}
+        plugins={[Zoom, Captions]}
         zoom={{
           scrollToZoom: true,
-          maxZoomPixelRatio: 5,
+          maxZoomPixelRatio: 10,
           zoomInMultiplier: 1.5,
           doubleTapDelay: 300,
           doubleClickDelay: 300,
-          wheelZoomDistanceFactor: 100,
-          pinchZoomDistanceFactor: 100,
+          wheelZoomDistanceFactor: 600,
+          pinchZoomDistanceFactor: 600,
+        }}
+        styles={{
+          container: {
+            backgroundColor: "rgba(23, 25, 26, 0.60)",
+            backdropFilter: "blur(4px)",
+          },
+        }}
+        captions={{
+          showToggle: true,
+          descriptionTextAlign: "center",
         }}
       />
 

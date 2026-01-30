@@ -5,6 +5,8 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "tiptap-extension-resizable-image/styles.css";
 import "./globals.css";
+import "yet-another-react-lightbox/styles.css";
+import "yet-another-react-lightbox/plugins/captions.css";
 
 export const metadata: Metadata = {
   title: "Miercury",
