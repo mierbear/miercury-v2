@@ -56,6 +56,35 @@ export default function GalleryComponent() {
     setLightBoxOpen(true);
   }
 
+  const [zoom, setZoom] = useState(1);
+
+  useEffect(() => {
+    const handleWheel = (e: WheelEvent) => {
+      if (lightBoxOpen) {
+        e.preventDefault();
+        
+        setZoom((prevZoom) => {
+          const delta = e.deltaY * -0.003;
+          const newZoom = prevZoom + delta;
+          
+          return Math.min(Math.max(newZoom, 0.5), 10);
+        });
+      }
+    };
+
+    window.addEventListener('wheel', handleWheel, { passive: false });
+    
+    return () => {
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [lightBoxOpen]);
+
+  useEffect(() => {
+    if (!lightBoxOpen) {
+      setZoom(1);
+    }
+  }, [lightBoxOpen]);
+
   return (
     <main className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative">
 
@@ -117,7 +146,15 @@ export default function GalleryComponent() {
         ref={lightBoxRef}
         onClick={() => {setLightBoxOpen(false)}}
       >
-        <img src={currentArt} className="h-[90%] nonsel pointer-events-none"/>
+        <div 
+          className="h-[95%] flex items-center justify-center"
+        >
+          <img 
+            src={currentArt} 
+            className="nonsel pointer-events-none transition-transform duration-100 h-full w-full object-contain"
+            style={{ transform: `scale(${zoom})` }}
+          />
+        </div>
       </div>
 
     </main>
