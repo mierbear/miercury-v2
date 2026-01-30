@@ -2,7 +2,9 @@
 import { useEffect, useRef, useState } from "react";
 import supabase from "@/lib/supabaseClient";
 import ArtType from "@/types/artType";
-import { useReactNodeView } from "@tiptap/react";
+import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import "yet-another-react-lightbox/styles.css";
 
 export default function GalleryComponent() {
 
@@ -47,7 +49,6 @@ export default function GalleryComponent() {
     fetchArtworks();
   }, []);
 
-  const lightBoxRef = useRef<HTMLDivElement | null>(null);
   const [lightBoxOpen, setLightBoxOpen] = useState(false);
   const [currentArt, setCurrentArt] = useState<string>("/images/pfp.png");
 
@@ -55,35 +56,6 @@ export default function GalleryComponent() {
     setCurrentArt(url);
     setLightBoxOpen(true);
   }
-
-  const [zoom, setZoom] = useState(1);
-
-  useEffect(() => {
-    const handleWheel = (e: WheelEvent) => {
-      if (lightBoxOpen) {
-        e.preventDefault();
-        
-        setZoom((prevZoom) => {
-          const delta = e.deltaY * -0.003;
-          const newZoom = prevZoom + delta;
-          
-          return Math.min(Math.max(newZoom, 0.5), 10);
-        });
-      }
-    };
-
-    window.addEventListener('wheel', handleWheel, { passive: false });
-    
-    return () => {
-      window.removeEventListener('wheel', handleWheel);
-    };
-  }, [lightBoxOpen]);
-
-  useEffect(() => {
-    if (!lightBoxOpen) {
-      setZoom(1);
-    }
-  }, [lightBoxOpen]);
 
   return (
     <main className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative">
@@ -141,21 +113,21 @@ export default function GalleryComponent() {
       </div>
 
       {/* LIGHTBOX */}
-      <div
-        className={`${lightBoxOpen ? "fixed" : "hidden"} inset-0 w-screen h-screen backdrop-blur-lg bg-black/50 z-55555 flex items-center justify-center`}
-        ref={lightBoxRef}
-        onClick={() => {setLightBoxOpen(false)}}
-      >
-        <div 
-          className="h-[95%] flex items-center justify-center"
-        >
-          <img 
-            src={currentArt} 
-            className="nonsel pointer-events-none transition-transform duration-100 h-full w-full object-contain"
-            style={{ transform: `scale(${zoom})` }}
-          />
-        </div>
-      </div>
+      <Lightbox
+        open={lightBoxOpen}
+        close={() => setLightBoxOpen(false)}
+        slides={[{ src: currentArt }]}
+        plugins={[Zoom]}
+        zoom={{
+          scrollToZoom: true,
+          maxZoomPixelRatio: 5,
+          zoomInMultiplier: 1.5,
+          doubleTapDelay: 300,
+          doubleClickDelay: 300,
+          wheelZoomDistanceFactor: 100,
+          pinchZoomDistanceFactor: 100,
+        }}
+      />
 
     </main>
   )};
