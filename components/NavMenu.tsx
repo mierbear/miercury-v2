@@ -3,18 +3,21 @@ import { Boldonse } from "next/font/google"
 import { useEffect, useRef, useState } from "react";
 import NextLink from "next/link";
 import { usePathname } from "next/navigation";
-import NavMenuLink from "./NavMenuLink";
-import { Sono } from "next/font/google";
+import { Sono, Anonymous_Pro } from "next/font/google";
 import { useRouter } from "next/navigation";
 import Label from "@/components/NavMenuLabel";
 import ArtType from "@/types/artType";
 import supabase from "@/lib/supabaseClient";
-import { get } from "http";
 
-const sono = Sono({
+const anonymous = Anonymous_Pro({
   weight: "400",
   subsets: ["latin"],
 })
+
+// const sono = Sono({
+//   weight: "400",
+//   subsets: ["latin"],
+// })
 
 const boldonse = Boldonse({
   weight: "400",
@@ -262,7 +265,7 @@ const NavMenu = () => {
       via-transparent to-transparent
       duration-1000 transition-colors
       ${open ? "from-black/50" : "from-transparent"}
-      ${sono.className}
+      ${anonymous.className}
     `}>
       
       {/* HOME LINK */}
