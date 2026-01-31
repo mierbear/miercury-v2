@@ -33,11 +33,12 @@ const NavMenu = () => {
   const navMenuRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
   const moonRef = useRef<HTMLDivElement | null>(null);
+  const goHomeRef = useRef<HTMLAnchorElement | null>(null);
   const [open, setOpen] = useState(false);
   
   const moonClickHandler = () => {
     listReset();
-    if (navMenuRef.current === null || overlayRef.current === null || moonRef.current === null || menuRef.current === null) return;
+    if (navMenuRef.current === null || overlayRef.current === null || moonRef.current === null || menuRef.current === null || goHomeRef.current === null) return;
 
     if (isDesktop()) {
       menuRef.current.style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
@@ -46,25 +47,32 @@ const NavMenu = () => {
       menuRef.current.style.gridTemplateRows = "1fr 1fr";
     }
 
+    // CLOSE
     if (open) {
       setOpen(false);
       setActiveLink(null);
       moonRef.current.style.pointerEvents = "none";
       overlayRef.current.style.pointerEvents = "none";
       menuRef.current.style.pointerEvents = "none";
+      goHomeRef.current.style.opacity = "0";
       setTimeout(() => {
         navMenuRef.current!.style.display = "none";
         moonRef.current!.style.pointerEvents = "auto";
         overlayRef.current!.style.pointerEvents = "auto";
         menuRef.current!.style.pointerEvents = "auto";
+        goHomeRef.current!.style.display = "none";
       }, 1100);
+
+    // OPEN
     } else {
+      goHomeRef.current.style.display = "flex";
       navMenuRef.current.style.display = "flex";
       menuRef.current.style.pointerEvents = "none";
       setTimeout(() => {
         setOpen(true);
         moonRef.current!.style.pointerEvents = "none";
         overlayRef.current!.style.pointerEvents = "none";
+        goHomeRef.current!.style.opacity = "100";
       }, 0);
       setTimeout(() => {
         moonRef.current!.style.pointerEvents = "auto";
@@ -253,6 +261,7 @@ const NavMenu = () => {
       <NextLink 
       href="/"
       onClick={moonClickHandler}
+      ref={goHomeRef}
       className={`
         absolute z-5555 lg:rounded-tl-4xl rounded-tl-2xl
         bottom-0 right-0 bg-[#17191a]/80
@@ -261,7 +270,7 @@ const NavMenu = () => {
         transition-opacity duration-1000
         ${currentRoute?.href === "/" && "hidden"}
         ${boldonse.className}
-        ${open ? "opacity-100" : "opacity-0"}
+        ${open ? "duration-1000 pointer-events-auto" : "duration-1100 pointer-events-none"}
       `}
       >
         GO HOME?

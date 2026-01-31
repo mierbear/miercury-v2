@@ -540,15 +540,14 @@ export default function Home() {
   if (!artwork?.url) return null;
 
   const featuredArtworkRefs = {
-    
     src: artwork?.url,
     title: (
-      <p>{artwork?.title} ✦ {artwork?.date}</p>
+      <p className="flex items-center text-xl">{artwork.title} ✦ <span className="text-xs ml-2.75">({artwork.date})</span></p>
     ),
     description: (
       <div className="flex flex-col">
-        <p className="text-xl font-bold">{artwork?.title}</p>
-        <p className="text-xs">{artwork?.date}</p>
+        <p className="text-2xl font-bold">{artwork?.title}</p>
+        <p className="text-xs">({artwork?.date})</p>
         <p className="text-sm mt-2">{artwork?.description}</p>
       </div>
     ),

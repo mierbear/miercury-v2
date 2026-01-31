@@ -624,9 +624,11 @@ div[data-youtube-video] iframe {
 }
 
 .yarl__container {
-  background-color: white;
+  --yarl__font-family: "Sono", system-ui, sans-serif;
+  --yarl__slide_captions_container_background: rgba(23, 25, 26, 0.9) !important;
+
 }
 
-.yarl__container {
-  --yarl__font-family: "Sono", system-ui, sans-serif;
+.yarl__slide_captions_container {
+  background-color: white;
 }

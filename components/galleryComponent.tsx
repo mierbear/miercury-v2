@@ -62,12 +62,12 @@ export default function GalleryComponent() {
   const slides = artworks.map((art) => ({
     src: art.url,
     title: (
-      <p>{art.title} ✦ {art.date}</p>
+      <p className="flex items-center text-xl">{art.title} ✦ <span className="text-xs ml-2.75">({art.date})</span></p>
     ),
     description: (
       <div className="flex flex-col">
-        <p className="text-xl font-bold">{art.title}</p>
-        <p className="text-xs">{art.date}</p>
+        <p className="text-2xl font-bold">{art.title}</p>
+        <p className="text-xs">({art.date})</p>
         <p className="text-sm mt-2">{art.description}</p>
       </div>
     ),
@@ -76,15 +76,14 @@ export default function GalleryComponent() {
   if (!featArtwork?.url) return null;
 
   const featuredArtworkRefs = {
-    
     src: featArtwork?.url,
     title: (
-      <p>{featArtwork?.title} ✦ {featArtwork?.date}</p>
+      <p className="flex items-center text-xl">{featArtwork.title} ✦ <span className="text-xs ml-2.75">({featArtwork.date})</span></p>
     ),
     description: (
       <div className="flex flex-col">
-        <p className="text-xl font-bold">{featArtwork?.title}</p>
-        <p className="text-xs">{featArtwork?.date}</p>
+        <p className="text-2xl font-bold">{featArtwork?.title}</p>
+        <p className="text-xs">({featArtwork?.date})</p>
         <p className="text-sm mt-2">{featArtwork?.description}</p>
       </div>
     ),
