@@ -2,6 +2,12 @@
 import gsap from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useEffect, useRef } from "react";
+import { Sono } from "next/font/google";
+
+const sono = Sono({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 const TitleBot = () => {
   const divRef = useRef<HTMLDivElement | null>(null);
@@ -33,7 +39,7 @@ const TitleBot = () => {
 
   return (
     <div ref={divRef} className="bg-[#d8e0e3] rounded-t-xl flex flex-col justify-center items-center z-11 miercury-platform-glow nonsel">
-      <p ref={textRef} style={{ visibility: "hidden" }} className="text-xs">welcome to the firmament, keep it mirthful</p>
+      <p ref={textRef} style={{ visibility: "hidden" }} className={`text-xs ${sono.className}`}>welcome to the firmament, keep it mirthful</p>
     </div>
   );
 };

@@ -27,7 +27,7 @@ const Stars = () => {
   }, []);
 
   return (
-    <div className={`min-w-screen min-h-screen flex justify-end align-center items-center flex-col fixed top-0 -translate-y-[30vh] transition-opacity duration-3000 ${ready ? "opacity-100" : "opacity-0"}`}>
+    <div className={`min-w-screen min-h-screen bg-[#17191a] flex justify-end align-center items-center flex-col fixed top-0 -translate-y-[30vh] transition-opacity duration-3000 ${ready ? "opacity-100" : "opacity-0"}`}>
 
       <div className="fixed scale-225 -z-50 origin-center twinkle2" style={{ transform: `rotate(${rotation.current}deg)` }}>
         <img src="/images/stars.png" className="spin spin-slow nonsel pointer-events-none stars" />

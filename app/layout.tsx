@@ -7,12 +7,12 @@ import "tiptap-extension-resizable-image/styles.css";
 import "./globals.css";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
-import { Sono } from "next/font/google";
+// import { Sono } from "next/font/google";
 
-const sono = Sono({
-  weight: "400",
-  subsets: ["latin"],
-})
+// const sono = Sono({
+//   weight: "400",
+//   subsets: ["latin"],
+// })
 
 export const metadata: Metadata = {
   title: "Miercury",
@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-[#17191a] ${sono.className}`}>
+      <body className={`bg-[#17191a]`}>
         <NavMenu />
         <DailyModal />
         {children}

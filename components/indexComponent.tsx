@@ -1,5 +1,4 @@
 "use client";
-import NextImage from "next/image";
 import Stars from "@/components/indexStars";
 import Title from "@/components/indexTitle";
 import TitleBot from "@/components/indexTitleBot";
@@ -12,7 +11,7 @@ import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Micro_5, Righteous, Coral_Pixels } from "next/font/google"
+import { Micro_5, Righteous, Coral_Pixels, Sono, Oranienbaum, Gowun_Batang } from "next/font/google"
 import NavLinkMarq from "@/components/indexNavLinkMarquee";
 import NavLinkImg from "@/components/indexNavLinkImg";
 import NavLinkBot from "@/components/indexNavLinkBot";
@@ -25,6 +24,7 @@ import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import type { SlideImage } from "yet-another-react-lightbox";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -43,6 +43,25 @@ const righteous = Righteous({
   subsets: ["latin"],
 })
 
+const oranienbaum = Oranienbaum({
+  weight: "400",
+  subsets: ["latin"],
+})
+
+// const kosugi = Kosugi_Maru({
+//   weight: "400",
+//   subsets: ["latin"],
+// })
+
+const gowun = Gowun_Batang({
+  weight: "400",
+  subsets: ["latin"],
+})
+
+const sono = Sono({
+  weight: ["400", "600"],
+  subsets: ["latin"],
+})
 
 export default function Home() {
   const currentYear = new Date().getFullYear();
@@ -412,14 +431,6 @@ export default function Home() {
   const featArtRef = useRef<HTMLImageElement | null>(null);
   const featArtMiniRef = useRef<HTMLImageElement | null>(null);
 
-  // const featuredArtwork = []
-
-  // const artPreviewHandler = (src: string) => {
-  //   if (!featArtRef.current || !featArtMiniRef.current) return;
-  //   featArtRef.current.src = `/images/${src}`;
-  //   featArtMiniRef.current.src = `/images/${src}`;
-  // }
-
   const loadingScreenRef = useRef<HTMLDivElement | null>(null);
 
   const vertAdRef = useRef<HTMLParagraphElement | null>(null);
@@ -537,6 +548,20 @@ export default function Home() {
   };
 
   const [featuredLightBoxOpen, setFeaturedLightBoxOpen] = useState(false);
+  const featuredArtworkRefs: SlideImage[] = artwork?.url
+    ? [
+        {
+          src: artwork.url,
+          description: (
+            <div className="flex flex-col mb-8 px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+              <p className={`text-4xl font-bold ${oranienbaum.className}`}>{artwork.title}</p>
+              <p className={`text-xs ${sono.className} text-gray-300`}>({artwork.date})</p>
+              <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{artwork.description}</p>
+            </div>
+          ),
+        },
+      ]
+    : [];
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -652,12 +677,12 @@ export default function Home() {
               onMouseLeave={() => setArtHover(false)}
               >
                 <p
-                className={`text-2xl font-bold self-start pl-2 h-12 flex items-center justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
-                  <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> featured artwork
+                className={`text-3xl font-semibold self-start pl-2 h-12 flex ${oranienbaum.className} items-center justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
+                  <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> FEATURED ARTWORK
                 </p>
                 
                 {/* IMAGES */}
-                <div className="relative flex items-center justify-center flex-col bg-[#17191a] mb-4">
+                <div className="relative flex items-center justify-center flex-col mb-4 z-10">
                   <img ref={featArtRef} src={artwork?.url} className={`nonsel cursor-pointer`} onClick={() => setFeaturedLightBoxOpen(true)}/>
                   <img ref={featArtMiniRef} src={artwork?.url} className={`nonsel pointer-events-none border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
                   <div>
@@ -673,10 +698,16 @@ export default function Home() {
                 </div>
 
                 {/* ART INFO */}
-                <div className="flex flex-col p-2 pt-1 self-start w-[50%] border-white border-2 h-24 text-white">
-                  <p className="text-xl font-bold">{artwork?.title}</p>
-                  <p className="text-xs text-gray-400 pb-2">{artwork?.date}</p>
-                  <p className="text-xs">{artwork?.description}</p>
+                <div className="
+                  text-white flex flex-col border-gray-400 
+                  border bg-[#17191a]/80 max-w-[85ch] backdrop-blur-[3px]
+                  rounded-sm items-center
+                  px-4 py-2 self-start w-[50%] h-28
+                  overflow-y-auto thin-scrollbar"
+                >
+                  <p className={`text-3xl font-bold ${oranienbaum.className}`}>{artwork?.title}</p>
+                  <p className={`text-xs ${sono.className} text-gray-300`}>({artwork?.date})</p>
+                  <p className={`text-base ${gowun.className} mt-2 text-justify`}>{artwork?.description}</p>
                 </div>
                 
                 {/* FRAME */}
@@ -695,12 +726,12 @@ export default function Home() {
                   {latestPost === null ? null : (
                     <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">
                       <NextLink href={`/blog/post/${latestPost.slug}`}>
-                        <p className="font-bold text-base xs:text-xl sm:text-2xl hover:underline blue">{latestPost.title}</p>
+                        <p className={`${sono.className} font-bold text-base xs:text-xl sm:text-2xl hover:underline blue`}>{latestPost.title}</p>
                       </NextLink>
-                      <div className="text-xs text-gray-400 nonsel flex" onClick={clickDate}>
+                      <div className={`${sono.className} text-xs text-gray-400 nonsel flex`} onClick={clickDate}>
                         <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
                       </div>
-                      <div className="prose prose-invert pt-5 mb-4 text-xs">
+                      <div className="prose prose-invert text-justify pt-5 mb-4 text-xs">
                         <p>{latestPostSnippet}...</p>
                       </div>
                       
@@ -708,8 +739,8 @@ export default function Home() {
                     </div>
                   )}
 
-                  <div className="w-full">
-                  <hr className="mb-4 border-gray-500/60 w-full" />
+                  <div className={`${sono.className} w-full`}>
+                    <hr className="mb-4 border-gray-500/60 w-full" />
                     {posts.map((post) => {
                       return (
                         <div key={post.id} className="rounded-md w-full flex flex-row items-center justify-between pl-4 pr-4">
@@ -755,20 +786,20 @@ export default function Home() {
                       p-4
                       "
                     >
-                      <p className="text-center">sign my guestbook</p>
+                      <p className={`${sono.className} text-center`}>sign my guestbook</p>
                     </NextLink>
 
                   </div>
                   
                   {/* 2.) CHANGELOGS */}
                   <div className="flex flex-col bg-[#17191a]/50 border-[#17191a] border-2 h-44 text-xs relative rounded-l-xl rounded-t-xl">
-                    <p className="sticky top-0 z-10 bg-[#17191a] p-2 w-full rounded-t-xl">CHANGELOGS</p>
-                    <div className="thin-scrollbar h-full overflow-y-auto">
-                      {logs?.map((log) => {
+                    <p className={`${sono.className} sticky top-0 z-10 bg-[#17191a] p-2 w-full rounded-t-xl`}>CHANGELOGS</p>
+                    <div className="super-thin-scrollbar h-full overflow-y-auto">
+                      {logs?.map((log, index) => {
                         return (
-                          <div key={log.id} className="p-2">
-                            <p className="text-gray-400">{log.date}</p>
-                            <p className="">{log.log}</p>
+                          <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
+                            <p className={`${sono.className} text-gray-400`}>● {log.date}</p>
+                            <p className="text-justify">{log.log}</p>
                           </div>
                         )
                       })}
@@ -796,10 +827,10 @@ export default function Home() {
                   />
 
                   <p className="text-sm text-justify">
-                    Hello, welcome to Miercury! This is a place for me to share my thoughts, projects and artworks. You can read more about me <a href="/about" className="underline blue text-">here.</a>
+                    Hello, welcome to <span className={`${sono.className} font-bold`}>Miercury!</span> This is a place for me to share my thoughts, projects and artworks. You can read more about me <a href="/about" className="underline blue text-">here.</a>
                     <br />
                     <br />
-                    I hope you enjoy your stay.
+                    I hope you enjoy your stay, <span className="italic">reach for the moon my friend.</span>
                   </p>
                 </div>
 
@@ -824,6 +855,7 @@ export default function Home() {
                       ${status === "idle" ? "text-[#fff671] idle-glow" : ""}
                       ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
                       ${status === "offline" ? "text-gray-400" : ""}
+                      ${sono.className}
                       text-xs
                       pb-1
                     `}>
@@ -857,7 +889,7 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-full" />
 
               {/* NAV */}
-              <div className="text-white grid grid-rows-[240px_50px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative" ref={linksDivRef}>
+              <div className={`text-white grid grid-rows-[240px_50px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative`} ref={linksDivRef}>
                 
                 <NavLinkMarq desc="learn about my characters" active={activeLink} link="characters" onHover={handleHover} />
                 <NavLinkImg desc="look at my art" active={activeLink} link="gallery" onHover={handleHover} />
@@ -908,7 +940,7 @@ export default function Home() {
                 autoFill={true}
                 className="text-xs sm:text-sm md:text-md flex text-white nonsel"
               >
-                <p className="">
+                <p className={`${sono.className}`}>
                   <span className="inline-flex backwards-spin items-center justify-center">✦</span>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{getQuote(quotes)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </p>
@@ -1041,7 +1073,7 @@ export default function Home() {
       <Lightbox
         open={featuredLightBoxOpen}
         close={() => setFeaturedLightBoxOpen(false)}
-        slides={[{ src: artwork?.url || "", title: artwork?.title || "", description: artwork?.description || "" }]}
+        slides={featuredArtworkRefs}
         plugins={[Zoom, Captions, Fullscreen]}
         zoom={{
           scrollToZoom: true,

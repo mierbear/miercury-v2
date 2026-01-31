@@ -1,14 +1,14 @@
 import IndexComponent from "../components/indexComponent";
-import { Sono } from "next/font/google";
+import { Anonymous_Pro } from "next/font/google";
 
-const sono = Sono({
+const anonymous = Anonymous_Pro({
   weight: "400",
   subsets: ["latin"],
 })
 
 export default function Home() {
   return (
-    <main className={`${sono.className}`}>
+    <main className={`${anonymous.className}`}>
       <IndexComponent />
     </main>
   );

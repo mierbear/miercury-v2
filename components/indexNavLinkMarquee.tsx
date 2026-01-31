@@ -1,5 +1,11 @@
 import NextLink from "next/link";
 import Marquee from "react-fast-marquee";
+import { Sono } from "next/font/google";
+
+const sono = Sono({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 type LinkKey =
 | "characters"
@@ -24,7 +30,7 @@ export default function LinkItem({ desc, active, link, onHover }: LinkItemProps)
       onMouseEnter={() => onHover(link)}
       onClick={() => onHover(link)}
     >
-      <p className={`nonsel pointer-events-none h-12.5 flex items-center pl-3.5 gap-2.5 transition-colors duration-400 ${active === link ? "text-yellow-300 white-glow text-xl" : "text-white/50"}`}><span className={`${active === link ? "text-2xl spin" : ""}`}>{active === link ? "★" : "✦"}</span><span className={active === link ? "underline" : ""}>{active === link ? `${link}!` : `${link}`}</span></p>
+      <p className={`${sono.className} nonsel pointer-events-none h-12.5 flex items-center pl-3.5 gap-2.5 transition-colors duration-400 ${active === link ? "text-yellow-300 white-glow text-xl" : "text-white/50"}`}><span className={`${active === link ? "text-2xl spin" : ""}`}>{active === link ? "★" : "✦"}</span><span className={active === link ? "underline" : ""}>{active === link ? `${link}!` : `${link}`}</span></p>
       <p className={`nonsel pointer-events-none transition-opacity ${active === link ? "opacity-100 duration-500" : "opacity-0 duration-0"} bg-[#17191a]/80 py-1 px-2 rounded absolute txt-glow text-xs bottom-1 right-1 z-50`}>{desc}</p>
       <NextLink
       href={`/${link}`}

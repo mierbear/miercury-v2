@@ -54,6 +54,15 @@ body {
   border-radius: 999px;
 }
 
+.super-thin-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.super-thin-scrollbar::-webkit-scrollbar-thumb {
+  background: #b2c6ce59;
+  border-radius: 999px;
+}
+
 .nonsel {
   user-select: none;
 }
@@ -475,14 +484,14 @@ div[data-youtube-video] iframe {
 
 .meow {
   text-shadow:
-    2px 2px 1.5 black,
-    2px -2px 1.5 black,
-    -2px 2px 1.5 black,
-    -2px -2px 1.5 black,
-    2px 0px 1.5 black,
-    0px 2px 1.5 black,
-    -2px 0px 1.5 black,
-    0px -2px 1.5 black;
+    1.5px 1.5px 2 black,
+    1.5px -1.5px 2 black,
+    -1.5px 1.5px 2 black,
+    -1.5px -1.5px 2 black,
+    1.5px 0px 2 black,
+    0px 1.5px 2 black,
+    -1.5px 0px 2 black,
+    0px -1.5px 2 black;
 }
 
 .blue-text {
@@ -624,11 +633,14 @@ div[data-youtube-video] iframe {
 }
 
 .yarl__container {
-  --yarl__font-family: "Sono", system-ui, sans-serif;
-  --yarl__slide_captions_container_background: rgba(23, 25, 26, 0.9) !important;
-
+  /* --yarl__font-family: "Sono", system-ui, sans-serif; */
+  --yarl__slide_captions_container_background: rgba(23, 25, 26, 0) !important;
+  --yarl__slide_captions_container_padding: none !important;
 }
 
 .yarl__slide_captions_container {
-  background-color: white;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
 }

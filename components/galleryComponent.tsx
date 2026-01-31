@@ -2,10 +2,27 @@
 import { useEffect, useRef, useState } from "react";
 import supabase from "@/lib/supabaseClient";
 import ArtType from "@/types/artType";
+import type { SlideImage } from "yet-another-react-lightbox";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
+import { Oranienbaum, Gowun_Batang, Sono } from "next/font/google";
+
+const oranienbaum = Oranienbaum({
+  weight: "400",
+  subsets: ["latin"],
+})
+
+const gowun = Gowun_Batang({
+  weight: "400",
+  subsets: ["latin"],
+})
+
+const sono = Sono({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 export default function GalleryComponent() {
 
@@ -61,34 +78,29 @@ export default function GalleryComponent() {
 
   const slides = artworks.map((art) => ({
     src: art.url,
-    title: (
-      <p className="flex items-center text-xl">{art.title} ✦ <span className="text-xs ml-2.75">({art.date})</span></p>
-    ),
     description: (
-      <div className="flex flex-col">
-        <p className="text-2xl font-bold">{art.title}</p>
-        <p className="text-xs">({art.date})</p>
-        <p className="text-sm mt-2">{art.description}</p>
+      <div className="flex flex-col mb-8 px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+        <p className={`text-4xl font-bold ${oranienbaum.className}`}>{art.title}</p>
+        <p className={`text-xs ${sono.className} text-gray-300`}>({art.date})</p>
+        <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{art.description}</p>
       </div>
     ),
   }));
-
-  if (!featArtwork?.url) return null;
-
-  const featuredArtworkRefs = {
-    src: featArtwork?.url,
-    title: (
-      <p className="flex items-center text-xl">{featArtwork.title} ✦ <span className="text-xs ml-2.75">({featArtwork.date})</span></p>
-    ),
-    description: (
-      <div className="flex flex-col">
-        <p className="text-2xl font-bold">{featArtwork?.title}</p>
-        <p className="text-xs">({featArtwork?.date})</p>
-        <p className="text-sm mt-2">{featArtwork?.description}</p>
-      </div>
-    ),
-  }
-
+  
+  const featuredArtworkRefs: SlideImage[] = featArtwork?.url
+    ? [
+        {
+          src: featArtwork.url,
+          description: (
+            <div className="flex flex-col mb-8 px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+              <p className={`text-4xl font-bold ${oranienbaum.className}`}>{featArtwork.title}</p>
+              <p className={`text-xs ${sono.className} text-gray-300`}>({featArtwork.date})</p>
+              <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{featArtwork.description}</p>
+            </div>
+          ),
+        },
+      ]
+    : [];
 
   return (
     <main className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative">
@@ -162,11 +174,11 @@ export default function GalleryComponent() {
           doubleTapDelay: 300,
           doubleClickDelay: 300,
           wheelZoomDistanceFactor: 600,
-          pinchZoomDistanceFactor: 600,
+          pinchZoomDistanceFactor: 100,
         }}
         styles={{
           container: {
-            backgroundColor: "rgba(23, 25, 26, 0.60)",
+            backgroundColor: "rgba(0, 0, 0, 0.80)",
             backdropFilter: "blur(4px)",
           },
         }}
@@ -180,7 +192,7 @@ export default function GalleryComponent() {
       <Lightbox
         open={featuredLightBoxOpen}
         close={() => setFeaturedLightBoxOpen(false)}
-        slides={[featuredArtworkRefs]}
+        slides={featuredArtworkRefs}
         plugins={[Zoom, Captions, Fullscreen]}
         zoom={{
           scrollToZoom: true,
@@ -189,11 +201,11 @@ export default function GalleryComponent() {
           doubleTapDelay: 300,
           doubleClickDelay: 300,
           wheelZoomDistanceFactor: 600,
-          pinchZoomDistanceFactor: 600,
+          pinchZoomDistanceFactor: 100,
         }}
         styles={{
           container: {
-            backgroundColor: "rgba(23, 25, 26, 0.60)",
+            backgroundColor: "rgba(0, 0, 0, 0.80)",
             backdropFilter: "blur(4px)",
           },
         }}
