@@ -696,7 +696,7 @@ export default function Home() {
                 {/* IMAGES */}
                 <div className="relative flex items-center justify-center flex-col mb-4 z-10">
                   <img ref={featArtRef} src={artwork?.url} onLoad={handleImageLoad} className={`nonsel cursor-pointer`} onClick={() => setFeaturedLightBoxOpen(true)}/>
-                  <img ref={featArtMiniRef} src={artwork?.url} className={`nonsel pointer-events-none border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
+                  <img ref={featArtMiniRef} src={artwork?.url} className={`nonsel pointer-events-none border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-28 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
                   <div>
                     <img 
                       ref={mierDrawingRef} 
@@ -713,12 +713,12 @@ export default function Home() {
                 <div className="
                   text-white flex flex-col border-gray-400 
                   border bg-[#17191a]/80 max-w-[85ch] backdrop-blur-[3px]
-                  rounded-sm items-center
-                  px-4 py-2 self-start w-[50%] h-28
+                  rounded-sm items-center text-center
+                  px-4 pt-2 self-start w-[50%] h-28
                   overflow-y-auto thin-scrollbar"
                 >
-                  <p className={`text-2xl font-bold text-center ${oranienbaum.className}`}>{artwork?.title}</p>
-                  <p className={`text-xs ${sono.className} text-gray-300 text-center`}>({artwork?.date})</p>
+                  <p className={`text-2xl font-bold ${oranienbaum.className}`}>{artwork?.title}</p>
+                  <p className={`text-xs ${sono.className} text-gray-300`}>({artwork?.date})</p>
                   <p className={`text-sm ${gowun.className} mt-2 text-justify`}>{artwork?.description}</p>
                 </div>
                 
@@ -810,7 +810,7 @@ export default function Home() {
                       {logs?.map((log, index) => {
                         return (
                           <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
-                            <p className={`${sono.className} text-gray-400`}>● {log.date}</p>
+                            <p className={`${sono.className} text-gray-400`}><span className="text-orange-400 text-[9px]">●</span> {log.date}</p>
                             <p className="text-justify">{log.log}</p>
                           </div>
                         )
