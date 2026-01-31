@@ -537,21 +537,6 @@ export default function Home() {
   };
 
   const [featuredLightBoxOpen, setFeaturedLightBoxOpen] = useState(false);
-  if (!artwork?.url) return null;
-
-  const featuredArtworkRefs = {
-    src: artwork?.url,
-    title: (
-      <p className="flex items-center text-xl">{artwork.title} ✦ <span className="text-xs ml-2.75">({artwork.date})</span></p>
-    ),
-    description: (
-      <div className="flex flex-col">
-        <p className="text-2xl font-bold">{artwork?.title}</p>
-        <p className="text-xs">({artwork?.date})</p>
-        <p className="text-sm mt-2">{artwork?.description}</p>
-      </div>
-    ),
-  }
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -1056,7 +1041,7 @@ export default function Home() {
       <Lightbox
         open={featuredLightBoxOpen}
         close={() => setFeaturedLightBoxOpen(false)}
-        slides={[featuredArtworkRefs]}
+        slides={[{ src: artwork?.url || "", title: artwork?.title || "", description: artwork?.description || "" }]}
         plugins={[Zoom, Captions, Fullscreen]}
         zoom={{
           scrollToZoom: true,

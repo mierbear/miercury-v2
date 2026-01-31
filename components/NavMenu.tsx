@@ -266,7 +266,7 @@ const NavMenu = () => {
         absolute z-5555 lg:rounded-tl-4xl rounded-tl-2xl
         bottom-0 right-0 bg-[#17191a]/80
         p-3 lg:p-6 pointer-events-auto
-        text-xl lg:text-4xl flex flex-col nonsel
+        text-xl lg:text-4xl hidden opacity-0 flex-col nonsel
         transition-opacity duration-1000
         ${currentRoute?.href === "/" && "hidden"}
         ${boldonse.className}
