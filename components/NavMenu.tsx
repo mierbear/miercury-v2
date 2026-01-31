@@ -54,25 +54,33 @@ const NavMenu = () => {
       moonRef.current.style.pointerEvents = "none";
       overlayRef.current.style.pointerEvents = "none";
       menuRef.current.style.pointerEvents = "none";
-      goHomeRef.current.style.opacity = "0";
+      if (currentRoute?.href !== "/") {
+        goHomeRef.current.style.opacity = "0";
+      }
       setTimeout(() => {
         navMenuRef.current!.style.display = "none";
         moonRef.current!.style.pointerEvents = "auto";
         overlayRef.current!.style.pointerEvents = "auto";
         menuRef.current!.style.pointerEvents = "auto";
-        goHomeRef.current!.style.display = "none";
+        if (currentRoute?.href !== "/") {
+          goHomeRef.current!.style.display = "none";
+        }
       }, 1100);
 
     // OPEN
     } else {
-      goHomeRef.current.style.display = "flex";
       navMenuRef.current.style.display = "flex";
       menuRef.current.style.pointerEvents = "none";
+      if (currentRoute?.href !== "/") {
+        goHomeRef.current.style.display = "flex";
+      }
       setTimeout(() => {
         setOpen(true);
         moonRef.current!.style.pointerEvents = "none";
         overlayRef.current!.style.pointerEvents = "none";
-        goHomeRef.current!.style.opacity = "100";
+        if (currentRoute?.href !== "/") {
+          goHomeRef.current!.style.opacity = "100";
+        }
       }, 0);
       setTimeout(() => {
         moonRef.current!.style.pointerEvents = "auto";

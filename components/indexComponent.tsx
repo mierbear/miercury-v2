@@ -830,7 +830,7 @@ export default function Home() {
                     Hello, welcome to <span className={`${sono.className} font-bold`}>Miercury!</span> This is a place for me to share my thoughts, projects and artworks. You can read more about me <a href="/about" className="underline blue text-">here.</a>
                     <br />
                     <br />
-                    I hope you enjoy your stay, <span className="italic">reach for the moon my friend.</span>
+                    I hope you enjoy your stay.
                   </p>
                 </div>
 
