@@ -21,6 +21,10 @@ import ArtType from "@/types/artType";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
 import { useRouter } from "next/navigation";
+import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
+import Captions from "yet-another-react-lightbox/plugins/captions";
+import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -532,6 +536,7 @@ export default function Home() {
     }
   };
 
+  const [featuredLightBoxOpen, setFeaturedLightBoxOpen] = useState(false);
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
@@ -653,8 +658,8 @@ export default function Home() {
                 
                 {/* IMAGES */}
                 <div className="relative flex items-center justify-center flex-col bg-[#17191a] mb-4">
-                  <img ref={featArtRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel`} />
-                  <img ref={featArtMiniRef} src={artwork?.url} style={{ pointerEvents: "none" }} className={`nonsel border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
+                  <img ref={featArtRef} src={artwork?.url} className={`nonsel cursor-pointer`} onClick={() => setFeaturedLightBoxOpen(true)}/>
+                  <img ref={featArtMiniRef} src={artwork?.url} className={`nonsel pointer-events-none border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
                   <div>
                     <img 
                       ref={mierDrawingRef} 
@@ -923,75 +928,76 @@ export default function Home() {
                   {/* TO DO */}
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">TO-DO: </p>
-                    {/* <p className="text-xs">● </p> */}
-                    <p className="text-xs">● DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
-                    <p className="text-xs">● make illustration for top right section</p>
-                    <p className="text-xs">● learn how to draw again LOL</p>
-                    <p className="text-xs">● style each section in index</p>
-                    <p className="text-xs">● make featured art frame properly</p>
-                    <p className="text-xs">● set up wanted posters for pp</p>
-                    <p className="text-xs">● set up images for navmenu</p>
-                    <p className="text-xs">● set up supabase for pp gallery</p>
-                    <p className="text-xs">● set up favicons for each route</p>
-                    <p className="text-xs">● set up different 'moons' for each route</p>
-                    <p className="text-xs">● make the ocs page</p>
-                    <p className="text-xs">● make the mtwim page</p>
-                    <p className="text-xs">● finish the scrollTrigger course</p>
-                    <p className="text-xs">● add more ppl to stars bg (revise it even)</p>
-                    <p className="text-xs">● make assets for mtwim</p>
-                    <p className="text-xs">● make assets for characters</p>
-                    <p className="text-xs">● add shooting stars</p>
-                    <p className="text-xs">● add lots of easter eggs</p>
-                    <p className="text-xs">● make scary easter egg?</p>
-                    <p className="text-xs">● add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
-                    <p className="text-xs">● make another game</p>
+                    {/* <p className="text-xs">○ </p> */}
+                    <p className="text-xs">○ DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
+                    <p className="text-xs">○ make illustration for top right section</p>
+                    <p className="text-xs">○ style each section in index</p>
+                    <p className="text-xs">○ make featured art frame properly</p>
+                    <p className="text-xs">○ set up wanted posters for pp</p>
+                    <p className="text-xs">○ set up images for navmenu</p>
+                    <p className="text-xs">○ set up supabase for pp gallery</p>
+                    <p className="text-xs">○ set up favicons for each route</p>
+                    <p className="text-xs">○ set up different 'moons' for each route</p>
+                    <p className="text-xs">○ make the ocs page</p>
+                    <p className="text-xs">○ make the mtwim page</p>
+                    <p className="text-xs">○ finish the scrollTrigger course</p>
+                    <p className="text-xs">○ add more ppl to stars bg (revise it even)</p>
+                    <p className="text-xs">○ make assets for mtwim</p>
+                    <p className="text-xs">○ make assets for characters</p>
+                    <p className="text-xs">○ add shooting stars</p>
+                    <p className="text-xs">○ add lots of easter eggs</p>
+                    <p className="text-xs">○ make scary easter egg?</p>
+                    <p className="text-xs">○ add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
+                    <p className="text-xs">○ make another game</p>
                   </div>
 
                   {/* DONE */}
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">DONE: </p>
-                    {/* <p className="text-xs">✔ </p> */}
-                    <p className="text-xs">✔ bring back old drawer navmenu style</p>
-                    <p className="text-xs">✔ make gallery page</p>
-                    <p className="text-xs">✔ show featured art in index</p>
-                    <p className="text-xs">✔ make daily popup modal persist across routes</p>
-                    <p className="text-xs">✔ make daily popup modal</p>
-                    <p className="text-xs">✔ fix the fcked up font management</p>
-                    <p className="text-xs">✔ add qotd in index (what u see above rn)</p>
-                    <p className="text-xs">✔ revise about me page (its so ass bruh..)</p>
-                    <p className="text-xs">✔ show latest drawing in index</p>
-                    <p className="text-xs">✔ set up supabase for gallery</p>
-                    <p className="text-xs">✔ optimize stars background when unfocused</p>
-                    <p className="text-xs">✔ learn how to make svgs</p>
-                    <p className="text-xs">✔ make navmenu look good</p>
-                    <p className="text-xs">✔ revise navmenu</p>
-                    <p className="text-xs">✔ make index page responsive</p>
-                    <p className="text-xs">✔ turn most gsap animations into plain css</p>
-                    <p className="text-xs">✔ make adVERT impressive</p>
-                    <p className="text-xs">✔ set up navmenu revision skeleton</p>
-                    <p className="text-xs">✔ add loading screen for index</p>
-                    <p className="text-xs">✔ improve art section in index</p>
-                    <p className="text-xs">✔ add changelog to index</p>
-                    <p className="text-xs">✔ make the admin page actually legible LOL</p>
-                    <p className="text-xs">✔ add more to the about me page</p>
-                    <p className="text-xs">✔ improve navbar for index</p>
-                    <p className="text-xs">✔ implement index and slug pages for blog </p>
-                    <p className="text-xs">✔ make blog page</p>
-                    <p className="text-xs">✔ make the pp page</p>
-                    <p className="text-xs">✔ add all old posts from the old miercury websites here</p>
-                    <p className="text-xs">✔ fix bg low opacity bug</p>
-                    <p className="text-xs">✔ set up carousel for pp</p>
-                    <p className="text-xs">✔ add image uploading function for tiptap</p>
-                    <p className="text-xs">✔ set up atabook</p>
-                    <p className="text-xs">✔ perhaps have the blog be its own page instead</p>
-                    <p className="text-xs">✔ make the about me page</p>
-                    <p className="text-xs">✔ finish secret santa</p>
-                    <p className="text-xs">✔ add more to the space background </p>
-                    <p className="text-xs">✔ implement editing posts with tiptap</p>
-                    <p className="text-xs">✔ implement tiptap on post dashboard</p>
-                    <p className="text-xs">✔ make a dashboard for blog crud operations</p>
-                    <p className="text-xs">✔ connect this to supabase so you can add blog posts</p>
-                    <p className="text-xs">✔ add vercel web analytics functionality</p>
+                    {/* <p className="text-xs">● </p> */}
+                    <p className="text-xs">● implement lightbox for artworks </p>
+                    <p className="text-xs">● learn how to draw again LOL</p>
+                    <p className="text-xs">● bring back old drawer navmenu style</p>
+                    <p className="text-xs">● make gallery page</p>
+                    <p className="text-xs">● show featured art in index</p>
+                    <p className="text-xs">● make daily popup modal persist across routes</p>
+                    <p className="text-xs">● make daily popup modal</p>
+                    <p className="text-xs">● fix the fcked up font management</p>
+                    <p className="text-xs">● add qotd in index (what u see above rn)</p>
+                    <p className="text-xs">● revise about me page (its so ass bruh..)</p>
+                    <p className="text-xs">● show latest drawing in index</p>
+                    <p className="text-xs">● set up supabase for gallery</p>
+                    <p className="text-xs">● optimize stars background when unfocused</p>
+                    <p className="text-xs">● learn how to make svgs</p>
+                    <p className="text-xs">● make navmenu look good</p>
+                    <p className="text-xs">● revise navmenu</p>
+                    <p className="text-xs">● make index page responsive</p>
+                    <p className="text-xs">● turn most gsap animations into plain css</p>
+                    <p className="text-xs">● make adVERT impressive</p>
+                    <p className="text-xs">● set up navmenu revision skeleton</p>
+                    <p className="text-xs">● add loading screen for index</p>
+                    <p className="text-xs">● improve art section in index</p>
+                    <p className="text-xs">● add changelog to index</p>
+                    <p className="text-xs">● make the admin page actually legible LOL</p>
+                    <p className="text-xs">● add more to the about me page</p>
+                    <p className="text-xs">● improve navbar for index</p>
+                    <p className="text-xs">● implement index and slug pages for blog </p>
+                    <p className="text-xs">● make blog page</p>
+                    <p className="text-xs">● make the pp page</p>
+                    <p className="text-xs">● add all old posts from the old miercury websites here</p>
+                    <p className="text-xs">● fix bg low opacity bug</p>
+                    <p className="text-xs">● set up carousel for pp</p>
+                    <p className="text-xs">● add image uploading function for tiptap</p>
+                    <p className="text-xs">● set up atabook</p>
+                    <p className="text-xs">● perhaps have the blog be its own page instead</p>
+                    <p className="text-xs">● make the about me page</p>
+                    <p className="text-xs">● finish secret santa</p>
+                    <p className="text-xs">● add more to the space background </p>
+                    <p className="text-xs">● implement editing posts with tiptap</p>
+                    <p className="text-xs">● implement tiptap on post dashboard</p>
+                    <p className="text-xs">● make a dashboard for blog crud operations</p>
+                    <p className="text-xs">● connect this to supabase so you can add blog posts</p>
+                    <p className="text-xs">● add vercel web analytics functionality</p>
                   </div>
                   
                 </div>
@@ -1027,8 +1033,40 @@ export default function Home() {
       </footer>
       <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
       <img ref={mierTakethRef} src="/images/miertaketh.png" className="absolute z-100 nonsel -right-80 bottom-4 invisible" draggable="false" style={{ pointerEvents: "none" }} />
+
       <Stars />
+
       <Tooltip info="check out gallery?" status={toolTipStatus} />
+
+      <Lightbox
+        open={featuredLightBoxOpen}
+        close={() => setFeaturedLightBoxOpen(false)}
+        slides={[{ src: artwork?.url || "", title: artwork?.title || "", description: artwork?.description || "" }]}
+        plugins={[Zoom, Captions, Fullscreen]}
+        zoom={{
+          scrollToZoom: true,
+          maxZoomPixelRatio: 10,
+          zoomInMultiplier: 1.5,
+          doubleTapDelay: 300,
+          doubleClickDelay: 300,
+          wheelZoomDistanceFactor: 600,
+          pinchZoomDistanceFactor: 600,
+        }}
+        styles={{
+          container: {
+            backgroundColor: "rgba(23, 25, 26, 0.60)",
+            backdropFilter: "blur(4px)",
+          },
+        }}
+        captions={{
+          showToggle: true,
+          descriptionTextAlign: "center",
+        }}
+        render={{
+          buttonPrev: () => null,
+          buttonNext: () => null,
+        }}
+      />
     </div>
   );
 }
