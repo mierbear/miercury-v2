@@ -622,3 +622,11 @@ div[data-youtube-video] iframe {
 .figure-breathe-slow {
   animation: figure-breathe 6s ease-in-out infinite;
 }
+
+.yarl__container {
+  background-color: white;
+}
+
+.yarl__container {
+  --yarl__font-family: "Sono", system-ui, sans-serif;
+}

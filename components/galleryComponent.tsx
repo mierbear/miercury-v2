@@ -61,9 +61,34 @@ export default function GalleryComponent() {
 
   const slides = artworks.map((art) => ({
     src: art.url,
-    title: art.title,
-    description: art.description,
+    title: (
+      <p>{art.title} ✦ {art.date}</p>
+    ),
+    description: (
+      <div className="flex flex-col">
+        <p className="text-xl font-bold">{art.title}</p>
+        <p className="text-xs">{art.date}</p>
+        <p className="text-sm mt-2">{art.description}</p>
+      </div>
+    ),
   }));
+
+  if (!featArtwork?.url) return null;
+
+  const featuredArtworkRefs = {
+    
+    src: featArtwork?.url,
+    title: (
+      <p>{featArtwork?.title} ✦ {featArtwork?.date}</p>
+    ),
+    description: (
+      <div className="flex flex-col">
+        <p className="text-xl font-bold">{featArtwork?.title}</p>
+        <p className="text-xs">{featArtwork?.date}</p>
+        <p className="text-sm mt-2">{featArtwork?.description}</p>
+      </div>
+    ),
+  }
 
 
   return (
@@ -156,7 +181,7 @@ export default function GalleryComponent() {
       <Lightbox
         open={featuredLightBoxOpen}
         close={() => setFeaturedLightBoxOpen(false)}
-        slides={[{ src: featArtwork?.url || "", title: featArtwork?.title || "", description: featArtwork?.description || "" }]}
+        slides={[featuredArtworkRefs]}
         plugins={[Zoom, Captions, Fullscreen]}
         zoom={{
           scrollToZoom: true,
