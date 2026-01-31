@@ -563,6 +563,13 @@ export default function Home() {
       ]
     : [];
 
+  const [orientation, setOrientation] = useState<"portrait" | "landscape" | null>(null);
+
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    setOrientation(img.naturalWidth > img.naturalHeight ? 'landscape' : 'portrait');
+  };
+
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
 
@@ -672,7 +679,12 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-full block lg:hidden" />
               
               {/* ART */}
-              <div className="flex flex-col items-center justify-center w-full md:px-12 relative md:pb-12 mt-none lg:mt-4 md:mb-4"
+              <div className={`
+                flex flex-col items-center justify-center w-full 
+                relative md:pb-12 mt-none lg:mt-4 md:mb-4
+                ${orientation === "portrait" && "md:px-12"} 
+                ${orientation === "landscape" && "md:px-4" } 
+              `}
               onMouseEnter={() => setArtHover(true)}
               onMouseLeave={() => setArtHover(false)}
               >
@@ -683,7 +695,7 @@ export default function Home() {
                 
                 {/* IMAGES */}
                 <div className="relative flex items-center justify-center flex-col mb-4 z-10">
-                  <img ref={featArtRef} src={artwork?.url} className={`nonsel cursor-pointer`} onClick={() => setFeaturedLightBoxOpen(true)}/>
+                  <img ref={featArtRef} src={artwork?.url} onLoad={handleImageLoad} className={`nonsel cursor-pointer`} onClick={() => setFeaturedLightBoxOpen(true)}/>
                   <img ref={featArtMiniRef} src={artwork?.url} className={`nonsel pointer-events-none border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-25 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
                   <div>
                     <img 
