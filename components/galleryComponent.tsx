@@ -174,7 +174,7 @@ export default function GalleryComponent() {
           doubleTapDelay: 300,
           doubleClickDelay: 300,
           wheelZoomDistanceFactor: 600,
-          pinchZoomDistanceFactor: 100,
+          pinchZoomDistanceFactor: 200,
         }}
         styles={{
           container: {
@@ -201,7 +201,7 @@ export default function GalleryComponent() {
           doubleTapDelay: 300,
           doubleClickDelay: 300,
           wheelZoomDistanceFactor: 600,
-          pinchZoomDistanceFactor: 100,
+          pinchZoomDistanceFactor: 200,
         }}
         styles={{
           container: {

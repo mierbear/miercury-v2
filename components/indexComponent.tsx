@@ -701,10 +701,18 @@ export default function Home() {
                     <img 
                       ref={mierDrawingRef} 
                       src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} 
-                      className="nonsel absolute bottom-0 right-0 h-60 origin-bottom-right translate-x-10 translate-y-40 cursor-pointer" 
+                      className="nonsel absolute bottom-0 right-0 h-60 origin-bottom-right translate-x-10 translate-y-40 cursor-pointer z-12" 
                       onClick={() => mierDrawingClickHandler()}
                       onMouseEnter={!isPhone ? () => mierDrawingHoverHandler() : undefined} 
                       onMouseLeave={() => mierDrawingUnhoverHandler()}
+                    />
+                    <img 
+                      src={mierDrawing ? "/images/miersit-leftwing.png" : "/images/mierhover-leftwing.png"} 
+                      className={`nonsel pointer-events-none absolute bottom-0 right-0 h-60 wings origin-bottom-right translate-x-10 translate-y-40 ${mierDrawing ? "z-13" : "z-11"}`} 
+                    />
+                    <img 
+                      src={mierDrawing ? "/images/miersit-rightwing.png" : "/images/mierhover-rightwing.png"} 
+                      className={`nonsel pointer-events-none absolute bottom-0 right-0 h-60 wings origin-bottom-right translate-x-10 translate-y-40 z-11`} 
                     />
                   </div>
                 </div>
@@ -1094,7 +1102,7 @@ export default function Home() {
           doubleTapDelay: 300,
           doubleClickDelay: 300,
           wheelZoomDistanceFactor: 600,
-          pinchZoomDistanceFactor: 600,
+          pinchZoomDistanceFactor: 200,
         }}
         styles={{
           container: {

@@ -644,3 +644,21 @@ div[data-youtube-video] iframe {
   justify-content: center !important;
   align-items: center !important;
 }
+
+@keyframes wings-float {
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.wings {
+  animation: wings-float 2s ease-in-out infinite;
+}
