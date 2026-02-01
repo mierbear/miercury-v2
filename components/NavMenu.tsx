@@ -374,6 +374,60 @@ const NavMenu = () => {
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative duration-400 ${activeLink === "mtwim" ? "saturate-100 brightness-100" : "saturate-60 brightness-60"}`}
             >
               
+              {/* CHARACTERS */}
+              <div className="absolute bottom-0 w-full h-full grid grid-cols-2">
+
+                {/* FRANK */}
+                <div className="relative flex justify-center">
+                  <img
+                    src={`/images/mtwimfrank.png`}
+                    className={`
+                      scale-105
+                      translate-x-6
+                      min-[768px]:scale-160
+                      min-[768px]:translate-x-7
+                      min-[1024px]:translate-x-10
+                      min-[1280px]:scale-105
+                      min-[1280px]:translate-x-9
+                      min-[1600px]:translate-x-5
+                      transition-translate
+                      duration-300
+                      absolute 
+                      h-full w-auto max-w-none 
+                      nonsel pointer-events-none 
+                      object-cover`}
+                  />
+                </div>
+
+                {/* MIER */}
+                <div className="relative flex justify-center">
+                  <img
+                    src={`/images/mtwimmier.png`}
+                    className={`
+                      scale-105
+                      -translate-x-9
+                      min-[768px]:scale-160
+                      min-[768px]:-translate-x-12
+                      min-[1024px]:-translate-x-15
+                      min-[1280px]:scale-105
+                      min-[1280px]:-translate-x-12
+                      min-[1600px]:-translate-x-8
+                      transition-translate
+                      duration-300
+                      absolute 
+                      h-full w-auto max-w-none 
+                      nonsel pointer-events-none 
+                      object-cover`}
+                  />
+                </div>
+
+              </div>
+
+              {/* <div className="w-full h-full relative">
+                <img src="/images/mtwimfrank.png" className="absolute left-0 scale-110 bottom-0 h-full object-cover" />
+                <img src="/images/mtwimmier.png" className="absolute right-0 scale-110 bottom-0 h-full object-cover" />
+              </div>  */}
+
               <Label activeLink={activeLink} link="mtwim" title="MTWIM" desc="learn about a story i want to tell!" />
             </div>
             
