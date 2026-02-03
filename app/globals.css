@@ -636,6 +636,7 @@ div[data-youtube-video] iframe {
   /* --yarl__font-family: "Sono", system-ui, sans-serif; */
   --yarl__slide_captions_container_background: rgba(23, 25, 26, 0) !important;
   --yarl__slide_captions_container_padding: none !important;
+  overflow: visible !important;
 }
 
 .yarl__slide_captions_container {
@@ -643,8 +644,33 @@ div[data-youtube-video] iframe {
   flex-direction: column !important;
   justify-content: center !important;
   align-items: center !important;
-  margin-bottom: 32px;
-  overflow: visible;
+  margin-bottom: 32px !important;
+  overflow: visible !important;
+}
+
+.yarl__root {
+  overflow: visible !important;
+}
+
+.yarl__slide_description {
+  overflow: visible !important;
+}
+
+.yarl__slide_description_container {
+  margin-bottom: 32px !important;
+  overflow: visible !important;
+}
+
+.yarl__slide {
+  overflow: visible !important;
+}
+
+.yarl__carousel {
+  overflow: visible !important;
+}
+
+.yarl__fullscreen {
+  overflow: visible !important;
 }
 
 @keyframes wings-float {
