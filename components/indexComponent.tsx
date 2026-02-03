@@ -555,7 +555,7 @@ export default function Home() {
         {
           src: artwork.url,
           description: (
-            <div className={`hover:opacity-0 transition-opacity duration-300 flex flex-col ${isPhone ? "mb-16" : "mb-8"} px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center`}>
+            <div className={`hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center`}>
               <p className={`text-4xl font-bold ${oranienbaum.className}`}>{artwork.title}</p>
               <p className={`text-xs ${sono.className} text-gray-300`}>({artwork.date})</p>
               <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{artwork.description}</p>
