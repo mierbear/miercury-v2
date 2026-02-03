@@ -79,7 +79,7 @@ export default function GalleryComponent() {
   const slides = artworks.map((art) => ({
     src: art.url,
     description: (
-      <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col mb-8 px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+      <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
         <p className={`text-4xl font-bold ${oranienbaum.className}`}>{art.title}</p>
         <p className={`text-xs ${sono.className} text-gray-300`}>({art.date})</p>
         <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{art.description}</p>
@@ -92,7 +92,7 @@ export default function GalleryComponent() {
         {
           src: featArtwork.url,
           description: (
-            <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col mb-8 px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+            <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
               <p className={`text-4xl font-bold ${oranienbaum.className}`}>{featArtwork.title}</p>
               <p className={`text-xs ${sono.className} text-gray-300`}>({featArtwork.date})</p>
               <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{featArtwork.description}</p>
