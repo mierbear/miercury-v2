@@ -644,6 +644,7 @@ div[data-youtube-video] iframe {
   justify-content: center !important;
   align-items: center !important;
   margin-bottom: 32px;
+  overflow: visible;
 }
 
 @keyframes wings-float {
