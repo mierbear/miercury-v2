@@ -106,12 +106,12 @@ export default function GalleryComponent() {
     <main className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative">
 
       {/* HEADER */}
-      <div className="w-300 max-w-screen flex flex-col justify-end items-center h-[12vh]">
+      <div className="w-7xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
         <p className="text-white">gallery</p>  
       </div>
 
       {/* CONTENT */}
-      <div className="bg-white/50 w-300 max-w-screen min-h-screen flex flex-col border-2 border-black border-b-0">
+      <div className="bg-white/50 w-7xl max-w-screen min-h-screen flex flex-col border-2 border-black border-b-0">
 
         {/* TOP */}
         <div className="bg-black/30 w-full max-h-160 grid grid-cols-[1.618fr_1fr] gap-4 p-4">
@@ -147,10 +147,10 @@ export default function GalleryComponent() {
             <p>i need to focus on drawing stuff for my website first..</p>
           </div>
 
-          <div className="grid grid-cols-4 gap-2 p-4">
+          <div className="grid grid-cols-3 lg:grid-cols-4 xl:p-4">
             {artworks.map((artwork, index) => (
               <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer" onClick={() => openLightBox(index)}>
-                <p className="absolute bottom-0 text-white pt-1 pb-4 px-2 w-full bg-black/60">{artwork.title}</p>
+                <p className="absolute bottom-0 text-white bg-black/60 backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3 w-full text-sm md:text-base">{artwork.title}</p>
                 <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
               </div>
             ))}

@@ -983,7 +983,14 @@ export default function Home() {
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">TO-DO: </p>
                     {/* <p className="text-xs">○ </p> */}
-                    <p className="text-xs">○ DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
+                    <p className="text-xs font-bold underline">○ DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
+                    <p className="text-xs font-bold underline">○ finish the gallery page</p>
+                    <p className="text-xs font-bold underline">○ finish the ocs page</p>
+                    <p className="text-xs font-bold underline">○ finish the mtwim page</p>
+                    <p className="text-xs font-bold underline">○ finish the games page</p>
+                    <p className="text-xs font-bold underline">○ finish the pp page</p>
+                    <p className="text-xs font-bold underline">○ finish the blog page</p>
+                    <p className="text-xs font-bold underline">○ finish the about me page</p>
                     <p className="text-xs">○ make illustration for top right section</p>
                     <p className="text-xs">○ style each section in index</p>
                     <p className="text-xs">○ make featured art frame properly</p>
@@ -992,8 +999,6 @@ export default function Home() {
                     <p className="text-xs">○ set up supabase for pp gallery</p>
                     <p className="text-xs">○ set up favicons for each route</p>
                     <p className="text-xs">○ set up different 'moons' for each route</p>
-                    <p className="text-xs">○ make the ocs page</p>
-                    <p className="text-xs">○ make the mtwim page</p>
                     <p className="text-xs">○ finish the scrollTrigger course</p>
                     <p className="text-xs">○ add more ppl to stars bg (revise it even)</p>
                     <p className="text-xs">○ make assets for mtwim</p>
@@ -1012,7 +1017,6 @@ export default function Home() {
                     <p className="text-xs">● implement lightbox for artworks </p>
                     <p className="text-xs">● learn how to draw again LOL</p>
                     <p className="text-xs">● bring back old drawer navmenu style</p>
-                    <p className="text-xs">● make gallery page</p>
                     <p className="text-xs">● show featured art in index</p>
                     <p className="text-xs">● make daily popup modal persist across routes</p>
                     <p className="text-xs">● make daily popup modal</p>
