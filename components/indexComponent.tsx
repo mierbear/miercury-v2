@@ -1115,6 +1115,7 @@ export default function Home() {
         captions={{
           showToggle: true,
           descriptionTextAlign: "center",
+          descriptionMaxLines: 10,
         }}
         render={{
           buttonPrev: () => null,

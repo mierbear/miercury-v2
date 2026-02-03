@@ -185,6 +185,7 @@ export default function GalleryComponent() {
         captions={{
           showToggle: true,
           descriptionTextAlign: "center",
+          descriptionMaxLines: 10,
         }}
       />
 
@@ -212,6 +213,7 @@ export default function GalleryComponent() {
         captions={{
           showToggle: true,
           descriptionTextAlign: "center",
+          descriptionMaxLines: 10,
         }}
         render={{
           buttonPrev: () => null,
