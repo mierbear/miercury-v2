@@ -268,7 +268,7 @@ export default function Home() {
 
       </div>
 
-      {/* footer */}
+      {/* FOOTER */}
       <div className="bg-[#17191a] min-w-screen z-1">
         <footer className="relative z-1">
           <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white text-xs">

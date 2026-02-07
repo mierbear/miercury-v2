@@ -2,6 +2,7 @@
 import { use, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import TooltipComponent from "@/components/tooltipComponent";
+import Marquee from "react-fast-marquee";
 
 export default function Home() {
   const carouselContainerRef = useRef<HTMLDivElement | null>(null);
@@ -418,7 +419,7 @@ export default function Home() {
     "i have hyperphantasia (1)",
     "you could call me a christian/buddhist",
     "i like cliche tropes and messages",
-    "im a sucker for sad/motivational stories and music",
+    "im a sucker for sad/motivational stories/music",
     "im sometimes forgetful lol",
     "i might have dementia",
     "i like ragebaiting my friends",
@@ -581,320 +582,340 @@ export default function Home() {
   return (
     <div className="min-w-screen min-h-screen max-h-screen flex flex-col items-center justify-center">
       
-    <div className="
-    w-240
-    max-w-screen 
-    h-screen 
-    grid
-    grid-cols-[1fr_1fr] 
-    md:grid-cols-[10fr_6fr]
-    ">
+      {/* ABOUT ME */}
+      <div className="
+      w-300
+      max-w-screen 
+      h-screen 
+      grid
+      grid-cols-[1fr_1fr] 
+      md:grid-cols-[10fr_6fr]
+      z-10
+      ">
 
-      <div className="bg-white/10 flex flex-col items-center justify-center">
-      </div>
+        <div></div>
 
-      <div className="flex flex-col h-screen" ref={aboutRef}>
-        
-        {/* TOP ROW */}
-        <div 
-          className={`
-        bg-black flex flex-col py-6 text-white justify-between
-          transition-all duration-500 min-h-0
-          px-2
-          min-[768px]:px-4
-          min-[1280px]:px-6
-          ${meActive ? "flex-100" : "flex-62"}
-          `}
-        >
+        <div className="flex flex-col h-screen" ref={aboutRef}>
+          
+          {/* TOP ROW */}
+          <div 
+            className={`
+          bg-black/80 flex flex-col py-6 text-white justify-between
+            transition-all duration-500 min-h-0
+            px-2 
+            min-[768px]:px-4
+            min-[1280px]:px-6
+            ${meActive ? "flex-100" : "flex-62 rounded-b-4xl"}
+            `}
+          >
 
-          {/* MORE ABOUT ME */}
-          {meActive && (
-            <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2" ref={factsRef}>
-              <h1 className="font-bold text-2xl sm:text-3xl">more about me:</h1>
+            {/* MORE ABOUT ME */}
+            {meActive && (
+              <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2" ref={factsRef}>
+                <h1 className="font-bold text-2xl sm:text-3xl">more about me:</h1>
 
-              <hr className="my-2 border-white/20" />
+                <hr className="my-2 border-white/20" />
 
-              <div className="overflow-y-auto thin-scrollbar text-xs">
-              <p className="font-bold pb-1 text-base sm:text-lg">some facts:</p>
-              {aboutMe.map((info, index) => (
-                <div
-                  key={index}
-                  draggable="false"
-                  className={`
-                    transition-opacity duration-1000
-                    ${index === 0 && "pb-0.5"}
-                    ${index === aboutMe.length - 1 && "pt-0.5"}
-                    ${index !== 0 && index !== aboutMe.length - 1 && "py-0.5"}
-                    `}
-                >
-                  <p>✦ {info}</p>
+                <div className="overflow-y-auto thin-scrollbar text-xs">
+                <p className="font-bold pb-1 text-base sm:text-lg">some facts:</p>
+                {aboutMe.map((info, index) => (
+                  <div
+                    key={index}
+                    draggable="false"
+                    className={`
+                      transition-opacity duration-1000
+                      ${index === 0 && "pb-0.5"}
+                      ${index === aboutMe.length - 1 && "pt-0.5"}
+                      ${index !== 0 && index !== aboutMe.length - 1 && "py-0.5"}
+                      `}
+                  >
+                    <p>✦ {info}</p>
+                  </div>
+                ))}
                 </div>
-              ))}
-              </div>
 
-              <hr className="my-2 border-white/20" />
-              <p className="text-xs sm:text-sm">
-                if you think we can be good friends, dont hesitate to reach out :3
+                <hr className="my-2 border-white/20" />
+                <p className="text-xs sm:text-sm">
+                  if you think we can be good friends, dont hesitate to reach out :3
+                </p>
+              </div>
+            )}
+
+            {/* INFO */}
+            {!meActive && (
+              <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2 overflow-y-auto thin-scrollbar" ref={infoRef}>
+                <p className="font-bold text-2xl sm:text-3xl">about me:</p>
+                <p className="text-xs sm:text-sm">Kyle | {age} | INTJ | Libra</p>
+                <hr className="my-2 border-white/20" />
+
+                <p className="font-bold pb-1 text-base sm:text-lg">likes:</p>
+
+                <div className="flex flex-col text-xs sm:text-sm gap-1">
+                  <p>✦ playing piano / guitar</p>
+                  <p>✦ spirituality / mysticism</p>
+                  <p>✦ hermeticism / gnosticism / etc.</p>
+                  <p>✦ calisthenics</p>
+                  <p>✦ lifting</p>
+                  <p className={`text-yellow-200 flex`}>
+                    <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
+                      {activeList === "anime" ? "★" : "✦"}
+                    </span>
+
+                    <span
+                    className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                    ref={animeRef}
+                    onClick={() => {openList("anime")}}>
+                      anime
+                    </span>
+                  </p>
+                  <p className={`text-yellow-200 flex`}>
+                    <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "music" && "scale-150 mr-4 spin"}`}>
+                      {activeList === "music" ? "★" : "✦"}
+                    </span>
+
+                    <span
+                    className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                    ref={musicRef}
+                    onClick={() => {openList("music")}}>
+                      music
+                    </span>
+                  </p>
+                  <p className={`text-yellow-200 flex`}>
+                    <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "games" && "scale-150 mr-4 spin"}`}>
+                      {activeList === "games" ? "★" : "✦"}
+                    </span>
+
+                    <span
+                    className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                    ref={gamesRef}
+                    onClick={() => {openList("games")}}>
+                      games
+                    </span>
+                  </p>
+                  <p>✦ coding</p>
+                  <p>✦ drawing</p>
+                </div>
+
+                <hr className="my-2 border-white/20" />
+              
+                <p className="font-bold pb-1 text-base sm:text-lg">dislikes:</p>
+                <p className="text-xs sm:text-sm">🞨 nihilism / negativity</p>  
+              </div>
+            )}
+
+            {/* EMOJI */}
+            <div className={`text-yellow-200 flex flex-col pt-6 self-center text-center transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
+              <p className="flex text-base sm:text-lg lg:text-xl font-bold">
+                <span className={`text-yellow-200 flex items-center justify-center origin-center mr-2.25 duration-500 transition-scale transition-mr ${meActive && "spin scale-150 mr-4"}`}>
+                  {meActive ? "★" : "✦"}
+                </span>
+
+                <span
+                className={`${meActive && "font-bold italic underline"} transition-scale duration-200 cursor-pointer`}
+                ref={meRef}
+                onClick={() => {meHandler()}}>
+                  {meActive ? "less" : "more"} about {meActive ? "me..." : "me?"}
+                </span>
+
+                <span className={`text-yellow-200 flex items-center justify-center origin-center ml-2.25 duration-500 transition-scale transition-ml ${meActive && "spin scale-150 ml-4"}`}>
+                  {meActive ? "★" : "✦"}
+                </span>
+              </p>
+              <p
+              className="text-xs sm:text-sm cursor-pointer -translate-y-1"
+              onClick={() => {meHandler()}}
+              >
+                {face}
               </p>
             </div>
-          )}
-
-          {/* INFO */}
-          {!meActive && (
-            <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2 overflow-y-auto thin-scrollbar" ref={infoRef}>
-              <p className="font-bold text-2xl sm:text-3xl">about me:</p>
-              <p className="text-xs sm:text-sm">Kyle | {age} | INTJ | Libra</p>
-              <hr className="my-2 border-white/20" />
-
-              <p className="font-bold pb-1 text-base sm:text-lg">likes:</p>
-
-              <div className="flex flex-col text-xs sm:text-sm gap-1">
-                <p>✦ playing piano / guitar</p>
-                <p>✦ spirituality / mysticism</p>
-                <p>✦ hermeticism / gnosticism / etc.</p>
-                <p>✦ calisthenics</p>
-                <p>✦ lifting</p>
-                <p className={`text-yellow-200 flex`}>
-                  <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
-                    {activeList === "anime" ? "★" : "✦"}
-                  </span>
-
-                  <span
-                  className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
-                  ref={animeRef}
-                  onClick={() => {openList("anime")}}>
-                    anime
-                  </span>
-                </p>
-                <p className={`text-yellow-200 flex`}>
-                  <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "music" && "scale-150 mr-4 spin"}`}>
-                    {activeList === "music" ? "★" : "✦"}
-                  </span>
-
-                  <span
-                  className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
-                  ref={musicRef}
-                  onClick={() => {openList("music")}}>
-                    music
-                  </span>
-                </p>
-                <p className={`text-yellow-200 flex`}>
-                  <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "games" && "scale-150 mr-4 spin"}`}>
-                    {activeList === "games" ? "★" : "✦"}
-                  </span>
-
-                  <span
-                  className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
-                  ref={gamesRef}
-                  onClick={() => {openList("games")}}>
-                    games
-                  </span>
-                </p>
-                <p>✦ coding</p>
-                <p>✦ drawing</p>
-              </div>
-
-              <hr className="my-2 border-white/20" />
             
-              <p className="font-bold pb-1 text-base sm:text-lg">dislikes:</p>
-              <p className="text-xs sm:text-sm">🞨 nihilism / negativity</p>  
-            </div>
-          )}
-
-          {/* EMOJI */}
-          <div className={`text-yellow-200 flex flex-col pt-6 self-center text-center transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
-            <p className="flex text-base sm:text-lg lg:text-xl font-bold">
-              <span className={`text-yellow-200 flex items-center justify-center origin-center mr-2.25 duration-500 transition-scale transition-mr ${meActive && "spin scale-150 mr-4"}`}>
-                {meActive ? "★" : "✦"}
-              </span>
-
-              <span
-              className={`${meActive && "font-bold italic underline"} transition-scale duration-200 cursor-pointer`}
-              ref={meRef}
-              onClick={() => {meHandler()}}>
-                {meActive ? "less" : "more"} about {meActive ? "me..." : "me?"}
-              </span>
-
-              <span className={`text-yellow-200 flex items-center justify-center origin-center ml-2.25 duration-500 transition-scale transition-ml ${meActive && "spin scale-150 ml-4"}`}>
-                {meActive ? "★" : "✦"}
-              </span>
-            </p>
-            <p
-            className="text-xs sm:text-sm cursor-pointer -translate-y-1"
-            onClick={() => {meHandler()}}
-            >
-              {face}
-            </p>
           </div>
-          
-        </div>
 
-        {/* BOTTOM ROW */}
-        <div
-          className={`
-        bg-yellow-200 flex flex-col
-          transition-all duration-500 min-h-0
-          items-center justify-center
-          ${meActive ? "flex-0" : "flex-38"}
-          `}
-        >
-          <div className={`w-screen h-[30vh] z-100 self-end bg-black/90 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
-            ref={carouselContainerRef}
+          {/* BOTTOM ROW */}
+          <div
+            className={`
+            flex flex-col
+            transition-all duration-500 min-h-0
+            items-center justify-center
+            ${meActive ? "flex-0" : "flex-38"}
+            `}
           >
-            <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
-              <div className={`overflow-hidden flex items-center justify-center h-full w-full`} ref={emblaRef}>
-                <div className="flex h-full">
+            <div className={`w-screen h-[30vh] z-100 self-end bg-black/50 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
+              ref={carouselContainerRef}
+            >
+              <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
+                <div className={`overflow-hidden flex items-center justify-center h-full w-full`} ref={emblaRef}>
+                  <div className="flex h-full">
 
-                  {/* anime */}
-                  {activeList === "anime" && favAnime.map((anime, index) => (
-                    <div
-                      key={index}
-                      className={`
-                      flex-[0_0_29%]
-                      min-[640px]:flex-[0_0_24%]
-                      min-[768px]:flex-[0_0_18%]
-                      min-[1024px]:flex-[0_0_14%]
-                      min-[1280px]:flex-[0_0_13%]
-                      min-[1600px]:flex-[0_0_11%]
-                      px-1
-                      min-[1024px]:px-1
-                      min-[1280px]:px-4
-                      h-full flex flex-col items-center nonsel relative
-                      `}
-                      draggable="false"
-                    >
+                    {/* anime */}
+                    {activeList === "anime" && favAnime.map((anime, index) => (
                       <div
-                      className="relative w-full h-full overflow-hidden rounded-xl group cursor-help"
-                      onMouseEnter={() => {hoverHandle(anime.comment)}}
-                      onMouseLeave={() => {unhoverHandle()}}
+                        key={index}
+                        className={`
+                        flex-[0_0_29%]
+                        min-[640px]:flex-[0_0_24%]
+                        min-[768px]:flex-[0_0_18%]
+                        min-[1024px]:flex-[0_0_14%]
+                        min-[1280px]:flex-[0_0_13%]
+                        min-[1600px]:flex-[0_0_11%]
+                        px-1
+                        min-[1024px]:px-1
+                        min-[1280px]:px-4
+                        h-full flex flex-col items-center nonsel relative
+                        `}
+                        draggable="false"
                       >
-                        <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
-                        {/* <div className="absolute h-full w-full bg-[#8f826b] z-200 nonsel group-hover:invisible mix-blend-hue"></div> */}
+                        <div
+                        className="relative w-full h-full overflow-hidden rounded-xl group cursor-help"
+                        onMouseEnter={() => {hoverHandle(anime.comment)}}
+                        onMouseLeave={() => {unhoverHandle()}}
+                        >
+                          <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
+                          {/* <div className="absolute h-full w-full bg-[#8f826b] z-200 nonsel group-hover:invisible mix-blend-hue"></div> */}
 
-                        <img
-                          src={`/images/about/anime/${anime.img}`}
-                          alt={anime.name}
-                          className="
-                            w-full h-full
-                            object-cover
-                            saturate-40 hover:saturate-100
-                            transition-all duration-200
-                            brightness-80 hover:brightness-100
-                            z-150
-                          "
-                        />
+                          <img
+                            src={`/images/about/anime/${anime.img}`}
+                            alt={anime.name}
+                            className="
+                              w-full h-full
+                              object-cover
+                              saturate-40 hover:saturate-100
+                              transition-all duration-200
+                              brightness-80 hover:brightness-100
+                              z-150
+                            "
+                          />
 
-                        <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${anime.tag}`}>
-                          {anime.name}
-                        </p>
+                          <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${anime.tag}`}>
+                            {anime.name}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
 
-                  {/* music */}
-                  {activeList === "music" && favMusic.map((music, index) => (
-                    <div
-                      key={index}
-                      className={`
-                      flex-[0_0_43%]
-                      min-[640px]:flex-[0_0_36%]
-                      min-[768px]:flex-[0_0_27%]
-                      min-[1024px]:flex-[0_0_22%]
-                      min-[1280px]:flex-[0_0_19%]
-                      min-[1600px]:flex-[0_0_16%]
-                      px-1
-                      min-[1024px]:px-1
-                      min-[1280px]:px-4
-                      h-full flex flex-col items-center nonsel relative
-                      `}
-                      draggable="false"
-                    >
+                    {/* music */}
+                    {activeList === "music" && favMusic.map((music, index) => (
                       <div
-                      className="relative w-full h-full overflow-hidden rounded-xl group cursor-help"
-                      onMouseEnter={() => {hoverHandle(music.comment)}}
-                      onMouseLeave={() => {unhoverHandle()}}
+                        key={index}
+                        className={`
+                        flex-[0_0_43%]
+                        min-[640px]:flex-[0_0_36%]
+                        min-[768px]:flex-[0_0_27%]
+                        min-[1024px]:flex-[0_0_22%]
+                        min-[1280px]:flex-[0_0_19%]
+                        min-[1600px]:flex-[0_0_16%]
+                        px-1
+                        min-[1024px]:px-1
+                        min-[1280px]:px-4
+                        h-full flex flex-col items-center nonsel relative
+                        `}
+                        draggable="false"
                       >
-                        <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
+                        <div
+                        className="relative w-full h-full overflow-hidden rounded-xl group cursor-help"
+                        onMouseEnter={() => {hoverHandle(music.comment)}}
+                        onMouseLeave={() => {unhoverHandle()}}
+                        >
+                          <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
 
-                        <img
-                          src={`/images/about/music/${music.img}`}
-                          alt={music.name}
-                          className="
-                            w-full h-full
-                            object-cover
-                            saturate-40 hover:saturate-100
-                            transition-all duration-200
-                            brightness-80 hover:brightness-100
-                            z-150
-                          "
-                        />
+                          <img
+                            src={`/images/about/music/${music.img}`}
+                            alt={music.name}
+                            className="
+                              w-full h-full
+                              object-cover
+                              saturate-40 hover:saturate-100
+                              transition-all duration-200
+                              brightness-80 hover:brightness-100
+                              z-150
+                            "
+                          />
 
-                        <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${music.tag}`}>
-                          {music.name}
-                        </p>
+                          <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${music.tag}`}>
+                            {music.name}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
 
-                  {/* games */}
-                  {activeList === "games" && favGames.map((games, index) => (
-                    <div
-                      key={index}
-                      className={`
-                      flex-[0_0_29%]
-                      min-[640px]:flex-[0_0_24%]
-                      min-[768px]:flex-[0_0_18%]
-                      min-[1024px]:flex-[0_0_14%]
-                      min-[1280px]:flex-[0_0_13%]
-                      min-[1600px]:flex-[0_0_11%]
-                      px-1
-                      min-[1024px]:px-1
-                      min-[1280px]:px-4
-                      h-full flex flex-col items-center nonsel relative
-                      `}
-                      draggable="false"
-                    >
+                    {/* games */}
+                    {activeList === "games" && favGames.map((games, index) => (
                       <div
-                      className="relative w-full h-full overflow-hidden rounded-xl group cursor-help"
-                      onMouseEnter={() => {hoverHandle(games.comment)}}
-                      onMouseLeave={() => {unhoverHandle()}}
+                        key={index}
+                        className={`
+                        flex-[0_0_29%]
+                        min-[640px]:flex-[0_0_24%]
+                        min-[768px]:flex-[0_0_18%]
+                        min-[1024px]:flex-[0_0_14%]
+                        min-[1280px]:flex-[0_0_13%]
+                        min-[1600px]:flex-[0_0_11%]
+                        px-1
+                        min-[1024px]:px-1
+                        min-[1280px]:px-4
+                        h-full flex flex-col items-center nonsel relative
+                        `}
+                        draggable="false"
                       >
-                        <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
+                        <div
+                        className="relative w-full h-full overflow-hidden rounded-xl group cursor-help"
+                        onMouseEnter={() => {hoverHandle(games.comment)}}
+                        onMouseLeave={() => {unhoverHandle()}}
+                        >
+                          <div className="absolute h-full w-full bg-linear-to-t from-black/60 to-transparent z-200 nonsel group-hover:invisible"></div>
 
-                        <img
-                          src={`/images/about/games/${games.img}`}
-                          alt={games.name}
-                          className="
-                            w-full h-full
-                            object-cover
-                            saturate-40 hover:saturate-100
-                            transition-all duration-200
-                            brightness-80 hover:brightness-100
-                            z-150
-                          "
-                        />
+                          <img
+                            src={`/images/about/games/${games.img}`}
+                            alt={games.name}
+                            className="
+                              w-full h-full
+                              object-cover
+                              saturate-40 hover:saturate-100
+                              transition-all duration-200
+                              brightness-80 hover:brightness-100
+                              z-150
+                            "
+                          />
 
-                        <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${games.tag}`}>
-                          {games.name}
-                        </p>
+                          <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${games.tag}`}>
+                            {games.name}
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                  
+                    ))}
+                    
+                  </div>
                 </div>
               </div>
+              
             </div>
             
           </div>
-          
+
         </div>
 
-
       </div>
-    </div>
+      
+      <div className="fixed inset-0 overflow-hidden">
+        <Marquee speed={20} gradient={false} className="h-screen -mr-px">
+          <img 
+            src="/images/aboutbg-0.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
 
-    <TooltipComponent info={tooltipText} status={tooltipVisible} />
-    
+
+      {/* <Marquee speed={30} gradient={false} className="h-screen fixed z-1">
+        <img 
+          src="/images/aboutbg-0.png" 
+          alt="" 
+          className="h-screen w-auto opacity-20"
+        />
+      </Marquee> */}
+
+      <TooltipComponent info={tooltipText} status={tooltipVisible} />
+      
     </div>
   );
 }
