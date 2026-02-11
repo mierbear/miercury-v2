@@ -886,7 +886,9 @@ export default function Home() {
                   )}
 
                   {status !== "offline" && (
-                    <p className="italic text-xs">"{bio}"</p>
+                    <NextLink href="/quotes">
+                      <p className="italic text-xs">"{bio}"</p>
+                    </NextLink>
                   )}
                 </div>
 
@@ -962,10 +964,10 @@ export default function Home() {
                 autoFill={true}
                 className="text-xs sm:text-sm md:text-md flex text-white nonsel"
               >
-                <p className={`${sono.className}`}>
+                <NextLink href="/quotes" className={`${sono.className}`}>
                   <span className="inline-flex backwards-spin items-center justify-center">✦</span>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{getQuote(quotes)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </p>
+                </NextLink>
               </Marquee>
             </div>
 
