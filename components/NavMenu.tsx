@@ -102,6 +102,7 @@ const NavMenu = () => {
     { img: "moonblank.png", desc: "in the gallery", href: "/gallery" },
     { img: "moonblank.png", desc: "in my mind", href: "/blog" },
     { img: "moonblank.png", desc: "here with me", href: "/about" },
+    { img: "moonblank.png", desc: "with my projected principles", href: "/quotes" },
     { img: "moonblank.png", desc: "in the secret base..", href: "/admin" },
   ]
 
