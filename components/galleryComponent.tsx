@@ -28,6 +28,12 @@ export default function GalleryComponent() {
 
   const [artworks, setArtworks] = useState<ArtType[]>([]);
   const [featArtwork, setFeatArtwork] = useState<ArtType | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 12;
+  const totalPages = Math.ceil(artworks.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentArtworks = artworks.slice(startIndex, endIndex);
     
   const fetchArt = async () => {
     const { error, data } = await supabase
@@ -140,16 +146,25 @@ export default function GalleryComponent() {
         {/* BOTTOM */}
         <div className="flex-col">
 
-          <div className="flex flex-col items-center w-full bg-amber-50">
-            <p className="w-full">gallery</p>
-            <p>gallery</p>
-            <p>im still thinking about how to make the gallery lol</p>
-            <p>i need to focus on drawing stuff for my website first..</p>
+          <div className="flex items-center justify-center gap-2 w-full bg-amber-50 p-2">
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+              <button
+                key={pageNum}
+                onClick={() => setCurrentPage(pageNum)}
+                className={`px-3 py-1 rounded ${
+                  currentPage === pageNum 
+                    ? 'bg-black text-white' 
+                    : 'bg-white hover:bg-gray-200'
+                }`}
+              >
+                {pageNum}
+              </button>
+            ))}
           </div>
 
           <div className="grid grid-cols-3 lg:grid-cols-4 xl:p-4">
-            {artworks.map((artwork, index) => (
-              <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer" onClick={() => openLightBox(index)}>
+            {currentArtworks.map((artwork, index) => (
+              <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer" onClick={() => openLightBox(startIndex + index)}>
                 <p className="absolute bottom-0 text-white bg-black/60 backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3 w-full text-sm md:text-base">{artwork.title}</p>
                 <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
               </div>
