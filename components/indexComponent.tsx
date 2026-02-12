@@ -384,7 +384,7 @@ export default function Home() {
       return;
     }
     
-    console.log(data);
+    // console.log(data);
     setLogs(data);
   }
 
@@ -450,7 +450,7 @@ export default function Home() {
       return;
     }
     
-    console.log(data);
+    // console.log(data);
     setArtwork(data[0]);
   }
 
@@ -522,12 +522,17 @@ export default function Home() {
         {
           src: artwork.url,
           description: (
-            <div className={`hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center w-full`}>
-              <p className={`text-4xl font-bold ${oranienbaum.className} text-center`}>{artwork.title}</p>
-              <p className={`text-xs ${sono.className} text-gray-300 text-center`}>({artwork.date})</p>
-              <p className={`text-lg ${gowun.className} mt-3 text-justify wrap-break-word w-full`}>{artwork.description}</p>
+            <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+              <p className={`text-4xl font-bold ${oranienbaum.className}`}>{artwork.title}</p>
+              <p className={`text-xs ${sono.className} text-gray-300`}>({artwork.date})</p>
+              <div className="flex gap-2">
+                {artwork.tags.map((tag, index) => 
+                  <p key={index} className={`text-xs ${sono.className} text-gray-400`}>#{tag}</p>
+                )}
+              </div>
+              <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{artwork.description}</p>
             </div>
-          )
+          ),
         },
       ]
     : [];
