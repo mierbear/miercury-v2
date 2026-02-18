@@ -605,7 +605,7 @@ export default function Home() {
             px-2 
             min-[768px]:px-4
             min-[1280px]:px-6
-            ${meActive ? "flex-100" : "flex-62 rounded-b-4xl"}
+            ${meActive ? "flex-100" : "flex-72 rounded-b-4xl"}
             `}
           >
 
@@ -662,7 +662,7 @@ export default function Home() {
                     </span>
 
                     <span
-                    className={`${activeList === "anime" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                    className={`${activeList === "anime" && "font-bold white-glow underline scale-125"} transition-scale duration-200 cursor-pointer`}
                     ref={animeRef}
                     onClick={() => {openList("anime")}}>
                       anime
@@ -674,7 +674,7 @@ export default function Home() {
                     </span>
 
                     <span
-                    className={`${activeList === "music" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                    className={`${activeList === "music" && "font-bold white-glow underline scale-125"} transition-scale duration-200 cursor-pointer`}
                     ref={musicRef}
                     onClick={() => {openList("music")}}>
                       music
@@ -686,7 +686,7 @@ export default function Home() {
                     </span>
 
                     <span
-                    className={`${activeList === "games" && "font-bold white-glow italic underline scale-125"} transition-scale duration-200 cursor-pointer`}
+                    className={`${activeList === "games" && "font-bold white-glow underline scale-125"} transition-scale duration-200 cursor-pointer`}
                     ref={gamesRef}
                     onClick={() => {openList("games")}}>
                       games
@@ -737,10 +737,10 @@ export default function Home() {
             flex flex-col
             transition-all duration-500 min-h-0
             items-center justify-center
-            ${meActive ? "flex-0" : "flex-38"}
+            ${meActive ? "flex-0" : "flex-28"}
             `}
           >
-            <div className={`w-screen h-[30vh] z-100 self-end bg-black/50 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
+            <div className={`w-screen h-[24vh] z-100 self-end bg-black/50 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
               ref={carouselContainerRef}
             >
               <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
@@ -752,12 +752,12 @@ export default function Home() {
                       <div
                         key={index}
                         className={`
-                        flex-[0_0_29%]
-                        min-[640px]:flex-[0_0_24%]
+                        flex-[0_0_28%]
+                        min-[640px]:flex-[0_0_22%]
                         min-[768px]:flex-[0_0_18%]
                         min-[1024px]:flex-[0_0_14%]
-                        min-[1280px]:flex-[0_0_13%]
-                        min-[1600px]:flex-[0_0_11%]
+                        min-[1280px]:flex-[0_0_12%]
+                        min-[1600px]:flex-[0_0_10%]
                         px-1
                         min-[1024px]:px-1
                         min-[1280px]:px-4
@@ -798,12 +798,11 @@ export default function Home() {
                       <div
                         key={index}
                         className={`
-                        flex-[0_0_43%]
-                        min-[640px]:flex-[0_0_36%]
-                        min-[768px]:flex-[0_0_27%]
-                        min-[1024px]:flex-[0_0_22%]
-                        min-[1280px]:flex-[0_0_19%]
-                        min-[1600px]:flex-[0_0_16%]
+                        flex-[0_0_32%]
+                        min-[640px]:flex-[0_0_28%]
+                        min-[768px]:flex-[0_0_22%]
+                        min-[1024px]:flex-[0_0_17%]
+                        min-[1600px]:flex-[0_0_14%]
                         px-1
                         min-[1024px]:px-1
                         min-[1280px]:px-4
@@ -843,12 +842,12 @@ export default function Home() {
                       <div
                         key={index}
                         className={`
-                        flex-[0_0_29%]
-                        min-[640px]:flex-[0_0_24%]
+                        flex-[0_0_28%]
+                        min-[640px]:flex-[0_0_22%]
                         min-[768px]:flex-[0_0_18%]
                         min-[1024px]:flex-[0_0_14%]
-                        min-[1280px]:flex-[0_0_13%]
-                        min-[1600px]:flex-[0_0_11%]
+                        min-[1280px]:flex-[0_0_12%]
+                        min-[1600px]:flex-[0_0_10%]
                         px-1
                         min-[1024px]:px-1
                         min-[1280px]:px-4
