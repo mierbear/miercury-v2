@@ -418,15 +418,17 @@ export default function Home() {
   const aboutMe = [
     "i have hyperphantasia (1)",
     "you could call me a christian/buddhist",
-    "i like cliche tropes and messages",
+    "i love cliche tropes and messages",
     "im a sucker for sad/motivational stories/music",
     "im sometimes forgetful lol",
     "i might have dementia",
     "i like ragebaiting my friends",
+    "i like gaslighting my friends",
     "i like looking into conspiracy theories for fun",
+    "i laugh about almost everything",
     "dont take everything i say seriously",
     "if i've pissed you off before, i love you",
-    "i never understood fanbases or being obsessed with something",
+    "i never understood fanbases or being obsessed with something, i value self-expression and individuality highly",
     "i might have dementia",
   ]
 
@@ -588,8 +590,9 @@ export default function Home() {
       max-w-screen 
       h-screen 
       grid
-      grid-cols-[1fr_1fr] 
-      md:grid-cols-[10fr_6fr]
+      grid-cols-[6fr_10fr] 
+      sm:grid-cols-[1fr_1fr] 
+      lg:grid-cols-[10fr_6fr]
       z-10
       ">
 
@@ -612,31 +615,33 @@ export default function Home() {
             {/* MORE ABOUT ME */}
             {meActive && (
               <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2" ref={factsRef}>
-                <h1 className="font-bold text-2xl sm:text-3xl">more about me:</h1>
+                <h1 className="font-bold text-base sm:text-3xl">more about me:</h1>
 
-                <hr className="my-2 border-white/20" />
-
-                <div className="overflow-y-auto thin-scrollbar text-xs">
-                <p className="font-bold pb-1 text-base sm:text-lg">some facts:</p>
+                <div className="overflow-y-auto thin-scrollbar text-xs my-4">
                 {aboutMe.map((info, index) => (
                   <div
                     key={index}
                     draggable="false"
                     className={`
-                      transition-opacity duration-1000
-                      ${index === 0 && "pb-0.5"}
-                      ${index === aboutMe.length - 1 && "pt-0.5"}
-                      ${index !== 0 && index !== aboutMe.length - 1 && "py-0.5"}
-                      `}
+                      transition-opacity duration-1000 text-xs sm:text-sm pr-1
+                    `}
                   >
-                    <p>✦ {info}</p>
+
+                  {index === 0 && (<hr className=" border-gray-500/30 w-full" />)}
+
+                  <div className={`grid grid-cols-[16px_1fr] gap-2 my-2`}>
+                    <p className="nonsel pointer-events-none flex items-center justify-center">✦</p>
+                    <p className="">{info}</p>
+                  </div>
+
+                  {index !== info.length - 1 && (<hr className=" border-gray-500/30 w-full" />)}
+
                   </div>
                 ))}
                 </div>
 
-                <hr className="my-2 border-white/20" />
-                <p className="text-xs sm:text-sm">
-                  if you think we can be good friends, dont hesitate to reach out :3
+                <p className="text-xs sm:text-base text-center italic font-bold">
+                  if you think we can be good friends, then reach out brotha
                 </p>
               </div>
             )}
@@ -645,15 +650,26 @@ export default function Home() {
             {!meActive && (
               <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2 overflow-y-auto thin-scrollbar" ref={infoRef}>
                 <p className="font-bold text-2xl sm:text-3xl">about me:</p>
-                <p className="text-xs sm:text-sm">Kyle | {age} | INTJ | Libra</p>
+                <p className="text-base sm:text-lg">Kyle | {age} | INTJ | Libra</p>
                 <hr className="my-2 border-white/20" />
 
                 <p className="font-bold pb-1 text-base sm:text-lg">likes:</p>
 
                 <div className="flex flex-col text-xs sm:text-sm gap-1">
                   <p>✦ playing piano / guitar</p>
-                  <p>✦ spirituality / mysticism</p>
-                  <p>✦ hermeticism / gnosticism / etc.</p>
+                  <p className="flex hover:cursor-pointer">
+                    <span className="mr-2.25">
+                      ✦
+                    </span>
+
+                    <span
+                    className="italic"
+                    onMouseEnter={() => {hoverHandle(`mysticism / gnosticism / hermeticism / etc.`)}}
+                    onMouseLeave={() => {unhoverHandle()}}
+                    >
+                      spirituality (?)
+                    </span>
+                  </p>
                   <p>✦ calisthenics</p>
                   <p>✦ lifting</p>
                   <p className={`text-yellow-200 flex`}>
@@ -699,13 +715,17 @@ export default function Home() {
                 <hr className="my-2 border-white/20" />
               
                 <p className="font-bold pb-1 text-base sm:text-lg">dislikes:</p>
-                <p className="text-xs sm:text-sm">🞨 nihilism / negativity</p>  
+
+                <div className="flex flex-col text-xs sm:text-sm gap-1">
+                  <p className="text-xs sm:text-sm">🞨 nihilism / negativity</p>  
+                </div>
+
               </div>
             )}
 
             {/* EMOJI */}
-            <div className={`text-yellow-200 flex flex-col pt-6 self-center text-center transition-mb duration-500 nonsel ${meActive && "white-glow mb-32"}`}>
-              <p className="flex text-base sm:text-lg lg:text-xl font-bold">
+            <div className={`text-yellow-200 flex flex-col gap-2 pt-6 self-center text-center transition-mb duration-530 nonsel ${meActive && "white-glow mb-32"}`}>
+              <p className="flex text-base sm:text-lg lg:text-xl font-bold mx-3">
                 <span className={`text-yellow-200 flex items-center justify-center origin-center mr-2.25 duration-500 transition-scale transition-mr ${meActive && "spin scale-150 mr-4"}`}>
                   {meActive ? "★" : "✦"}
                 </span>
