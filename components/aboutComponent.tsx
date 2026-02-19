@@ -603,7 +603,7 @@ export default function Home() {
           {/* TOP ROW */}
           <div 
             className={`
-            bg-[#202224]/80 flex flex-col py-6 text-white justify-between
+            bg-[rgb(32,34,35)]/80 flex flex-col py-6 text-white justify-between
             transition-all duration-500 min-h-0
             px-2 
             min-[768px]:px-4
@@ -760,7 +760,7 @@ export default function Home() {
             ${meActive ? "flex-0" : "flex-28"}
             `}
           >
-            <div className={`w-screen h-[24vh] z-100 self-end bg-[#202224]/20 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
+            <div className={`w-screen h-[24vh] z-100 self-end bg-[rgb(32,34,35)]/20 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
               ref={carouselContainerRef}
             >
               <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
