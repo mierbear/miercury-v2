@@ -557,7 +557,7 @@ export default function Home() {
   const infoRef = useRef<HTMLDivElement | null>(null);
 
   const sadFaces = ["u_u", "T_T", "ヽ(*。>Д<)o゜",];
-  const happyFaces = [":3", ":D", "(•ˋ _ ˊ•)", "o(〃◕ ヮ ◕〃)o"];
+  const happyFaces = [":3", ":D", "(•ˋ _ ˊ•)", "o(〃◕ ヮ ◕〃)o", "6w6", "ojo", "6⩊6"];
 
   const randomizer = (arr: string[]) => {
     return arr[Math.trunc((Math.random() * arr.length))];
@@ -603,7 +603,7 @@ export default function Home() {
           {/* TOP ROW */}
           <div 
             className={`
-          bg-black/80 flex flex-col py-6 text-white justify-between
+            bg-[#202224]/80 flex flex-col py-6 text-white justify-between
             transition-all duration-500 min-h-0
             px-2 
             min-[768px]:px-4
@@ -657,7 +657,7 @@ export default function Home() {
 
                 <div className="flex flex-col text-xs sm:text-sm gap-1">
                   <p>✦ playing piano / guitar</p>
-                  <p className="flex hover:cursor-pointer">
+                  <p className="flex hover:cursor-help">
                     <span className="mr-2.25">
                       ✦
                     </span>
@@ -760,7 +760,7 @@ export default function Home() {
             ${meActive ? "flex-0" : "flex-28"}
             `}
           >
-            <div className={`w-screen h-[24vh] z-100 self-end bg-black/50 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
+            <div className={`w-screen h-[24vh] z-100 self-end bg-[#202224]/20 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
               ref={carouselContainerRef}
             >
               <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
@@ -914,10 +914,30 @@ export default function Home() {
 
       </div>
       
-      <div className="fixed inset-0 overflow-hidden">
+      <div className="fixed inset-0 overflow-hidden z-9">
         <Marquee speed={20} gradient={false} className="h-screen -mr-px">
           <img 
             src="/images/aboutbg-0.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-8">
+        <Marquee speed={10} gradient={false} className="h-screen -mr-px">
+          <img 
+            src="/images/aboutbg-1.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-8">
+        <Marquee speed={7} gradient={false} className="h-screen -mr-px">
+          <img 
+            src="/images/aboutbg-2.png"
             alt="" 
             className="h-screen w-auto"
           />

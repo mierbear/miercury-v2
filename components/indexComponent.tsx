@@ -858,9 +858,7 @@ export default function Home() {
                   )}
 
                   {status !== "offline" && (
-                    <NextLink href="/quotes">
-                      <p className="italic text-xs">"{bio}"</p>
-                    </NextLink>
+                    <p className="italic text-xs">"{bio}"</p>
                   )}
                 </div>
 
