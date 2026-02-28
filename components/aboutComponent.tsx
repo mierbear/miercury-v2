@@ -603,7 +603,7 @@ export default function Home() {
           {/* TOP ROW */}
           <div 
             className={`
-            bg-[rgb(32,34,35)]/80 flex flex-col py-6 text-white justify-between
+            bg-[rgb(30,34,36)]/70 flex flex-col py-6 text-white justify-between
             transition-all duration-500 min-h-0
             px-2 
             min-[768px]:px-4
@@ -760,7 +760,7 @@ export default function Home() {
             ${meActive ? "flex-0" : "flex-28"}
             `}
           >
-            <div className={`w-screen h-[24vh] z-100 self-end bg-[rgb(32,34,35)]/20 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
+            <div className={`w-screen h-[24vh] z-100 self-end bg-[rgb(30,34,36)]/20 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
               ref={carouselContainerRef}
             >
               <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
@@ -914,44 +914,71 @@ export default function Home() {
 
       </div>
       
-      <div className="fixed inset-0 overflow-hidden z-9">
-        <Marquee speed={20} gradient={false} className="h-screen -mr-px">
+      <img 
+        src="/images/running.png"
+        alt="" 
+        className="fixed bottom-10 mr-[20vw] z-8"
+      />
+
+      <div className="fixed inset-0 overflow-hidden z-7">
+        <Marquee speed={20} gradient={false} className="h-screen -mr-px" direction="right">
           <img 
-            src="/images/aboutbg-0.png"
+            src="/images/about5.png"
             alt="" 
             className="h-screen w-auto"
           />
         </Marquee>
       </div>
 
-      <div className="fixed inset-0 overflow-hidden z-8">
+      <div className="fixed inset-0 overflow-hidden z-6">
+        <Marquee speed={6} gradient={false} className="h-screen -mr-px" direction="right">
+          <img 
+            src="/images/about4.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-5">
+        <Marquee speed={12} gradient={false} className="h-screen -mr-px">
+          <img 
+            src="/images/about3.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-4">
+        <Marquee speed={28} gradient={false} className="h-screen -mr-px">
+          <img 
+            src="/images/about2.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-3">
         <Marquee speed={10} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/aboutbg-1.png"
+            src="/images/about1.png"
             alt="" 
             className="h-screen w-auto"
           />
         </Marquee>
       </div>
 
-      <div className="fixed inset-0 overflow-hidden z-8">
-        <Marquee speed={7} gradient={false} className="h-screen -mr-px">
+      <div className="fixed inset-0 overflow-hidden z-2">
+        <Marquee speed={8} gradient={false} className="h-screen -mr-13px bg-[rgb(113,165,200)]">
           <img 
-            src="/images/aboutbg-2.png"
+            src="/images/about0.png"
             alt="" 
             className="h-screen w-auto"
           />
         </Marquee>
       </div>
-
-
-      {/* <Marquee speed={30} gradient={false} className="h-screen fixed z-1">
-        <img 
-          src="/images/aboutbg-0.png" 
-          alt="" 
-          className="h-screen w-auto opacity-20"
-        />
-      </Marquee> */}
 
       <TooltipComponent info={tooltipText} status={tooltipVisible} />
       
