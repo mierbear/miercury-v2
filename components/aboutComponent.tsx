@@ -914,7 +914,7 @@ export default function Home() {
       </div>
       
       <p
-        className={`absolute left-4 top-4 text-white z-20 cursor-pointer transition-opacity duration-1000 ${intVis ? "opacity-100" : "opacity-0 hover:opacity-100"}`}
+        className={`absolute left-4 top-4 text-white z-20 cursor-pointer transition-opacity duration-1000 ${intVis ? "opacity-100" : "opacity-0 hover:opacity-100"} sm:block hidden`}
         onClick={() => setIntVis(!intVis)}
       >
         hide UI?
