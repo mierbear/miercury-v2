@@ -763,7 +763,7 @@ export default function Home() {
             >
               <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
                 <div className={`overflow-hidden flex items-center justify-center h-full w-full`} ref={emblaRef}>
-                  <div className="flex h-full">
+                  <div className={`flex h-full ${intVis || "pointer-events-none"}`}>
 
                     {/* anime */}
                     {activeList === "anime" && favAnime.map((anime, index) => (
