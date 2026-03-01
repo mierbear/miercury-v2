@@ -3,6 +3,7 @@ import { use, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import TooltipComponent from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
+import { measureMemory } from "vm";
 
 export default function Home() {
   const carouselContainerRef = useRef<HTMLDivElement | null>(null);
@@ -439,14 +440,6 @@ export default function Home() {
   const openList = (category: ListKeys) => {
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
-
-    // carouselContainerRef.current.style.opacity = "0";
-    // carouselContainerRef.current.style.display = "block";
-    // setTimeout(() => {
-    //   if (!carouselContainerRef.current) return;
-    //   carouselContainerRef.current.style.opacity = "1";
-    // }, 0);
-
     carouselContainerRef.current.style.display = "block";
     carouselContainerRef.current.style.opacity = "1";
     aboutRef.current.style.pointerEvents = "none";
@@ -472,6 +465,7 @@ export default function Home() {
       aboutRef.current.style.pointerEvents = "auto";
     }, 200);
   }
+
   const closeList = (category: ListKeys | null) => {
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
@@ -577,6 +571,8 @@ export default function Home() {
     setReady(true);
   }, []);
 
+  const [intVis, setIntVis] = useState(true);
+
   if (!ready) return null;
 
   // OPACITY TRANSITION
@@ -598,7 +594,7 @@ export default function Home() {
 
         <div></div>
 
-        <div className="flex flex-col h-screen" ref={aboutRef}>
+        <div className={`flex flex-col h-screen transition-opacity duration-400 ${intVis ? "opacity-100" : "opacity-0"}`} ref={aboutRef}>
           
           {/* TOP ROW */}
           <div 
@@ -916,10 +912,17 @@ export default function Home() {
 
       </div>
       
+      <p
+        className={`absolute left-4 top-4 text-white z-20 cursor-pointer transition-opacity duration-1000 ${intVis ? "opacity-100" : "opacity-0 hover:opacity-100"}`}
+        onClick={() => setIntVis(!intVis)}
+      >
+        hide UI?
+      </p>
+
       <img 
         src="/images/running.png"
         alt="" 
-        className="absolute h-screen w-auto mr-[20vw] z-8 sm:block hidden"
+        className={`absolute h-screen w-auto transition-[margin] duration-1000 ease-in-out ${intVis ? "mr-[15vw]" : "mr-0"} z-8 sm:block hidden`}
       />
 
       <div className="fixed inset-0 overflow-hidden z-7">
