@@ -607,6 +607,7 @@ export default function Home() {
             min-[768px]:px-4
             min-[1280px]:px-6
             ${meActive ? "flex-100" : "flex-72 rounded-b-4xl"}
+            ${intVis || "pointer-events-none"}
             `}
           >
 
