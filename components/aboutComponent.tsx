@@ -590,7 +590,7 @@ export default function Home() {
       max-w-screen 
       h-screen 
       grid
-      grid-cols-[6fr_10fr] 
+      grid-cols-[0fr_10fr] 
       sm:grid-cols-[1fr_1fr] 
       lg:grid-cols-[10fr_6fr]
       z-10
@@ -605,7 +605,9 @@ export default function Home() {
             className={`
             bg-[rgb(30,34,36)]/70 flex flex-col py-6 text-white justify-between
             transition-all duration-500 min-h-0
-            px-2 
+            px-2
+            mx-[5vw]
+            min-[640px]:mx-0
             min-[768px]:px-4
             min-[1280px]:px-6
             ${meActive ? "flex-100" : "flex-72 rounded-b-4xl"}
@@ -917,11 +919,11 @@ export default function Home() {
       <img 
         src="/images/running.png"
         alt="" 
-        className="fixed bottom-10 mr-[20vw] z-8"
+        className="absolute h-screen w-auto mr-[20vw] z-8 sm:block hidden"
       />
 
       <div className="fixed inset-0 overflow-hidden z-7">
-        <Marquee speed={20} gradient={false} className="h-screen -mr-px" direction="right">
+        <Marquee speed={50} gradient={false} className="h-screen -mr-px" direction="right">
           <img 
             src="/images/about5.png"
             alt="" 
