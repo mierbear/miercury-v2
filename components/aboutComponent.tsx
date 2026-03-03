@@ -914,22 +914,102 @@ export default function Home() {
       </div>
       
       <p
-        className={`absolute left-4 top-4 text-white z-20 cursor-pointer transition-opacity duration-1000 ${intVis ? "opacity-100" : "opacity-0 hover:opacity-100"} sm:block hidden`}
+        className={`absolute left-4 top-4 text-white z-100 cursor-pointer transition-opacity duration-1000 ${intVis ? "opacity-100" : "opacity-0 hover:opacity-100"} sm:block hidden`}
         onClick={() => setIntVis(!intVis)}
       >
         {intVis ? "hide" : "show"} UI?
       </p>
 
+      <div className="fixed inset-0 overflow-hidden z-16">
+        <Marquee speed={62} gradient={false} className="h-screen -mr-px" direction="right">
+          <img 
+            src="/images/about-14.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-15">
+        <Marquee speed={48} gradient={false} className="h-screen -mr-px" direction="right">
+          <img 
+            src="/images/about-13.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
       <img 
-        src="/images/running.png"
+        src="/images/about-run.png"
         alt="" 
-        className={`absolute h-screen w-auto transition-[margin] duration-1000 ease-in-out ${intVis ? "mr-[15vw]" : "mr-0"} z-8 sm:block hidden`}
+        className={`absolute h-screen w-auto transition-[margin] duration-1000 ease-in-out ${intVis ? "mr-[15vw]" : "mr-0"} z-14 sm:block hidden`}
       />
 
-      <div className="fixed inset-0 overflow-hidden z-7">
-        <Marquee speed={50} gradient={false} className="h-screen -mr-px" direction="right">
+      <div className="fixed inset-0 overflow-hidden z-13">
+        <Marquee speed={32} gradient={false} className="h-screen -mr-px" direction="right">
           <img 
-            src="/images/about5.png"
+            src="/images/about-11.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-12">
+        <Marquee speed={8} gradient={false} className="h-screen -mr-px" direction="right">
+          <img 
+            src="/images/about-10.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-11">
+        <Marquee speed={4} gradient={false} className="h-screen -mr-px" direction="right">
+          <img 
+            src="/images/about-9.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-10">
+        <Marquee speed={4} gradient={false} className="h-screen -mr-px">
+          <img 
+            src="/images/about-8.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+      
+      <div className="fixed inset-0 overflow-hidden z-9">
+        <Marquee speed={30} gradient={false} className="h-screen -mr-px">
+          <img 
+            src="/images/about-7.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-8">
+        <Marquee speed={24} gradient={false} className="h-screen -mr-px">
+          <img 
+            src="/images/about-6.png"
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
+
+      <div className="fixed inset-0 overflow-hidden z-7">
+        <Marquee speed={12} gradient={false} className="h-screen -mr-px">
+          <img 
+            src="/images/about-5.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -937,9 +1017,9 @@ export default function Home() {
       </div>
 
       <div className="fixed inset-0 overflow-hidden z-6">
-        <Marquee speed={6} gradient={false} className="h-screen -mr-px" direction="right">
+        <Marquee speed={28} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about4.png"
+            src="/images/about-4.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -947,9 +1027,9 @@ export default function Home() {
       </div>
 
       <div className="fixed inset-0 overflow-hidden z-5">
-        <Marquee speed={12} gradient={false} className="h-screen -mr-px">
+        <Marquee speed={8} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about3.png"
+            src="/images/about-3.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -957,19 +1037,19 @@ export default function Home() {
       </div>
 
       <div className="fixed inset-0 overflow-hidden z-4">
-        <Marquee speed={28} gradient={false} className="h-screen -mr-px">
+        <Marquee speed={10} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about2.png"
+            src="/images/about-2.png"
             alt="" 
             className="h-screen w-auto"
           />
         </Marquee>
       </div>
-
+      
       <div className="fixed inset-0 overflow-hidden z-3">
-        <Marquee speed={10} gradient={false} className="h-screen -mr-px">
+        <Marquee speed={8} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about1.png"
+            src="/images/about-1.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -979,7 +1059,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-2">
         <Marquee speed={8} gradient={false} className="h-screen -mr-13px bg-[rgb(113,165,200)]">
           <img 
-            src="/images/about0.png"
+            src="/images/about-0.png"
             alt="" 
             className="h-screen w-auto"
           />
