@@ -589,7 +589,7 @@ export default function Home() {
       grid-cols-[0fr_10fr] 
       sm:grid-cols-[1fr_1fr] 
       lg:grid-cols-[10fr_6fr]
-      z-10
+      z-90
       ">
 
         <div></div>
@@ -917,7 +917,7 @@ export default function Home() {
         className={`absolute left-4 top-4 text-white z-20 cursor-pointer transition-opacity duration-1000 ${intVis ? "opacity-100" : "opacity-0 hover:opacity-100"} sm:block hidden`}
         onClick={() => setIntVis(!intVis)}
       >
-        hide UI?
+        {intVis ? "hide" : "show"} UI?
       </p>
 
       <img 
