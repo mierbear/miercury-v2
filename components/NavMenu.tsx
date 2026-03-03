@@ -101,7 +101,7 @@ const NavMenu = () => {
     { img: "moon.png", desc: "in Pacific Purgatory", href: "/pp" },
     { img: "moon.png", desc: "in the gallery", href: "/gallery" },
     { img: "moon.png", desc: "in my mind", href: "/blog" },
-    { img: "moon.png", desc: "here with me", href: "/about" },
+    { img: "sun.png", desc: "here with me", href: "/about" },
     { img: "moon.png", desc: "with my projected principles", href: "/quotes" },
     { img: "moon.png", desc: "in the secret base..", href: "/admin" },
   ]
