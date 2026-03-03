@@ -987,7 +987,7 @@ export default function Home() {
       </div>
       
       <div className="fixed inset-0 overflow-hidden z-9">
-        <Marquee speed={30} gradient={false} className="h-screen -mr-px">
+        <Marquee speed={38} gradient={false} className="h-screen -mr-px">
           <img 
             src="/images/about-7.png"
             alt="" 
