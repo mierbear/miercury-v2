@@ -962,7 +962,6 @@ export default function Home() {
                     <p className="text-xs font-bold underline">○ finish the games page</p>
                     <p className="text-xs font-bold underline">○ finish the pp page</p>
                     <p className="text-xs font-bold underline">○ finish the blog page</p>
-                    <p className="text-xs font-bold underline">○ finish the about me page</p>
                     <p className="text-xs">○ make illustration for top right section</p>
                     <p className="text-xs">○ style each section in index</p>
                     <p className="text-xs">○ make featured art frame properly</p>
@@ -986,6 +985,7 @@ export default function Home() {
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">DONE: </p>
                     {/* <p className="text-xs">● </p> */}
+                    <p className="text-xs font-bold underline">● finish the about me page</p>
                     <p className="text-xs">● implement lightbox for artworks </p>
                     <p className="text-xs">● learn how to draw again LOL</p>
                     <p className="text-xs">● bring back old drawer navmenu style</p>

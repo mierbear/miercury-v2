@@ -52,6 +52,7 @@ export default function GalleryComponent() {
       "skulls",
       "cave hermit",
       "simeons descent",
+      "mier",
     ]
 
   const availableTags = [
@@ -206,158 +207,88 @@ export default function GalleryComponent() {
         </div>
 
         {/* BOTTOM */}
-        <div className="flex-col">
+        <div className="grid grid-cols-[1fr_6fr]">
 
-          {/* TAGS */}
-          <div className="flex flex-wrap items-center justify-around gap-2 p-4 bg-gray-100">
-            <div>
-            {renderTags.map(tag => (
-              <label 
-                key={tag}
-                className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white hover:bg-gray-50 border-2 transition-colors"
-                style={{
-                  borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedTags.includes(tag)}
-                  onChange={() => toggleTag(tag)}
-                  className="cursor-pointer"
-                />
-                <span className="">{tag}</span>
-              </label>
-            ))}
+          {/* LEFT */}
+          <div className="flex flex-col items-center bg-gray-100 p-4 gap-2">
+
+            {/* TAGS */}
+            <div className="flex flex-col flex-wrap items-center justify-around">
+              {availableTags.map(tag => (
+                <label 
+                  key={tag}
+                  className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white w-full hover:bg-gray-50 border-2 transition-colors"
+                  style={{
+                    borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedTags.includes(tag)}
+                    onChange={() => toggleTag(tag)}
+                    className="cursor-pointer"
+                  />
+                  <p className="">{tag}</p>
+                </label>
+              ))}
             </div>
-
-            <div>
-            {characterTags.map(tag => (
-              <label 
-                key={tag}
-                className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white hover:bg-gray-50 border-2 transition-colors"
-                style={{
-                  borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedTags.includes(tag)}
-                  onChange={() => toggleTag(tag)}
-                  className="cursor-pointer"
-                />
-                <span className="">{tag}</span>
-              </label>
-            ))}
-            </div>
-
-            <div>
-            {typeTags.map(tag => (
-              <label 
-                key={tag}
-                className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white hover:bg-gray-50 border-2 transition-colors"
-                style={{
-                  borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedTags.includes(tag)}
-                  onChange={() => toggleTag(tag)}
-                  className="cursor-pointer"
-                />
-                <span className="">{tag}</span>
-              </label>
-            ))}
-            </div>
-
-            <div>
-            {originalTags.map(tag => (
-              <label 
-                key={tag}
-                className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white hover:bg-gray-50 border-2 transition-colors"
-                style={{
-                  borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
-                }}
-              >
-                <input
-                  type="checkbox"
-                  checked={selectedTags.includes(tag)}
-                  onChange={() => toggleTag(tag)}
-                  className="cursor-pointer"
-                />
-                <span className="">{tag}</span>
-              </label>
-            ))}
-            </div>
-
-            <label 
-              className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white hover:bg-gray-50 border-2 transition-colors"
-              style={{
-                borderColor: selectedTags.includes("mier") ? '#000' : '#e5e7eb'
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={selectedTags.includes("mier")}
-                onChange={() => toggleTag("mier")}
-                className="cursor-pointer"
-              />
-              <span className="">mier</span>
-            </label>
             
-          </div>
-
-          {selectedTags.length > 0 && (
-            <button
-              onClick={() => {
-                setSelectedTags([]);
-                setCurrentPage(1);
-              }}
-              className="px-3 py-2 rounded bg-red-100 hover:bg-red-200 text-red-700"
-            >
-              clear
-            </button>
-          )}
-
-          {/* ARTWORK COUNT */}
-          {selectedTags.length > 0 && (
-            <p className="text-sm text-gray-600 px-4">
-              {filteredArtworks.length} artwork{filteredArtworks.length !== 1 ? 's' : ''} with tags: {selectedTags.join(', ')}
-            </p>
-          )}
-
-          {/* ARTWORK */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:p-4">
-            {currentArtworks.map((artwork, index) => (
-              <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer" onClick={() => openLightBox(startIndex + index)}>
-                <p className="absolute bottom-0 text-white bg-black/60 backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3 w-full text-sm md:text-base">{artwork.title}</p>
-                <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
-              </div>
-            ))}
-          </div>
-
-          {/* NO ART MSG */}
-          {filteredArtworks.length === 0 && (
-            <p className="text-center p-8 text-gray-500">u_u</p>
-          )}
-
-          {/* PAGE BUTTONS */}
-          <div className="flex items-center justify-center gap-2 w-full p-2">
-            {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+            {/* CLEAR BUTTON */}
+            {selectedTags.length > 0 && (
               <button
-                key={pageNum}
-                onClick={() => setCurrentPage(pageNum)}
-                className={`px-3 py-1 rounded ${
-                  currentPage === pageNum 
-                    ? 'bg-black text-white' 
-                    : 'bg-white hover:bg-gray-200'
-                }`}
+                onClick={() => {
+                  setSelectedTags([]);
+                  setCurrentPage(1);
+                }}
+                className="px-3 py-2 w-full rounded bg-red-100 hover:bg-red-200 text-red-700 cursor-pointer"
               >
-                {pageNum}
+                clear
               </button>
-            ))}
+            )}
+
+            {/* ARTWORK COUNT */}
+            {selectedTags.length > 0 && (
+              <p className="text-sm text-gray-600 text-center">
+                {filteredArtworks.length} artwork{filteredArtworks.length !== 1 ? 's' : ''} with tags: {selectedTags.join(', ')}
+              </p>
+            )}
           </div>
 
+          {/* RIGHT */}
+          <div className="flex flex-col items-center bg-gray-100">
+            {/* ARTWORK */}
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              {currentArtworks.map((artwork, index) => (
+                <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer" onClick={() => openLightBox(startIndex + index)}>
+                  <p className="absolute bottom-0 text-white bg-black/60 backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3 w-full text-sm md:text-base">{artwork.title}</p>
+                  <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
+                </div>
+              ))}
+            </div>
+
+            {/* NO ART MSG */}
+            {filteredArtworks.length === 0 && (
+              <p className="text-center p-8 text-gray-500">u_u</p>
+            )}
+          </div>
+
+        </div>
+
+        {/* PAGE BUTTONS */}
+        <div className="flex items-center justify-center gap-2 w-full p-2">
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
+            <button
+              key={pageNum}
+              onClick={() => setCurrentPage(pageNum)}
+              className={`px-3 py-1 rounded ${
+                currentPage === pageNum 
+                  ? 'bg-black text-white' 
+                  : 'bg-white hover:bg-gray-200'
+              }`}
+            >
+              {pageNum}
+            </button>
+          ))}
         </div>
 
       </div>
