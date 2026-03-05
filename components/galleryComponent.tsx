@@ -175,26 +175,44 @@ export default function GalleryComponent() {
     <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a]">
 
       {/* TITLE */}
-      <div className="w-7xl max-w-screen flex flex-col justify-end items-center h-[15vh]">
-        <p className="text-white">gallery</p>  
+      <div className="w-7xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
+        <p className="text-white">gallery</p>
       </div>
 
       {/* CONTENT */}
-      <div className="bg-gray-100 w-7xl max-w-screen flex flex-col">
+      <div className="w-7xl max-w-screen flex flex-col">
 
         {/* HEADER */}
-        <div className="bg-black/30 w-full grid grid-rows-[2fr_1fr] grid-cols-1 md:grid-cols-[1.618fr_1fr] md:grid-rows-1 gap-2 p-2">
+        <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
 
           {/* FEATURED ART */}
-          <div className="flex flex-col justify-center items-center bg-[#17191a]">
+          <div className="flex flex-col justify-center items-center">
             <img src={featArtwork?.url}
-              className={`nonsel max-h-152 cursor-pointer`} 
+              className={`
+                nonsel cursor-pointer
+                aspect-square object-cover
+                overflow-hidden
+
+                min-h-180
+                max-w-screen
+                min-w-screen
+                min-[768px]:min-w-1
+                min-[768px]:max-w-[60vw]
+                min-[1600px]:max-w-[50vw]
+
+                max-h-[60vh]
+                min-[640px]:max-h-180
+                min-[768px]:max-h-180
+                min-[1024px]:max-h-180
+                min-[1280px]:max-h-180
+                min-[1600px]:max-h-180
+                `} 
               onClick={() => setFeaturedLightBoxOpen(true)}
             />
           </div>
 
           {/* INFO */}
-          <div className="p-4 flex flex-col bg-black/20">
+          <div className="bg-gray-200 flex flex-col w-full md:h-180 self-start p-4">
             <p className={`text-4xl text-center ${oranienbaum.className}`}>Welcome to the Gallery!</p>
             <p>- whats my process?</p>
             <p>- thing here</p>
@@ -206,8 +224,13 @@ export default function GalleryComponent() {
 
         </div>
 
+        {/* MIDDLE */}
+        <div className="h-3 bg-black">
+
+        </div>
+
         {/* TAGS/ARTWORKS */}
-        <div className="flex md:flex-row flex-col">
+        <div className="flex md:flex-row flex-col bg-gray-100">
 
           {/* LEFT */}
           <div className="flex flex-col flex-15 md:items-center p-2 w-full">
@@ -318,7 +341,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* PAGE BUTTONS */}
-        <div className={`bg-[#17191a]/80 flex items-center justify-center gap-2 w-full  ${currentArtworks.length > 0 && "py-3"}`}>
+        <div className={`bg-gray-200 flex items-center justify-center gap-2 w-full ${currentArtworks.length > 0 && "py-3"}`}>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
