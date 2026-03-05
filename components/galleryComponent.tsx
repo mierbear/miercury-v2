@@ -180,7 +180,7 @@ export default function GalleryComponent() {
       </div>
 
       {/* CONTENT */}
-      <div className="bg-white/50 w-7xl max-w-screen min-h-screen flex flex-col">
+      <div className="bg-white/50 w-7xl max-w-screen flex flex-col">
 
         {/* TOP */}
         <div className="bg-black/30 w-full max-h-160 grid grid-cols-[1.618fr_1fr] gap-4 p-4">
@@ -210,16 +210,16 @@ export default function GalleryComponent() {
         <div className="flex md:flex-row flex-col bg-gray-100">
 
           {/* LEFT */}
-          <div className="flex flex-col flex-15 items-center p-1 gap-1 lg:p-2 lg:gap-2 w-full">
+          <div className="flex flex-col flex-15 md:items-center p-2 gap-1 md:gap-2 w-full">
 
-            <p className={`font-bold text-3xl ${oranienbaum.className}`}>TAGS:</p>
+            <p className={`font-bold text-4xl ml-1 md:ml-0 ${oranienbaum.className}`}>TAGS:</p>
 
             {/* TAGS */}
-            <div className="grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-0.5 w-full">
+            <div className="grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 w-full">
               {availableTags.map(tag => (
                 <label 
                   key={tag}
-                  className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white h-full w-full p-2 hover:bg-gray-50 border-2 transition-colors"
+                  className="flex items-center gap-2 cursor-pointer p-2 rounded bg-white h-full w-full hover:bg-gray-50 border transition-colors"
                   style={{
                     borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
                   }}
@@ -230,7 +230,7 @@ export default function GalleryComponent() {
                     onChange={() => toggleTag(tag)}
                     className="cursor-pointer"
                   />
-                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-xs md:text-sm lg:text-base`}>{tag}</p>
+                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-sm md:text-base`}>{tag}</p>
                 </label>
               ))}
             </div>
@@ -242,7 +242,7 @@ export default function GalleryComponent() {
                   setSelectedTags([]);
                   setCurrentPage(1);
                 }}
-                className="px-3 py-2 w-full rounded bg-red-100 hover:bg-red-200 text-red-700 cursor-pointer"
+                className="self-center px-3 py-2 md:w-[80%] w-[50%] md:mt-0 mt-2 rounded bg-red-100 text-xl hover:bg-red-200 text-red-700 cursor-pointer"
               >
                 clear
               </button>
@@ -251,15 +251,18 @@ export default function GalleryComponent() {
             {/* ARTWORK COUNT */}
             {selectedTags.length > 0 && (
               <p className="text-sm text-gray-600 text-center">
-                {filteredArtworks.length} artwork{filteredArtworks.length !== 1 ? 's' : ''} with tags: {selectedTags.join(', ')}
+                <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span> 
+                &nbsp;artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:
+                <br />
+                <span className="underline italic">{selectedTags.join(', ')}</span>
               </p>
             )}
           </div>
 
           {/* RIGHT */}
-          <div className="flex flex-col flex-85 items-center">
+          <div className="flex flex-col flex-85 items-center justify-center min-h-[30vh] bg-black/10">
             {/* ARTWORK */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0.5 p-0.5 pl-0.5 md:pl-0">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0.5 px-0.5 py-1 pl-0.5">
               {currentArtworks.map((artwork, index) => (
                 <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer rounded-sm overflow-hidden" onClick={() => openLightBox(startIndex + index)}>
                   <p className="absolute bottom-0 text-white bg-black/60 backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3 w-full text-sm md:text-base">{artwork.title}</p>
@@ -270,19 +273,19 @@ export default function GalleryComponent() {
 
             {/* NO ART MSG */}
             {filteredArtworks.length === 0 && (
-              <p className="text-center p-8 text-gray-500">u_u</p>
+              <p className="text-center bg-amber-300 p-4 text-black text-9xl nonsel pointer-events-none">u_u</p>
             )}
           </div>
 
         </div>
 
         {/* PAGE BUTTONS */}
-        <div className="flex items-center justify-center gap-2 w-full p-2 bg-gray-100">
+        <div className="flex items-center justify-center gap-2 w-full">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
               onClick={() => setCurrentPage(pageNum)}
-              className={`px-3 py-1 cursor-pointer ${
+              className={`p-3 cursor-pointer ${
                 currentPage === pageNum 
                   ? "underline"
                   : ""
