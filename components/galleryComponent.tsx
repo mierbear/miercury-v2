@@ -180,7 +180,7 @@ export default function GalleryComponent() {
       </div>
 
       {/* CONTENT */}
-      <div className="bg-white w-7xl max-w-screen flex flex-col">
+      <div className="bg-gray-100 w-7xl max-w-screen flex flex-col">
 
         {/* HEADER */}
         <div className="bg-black/30 w-full grid grid-rows-[2fr_1fr] grid-cols-1 md:grid-cols-[1.618fr_1fr] md:grid-rows-1 gap-2 p-2">
@@ -207,7 +207,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* TAGS/ARTWORKS */}
-        <div className="flex md:flex-row flex-col bg-gray-100">
+        <div className="flex md:flex-row flex-col">
 
           {/* LEFT */}
           <div className="flex flex-col flex-15 md:items-center p-2 w-full">
@@ -236,7 +236,7 @@ export default function GalleryComponent() {
             </div>
             
             {/* CLEAR / TAG INFO */}
-            <div className={`flex flex-col ${selectedTags.length > 0 && "gap-1 md:gap-2 py-2 md:pb-4 px-2"} md:px-0 justify-center w-full`}>
+            <div className={`flex flex-col transition-opacity duration-600 ${selectedTags.length > 0 ? "gap-1 md:gap-2 py-2 md:pb-4 px-2 opacity-100" : "opacity-0"} md:px-0 justify-center w-full`}>
               
               {/* CLEAR BUTTON */}
               {selectedTags.length > 0 && (
@@ -282,13 +282,21 @@ export default function GalleryComponent() {
             <div className={`grid gap-0.5 px-0.5 py-1 pl-0.5 ${
               
                   currentArtworks.length === 1 
-                ? 'grid-cols-1 md:grid-cols-1 lg:grid-cols-1'
+                ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-1"
                 : currentArtworks.length === 2
-                ? 'grid-cols-2 md:grid-cols-2 lg:grid-cols-2'
+                ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
                 : currentArtworks.length === 3
-                ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3'
+                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
+                : currentArtworks.length === 4
+                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-2"
+                : currentArtworks.length === 5
+                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
+                : currentArtworks.length === 6
+                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
+                : currentArtworks.length === 9
+                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
 
-                : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+                : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
               }`}
             >
               {currentArtworks.map((artwork, index) => (
@@ -310,19 +318,21 @@ export default function GalleryComponent() {
         </div>
 
         {/* PAGE BUTTONS */}
-        <div className="bg-black/30 flex items-center justify-center gap-2 w-full">
+        <div className={`bg-[#17191a]/80 flex items-center justify-center gap-2 w-full  ${currentArtworks.length > 0 && "py-3"}`}>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
               onClick={() => setCurrentPage(pageNum)}
               className={`
-                p-3 cursor-pointer
+                cursor-pointer
                 ${currentPage === pageNum 
-                  ? "underline"
-                  : ""
+                  ? "bg-yellow-200 text-yellow-700"
+                  : "bg-yellow-100 hover:bg-yellow-200 text-yellow-700"
                 }
                 ${sono.className}
-                text-xl
+                transition-bg duration-300
+                text-xl rounded-full aspect-square
+                h-10 w-10
               `}
             >
               {pageNum}
@@ -330,11 +340,11 @@ export default function GalleryComponent() {
           ))}
         </div>
 
-        {/* FOOTER */}
-        <div className="bg-black h-40 flex items-center justify-center">
-          <p className="text-white">footer</p>
-        </div>
+      </div>
 
+      {/* FOOTER */}
+      <div className="h-40 flex items-center justify-center">
+        <p className="text-white">footer</p>
       </div>
 
       {/* LIGHTBOX */}
