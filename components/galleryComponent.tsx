@@ -169,6 +169,13 @@ export default function GalleryComponent() {
       ]
     : [];
 
+  const [featArtOpen, setFeatArtOpen] = useState(true);
+
+  const toggleFeatArt = () => {
+    setFeatArtOpen(!featArtOpen)
+    console.log(featArtOpen);
+  }
+
   const [ready, setReady] = useState(false);
 
   return (
@@ -186,30 +193,26 @@ export default function GalleryComponent() {
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
 
           {/* FEATURED ART */}
-          <div className="flex flex-col justify-center items-center relative">
+          <div className={`flex flex-col ${featArtOpen ? "flex-70" : "flex-0"} transition-flex duration-1000 ease-in-out nonsel justify-center items-center relative cursor-pointer overflow-hidden`}
+          onClick={() => setFeaturedLightBoxOpen(true)} 
+          >
             <img src={featArtwork?.url}
               className={`
-                nonsel cursor-pointer
+                pointer-events-none cursor-pointer
                 aspect-video object-cover
-                overflow-hidden
 
                 min-h-180
-                max-w-screen
-                min-w-screen
-                min-[768px]:min-w-1
-                min-[768px]:max-w-[60vw]
-                min-[1600px]:max-w-[48vw]
-
                 max-h-[60vh]
-                min-[640px]:max-h-180
-                `} 
-              onClick={() => setFeaturedLightBoxOpen(true)}
+                min-w-screen
+                max-w-screen
+                min-[768px]:max-h-180
+                min-[768px]:min-w-1
+                `}
             />
             <div className="
               absolute bottom-4 md:left-4 hover:opacity-0 transition-opacity duration-300
-              flex flex-col px-4 py-2
+              flex flex-col px-4 py-2 text-nowrap
               items-center justify-center nonsel cursor-pointer"
-              onClick={() => setFeaturedLightBoxOpen(true)}
               >
               <p className={`md:text-5xl text-3xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
               <p className={`text-xs md:self-start meow ${sono.className} text-white`}>({featArtwork?.date})</p>
@@ -217,7 +220,7 @@ export default function GalleryComponent() {
           </div>
 
           {/* INFO */}
-          <div className="bg-gray-200 flex flex-col w-full md:h-180 self-start p-4">
+          <div className={`flex flex-col ${featArtOpen ? "flex-30" : "flex-100"} transition-flex duration-1000 ease-in-out bg-gray-200 w-full md:h-180 self-start p-4`}>
             <p className={`text-4xl text-center ${oranienbaum.className}`}>Welcome to the Gallery!</p>
             <p>- whats my process?</p>
             <p>- thing here</p>
@@ -225,6 +228,12 @@ export default function GalleryComponent() {
             <p>- sdfdsfsdf</p>
             <p>- sdfdsfsdf</p>
             <p>- sdfdsfsdf</p>
+            <p
+              className="text-3xl"
+              onClick={() => toggleFeatArt()}
+            >
+              MROWW
+            </p>
           </div>
 
         </div>
