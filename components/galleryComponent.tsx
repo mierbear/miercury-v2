@@ -171,20 +171,18 @@ export default function GalleryComponent() {
 
   const [featArtOpen, setFeatArtOpen] = useState(true);
 
-  const toggleFeatArt = () => {
-    setFeatArtOpen(!featArtOpen)
-    console.log(featArtOpen);
-  }
-
-  type TabTypes = "main" | "process" | "comms" | "tools" | "inspos";
-  const [currentTab, setCurrentTab] = useState<TabTypes>("main")
+  type TabTypes = null | "process" | "comms" | "tools" | "inspos" | null;
+  const [currentTab, setCurrentTab] = useState<TabTypes>(null)
 
   const openTab = (tab:TabTypes) => {
-    setCurrentTab(tab);
-    if (tab !== "main") {
+    if (tab !== null) {
       setFeatArtOpen(false);
+      setCurrentTab(tab);
     } else {
       setFeatArtOpen(true);
+      setTimeout(() => {
+        setCurrentTab(tab);
+      }, 1000);
     }
   }
 
@@ -205,7 +203,7 @@ export default function GalleryComponent() {
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
 
           {/* FEATURED ART */}
-          <div className={`flex flex-col ${featArtOpen ? "flex-70" : "flex-0"} transition-flex duration-1000 ease-in-out nonsel justify-center items-center relative cursor-pointer overflow-hidden`}
+          <div className={`flex flex-col ${featArtOpen ? "flex-70" : "flex-0"} transition-flex duration-1000 nonsel justify-center items-center relative cursor-pointer overflow-hidden`}
           onClick={() => setFeaturedLightBoxOpen(true)} 
           >
             <img src={featArtwork?.url}
@@ -232,47 +230,48 @@ export default function GalleryComponent() {
           </div>
 
           {/* INFO */}
-          <div className={`flex flex-col ${featArtOpen ? "flex-30" : "flex-100"} transition-flex duration-1000 ease-in-out bg-gray-200 w-full md:h-180 self-start p-4`}>
-            <p className={`text-4xl text-center ${oranienbaum.className}`}>Welcome to the Gallery!</p>
+          <div className={`flex flex-col ${featArtOpen ? "flex-30" : "flex-100"} ${sono.className} transition-flex duration-1000 bg-gray-200 w-full md:h-180 self-start`}>
+            <p className={`text-3xl text-center p-4`}>Welcome to the <br /> Gallery!</p>
+            
+            <div className="flex h-full p-4 pt-0">
 
-            <div className={`flex flex-col ${featArtOpen ? "flex-100" : "flex-30"} transition-flex duration-1000 ease-in-out`}>
-              <p className="cursor-pointer hover:underline" onClick={() => openTab("main")}>- main</p>
-              <p className="cursor-pointer hover:underline" onClick={() => openTab("process")}>- whats my process?</p>
-              <p className="cursor-pointer hover:underline" onClick={() => openTab("tools")}>- what do i use?</p>
-              <p className="cursor-pointer hover:underline" onClick={() => openTab("comms")}>- commissions?</p>
-              <p className="cursor-pointer hover:underline" onClick={() => openTab("inspos")}>- who inspires you??</p>
-            </div>
+              <div className={`flex flex-col h-full ${featArtOpen ? "flex-100" : "flex-25"} transition-flex duration-1000`}>
+                <p className="cursor-pointer" onClick={() => openTab("process")}>○ <span className="hover:underline">whats my process?</span></p>
+                <p className="cursor-pointer" onClick={() => openTab("tools")}>○ <span className="hover:underline">what do i use?</span></p>
+                <p className="cursor-pointer" onClick={() => openTab("inspos")}>○ <span className="hover:underline">who inspires you?</span></p>
+                <p className="cursor-pointer" onClick={() => openTab("comms")}>○ <span className="hover:underline">commissions?</span></p>
 
-            <div className={`flex flex-col ${featArtOpen ? "flex-0" : "flex-70"} transition-flex duration-1000 ease-in-out`}>
-              {currentTab === "main" && (
-                <div>
-                  <p>main</p>
-                </div>
-              )}
-              
-              {currentTab === "process" && (
-                <div>
-                  <p>process</p>
-                </div>
-              )}
-              
-              {currentTab === "comms" && (
-                <div>
-                  <p>comms</p>
-                </div>
-              )}
+                <p className={`cursor-pointer mt-auto transition-opacity duration-1000 ${featArtOpen ? "opacity-0 pointer-events-none nonsel" : "opacity-100"}`} onClick={() => openTab(null)}>● <span className="hover:underline">take me back!</span></p>
+              </div>
 
-              {currentTab === "tools" && (
-                <div>
-                  <p>tools</p>
-                </div>
-              )}
+              <div className={`flex flex-col h-full ${featArtOpen ? "flex-0" : "flex-75"} transition-flex duration-800`}>
+                <div className={`${featArtOpen ? "opacity-0" : "opacity-100"} transition-opacity duration-500 text-wrap`}>
+                  {currentTab === "process" && (
+                    <div>
+                      <p>process process process </p>
+                    </div>
+                  )}
+                  
+                  {currentTab === "comms" && (
+                    <div>
+                      <p>comms</p>
+                    </div>
+                  )}
 
-              {currentTab === "inspos" && (
-                <div>
-                  <p>inspos</p>
+                  {currentTab === "tools" && (
+                    <div>
+                      <p>tools</p>
+                    </div>
+                  )}
+
+                  {currentTab === "inspos" && (
+                    <div>
+                      <p>inspos</p>
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
+
             </div>
            
           </div>
