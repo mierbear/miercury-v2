@@ -262,7 +262,18 @@ export default function GalleryComponent() {
           {/* RIGHT */}
           <div className="flex flex-col flex-85 items-center justify-center min-h-[30vh] bg-black/10">
             {/* ARTWORK */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0.5 px-0.5 py-1 pl-0.5">
+            <div className={`grid gap-0.5 px-0.5 py-1 pl-0.5 ${
+              
+                  currentArtworks.length === 1 
+                ? 'grid-cols-1 md:grid-cols-1 lg:grid-cols-1'
+                : currentArtworks.length === 2
+                ? 'grid-cols-2 md:grid-cols-2 lg:grid-cols-2'
+                : currentArtworks.length === 3
+                ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-3'
+
+                : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+              }`}
+            >
               {currentArtworks.map((artwork, index) => (
                 <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer rounded-sm overflow-hidden" onClick={() => openLightBox(startIndex + index)}>
                   <p className="absolute bottom-0 text-white bg-black/60 backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3 w-full text-sm md:text-base">{artwork.title}</p>
