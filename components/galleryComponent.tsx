@@ -215,7 +215,7 @@ export default function GalleryComponent() {
             <p className={`font-bold text-4xl ml-1 md:ml-0 ${oranienbaum.className}`}>TAGS:</p>
 
             {/* TAGS */}
-            <div className="grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 w-full">
+            <div className="grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 md:min-w-42 w-full">
               {availableTags.map(tag => (
                 <label 
                   key={tag}
@@ -294,6 +294,11 @@ export default function GalleryComponent() {
               {pageNum}
             </button>
           ))}
+        </div>
+
+        {/* FOOTER */}
+        <div className="bg-black h-40">
+
         </div>
 
       </div>
