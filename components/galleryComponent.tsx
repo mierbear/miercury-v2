@@ -180,7 +180,7 @@ export default function GalleryComponent() {
       </div>
 
       {/* CONTENT */}
-      <div className="bg-white/50 w-7xl max-w-screen min-h-screen flex flex-col border-2 border-black border-b-0">
+      <div className="bg-white/50 w-7xl max-w-screen min-h-screen flex flex-col">
 
         {/* TOP */}
         <div className="bg-black/30 w-full max-h-160 grid grid-cols-[1.618fr_1fr] gap-4 p-4">
@@ -206,18 +206,20 @@ export default function GalleryComponent() {
 
         </div>
 
-        {/* BOTTOM */}
-        <div className="grid grid-cols-[1fr_5fr] bg-gray-100">
+        {/* TAGS/ARTWORKS */}
+        <div className="flex md:flex-row flex-col bg-gray-100">
 
           {/* LEFT */}
-          <div className="flex flex-col items-center p-1 lg:p-4 gap-2">
+          <div className="flex flex-col flex-15 items-center p-1 gap-1 lg:p-2 lg:gap-2 w-full">
+
+            <p className={`font-bold text-3xl ${oranienbaum.className}`}>TAGS:</p>
 
             {/* TAGS */}
-            <div className="flex flex-col flex-wrap items-center justify-around gap-0.5 w-full">
+            <div className="grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-0.5 w-full">
               {availableTags.map(tag => (
                 <label 
                   key={tag}
-                  className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white w-full p-2 hover:bg-gray-50 border-2 transition-colors"
+                  className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white h-full w-full p-2 hover:bg-gray-50 border-2 transition-colors"
                   style={{
                     borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
                   }}
@@ -255,11 +257,11 @@ export default function GalleryComponent() {
           </div>
 
           {/* RIGHT */}
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col flex-85 items-center">
             {/* ARTWORK */}
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-0.5 p-0.5 pl-0.5 md:pl-0">
               {currentArtworks.map((artwork, index) => (
-                <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer" onClick={() => openLightBox(startIndex + index)}>
+                <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer rounded-sm overflow-hidden" onClick={() => openLightBox(startIndex + index)}>
                   <p className="absolute bottom-0 text-white bg-black/60 backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3 w-full text-sm md:text-base">{artwork.title}</p>
                   <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
                 </div>
@@ -275,7 +277,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* PAGE BUTTONS */}
-        <div className="flex items-center justify-center gap-2 w-full p-2">
+        <div className="flex items-center justify-center gap-2 w-full p-2 bg-gray-100">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
