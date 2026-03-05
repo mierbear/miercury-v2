@@ -176,7 +176,7 @@ export default function GalleryComponent() {
 
       {/* TITLE */}
       <div className="w-7xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
-        <p className="text-white">gallery</p>
+        {/* <p className="text-white">gallery</p> */}
       </div>
 
       {/* CONTENT */}
@@ -186,11 +186,11 @@ export default function GalleryComponent() {
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
 
           {/* FEATURED ART */}
-          <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center relative">
             <img src={featArtwork?.url}
               className={`
                 nonsel cursor-pointer
-                aspect-square object-cover
+                aspect-video object-cover
                 overflow-hidden
 
                 min-h-180
@@ -198,17 +198,22 @@ export default function GalleryComponent() {
                 min-w-screen
                 min-[768px]:min-w-1
                 min-[768px]:max-w-[60vw]
-                min-[1600px]:max-w-[50vw]
+                min-[1600px]:max-w-[48vw]
 
                 max-h-[60vh]
                 min-[640px]:max-h-180
-                min-[768px]:max-h-180
-                min-[1024px]:max-h-180
-                min-[1280px]:max-h-180
-                min-[1600px]:max-h-180
                 `} 
               onClick={() => setFeaturedLightBoxOpen(true)}
             />
+            <div className="
+              absolute bottom-4 md:left-4 hover:opacity-0 transition-opacity duration-300
+              flex flex-col px-4 py-2
+              items-center justify-center nonsel cursor-pointer"
+              onClick={() => setFeaturedLightBoxOpen(true)}
+              >
+              <p className={`md:text-5xl text-3xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
+              <p className={`text-xs md:self-start meow ${sono.className} text-white`}>({featArtwork?.date})</p>
+            </div>
           </div>
 
           {/* INFO */}
@@ -235,7 +240,7 @@ export default function GalleryComponent() {
           {/* LEFT */}
           <div className="flex flex-col flex-15 md:items-center p-2 w-full">
 
-            <p className={`font-bold text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
+            <p className={`font-bold md:text-2xl text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
 
             {/* TAGS */}
             <div className={`grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 pt-2 ${selectedTags.length > 0 && "pb-2"} md:min-w-42 lg:min-w-50 w-full`}>
