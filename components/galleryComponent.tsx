@@ -172,21 +172,21 @@ export default function GalleryComponent() {
   const [ready, setReady] = useState(false);
 
   return (
-    <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative">
+    <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a]">
 
-      {/* HEADER */}
-      <div className="w-7xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
+      {/* TITLE */}
+      <div className="w-7xl max-w-screen flex flex-col justify-end items-center h-[15vh]">
         <p className="text-white">gallery</p>  
       </div>
 
       {/* CONTENT */}
-      <div className="bg-white/50 w-7xl max-w-screen flex flex-col">
+      <div className="bg-white w-7xl max-w-screen flex flex-col">
 
-        {/* TOP */}
-        <div className="bg-black/30 w-full max-h-160 grid grid-cols-[1.618fr_1fr] gap-4 p-4">
+        {/* HEADER */}
+        <div className="bg-black/30 w-full grid grid-rows-[2fr_1fr] grid-cols-1 md:grid-cols-[1.618fr_1fr] md:grid-rows-1 gap-2 p-2">
 
           {/* FEATURED ART */}
-          <div className="flex flex-col items-center bg-black/20 ">
+          <div className="flex flex-col justify-center items-center bg-[#17191a]">
             <img src={featArtwork?.url}
               className={`nonsel max-h-152 cursor-pointer`} 
               onClick={() => setFeaturedLightBoxOpen(true)}
@@ -194,8 +194,8 @@ export default function GalleryComponent() {
           </div>
 
           {/* INFO */}
-          <div className="p-4 flex flex-col items-center justify-center bg-black/20">
-            <p>welcome to the gallery!</p>
+          <div className="p-4 flex flex-col bg-black/20">
+            <p className={`text-4xl text-center ${oranienbaum.className}`}>Welcome to the Gallery!</p>
             <p>- whats my process?</p>
             <p>- thing here</p>
             <p>- sdfdsfsdf</p>
@@ -212,10 +212,10 @@ export default function GalleryComponent() {
           {/* LEFT */}
           <div className="flex flex-col flex-15 md:items-center p-2 w-full">
 
-            <p className={`font-bold md:text-4xl text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
+            <p className={`font-bold text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
 
             {/* TAGS */}
-            <div className={`grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 pt-2 ${selectedTags.length > 0 && "pb-2"} md:min-w-42 w-full`}>
+            <div className={`grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 pt-2 ${selectedTags.length > 0 && "pb-2"} md:min-w-42 lg:min-w-50 w-full`}>
               {availableTags.map(tag => (
                 <label 
                   key={tag}
@@ -310,16 +310,20 @@ export default function GalleryComponent() {
         </div>
 
         {/* PAGE BUTTONS */}
-        <div className="flex items-center justify-center gap-2 w-full">
+        <div className="bg-black/30 flex items-center justify-center gap-2 w-full">
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
               onClick={() => setCurrentPage(pageNum)}
-              className={`p-3 cursor-pointer ${
-                currentPage === pageNum 
+              className={`
+                p-3 cursor-pointer
+                ${currentPage === pageNum 
                   ? "underline"
                   : ""
-              }`}
+                }
+                ${sono.className}
+                text-xl
+              `}
             >
               {pageNum}
             </button>
