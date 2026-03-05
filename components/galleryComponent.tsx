@@ -210,16 +210,16 @@ export default function GalleryComponent() {
         <div className="flex md:flex-row flex-col bg-gray-100">
 
           {/* LEFT */}
-          <div className="flex flex-col flex-15 md:items-center p-2 gap-1 md:gap-2 w-full">
+          <div className="flex flex-col flex-15 md:items-center p-2 w-full">
 
-            <p className={`font-bold text-4xl ml-1 md:ml-0 ${oranienbaum.className}`}>TAGS:</p>
+            <p className={`font-bold md:text-4xl text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
 
             {/* TAGS */}
-            <div className="grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 md:min-w-42 w-full">
+            <div className={`grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 pt-2 ${selectedTags.length > 0 && "pb-2"} md:min-w-42 w-full`}>
               {availableTags.map(tag => (
                 <label 
                   key={tag}
-                  className="flex items-center gap-2 cursor-pointer p-2 rounded bg-white h-full w-full hover:bg-gray-50 border transition-colors"
+                  className="flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2 rounded bg-white h-full w-full hover:bg-gray-50 border transition-colors"
                   style={{
                     borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
                   }}
@@ -235,28 +235,45 @@ export default function GalleryComponent() {
               ))}
             </div>
             
-            {/* CLEAR BUTTON */}
-            {selectedTags.length > 0 && (
-              <button
-                onClick={() => {
-                  setSelectedTags([]);
-                  setCurrentPage(1);
-                }}
-                className="self-center px-3 py-2 md:w-[80%] w-[50%] md:mt-0 mt-2 rounded bg-red-100 text-xl hover:bg-red-200 text-red-700 cursor-pointer"
-              >
-                clear
-              </button>
-            )}
+            {/* CLEAR / TAG INFO */}
+            <div className={`flex flex-col ${selectedTags.length > 0 && "gap-1 md:gap-2 py-2 md:pb-4 px-2"} md:px-0 justify-center w-full`}>
+              
+              {/* CLEAR BUTTON */}
+              {selectedTags.length > 0 && (
+                <button
+                  onClick={() => {
+                    setSelectedTags([]);
+                    setCurrentPage(1);
+                  }}
+                  className={`
+                    self-center justify-center px-3 py-2 
+                    flex rounded cursor-pointer
+                    transition-all duration-300
+                    ${sono.className}
+                    ${filteredArtworks.length === 0 ? "bg-red-200 hover:bg-red-300 text-red-700 w-[80%] font-bold" : "bg-yellow-100 hover:bg-yellow-200 text-yellow-700 w-[50%]"}
+                  `}
+                >
+                  clear
+                </button>
+              )}
 
-            {/* ARTWORK COUNT */}
-            {selectedTags.length > 0 && (
-              <p className="text-sm text-gray-600 text-center">
-                <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span> 
-                &nbsp;artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:
-                <br />
-                <span className="underline italic">{selectedTags.join(', ')}</span>
-              </p>
-            )}
+              {/* ARTWORK COUNT */}
+              {selectedTags.length > 0 && (
+                <p className="text-sm text-gray-600 text-center">
+                  <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
+                  <span className="">artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:</span><br />
+                  <span className="italic">
+                    {selectedTags.map((tag, index) => (
+                      <span key={tag}>
+                        <span className="underline">{tag}</span>
+                        {index < selectedTags.length - 1 && ', '}
+                      </span>
+                    ))}
+                  </span>
+                </p>
+              )}
+
+            </div>
           </div>
 
           {/* RIGHT */}
@@ -284,7 +301,9 @@ export default function GalleryComponent() {
 
             {/* NO ART MSG */}
             {filteredArtworks.length === 0 && (
-              <p className="text-center bg-amber-300 p-4 text-black text-9xl nonsel pointer-events-none">u_u</p>
+              <p className={`text-center p-4 text-black md:text-9xl text-7xl nonsel pointer-events-none ${sono.className}`}>
+                u_u..
+              </p>
             )}
           </div>
 
@@ -308,8 +327,8 @@ export default function GalleryComponent() {
         </div>
 
         {/* FOOTER */}
-        <div className="bg-black h-40">
-
+        <div className="bg-black h-40 flex items-center justify-center">
+          <p className="text-white">footer</p>
         </div>
 
       </div>
