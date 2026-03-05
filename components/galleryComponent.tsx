@@ -176,6 +176,18 @@ export default function GalleryComponent() {
     console.log(featArtOpen);
   }
 
+  type TabTypes = "main" | "process" | "comms" | "tools" | "inspos";
+  const [currentTab, setCurrentTab] = useState<TabTypes>("main")
+
+  const openTab = (tab:TabTypes) => {
+    setCurrentTab(tab);
+    if (tab !== "main") {
+      setFeatArtOpen(false);
+    } else {
+      setFeatArtOpen(true);
+    }
+  }
+
   const [ready, setReady] = useState(false);
 
   return (
@@ -222,18 +234,47 @@ export default function GalleryComponent() {
           {/* INFO */}
           <div className={`flex flex-col ${featArtOpen ? "flex-30" : "flex-100"} transition-flex duration-1000 ease-in-out bg-gray-200 w-full md:h-180 self-start p-4`}>
             <p className={`text-4xl text-center ${oranienbaum.className}`}>Welcome to the Gallery!</p>
-            <p>- whats my process?</p>
-            <p>- thing here</p>
-            <p>- sdfdsfsdf</p>
-            <p>- sdfdsfsdf</p>
-            <p>- sdfdsfsdf</p>
-            <p>- sdfdsfsdf</p>
-            <p
-              className="text-3xl"
-              onClick={() => toggleFeatArt()}
-            >
-              MROWW
-            </p>
+
+            <div className={`flex flex-col ${featArtOpen ? "flex-100" : "flex-30"} transition-flex duration-1000 ease-in-out`}>
+              <p className="cursor-pointer hover:underline" onClick={() => openTab("main")}>- main</p>
+              <p className="cursor-pointer hover:underline" onClick={() => openTab("process")}>- whats my process?</p>
+              <p className="cursor-pointer hover:underline" onClick={() => openTab("tools")}>- what do i use?</p>
+              <p className="cursor-pointer hover:underline" onClick={() => openTab("comms")}>- commissions?</p>
+              <p className="cursor-pointer hover:underline" onClick={() => openTab("inspos")}>- who inspires you??</p>
+            </div>
+
+            <div className={`flex flex-col ${featArtOpen ? "flex-0" : "flex-70"} transition-flex duration-1000 ease-in-out`}>
+              {currentTab === "main" && (
+                <div>
+                  <p>main</p>
+                </div>
+              )}
+              
+              {currentTab === "process" && (
+                <div>
+                  <p>process</p>
+                </div>
+              )}
+              
+              {currentTab === "comms" && (
+                <div>
+                  <p>comms</p>
+                </div>
+              )}
+
+              {currentTab === "tools" && (
+                <div>
+                  <p>tools</p>
+                </div>
+              )}
+
+              {currentTab === "inspos" && (
+                <div>
+                  <p>inspos</p>
+                </div>
+              )}
+            </div>
+           
           </div>
 
         </div>
