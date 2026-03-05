@@ -172,7 +172,7 @@ export default function GalleryComponent() {
   const [ready, setReady] = useState(false);
 
   return (
-    <main className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative">
+    <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative">
 
       {/* HEADER */}
       <div className="w-7xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
@@ -207,17 +207,17 @@ export default function GalleryComponent() {
         </div>
 
         {/* BOTTOM */}
-        <div className="grid grid-cols-[1fr_6fr]">
+        <div className="grid grid-cols-[1fr_5fr] bg-gray-100">
 
           {/* LEFT */}
-          <div className="flex flex-col items-center bg-gray-100 p-4 gap-2">
+          <div className="flex flex-col items-center p-1 lg:p-4 gap-2">
 
             {/* TAGS */}
-            <div className="flex flex-col flex-wrap items-center justify-around">
+            <div className="flex flex-col flex-wrap items-center justify-around gap-0.5 w-full">
               {availableTags.map(tag => (
                 <label 
                   key={tag}
-                  className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white w-full hover:bg-gray-50 border-2 transition-colors"
+                  className="flex items-center gap-2 cursor-pointer px-2 rounded bg-white w-full p-2 hover:bg-gray-50 border-2 transition-colors"
                   style={{
                     borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
                   }}
@@ -228,7 +228,7 @@ export default function GalleryComponent() {
                     onChange={() => toggleTag(tag)}
                     className="cursor-pointer"
                   />
-                  <p className="">{tag}</p>
+                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-xs md:text-sm lg:text-base`}>{tag}</p>
                 </label>
               ))}
             </div>
@@ -255,7 +255,7 @@ export default function GalleryComponent() {
           </div>
 
           {/* RIGHT */}
-          <div className="flex flex-col items-center bg-gray-100">
+          <div className="flex flex-col items-center">
             {/* ARTWORK */}
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
               {currentArtworks.map((artwork, index) => (
@@ -280,10 +280,10 @@ export default function GalleryComponent() {
             <button
               key={pageNum}
               onClick={() => setCurrentPage(pageNum)}
-              className={`px-3 py-1 rounded ${
+              className={`px-3 py-1 cursor-pointer ${
                 currentPage === pageNum 
-                  ? 'bg-black text-white' 
-                  : 'bg-white hover:bg-gray-200'
+                  ? "underline"
+                  : ""
               }`}
             >
               {pageNum}
@@ -354,5 +354,5 @@ export default function GalleryComponent() {
         }}
       />
 
-    </main>
+    </div>
   )};

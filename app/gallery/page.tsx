@@ -1,8 +1,18 @@
 import Image from "next/image";
 import GalleryComponent from "@/components/galleryComponent";
+import { Gowun_Batang } from "next/font/google";
+
+const gowun = Gowun_Batang({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 export default function Home() {
   return (
-    <GalleryComponent />
+    <main className={`${gowun.className}`}>
+      <GalleryComponent />
+    </main>
   );
+
+  
 }
