@@ -203,7 +203,7 @@ export default function GalleryComponent() {
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
 
           {/* FEATURED ART */}
-          <div className={`flex flex-col ${featArtOpen ? "flex-70" : "flex-0"} transition-flex duration-1000 nonsel justify-center items-center relative cursor-pointer overflow-hidden`}
+          <div className={`flex flex-col ${featArtOpen ? "flex-68" : "flex-32"} transition-flex duration-1000 nonsel justify-center items-center relative cursor-pointer overflow-hidden`}
           onClick={() => setFeaturedLightBoxOpen(true)} 
           >
             <img src={featArtwork?.url}
@@ -219,10 +219,12 @@ export default function GalleryComponent() {
                 min-[768px]:min-w-1
                 `}
             />
-            <div className="
+            <div className={`
               absolute bottom-4 md:left-4 hover:opacity-0 transition-opacity duration-300
               flex flex-col px-4 py-2 text-nowrap
-              items-center justify-center nonsel cursor-pointer"
+              items-center justify-center nonsel cursor-pointer
+              ${featArtOpen ? "opacity-100" : "opacity-0"}
+              `}
               >
               <p className={`md:text-5xl text-3xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
               <p className={`text-xs md:self-start meow ${sono.className} text-white`}>({featArtwork?.date})</p>
@@ -230,8 +232,8 @@ export default function GalleryComponent() {
           </div>
 
           {/* INFO */}
-          <div className={`flex flex-col ${featArtOpen ? "flex-30" : "flex-100"} ${sono.className} transition-flex duration-1000 bg-gray-200 w-full md:h-180 self-start`}>
-            <p className={`text-3xl text-center p-4`}>Welcome to the <br /> Gallery!</p>
+          <div className={`flex flex-col ${featArtOpen ? "flex-32" : "flex-68"} ${sono.className} transition-flex duration-1000 bg-gray-200 w-full md:h-180 self-start overflow-hidden`}>
+            <p className={`text-2xl text-center p-4`}>Welcome to the Gallery!</p>
             
             <div className="flex h-full p-4 pt-0">
 
@@ -245,10 +247,14 @@ export default function GalleryComponent() {
               </div>
 
               <div className={`flex flex-col h-full ${featArtOpen ? "flex-0" : "flex-75"} transition-flex duration-800`}>
-                <div className={`${featArtOpen ? "opacity-0" : "opacity-100"} transition-opacity duration-500 text-wrap`}>
+                <div className={`${featArtOpen ? "opacity-0 nonsel pointer-events-none duration-300" : "opacity-100 duration-1000 ease-in"} transition-opacity text-wrap p-4 flex items-center justify-center relative`}>
                   {currentTab === "process" && (
-                    <div>
-                      <p>process process process </p>
+                    <div className="absolute top-0 text-nowrap bg-amber-200 p-4">
+                      <p>process process process process process process process</p>
+                      <p>process process process process process process process</p>
+                      <p>process process process process process process process</p>
+                      <p>process process process process process process process</p>
+                      <p>process process process process process process process</p>
                     </div>
                   )}
                   
