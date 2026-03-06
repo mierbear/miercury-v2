@@ -178,15 +178,28 @@ export default function GalleryComponent() {
 
   type TabTypes = "main" | "process" | "comms" | "tools" | "inspos" | null;
   const [currentTab, setCurrentTab] = useState<TabTypes>(null)
+  const questionsRef = useRef<HTMLDivElement>(null);
+  const infoRef = useRef<HTMLDivElement>(null);
 
   const openTab = (tab:TabTypes) => {
+    if (!infoRef.current || !questionsRef.current) return; 
+    infoRef.current.style.pointerEvents = "none";
+
     if (tab === null) {
       setCurrentTab(tab);
       setOpenQuestions(false);
+      questionsRef.current!.style.opacity = "0";
     } else {
       setCurrentTab(tab);
       setOpenQuestions(true);
+      setTimeout(() => {
+        questionsRef.current!.style.opacity = "100";
+      }, 500);
     }
+
+    setTimeout(() => {
+      infoRef.current!.style.pointerEvents = "auto";
+    }, 1000);
   }
 
   const [openQuestions, setOpenQuestions] = useState(false);
@@ -213,28 +226,39 @@ export default function GalleryComponent() {
       answer: "",
     },
     { 
-      key: "consistency",
-      question: "how consistent are you?",
+      key: "beauty",
+      question: "controversial art takes?",
       answer: "",
     },
+    
     { 
       key: "colors",
       question: "favorite colors?",
       answer: "",
     },
     { 
-      key: "beauty",
-      question: "is beauty subjective?",
+      key: "consistency",
+      question: "are you consistent?",
       answer: "",
     },
     { 
       key: "critique",
-      question: "art fundamental you're lacking in?",
+      question: "worst fundamental?",
       answer: "",
     },
     { 
       key: "proud",
-      question: "art fundamental you're proud of?",
+      question: "favorite fundamental?",
+      answer: "",
+    },
+    { 
+      key: "advice",
+      question: "any advice?",
+      answer: "",
+    },
+    { 
+      key: "resource",
+      question: "any resources?",
       answer: "",
     },
     { 
@@ -278,10 +302,10 @@ export default function GalleryComponent() {
                 `}
             />
             <div className={`
-              absolute bottom-4 md:left-4 hover:opacity-0 transition-opacity duration-300
-              flex flex-col px-4 py-2 text-nowrap
+              absolute bottom-4 md:left-4 hover:opacity-0 transition-all duration-500
+              flex flex-col px-4 py-2 text-nowrap origin-bottom-left
               items-center justify-center nonsel cursor-pointer
-              ${openQuestions ? "opacity-0" : "opacity-100"}
+              ${openQuestions ? "scale-80 opacity-60" : "scale-100 opacity-100"}
               `}
               >
               <p className={`md:text-5xl text-3xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
@@ -290,35 +314,63 @@ export default function GalleryComponent() {
           </div>
 
           {/* INFO */}
-          <div className={`flex flex-col items-center ${openQuestions ? "flex-62" : "flex-38"} transition-flex duration-1000 bg-gray-200 w-full md:h-180 self-start overflow-hidden`}>
+          <div
+            className={`
+              flex flex-col items-center
+              ${openQuestions ? "flex-62" : "flex-38"}
+              transition-flex duration-1000 bg-gray-200
+              w-full md:h-180 self-start overflow-hidden
+            `}
+            ref={infoRef}
+            >
 
-            <div className="flex flex-col items-center h-full w-full flex-62 p-4 pb-0 gap-2">
-              <p className={`lg:text-4xl md:text-2xl text-center ${oranienbaum.className}`}>Welcome to The Gallery!</p>
-              <div className={`${openQuestions ? "w-[90%]" : "w-[60%]"} transition-w duration-1000 h-full bg-black/20`}></div>
+            {/* TOP / ILLUSTRATION */}
+            <div className={`flex flex-col items-center h-full w-full transition-flex duration-500 ${openQuestions ? "flex-72" : "flex-84"} py-3 pb-0 gap-2`}>
+
+              {/* TITLE */}
+              <p className={`lg:text-4xl md:text-2xl text-center ${oranienbaum.className}`}>{openQuestions ? "ask and you shall recieve..." : "welcome to the gallery!"}</p>
+
+              {/* ILLUST */}
+              <div className={`w-full transition-w duration-1000 h-full bg-black/20`}>
+                
+              </div>
+
             </div>
 
-            <div className={`flex flex-col items-center justify-center h-full w-full flex-38 p-8 pt-0 ${kosugi.className} relative`}>
+            {/* BOTTOM / QUESTIONS */}
+            <div className={`flex flex-col items-center pt-4 h-full w-full transition-flex duration-500 ${openQuestions ? "flex-28" : "flex-16"} md:px-4 lg:px-12 py-0 relative`}>
 
+              {/* BACK */}
               <p className={`
-                cursor-pointer text-sm transition-opacity duration-1000 absolute bottom-2 left-4
+                cursor-pointer text-sm transition-opacity duration-800 absolute bottom-2 left-4
                 ${openQuestions ? "opacity-100" : "opacity-0 pointer-events-none nonsel"}`} 
                 onClick={() => openTab(null)}
                 >
                 ○ <span className="hover:underline">take me back!</span>
               </p>
 
+              {/* OPEN QUESTIONS */}
               <p
-                className={`text-2xl cursor-pointer ${openQuestions ? "hidden" : "flex"}`}
+                className={`absolute top-2 text-2xl cursor-pointer transition-opacity duration-500 ${openQuestions ? "opacity-0" : "opacity-100"}`}
                 onClick={() => openTab("main")}
               >
                 have a question?
               </p>
               
-              <div className={`grid grid-cols-4 gap-1 ${openQuestions ? "grid" : "hidden"}`}>
+              {/* QUESTIONS */}
+              <div 
+                className={`
+                  grid grid-cols-3 gap-0.5 gap-x-8 lg:gap-x-12
+                  transition-opacity duration-200 opacity-0
+                  whitespace-nowrap
+                  ${!openQuestions && "nonsel pointer-events-none"}
+                `}
+                ref={questionsRef}
+                >
                 {inquiry.map(inquiry => (
-                  <p key={inquiry.key} className="cursor-pointer text-xs flex items-center gap-2 p-2 border border-black rounded" onClick={() => openTab("comms")}>
-                    <span className="-translate-y-px">●</span>
-                    <span className="hover:underline -translate-y-px">{inquiry.question}</span>
+                  <p key={inquiry.key} className="cursor-pointer text-sm lg:text-base flex items-center gap-2" onClick={() => openTab("comms")}>
+                    <span className="-translate-y-px text-[8px]">●</span>
+                    <span className="hover:underline -translate-y-px flex w-full">{inquiry.question}</span>
                   </p>
                 ))}
               </div>
@@ -343,7 +395,7 @@ export default function GalleryComponent() {
             <p className={`font-bold md:text-4xl text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
 
             {/* TAGS */}
-            <div className={`grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 pt-2 ${selectedTags.length > 0 && "pb-2"} md:min-w-42 lg:min-w-50 w-full`}>
+            <div className={`grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 pt-4 ${selectedTags.length > 0 && "pb-2"} md:min-w-42 lg:min-w-50 w-full`}>
               {availableTags.map(tag => (
                 <label 
                   key={tag}
@@ -407,7 +459,7 @@ export default function GalleryComponent() {
           {/* RIGHT */}
           <div className="flex flex-col flex-85 items-center justify-center min-h-[30vh] bg-black/10">
             {/* ARTWORK */}
-            <div className={`grid gap-0.5 px-0.5 py-1 pl-0.5 ${
+            <div className={`grid gap-0.5 p-0.5 pl-0.5 ${
               
                   currentArtworks.length === 1 
                 ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-1"
@@ -416,7 +468,7 @@ export default function GalleryComponent() {
                 : currentArtworks.length === 3
                 ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
                 : currentArtworks.length === 4
-                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-2"
+                ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
                 : currentArtworks.length === 5
                 ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
                 : currentArtworks.length === 6
