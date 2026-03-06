@@ -317,6 +317,20 @@ export default function GalleryComponent() {
     },
   ]
 
+  const sadFaces = ["u_u", "T_T", "ヽ(*。>Д<)o゜",];
+
+  const randomizer = (arr: string[]) => {
+    return arr[Math.trunc((Math.random() * arr.length))];
+  };
+
+  const [face, setFace] = useState<string>(() => 
+    randomizer(sadFaces)
+  ); 
+
+  useEffect(() => {
+    setFace(randomizer(sadFaces));
+  }, [currentArtworks.length === 0]);
+
   const [ready, setReady] = useState(false);
 
   return (
@@ -552,8 +566,8 @@ export default function GalleryComponent() {
 
             {/* NO ART MSG */}
             {filteredArtworks.length === 0 && (
-              <p className={`text-center p-4 text-black md:text-9xl text-7xl nonsel pointer-events-none ${sono.className}`}>
-                u_u..
+              <p className={`text-center flex p-4 text-black md:text-9xl text-7xl nonsel pointer-events-none ${oranienbaum.className}`}>
+                {face}
               </p>
             )}
           </div>
