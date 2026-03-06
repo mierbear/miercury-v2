@@ -176,8 +176,9 @@ export default function GalleryComponent() {
 
   const [featArtFocus, setFeatArtFocus] = useState(true);
 
-  type TabTypes = "main" | "process" | "comms" | "tools" | "inspos" | null;
+  type TabTypes = "main" | null | typeof inquiry[number]["key"];
   const [currentTab, setCurrentTab] = useState<TabTypes>(null)
+  const [answer, setAnswer] = useState("");
   const questionsRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
 
@@ -197,6 +198,11 @@ export default function GalleryComponent() {
       }, 500);
     }
 
+    if (tab !== "main" && tab !== null) {
+      const data = inquiry.find(item => item.key === tab);
+      if (data) setAnswer(data.answer);
+    }
+    
     setTimeout(() => {
       infoRef.current!.style.pointerEvents = "auto";
     }, 1000);
@@ -208,63 +214,63 @@ export default function GalleryComponent() {
     { 
       key: "process",
       question: "what's your process?",
-      answer: "",
+      answer: "process",
     },
     { 
       key: "tools",
       question: "what do you use?",
-      answer: "",
+      answer: "tools",
     },
     { 
       key: "comms",
       question: "commissions?",
-      answer: "",
+      answer: "comms",
     },
     { 
       key: "inspos",
       question: "who do you look up to?",
-      answer: "",
+      answer: "inspos",
     },
     { 
       key: "beauty",
       question: "controversial art takes?",
-      answer: "",
+      answer: "beauty",
     },
     
     { 
       key: "colors",
       question: "favorite colors?",
-      answer: "",
+      answer: "colors",
     },
     { 
       key: "consistency",
       question: "are you consistent?",
-      answer: "",
+      answer: "consistency",
     },
     { 
       key: "critique",
       question: "worst fundamental?",
-      answer: "",
+      answer: "critique",
     },
     { 
       key: "proud",
       question: "favorite fundamental?",
-      answer: "",
+      answer: "proud",
     },
     { 
       key: "advice",
       question: "any advice?",
-      answer: "",
+      answer: "advice",
     },
     { 
       key: "resource",
       question: "any resources?",
-      answer: "",
+      answer: "resource",
     },
     { 
       key: "meow",
       question: "mrow?",
-      answer: "",
+      answer: "meow",
     },
   ]
 
@@ -274,12 +280,12 @@ export default function GalleryComponent() {
     <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a]">
 
       {/* TITLE */}
-      <div className="w-7xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
+      <div className="w-360 max-w-screen flex flex-col justify-end items-center h-[12vh]">
         {/* <p className="text-white">gallery</p> */}
       </div>
 
       {/* CONTENT */}
-      <div className="w-7xl max-w-screen flex flex-col">
+      <div className="w-360 max-w-screen flex flex-col">
 
         {/* HEADER */}
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
@@ -331,8 +337,13 @@ export default function GalleryComponent() {
               <p className={`lg:text-4xl md:text-2xl text-center ${oranienbaum.className}`}>{openQuestions ? "ask and you shall recieve..." : "welcome to the gallery!"}</p>
 
               {/* ILLUST */}
-              <div className={`w-full transition-w duration-1000 h-full bg-black/20`}>
+              <div className={`w-full transition-w duration-1000 h-full bg-black/20 flex items-center justify-center relative`}>
                 
+                <div className="w-[90%] h-[28%] rounded-xl bg-yellow-200/70 absolute bottom-2 flex items-center justify-center text-justify">
+                  <p className={`text-sm md:text-base px-4 ${kosugi.className}`}>
+                    {answer}
+                  </p>
+                </div>
               </div>
 
             </div>
@@ -368,7 +379,7 @@ export default function GalleryComponent() {
                 ref={questionsRef}
                 >
                 {inquiry.map(inquiry => (
-                  <p key={inquiry.key} className="cursor-pointer text-sm lg:text-base flex items-center gap-2" onClick={() => openTab("comms")}>
+                  <p key={inquiry.key} className="cursor-pointer text-sm lg:text-base flex items-center gap-2" onClick={() => openTab(inquiry.key)}>
                     <span className="-translate-y-px text-[8px]">●</span>
                     <span className="hover:underline -translate-y-px flex w-full">{inquiry.question}</span>
                   </p>
@@ -382,7 +393,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className="h-3 bg-black">
+        <div className="h-16 bg-blue-300">
 
         </div>
 
