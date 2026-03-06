@@ -176,29 +176,39 @@ export default function GalleryComponent() {
 
   const [featArtFocus, setFeatArtFocus] = useState(true);
 
-  type TabTypes = "main" | null | typeof inquiry[number]["key"];
+  type TabTypes = "enter" | null | typeof inquiry[number]["key"];
   const [currentTab, setCurrentTab] = useState<TabTypes>(null)
   const [answer, setAnswer] = useState("");
   const questionsRef = useRef<HTMLDivElement>(null);
+  const chatboxRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
 
   const openTab = (tab:TabTypes) => {
-    if (!infoRef.current || !questionsRef.current) return; 
+    if (!infoRef.current || !questionsRef.current || !chatboxRef.current) return; 
     infoRef.current.style.pointerEvents = "none";
 
     if (tab === null) {
       setCurrentTab(tab);
       setOpenQuestions(false);
+      setAnswer("...")
       questionsRef.current!.style.opacity = "0";
+      setTimeout(() => {
+        chatboxRef.current!.style.opacity = "0"
+      }, 1000);
     } else {
       setCurrentTab(tab);
       setOpenQuestions(true);
+      chatboxRef.current!.style.opacity = "100"
       setTimeout(() => {
         questionsRef.current!.style.opacity = "100";
       }, 500);
     }
 
-    if (tab !== "main" && tab !== null) {
+    if (tab === "enter") {
+      setAnswer("what would you like to know?")
+    }
+
+    if (tab !== "enter" && tab !== null) {
       const data = inquiry.find(item => item.key === tab);
       if (data) setAnswer(data.answer);
     }
@@ -280,12 +290,12 @@ export default function GalleryComponent() {
     <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a]">
 
       {/* TITLE */}
-      <div className="w-360 max-w-screen flex flex-col justify-end items-center h-[12vh]">
+      <div className="w-6xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
         {/* <p className="text-white">gallery</p> */}
       </div>
 
       {/* CONTENT */}
-      <div className="w-360 max-w-screen flex flex-col">
+      <div className="w-6xl max-w-screen flex flex-col">
 
         {/* HEADER */}
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
@@ -339,7 +349,10 @@ export default function GalleryComponent() {
               {/* ILLUST */}
               <div className={`w-full transition-w duration-1000 h-full bg-black/20 flex items-center justify-center relative`}>
                 
-                <div className="w-[90%] h-[28%] rounded-xl bg-yellow-200/70 absolute bottom-2 flex items-center justify-center text-justify">
+                <div
+                  className="max-w-[90%] max-h-[28%] rounded-sm p-2 bg-yellow-200/70 absolute bottom-2 flex items-center justify-center text-justify transition-opacity duration-500"
+                  ref={chatboxRef}
+                >
                   <p className={`text-sm md:text-base px-4 ${kosugi.className}`}>
                     {answer}
                   </p>
@@ -363,7 +376,7 @@ export default function GalleryComponent() {
               {/* OPEN QUESTIONS */}
               <p
                 className={`absolute top-2 text-2xl cursor-pointer transition-opacity duration-500 ${openQuestions ? "opacity-0" : "opacity-100"}`}
-                onClick={() => openTab("main")}
+                onClick={() => openTab("enter")}
               >
                 have a question?
               </p>
@@ -477,7 +490,7 @@ export default function GalleryComponent() {
                 : currentArtworks.length === 2
                 ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
                 : currentArtworks.length === 3
-                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
+                ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
                 : currentArtworks.length === 4
                 ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
                 : currentArtworks.length === 5
@@ -487,7 +500,7 @@ export default function GalleryComponent() {
                 : currentArtworks.length === 9
                 ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
 
-                : "grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+                : "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
               }`}
             >
               {currentArtworks.map((artwork, index) => (
@@ -539,7 +552,7 @@ export default function GalleryComponent() {
       </div>
 
       {/* FOOTER */}
-      <div className="h-40 flex items-center justify-center">
+      <div className="h-40 flex items-center justify-center w-screen bg-black">
         <p className="text-white">footer</p>
       </div>
 
