@@ -180,42 +180,75 @@ export default function GalleryComponent() {
   const [currentTab, setCurrentTab] = useState<TabTypes>(null)
   const [answer, setAnswer] = useState("");
   const questionsRef = useRef<HTMLDivElement>(null);
+  const chatboxTextRef = useRef<HTMLDivElement>(null);
   const chatboxRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
 
-  const openTab = (tab:TabTypes) => {
-    if (!infoRef.current || !questionsRef.current || !chatboxRef.current) return; 
+  const openTab = (tab: TabTypes) => {
+    if (!infoRef.current || !questionsRef.current || !chatboxRef.current) return;
     infoRef.current.style.pointerEvents = "none";
+    resetTalk();
 
     if (tab === null) {
       setCurrentTab(tab);
       setOpenQuestions(false);
-      setAnswer("...")
-      questionsRef.current!.style.opacity = "0";
+      const dotdotdot = "...";
+      setAnswer(dotdotdot);
+      mierTalk(dotdotdot, 400);
+      questionsRef.current.style.opacity = "0";
       setTimeout(() => {
-        chatboxRef.current!.style.opacity = "0"
-      }, 1000);
+        chatboxRef.current!.style.opacity = "0";
+        infoRef.current!.style.pointerEvents = "auto";
+      }, 2000);
+
     } else {
       setCurrentTab(tab);
       setOpenQuestions(true);
-      chatboxRef.current!.style.opacity = "100"
+      chatboxRef.current.style.opacity = "100";
       setTimeout(() => {
         questionsRef.current!.style.opacity = "100";
       }, 500);
-    }
 
-    if (tab === "enter") {
-      setAnswer("what would you like to know?")
-    }
+      if (tab === "enter") {
+        const text = "what would you like to know?";
+        setAnswer(text);
+        mierTalk(text, 80);
+      } else {
+        const data = inquiry.find(item => item.key === tab);
+        if (data) {
+          setAnswer(data.answer);
+          mierTalk(data.answer, 80);
+        }
+      }
 
-    if (tab !== "enter" && tab !== null) {
-      const data = inquiry.find(item => item.key === tab);
-      if (data) setAnswer(data.answer);
+      setTimeout(() => {
+        infoRef.current!.style.pointerEvents = "auto";
+      }, 1000);
     }
-    
-    setTimeout(() => {
-      infoRef.current!.style.pointerEvents = "auto";
-    }, 1000);
+  }
+
+  const tap = () => {
+    const sound = new Audio(`/audio/tap${Math.floor(Math.random() * 5)}.mp3`);
+    sound.play();
+  }
+
+  const talkTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const mierTalk = (text: string, speed: number, i: number = 0) => {
+    if (!chatboxTextRef.current) return;
+    if (i >= text.length) return;
+    tap();
+    chatboxTextRef.current.textContent += text.charAt(i);
+    talkTimeoutRef.current = setTimeout(() => mierTalk(text, speed, i + 1), speed);
+  }
+
+  const resetTalk = () => {
+    if (!chatboxTextRef.current) return;
+    if (talkTimeoutRef.current) {
+      clearTimeout(talkTimeoutRef.current);
+      talkTimeoutRef.current = null;
+    }
+    chatboxTextRef.current.textContent = "";
   }
 
   const [openQuestions, setOpenQuestions] = useState(false);
@@ -349,12 +382,13 @@ export default function GalleryComponent() {
               {/* ILLUST */}
               <div className={`w-full transition-w duration-1000 h-full bg-black/20 flex items-center justify-center relative`}>
                 
+
+                {/* CHATBOX */}
                 <div
-                  className="max-w-[90%] max-h-[28%] rounded-sm p-2 bg-yellow-200/70 absolute bottom-2 flex items-center justify-center text-justify transition-opacity duration-500"
+                  className="max-w-[90%] max-h-[28%] rounded-sm p-2 bg-yellow-200/70 absolute bottom-2 flex items-center justify-center text-justify opacity-0 transition-opacity duration-500"
                   ref={chatboxRef}
                 >
-                  <p className={`text-sm md:text-base px-4 ${kosugi.className}`}>
-                    {answer}
+                  <p className={`text-sm md:text-base px-4 ${kosugi.className}`} ref={chatboxTextRef}>
                   </p>
                 </div>
               </div>

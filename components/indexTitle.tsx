@@ -64,20 +64,24 @@ const Title = () => {
     };
   }, []);
 
-  const bellSoundRef = useRef<HTMLAudioElement | null>(null);
+  // const bellSoundRef = useRef<HTMLAudioElement | null>(null);
 
-  useEffect(() => {
-    const bellSound = new Audio("/audio/bells.mp3");
+  // useEffect(() => {
+  //   const bellSound = new Audio("/audio/bells.mp3");
 
-    bellSound.load();
+  //   bellSound.load();
 
-    bellSoundRef.current = bellSound;
-  }, []);
+  //   bellSoundRef.current = bellSound;
+  // }, []);
+
+  // const bellFX = () => {
+  //   if (!bellSoundRef.current) return;
+  //   bellSoundRef.current.currentTime = 0;
+  //   bellSoundRef.current.play();
+  // }
 
   const bellFX = () => {
-    if (!bellSoundRef.current) return;
-    bellSoundRef.current.currentTime = 0;
-    bellSoundRef.current.play();
+    new Audio("/audio/bells.mp3").play();
   }
 
   return (
