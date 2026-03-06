@@ -7,7 +7,7 @@ import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
-import { Oranienbaum, Gowun_Batang, Sono } from "next/font/google";
+import { Oranienbaum, Gowun_Batang, Sono, Kosugi_Maru } from "next/font/google";
 
 const oranienbaum = Oranienbaum({
   weight: "400",
@@ -20,6 +20,11 @@ const gowun = Gowun_Batang({
 })
 
 const sono = Sono({
+  weight: "400",
+  subsets: ["latin"],
+})
+
+const kosugi = Kosugi_Maru({
   weight: "400",
   subsets: ["latin"],
 })
@@ -169,22 +174,75 @@ export default function GalleryComponent() {
       ]
     : [];
 
-  const [featArtOpen, setFeatArtOpen] = useState(true);
+  const [featArtFocus, setFeatArtFocus] = useState(true);
 
-  type TabTypes = null | "process" | "comms" | "tools" | "inspos" | null;
+  type TabTypes = "main" | "process" | "comms" | "tools" | "inspos" | null;
   const [currentTab, setCurrentTab] = useState<TabTypes>(null)
 
   const openTab = (tab:TabTypes) => {
-    if (tab !== null) {
-      setFeatArtOpen(false);
+    if (tab === null) {
       setCurrentTab(tab);
+      setOpenQuestions(false);
     } else {
-      setFeatArtOpen(true);
-      setTimeout(() => {
-        setCurrentTab(tab);
-      }, 1000);
+      setCurrentTab(tab);
+      setOpenQuestions(true);
     }
   }
+
+  const [openQuestions, setOpenQuestions] = useState(false);
+
+  const inquiry = [
+    { 
+      key: "process",
+      question: "what's your process?",
+      answer: "",
+    },
+    { 
+      key: "tools",
+      question: "what do you use?",
+      answer: "",
+    },
+    { 
+      key: "comms",
+      question: "commissions?",
+      answer: "",
+    },
+    { 
+      key: "inspos",
+      question: "who do you look up to?",
+      answer: "",
+    },
+    { 
+      key: "consistency",
+      question: "how consistent are you?",
+      answer: "",
+    },
+    { 
+      key: "colors",
+      question: "favorite colors?",
+      answer: "",
+    },
+    { 
+      key: "beauty",
+      question: "is beauty subjective?",
+      answer: "",
+    },
+    { 
+      key: "critique",
+      question: "art fundamental you're lacking in?",
+      answer: "",
+    },
+    { 
+      key: "proud",
+      question: "art fundamental you're proud of?",
+      answer: "",
+    },
+    { 
+      key: "meow",
+      question: "mrow?",
+      answer: "",
+    },
+  ]
 
   const [ready, setReady] = useState(false);
 
@@ -203,7 +261,7 @@ export default function GalleryComponent() {
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
 
           {/* FEATURED ART */}
-          <div className={`flex flex-col ${featArtOpen ? "flex-68" : "flex-32"} transition-flex duration-1000 nonsel justify-center items-center relative cursor-pointer overflow-hidden`}
+          <div className={`flex flex-col ${openQuestions ? "flex-38" : "flex-62"} transition-flex duration-1000 nonsel justify-center items-center relative cursor-pointer overflow-hidden`}
           onClick={() => setFeaturedLightBoxOpen(true)} 
           >
             <img src={featArtwork?.url}
@@ -223,7 +281,7 @@ export default function GalleryComponent() {
               absolute bottom-4 md:left-4 hover:opacity-0 transition-opacity duration-300
               flex flex-col px-4 py-2 text-nowrap
               items-center justify-center nonsel cursor-pointer
-              ${featArtOpen ? "opacity-100" : "opacity-0"}
+              ${openQuestions ? "opacity-0" : "opacity-100"}
               `}
               >
               <p className={`md:text-5xl text-3xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
@@ -232,50 +290,37 @@ export default function GalleryComponent() {
           </div>
 
           {/* INFO */}
-          <div className={`flex flex-col ${featArtOpen ? "flex-32" : "flex-68"} ${sono.className} transition-flex duration-1000 bg-gray-200 w-full md:h-180 self-start overflow-hidden`}>
-            <p className={`text-2xl text-center p-4`}>Welcome to the Gallery!</p>
-            
-            <div className="flex h-full p-4 pt-0">
+          <div className={`flex flex-col items-center ${openQuestions ? "flex-62" : "flex-38"} transition-flex duration-1000 bg-gray-200 w-full md:h-180 self-start overflow-hidden`}>
 
-              <div className={`flex flex-col h-full ${featArtOpen ? "flex-100" : "flex-25"} transition-flex duration-1000`}>
-                <p className="cursor-pointer" onClick={() => openTab("process")}>○ <span className="hover:underline">whats my process?</span></p>
-                <p className="cursor-pointer" onClick={() => openTab("tools")}>○ <span className="hover:underline">what do i use?</span></p>
-                <p className="cursor-pointer" onClick={() => openTab("inspos")}>○ <span className="hover:underline">who inspires you?</span></p>
-                <p className="cursor-pointer" onClick={() => openTab("comms")}>○ <span className="hover:underline">commissions?</span></p>
+            <div className="flex flex-col items-center h-full w-full flex-62 p-4 pb-0 gap-2">
+              <p className={`lg:text-4xl md:text-2xl text-center ${oranienbaum.className}`}>Welcome to The Gallery!</p>
+              <div className={`${openQuestions ? "w-[90%]" : "w-[60%]"} transition-w duration-1000 h-full bg-black/20`}></div>
+            </div>
 
-                <p className={`cursor-pointer mt-auto transition-opacity duration-1000 ${featArtOpen ? "opacity-0 pointer-events-none nonsel" : "opacity-100"}`} onClick={() => openTab(null)}>● <span className="hover:underline">take me back!</span></p>
-              </div>
+            <div className={`flex flex-col items-center justify-center h-full w-full flex-38 p-8 pt-0 ${kosugi.className} relative`}>
 
-              <div className={`flex flex-col h-full ${featArtOpen ? "flex-0" : "flex-75"} transition-flex duration-800`}>
-                <div className={`${featArtOpen ? "opacity-0 nonsel pointer-events-none duration-300" : "opacity-100 duration-1000 ease-in"} transition-opacity text-wrap p-4 flex items-center justify-center relative`}>
-                  {currentTab === "process" && (
-                    <div className="absolute top-0 text-nowrap bg-amber-200 p-4">
-                      <p>process process process process process process process</p>
-                      <p>process process process process process process process</p>
-                      <p>process process process process process process process</p>
-                      <p>process process process process process process process</p>
-                      <p>process process process process process process process</p>
-                    </div>
-                  )}
-                  
-                  {currentTab === "comms" && (
-                    <div>
-                      <p>comms</p>
-                    </div>
-                  )}
+              <p className={`
+                cursor-pointer text-sm transition-opacity duration-1000 absolute bottom-2 left-4
+                ${openQuestions ? "opacity-100" : "opacity-0 pointer-events-none nonsel"}`} 
+                onClick={() => openTab(null)}
+                >
+                ○ <span className="hover:underline">take me back!</span>
+              </p>
 
-                  {currentTab === "tools" && (
-                    <div>
-                      <p>tools</p>
-                    </div>
-                  )}
-
-                  {currentTab === "inspos" && (
-                    <div>
-                      <p>inspos</p>
-                    </div>
-                  )}
-                </div>
+              <p
+                className={`text-2xl cursor-pointer ${openQuestions ? "hidden" : "flex"}`}
+                onClick={() => openTab("main")}
+              >
+                have a question?
+              </p>
+              
+              <div className={`grid grid-cols-4 gap-1 ${openQuestions ? "grid" : "hidden"}`}>
+                {inquiry.map(inquiry => (
+                  <p key={inquiry.key} className="cursor-pointer text-xs flex items-center gap-2 p-2 border border-black rounded" onClick={() => openTab("comms")}>
+                    <span className="-translate-y-px">●</span>
+                    <span className="hover:underline -translate-y-px">{inquiry.question}</span>
+                  </p>
+                ))}
               </div>
 
             </div>
@@ -293,9 +338,9 @@ export default function GalleryComponent() {
         <div className="flex md:flex-row flex-col bg-gray-100">
 
           {/* LEFT */}
-          <div className="flex flex-col flex-15 md:items-center p-2 w-full">
+          <div className="flex flex-col flex-15 md:items-center p-4 w-full">
 
-            <p className={`font-bold md:text-2xl text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
+            <p className={`font-bold md:text-4xl text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
 
             {/* TAGS */}
             <div className={`grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 pt-2 ${selectedTags.length > 0 && "pb-2"} md:min-w-42 lg:min-w-50 w-full`}>
@@ -384,7 +429,12 @@ export default function GalleryComponent() {
             >
               {currentArtworks.map((artwork, index) => (
                 <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer rounded-sm overflow-hidden" onClick={() => openLightBox(startIndex + index)}>
-                  <p className="absolute bottom-0 text-white bg-black/60 backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3 w-full text-sm md:text-base">{artwork.title}</p>
+                  <p className={`
+                    absolute bottom-0 text-white bg-black/60
+                    backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3
+                    w-full text-sm md:text-sm ${sono.className}`}>
+                      {artwork.title}
+                  </p>
                   <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
                 </div>
               ))}
