@@ -123,12 +123,6 @@ export default function GalleryComponent() {
     setCurrentPage(1);
   };
 
-  useEffect(() => {
-    setReady(true);
-    fetchFeatArt();
-    fetchArtworks();
-  }, []);
-
   const [lightBoxOpen, setLightBoxOpen] = useState(false);
   const [featuredLightBoxOpen, setFeaturedLightBoxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -333,7 +327,22 @@ export default function GalleryComponent() {
     setFace(randomizer(sadFaces));
   }, [currentArtworks.length === 0]);
 
+  const [orientation, setOrientation] = useState<"portrait" | "landscape" | null>(null);
+
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget;
+    setOrientation(img.naturalWidth > img.naturalHeight ? 'landscape' : 'portrait');
+    const orient = img.naturalWidth > img.naturalHeight ? 'landscape' : 'portrait';
+
+    console.log("orientation: ", orient);
+  };
+  
   const [ready, setReady] = useState(false);
+  useEffect(() => {
+    setReady(true);
+    fetchFeatArt();
+    fetchArtworks();
+  }, []);
 
   return (
     <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a]">
@@ -353,26 +362,27 @@ export default function GalleryComponent() {
           onClick={() => setFeaturedLightBoxOpen(true)} 
           >
             <img src={featArtwork?.url}
+              onLoad={handleImageLoad}
               className={`
                 pointer-events-none cursor-pointer
-                aspect-video object-cover
+                object-cover
 
                 min-h-180
                 max-h-[60vh]
-                min-w-screen
-                max-w-screen
+                min-w-[95vw]
+                max-w-[95vw]
                 min-[768px]:max-h-180
-                min-[768px]:min-w-1
+                min-[768px]:min-w-full
                 `}
             />
             <div className={`
               absolute bottom-4 md:left-4 hover:opacity-0 transition-all duration-500
-              flex flex-col px-4 py-2 text-nowrap origin-bottom-left
+              flex flex-col px-4 py-2 text-nowrap md:origin-bottom-left
               items-center justify-center nonsel cursor-pointer
               ${openQuestions ? "scale-80 opacity-60" : "scale-100 opacity-100"}
               `}
               >
-              <p className={`md:text-5xl text-3xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
+              <p className={`md:text-5xl text-4xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
               <p className={`text-xs md:self-start meow ${sono.className} text-white`}>({featArtwork?.date})</p>
             </div>
           </div>
