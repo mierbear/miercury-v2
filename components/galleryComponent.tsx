@@ -347,7 +347,7 @@ export default function GalleryComponent() {
   }, []);
 
   return (
-    <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a]">
+    <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a] nonsel">
 
       {/* SPACE */}
       <div className="w-6xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
@@ -501,9 +501,8 @@ export default function GalleryComponent() {
               grid grid-cols-4 grid-rows-4 md:grid-cols-1
               items-center justify-around gap-1
               md:min-w-42 lg:min-w-50 w-full
-              transition-opacity duration-1000
               ${selectedTags.length > 0 && "pb-2"}
-              ${tagHide && "h-0 overflow-hidden p-0 opacity-0 pointer-events-none"}
+              ${tagHide && "h-0 w-0 overflow-hidden p-0 opacity-0 pointer-events-none"}
             `}>
 
               {availableTags.map(tag => (
@@ -556,7 +555,12 @@ export default function GalleryComponent() {
                   <span className="italic">
                     {selectedTags.map((tag, index) => (
                       <span key={tag}>
-                        <span className="underline">{tag}</span>
+                        <span
+                        className="underline hover:cursor-pointer hover:text-red-500"
+                        onClick={() => toggleTag(tag)}
+                        >
+                          {tag}
+                        </span>
                         {index < selectedTags.length - 1 && ', '}
                       </span>
                     ))}
