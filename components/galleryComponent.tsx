@@ -544,22 +544,24 @@ export default function GalleryComponent() {
 
           </div>
 
-
         </div>
 
         {/* GALLERY */}
         <div className="flex md:flex-row flex-col bg-gray-100">
 
           {/* LEFT / TAGS */}
-          <div className={`flex flex-col md:items-center ${tagHide ? "w-0" : "flex-15 w-full p-2 md:p-4"}`}>
+          <div className={`
+            flex flex-col md:items-center
+            md:transition-width md:duration-500 overflow-hidden md:mt-4
+            ${tagHide ? "w-0 h-0 pt-0 md:h-auto" : "h-auto md:w-42 lg:w-50 px-2 pb-2 pt-2 md:pt-0 md:px-4 md:pb-4"}
+          `}>
 
             {/* TAGS */}
             <div className={`
               grid grid-cols-4 grid-rows-4 md:grid-cols-1
-              items-center justify-around gap-1
-              md:min-w-42 lg:min-w-50 w-full
+              items-center justify-around gap-1 w-full overflow-hidden
               ${selectedTags.length > 0 && "pb-2"}
-              ${tagHide && "h-0 w-0 overflow-hidden p-0 opacity-0 pointer-events-none"}
+              ${tagHide && "p-0 pointer-events-none"}
             `}>
 
               {availableTags.map(tag => (
@@ -576,7 +578,7 @@ export default function GalleryComponent() {
                     onChange={() => toggleTag(tag)}
                     className="cursor-pointer"
                   />
-                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-xs sm:text-sm md:text-base`}>{tag}</p>
+                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-xs sm:text-sm lg:text-base truncate`}>{tag}</p>
                 </label>
               ))}
               
