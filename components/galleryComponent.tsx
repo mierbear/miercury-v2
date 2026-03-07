@@ -336,6 +336,8 @@ export default function GalleryComponent() {
 
     console.log("orientation: ", orient);
   };
+
+  const [tagHide, setTagHide] = useState(false);
   
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -356,7 +358,7 @@ export default function GalleryComponent() {
       <div className="w-6xl max-w-screen flex flex-col">
 
         {/* HEADER */}
-        <div className="w-full h-18 bg-white rounded-t-2xl">
+        <div className="w-full h-12 bg-white rounded-t-2xl">
 
         </div>
 
@@ -479,16 +481,35 @@ export default function GalleryComponent() {
         <div className="flex md:flex-row flex-col bg-gray-100">
 
           {/* LEFT / TAGS */}
-          <div className="flex flex-col flex-15 md:items-center p-4 w-full">
+          <div className="flex flex-col flex-15 md:items-center p-2 md:p-4 w-full">
 
-            <p className={`font-bold md:text-4xl text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
+            <p
+              className={`
+              font-bold md:text-4xl text-3xl ml-1
+              md:ml-0 translate-y-0.5
+              ${oranienbaum.className}
+              ${tagHide || "pb-2 md:pb-4"}
+              hover:cursor-pointer
+              `}
+              onClick={() => setTagHide(!tagHide)}
+            >
+              {tagHide ? "SHOW TAGS" : "HIDE TAGS"}
+            </p>
 
             {/* TAGS */}
-            <div className={`grid grid-cols-4 grid-rows-4 md:grid-cols-1 items-center justify-around gap-1 pt-4 ${selectedTags.length > 0 && "pb-2"} md:min-w-42 lg:min-w-50 w-full`}>
+            <div className={`
+              grid grid-cols-4 grid-rows-4 md:grid-cols-1
+              items-center justify-around gap-1
+              md:min-w-42 lg:min-w-50 w-full
+              transition-opacity duration-1000
+              ${selectedTags.length > 0 && "pb-2"}
+              ${tagHide && "h-0 overflow-hidden p-0 opacity-0 pointer-events-none"}
+            `}>
+
               {availableTags.map(tag => (
                 <label 
                   key={tag}
-                  className="flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2 rounded bg-white min-h-12 h-full w-full hover:bg-gray-50 border transition-colors"
+                  className="flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2 rounded bg-white min-h-10 md:min-h-12 h-full w-full hover:bg-gray-50 border transition-colors"
                   style={{
                     borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
                   }}
@@ -499,9 +520,10 @@ export default function GalleryComponent() {
                     onChange={() => toggleTag(tag)}
                     className="cursor-pointer"
                   />
-                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-sm md:text-base`}>{tag}</p>
+                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-xs sm:text-sm md:text-base`}>{tag}</p>
                 </label>
               ))}
+              
             </div>
             
             {/* CLEAR / TAG INFO */}
@@ -548,7 +570,7 @@ export default function GalleryComponent() {
           {/* RIGHT / ART */}
           <div className="flex flex-col flex-85 items-center justify-center min-h-[30vh] bg-black/10">
             {/* ARTWORK */}
-            <div className={`grid gap-1 p-2 ${
+            <div className={`grid gap-0.5 p-0.5 md:gap-1 md:p-2 ${
               
                   currentArtworks.length === 1 
                 ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-1"
