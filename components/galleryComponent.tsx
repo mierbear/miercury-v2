@@ -385,8 +385,8 @@ export default function GalleryComponent() {
 
                 min-h-180
                 max-h-[60vh]
-                min-w-[95vw]
-                max-w-[95vw]
+                min-w-screen
+                max-w-screen
                 min-[768px]:max-h-180
                 min-[768px]:min-w-full
                 `}
@@ -481,11 +481,12 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className="h-20 flex items-center w-full bg-blue-300">
+        <div className="h-30 flex items-center w-full bg-blue-300">
 
           {/* TAG INFO */}
-          <div className="flex items-center gap-4 bg-white/60 h-full py-2 px-4">
-            
+          <div className="flex flex-col items-center justify-center bg-white/60 h-full py-2 px-4 md:w-50 lg:w-58 transition-width ease-in-out duration-500">
+
+            {/* SHOW/HIDE */}
             <p
               className={`
               font-bold text-3xl text-nowrap
@@ -496,46 +497,35 @@ export default function GalleryComponent() {
             >
               {tagHide ? "SHOW TAGS" : "HIDE TAGS"}
             </p>
-              
-            {/* CLEAR BUTTON */}
-            {selectedTags.length > 0 && (
-              <button
-                onClick={() => {
-                  setSelectedTags([]);
-                  setCurrentPage(1);
-                }}
-                className={`
-                  self-center justify-center px-3 py-2 
-                  flex rounded cursor-pointer
-                  transition-all duration-300
-                  ${sono.className}
-                  ${filteredArtworks.length === 0 ? "bg-red-200 hover:bg-red-300 text-red-700 w-[80%] font-bold" : "bg-yellow-100 hover:bg-yellow-200 text-yellow-700 w-[50%]"}
-                `}
-              >
-                clear
-              </button>
-            )}
 
             {/* ARTWORK COUNT */}
-            {selectedTags.length > 0 && (
-              <p className="text-sm text-gray-600 text-center">
-                <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
-                <span className="">artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:</span><br />
-                <span className="italic">
-                  {selectedTags.map((tag, index) => (
-                    <span key={tag}>
-                      <span
-                      className="underline hover:cursor-pointer hover:text-red-500"
-                      onClick={() => toggleTag(tag)}
-                      >
-                        {tag}
+            <div className="text-sm text-black text-center">
+              {selectedTags.length > 0 ? (
+                <p>
+                  <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
+                  <span className="">artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:</span><br />
+                  <span className="italic">
+                    {selectedTags.map((tag, index) => (
+                      <span key={tag}>
+                        <span
+                        className="underline hover:cursor-pointer hover:text-red-500 hover:font-bold text-base"
+                        onClick={() => toggleTag(tag)}
+                        >
+                          {tag}
+                        </span>
+                        {index < selectedTags.length - 1 && ', '}
                       </span>
-                      {index < selectedTags.length - 1 && ', '}
-                    </span>
-                  ))}
-                </span>
-              </p>
-            )}
+                    ))}
+                  </span>
+                </p>
+              ) : (
+                <p>
+                  showing all&nbsp;
+                  <span className="font-bold">{filteredArtworks.length}</span>
+                  &nbsp;artworks!
+                </p>
+              )}
+            </div>
 
           </div>
 
@@ -550,12 +540,12 @@ export default function GalleryComponent() {
             transition-all duration-500 overflow-hidden md:mt-4 mx-2
             ${tagHide 
               ? "max-h-0 mt-0 md:h-auto md:mx-0 md:w-0" 
-              : "max-h-45 my-2 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4"}
+              : "max-h-58 my-2 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4"}
           `}>
 
             {/* TAGS */}
             <div className={`
-              grid grid-cols-4 grid-rows-4 md:grid-cols-1
+              grid grid-cols-3 md:grid-cols-1
               items-center justify-around gap-1 w-full overflow-hidden
               transition-opacity
               ${tagHide ? "pointer-events-none opacity-0 duration-400" : "opacity-100 duration-600"}
@@ -575,7 +565,15 @@ export default function GalleryComponent() {
                     onChange={() => toggleTag(tag)}
                     className="cursor-pointer"
                   />
-                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-xs sm:text-sm lg:text-base truncate`}>{tag}</p>
+                  <p className={`text-xs sm:text-sm lg:text-base`}>
+                    <span className={`${selectedTags.includes(tag) && 'font-bold'} truncate`}>
+                    {tag}
+                    </span>
+                    &nbsp;
+                    <span className="text-xs sm:text-sm text-black/80">
+                    ({artworks.filter(artwork => artwork.tags?.includes(tag)).length})
+                    </span>
+                  </p>
                 </label>
               ))}
               
@@ -631,6 +629,7 @@ export default function GalleryComponent() {
             {/* NO ART MSG */}
             {filteredArtworks.length === 0 && (
               <div className="text-center flex flex-col gap-2 inset-0 items-center justify-center p-4  text-nowrap absolute nonsel pointer-events-none">
+
                 <p className={`
                   md:text-9xl text-7xl text-black/20
                   ${face === sadFaces[2] && "translate-x-6"}
@@ -638,9 +637,27 @@ export default function GalleryComponent() {
                 `}>
                   {face}
                 </p>
-                <p className={`text-black text-sm md:text-base font-bold ${sono.className}`}>
+
+                <p className={`text-black text-xs md:text-sm font-bold ${sono.className}`}>
                   nothing to see here...
                 </p>
+
+                <button
+                  onClick={() => {
+                    setSelectedTags([]);
+                    setCurrentPage(1);
+                  }}
+                  className={`
+                    self-center justify-center p-4 px-8 rounded-md 
+                    flex pointer-events-auto cursor-pointer
+                    transition-all duration-300 text-xl mt-6
+                    bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-bold
+                    ${kosugi.className}
+                  `}
+                >
+                  clear all selected tags?
+                </button>
+
               </div>
             )}
           </div>
