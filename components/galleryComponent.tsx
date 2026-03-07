@@ -8,6 +8,7 @@ import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import { Oranienbaum, Gowun_Batang, Sono, Kosugi_Maru } from "next/font/google";
+import Marquee from "react-fast-marquee";
 
 const oranienbaum = Oranienbaum({
   weight: "400",
@@ -377,9 +378,32 @@ export default function GalleryComponent() {
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
 
           {/* FEATURED ART */}
-          <div className={`flex flex-col ${openQuestions ? "flex-38" : "flex-62"} transition-flex duration-1000 nonsel justify-center items-center relative cursor-pointer overflow-hidden`}
-          onClick={() => setFeaturedLightBoxOpen(true)} 
+          <div
+            className={`
+            flex flex-col 
+            ${openQuestions ? "flex-38" : "flex-62"} 
+            transition-flex duration-1000 nonsel 
+            justify-center items-center relative 
+            cursor-pointer overflow-hidden
+            `}
+            onClick={() => setFeaturedLightBoxOpen(true)}
           >
+            
+            <div className="absolute top-0 w-full flex items-center overflow-hidden">
+              <Marquee
+                speed={30}
+                autoFill={true}
+                direction="right"
+                className={`
+                  text-xs flex py-4
+                  text-white bg-black/20 nonsel
+                  ${kosugi.className}
+                `}
+              >
+                <span className="spin flex">✦</span>&nbsp;&nbsp;FEATURED ARTWORK&nbsp;&nbsp;
+              </Marquee>
+            </div>
+
             <img src={featArtwork?.url}
               onLoad={handleImageLoad}
               className={`
@@ -394,9 +418,10 @@ export default function GalleryComponent() {
                 min-[768px]:min-w-full
                 `}
             />
+
             <div className={`
-              absolute bottom-4 md:left-4 hover:opacity-0 transition-all duration-500
-              flex flex-col px-4 py-2 text-nowrap md:origin-bottom-left
+              absolute bottom-18 md:left-8 hover:opacity-0 transition-all duration-500
+              flex flex-col text-nowrap md:origin-bottom-left
               items-center justify-center nonsel cursor-pointer
               ${openQuestions === true ? "scale-80 opacity-60" : "scale-100 opacity-100"}
               `}
@@ -404,6 +429,21 @@ export default function GalleryComponent() {
               <p className={`md:text-5xl text-4xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
               <p className={`text-xs md:self-start meow ${sono.className} text-white`}>({featArtwork?.date})</p>
             </div>
+            
+            <div className="absolute bottom-0 w-full flex items-center overflow-hidden">
+              <Marquee
+                speed={30}
+                autoFill={true}
+                className={`
+                  text-xs flex py-4
+                  text-white bg-black/20 nonsel
+                  ${kosugi.className}
+                `}
+              >
+                <span className="spin flex">✦</span>&nbsp;&nbsp;FEATURED ARTWORK&nbsp;&nbsp;
+              </Marquee>
+            </div>
+
           </div>
 
           {/* INFO */}
@@ -450,10 +490,11 @@ export default function GalleryComponent() {
 
               {/* OPEN QUESTIONS */}
               <p
-                className={`absolute top-2 text-2xl cursor-pointer transition-opacity duration-500 text-nowrap ${openQuestions ? "opacity-0" : "opacity-100"}`}
+                className={`absolute top-4 text-2xl flex items-center gap-2 cursor-pointer transition-opacity duration-500 text-nowrap ${openQuestions ? "opacity-0" : "opacity-100"}`}
                 onClick={() => openTab("enter")}
               >
-                have a question?
+                <span className="text-base">●</span>
+                <span className="hover:underline -translate-y-px">question!</span>
               </p>
               
               {/* QUESTIONS */}
@@ -468,7 +509,7 @@ export default function GalleryComponent() {
                 >
                 {inquiry.map(inquiry => (
                   <p key={inquiry.key} className="cursor-pointer text-sm lg:text-base flex items-center gap-2" onClick={() => openTab(inquiry.key)}>
-                    <span className="-translate-y-px text-[8px]">●</span>
+                    <span className="text-[8px]">●</span>
                     <span className="hover:underline -translate-y-px flex w-full">{inquiry.question}</span>
                   </p>
                 ))}
@@ -552,7 +593,7 @@ export default function GalleryComponent() {
 
           </div>
 
-          {/* INTERACT */}
+          {/* INTERACT / WELCOME */}
           <div className="flex flex-row w-full h-full">
             <div className="h-full p-4 flex flex-col">
               <p 
@@ -561,7 +602,7 @@ export default function GalleryComponent() {
                 onClick={openQuestions === "closed" ? () => setOpenQuestions(false) : undefined}
               >
                 <span className="-translate-y-px text-[12px]">●</span>
-                <span className="hover:underline -translate-y-px flex w-full">i have questions!</span>
+                <span className="hover:underline -translate-y-px flex w-full">i have questions! (a lot)</span>
               </p>
             </div>
 
@@ -652,7 +693,7 @@ export default function GalleryComponent() {
                   flex flex-col items-center justify-center
                   relative cursor-pointer rounded-sm
                   overflow-hidden transition-scale duration-400
-                  hover:scale-97
+                  hover:scale-98
                   "
                   onClick={() => openLightBox(startIndex + index)}
                 >
