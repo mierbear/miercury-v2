@@ -341,7 +341,7 @@ export default function GalleryComponent() {
     console.log("orientation: ", orient);
   };
 
-  const [tagHide, setTagHide] = useState(true);
+  const [tagHide, setTagHide] = useState(false);
 
   const showTagsHandler = () => {
     setTagHide(!tagHide)
@@ -349,6 +349,11 @@ export default function GalleryComponent() {
       setSelectedTags([]);
       setCurrentPage(1);
     }
+  }
+
+  const openQuestionHandler = () => {
+    setOpenQuestions(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
   
   const [ready, setReady] = useState(false);
@@ -537,88 +542,110 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className="h-50 lg:h-58 flex items-center w-full bg-[#b6c2c5]">
-
-          {/* TAG INFO */}
-          <div 
-            className={`
-            flex flex-col items-center justify-center bg-white/60 h-full
-            gap-2 p-4 transition-all ease-in-out duration-500 
-            min-w-[50%]
-            min-[520px]:min-w-[34%]
-            min-[768px]:min-w-50 
-            min-[1024px]:min-w-58
-            `}>
-            
-            {/* SHOW/HIDE */}
-            <p
-              className={`
-              md:p-4 p-4
-              font-bold text-2xl md:text-3xl text-nowrap
-              hover:cursor-pointer bg-white/50 hover:bg-white/20 transition-all duration-300 shadow-xl
-              rounded-md border-black/40 border text-black/50 hover:text-black
-              ${kosugi.className}
-              `}
-              onClick={() => showTagsHandler()}
-            >
-              {tagHide ? "SHOW TAGS" : "HIDE TAGS"}
-            </p>
-
-            {/* ARTWORK COUNT */}
-            <div className="text-xs lg:text-sm text-black text-center">
-              {selectedTags.length > 0 ? (
-                <p>
-                  <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
-                  <span className="">artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:</span><br />
-                  <span className="italic">
-                    {selectedTags.map((tag, index) => (
-                      <span key={tag}>
-                        <span
-                        className="underline hover:cursor-pointer hover:text-red-500 hover:font-bold"
-                        onClick={() => toggleTag(tag)}
-                        >
-                          {tag}
-                        </span>
-                        {index < selectedTags.length - 1 && ', '}
-                      </span>
-                    ))}
-                  </span>
-                </p>
-              ) : (
-                <p>
-                  showing all&nbsp;
-                  <span className="font-bold">{filteredArtworks.length}</span>
-                  &nbsp;artworks!
-                </p>
-              )}
-            </div>
-
-          </div>
+        <div className="h-auto flex flex-col items-center w-full bg-[#b6c2c5]">
 
           {/* INTERACT / WELCOME */}
-          <div className="flex flex-row w-full h-full">
-            <div className={`h-full flex flex-col w-full ${sono.className} relative text-white bg-[#7a8896]`}>
-              
-              <p className=" md:text-2xl text-center p-4 self-center flex gap-2">
-                <span className="spin flex self-center text-yellow-300 white-glow">★</span>
-                 welcome to the gallery!
-                <span className="spin flex self-center text-yellow-300 white-glow">★</span>
-              </p>
+          <div className={`h-40 flex flex-col items-center w-full ${sono.className} relative text-white bg-[#7a8896]`}>
 
-              {/* BUTTONS */}
-              <div className="flex flex-col px-4 py-2 absolute bottom-0 left-0 h-[50%] bg-white/20 w-full text-xs lg:text-sm">
+            <p className=" md:text-2xl text-center p-4 self-center flex gap-2">
+              <span className="spin flex self-center text-yellow-300 white-glow">★</span>
+                welcome to the gallery!
+              <span className="spin flex self-center text-yellow-300 white-glow">★</span>
+            </p>
+
+            <hr className="border-white/50 w-full block mx-4" />
+
+            <div className="flex h-full w-full">
+
+              <div className="flex flex-col p-4 h-full w-[62%] text-xs lg:text-sm">
+                <p>MROW intro hello</p>
+                <p>make this mid section transparent with floating divs? maybe drawing around here too</p>
+              </div>
+
+
+              {/* INTERACTABLES */}
+              <div className="flex flex-col p-4 h-full bg-white/20 w-[38%] text-xs lg:text-sm">
                 <p 
                   className={`
                   cursor-pointer flex items-center gap-2`}
-                  onClick={openQuestions === "closed" ? () => setOpenQuestions(false) : undefined}
+                  onClick={openQuestions === "closed" ? () => openQuestionHandler() : undefined}
                 >
                   <span className="-translate-y-px text-[12px]">●</span>
                   <span className="hover:underline -translate-y-px flex w-full">i have questions (a lot)</span>
                 </p>
               </div>
-      
+
             </div>
 
+          </div>
+
+          {/* TAGS SECTION */}
+          <div 
+            className={`
+            flex w-full rounded
+          `}>
+            
+            {/* TAGS INFO */}
+            <div
+              className={`
+              flex flex-col items-center justify-center bg-white/60
+              gap-2 p-4 transition-all ease-in-out duration-500 
+              self-start w-full
+              max-w-full
+              min-[768px]:max-w-50 
+              min-[1024px]:max-w-58
+            `}>
+
+              {/* SHOW/HIDE */}
+              <p
+                className={`
+                py-2 px-4
+                font-bold text-xl text-nowrap
+                hover:cursor-pointer bg-white/50 hover:bg-white/20 transition-all duration-300 shadow-xl
+                rounded-md border-black/40 border text-black/50 hover:text-black
+                ${kosugi.className}
+                `}
+                onClick={() => showTagsHandler()}
+              >
+                {tagHide ? "SHOW TAGS" : "HIDE TAGS"}
+              </p>
+
+              {/* ARTWORK COUNT */}
+              <div className="text-xs lg:text-sm text-black text-center">
+                {selectedTags.length > 0 ? (
+                  <p>
+                    <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
+                    <span className="">artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:</span><br />
+                    <span className="italic">
+                      {selectedTags.map((tag, index) => (
+                        <span key={tag}>
+                          <span
+                          className="underline hover:cursor-pointer hover:text-red-500 hover:font-bold"
+                          onClick={() => toggleTag(tag)}
+                          >
+                            {tag}
+                          </span>
+                          {index < selectedTags.length - 1 && ', '}
+                        </span>
+                      ))}
+                    </span>
+                  </p>
+                ) : (
+                  <p>
+                    showing all&nbsp;
+                    <span className="font-bold">{filteredArtworks.length}</span>
+                    &nbsp;artworks!<br />
+                    <span>:3</span>
+                  </p>
+                )}
+              </div>
+
+            </div>
+              
+            {/* BANNER */}
+            <div className="hidden md:flex items-center justify-center md:w-full transition-all ease-in-out duration-500">
+              <p>cool drawing here</p>
+            </div>
           </div>
 
         </div>
@@ -677,9 +704,9 @@ export default function GalleryComponent() {
           </div>
 
           {/* RIGHT / ART */}
-          <div className="flex flex-col flex-85 items-center justify-center min-h-[30vh] bg-black/10 relative">
+          <div className="flex flex-col flex-85 items-center min-h-[30vh] bg-black/10 relative">
             {/* ARTWORK */}
-            <div className={`grid gap-0.5 p-0.5 md:gap-1 md:p-2 ${
+            <div className={`grid gap-0.5 p-0.5 md:gap-1 md:p-1.5 ${
               
                   currentArtworks.length === 1 
                 ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-1"
