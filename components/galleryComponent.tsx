@@ -69,6 +69,9 @@ export default function GalleryComponent() {
 
   const [artworks, setArtworks] = useState<ArtType[]>([]);
   const [featArtwork, setFeatArtwork] = useState<ArtType | null>(null);
+
+  const isPhone = typeof window !== "undefined" &&
+  window.matchMedia("(pointer: coarse)").matches;
     
   const fetchFeatArt = async () => {
     const { error, data } = await supabase
@@ -352,13 +355,16 @@ export default function GalleryComponent() {
     setReady(true);
     fetchFeatArt();
     fetchArtworks();
+    if (isPhone) {
+      setTagHide(true)
+    }
   }, []);
 
   return (
     <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a] nonsel">
 
       {/* SPACE */}
-      <div className="w-6xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
+      <div className="w-6xl max-w-screen flex flex-col justify-end items-center h-[10vh]">
         {/* <p className="text-white">gallery</p> */}
       </div>
 
@@ -481,17 +487,27 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className="h-30 flex items-center w-full bg-blue-300">
+        <div className="h-50 lg:h-58 flex items-center w-full bg-[#b6c2c5]">
 
           {/* TAG INFO */}
-          <div className="flex flex-col items-center justify-center bg-white/60 h-full py-2 px-4 md:w-50 lg:w-58 transition-width ease-in-out duration-500">
-
+          <div 
+            className={`
+            flex flex-col items-center justify-center bg-white/60 h-full
+            gap-2 p-4 transition-all ease-in-out duration-500 
+            min-w-[50%]
+            min-[520px]:min-w-[34%]
+            min-[768px]:min-w-50 
+            min-[1024px]:min-w-58
+            `}>
+            
             {/* SHOW/HIDE */}
             <p
               className={`
-              font-bold text-3xl text-nowrap
-              hover:cursor-pointer
-              ${oranienbaum.className}
+              md:p-4 p-4
+              font-bold text-2xl md:text-3xl text-nowrap
+              hover:cursor-pointer bg-white/50 hover:bg-white/20 transition-all duration-300 shadow-xl
+              rounded-md border-black/40 border
+              ${kosugi.className}
               `}
               onClick={() => showTagsHandler()}
             >
@@ -499,7 +515,7 @@ export default function GalleryComponent() {
             </p>
 
             {/* ARTWORK COUNT */}
-            <div className="text-sm text-black text-center">
+            <div className="text-xs lg:text-sm text-black text-center">
               {selectedTags.length > 0 ? (
                 <p>
                   <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
@@ -508,7 +524,7 @@ export default function GalleryComponent() {
                     {selectedTags.map((tag, index) => (
                       <span key={tag}>
                         <span
-                        className="underline hover:cursor-pointer hover:text-red-500 hover:font-bold text-base"
+                        className="underline hover:cursor-pointer hover:text-red-500 hover:font-bold"
                         onClick={() => toggleTag(tag)}
                         >
                           {tag}
@@ -525,6 +541,18 @@ export default function GalleryComponent() {
                   &nbsp;artworks!
                 </p>
               )}
+            </div>
+
+          </div>
+
+          {/* INTERACT */}
+          <div className="flex flex-row w-full h-full">
+            <div className="h-full p-4">
+              <p>● mrow</p>
+              <p>● mrow</p>
+              <p>● mrow</p>
+              <p>● mrow</p>
+              <p>● mrow</p>
             </div>
 
           </div>
@@ -549,15 +577,18 @@ export default function GalleryComponent() {
               items-center justify-around gap-1 w-full overflow-hidden
               transition-opacity
               ${tagHide ? "pointer-events-none opacity-0 duration-400" : "opacity-100 duration-600"}
-            `}>
+              `}
+            >
 
               {availableTags.map(tag => (
                 <label 
                   key={tag}
-                  className="flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2 rounded bg-white min-h-10 md:min-h-12 h-full w-full hover:bg-gray-50 border transition-colors"
-                  style={{
-                    borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
-                  }}
+                  className={`
+                    flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2
+                    rounded bg-white min-h-10 md:min-h-12 h-full w-full
+                    hover:bg-gray-50 border transition-colors
+                    ${selectedTags.includes(tag) ? "border-black/40" : "border-black/10"}
+                  `}
                 >
                   <input
                     type="checkbox"
@@ -570,7 +601,7 @@ export default function GalleryComponent() {
                     {tag}
                     </span>
                     &nbsp;
-                    <span className="text-xs sm:text-sm text-black/80">
+                    <span className={`text-xs sm:text-sm text-black/80`}>
                     ({artworks.filter(artwork => artwork.tags?.includes(tag)).length})
                     </span>
                   </p>
@@ -619,7 +650,7 @@ export default function GalleryComponent() {
                     absolute bottom-0 text-white bg-black/60
                     backdrop-blur-xs truncate py-1.5 md:py-2 pl-2 md:pl-3 pr-[20%]
                     w-full text-sm ${sono.className}`}>
-                      {artwork.title}
+                    {artwork.title}
                   </p>
                   <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
                 </div>
@@ -650,7 +681,7 @@ export default function GalleryComponent() {
                   className={`
                     self-center justify-center p-4 px-8 rounded-md 
                     flex pointer-events-auto cursor-pointer
-                    transition-all duration-300 text-xl mt-6
+                    transition-all duration-300 text-xl mt-6 border-yellow-700/40 border
                     bg-yellow-100 hover:bg-yellow-200 text-yellow-700 font-bold
                     ${kosugi.className}
                   `}
