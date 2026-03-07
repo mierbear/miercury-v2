@@ -338,6 +338,14 @@ export default function GalleryComponent() {
   };
 
   const [tagHide, setTagHide] = useState(false);
+
+  const showTagsHandler = () => {
+    setTagHide(!tagHide)
+    if (currentArtworks.length === 0) {
+      setSelectedTags([]);
+      setCurrentPage(1);
+    }
+  }
   
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -473,60 +481,24 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className="h-8 bg-blue-300">
+        <div className="h-20 flex items-center w-full bg-blue-300 p-2">
 
-        </div>
-
-        {/* GALLERY */}
-        <div className="flex md:flex-row flex-col bg-gray-100">
-
-          {/* LEFT / TAGS */}
-          <div className="flex flex-col flex-15 md:items-center p-2 md:p-4 w-full">
+          {/* TAG INFO */}
+          <div className="flex items-center w-full">
 
             <p
               className={`
-              font-bold md:text-4xl text-3xl ml-1
-              md:ml-0 translate-y-0.5
-              ${oranienbaum.className}
-              ${tagHide || "pb-2 md:pb-4"}
+              font-bold text-3xl
               hover:cursor-pointer
+              ${oranienbaum.className}
               `}
-              onClick={() => setTagHide(!tagHide)}
+              onClick={() => showTagsHandler()}
             >
               {tagHide ? "SHOW TAGS" : "HIDE TAGS"}
             </p>
-
-            {/* TAGS */}
-            <div className={`
-              grid grid-cols-4 grid-rows-4 md:grid-cols-1
-              items-center justify-around gap-1
-              md:min-w-42 lg:min-w-50 w-full
-              ${selectedTags.length > 0 && "pb-2"}
-              ${tagHide && "h-0 w-0 overflow-hidden p-0 opacity-0 pointer-events-none"}
-            `}>
-
-              {availableTags.map(tag => (
-                <label 
-                  key={tag}
-                  className="flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2 rounded bg-white min-h-10 md:min-h-12 h-full w-full hover:bg-gray-50 border transition-colors"
-                  style={{
-                    borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    checked={selectedTags.includes(tag)}
-                    onChange={() => toggleTag(tag)}
-                    className="cursor-pointer"
-                  />
-                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-xs sm:text-sm md:text-base`}>{tag}</p>
-                </label>
-              ))}
-              
-            </div>
             
             {/* CLEAR / TAG INFO */}
-            <div className={`flex flex-col transition-opacity duration-600 ${selectedTags.length > 0 ? "gap-1 md:gap-2 py-2 md:pb-4 px-2 opacity-100" : "opacity-0"} md:px-0 justify-center w-full`}>
+            <div className={`flex flex-col transition-opacity duration-600 justify-center`}>
               
               {/* CLEAR BUTTON */}
               {selectedTags.length > 0 && (
@@ -569,6 +541,47 @@ export default function GalleryComponent() {
               )}
 
             </div>
+
+          </div>
+
+
+        </div>
+
+        {/* GALLERY */}
+        <div className="flex md:flex-row flex-col bg-gray-100">
+
+          {/* LEFT / TAGS */}
+          <div className={`flex flex-col md:items-center ${tagHide ? "w-0" : "flex-15 w-full p-2 md:p-4"}`}>
+
+            {/* TAGS */}
+            <div className={`
+              grid grid-cols-4 grid-rows-4 md:grid-cols-1
+              items-center justify-around gap-1
+              md:min-w-42 lg:min-w-50 w-full
+              ${selectedTags.length > 0 && "pb-2"}
+              ${tagHide && "h-0 w-0 overflow-hidden p-0 opacity-0 pointer-events-none"}
+            `}>
+
+              {availableTags.map(tag => (
+                <label 
+                  key={tag}
+                  className="flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2 rounded bg-white min-h-10 md:min-h-12 h-full w-full hover:bg-gray-50 border transition-colors"
+                  style={{
+                    borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
+                  }}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedTags.includes(tag)}
+                    onChange={() => toggleTag(tag)}
+                    className="cursor-pointer"
+                  />
+                  <p className={`${selectedTags.includes(tag) && 'font-bold'} text-xs sm:text-sm md:text-base`}>{tag}</p>
+                </label>
+              ))}
+              
+            </div>
+            
           </div>
 
           {/* RIGHT / ART */}
