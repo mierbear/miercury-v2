@@ -347,7 +347,7 @@ export default function GalleryComponent() {
   return (
     <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a]">
 
-      {/* TITLE */}
+      {/* SPACE */}
       <div className="w-6xl max-w-screen flex flex-col justify-end items-center h-[12vh]">
         {/* <p className="text-white">gallery</p> */}
       </div>
@@ -355,6 +355,12 @@ export default function GalleryComponent() {
       {/* CONTENT */}
       <div className="w-6xl max-w-screen flex flex-col">
 
+        {/* HEADER */}
+        <div className="w-full h-18 bg-white rounded-t-2xl">
+
+        </div>
+
+        {/* MAIN */}
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
 
           {/* FEATURED ART */}
@@ -469,10 +475,10 @@ export default function GalleryComponent() {
 
         </div>
 
-        {/* TAGS/ARTWORKS */}
+        {/* GALLERY */}
         <div className="flex md:flex-row flex-col bg-gray-100">
 
-          {/* LEFT */}
+          {/* LEFT / TAGS */}
           <div className="flex flex-col flex-15 md:items-center p-4 w-full">
 
             <p className={`font-bold md:text-4xl text-3xl ml-1 md:ml-0 translate-y-0.5 ${oranienbaum.className}`}>TAGS:</p>
@@ -482,7 +488,7 @@ export default function GalleryComponent() {
               {availableTags.map(tag => (
                 <label 
                   key={tag}
-                  className="flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2 rounded bg-white h-full w-full hover:bg-gray-50 border transition-colors"
+                  className="flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2 rounded bg-white min-h-12 h-full w-full hover:bg-gray-50 border transition-colors"
                   style={{
                     borderColor: selectedTags.includes(tag) ? '#000' : '#e5e7eb'
                   }}
@@ -539,10 +545,10 @@ export default function GalleryComponent() {
             </div>
           </div>
 
-          {/* RIGHT */}
+          {/* RIGHT / ART */}
           <div className="flex flex-col flex-85 items-center justify-center min-h-[30vh] bg-black/10">
             {/* ARTWORK */}
-            <div className={`grid gap-0.5 p-0.5 pl-0.5 ${
+            <div className={`grid gap-1 p-2 ${
               
                   currentArtworks.length === 1 
                 ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-1"
@@ -563,11 +569,20 @@ export default function GalleryComponent() {
               }`}
             >
               {currentArtworks.map((artwork, index) => (
-                <div key={artwork.id} className="flex flex-col items-center justify-center relative cursor-pointer rounded-sm overflow-hidden" onClick={() => openLightBox(startIndex + index)}>
+                <div
+                  key={artwork.id}
+                  className="
+                  flex flex-col items-center justify-center
+                  relative cursor-pointer rounded-sm
+                  overflow-hidden transition-scale duration-400
+                  hover:scale-97
+                  "
+                  onClick={() => openLightBox(startIndex + index)}
+                >
                   <p className={`
                     absolute bottom-0 text-white bg-black/60
-                    backdrop-blur-xs truncate py-1 md:py-2 px-2 md:px-3
-                    w-full text-sm md:text-sm ${sono.className}`}>
+                    backdrop-blur-xs truncate py-1.5 md:py-2 pl-2 md:pl-3 pr-[20%]
+                    w-full text-sm ${sono.className}`}>
                       {artwork.title}
                   </p>
                   <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
