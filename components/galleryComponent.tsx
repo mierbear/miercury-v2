@@ -375,13 +375,15 @@ export default function GalleryComponent() {
         </div>
 
         {/* MAIN */}
-        <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
+        <div className="md:max-h-180 md:min-h-180 flex flex-row items-center justify-center">
 
           {/* FEATURED ART */}
           <div
             className={`
             flex flex-col 
-            ${openQuestions ? "flex-38" : "flex-62"} 
+            ${openQuestions === true ? "flex-0 md:flex-38" :
+              openQuestions === false ? "flex-0 md:flex-62" :
+              "flex-100"}
             transition-flex duration-1000 nonsel 
             justify-center items-center relative 
             cursor-pointer overflow-hidden
@@ -440,7 +442,7 @@ export default function GalleryComponent() {
                   ${kosugi.className}
                 `}
               >
-                <span className="spin flex">✦</span>&nbsp;&nbsp;FEATURED ARTWORK&nbsp;&nbsp;
+                <span className="backwards-spin flex">✦</span>&nbsp;&nbsp;FEATURED ARTWORK&nbsp;&nbsp;
               </Marquee>
             </div>
 
@@ -450,11 +452,11 @@ export default function GalleryComponent() {
           <div
             className={`
               flex flex-col items-center
-              ${openQuestions === true ? "flex-62" :
-                openQuestions === false ? "flex-38" :
+              ${openQuestions === true ? "flex-100 md:flex-62" :
+                openQuestions === false ? "flex-100 md:flex-38" :
                 "flex-0"}
               transition-flex duration-1000 bg-gray-200
-              w-full md:h-180 self-start overflow-hidden
+              w-full h-180 self-start overflow-hidden
             `}
             ref={infoRef}
             >
@@ -500,7 +502,7 @@ export default function GalleryComponent() {
               {/* QUESTIONS */}
               <div 
                 className={`
-                  grid grid-cols-3 gap-0.5 gap-x-8 lg:gap-x-12
+                  grid md:grid-cols-3 grid-cols-2 gap-0.5 gap-x-8 lg:gap-x-12
                   transition-opacity duration-200 opacity-0
                   whitespace-nowrap
                   ${!openQuestions && "nonsel pointer-events-none"}
@@ -595,15 +597,26 @@ export default function GalleryComponent() {
 
           {/* INTERACT / WELCOME */}
           <div className="flex flex-row w-full h-full">
-            <div className="h-full p-4 flex flex-col">
-              <p 
-                className={`
-                cursor-pointer text-sm lg:text-base flex items-center gap-2 ${sono.className}`}
-                onClick={openQuestions === "closed" ? () => setOpenQuestions(false) : undefined}
-              >
-                <span className="-translate-y-px text-[12px]">●</span>
-                <span className="hover:underline -translate-y-px flex w-full">i have questions! (a lot)</span>
+            <div className={`h-full flex flex-col w-full ${sono.className} relative text-white bg-[#7a8896]`}>
+              
+              <p className=" md:text-2xl text-center p-4 self-center flex gap-2">
+                <span className="spin flex self-center text-yellow-300 white-glow">★</span>
+                 welcome to the gallery!
+                <span className="spin flex self-center text-yellow-300 white-glow">★</span>
               </p>
+
+              {/* BUTTONS */}
+              <div className="flex flex-col px-4 py-2 absolute bottom-0 left-0 h-[50%] bg-white/20 w-full text-xs lg:text-sm">
+                <p 
+                  className={`
+                  cursor-pointer flex items-center gap-2`}
+                  onClick={openQuestions === "closed" ? () => setOpenQuestions(false) : undefined}
+                >
+                  <span className="-translate-y-px text-[12px]">●</span>
+                  <span className="hover:underline -translate-y-px flex w-full">i have questions (a lot)</span>
+                </p>
+              </div>
+      
             </div>
 
           </div>
