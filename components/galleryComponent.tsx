@@ -551,17 +551,18 @@ export default function GalleryComponent() {
 
           {/* LEFT / TAGS */}
           <div className={`
-            flex flex-col md:items-center
-            md:transition-width md:duration-500 overflow-hidden md:mt-4
-            ${tagHide ? "w-0 h-0 pt-0 md:h-auto" : "h-auto md:w-42 lg:w-50 px-2 pb-2 pt-2 md:pt-0 md:px-4 md:pb-4"}
+            flex flex-col justify-center md:justify-start md:items-center
+            transition-all duration-500 overflow-hidden md:mt-4 mx-2
+            ${tagHide 
+              ? "max-h-0 mt-0 md:h-auto md:mx-0 md:w-0" 
+              : "max-h-45 my-2 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4"}
           `}>
 
             {/* TAGS */}
             <div className={`
               grid grid-cols-4 grid-rows-4 md:grid-cols-1
               items-center justify-around gap-1 w-full overflow-hidden
-              ${selectedTags.length > 0 && "pb-2"}
-              ${tagHide && "p-0 pointer-events-none"}
+              ${tagHide && "pointer-events-none"}
             `}>
 
               {availableTags.map(tag => (
@@ -587,7 +588,7 @@ export default function GalleryComponent() {
           </div>
 
           {/* RIGHT / ART */}
-          <div className="flex flex-col flex-85 items-center justify-center min-h-[30vh] bg-black/10">
+          <div className="flex flex-col flex-85 items-center justify-center min-h-[30vh] bg-black/10 relative">
             {/* ARTWORK */}
             <div className={`grid gap-0.5 p-0.5 md:gap-1 md:p-2 ${
               
@@ -633,9 +634,18 @@ export default function GalleryComponent() {
 
             {/* NO ART MSG */}
             {filteredArtworks.length === 0 && (
-              <p className={`text-center flex p-4 text-black md:text-9xl text-7xl nonsel pointer-events-none ${oranienbaum.className}`}>
-                {face}
-              </p>
+              <div className="text-center flex flex-col inset-0 items-center justify-center p-4  text-nowrap absolute nonsel pointer-events-none">
+                <p className={`
+                  md:text-9xl text-7xl text-black/20
+                  ${face === sadFaces[2] && "translate-x-6"}
+                  ${oranienbaum.className}
+                `}>
+                  {face}
+                </p>
+                <p className={`text-black font-bold ${sono.className}`}>
+                  nothing to see here...
+                </p>
+              </div>
             )}
           </div>
 
