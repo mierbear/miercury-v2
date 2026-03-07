@@ -323,9 +323,11 @@ export default function GalleryComponent() {
     return arr[Math.trunc((Math.random() * arr.length))];
   };
 
-  const [face, setFace] = useState<string>(() => 
-    randomizer(sadFaces)
-  ); 
+  const [face, setFace] = useState<string>(sadFaces[0]); 
+
+  useEffect(() => {
+    setFace(randomizer(sadFaces));
+  }, []);
 
   useEffect(() => {
     setFace(randomizer(sadFaces));
@@ -344,7 +346,6 @@ export default function GalleryComponent() {
       {/* CONTENT */}
       <div className="w-6xl max-w-screen flex flex-col">
 
-        {/* HEADER */}
         <div className="md:max-h-180 md:min-h-180 flex flex-col md:flex-row items-center justify-center">
 
           {/* FEATURED ART */}
@@ -391,7 +392,7 @@ export default function GalleryComponent() {
             <div className={`flex flex-col items-center h-full w-full transition-flex duration-500 ${openQuestions ? "flex-72" : "flex-84"} py-3 pb-0 gap-2`}>
 
               {/* TITLE */}
-              <p className={`lg:text-4xl md:text-2xl text-center ${oranienbaum.className}`}>{openQuestions ? "ask and you shall recieve..." : "welcome to the gallery!"}</p>
+              <p className={`lg:text-3xl md:text-2xl text-center ${oranienbaum.className}`}>{openQuestions ? "ask and you shall recieve..." : "welcome to the gallery!"}</p>
 
               {/* ILLUST */}
               <div className={`w-full transition-w duration-1000 h-full bg-black/20 flex items-center justify-center relative`}>
@@ -414,7 +415,7 @@ export default function GalleryComponent() {
 
               {/* BACK */}
               <p className={`
-                cursor-pointer text-sm transition-opacity duration-800 absolute bottom-2 left-4
+                cursor-pointer text-sm transition-opacity duration-800 absolute bottom-3 left-4
                 ${openQuestions ? "opacity-100" : "opacity-0 pointer-events-none nonsel"}`} 
                 onClick={() => openTab(null)}
                 >
@@ -454,7 +455,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className="h-16 bg-blue-300">
+        <div className="h-8 bg-blue-300">
 
         </div>
 
@@ -575,7 +576,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* PAGE BUTTONS */}
-        <div className={`bg-gray-200 flex items-center justify-center gap-2 w-full ${currentArtworks.length > 0 && "py-3"}`}>
+        <div className={`bg-gray-200 flex items-center justify-center gap-2 w-full ${currentArtworks.length > 0 && "py-4"}`}>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
@@ -583,8 +584,8 @@ export default function GalleryComponent() {
               className={`
                 cursor-pointer
                 ${currentPage === pageNum 
-                  ? "bg-yellow-200 text-yellow-700"
-                  : "bg-yellow-100 hover:bg-yellow-200 text-yellow-700"
+                  ? "bg-black text-white"
+                  : "bg-black/60 hover:bg-black/80 text-white"
                 }
                 ${sono.className}
                 transition-bg duration-300
