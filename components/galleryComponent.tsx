@@ -70,8 +70,8 @@ export default function GalleryComponent() {
   const [artworks, setArtworks] = useState<ArtType[]>([]);
   const [featArtwork, setFeatArtwork] = useState<ArtType | null>(null);
 
-  const isPhone = typeof window !== "undefined" &&
-  window.matchMedia("(pointer: coarse)").matches;
+  // const isPhone = typeof window !== "undefined" &&
+  // window.matchMedia("(pointer: coarse)").matches;
     
   const fetchFeatArt = async () => {
     const { error, data } = await supabase
@@ -248,7 +248,7 @@ export default function GalleryComponent() {
     chatboxTextRef.current.textContent = "";
   }
 
-  const [openQuestions, setOpenQuestions] = useState(false);
+  const [openQuestions, setOpenQuestions] = useState<boolean | "closed">("closed");
 
   const inquiry = [
     { 
@@ -340,7 +340,7 @@ export default function GalleryComponent() {
     console.log("orientation: ", orient);
   };
 
-  const [tagHide, setTagHide] = useState(false);
+  const [tagHide, setTagHide] = useState(true);
 
   const showTagsHandler = () => {
     setTagHide(!tagHide)
@@ -355,9 +355,6 @@ export default function GalleryComponent() {
     setReady(true);
     fetchFeatArt();
     fetchArtworks();
-    if (isPhone) {
-      setTagHide(true)
-    }
   }, []);
 
   return (
@@ -372,7 +369,7 @@ export default function GalleryComponent() {
       <div className="w-6xl max-w-screen flex flex-col">
 
         {/* HEADER */}
-        <div className="w-full h-12 bg-white rounded-t-2xl">
+        <div className="w-full h-8 bg-white rounded-t-2xl">
 
         </div>
 
@@ -401,7 +398,7 @@ export default function GalleryComponent() {
               absolute bottom-4 md:left-4 hover:opacity-0 transition-all duration-500
               flex flex-col px-4 py-2 text-nowrap md:origin-bottom-left
               items-center justify-center nonsel cursor-pointer
-              ${openQuestions ? "scale-80 opacity-60" : "scale-100 opacity-100"}
+              ${openQuestions === true ? "scale-80 opacity-60" : "scale-100 opacity-100"}
               `}
               >
               <p className={`md:text-5xl text-4xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
@@ -413,7 +410,9 @@ export default function GalleryComponent() {
           <div
             className={`
               flex flex-col items-center
-              ${openQuestions ? "flex-62" : "flex-38"}
+              ${openQuestions === true ? "flex-62" :
+                openQuestions === false ? "flex-38" :
+                "flex-0"}
               transition-flex duration-1000 bg-gray-200
               w-full md:h-180 self-start overflow-hidden
             `}
@@ -424,7 +423,11 @@ export default function GalleryComponent() {
             <div className={`flex flex-col items-center h-full w-full transition-flex duration-500 ${openQuestions ? "flex-72" : "flex-84"} py-3 pb-0 gap-2`}>
 
               {/* TITLE */}
-              <p className={`lg:text-3xl md:text-2xl text-center ${oranienbaum.className}`}>{openQuestions ? "ask and you shall recieve..." : "welcome to the gallery!"}</p>
+              <p className={`lg:text-3xl md:text-2xl text-center text-nowrap ${oranienbaum.className}`}>
+                {openQuestions === true ? "ask and you shall recieve.." :
+                openQuestions === false ? "welcome to the gallery!" :
+                "..."}
+              </p>
 
               {/* ILLUST */}
               <div className={`w-full transition-w duration-1000 h-full bg-black/20 flex items-center justify-center relative`}>
@@ -445,18 +448,9 @@ export default function GalleryComponent() {
             {/* BOTTOM / QUESTIONS */}
             <div className={`flex flex-col items-center pt-4 h-full w-full transition-flex duration-500 ${openQuestions ? "flex-28" : "flex-16"} md:px-4 lg:px-12 py-0 relative`}>
 
-              {/* BACK */}
-              <p className={`
-                cursor-pointer text-sm transition-opacity duration-800 absolute bottom-3 left-4
-                ${openQuestions ? "opacity-100" : "opacity-0 pointer-events-none nonsel"}`} 
-                onClick={() => openTab(null)}
-                >
-                ○ <span className="hover:underline">take me back!</span>
-              </p>
-
               {/* OPEN QUESTIONS */}
               <p
-                className={`absolute top-2 text-2xl cursor-pointer transition-opacity duration-500 ${openQuestions ? "opacity-0" : "opacity-100"}`}
+                className={`absolute top-2 text-2xl cursor-pointer transition-opacity duration-500 text-nowrap ${openQuestions ? "opacity-0" : "opacity-100"}`}
                 onClick={() => openTab("enter")}
               >
                 have a question?
@@ -480,8 +474,21 @@ export default function GalleryComponent() {
                 ))}
               </div>
 
+              {/* EXIT */}
+              <p className={`
+                cursor-pointer text-sm transition-opacity duration-800 absolute bottom-3 left-4 text-nowrap
+                `} 
+                onClick={() => openQuestions ? openTab(null) : setOpenQuestions("closed")}
+                >
+                ○&nbsp;
+                <span className="hover:underline">
+                  {openQuestions === true ? "nevermind!" :
+                  openQuestions === false ? "goodbye!" :
+                  "..."}
+                </span>
+              </p>
+
             </div>
-           
           </div>
 
         </div>
@@ -506,7 +513,7 @@ export default function GalleryComponent() {
               md:p-4 p-4
               font-bold text-2xl md:text-3xl text-nowrap
               hover:cursor-pointer bg-white/50 hover:bg-white/20 transition-all duration-300 shadow-xl
-              rounded-md border-black/40 border
+              rounded-md border-black/40 border text-black/50 hover:text-black
               ${kosugi.className}
               `}
               onClick={() => showTagsHandler()}
@@ -547,12 +554,15 @@ export default function GalleryComponent() {
 
           {/* INTERACT */}
           <div className="flex flex-row w-full h-full">
-            <div className="h-full p-4">
-              <p>● mrow</p>
-              <p>● mrow</p>
-              <p>● mrow</p>
-              <p>● mrow</p>
-              <p>● mrow</p>
+            <div className="h-full p-4 flex flex-col">
+              <p 
+                className={`
+                cursor-pointer text-sm lg:text-base flex items-center gap-2 ${sono.className}`}
+                onClick={openQuestions === "closed" ? () => setOpenQuestions(false) : undefined}
+              >
+                <span className="-translate-y-px text-[12px]">●</span>
+                <span className="hover:underline -translate-y-px flex w-full">i have questions!</span>
+              </p>
             </div>
 
           </div>
@@ -696,7 +706,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* PAGE BUTTONS */}
-        <div className={`bg-gray-200 flex items-center justify-center gap-2 w-full ${currentArtworks.length > 0 && "py-4"}`}>
+        <div className={`bg-gray-200 flex items-center justify-center gap-2 w-full ${currentArtworks.length > 0 && "py-6"}`}>
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
@@ -709,8 +719,8 @@ export default function GalleryComponent() {
                 }
                 ${sono.className}
                 transition-bg duration-300
-                text-xl rounded-full aspect-square
-                h-10 w-10
+                text-xs rounded-full aspect-square
+                h-8 w-8
               `}
             >
               {pageNum}

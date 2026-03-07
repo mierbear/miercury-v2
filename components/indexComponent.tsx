@@ -682,11 +682,11 @@ export default function Home() {
                     />
                     <img 
                       src={mierDrawing ? "/images/miersit-leftwing.png" : "/images/mierhover-leftwing.png"} 
-                      className={`nonsel pointer-events-none absolute bottom-0 right-0 h-60 wings origin-bottom-right translate-x-10 translate-y-40 z-13`} 
+                      className={`nonsel pointer-events-none absolute bottom-0 right-0 h-60 wings origin-bottom-right translate-x-10 translate-y-39 z-13`} 
                     />
                     <img 
                       src={mierDrawing ? "/images/miersit-rightwing.png" : "/images/mierhover-rightwing.png"} 
-                      className={`nonsel pointer-events-none absolute bottom-0 right-0 h-60 wings origin-bottom-right translate-x-10 translate-y-40 z-11`} 
+                      className={`nonsel pointer-events-none absolute bottom-0 right-0 h-60 wings origin-bottom-right translate-x-10 translate-y-39 z-11`} 
                     />
                   </div>
                 </div>
