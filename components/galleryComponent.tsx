@@ -182,23 +182,34 @@ export default function GalleryComponent() {
   const chatboxRef = useRef<HTMLDivElement>(null);
   const infoRef = useRef<HTMLDivElement>(null);
 
+  const [guideState, setGuideState] = useState<null | "annoyed" | "fine">(null);
+
   const openTab = (tab: TabTypes) => {
     if (!infoRef.current || !questionsRef.current || !chatboxRef.current) return;
     infoRef.current.style.pointerEvents = "none";
     resetTalk();
 
+    // LEAVE
     if (tab === null) {
       setCurrentTab(tab);
       setOpenQuestions(false);
-      const dotdotdot = "...";
-      setAnswer(dotdotdot);
-      mierTalk(dotdotdot, 400);
+
+      if (guideState === "annoyed") {
+        const dotdotdot = "...";
+        setAnswer(dotdotdot);
+        mierTalk(dotdotdot, 400);
+      } else if (guideState === "fine") {
+        const text = "ok take care!";
+        setAnswer(text);
+        mierTalk(text, 80);
+      }
+
       questionsRef.current.style.opacity = "0";
       setTimeout(() => {
-        chatboxRef.current!.style.opacity = "0";
         infoRef.current!.style.pointerEvents = "auto";
       }, 2000);
 
+    // ENTER
     } else {
       setCurrentTab(tab);
       setOpenQuestions(true);
@@ -207,11 +218,18 @@ export default function GalleryComponent() {
         questionsRef.current!.style.opacity = "100";
       }, 500);
 
+      // BEGINNING
       if (tab === "enter") {
+        if (guideState !== "fine") {
+          setGuideState("annoyed");
+        }
         const text = "what would you like to know?";
         setAnswer(text);
         mierTalk(text, 80);
+
+      // INQUIRE
       } else {
+        setGuideState("fine")
         const data = inquiry.find(item => item.key === tab);
         if (data) {
           setAnswer(data.answer);
@@ -222,6 +240,36 @@ export default function GalleryComponent() {
       setTimeout(() => {
         infoRef.current!.style.pointerEvents = "auto";
       }, 1000);
+    }
+  }
+
+  const openQuestionHandler = () => {
+    setOpenQuestions(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  const receptionExitHandler = () => {
+    setReceptionFullscreen(false);
+    
+    // ABOUT TO EXIT
+    if (openQuestions) {
+      openTab(null)
+    
+    // EXIT
+    } else {
+      setOpenQuestions("closed")
+      setGuideState(null)
+
+      if (guideState === "annoyed") {
+        resetTalk();
+        const text = "you didnt even-";
+        setAnswer(text);
+        mierTalk(text, 40);
+      }
+
+      setTimeout(() => {
+        chatboxRef.current!.style.opacity = "0";
+      }, 500);
     }
   }
 
@@ -353,22 +401,12 @@ export default function GalleryComponent() {
     }
   }
 
-  const openQuestionHandler = () => {
-    setOpenQuestions(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  }
-
   const isPhone = typeof window !== "undefined" &&
   window.matchMedia("(pointer: coarse)").matches;
 
   const [contentVisible, setContentVisible] = useState(true);
   const [receptionFullscreen, setReceptionFullscreen] = useState(false);
 
-  const receptionExitHandler = () => {
-    setReceptionFullscreen(false);
-    openQuestions ? openTab(null) : setOpenQuestions("closed")
-  }
-  
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
@@ -759,16 +797,6 @@ export default function GalleryComponent() {
                 ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-1"
                 : currentArtworks.length === 2
                 ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
-                : currentArtworks.length === 3
-                ? "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
-                : currentArtworks.length === 4
-                ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
-                : currentArtworks.length === 5
-                ? "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
-                : currentArtworks.length === 6
-                ? "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
-                : currentArtworks.length === 9
-                ? "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
                 : "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
                 }
                 transition-px duration-500 ease-in-out
