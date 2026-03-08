@@ -360,6 +360,8 @@ export default function GalleryComponent() {
 
   const isPhone = typeof window !== "undefined" &&
   window.matchMedia("(pointer: coarse)").matches;
+
+  const [contentVisible, setContentVisible] = useState(true);
   
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -380,15 +382,20 @@ export default function GalleryComponent() {
       </div>
 
       {/* CONTENT */}
-      <div className="w-6xl max-w-screen flex flex-col">
+      <div className={`w-6xl max-w-screen flex flex-col transition-opacity duration-500 ${contentVisible ? "opacity-100" : "opacity-0 pointer-events-none nonsel"}`}>
 
         {/* HEADER */}
-        <div className="w-full h-8 bg-white rounded-t-2xl">
-
+        <div className="w-full h-8 bg-white text-black rounded-t-xl flex items-center">
+          <p
+            className={`ml-auto text-xs ${sono.className} mr-3 cursor-pointer`}
+            onClick={() => setContentVisible(false)}
+          >
+            ● see background?
+          </p>
         </div>
 
         {/* MAIN */}
-        <div className="md:max-h-160 md:min-h-160 flex flex-row items-center justify-center">
+        <div className="max-h-160 min-h-160 flex flex-row items-center justify-center">
 
           {/* FEATURED ART */}
           <div
@@ -828,13 +835,21 @@ export default function GalleryComponent() {
             </button>
           ))}
         </div>
+        
+        {/* FOOTER */}
+        <div className="h-40 flex items-center justify-center w-screen bg-black">
+          <p className="text-white">footer</p>
+        </div>
 
       </div>
 
-      {/* FOOTER */}
-      <div className="h-40 flex items-center justify-center w-screen bg-black">
-        <p className="text-white">footer</p>
-      </div>
+      {/* OPEN CONTENT */}
+      <p
+        className={`${contentVisible || "fixed bottom-4 left-4 md:bottom-8 md:left-8 md:text-4xl text-white font-bold cursor-pointer"} ${sono.className}`}
+        onClick={() => setContentVisible(true)}
+      >
+        take me back!
+      </p>
 
       {/* LIGHTBOX */}
       <Lightbox
