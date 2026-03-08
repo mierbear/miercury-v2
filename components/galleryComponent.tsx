@@ -235,7 +235,9 @@ export default function GalleryComponent() {
   const mierTalk = (text: string, speed: number, i: number = 0) => {
     if (!chatboxTextRef.current) return;
     if (i >= text.length) return;
-    tap();
+    if (!isPhone) {
+      tap();
+    }
     chatboxTextRef.current.textContent += text.charAt(i);
     talkTimeoutRef.current = setTimeout(() => mierTalk(text, speed, i + 1), speed);
   }
@@ -355,12 +357,18 @@ export default function GalleryComponent() {
     setOpenQuestions(false);
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  const isPhone = typeof window !== "undefined" &&
+  window.matchMedia("(pointer: coarse)").matches;
   
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
     fetchFeatArt();
     fetchArtworks();
+    if (isPhone) {
+      setTagHide(true);
+    }
   }, []);
 
   return (
@@ -380,7 +388,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* MAIN */}
-        <div className="md:max-h-180 md:min-h-180 flex flex-row items-center justify-center">
+        <div className="md:max-h-160 md:min-h-160 flex flex-row items-center justify-center">
 
           {/* FEATURED ART */}
           <div
@@ -396,7 +404,13 @@ export default function GalleryComponent() {
             onClick={() => setFeaturedLightBoxOpen(true)}
           >
             
-            <div className="absolute top-0 w-full flex items-center overflow-hidden">
+            <div 
+              className={`
+              ${openQuestions === false ? "hidden" : "flex"}
+              md:flex items-center overflow-hidden
+              absolute top-0 w-full 
+              `}
+            >
               <Marquee
                 speed={30}
                 autoFill={true}
@@ -417,11 +431,11 @@ export default function GalleryComponent() {
                 pointer-events-none cursor-pointer
                 object-cover
 
-                min-h-180
+                min-h-160
                 max-h-[60vh]
                 min-w-screen
                 max-w-screen
-                min-[768px]:max-h-180
+                min-[768px]:max-h-160
                 min-[768px]:min-w-full
                 `}
             />
@@ -437,7 +451,13 @@ export default function GalleryComponent() {
               <p className={`text-xs md:self-start meow ${sono.className} text-white`}>({featArtwork?.date})</p>
             </div>
             
-            <div className="absolute bottom-0 w-full flex items-center overflow-hidden">
+            <div 
+              className={`
+              ${openQuestions === false ? "hidden" : "flex"}
+              md:flex items-center overflow-hidden
+              absolute bottom-0 w-full 
+              `}
+            >
               <Marquee
                 speed={30}
                 autoFill={true}
@@ -461,7 +481,7 @@ export default function GalleryComponent() {
                 openQuestions === false ? "flex-100 md:flex-38" :
                 "flex-0"}
               transition-flex duration-1000 bg-gray-200
-              w-full h-180 self-start overflow-hidden
+              w-full h-160 self-start overflow-hidden
             `}
             ref={infoRef}
             >
@@ -589,7 +609,7 @@ export default function GalleryComponent() {
             <div
               className={`
               flex flex-col items-center justify-center bg-white/60
-              gap-2 p-4 transition-all ease-in-out duration-500 
+              gap-2 p-2 md:p-4 transition-all ease-in-out duration-500 
               self-start w-full
               max-w-full
               min-[768px]:max-w-50 
