@@ -752,25 +752,28 @@ export default function GalleryComponent() {
           {/* RIGHT / ART */}
           <div className="flex flex-col flex-85 items-center min-h-[30vh] bg-black/10 relative">
             {/* ARTWORK */}
-            <div className={`grid gap-0.5 p-0.5 md:gap-1 md:p-1.5 ${
-              
-                  currentArtworks.length === 1 
+            <div 
+              className={`
+                grid gap-0.5 py-0.5 md:gap-1 md:p-1
+                ${currentArtworks.length === 1 
                 ? "grid-cols-1 md:grid-cols-1 lg:grid-cols-1"
                 : currentArtworks.length === 2
                 ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
                 : currentArtworks.length === 3
-                ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
+                ? "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
                 : currentArtworks.length === 4
                 ? "grid-cols-2 md:grid-cols-2 lg:grid-cols-2"
                 : currentArtworks.length === 5
-                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
+                ? "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
                 : currentArtworks.length === 6
-                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
+                ? "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
                 : currentArtworks.length === 9
-                ? "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
-
-                : "grid-cols-2 md:grid-cols-3 lg:grid-cols-3"
-              }`}
+                ? "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
+                : "grid-cols-3 md:grid-cols-3 lg:grid-cols-3"
+                }
+                transition-px duration-500 ease-in-out
+                ${tagHide ? "px-0.5 md:px-12" : "px-0.5"}
+              `}
             >
               {currentArtworks.map((artwork, index) => (
                 <div
@@ -783,13 +786,18 @@ export default function GalleryComponent() {
                   "
                   onClick={() => openLightBox(startIndex + index)}
                 >
-                  <p className={`
-                    absolute bottom-0 text-white bg-black/60
+                  <p 
+                    className={`
+                    absolute bottom-0 text-white bg-black/60 w-full text-xs md:text-sm
                     backdrop-blur-xs truncate py-1.5 md:py-2 pl-2 md:pl-3 pr-[20%]
-                    w-full text-sm ${sono.className}`}>
+                    ${sono.className}
+                    `}
+                  >
                     {artwork.title}
                   </p>
-                  <img src={artwork.url} className={`nonsel pointer-events-none aspect-square object-cover`} />
+
+                  <img src={artwork.url} className={`nonsel pointer-events-none aspect-3/4 md:aspect-square object-cover`} />
+
                 </div>
               ))}
             </div>
