@@ -362,6 +362,12 @@ export default function GalleryComponent() {
   window.matchMedia("(pointer: coarse)").matches;
 
   const [contentVisible, setContentVisible] = useState(true);
+  const [receptionFullscreen, setReceptionFullscreen] = useState(false);
+
+  const receptionExitHandler = () => {
+    setReceptionFullscreen(false);
+    openQuestions ? openTab(null) : setOpenQuestions("closed")
+  }
   
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -401,7 +407,8 @@ export default function GalleryComponent() {
           <div
             className={`
             flex flex-col 
-            ${openQuestions === true ? "flex-0 md:flex-38" :
+            ${receptionFullscreen === true ? "flex-0" :
+              openQuestions === true ? "flex-0 md:flex-38" :
               openQuestions === false ? "flex-0 md:flex-62" :
               "flex-100"}
             transition-flex duration-1000 nonsel 
@@ -415,7 +422,7 @@ export default function GalleryComponent() {
               className={`
               ${openQuestions === false ? "hidden" : "flex"}
               md:flex items-center overflow-hidden
-              absolute top-0 w-full 
+              absolute top-0 w-full min-h-12 max-h-12
               `}
             >
               <Marquee
@@ -462,7 +469,7 @@ export default function GalleryComponent() {
               className={`
               ${openQuestions === false ? "hidden" : "flex"}
               md:flex items-center overflow-hidden
-              absolute bottom-0 w-full 
+              absolute bottom-0 w-full min-h-12 max-h-12
               `}
             >
               <Marquee
@@ -484,7 +491,8 @@ export default function GalleryComponent() {
           <div
             className={`
               flex flex-col items-center
-              ${openQuestions === true ? "flex-100 md:flex-62" :
+              ${receptionFullscreen === true ? "flex-100" :
+                openQuestions === true ? "flex-100 md:flex-62" :
                 openQuestions === false ? "flex-100 md:flex-38" :
                 "flex-0"}
               transition-flex duration-1000 bg-gray-200
@@ -494,14 +502,25 @@ export default function GalleryComponent() {
             >
 
             {/* TOP / ILLUSTRATION */}
-            <div className={`flex flex-col items-center h-full w-full transition-flex duration-500 ${openQuestions ? "flex-72" : "flex-84"} py-3 pb-0 gap-2`}>
+            <div className={`flex flex-col items-center h-full w-full transition-flex duration-500 ${openQuestions ? "flex-72" : "flex-84"}`}>
 
               {/* TITLE */}
-              <p className={`lg:text-3xl md:text-2xl text-center text-nowrap ${oranienbaum.className}`}>
-                {openQuestions === true ? "ask and you shall recieve.." :
-                openQuestions === false ? "welcome to the gallery!" :
-                "..."}
-              </p>
+              <div className={`flex flex-col items-center justify-center min-h-12 max-h-12 w-full relative`}>
+                <p className={`text-2xl text-center text-nowrap ${oranienbaum.className}`}>
+                  {openQuestions === true ? "ask and you shall recieve.." :
+                  openQuestions === false ? "welcome to the gallery!" :
+                  "..."}
+                </p>
+                <div
+                  className={`
+                    right-2 cursor-pointer h-8 min-h-8 scale-90 transition-opacity duration-500 absolute
+                    ${openQuestions === true ? "opacity-0 pointer-events-none md:pointer-events-auto md:opacity-100" : "opacity-0 pointer-events-none nonsel"}
+                  `}
+                  onClick={() => setReceptionFullscreen(!receptionFullscreen)}
+                >
+                  <img className="h-8 min-h-8 nonsel pointer-events-none" src={`/images/${receptionFullscreen ? "minscreen" : "fullscreen"}.svg`} />
+                </div>
+              </div>
 
               {/* ILLUST */}
               <div className={`w-full transition-w duration-1000 h-full bg-black/20 flex items-center justify-center relative`}>
@@ -551,9 +570,9 @@ export default function GalleryComponent() {
 
               {/* EXIT */}
               <p className={`
-                cursor-pointer text-sm transition-opacity duration-800 absolute bottom-3 left-4 text-nowrap
+                cursor-pointer text-sm transition-opacity duration-800 absolute bottom-4 left-4.5 text-nowrap
                 `} 
-                onClick={() => openQuestions ? openTab(null) : setOpenQuestions("closed")}
+                onClick={() => receptionExitHandler()}
                 >
                 ○&nbsp;
                 <span className="hover:underline">
@@ -835,17 +854,16 @@ export default function GalleryComponent() {
             </button>
           ))}
         </div>
-        
-        {/* FOOTER */}
-        <div className="h-40 flex items-center justify-center w-screen bg-black">
-          <p className="text-white">footer</p>
-        </div>
+      </div>
 
+      {/* FOOTER */}
+      <div className={`${contentVisible ? "h-40 flex items-center justify-center w-screen bg-black" : "hidden"}`}>
+        <p className="text-white">footer</p>
       </div>
 
       {/* OPEN CONTENT */}
       <p
-        className={`${contentVisible || "fixed bottom-4 left-4 md:bottom-8 md:left-8 md:text-4xl text-white font-bold cursor-pointer"} ${sono.className}`}
+        className={`${contentVisible ? "hidden" : "fixed bottom-4 left-4 md:bottom-8 md:left-8 md:text-4xl text-white font-bold cursor-pointer"} ${sono.className}`}
         onClick={() => setContentVisible(true)}
       >
         take me back!
