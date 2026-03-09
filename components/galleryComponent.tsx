@@ -129,6 +129,7 @@ export default function GalleryComponent() {
 
   const [lightBoxOpen, setLightBoxOpen] = useState(false);
   const [featuredLightBoxOpen, setFeaturedLightBoxOpen] = useState(false);
+  const [bgLightBoxOpen, setBgLightBoxOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const openLightBox = (index: number) => {
@@ -147,7 +148,7 @@ export default function GalleryComponent() {
             <p key={index} className={`text-xs ${sono.className} text-gray-400`}>#{tag}</p>
           )}
         </div>
-        <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{art.description}</p>
+        <p className={`text-lg ${gowun.className} mt-3 text-center`}>{art.description}</p>
       </div>
     ),
   }));
@@ -165,12 +166,24 @@ export default function GalleryComponent() {
                   <p key={index} className={`text-xs ${sono.className} text-gray-400`}>#{tag}</p>
                 )}
               </div>
-              <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{featArtwork.description}</p>
+              <p className={`text-lg ${gowun.className} mt-3 text-center`}>{featArtwork.description}</p>
             </div>
           ),
         },
       ]
     : [];
+
+  const BgArtworkRefs: SlideImage[] = [
+    {
+      src: "/images/gallery-bg-full.jpg",
+      description: (
+        <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+          <p className={`text-4xl font-bold ${oranienbaum.className}`}>Gallery Background</p>
+          <p className={`text-lg ${gowun.className} mt-3 text-center`}>just a bunch of sketches i gathered from 2025-2026, took a while to do</p>
+        </div>
+      ),
+    },
+  ]
 
   const [featArtFocus, setFeatArtFocus] = useState(true);
 
@@ -900,14 +913,24 @@ export default function GalleryComponent() {
       </div>
 
       {/* OPEN CONTENT */}
-      <p
-        className={`${contentVisible ? "hidden" : "z-50 fixed bottom-4 left-4 md:bottom-8 md:left-8 md:text-4xl text-white font-bold cursor-pointer meow"} ${sono.className}`}
+      <div
+        className={`
+          ${contentVisible ? "opacity-0 nonsel pointer-events-none" : "opacity-100"} 
+          ${sono.className}
+          z-50 fixed bottom-4 left-4 md:bottom-8 md:left-8
+          text-2xl md:text-6xl text-yellow-300 md:text-white hover:text-yellow-300
+          font-bold meow transition-all duration-300
+        `}
         onClick={() => setContentVisible(true)}
       >
-        take me back!
-      </p>
+        <p className="cursor-pointer">take me back!</p>
+        <p className="block md:hidden text-xs">(tap on the bg to view the full image)</p>
+      </div>
 
-      <div className={`fixed inset-0 overflow-hidden z-10 scale-250 ${bgOrigin} nonsel pointer-events-none`}>
+      <div 
+        className={`fixed inset-0 overflow-hidden z-10 scale-250 cursor-pointer ${bgOrigin} ${contentVisible && "nonsel pointer-events-none"}`}
+        onClick={() => setBgLightBoxOpen(true)}
+      >
         <Marquee speed={5} gradient={false} className="h-screen -mr-px" direction="left" autoFill={true}>
           <img 
             src={`/images/${contentVisible ? "gallery-bg-blurred" : "gallery-bg"}.png`}
@@ -951,6 +974,38 @@ export default function GalleryComponent() {
         open={featuredLightBoxOpen}
         close={() => setFeaturedLightBoxOpen(false)}
         slides={featuredArtworkRefs}
+        plugins={[Zoom, Captions, Fullscreen]}
+        zoom={{
+          scrollToZoom: true,
+          maxZoomPixelRatio: 10,
+          zoomInMultiplier: 1.5,
+          doubleTapDelay: 300,
+          doubleClickDelay: 300,
+          wheelZoomDistanceFactor: 600,
+          pinchZoomDistanceFactor: 200,
+        }}
+        styles={{
+          container: {
+            backgroundColor: "rgba(0, 0, 0, 0.80)",
+            backdropFilter: "blur(4px)",
+          },
+        }}
+        captions={{
+          showToggle: true,
+          descriptionTextAlign: "center",
+          descriptionMaxLines: 10,
+        }}
+        render={{
+          buttonPrev: () => null,
+          buttonNext: () => null,
+        }}
+      />
+
+      {/* BG LIGHTBOX */}
+      <Lightbox
+        open={bgLightBoxOpen}
+        close={() => setBgLightBoxOpen(false)}
+        slides={BgArtworkRefs}
         plugins={[Zoom, Captions, Fullscreen]}
         zoom={{
           scrollToZoom: true,

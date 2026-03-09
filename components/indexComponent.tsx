@@ -530,7 +530,7 @@ export default function Home() {
                   <p key={index} className={`text-xs ${sono.className} text-gray-400`}>#{tag}</p>
                 )}
               </div>
-              <p className={`text-lg ${gowun.className} mt-3 text-justify`}>{artwork.description}</p>
+              <p className={`text-lg ${gowun.className} mt-3 text-center`}>{artwork.description}</p>
             </div>
           ),
         },
