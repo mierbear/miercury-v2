@@ -645,7 +645,7 @@ export default function GalleryComponent() {
             my-8
             w-full
             self-center  ${sono.className} relative
-            text-white bg-black/50
+            text-white bg-black/50 rounded-xs
           `}
         >
           
@@ -804,23 +804,27 @@ export default function GalleryComponent() {
             >
 
               {availableTags.map(tag => (
-                <label 
+                <div 
                   key={tag}
                   className={`
-                    flex items-center gap-2 cursor-pointer px-2 p-1 md:p-2
+                    flex items-center gap-2 cursor-pointer px-2.5 py-1 md:py-2
                     rounded bg-white min-h-10 md:min-h-12 h-full w-full
                     hover:bg-gray-50 border transition-colors
                     ${selectedTags.includes(tag) ? "border-black/40" : "border-black/10"}
                   `}
+                  onClick={() => toggleTag(tag)}
                 >
-                  <input
-                    type="checkbox"
-                    checked={selectedTags.includes(tag)}
-                    onChange={() => toggleTag(tag)}
-                    className="cursor-pointer"
-                  />
-                  <p className={`text-xs sm:text-sm lg:text-base`}>
-                    <span className={`${selectedTags.includes(tag) && 'font-bold'} truncate`}>
+                  <div
+                    className={`
+                      cursor-pointer relative
+                      h-3 w-3 shrink-0
+                    `}
+                  >
+                    <div className={`w-full h-full rounded-full bg-black absolute`}></div>
+                    <div className={`w-full h-full rounded-full bg-white absolute transition-scale duration-500 ${selectedTags.includes(tag) ? "scale-0" : "scale-90"}`}></div>
+                  </div>
+                  <p className={`text-xs sm:text-sm lg:text-base truncate`}>
+                    <span className={`${selectedTags.includes(tag) && 'font-bold'}`}>
                     {tag}
                     </span>
                     &nbsp;
@@ -828,7 +832,7 @@ export default function GalleryComponent() {
                     ({artworks.filter(artwork => artwork.tags?.includes(tag)).length})
                     </span>
                   </p>
-                </label>
+                </div>
               ))}
               
             </div>
@@ -919,7 +923,7 @@ export default function GalleryComponent() {
         {/* PAGE BUTTONS */}
         <div 
           className={`
-          bg-gray-200 flex items-center 
+          bg-[#96979c] flex items-center 
           justify-center gap-2 w-full 
           border-black
           min-[1152px]:border-x 
@@ -934,7 +938,7 @@ export default function GalleryComponent() {
                 cursor-pointer
                 ${currentPage === pageNum 
                   ? "bg-black text-white"
-                  : "bg-black/60 hover:bg-black/80 text-white"
+                  : "bg-black/40 hover:bg-black/80 text-white"
                 }
                 ${sono.className}
                 transition-bg duration-300
