@@ -682,8 +682,9 @@ export default function GalleryComponent() {
           {/* TAGS SECTION */}
           <div 
             className={`
-            flex w-full rounded bg-[#7a8896]
-          `}>
+            flex w-full rounded bg-[#7a8896] bg-[url("/images/gallery-banner-mobile.png")] md:bg-[url("/images/gallery-banner.png")]
+            `}
+          >
             
             {/* TAGS INFO */}
             <div
@@ -701,8 +702,8 @@ export default function GalleryComponent() {
                 className={`
                 py-2 px-4
                 font-bold text-xl text-nowrap
-                hover:cursor-pointer bg-white/50 hover:bg-white/20 transition-all duration-300 shadow-xl
-                rounded-md border-black/40 border text-black/50 hover:text-black
+                hover:cursor-pointer bg-white/60 hover:bg-white transition-all duration-300 shadow-xl
+                rounded-md border-black/40 border text-black/70 hover:text-black
                 ${kosugi.className}
                 `}
                 onClick={() => showTagsHandler()}
@@ -711,7 +712,7 @@ export default function GalleryComponent() {
               </p>
 
               {/* ARTWORK COUNT */}
-              <div className="text-xs lg:text-sm text-black text-center">
+              <div className="text-xs lg:text-sm text-white text-center">
                 {selectedTags.length > 0 ? (
                   <p>
                     <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
@@ -720,7 +721,7 @@ export default function GalleryComponent() {
                       {selectedTags.map((tag, index) => (
                         <span key={tag}>
                           <span
-                          className="underline hover:cursor-pointer hover:text-red-500 hover:font-bold"
+                          className="underline hover:cursor-pointer hover:text-yellow-400 hover:font-bold"
                           onClick={() => toggleTag(tag)}
                           >
                             {tag}
@@ -744,14 +745,13 @@ export default function GalleryComponent() {
               
             {/* BANNER */}
             <div className="hidden md:flex items-center justify-center md:w-full transition-all ease-in-out duration-500">
-              <p>cool drawing here</p>
             </div>
           </div>
 
         </div>
 
         {/* GALLERY */}
-        <div className="flex md:flex-row flex-col bg-gray-100">
+        <div className={`flex md:flex-row flex-col bg-gray-100`}>
 
           {/* LEFT / TAGS */}
           <div className={`
