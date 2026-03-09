@@ -38,7 +38,7 @@ const TitleBot = () => {
   }, []);
 
   return (
-    <div ref={divRef} className="bg-[#d8e0e3] rounded-t-xl flex flex-col justify-center items-center z-11 miercury-platform-glow nonsel">
+    <div ref={divRef} className="bg-[#d8e0e3] rounded-t-xl flex flex-col justify-center items-center z-11 miercury-platform-glow nonsel text-nowrap">
       <p ref={textRef} style={{ visibility: "hidden" }} className={`text-xs ${sono.className}`}>welcome to the firmament, keep it mirthful</p>
     </div>
   );

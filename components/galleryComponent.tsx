@@ -436,7 +436,7 @@ export default function GalleryComponent() {
     <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a] nonsel">
 
       {/* SPACE */}
-      <div className="w-6xl max-w-screen flex flex-col justify-end items-center h-[10vh]">
+      <div className="w-6xl max-w-screen flex flex-col justify-end items-center h-32">
         {/* <p className="text-white">gallery</p> */}
       </div>
 
@@ -445,11 +445,12 @@ export default function GalleryComponent() {
 
         {/* HEADER */}
         <div className="w-full h-8 bg-white text-black rounded-t-xl flex items-center">
-          <p
-            className={`ml-auto text-xs ${sono.className} mr-3 cursor-pointer`}
+          <p 
+            className={`cursor-pointer text-xs flex items-center gap-2 ml-auto mr-3 ${sono.className}`}
             onClick={() => setContentVisible(false)}
           >
-            ● see background?
+            <span className="">●</span>
+            <span className="hover:underline -translate-y-px flex w-full">see background?</span>
           </p>
         </div>
 
@@ -641,10 +642,10 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className="h-auto flex flex-col items-center w-full bg-[#b6c2c5]">
+        <div className="h-auto flex flex-col items-center w-full bg-[#b6c2c5]/50">
 
           {/* INTERACT / WELCOME */}
-          <div className={`h-40 flex flex-col items-center w-full ${sono.className} relative text-white bg-[#7a8896]`}>
+          <div className={`h-40 flex flex-col items-center w-full ${sono.className} relative text-white`}>
 
             <p className=" md:text-2xl text-center p-4 self-center flex gap-2">
               <span className="spin flex self-center text-yellow-300 white-glow">★</span>
@@ -681,13 +682,13 @@ export default function GalleryComponent() {
           {/* TAGS SECTION */}
           <div 
             className={`
-            flex w-full rounded
+            flex w-full rounded bg-[#7a8896]
           `}>
             
             {/* TAGS INFO */}
             <div
               className={`
-              flex flex-col items-center justify-center bg-white/60
+              flex flex-col items-center justify-center 
               gap-2 p-2 md:p-4 transition-all ease-in-out duration-500 
               self-start w-full
               max-w-full
@@ -927,6 +928,7 @@ export default function GalleryComponent() {
         <p className="block md:hidden text-xs">(tap on the bg to view the full image)</p>
       </div>
 
+      {/* BACKGROUND */}
       <div 
         className={`fixed inset-0 overflow-hidden z-10 scale-250 cursor-pointer ${bgOrigin} ${contentVisible && "nonsel pointer-events-none"}`}
         onClick={() => setBgLightBoxOpen(true)}

@@ -85,19 +85,21 @@ const Title = () => {
   }
 
   return (
-    <div className="z-10 justify-end overflow-y-hidden min-h-[20vh] pt-5 items-end flex">
+    <div className="z-10 justify-end overflow-y-hidden min-h-[20vh] pt-32 md:pt-64 items-end flex">
       <h1
         ref={titleRef}
         className={
           `${boldonse.className}
           nonsel
           text-[#d8e0e3]
-          text-6xl
-          sm:text-7xl
-          md:text-8xl
-          lg:text-9xl
+          text-5xl
+          min-[512px]:text-6xl
+          min-[640px]:text-7xl
+          min-[768px]:text-8xl
+          min-[1024px]:text-9xl
           miercury-glow
           cursor-pointer
+          text-nowrap
           `}
         style={{ visibility: "hidden" }}
         onClick={titleAnim}

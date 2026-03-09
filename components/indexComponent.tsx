@@ -553,7 +553,7 @@ export default function Home() {
       </div>
 
       {/* TITLE */}
-      <div className="w-270 max-w-screen min-h-[40vh] flex justify-end align-center items-center top-0 flex-col relative">
+      <div className="w-270 max-w-screen h-auto flex justify-end align-center items-center top-0 flex-col relative">
         <Title />
 
         <p className="absolute text-white/4 nonsel left-0 z-50">meow</p>
@@ -568,12 +568,12 @@ export default function Home() {
 
           {/* TOP COLUMNS */}
           <div
-            className={`w-full grid lg:grid-cols-[2fr_1fr] lg:grid-rows-none opacity-0 transition-opacity duration-2000`}
+            className={`w-full grid md:grid-cols-[2fr_1fr] md:grid-rows-none opacity-0 transition-opacity duration-2000`}
             ref={topContentRef}
           >
 
             {/* LEFT COL */}
-            <div className="m-4 lg:mr-2 flex items-center flex-col lg:order-1 order-2">
+            <div className="m-4 md:mr-2 flex items-center flex-col md:order-1 order-2">
 
               {/* CAROUSEL */}
               <div className="flex flex-col justify-center items-center relative w-full aspect-25/9 mx-auto text-white border-[#d8e0e3]/70 border">
@@ -600,7 +600,7 @@ export default function Home() {
                       onMouseLeave={() => {setAdVertHover(false)}}
                       >
                         <div className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col nonsel pointer-events-none">
-                          <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8`} ref={vertAdRef}>Take a dive?</p>
+                          <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8 text-nowrap`} ref={vertAdRef}>Take a dive?</p>
                           <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
                         </div>
 
@@ -617,8 +617,8 @@ export default function Home() {
                     </div>
 
                     <div className="relative aspect-25/9 flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
-                      <img className=" absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
-                      <img className=" absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
+                      <img className="scale-60 md:scale-100 absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
+                      <img className="scale-60 md:scale-100 absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
                       <div className="absolute bottom-0 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
                         <Marquee
                           className="w-full"
@@ -650,12 +650,12 @@ export default function Home() {
 
               </div>
                 
-              <hr className="my-4 border-gray-500/30 w-full block lg:hidden" />
+              <hr className="my-4 border-gray-500/30 w-full block md:hidden" />
               
               {/* ART */}
               <div className={`
                 flex flex-col items-center justify-center w-full 
-                relative md:pb-12 mt-none lg:mt-4 md:mb-4
+                relative md:pb-12 mt-none md:mt-4 md:mb-4
                 ${orientation === "portrait" && "md:px-12"} 
                 ${orientation === "landscape" && "md:px-4" } 
               `}
@@ -663,13 +663,14 @@ export default function Home() {
               onMouseLeave={() => setArtHover(false)}
               >
                 <p
-                className={`text-3xl font-semibold self-start pl-2 h-12 flex ${oranienbaum.className} items-center justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
+                className={`text-3xl font-semibold self-start pl-2 h-12 flex ${oranienbaum.className} items-center text-nowrap justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
                   <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> FEATURED ARTWORK
                 </p>
                 
                 {/* IMAGES */}
                 <div className="relative flex items-center justify-center flex-col mb-4 z-10">
                   <img ref={featArtRef} src={artwork?.url} onLoad={handleImageLoad} className={`nonsel cursor-pointer`} onClick={() => setFeaturedLightBoxOpen(true)}/>
+
                   <img ref={featArtMiniRef} src={artwork?.url} className={`nonsel pointer-events-none border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-28 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
                   <div>
                     <img 
@@ -699,9 +700,9 @@ export default function Home() {
                   px-4 pt-2 self-start w-[50%] h-28
                   overflow-y-auto thin-scrollbar"
                 >
-                  <p className={`text-2xl font-bold ${oranienbaum.className}`}>{artwork?.title}</p>
+                  <p className={`text-xl md:text-2xl font-bold ${oranienbaum.className}`}>{artwork?.title}</p>
                   <p className={`text-xs ${sono.className} text-gray-300`}>({artwork?.date})</p>
-                  <p className={`text-sm ${gowun.className} mt-2 text-justify`}>{artwork?.description}</p>
+                  <p className={`text-sm ${gowun.className} mt-2 tetx-center`}>{artwork?.description}</p>
                 </div>
                 
                 {/* FRAME */}
@@ -807,7 +808,7 @@ export default function Home() {
             </div> 
 
             {/* RIGHT COL */}
-            <div className="m-4 lg:ml-2 lg:order-2 order-1 flex flex-col mb-0 lg:mb-4">
+            <div className="m-4 md:ml-2 md:order-2 order-1 flex flex-col mb-0 md:mb-4">
 
               {/* INTRO */}
               <div className="text-white border-[#d8e0e3]/40 relative border-dotted border flex flex-col items-center pb-14">
@@ -895,10 +896,10 @@ export default function Home() {
 
               </div> 
 
-              <hr className="hidden lg:block my-4 border-gray-500/30 w-full" />
+              <hr className="hidden md:block my-4 border-gray-500/30 w-full" />
 
               {/* ?? */}
-              <div className="hidden lg:flex flex-1 flex-col items-center justify-center w-full h-full border-[#d8e0e3]/40 relative border-dotted border">
+              <div className="hidden md:flex flex-1 flex-col items-center justify-center w-full h-full border-[#d8e0e3]/40 relative border-dotted border">
               </div>
 
             </div> 
@@ -1055,7 +1056,7 @@ export default function Home() {
             >admin@miercury.com</a>
           </p>
 
-          <div className={`right-1 absolute flex items-center justify-center lg:visible invisible`}>
+          <div className={`right-1 absolute flex items-center justify-center md:visible invisible`}>
             <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 text-xs hover:underline blue cursor-pointer nonsel">log in</p>
           </div>
 
