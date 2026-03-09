@@ -638,7 +638,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className={`h-full flex flex-col items-center w-full ${sono.className} relative text-white`}>
+        <div className={`h-full flex flex-col items-center w-[80%] self-center my-8 ${sono.className} relative text-white bg-black/50`}>
           
           {/* MIDDLE-TOP */}
           <div className={`flex flex-col items-center justify-center p-4 pb-6`}>
@@ -655,7 +655,7 @@ export default function GalleryComponent() {
           <hr className="border-white/50 w-[90%] block mx-4" />
 
           {/* MIDDLE-BOTTOM */}
-          <div className="flex h-full w-[80%]">
+          <div className="flex h-full w-full">
 
             <div className="flex flex-col p-4 w-[62%] text-xs lg:text-sm">
               <p>MROW intro hello</p>
@@ -782,7 +782,8 @@ export default function GalleryComponent() {
             ${tagHide 
               ? "max-h-0 mt-0 md:h-auto md:mx-0 md:w-0" 
               : "max-h-58 my-2 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4"}
-          `}>
+            `}
+          >
 
             {/* TAGS */}
             <div className={`
