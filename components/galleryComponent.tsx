@@ -179,7 +179,7 @@ export default function GalleryComponent() {
       description: (
         <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
           <p className={`text-4xl font-bold ${oranienbaum.className}`}>Gallery Background</p>
-          <p className={`text-lg ${gowun.className} mt-3 text-center`}>just a bunch of sketches i gathered from 2025-2026, took a while to do</p>
+          <p className={`text-lg ${gowun.className} mt-3 text-center`}>a bunch of sketches i gathered from 2025-2026, took a while to do</p>
         </div>
       ),
     },
@@ -449,7 +449,7 @@ export default function GalleryComponent() {
           border-y
           min-[1152px]:rounded-xl
           min-[1152px]:border-x
-          shadow-2xl border-black bg-[#17191a]
+          shadow-2xl border-[#17191a] bg-[#17191a]
           `}
         >
 
@@ -641,55 +641,59 @@ export default function GalleryComponent() {
         <div 
           className={`
             h-full flex flex-col items-center 
+            px-0
             min-[1152px]:w-[80%]
-            my-8
+            my-8 gap-1
             w-full
             self-center  ${sono.className} relative
-            text-white bg-black/50 rounded-xs
+            text-white rounded-xs 
           `}
         >
           
           {/* MIDDLE-TOP */}
-          <div className={`flex flex-col items-center justify-center p-4 pb-6`}>
+          <div className={`flex flex-col items-center w-full justify-center p-4 pb-6 bg-[#565a5e]/80`}>
 
             <p className="text-xs">welcome to</p>
             <p className={`text-5xl sm:text-7xl md:text-8xl text-center self-center flex gap-4 md:gap-8 text-nowrap ${oranienbaum.className}`}>
-              <span className="-translate-y-1 slight-slow-spin text-2xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
+              <span className="-translate-y-1 slight-slow-spin text-2xl sm:text-3xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
                 THE GALLERY
-              <span className="-translate-y-1 slight-slow-spin text-2xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
+              <span className="-translate-y-1 slight-slow-spin text-2xl sm:text-3xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
             </p>
 
           </div>
 
-          <hr className="border-white/50 w-[90%] block mx-4" />
 
           {/* MIDDLE-BOTTOM */}
-          <div className="flex h-full w-full">
+          <div className="flex h-full w-full gap-1 items-center">
 
-            <div className="flex flex-col p-4 w-[62%] text-xs lg:text-sm">
-              <p>MROW intro hello</p>
+            <div className={`flex flex-col p-4 h-60 w-[62%] text-xs lg:text-sm bg-white/30 ${kosugi.className}`}>
+              <p>Hello! This is where I'll be posting most of my artwork</p>
               <p>make this mid section transparent with floating divs? maybe drawing around here too</p>
             </div>
 
 
             {/* INTERACTABLES */}
-            <div className="flex flex-col p-4 m-4 h-40 w-[38%] text-xs lg:text-sm bg-white/50">
+            <div className="flex flex-col items-center justify-center gap-4 p-4 h-60 w-[38%] text-xs lg:text-sm bg-white/50">
               <p 
                 className={`
-                cursor-pointer flex items-center gap-2`}
+                cursor-pointer flex items-center gap-4 bg-black/40 p-4 rounded-sm`}
                 onClick={openQuestions === "closed" ? () => openQuestionHandler() : undefined}
               >
-                <span className="-translate-y-px text-[12px]">●</span>
-                <span className="hover:underline -translate-y-px flex w-full">i have questions (a lot)</span>
+                <span className="-translate-y-px text-[20px]">●</span>
+                <span className="hover:underline -translate-y-px flex w-full text-center">i have questions<br />(a lot)</span>
               </p>
               
               <p 
                 className={`
-                cursor-pointer flex items-center gap-2`}
+                cursor-pointer flex items-center gap-4 bg-black/40 p-4 rounded-sm`}
                 onClick={() => setContentVisible(false)}
               >
-                <span className="-translate-y-px text-[12px]">●</span>
-                <span className="hover:underline -translate-y-px flex w-full">i wanna see the background</span>
+                <span className="-translate-y-px text-[20px]">●</span>
+                <span className="hover:underline -translate-y-px flex w-full text-center">i wanna see<br />the background</span>
+              </p>
+
+              <p>
+                
               </p>
 
             </div>
@@ -702,7 +706,7 @@ export default function GalleryComponent() {
           className={`
           flex w-full bg-[#7a8896] 
           bg-no-repeat bg-cover
-          border-black border-t
+          border-[#17191a] border-t
           min-[1152px]:rounded-t-xl
           min-[1152px]:border-x 
           bg-[url("/images/gallery-banner-mobile.png")]
@@ -727,7 +731,7 @@ export default function GalleryComponent() {
               py-2 px-4
               font-bold text-xl text-nowrap
               hover:cursor-pointer bg-white/60 hover:bg-white transition-all duration-300 shadow-xl
-              rounded-md border-black/40 border text-black/70 hover:text-black
+              rounded-md border-[#17191a]/40 border text-black/70 hover:text-black
               ${kosugi.className}
               `}
               onClick={() => showTagsHandler()}
@@ -780,7 +784,7 @@ export default function GalleryComponent() {
           min-[768px]:flex-row 
           min-[1152px]:border-x 
           bg-gray-100 
-          border-black
+          border-[#17191a]
           `}
         >
 
@@ -810,7 +814,7 @@ export default function GalleryComponent() {
                     flex items-center gap-2 cursor-pointer px-2.5 py-1 md:py-2
                     rounded bg-white min-h-10 md:min-h-12 h-full w-full
                     hover:bg-gray-50 border transition-colors
-                    ${selectedTags.includes(tag) ? "border-black/40" : "border-black/10"}
+                    ${selectedTags.includes(tag) ? "border-[#17191a]/40" : "border-[#17191a]/10"}
                   `}
                   onClick={() => toggleTag(tag)}
                 >
@@ -925,7 +929,7 @@ export default function GalleryComponent() {
           className={`
           bg-[#96979c] flex items-center 
           justify-center gap-2 w-full 
-          border-black
+          border-[#17191a]
           min-[1152px]:border-x 
           ${currentArtworks.length > 0 && "py-6"}
           `}

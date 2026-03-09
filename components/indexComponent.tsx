@@ -1044,11 +1044,11 @@ export default function Home() {
       </div>  
       
       {/* FOOTER */}
-      <footer className="z-50">
+      <footer className="z-50 h-12">
         <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white text-xs">
 
           <p className="text-center">
-            Copyright © {currentYear} Miercury. All Rights Reserved.
+            Copyright © 2025 - {currentYear} Miercury. All Rights Reserved.
             <br />
             <a
             href="mailto:admin@miercury.com"
