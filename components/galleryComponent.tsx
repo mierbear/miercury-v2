@@ -638,13 +638,22 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className={`h-full flex flex-col items-center w-[80%] self-center my-8 ${sono.className} relative text-white bg-black/50`}>
+        <div 
+          className={`
+            h-full flex flex-col items-center 
+            min-[1152px]:w-[80%]
+            my-8
+            w-full
+            self-center  ${sono.className} relative
+            text-white bg-black/50
+          `}
+        >
           
           {/* MIDDLE-TOP */}
           <div className={`flex flex-col items-center justify-center p-4 pb-6`}>
 
             <p className="text-xs">welcome to</p>
-            <p className={`text-5xl sm:text-7xl md:text-8xl text-center self-center flex gap-4 md:gap-8 ${oranienbaum.className}`}>
+            <p className={`text-5xl sm:text-7xl md:text-8xl text-center self-center flex gap-4 md:gap-8 text-nowrap ${oranienbaum.className}`}>
               <span className="-translate-y-1 slight-slow-spin text-2xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
                 THE GALLERY
               <span className="-translate-y-1 slight-slow-spin text-2xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
@@ -688,7 +697,7 @@ export default function GalleryComponent() {
 
         </div>
 
-        {/* TAGS SECTION */}
+        {/* TAGS INFO SECTION */}
         <div 
           className={`
           flex w-full bg-[#7a8896] 
@@ -763,7 +772,7 @@ export default function GalleryComponent() {
           </div>
         </div>
 
-        {/* GALLERY */}
+        {/* TAGS / GALLERY */}
         <div 
           className={`
           flex 
@@ -781,7 +790,7 @@ export default function GalleryComponent() {
             transition-all duration-500 overflow-hidden md:mt-4 mx-2
             ${tagHide 
               ? "max-h-0 mt-0 md:h-auto md:mx-0 md:w-0" 
-              : "max-h-58 my-2 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4"}
+              : "max-h-58 py-2 md:py-0 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4"}
             `}
           >
 
