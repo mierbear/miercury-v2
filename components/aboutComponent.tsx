@@ -599,8 +599,9 @@ export default function Home() {
           {/* TOP ROW */}
           <div 
             className={`
-            bg-[rgb(30,34,36)]/70 flex flex-col py-6 text-white justify-between
+            bg-[rgb(30,34,36)]/70 flex flex-col text-white justify-between
             transition-all duration-500 min-h-0
+            py-6
             px-2
             mx-[5vw]
             min-[640px]:mx-0
@@ -613,8 +614,15 @@ export default function Home() {
 
             {/* MORE ABOUT ME */}
             {meActive && (
-              <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2" ref={factsRef}>
-                <h1 className="font-bold text-base sm:text-3xl">more about me:</h1>
+              <div 
+                className={`
+                flex flex-col h-full min-h-0 nonsel  px-2
+                [@media(min-height:768px)]:mt-18
+                `} 
+                ref={factsRef}
+              >
+
+                <h1 className="font-bold text-base sm:text-3xl sm:text-center lg:text-start">more about me:</h1>
 
                 <div className="overflow-y-auto thin-scrollbar text-xs my-4">
                 {aboutMe.map((info, index) => (
@@ -647,9 +655,17 @@ export default function Home() {
 
             {/* INFO */}
             {!meActive && (
-              <div className="flex flex-col h-full min-h-0 nonsel mt-18 px-2 overflow-y-auto thin-scrollbar" ref={infoRef}>
-                <p className="font-bold text-2xl sm:text-3xl">about me:</p>
-                <p className="text-base sm:text-lg">Kyle | {age} | INTJ | Libra</p>
+              <div 
+                className={`
+                  flex flex-col h-full min-h-0
+                  nonsel px-2 overflow-y-auto
+                  [@media(min-height:768px)]:mt-18
+                  thin-scrollbar
+                `}  
+                ref={infoRef}
+              >
+                <p className="font-bold text-2xl sm:text-3xl sm:text-center lg:text-start">about me:</p>
+                <p className="text-base sm:text-lg sm:text-center lg:text-start">Kyle | {age} | INTJ | Libra</p>
                 <hr className="my-2 border-white/20" />
 
                 <p className="font-bold pb-1 text-base sm:text-lg">likes:</p>
@@ -723,7 +739,14 @@ export default function Home() {
             )}
 
             {/* EMOJI */}
-            <div className={`text-yellow-200 flex flex-col gap-2 pt-6 self-center text-center transition-mb duration-530 nonsel ${meActive && "white-glow mb-32"}`}>
+            <div 
+              className={`
+              text-yellow-200 flex flex-col
+              gap-2 pt-6 self-center text-center
+              transition-mb duration-530 nonsel
+              ${meActive && "white-glow [@media(min-height:768px)]:mb-32"}
+              `}
+            >
               <p className="flex text-base sm:text-lg lg:text-xl font-bold mx-3">
                 <span className={`text-yellow-200 flex items-center justify-center origin-center mr-2.25 duration-500 transition-scale transition-mr ${meActive && "spin scale-150 mr-4"}`}>
                   {meActive ? "★" : "✦"}
@@ -759,6 +782,8 @@ export default function Home() {
             ${meActive ? "flex-0" : "flex-28"}
             `}
           >
+
+            {/* CAROUSEL */}
             <div className={`w-screen h-[24vh] z-100 self-end bg-[rgb(30,34,36)]/20 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
               ref={carouselContainerRef}
             >

@@ -336,7 +336,7 @@ body {
 }
 
 .white-glow {
-  text-shadow: 0 0 2px rgb(255, 254, 179)
+  text-shadow: 0 0 2px rgb(255, 253, 126)
 }
 
 .online-glow {
@@ -550,6 +550,10 @@ div[data-youtube-video] iframe {
 
 .spin-fast {
   animation-duration: 280s;
+}
+
+.slight-slow-spin {
+  animation: spin 12s linear infinite;
 }
 
 .slow-spin {

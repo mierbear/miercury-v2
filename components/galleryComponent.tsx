@@ -419,11 +419,9 @@ export default function GalleryComponent() {
 
   const [contentVisible, setContentVisible] = useState(true);
   const [receptionFullscreen, setReceptionFullscreen] = useState(false);
-  const [bgOrigin, setBgOrigin] = useState<string>("origin-center");
 
   const [ready, setReady] = useState(false);
   useEffect(() => {
-    setBgOrigin(randomizer(["origin-top-left", "origin-center"]));
     setReady(true);
     fetchFeatArt();
     fetchArtworks();
@@ -433,7 +431,7 @@ export default function GalleryComponent() {
   }, []);
 
   return (
-    <div className="w-screen min-h-screen justify-center align-center items-center flex flex-col relative bg-[#17191a] nonsel">
+    <div className="min-w-screen min-h-screen align-center items-center flex flex-col relative bg-[#17191a] nonsel">
 
       {/* SPACE */}
       <div className="w-6xl max-w-screen flex flex-col justify-end items-center h-32">
@@ -443,19 +441,17 @@ export default function GalleryComponent() {
       {/* CONTENT */}
       <div className={`w-6xl max-w-screen flex flex-col transition-opacity duration-500 z-50 ${contentVisible ? "opacity-100" : "opacity-0 pointer-events-none nonsel"}`}>
 
-        {/* HEADER */}
-        <div className="w-full h-8 bg-white text-black rounded-t-xl flex items-center">
-          <p 
-            className={`cursor-pointer text-xs flex items-center gap-2 ml-auto mr-3 ${sono.className}`}
-            onClick={() => setContentVisible(false)}
-          >
-            <span className="">●</span>
-            <span className="hover:underline -translate-y-px flex w-full">see background?</span>
-          </p>
-        </div>
-
         {/* MAIN */}
-        <div className="max-h-160 min-h-160 flex flex-row items-center justify-center bg-[#17191a]">
+        <div 
+          className={`
+          max-h-160 min-h-160 flex flex-row
+          items-center justify-center overflow-hidden
+          border-y
+          min-[1152px]:rounded-xl
+          min-[1152px]:border-x
+          shadow-2xl border-black bg-[#17191a]
+          `}
+        >
 
           {/* FEATURED ART */}
           <div
@@ -515,7 +511,7 @@ export default function GalleryComponent() {
               ${openQuestions === true ? "scale-80 opacity-60" : "scale-100 opacity-100"}
               `}
               >
-              <p className={`md:text-5xl text-4xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
+              <p className={`md:text-5xl sm:text-4xl text-3xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
               <p className={`text-xs md:self-start meow ${sono.className} text-white`}>({featArtwork?.date})</p>
             </div>
             
@@ -642,116 +638,142 @@ export default function GalleryComponent() {
         </div>
 
         {/* MIDDLE */}
-        <div className="h-auto flex flex-col items-center w-full bg-[#b6c2c5]/50">
+        <div className={`h-full flex flex-col items-center w-full ${sono.className} relative text-white`}>
+          
+          {/* MIDDLE-TOP */}
+          <div className={`flex flex-col items-center justify-center p-4 pb-6`}>
 
-          {/* INTERACT / WELCOME */}
-          <div className={`h-40 flex flex-col items-center w-full ${sono.className} relative text-white`}>
-
-            <p className=" md:text-2xl text-center p-4 self-center flex gap-2">
-              <span className="spin flex self-center text-yellow-300 white-glow">★</span>
-                welcome to the gallery!
-              <span className="spin flex self-center text-yellow-300 white-glow">★</span>
+            <p className="text-xs">welcome to</p>
+            <p className={`text-5xl sm:text-7xl md:text-8xl text-center self-center flex gap-4 md:gap-8 ${oranienbaum.className}`}>
+              <span className="-translate-y-1 slight-slow-spin text-2xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
+                THE GALLERY
+              <span className="-translate-y-1 slight-slow-spin text-2xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
             </p>
-
-            <hr className="border-white/50 w-full block mx-4" />
-
-            <div className="flex h-full w-full">
-
-              <div className="flex flex-col p-4 h-full w-[62%] text-xs lg:text-sm">
-                <p>MROW intro hello</p>
-                <p>make this mid section transparent with floating divs? maybe drawing around here too</p>
-              </div>
-
-
-              {/* INTERACTABLES */}
-              <div className="flex flex-col p-4 h-full bg-white/20 w-[38%] text-xs lg:text-sm">
-                <p 
-                  className={`
-                  cursor-pointer flex items-center gap-2`}
-                  onClick={openQuestions === "closed" ? () => openQuestionHandler() : undefined}
-                >
-                  <span className="-translate-y-px text-[12px]">●</span>
-                  <span className="hover:underline -translate-y-px flex w-full">i have questions (a lot)</span>
-                </p>
-              </div>
-
-            </div>
 
           </div>
 
-          {/* TAGS SECTION */}
-          <div 
-            className={`
-            flex w-full rounded bg-[#7a8896] bg-[url("/images/gallery-banner-mobile.png")] md:bg-[url("/images/gallery-banner.png")]
-            `}
-          >
-            
-            {/* TAGS INFO */}
-            <div
-              className={`
-              flex flex-col items-center justify-center 
-              gap-2 p-2 md:p-4 transition-all ease-in-out duration-500 
-              self-start w-full
-              max-w-full
-              min-[768px]:max-w-50 
-              min-[1024px]:max-w-58
-            `}>
+          <hr className="border-white/50 w-[90%] block mx-4" />
 
-              {/* SHOW/HIDE */}
-              <p
+          {/* MIDDLE-BOTTOM */}
+          <div className="flex h-full w-[80%]">
+
+            <div className="flex flex-col p-4 w-[62%] text-xs lg:text-sm">
+              <p>MROW intro hello</p>
+              <p>make this mid section transparent with floating divs? maybe drawing around here too</p>
+            </div>
+
+
+            {/* INTERACTABLES */}
+            <div className="flex flex-col p-4 m-4 h-40 w-[38%] text-xs lg:text-sm bg-white/50">
+              <p 
                 className={`
-                py-2 px-4
-                font-bold text-xl text-nowrap
-                hover:cursor-pointer bg-white/60 hover:bg-white transition-all duration-300 shadow-xl
-                rounded-md border-black/40 border text-black/70 hover:text-black
-                ${kosugi.className}
-                `}
-                onClick={() => showTagsHandler()}
+                cursor-pointer flex items-center gap-2`}
+                onClick={openQuestions === "closed" ? () => openQuestionHandler() : undefined}
               >
-                {tagHide ? "SHOW TAGS" : "HIDE TAGS"}
+                <span className="-translate-y-px text-[12px]">●</span>
+                <span className="hover:underline -translate-y-px flex w-full">i have questions (a lot)</span>
+              </p>
+              
+              <p 
+                className={`
+                cursor-pointer flex items-center gap-2`}
+                onClick={() => setContentVisible(false)}
+              >
+                <span className="-translate-y-px text-[12px]">●</span>
+                <span className="hover:underline -translate-y-px flex w-full">i wanna see the background</span>
               </p>
 
-              {/* ARTWORK COUNT */}
-              <div className="text-xs lg:text-sm text-white text-center">
-                {selectedTags.length > 0 ? (
-                  <p>
-                    <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
-                    <span className="">artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:</span><br />
-                    <span className="italic">
-                      {selectedTags.map((tag, index) => (
-                        <span key={tag}>
-                          <span
-                          className="underline hover:cursor-pointer hover:text-yellow-400 hover:font-bold"
-                          onClick={() => toggleTag(tag)}
-                          >
-                            {tag}
-                          </span>
-                          {index < selectedTags.length - 1 && ', '}
-                        </span>
-                      ))}
-                    </span>
-                  </p>
-                ) : (
-                  <p>
-                    showing all&nbsp;
-                    <span className="font-bold">{filteredArtworks.length}</span>
-                    &nbsp;artworks!<br />
-                    <span>:3</span>
-                  </p>
-                )}
-              </div>
-
-            </div>
-              
-            {/* BANNER */}
-            <div className="hidden md:flex items-center justify-center md:w-full transition-all ease-in-out duration-500">
             </div>
           </div>
 
         </div>
 
+        {/* TAGS SECTION */}
+        <div 
+          className={`
+          flex w-full bg-[#7a8896] 
+          bg-no-repeat bg-cover
+          border-black border-t
+          min-[1152px]:rounded-t-xl
+          min-[1152px]:border-x 
+          bg-[url("/images/gallery-banner-mobile.png")]
+          min-[768px]:bg-[url("/images/gallery-banner.png")]
+          `}
+        >
+          
+          {/* TAGS INFO */}
+          <div
+            className={`
+            flex flex-col items-center justify-center 
+            gap-2 p-2 md:p-4 transition-all ease-in-out duration-500 
+            self-start w-full
+            max-w-full
+            min-[768px]:max-w-50 
+            min-[1024px]:max-w-58
+          `}>
+
+            {/* SHOW/HIDE */}
+            <p
+              className={`
+              py-2 px-4
+              font-bold text-xl text-nowrap
+              hover:cursor-pointer bg-white/60 hover:bg-white transition-all duration-300 shadow-xl
+              rounded-md border-black/40 border text-black/70 hover:text-black
+              ${kosugi.className}
+              `}
+              onClick={() => showTagsHandler()}
+            >
+              {tagHide ? "SHOW TAGS" : "HIDE TAGS"}
+            </p>
+
+            {/* ARTWORK COUNT */}
+            <div className="text-xs lg:text-sm text-white text-center">
+              {selectedTags.length > 0 ? (
+                <p>
+                  <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
+                  <span className="">artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:</span><br />
+                  <span className="italic">
+                    {selectedTags.map((tag, index) => (
+                      <span key={tag}>
+                        <span
+                        className="underline hover:cursor-pointer hover:text-yellow-400 hover:font-bold"
+                        onClick={() => toggleTag(tag)}
+                        >
+                          {tag}
+                        </span>
+                        {index < selectedTags.length - 1 && ', '}
+                      </span>
+                    ))}
+                  </span>
+                </p>
+              ) : (
+                <p>
+                  showing all&nbsp;
+                  <span className="font-bold">{filteredArtworks.length}</span>
+                  &nbsp;artworks!<br />
+                  <span>:3</span>
+                </p>
+              )}
+            </div>
+
+          </div>
+            
+          {/* BANNER */}
+          <div className="hidden md:flex items-center justify-center md:w-full transition-all ease-in-out duration-500">
+          </div>
+        </div>
+
         {/* GALLERY */}
-        <div className={`flex md:flex-row flex-col bg-gray-100`}>
+        <div 
+          className={`
+          flex 
+          flex-col 
+          min-[768px]:flex-row 
+          min-[1152px]:border-x 
+          bg-gray-100 
+          border-black
+          `}
+        >
 
           {/* LEFT / TAGS */}
           <div className={`
@@ -885,7 +907,15 @@ export default function GalleryComponent() {
         </div>
 
         {/* PAGE BUTTONS */}
-        <div className={`bg-gray-200 flex items-center justify-center gap-2 w-full ${currentArtworks.length > 0 && "py-6"}`}>
+        <div 
+          className={`
+          bg-gray-200 flex items-center 
+          justify-center gap-2 w-full 
+          border-black
+          min-[1152px]:border-x 
+          ${currentArtworks.length > 0 && "py-6"}
+          `}
+        >
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
             <button
               key={pageNum}
@@ -930,7 +960,7 @@ export default function GalleryComponent() {
 
       {/* BACKGROUND */}
       <div 
-        className={`fixed inset-0 overflow-hidden z-10 scale-250 cursor-pointer ${bgOrigin} ${contentVisible && "nonsel pointer-events-none"}`}
+        className={`fixed inset-0 overflow-hidden z-10 scale-250 cursor-pointer origin-top-left ${contentVisible && "nonsel pointer-events-none"}`}
         onClick={() => setBgLightBoxOpen(true)}
       >
         <Marquee speed={5} gradient={false} className="h-screen -mr-px" direction="left" autoFill={true}>
