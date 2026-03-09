@@ -406,9 +406,11 @@ export default function GalleryComponent() {
 
   const [contentVisible, setContentVisible] = useState(true);
   const [receptionFullscreen, setReceptionFullscreen] = useState(false);
+  const [bgOrigin, setBgOrigin] = useState<string>("origin-center");
 
   const [ready, setReady] = useState(false);
   useEffect(() => {
+    setBgOrigin(randomizer(["origin-top-left", "origin-center"]));
     setReady(true);
     fetchFeatArt();
     fetchArtworks();
@@ -426,7 +428,7 @@ export default function GalleryComponent() {
       </div>
 
       {/* CONTENT */}
-      <div className={`w-6xl max-w-screen flex flex-col transition-opacity duration-500 ${contentVisible ? "opacity-100" : "opacity-0 pointer-events-none nonsel"}`}>
+      <div className={`w-6xl max-w-screen flex flex-col transition-opacity duration-500 z-50 ${contentVisible ? "opacity-100" : "opacity-0 pointer-events-none nonsel"}`}>
 
         {/* HEADER */}
         <div className="w-full h-8 bg-white text-black rounded-t-xl flex items-center">
@@ -439,7 +441,7 @@ export default function GalleryComponent() {
         </div>
 
         {/* MAIN */}
-        <div className="max-h-160 min-h-160 flex flex-row items-center justify-center">
+        <div className="max-h-160 min-h-160 flex flex-row items-center justify-center bg-[#17191a]">
 
           {/* FEATURED ART */}
           <div
@@ -893,17 +895,27 @@ export default function GalleryComponent() {
       </div>
 
       {/* FOOTER */}
-      <div className={`${contentVisible ? "h-40 flex items-center justify-center w-screen bg-black" : "hidden"}`}>
+      <div className={`${contentVisible ? "h-40 flex items-center justify-center w-screen bg-black z-50" : "hidden"}`}>
         <p className="text-white">footer</p>
       </div>
 
       {/* OPEN CONTENT */}
       <p
-        className={`${contentVisible ? "hidden" : "fixed bottom-4 left-4 md:bottom-8 md:left-8 md:text-4xl text-white font-bold cursor-pointer"} ${sono.className}`}
+        className={`${contentVisible ? "hidden" : "z-50 fixed bottom-4 left-4 md:bottom-8 md:left-8 md:text-4xl text-white font-bold cursor-pointer meow"} ${sono.className}`}
         onClick={() => setContentVisible(true)}
       >
         take me back!
       </p>
+
+      <div className={`fixed inset-0 overflow-hidden z-10 scale-250 ${bgOrigin} nonsel pointer-events-none`}>
+        <Marquee speed={5} gradient={false} className="h-screen -mr-px" direction="left" autoFill={true}>
+          <img 
+            src={`/images/${contentVisible ? "gallery-bg-blurred" : "gallery-bg"}.png`}
+            alt="" 
+            className="h-screen w-auto"
+          />
+        </Marquee>
+      </div>
 
       {/* LIGHTBOX */}
       <Lightbox
