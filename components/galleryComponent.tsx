@@ -10,6 +10,7 @@ import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import { Oranienbaum, Gowun_Batang, Sono, Kosugi_Maru } from "next/font/google";
 import Marquee from "react-fast-marquee";
 import Footer from "@/components/footerComponent";
+import NextLink from "next/link";
 
 const oranienbaum = Oranienbaum({
   weight: "400",
@@ -421,6 +422,13 @@ export default function GalleryComponent() {
   const [contentVisible, setContentVisible] = useState(true);
   const [receptionFullscreen, setReceptionFullscreen] = useState(false);
 
+  const showRandomArt = () => {
+    setSelectedTags([]);
+    setCurrentPage(1);
+    const randomIndex = Math.floor(Math.random() * artworks.length);
+    openLightBox(randomIndex)
+  }
+
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
@@ -642,8 +650,8 @@ export default function GalleryComponent() {
         <div 
           className={`
             flex 
-            pl-4 py-2 pr-2 my-8 gap-4
-            w-140 min-h-80
+            pl-4 py-2 pr-2 my-16 gap-4
+            w-140 h-auto
             max-w-screen text-sm
             self-center  ${kosugi.className} relative
             text-black rounded-xs bg-white/80
@@ -662,12 +670,13 @@ export default function GalleryComponent() {
             &nbsp;
             <p>Have fun looking around!</p>
             
-            <hr className="my-4 border-black/50 w-full block" />
+            <hr className="mt-4 mb-2 border-black/50 w-full block" />
 
-            {/* INTERACTABLES */}
-            <div className="flex justify-between w-full h-full gap-4">
+            {/* BOTTOM */}
+            <div className="flex justify-between w-full h-full gap-4 pt-2">
 
-              <div className="flex flex-col items-center w-full">
+              {/* INTERACTABLES */}
+              <div className="flex flex-col text-nowrap w-full pb-2">
                 <p 
                   className={`
                   cursor-pointer flex items-center gap-2 rounded-sm`}
@@ -685,6 +694,25 @@ export default function GalleryComponent() {
                   <span className="text-[8px]">●</span>
                   <span className="hover:underline -translate-y-px flex w-full text-center">i wanna see the background</span>
                 </p>
+
+                <NextLink 
+                  href="/characters"
+                  className={`
+                  cursor-pointer flex items-center gap-2 rounded-sm`}
+                  onClick={() => console.log(`mrow`)}
+                >
+                  <span className="text-[8px]">●</span>
+                  <span className="hover:underline -translate-y-px flex w-full text-center">learn about my characters</span>
+                </NextLink>
+
+                <p 
+                  className={`
+                  cursor-pointer flex items-center gap-2 rounded-sm`}
+                  onClick={() => showRandomArt()}
+                >
+                  <span className="text-[8px]">●</span>
+                  <span className="hover:underline -translate-y-px flex w-full text-center">surprise me</span>
+                </p>
               </div>
               
               {/* MOBILE ME DRAWING */}
@@ -697,7 +725,7 @@ export default function GalleryComponent() {
           </div>
             
           {/* DESKTOP ME DRAWING */}
-          <div className="hidden sm:block border border-black self-end h-50 aspect-square relative nonsel pointer-events-none">
+          <div className="hidden sm:block border border-black self-end h-50 z-200 aspect-square relative nonsel pointer-events-none">
             <img src="/images/gallery-me.png" className="absolute bottom-0 right-0" />
           </div>
 
