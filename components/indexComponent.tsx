@@ -26,6 +26,7 @@ import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import type { SlideImage } from "yet-another-react-lightbox";
 import quotes from "@/components/quotes";
+import Footer from "@/components/footerComponent";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -65,10 +66,8 @@ const sono = Sono({
 })
 
 export default function Home() {
-  const currentYear = new Date().getFullYear();
   const discordUsernameRef = useRef<HTMLHeadingElement | null>(null);
-  const loginTextRef = useRef<HTMLParagraphElement | null>(null);
-  const mierTakethRef = useRef<HTMLImageElement | null>(null);
+  
   const [posts, setPosts] = useState<PostType[]>([]);
   const [latestPost, setLatestPost] = useState<PostType | null>(null);
   const [latestPostSnippet, setLatestPostSnippet] = useState<string | null>(null);
@@ -107,47 +106,6 @@ export default function Home() {
       clearProps: "transform,opacity",
     });
   };
-
-  const loginTexts = ["log in", "are you sure?", "ur not even admin go away", ">:p"]
-  const currentText = useRef(0);
-
-
-  const handleLoginClick = () => {
-    
-    if (currentText.current < 6) {
-      currentText.current++;
-      loginTextRef.current!.textContent = loginTexts[currentText.current % loginTexts.length];
-
-    } else {
-      const tl = gsap.timeline();
-
-      tl
-      .set(loginTextRef.current, {
-        pointerEvents: "none",
-      })
-      .set(mierTakethRef.current, {
-        visibility: "visible",
-      })
-      .to(mierTakethRef.current, {
-        xPercent: -75,
-        duration: 1,
-        ease: "power2.inOut",
-        yoyo: true,
-        repeat: 1
-      })
-      .to(loginTextRef.current, {
-        xPercent: 125,
-        duration: 1,
-        ease: "power2.inOut",
-      }, "<1")
-      .set(mierTakethRef.current, {
-        display: "none",
-      })
-      .set(loginTextRef.current, {
-        display: "none",
-      })
-    }
-  }
 
   const fetchPosts = async () => {
     const { error, data } = await supabase
@@ -1044,26 +1002,9 @@ export default function Home() {
       </div>  
       
       {/* FOOTER */}
-      <footer className="z-50 h-12">
-        <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white text-xs">
+      <Footer />
 
-          <p className="text-center">
-            Copyright © 2025 - {currentYear} Miercury. All Rights Reserved.
-            <br />
-            <a
-            href="mailto:admin@miercury.com"
-            className="hover:underline blue"
-            >admin@miercury.com</a>
-          </p>
-
-          <div className={`right-1 absolute flex items-center justify-center md:visible invisible`}>
-            <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 text-xs hover:underline blue cursor-pointer nonsel">log in</p>
-          </div>
-
-        </div>
-      </footer>
       <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
-      <img ref={mierTakethRef} src="/images/miertaketh.png" className="absolute z-100 nonsel -right-80 bottom-4 invisible" draggable="false" style={{ pointerEvents: "none" }} />
 
       <Stars />
 

@@ -9,6 +9,7 @@ import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import { Oranienbaum, Gowun_Batang, Sono, Kosugi_Maru } from "next/font/google";
 import Marquee from "react-fast-marquee";
+import Footer from "@/components/footerComponent";
 
 const oranienbaum = Oranienbaum({
   weight: "400",
@@ -957,9 +958,7 @@ export default function GalleryComponent() {
       </div>
 
       {/* FOOTER */}
-      <div className={`${contentVisible ? "h-40 flex items-center justify-center w-screen bg-black z-50" : "hidden"}`}>
-        <p className="text-white">footer</p>
-      </div>
+      <Footer />
 
       {/* OPEN CONTENT */}
       <div
