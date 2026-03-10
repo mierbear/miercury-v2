@@ -198,6 +198,7 @@ export default function GalleryComponent() {
   const infoRef = useRef<HTMLDivElement>(null);
 
   const [guideState, setGuideState] = useState<null | "annoyed" | "fine">(null);
+  const [currentShow, setCurrentShow] = useState<string | null>(null);
 
   const openTab = (tab: TabTypes) => {
     if (!infoRef.current || !questionsRef.current || !chatboxRef.current) return;
@@ -207,6 +208,7 @@ export default function GalleryComponent() {
     // LEAVE
     if (tab === null) {
       setCurrentTab(tab);
+      setCurrentShow(null);
       setOpenQuestions(false);
 
       if (guideState === "annoyed") {
@@ -245,10 +247,18 @@ export default function GalleryComponent() {
       // INQUIRE
       } else {
         setGuideState("fine")
+
+        const inquire = inquiry.find(item => item.key === tab);
+        if (inquire?.show) {
+          setCurrentShow(tab);
+        } else {
+          setCurrentShow(null);
+        }
+
         const data = inquiry.find(item => item.key === tab);
         if (data) {
           setAnswer(data.answer);
-          mierTalk(data.answer, 80);
+          mierTalk(data.answer, 40);
         }
       }
 
@@ -320,63 +330,62 @@ export default function GalleryComponent() {
     { 
       key: "process",
       question: "what's your process?",
-      answer: "process",
+      answer: "here ya go",
+      show: false,
     },
     { 
       key: "tools",
       question: "what do you use?",
-      answer: "tools",
+      answer: "an almost decade old wacom tablet with occasional sensitivity and touch issues thats clinging on for dear life",
+      show: false,
     },
     { 
       key: "comms",
       question: "commissions?",
-      answer: "comms",
-    },
-    { 
-      key: "inspos",
-      question: "who do you look up to?",
-      answer: "inspos",
+      answer: "no, generally im too busy. unless you can pay me really well maybe ill consider it",
+      show: false,
     },
     { 
       key: "beauty",
-      question: "controversial art takes?",
-      answer: "beauty",
+      question: "'controversial' art takes?",
+      answer: "i think art is objective.. more specifically beauty is objective. we all intrinsically know and can discern when something is beautiful or not",
+      show: false,
     },
-    
     { 
       key: "colors",
       question: "favorite colors?",
-      answer: "colors",
-    },
-    { 
-      key: "consistency",
-      question: "are you consistent?",
-      answer: "consistency",
-    },
-    { 
-      key: "critique",
-      question: "worst fundamental?",
-      answer: "critique",
+      answer: "if you couldn't tell already, its blue and yellow :D specifically these colors",
+      show: false,
     },
     { 
       key: "proud",
       question: "favorite fundamental?",
-      answer: "proud",
+      answer: "i love/hate color theory. its the best/worst",
+      show: false,
     },
     { 
       key: "advice",
       question: "any advice?",
-      answer: "advice",
+      answer: "never give up!!!!",
+      show: false,
     },
     { 
       key: "resource",
       question: "any resources?",
-      answer: "resource",
+      answer: "use these.",
+      show: false,
     },
     { 
       key: "meow",
-      question: "mrow?",
-      answer: "meow",
+      question: "meow?",
+      answer: "mrow",
+      show: false,
+    },
+    { 
+      key: "test",
+      question: "test?",
+      answer: "test",
+      show: true,
     },
   ]
 
@@ -581,18 +590,32 @@ export default function GalleryComponent() {
                 </div>
               </div>
 
-              {/* ILLUST */}
+              {/* BOOTH */}
               <div className={`w-full transition-w duration-1000 h-full bg-black/20 flex items-center justify-center relative`}>
                 
+                {/* SHOW SOMETHING */}
+                <div 
+                  className={`
+                  absolute flex justify-center w-full
+                  h-[70%] bg-black/50 transition-opacity
+                  duration-1000 nonsel pointer-events-none
+                  ${currentShow ? "opacity-100" : "opacity-0"}
+                  `}
+                >
+                  {currentShow ? (
+                    <img src={`/images/gallery-show-${currentShow}.png`} className="object-cover w-auto h-full" />
+                  ) : ""}
+                </div>
 
                 {/* CHATBOX */}
                 <div
                   className="max-w-[90%] max-h-[28%] rounded-sm p-2 bg-yellow-200/70 absolute bottom-2 flex items-center justify-center text-justify opacity-0 transition-opacity duration-500"
                   ref={chatboxRef}
                 >
-                  <p className={`text-sm md:text-base px-4 ${kosugi.className}`} ref={chatboxTextRef}>
+                  <p className={`text-sm md:text-base px-4 text-center ${kosugi.className}`} ref={chatboxTextRef}>
                   </p>
                 </div>
+                
               </div>
 
             </div>
