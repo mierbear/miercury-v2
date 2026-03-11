@@ -47,12 +47,13 @@ export default function GalleryComponent() {
       "fanart", 
     ]
 
-  const typeTags = 
+  const categoryTags = 
     [
       "favorite", 
       "shitpost", 
+      "collab", 
     ]
-  const originalTags = 
+  const worldTags = 
     [
       "pp",
       "mtwim",
@@ -66,8 +67,8 @@ export default function GalleryComponent() {
   const availableTags = [
     ...renderTags, 
     ...characterTags, 
-    ...typeTags, 
-    ...originalTags
+    ...categoryTags, 
+    ...worldTags
   ];
 
   const [artworks, setArtworks] = useState<ArtType[]>([]);
@@ -681,6 +682,7 @@ export default function GalleryComponent() {
           `}
         >
 
+          {/* WELCOME */}
           <div className="flex flex-col text-sm min-w-[50%]">
 
             <p className="self-center text-lg flex gap-4 text-center text-nowrap">
@@ -751,16 +753,6 @@ export default function GalleryComponent() {
           <div className="hidden sm:block border border-black self-end h-50 z-200 aspect-square relative nonsel pointer-events-none">
             <img src="/images/gallery-me.png" className="absolute bottom-0 right-0" />
           </div>
-
-
-
-            {/* <p className="text-xs">welcome to</p>
-            <p className={`text-5xl sm:text-7xl md:text-8xl text-center self-center flex gap-4 md:gap-8 text-nowrap ${oranienbaum.className}`}>
-              <span className="-translate-y-1 slight-slow-spin text-2xl sm:text-3xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
-                THE GALLERY
-              <span className="-translate-y-1 slight-slow-spin text-2xl sm:text-3xl md:text-5xl flex self-center text-yellow-300 white-glow">★</span>
-            </p> */}
-
             
         </div>
 
@@ -869,8 +861,10 @@ export default function GalleryComponent() {
               ${tagHide ? "pointer-events-none opacity-0 duration-400" : "opacity-100 duration-600"}
               `}
             >
-
-              {availableTags.map(tag => (
+              
+              <hr className="border-[#17191a]/20 w-[62%] mx-auto hidden md:block" />
+              <p className={`${sono.className} text-center text-nowrap w-full hidden md:block text-base`}><span className="text-xs">✦</span> STYLE</p>
+              {renderTags.map(tag => (
                 <div 
                   key={tag}
                   className={`
@@ -902,6 +896,108 @@ export default function GalleryComponent() {
                 </div>
               ))}
               
+              <hr className="border-[#17191a]/20 w-[62%] mx-auto hidden md:block mt-2" />
+              <p className={`${sono.className} text-center text-nowrap w-full hidden md:block text-base`}><span className="text-xs">✦</span> CHARACTERS</p>
+              {characterTags.map(tag => (
+                <div 
+                  key={tag}
+                  className={`
+                    flex items-center gap-2 cursor-pointer px-2.5 py-1 md:py-2
+                    rounded bg-white min-h-10 md:min-h-12 h-full w-full
+                    hover:bg-gray-50 border transition-colors
+                    ${selectedTags.includes(tag) ? "border-[#17191a]/40" : "border-[#17191a]/10"}
+                  `}
+                  onClick={() => toggleTag(tag)}
+                >
+                  <div
+                    className={`
+                      cursor-pointer relative
+                      h-3 w-3 shrink-0
+                    `}
+                  >
+                    <div className={`w-full h-full rounded-full bg-black absolute`}></div>
+                    <div className={`w-full h-full rounded-full bg-white absolute transition-scale duration-500 ${selectedTags.includes(tag) ? "scale-0" : "scale-90"}`}></div>
+                  </div>
+                  <p className={`text-xs sm:text-sm lg:text-base truncate`}>
+                    <span className={`${selectedTags.includes(tag) && 'font-bold'}`}>
+                    {tag}
+                    </span>
+                    &nbsp;
+                    <span className={`text-xs sm:text-sm text-black/80`}>
+                    ({artworks.filter(artwork => artwork.tags?.includes(tag)).length})
+                    </span>
+                  </p>
+                </div>
+              ))}
+
+              <hr className="border-[#17191a]/20 w-[62%] mx-auto hidden md:block mt-2" />
+              <p className={`${sono.className} text-center text-nowrap w-full hidden md:block text-base`}><span className="text-xs">✦</span> CATEGORIES</p>
+              {categoryTags.map(tag => (
+                <div 
+                  key={tag}
+                  className={`
+                    flex items-center gap-2 cursor-pointer px-2.5 py-1 md:py-2
+                    rounded bg-white min-h-10 md:min-h-12 h-full w-full
+                    hover:bg-gray-50 border transition-colors
+                    ${selectedTags.includes(tag) ? "border-[#17191a]/40" : "border-[#17191a]/10"}
+                  `}
+                  onClick={() => toggleTag(tag)}
+                >
+                  <div
+                    className={`
+                      cursor-pointer relative
+                      h-3 w-3 shrink-0
+                    `}
+                  >
+                    <div className={`w-full h-full rounded-full bg-black absolute`}></div>
+                    <div className={`w-full h-full rounded-full bg-white absolute transition-scale duration-500 ${selectedTags.includes(tag) ? "scale-0" : "scale-90"}`}></div>
+                  </div>
+                  <p className={`text-xs sm:text-sm lg:text-base truncate`}>
+                    <span className={`${selectedTags.includes(tag) && 'font-bold'}`}>
+                    {tag}
+                    </span>
+                    &nbsp;
+                    <span className={`text-xs sm:text-sm text-black/80`}>
+                    ({artworks.filter(artwork => artwork.tags?.includes(tag)).length})
+                    </span>
+                  </p>
+                </div>
+              ))}
+
+              <hr className="border-[#17191a]/20 w-[62%] mx-auto hidden md:block mt-2" />
+              <p className={`${sono.className} text-center text-nowrap w-full hidden md:block text-base`}><span className="text-xs">✦</span> WORLDS</p>
+              {worldTags.map(tag => (
+                <div 
+                  key={tag}
+                  className={`
+                    flex items-center gap-2 cursor-pointer px-2.5 py-1 md:py-2
+                    rounded bg-white min-h-10 md:min-h-12 h-full w-full
+                    hover:bg-gray-50 border transition-colors
+                    ${selectedTags.includes(tag) ? "border-[#17191a]/40" : "border-[#17191a]/10"}
+                  `}
+                  onClick={() => toggleTag(tag)}
+                >
+                  <div
+                    className={`
+                      cursor-pointer relative
+                      h-3 w-3 shrink-0
+                    `}
+                  >
+                    <div className={`w-full h-full rounded-full bg-black absolute`}></div>
+                    <div className={`w-full h-full rounded-full bg-white absolute transition-scale duration-500 ${selectedTags.includes(tag) ? "scale-0" : "scale-90"}`}></div>
+                  </div>
+                  <p className={`text-xs sm:text-sm lg:text-base truncate`}>
+                    <span className={`${selectedTags.includes(tag) && 'font-bold'}`}>
+                    {tag}
+                    </span>
+                    &nbsp;
+                    <span className={`text-xs sm:text-sm text-black/80`}>
+                    ({artworks.filter(artwork => artwork.tags?.includes(tag)).length})
+                    </span>
+                  </p>
+                </div>
+              ))}
+
             </div>
             
           </div>
