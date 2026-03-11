@@ -42,6 +42,13 @@ export default function GalleryComponent() {
   const [worldOpen, setWorldOpen] = useState(true)
 
   const tagStates = [styleOpen, characterOpen, categoryOpen, worldOpen];
+  const setTagStates = [setStyleOpen, setCharacterOpen, setCategoryOpen, setWorldOpen]
+
+  const expandTagsHandler = () => {
+    tagStates.some(Boolean) 
+    ? setTagStates.forEach(func => func(false))
+    : setTagStates.forEach(func => func(true))
+  }
 
   const styleTags = {
     name: "STYLE",
@@ -49,8 +56,8 @@ export default function GalleryComponent() {
     setState: () => setStyleOpen(prev => !prev),
     tags:
     [
-      "sketch", 
       "rendered", 
+      "sketch", 
     ],
   }
 
@@ -74,8 +81,8 @@ export default function GalleryComponent() {
     tags:
     [
       "favorite", 
-      "shitpost", 
       "collab", 
+      "shitpost",
     ],
   }
     
@@ -85,8 +92,8 @@ export default function GalleryComponent() {
     setState: () => setWorldOpen(prev => !prev),
     tags:
     [
-      "pp",
       "mtwim",
+      "pp",
       "flower delivery",
       "skulls",
       "cave hermit",
@@ -444,7 +451,7 @@ export default function GalleryComponent() {
     setOrientation(img.naturalWidth > img.naturalHeight ? 'landscape' : 'portrait');
     const orient = img.naturalWidth > img.naturalHeight ? 'landscape' : 'portrait';
 
-    console.log("orientation: ", orient);
+    // console.log("orientation: ", orient);
   };
 
   const [tagHide, setTagHide] = useState(false);
@@ -736,11 +743,14 @@ export default function GalleryComponent() {
             <div className="flex justify-between w-full h-full gap-4 pt-2">
 
               {/* INTERACTABLES */}
-              <div className="flex flex-col text-nowrap w-full pb-2">
+              <div className="flex flex-col text-nowrap pb-2">
                 <p 
                   className={`
-                  cursor-pointer flex items-center gap-2 rounded-sm`}
-                  onClick={openQuestions === "closed" ? () => openQuestionHandler() : undefined}
+                  flex items-center gap-2 rounded-sm
+                  line-through cursor-not-allowed
+                `}
+                  onClick={() => alert(`not yet..`)}
+                  // onClick={openQuestions === "closed" ? () => openQuestionHandler() : undefined}
                 >
                   <span className="text-[8px]">●</span>
                   <span className="hover:underline -translate-y-px flex w-full text-center">i have questions (a lot)</span>
@@ -907,7 +917,7 @@ export default function GalleryComponent() {
                   >
 
                     {tag.name === tags[0].name && (
-                      <hr className={`border-[#17191a]/20 w-full mx-auto hidden md:block`} />
+                      <hr className="border-gray-400/60 w-full mx-auto hidden md:block" />
                     )}
 
                     {/* BUTTON */}
@@ -959,7 +969,7 @@ export default function GalleryComponent() {
                             flex items-center gap-2 cursor-pointer px-2 py-1 md:py-2 rounded 
                             min-h-10 md:min-h-12 h-full w-full
                             border transition-colors duration-300
-                            ${selectedTags.includes(eachTag) ? "border-yellow-700/40 border bg-yellow-100 hover:bg-yellow-200" : "border-[#17191a]/10 bg-white hover:bg-gray-50"}
+                            ${selectedTags.includes(eachTag) ? "border-yellow-700/40 border bg-yellow-100 hover:bg-yellow-200" : "border-gray-300 bg-white hover:bg-gray-50"}
                             ${eachTag === tag.tags[tag.tags.length - 1] && "md:mb-2 mb-0"}
                           `}
                           onClick={() => toggleTag(eachTag)}
@@ -975,7 +985,7 @@ export default function GalleryComponent() {
                           <p className="text-sm md:text-base truncate">
                             <span className={selectedTags.includes(eachTag) ? "font-bold text-yellow-700" : "text-gray-600"}>{eachTag}</span>
                             &nbsp;
-                            <span className={`text-xs md:text-sm ${selectedTags.includes(eachTag) ? "text-yellow-700/70" : "text-gray-500/60"}`}>
+                            <span className={`text-xs md:text-sm ${selectedTags.includes(eachTag) ? "text-yellow-700/70" : "text-gray-500/80"}`}>
                               ({artworks.filter(artwork => artwork.tags?.includes(eachTag)).length})
                             </span>
                           </p>
@@ -984,7 +994,7 @@ export default function GalleryComponent() {
                       ))}
                     </div>
 
-                    <hr className="border-[#17191a]/20 w-full mx-auto hidden md:block" />
+                    <hr className="border-gray-400/60 w-full mx-auto hidden md:block" />
                   </div>
                 ))}
               </div>
@@ -998,7 +1008,7 @@ export default function GalleryComponent() {
                   >
 
                     {tag.name === tags[0].name && (
-                      <hr className={`border-[#17191a]/20 w-full mx-auto hidden md:block`} />
+                      <hr className="border-gray-400/60 w-full mx-auto hidden md:block" />
                     )}
 
                     {/* BUTTON */}
@@ -1050,7 +1060,7 @@ export default function GalleryComponent() {
                             flex items-center gap-2 cursor-pointer px-2 py-1 md:py-2 rounded 
                             min-h-10 md:min-h-12 h-full w-full
                             border transition-colors duration-300
-                            ${selectedTags.includes(eachTag) ? "border-yellow-700/40 border bg-yellow-100 hover:bg-yellow-200" : "border-[#17191a]/10 bg-white hover:bg-gray-50"}
+                            ${selectedTags.includes(eachTag) ? "border-yellow-700/40 border bg-yellow-100 hover:bg-yellow-200" : "border-gray-300 bg-white hover:bg-gray-50"}
                             ${eachTag === tag.tags[tag.tags.length - 1] && "md:mb-2 mb-0"}
                           `}
                           onClick={() => toggleTag(eachTag)}
@@ -1066,7 +1076,7 @@ export default function GalleryComponent() {
                           <p className="text-sm md:text-base truncate">
                             <span className={selectedTags.includes(eachTag) ? "font-bold text-yellow-700" : "text-gray-600"}>{eachTag}</span>
                             &nbsp;
-                            <span className={`text-xs md:text-sm ${selectedTags.includes(eachTag) ? "text-yellow-700/80" : "text-gray-500/60"}`}>
+                            <span className={`text-xs md:text-sm ${selectedTags.includes(eachTag) ? "text-yellow-700/80" : "text-gray-500/80"}`}>
                               ({artworks.filter(artwork => artwork.tags?.includes(eachTag)).length})
                             </span>
                           </p>
@@ -1075,9 +1085,22 @@ export default function GalleryComponent() {
                       ))}
                     </div>
 
-                    <hr className="border-[#17191a]/20 w-full mx-auto hidden md:block" />
+                    <hr className="border-gray-400/60 w-full mx-auto hidden md:block" />
                   </div>
                 ))}
+
+                <p 
+                  className={`
+                    ${tagStates.some(Boolean) ? "rotate-180" : "pt-1.5"}
+                    ${sono.className} 
+                    text-[10px] text-center hidden md:flex 
+                    cursor-pointer text-gray-400 self-center
+                  `}  
+                  onClick={expandTagsHandler}
+                >
+                  ▼
+                </p>
+                
               </div>
               
             </div>
@@ -1169,7 +1192,7 @@ export default function GalleryComponent() {
         {/* PAGE BUTTONS */}
         <div 
           className={`
-          bg-[rgb(41,44,45)] flex items-center 
+          bg-[rgb(44,47,48)] flex items-center 
           justify-center gap-2 w-full 
           border-[#17191a]
           min-[1152px]:border-x py-6

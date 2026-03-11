@@ -47,7 +47,7 @@ const GamesList = () => {
       if (isDesktop()) {
         listRef.current!.style.gridTemplateColumns = "1fr 1fr 1fr";
         listRef.current!.style.removeProperty("grid-template-rows");
-        console.log(`is desktop :3`)
+        // console.log(`is desktop :3`)
       } else {
         listRef.current!.style.removeProperty("grid-template-columns");
         listRef.current!.style.removeProperty("grid-template-rows");

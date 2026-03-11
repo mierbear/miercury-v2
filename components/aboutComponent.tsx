@@ -456,7 +456,7 @@ export default function Home() {
 
     // nothing
     else {
-      console.log(`null detect`)
+      // console.log(`null detect`)
       setActiveList(category);
     }
 
@@ -477,19 +477,19 @@ export default function Home() {
       // not the same
       if (activeList !== category && activeList !== null) {
         if (!carouselContainerRef.current) return;
-        console.log("NOT THE SAME:", activeList);
+        // console.log("NOT THE SAME:", activeList);
         carouselContainerRef.current.style.opacity = "1";
         setActiveList(category);
         
         // the same
       } else if (activeList === category) {
         setActiveList(null);
-        console.log("THE SAME:", activeList);
+        // console.log("THE SAME:", activeList);
         
         // nothing
       } else {
         setActiveList(category);
-        console.log("NOTHING:", activeList);
+        // console.log("NOTHING:", activeList);
       } 
       
     }, 200);
@@ -508,7 +508,7 @@ export default function Home() {
   const turnOffLists = () => {
     if (!aboutRef.current || !carouselContainerRef.current) return;
 
-    console.log(`the facts are ${meActive ? "open" : "closed"}`);
+    // console.log(`the facts are ${meActive ? "open" : "closed"}`);
 
     // CLOSE THE FACTS
     if (meActive) {

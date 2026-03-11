@@ -31,7 +31,7 @@ const NavMenu = () => {
   const router = useRouter();
 
   const pathname = usePathname();
-  console.log(pathname);
+  // console.log(pathname);
 
   const navMenuRef = useRef<HTMLDivElement | null>(null);
   const overlayRef = useRef<HTMLDivElement | null>(null);
@@ -181,7 +181,7 @@ const NavMenu = () => {
   useEffect(() => {
     const handleResize = () => {
       if (isDesktop()) {
-        console.log(`is desktop :3`)
+        // console.log(`is desktop :3`)
       } else {
         resetInlineStyles();
       }
@@ -217,7 +217,7 @@ const NavMenu = () => {
       return;
     }
     
-    console.log(data);
+    // console.log(data);
     setArtwork(data[0]);
   }
 
@@ -249,7 +249,7 @@ const NavMenu = () => {
     const data = [];
     data.push(randomizer(potentialCrowd.filter((person) => person.position === "left")))
     data.push(randomizer(potentialCrowd.filter((person) => person.position === "right")))
-    console.log(data);
+    // console.log(data);
     setCrowd(data); 
   }
 
