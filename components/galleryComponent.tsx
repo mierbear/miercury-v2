@@ -41,6 +41,8 @@ export default function GalleryComponent() {
   const [categoryOpen, setCategoryOpen] = useState(true)
   const [worldOpen, setWorldOpen] = useState(true)
 
+  const tagStates = [styleOpen, characterOpen, categoryOpen, worldOpen];
+
   const styleTags = {
     name: "STYLE",
     state: styleOpen,
@@ -62,7 +64,7 @@ export default function GalleryComponent() {
       "friends", 
       "fanart", 
     ],
-    }
+  }
     
 
   const categoryTags = {
@@ -75,7 +77,7 @@ export default function GalleryComponent() {
       "shitpost", 
       "collab", 
     ],
-    }
+  }
     
   const worldTags = {
     name: "WORLD",
@@ -91,13 +93,13 @@ export default function GalleryComponent() {
       "simeons descent",
       "mier",
     ],
-    }
+  }
 
   const tags = [
     styleTags, 
     characterTags, 
     categoryTags, 
-    worldTags
+    worldTags,
   ];
 
   const [artworks, setArtworks] = useState<ArtType[]>([]);
@@ -475,6 +477,10 @@ export default function GalleryComponent() {
     fetchArtworks();
     if (isPhone) {
       setTagHide(true);
+      setStyleOpen(false);
+      setCharacterOpen(false);
+      setCategoryOpen(false);
+      setWorldOpen(false);
     }
   }, []);
 
@@ -707,7 +713,7 @@ export default function GalleryComponent() {
             w-140 h-auto
             max-w-screen text-sm
             self-center  ${kosugi.className} relative
-            text-black rounded-xs bg-white/80
+            text-[#17191a] rounded-xs bg-white/80
           `}
         >
 
@@ -815,7 +821,7 @@ export default function GalleryComponent() {
               py-2 px-4
               font-bold text-xl text-nowrap
               hover:cursor-pointer bg-white/60 hover:bg-white transition-all duration-300 shadow-xl
-              rounded-md border-[#17191a]/40 border text-black/70 hover:text-black
+              rounded-md border-[#17191a]/40 border text-[#17191a]/70 hover:text-[#17191a]
               ${kosugi.className}
               `}
               onClick={() => showTagsHandler()}
@@ -878,7 +884,7 @@ export default function GalleryComponent() {
             transition-all duration-500 overflow-hidden md:mt-4 mx-2
             ${tagHide 
               ? "max-h-0 mt-0 md:h-auto md:mx-0 md:w-0" 
-              : "max-h-auto py-2 md:py-0 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4"}
+              : `${tagStates.some(Boolean) ? "max-h-119" : "max-h-35"} py-2 md:py-0 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4`}
             `}
           >
 
@@ -886,87 +892,200 @@ export default function GalleryComponent() {
             <div className={`
               grid grid-cols-2 md:grid-cols-1
               justify-around w-full overflow-hidden
+              items-start md:gap-0 gap-2
               transition-opacity
               ${tagHide ? "pointer-events-none opacity-0 duration-400" : "opacity-100 duration-600"}
               `}
             >
               
-              {tags.map(tag => (
-                <div 
-                  className={`w-full ${tag.name === tags[tags.length - 1].name && "col-start-2 row-start-1 row-span-3 md:col-start-auto md:row-start-auto md:row-span-1"}`}
-                  key={tag.name}  
-                >
-
-                  {tag.name === tags[0].name && (
-                    <hr className={`border-[#17191a]/20 w-full mx-auto hidden md:block`} />
-                  )}
-
-                  {/* BUTTON */}
-                  <button
-                    onClick={tag.setState}
-                    className={`flex items-center gap-2 md:gap-3 w-full pl-2 py-2 md:ml-px text-sm md:text-base cursor-pointer select-none ${sono.className}`}
+              {/* FIRST COL */}
+              <div className="gap-0.5 flex flex-col flex-1">
+                {tags.slice(0, 3).map(tag => (
+                  <div 
+                    className={`w-full ${tag.name === tags[tags.length - 1].name && "col-start-2 row-start-1 row-span-3 md:col-start-auto md:row-start-auto md:row-span-1"}`}
+                    key={tag.name}  
                   >
 
-                    <span className={`
-                      ${tag.state ? "scale-100" : "scale-70 -rotate-90 -translate-y-px"} 
-                      text-xs md:text-xl w-3 h-3 flex items-center justify-center
-                      transition-all duration-500`}
+                    {tag.name === tags[0].name && (
+                      <hr className={`border-[#17191a]/20 w-full mx-auto hidden md:block`} />
+                    )}
+
+                    {/* BUTTON */}
+                    <button
+                      onClick={tag.setState}
+                      className={`
+                        flex items-center w-full
+                        pl-2 py-2 h-10 gap-3
+                        cursor-pointer select-none 
+                        transition-gap duration-500
+                        ${sono.className}
+                        ${tag.state ? "text-gray-800 mb-0.5 md:mb-0" : "text-gray-600"}
+                      `}
                     >
-                      {tag.state ? "★" : "✦"}
-                    </span>
 
-                    <span className={`hover:underline underline-offset-2 w-full h-full text-start`}
-                    >
-                      {tag.name}
-                    </span>
-
-                  </button>
-
-                  {/* DROPDOWN */}
-                  <div className={`overflow-hidden transition-all gap-0.5 duration-300 items-center justify-around flex flex-col ${tag.state ? "max-h-auto opacity-100" : "max-h-0 opacity-0"}`}>
-                    {tag.tags.map(eachTag => (
-                      <div
-                        key={eachTag}
-                        className={`
-                          flex items-center gap-2 cursor-pointer px-2 py-1 md:py-2 rounded 
-                          min-h-10 md:min-h-12 h-full w-full
-                          border transition-colors duration-300
-                          ${selectedTags.includes(eachTag) ? "border-yellow-700/40 border bg-yellow-100 hover:bg-yellow-200 text-yellow-700" : "border-[#17191a]/10 bg-white hover:bg-gray-50"}
-                          ${eachTag === tag.tags[tag.tags.length - 1] && "mb-2"}
-                        `}
-                        onClick={() => toggleTag(eachTag)}
+                      <span className={`
+                        ${tag.state ? "scale-100" : "scale-70 -rotate-90 -translate-y-px"} 
+                        text-xl md:text-2xl w-3 h-3 ml-px flex items-center justify-center
+                        transition-all duration-500`}
                       >
+                        {tag.state ? "★" : "✦"}
+                      </span>
 
-                        {/* CHECK */}
-                        <div className="cursor-pointer relative h-3 w-3 shrink-0 scale-70">
-                          <div className={`w-full h-full rounded-full transition-bg duration-100 ${selectedTags.includes(eachTag) ? "bg-yellow-500 scale-130" : "bg-black scale-100"} absolute`}></div>
-                          <div className={`w-full h-full rounded-full bg-white absolute transition-scale duration-500 ${selectedTags.includes(eachTag) ? "scale-0" : "scale-80"}`}></div>
+                      <span 
+                        className={`
+                          hover:underline underline-offset-2 text-base   md:text-lg
+                          w-full h-full text-start flex items-center
+                          origin-left transition-[scale] duration-500
+                          ${tag.state ? "scale-100" : "scale-90"}
+                        `}
+                      >
+                        {tag.name}
+                      </span>
+
+                    </button>
+
+                    {/* DROPDOWN */}
+                    <div 
+                      className={`
+                      overflow-hidden transition-all gap-0.5 duration-300 
+                      items-center justify-around flex flex-col 
+                      ${tag.state ? "max-h-auto opacity-100" : "max-h-0 opacity-0"}
+                      `}
+                    >
+                      {tag.tags.map(eachTag => (
+                        <div
+                          key={eachTag}
+                          className={`
+                            flex items-center gap-2 cursor-pointer px-2 py-1 md:py-2 rounded 
+                            min-h-10 md:min-h-12 h-full w-full
+                            border transition-colors duration-300
+                            ${selectedTags.includes(eachTag) ? "border-yellow-700/40 border bg-yellow-100 hover:bg-yellow-200" : "border-[#17191a]/10 bg-white hover:bg-gray-50"}
+                            ${eachTag === tag.tags[tag.tags.length - 1] && "md:mb-2 mb-0"}
+                          `}
+                          onClick={() => toggleTag(eachTag)}
+                        >
+
+                          {/* CHECK */}
+                          <div className="cursor-pointer relative h-3 w-3 shrink-0 scale-70">
+                            <div className={`w-full h-full rounded-full transition-bg duration-100 ${selectedTags.includes(eachTag) ? "bg-yellow-500 scale-130" : "bg-gray-500 scale-100"} absolute`}></div>
+                            <div className={`w-full h-full rounded-full bg-white absolute transition-scale duration-500 ${selectedTags.includes(eachTag) ? "scale-0" : "scale-80"}`}></div>
+                          </div>
+
+                          {/* TEXT */}
+                          <p className="text-sm md:text-base truncate">
+                            <span className={selectedTags.includes(eachTag) ? "font-bold text-yellow-700" : "text-gray-600"}>{eachTag}</span>
+                            &nbsp;
+                            <span className={`text-xs md:text-sm ${selectedTags.includes(eachTag) ? "text-yellow-700/70" : "text-gray-500/60"}`}>
+                              ({artworks.filter(artwork => artwork.tags?.includes(eachTag)).length})
+                            </span>
+                          </p>
+
                         </div>
+                      ))}
+                    </div>
 
-                        {/* TEXT */}
-                        <p className="text-xs sm:text-sm lg:text-base truncate">
-                          <span className={selectedTags.includes(eachTag) ? "font-bold" : ""}>{eachTag}</span>
-                          &nbsp;
-                          <span className="text-xs sm:text-sm text-black/80">
-                            ({artworks.filter(artwork => artwork.tags?.includes(eachTag)).length})
-                          </span>
-                        </p>
-
-                      </div>
-                    ))}
+                    <hr className="border-[#17191a]/20 w-full mx-auto hidden md:block" />
                   </div>
+                ))}
+              </div>
+              
+              {/* 2ND COL */}
+              <div className="gap-0.5 flex flex-col flex-1">
+                {tags.slice(3).map(tag => (
+                  <div 
+                    className={`w-full ${tag.name === tags[tags.length - 1].name && "col-start-2 row-start-1 row-span-3 md:col-start-auto md:row-start-auto md:row-span-1"}`}
+                    key={tag.name}  
+                  >
 
-                  <hr className="border-[#17191a]/20 w-full mx-auto hidden md:block" />
-                </div>
+                    {tag.name === tags[0].name && (
+                      <hr className={`border-[#17191a]/20 w-full mx-auto hidden md:block`} />
+                    )}
 
-              ))}
+                    {/* BUTTON */}
+                    <button
+                      onClick={tag.setState}
+                      className={`
+                        flex items-center w-full
+                        pl-2 py-2 h-10 gap-3
+                        cursor-pointer select-none 
+                        transition-gap duration-500
+                        ${sono.className}
+                        ${tag.state ? "text-gray-800 mb-0.5 md:mb-0" : "text-gray-600"}
+                      `}
+                    >
 
+                      <span className={`
+                        ${tag.state ? "scale-100" : "scale-70 -rotate-90 -translate-y-px"} 
+                        text-xl md:text-2xl w-3 h-3 ml-px flex items-center justify-center
+                        transition-all duration-500`}
+                      >
+                        {tag.state ? "★" : "✦"}
+                      </span>
+
+                      <span 
+                        className={`
+                          hover:underline underline-offset-2 text-base   md:text-lg
+                          w-full h-full text-start flex items-center
+                          origin-left transition-[scale] duration-500
+                          ${tag.state ? "scale-100" : "scale-90"}
+                        `}
+                      >
+                        {tag.name}
+                      </span>
+
+                    </button>
+
+                    {/* DROPDOWN */}
+                    <div 
+                      className={`
+                      overflow-hidden transition-all gap-0.5 duration-300 
+                      items-center justify-around flex flex-col 
+                      ${tag.state ? "max-h-auto opacity-100" : "max-h-0 opacity-0"}
+                      `}
+                    >
+                      {tag.tags.map(eachTag => (
+                        <div
+                          key={eachTag}
+                          className={`
+                            flex items-center gap-2 cursor-pointer px-2 py-1 md:py-2 rounded 
+                            min-h-10 md:min-h-12 h-full w-full
+                            border transition-colors duration-300
+                            ${selectedTags.includes(eachTag) ? "border-yellow-700/40 border bg-yellow-100 hover:bg-yellow-200" : "border-[#17191a]/10 bg-white hover:bg-gray-50"}
+                            ${eachTag === tag.tags[tag.tags.length - 1] && "md:mb-2 mb-0"}
+                          `}
+                          onClick={() => toggleTag(eachTag)}
+                        >
+
+                          {/* CHECK */}
+                          <div className="cursor-pointer relative h-3 w-3 shrink-0 scale-70">
+                            <div className={`w-full h-full rounded-full transition-bg duration-100 ${selectedTags.includes(eachTag) ? "bg-yellow-500 scale-130" : "bg-gray-500 scale-100"} absolute`}></div>
+                            <div className={`w-full h-full rounded-full bg-white absolute transition-scale duration-500 ${selectedTags.includes(eachTag) ? "scale-0" : "scale-80"}`}></div>
+                          </div>
+
+                          {/* TEXT */}
+                          <p className="text-sm md:text-base truncate">
+                            <span className={selectedTags.includes(eachTag) ? "font-bold text-yellow-700" : "text-gray-600"}>{eachTag}</span>
+                            &nbsp;
+                            <span className={`text-xs md:text-sm ${selectedTags.includes(eachTag) ? "text-yellow-700/80" : "text-gray-500/60"}`}>
+                              ({artworks.filter(artwork => artwork.tags?.includes(eachTag)).length})
+                            </span>
+                          </p>
+
+                        </div>
+                      ))}
+                    </div>
+
+                    <hr className="border-[#17191a]/20 w-full mx-auto hidden md:block" />
+                  </div>
+                ))}
+              </div>
+              
             </div>
             
           </div>
 
           {/* RIGHT / ART */}
-          <div className="flex flex-col flex-85 items-center min-h-100 md:min-h-153 bg-black/10 relative">
+          <div className="flex flex-col flex-85 items-center min-h-100 md:min-h-153 bg-gray-600/10 relative">
             {/* ARTWORK */}
             <div 
               className={`
@@ -1014,14 +1133,14 @@ export default function GalleryComponent() {
               <div className="text-center flex flex-col gap-2 inset-0 items-center justify-center p-4 text-nowrap absolute nonsel pointer-events-none">
 
                 <p className={`
-                  md:text-9xl text-7xl text-black/20
+                  md:text-9xl text-7xl text-[#17191a]/20
                   ${face === sadFaces[2] && "translate-x-6"}
                   ${oranienbaum.className}
                 `}>
                   {face}
                 </p>
 
-                <p className={`text-black text-xs md:text-sm font-bold ${sono.className}`}>
+                <p className={`text-[#17191a] text-xs md:text-sm font-bold ${sono.className}`}>
                   nothing to see here...
                 </p>
 
@@ -1050,7 +1169,7 @@ export default function GalleryComponent() {
         {/* PAGE BUTTONS */}
         <div 
           className={`
-          bg-[#adb1b3] flex items-center 
+          bg-[rgb(41,44,45)] flex items-center 
           justify-center gap-2 w-full 
           border-[#17191a]
           min-[1152px]:border-x py-6
@@ -1061,14 +1180,14 @@ export default function GalleryComponent() {
               key={pageNum}
               onClick={() => setCurrentPage(pageNum)}
               className={`
-                cursor-pointer
-                ${currentPage === pageNum 
-                  ? "bg-black text-white"
-                  : "bg-black/40 hover:bg-black/80 text-white"
+                cursor-pointer border
+                ${currentPage === pageNum
+                  ? "bg-yellow-200 text-yellow-900 border-yellow-700/50 font-semibold"
+                  : "bg-white text-gray-500 border-gray-200 hover:bg-yellow-100 hover:text-yellow-800 hover:border-yellow-500/40"
                 }
-                ${sono.className}
+                ${kosugi.className}
                 transition-bg duration-300
-                text-xs rounded-full aspect-square
+                rounded-full aspect-square
                 h-8 w-8
               `}
             >
