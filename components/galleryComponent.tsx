@@ -18,12 +18,12 @@ const oranienbaum = Oranienbaum({
 })
 
 const gowun = Gowun_Batang({
-  weight: "400",
+  weight: ["400", "700"],
   subsets: ["latin"],
 })
 
 const sono = Sono({
-  weight: "400",
+  weight: ["400", "700"],
   subsets: ["latin"],
 })
 
@@ -726,17 +726,17 @@ export default function GalleryComponent() {
             w-140 h-auto
             max-w-screen text-sm
             self-center  ${kosugi.className} relative
-            text-[#17191a] rounded-xs bg-white/80
+            text-[#17191a] rounded-xs bg-gray-50/90
           `}
         >
 
           {/* WELCOME */}
           <div className="flex flex-col text-sm min-w-[50%]">
 
-            <p className="self-center text-lg flex gap-4 text-center text-nowrap">
-              <span className="slight-slow-spin text-yellow-400">★</span>
-              Welcome to The Gallery
-              <span className="slight-slow-spin text-yellow-400">★</span>
+            <p className={`self-center text-lg flex gap-4 text-center text-nowrap font-bold ${gowun.className}`}>
+              <span className="slight-slow-spin text-yellow-300">★</span>
+              Welcome to The Gallery!
+              <span className="slight-slow-spin text-yellow-300">★</span>
             </p>
 
             <p className="text-justify">This is where I'll be posting some of my artwork, everything from worlds I'm building, to fragments of ideas, to fanart and to nonsensical drawings.</p>
@@ -746,14 +746,14 @@ export default function GalleryComponent() {
             <hr className="mt-4 mb-2 border-black/50 w-full block" />
 
             {/* BOTTOM */}
-            <div className="flex justify-between w-full h-full gap-4 pt-2">
+            <div className={`flex justify-between w-full h-full gap-4 pt-2 ${sono.className}`}>
 
               {/* INTERACTABLES */}
               <div className="flex flex-col text-nowrap pb-2">
                 <p 
                   className={`
                   flex items-center gap-2 rounded-sm
-                  line-through cursor-not-allowed
+                  cursor-not-allowed
                 `}
                   onClick={() => alert(`not yet..`)}
                   // onClick={openQuestions === "closed" ? () => openQuestionHandler() : undefined}
@@ -846,10 +846,10 @@ export default function GalleryComponent() {
             </p>
 
             {/* ARTWORK COUNT */}
-            <div className="text-xs lg:text-sm text-white text-center">
+            <div className="text-sm text-white text-center">
               {selectedTags.length > 0 ? (
                 <p>
-                  <span className="font-bold">{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
+                  <span className={`${filteredArtworks.length === 0 || kosugi.className} align-top`}>{filteredArtworks.length === 0 ? "NO" : filteredArtworks.length}</span>&nbsp;
                   <span className="">artwork{filteredArtworks.length !== 1 && "s"} with tag{selectedTags.length > 1 && "s"}:</span><br />
                   <span className="italic">
                     {selectedTags.map((tag, index) => (
@@ -868,7 +868,7 @@ export default function GalleryComponent() {
               ) : (
                 <p>
                   showing all&nbsp;
-                  <span className="font-bold">{filteredArtworks.length}</span>
+                  <span className={`${kosugi.className} align-top`}>{filteredArtworks.length}</span>
                   &nbsp;artworks!<br />
                   <span>:3</span>
                 </p>
@@ -931,25 +931,27 @@ export default function GalleryComponent() {
                       onClick={tag.setState}
                       className={`
                         flex items-center w-full
-                        pl-2 py-2 h-10 gap-3
+                        pl-2 py-2 h-10
                         cursor-pointer select-none 
                         transition-gap duration-500
-                        ${sono.className}
-                        ${tag.state ? "text-gray-800 mb-0.5 md:mb-0" : "text-gray-600"}
+                        ${kosugi.className}
+                        ${tag.state ? "text-gray-800 mb-0.5 md:mb-0 gap-2.5" : "text-gray-600 gap-2"}
                       `}
                     >
 
                       <span className={`
                         ${tag.state ? "scale-100" : "scale-70 -rotate-90 -translate-y-px"} 
                         text-xl md:text-2xl w-3 h-3 ml-px flex items-center justify-center
-                        transition-all duration-500`}
+                        transition-all duration-500
+                        ${sono.className}
+                        `}
                       >
                         {tag.state ? "★" : "✦"}
                       </span>
 
                       <span 
                         className={`
-                          hover:underline underline-offset-2 text-base   md:text-lg
+                          text-base md:text-lg
                           w-full h-full text-start flex items-center
                           origin-left transition-[scale] duration-500
                           ${tag.state ? "scale-100" : "scale-90"}
@@ -988,10 +990,10 @@ export default function GalleryComponent() {
                           </div>
 
                           {/* TEXT */}
-                          <p className="text-sm md:text-base truncate">
-                            <span className={selectedTags.includes(eachTag) ? "font-bold text-yellow-700" : "text-gray-600"}>{eachTag}</span>
+                          <p className="text-sm md:text-base truncate flex">
+                            <span className={`self-center ${selectedTags.includes(eachTag) ? "font-bold text-yellow-700" : "text-gray-600"} flex`}>{eachTag}</span>
                             &nbsp;
-                            <span className={`text-xs md:text-sm ${selectedTags.includes(eachTag) ? "text-yellow-700/70" : "text-gray-500/80"}`}>
+                            <span className={`text-xs md:text-sm self-center translate-y-px flex ${kosugi.className} ${selectedTags.includes(eachTag) ? "text-yellow-700/60" : "text-gray-500/60"}`}>
                               ({artworks.filter(artwork => artwork.tags?.includes(eachTag)).length})
                             </span>
                           </p>
@@ -1022,25 +1024,27 @@ export default function GalleryComponent() {
                       onClick={tag.setState}
                       className={`
                         flex items-center w-full
-                        pl-2 py-2 h-10 gap-3
+                        pl-2 py-2 h-10
                         cursor-pointer select-none 
                         transition-gap duration-500
-                        ${sono.className}
-                        ${tag.state ? "text-gray-800 mb-0.5 md:mb-0" : "text-gray-600"}
+                        ${kosugi.className}
+                        ${tag.state ? "text-gray-800 mb-0.5 md:mb-0 gap-2.5" : "text-gray-600 gap-2"}
                       `}
                     >
 
                       <span className={`
                         ${tag.state ? "scale-100" : "scale-70 -rotate-90 -translate-y-px"} 
                         text-xl md:text-2xl w-3 h-3 ml-px flex items-center justify-center
-                        transition-all duration-500`}
+                        transition-all duration-500
+                        ${sono.className}
+                        `}
                       >
                         {tag.state ? "★" : "✦"}
                       </span>
 
                       <span 
                         className={`
-                          hover:underline underline-offset-2 text-base   md:text-lg
+                          text-base md:text-lg
                           w-full h-full text-start flex items-center
                           origin-left transition-[scale] duration-500
                           ${tag.state ? "scale-100" : "scale-90"}
@@ -1079,10 +1083,10 @@ export default function GalleryComponent() {
                           </div>
 
                           {/* TEXT */}
-                          <p className="text-sm md:text-base truncate">
-                            <span className={selectedTags.includes(eachTag) ? "font-bold text-yellow-700" : "text-gray-600"}>{eachTag}</span>
+                          <p className="text-sm md:text-base truncate flex">
+                            <span className={`self-center ${selectedTags.includes(eachTag) ? "font-bold text-yellow-700" : "text-gray-600"} flex`}>{eachTag}</span>
                             &nbsp;
-                            <span className={`text-xs md:text-sm ${selectedTags.includes(eachTag) ? "text-yellow-700/80" : "text-gray-500/80"}`}>
+                            <span className={`text-xs md:text-sm self-center translate-y-px flex ${kosugi.className} ${selectedTags.includes(eachTag) ? "text-yellow-700/60" : "text-gray-500/60"}`}>
                               ({artworks.filter(artwork => artwork.tags?.includes(eachTag)).length})
                             </span>
                           </p>
@@ -1169,7 +1173,7 @@ export default function GalleryComponent() {
                   {face}
                 </p>
 
-                <p className={`text-[#17191a] text-xs md:text-sm font-bold ${sono.className}`}>
+                <p className={`text-[#17191a] text-xs md:text-sm ${sono.className}`}>
                   nothing to see here...
                 </p>
 
