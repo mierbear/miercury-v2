@@ -160,11 +160,17 @@ export default function GalleryComponent() {
   const currentArtworks = filteredArtworks.slice(startIndex, endIndex);
 
   const toggleTag = (tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag)
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
-    );
+    setSelectedTags(prev => {
+      if (styleTags.tags.includes(tag)) {
+        const filtered = prev.filter(t => !styleTags.tags.includes(t))
+        return prev.includes(tag) ? filtered : [...filtered, tag]
+      }
+      
+      return prev.includes(tag)
+      ? prev.filter(t => t !== tag)
+      : [...prev, tag]
+    });
+
     setCurrentPage(1);
   };
 
