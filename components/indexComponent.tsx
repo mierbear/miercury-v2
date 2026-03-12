@@ -11,7 +11,7 @@ import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Micro_5, Righteous, Coral_Pixels, Sono, Bodoni_Moda, Gowun_Batang, Noto_Serif_JP } from "next/font/google"
+import { Micro_5, Righteous, Coral_Pixels, Sono, Bodoni_Moda, Gowun_Batang, Noto_Serif_JP, Kosugi_Maru } from "next/font/google"
 import NavLinkMarq from "@/components/indexNavLinkMarquee";
 import NavLinkImg from "@/components/indexNavLinkImg";
 import NavLinkBot from "@/components/indexNavLinkBot";
@@ -55,10 +55,10 @@ const noto = Noto_Serif_JP({
   subsets: ["latin"],
 })
 
-// const kosugi = Kosugi_Maru({
-//   weight: "400",
-//   subsets: ["latin"],
-// })
+const kosugi = Kosugi_Maru({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 const gowun = Gowun_Batang({
   weight: "400",
@@ -531,15 +531,150 @@ export default function Home() {
 
           {/* TOP COLUMNS */}
           <div
-            className={`w-full grid md:grid-cols-[2fr_1fr] md:grid-rows-none opacity-0 transition-opacity duration-2000`}
+            className={`w-full grid md:grid-cols-[minmax(0,2fr)_minmax(0,1fr)] md:grid-rows-none opacity-0 transition-opacity duration-2000`}
             ref={topContentRef}
           >
 
             {/* LEFT COL */}
-            <div className="m-4 md:mr-2 flex items-center flex-col md:order-1 order-2">
+            <div className="flex items-center flex-col md:order-1 order-2 md:pt-4 md:pl-4">
+                
+              {/* FEATURED ART TEXT */}
+              <p
+                className={`
+                text-2xl sm:text-4xl font-semibold self-start my-2 md:ml-4 w-full md:w-auto flex gap-3
+                ${bodoni.className} items-center text-nowrap text-white
+                justify-center nonsel transition-colors duration-400 order-1 md:order-3
+                ${artHover ? "text-yellow-300 white-glow" : "text-white"}
+                `}
+              >
+                <span className={`${sono.className} ${artHover && "spin"}`}>{artHover ? "★" : "✦"}</span> FEATURED ARTWORK
+              </p>
+
+              {/* FEATURED ART */}
+              <div
+                className={`
+                flex flex-col flex-100
+                transition-flex duration-1000 nonsel 
+                justify-center items-center relative 
+                cursor-pointer w-full px-4 overflow-hidden
+                max-h-120 min-h-120 order-2 md:order-4
+                `}
+                onMouseEnter={() => setArtHover(true)}
+                onMouseLeave={() => setArtHover(false)}
+              >
+                
+                <img src={artwork?.url}
+                  onLoad={handleImageLoad}
+                  className={`
+                    cursor-pointer
+                    object-cover
+    
+                    min-h-120
+                    max-h-[60vh]
+                    w-full
+                    max-w-screen
+                    min-[768px]:max-h-120
+                    min-[768px]:min-w-full
+                    `}
+                    onClick={() => setFeaturedLightBoxOpen(true)}
+                />
+    
+                <div className={`
+                  absolute bottom-12 left-10 hover:opacity-0 transition-all duration-500
+                  flex flex-col text-nowrap md:origin-bottom-left
+                  nonsel cursor-pointer
+                  `}
+                  >
+                  <p className={`md:text-4xl sm:text-3xl text-2xl font-bold meow text-white ${bodoni.className}`}>"{artwork?.title}"</p>
+                  <p className={`text-xs md:text-sm md:self-start meow ${noto.className} text-white`}>({artwork?.date})</p>
+                </div>
+                
+                <div 
+                  className={`
+                  flex items-center overflow-hidden
+                  absolute top-0 w-full px-4
+                  `}
+                >
+                  <Marquee
+                    speed={30}
+                    autoFill={true}
+                    direction="right"
+                    className={`
+                      text-xs flex py-2
+                      text-white bg-black/20 nonsel
+                      ${kosugi.className}
+                    `}
+                  >
+                    <span className="spin flex">✦</span>&nbsp;&nbsp;FEATURED ARTWORK&nbsp;&nbsp;
+                  </Marquee>
+                </div>
+
+                <div 
+                  className={`
+                  flex items-center overflow-hidden
+                  absolute bottom-0 w-full px-4
+                  `}
+                >
+                  <Marquee
+                    speed={30}
+                    autoFill={true}
+                    className={`
+                      text-xs flex py-2
+                      text-white bg-black/20 nonsel
+                      ${kosugi.className}
+                    `}
+                  >
+                    <span className="backwards-spin flex">✦</span>&nbsp;&nbsp;FEATURED ARTWORK&nbsp;&nbsp;
+                  </Marquee>
+                </div>
+
+              </div>
+              
+              {/* MIER DRAWING */}
+              <div className="relative w-full h-0 z-100 overflow-visible order-3 md:order-5">
+                <img 
+                  ref={featArtMiniRef} 
+                  src={artwork?.url} 
+                  className={`
+                  z-10 nonsel pointer-events-none border border-[#d8e0e3]
+                  absolute right-0 bottom-0 w-32 origin-bottom-right
+                  skew-x-16 -skew-y-10 -translate-x-25 -translate-y-2
+                  `}
+                />
+                <img 
+                  ref={mierDrawingRef} 
+                  src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} 
+                  onClick={() => mierDrawingClickHandler()}
+                  onMouseEnter={!isPhone ? () => mierDrawingHoverHandler() : undefined} 
+                  onMouseLeave={() => mierDrawingUnhoverHandler()}
+                  className="
+                  nonsel absolute bottom-0 right-0 h-60
+                  origin-bottom-right cursor-pointer
+                  translate-x-10 translate-y-11 z-12
+                  " 
+                />
+                <img 
+                  src={mierDrawing ? "/images/miersit-leftwing.png" : "/images/mierhover-leftwing.png"} 
+                  className={`
+                    nonsel pointer-events-none absolute 
+                    bottom-0 right-0 h-60 wings origin-bottom-right
+                    translate-x-10 translate-y-10 z-13
+                  `} 
+                />
+                <img 
+                  src={mierDrawing ? "/images/miersit-rightwing.png" : "/images/mierhover-rightwing.png"} 
+                  className={`
+                    nonsel pointer-events-none absolute 
+                    bottom-0 right-0 h-60 wings origin-bottom-right
+                    translate-x-10 translate-y-10 z-11
+                  `} 
+                />
+              </div>
+
+              <hr className="my-4 border-gray-500/30 w-[90%] block order-4 md:order-6" />
 
               {/* CAROUSEL */}
-              <div className="flex flex-col justify-center items-center relative w-full aspect-25/9 mx-auto text-white border-[#d8e0e3]/70 border">
+              <div className="flex flex-col justify-center items-center relative w-full aspect-25/9 mx-auto border-x-0 md:border-x text-white border-[#d8e0e3]/70 border order-6 md:order-1">
 
                 <div className="w-full h-full absolute bg-[#17191a] mix-blend-lighten z-100 pointer-events-none">
 
@@ -612,74 +747,14 @@ export default function Home() {
                 </div>
 
               </div>
-                
-              <hr className="my-4 border-gray-500/30 w-full block md:hidden" />
-              
-              {/* ART */}
-              <div className={`
-                flex flex-col items-center justify-center w-full 
-                relative md:pb-12 mt-none md:mt-4 md:mb-4
-                ${orientation === "portrait" && "md:px-12"} 
-                ${orientation === "landscape" && "md:px-4" } 
-              `}
-              onMouseEnter={() => setArtHover(true)}
-              onMouseLeave={() => setArtHover(false)}
-              >
-                <p
-                className={`text-3xl font-semibold self-start pl-2 h-12 flex ${bodoni.className} items-center text-nowrap justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
-                  <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> FEATURED ARTWORK
-                </p>
-                
-                {/* IMAGES */}
-                <div className="relative flex items-center justify-center flex-col mb-4 z-10">
-                  <img ref={featArtRef} src={artwork?.url} onLoad={handleImageLoad} className={`nonsel cursor-pointer`} onClick={() => setFeaturedLightBoxOpen(true)}/>
 
-                  <img ref={featArtMiniRef} src={artwork?.url} className={`nonsel pointer-events-none border-3 border-[#d8e0e3] absolute right-0 bottom-0 scale-28 origin-bottom-right skew-x-16 -skew-y-10 -translate-x-25 translate-y-25`}/>
-                  <div>
-                    <img 
-                      ref={mierDrawingRef} 
-                      src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} 
-                      className="nonsel absolute bottom-0 right-0 h-60 origin-bottom-right translate-x-10 translate-y-40 cursor-pointer z-12" 
-                      onClick={() => mierDrawingClickHandler()}
-                      onMouseEnter={!isPhone ? () => mierDrawingHoverHandler() : undefined} 
-                      onMouseLeave={() => mierDrawingUnhoverHandler()}
-                    />
-                    <img 
-                      src={mierDrawing ? "/images/miersit-leftwing.png" : "/images/mierhover-leftwing.png"} 
-                      className={`nonsel pointer-events-none absolute bottom-0 right-0 h-60 wings origin-bottom-right translate-x-10 translate-y-39 z-13`} 
-                    />
-                    <img 
-                      src={mierDrawing ? "/images/miersit-rightwing.png" : "/images/mierhover-rightwing.png"} 
-                      className={`nonsel pointer-events-none absolute bottom-0 right-0 h-60 wings origin-bottom-right translate-x-10 translate-y-39 z-11`} 
-                    />
-                  </div>
-                </div>
-
-                {/* ART INFO */}
-                <div className="
-                  text-white flex flex-col border-gray-400 
-                  border bg-[#17191a]/80 max-w-[85ch] backdrop-blur-[3px]
-                  rounded-sm items-center text-center
-                  px-4 pt-2 self-start w-[50%] h-28
-                  overflow-y-auto thin-scrollbar"
-                >
-                  <p className={`text-xl md:text-2xl font-bold ${bodoni.className}`}>{artwork?.title}</p>
-                  <p className={`text-xs ${noto.className} text-gray-300 font-bold`}>({artwork?.date})</p>
-                  <p className={`text-xs ${noto.className} mt-2 text-center`}>{artwork?.description}</p>
-                </div>
-                
-                {/* FRAME */}
-                <img src="images/top.png" className="invisible hidden md:flex md:visible nonsel pointer-events-none absolute top-0 right-0 h-40"></img>
-                <img src="images/bot.png" className="invisible hidden md:flex md:visible nonsel pointer-events-none absolute bottom-0 left-0 h-40"></img>
-              </div>
-
-              <hr className="my-4 border-gray-500/30 w-full block md:hidden" />
+              <hr className="mt-4 border-gray-500/30 w-[90%] block order-7 md:order-2" />
 
               {/* MISC */}
-              <div className="grid md:grid-cols-[1.618fr_1fr] md:grid-rows-none grid-cols-none text-white w-full gap-4">
-                
-                {/* 1.) LATEST BLOGS */}
-                <div className="flex flex-col items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 h-75 w-full thin-scrollbar overflow-y-auto">
+              <div className="grid grid-cols-1 md:grid-cols-[62fr_38fr] md:mb-4 items-center text-white w-full gap-4 order-8">
+
+                {/* BLOG */}
+                <div className="flex mx-4 md:mx-0 flex-col md:h-70 items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 thin-scrollbar overflow-y-auto">
 
                   {latestPost === null ? null : (
                     <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">
@@ -715,66 +790,33 @@ export default function Home() {
                       );
                     })}
                   </div>
-
                 </div>
 
-                {/* 2ND CONTAINER */}
-                <div className="grid grid-cols-[1fr_1.618fr] md:grid-cols-none md:grid-rows-[1fr_1.618fr] gap-4 md:h-75">
-
-                  {/* 3RD CONTAINER */}
-                  <div className="md:grid md:grid-cols-[1fr_1.618fr] md:gap-4 h-full">
-
-                    {/* 4.) ? */}
-                    <div className="md:flex flex-col justify-center items-center border-[#d8e0e3]/20 border hidden">
-                      <p>
-                      ?
-                      </p>
-                    </div>
-
-                    {/* 3.) GUESTBOOK */}
-                    <NextLink
-                      href="https://mier.atabook.org/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="
-                      h-full w-full
-                      flex flex-col 
-                      justify-center items-center
-                      border-[#d8e0e3]/70 border
-                      p-4
-                      "
-                    >
-                      <p className={`${sono.className} text-center`}>sign my guestbook</p>
-                    </NextLink>
-
-                  </div>
-                  
-                  {/* 2.) CHANGELOGS */}
-                  <div className="flex flex-col bg-[#17191a]/50 border-[#17191a] border-2 h-44 text-xs relative rounded-l-xl rounded-t-xl">
-                    <p className={`${sono.className} sticky top-0 z-10 bg-[#17191a] p-2 w-full rounded-t-xl`}>CHANGELOGS</p>
-                    <div className="super-thin-scrollbar h-full overflow-y-auto">
-                      {logs?.map((log, index) => {
-                        return (
-                          <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
-                            <p className={`${sono.className} text-gray-400`}><span className="text-orange-400 text-[9px]">●</span> {log.date}</p>
-                            <p className="text-justify">{log.log}</p>
-                          </div>
-                        )
-                      })}
-                    </div>
-
+                {/* LOGS */}
+                <div className="flex m-4 md:m-0 mt-0 flex-col md:h-70 bg-[#17191a]/50 border-[#17191a] border-2 h-50 text-xs relative rounded-l-xl rounded-t-xl">
+                  <p className={`${sono.className} sticky top-0 z-10 bg-[#17191a] p-2 pl-3 w-full rounded-t-xl`}>CHANGELOGS</p>
+                  <div className="super-thin-scrollbar h-full overflow-y-auto">
+                    {logs?.map((log, index) => {
+                      return (
+                        <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
+                          <p className={`${sono.className} text-gray-400`}><span className="text-orange-400 text-[9px]">●</span> {log.date}</p>
+                          <p className="text-justify">{log.log}</p>
+                        </div>
+                      )
+                    })}
                   </div>
 
                 </div>
 
               </div>
+
             </div> 
 
             {/* RIGHT COL */}
-            <div className="m-4 md:ml-2 md:order-2 order-1 flex flex-col mb-0 md:mb-4">
+            <div className="md:order-2 order-1 flex flex-col">
 
               {/* INTRO */}
-              <div className="text-white border-[#d8e0e3]/40 relative border-dotted border flex flex-col items-center pb-14">
+              <div className="m-4 mb-0 text-white border-[#d8e0e3]/40 relative border-dotted border flex flex-col items-center pb-14">
 
                 <div className="p-4 flex items-center flex-col">
                   <img
@@ -844,10 +886,10 @@ export default function Home() {
                 </div>
               </div> 
               
-              <hr className="my-4 border-gray-500/30 w-full" />
+              <hr className="my-4 border-gray-500/30 w-[90%] md:w-[80%] mx-auto" />
 
               {/* NAV */}
-              <div className={`text-white grid grid-rows-[240px_50px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative`} ref={linksDivRef}>
+              <div className={`mx-4 mb-4 text-white grid grid-rows-[240px_50px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative`} ref={linksDivRef}>
                 
                 <NavLinkMarq desc="learn about my characters" active={activeLink} link="characters" onHover={handleHover} />
                 <NavLinkImg desc="look at my art" active={activeLink} link="gallery" onHover={handleHover} />
@@ -859,10 +901,10 @@ export default function Home() {
 
               </div> 
 
-              <hr className="hidden md:block my-4 border-gray-500/30 w-full" />
+              <hr className="border-gray-500/30 w-[90%] mx-auto md:hidden" />
 
               {/* ?? */}
-              <div className="hidden md:flex flex-1 flex-col items-center justify-center w-full h-full border-[#d8e0e3]/40 relative border-dotted border">
+              <div className="hidden flex-1 flex-col items-center justify-center w-full h-full border-[#d8e0e3]/40 relative border-dotted border">
               </div>
 
             </div> 

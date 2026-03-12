@@ -54,9 +54,9 @@ const Footer = () => {
 
  return (
   <footer className={`z-50 h-12 relative ${anonymous.className}`}>
-    <div className="bg-[#101113]/90 py-2 min-w-screen h-full flex flex-col justify-center align-center items-center bottom-0 text-white text-xs">
+    <div className="bg-[#101113]/90 py-2 min-w-screen h-full flex flex-col justify-center align-center items-center bottom-0 text-white text-[10px] min-[375px]:text-xs">
 
-      <p className="text-center">
+      <p className="text-center text-nowrap">
         Copyright © 2025 - {currentYear} Miercury. All Rights Reserved.
         <br />
         <a
@@ -66,7 +66,7 @@ const Footer = () => {
       </p>
 
       <div className={`right-1 absolute flex items-center justify-center md:visible invisible`}>
-        <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 text-xs hover:underline blue cursor-pointer nonsel">log in</p>
+        <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 hover:underline blue cursor-pointer nonsel">log in</p>
       </div>
 
     </div>

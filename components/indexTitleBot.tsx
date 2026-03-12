@@ -38,8 +38,8 @@ const TitleBot = () => {
   }, []);
 
   return (
-    <div ref={divRef} className="bg-[#d8e0e3] rounded-t-xl flex flex-col justify-center items-center z-11 miercury-platform-glow nonsel text-nowrap">
-      <p ref={textRef} style={{ visibility: "hidden" }} className={`text-xs ${sono.className}`}>welcome to the firmament, keep it mirthful</p>
+    <div ref={divRef} className="bg-[#d8e0e3] rounded-t-xl flex flex-col justify-center items-center z-11 miercury-platform-glow nonsel text-nowrap ">
+      <p ref={textRef} style={{ visibility: "hidden" }} className={`text-[10px] min-[375px]:text-xs ${sono.className} text-[#17191a] translate-y-px min-[375px]:translate-y-0`}>welcome to the firmament, keep it mirthful</p>
     </div>
   );
 };

@@ -484,14 +484,14 @@ div[data-youtube-video] iframe {
 
 .meow {
   text-shadow:
-    1.5px 1.5px 2 black,
-    1.5px -1.5px 2 black,
-    -1.5px 1.5px 2 black,
-    -1.5px -1.5px 2 black,
-    1.5px 0px 2 black,
-    0px 1.5px 2 black,
-    -1.5px 0px 2 black,
-    0px -1.5px 2 black;
+    1.5px 1.5px 2 #17191a,
+    1.5px -1.5px 2 #17191a,
+    -1.5px 1.5px 2 #17191a,
+    -1.5px -1.5px 2 #17191a,
+    1.5px 0px 2 #17191a,
+    0px 1.5px 2 #17191a,
+    -1.5px 0px 2 #17191a,
+    0px -1.5px 2 #17191a;
 }
 
 .blue-text {

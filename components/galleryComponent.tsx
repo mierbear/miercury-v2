@@ -723,8 +723,11 @@ export default function GalleryComponent() {
           className={`
             flex 
             pl-4 py-2 pr-2 my-16 gap-4
-            w-140 h-auto
-            max-w-screen text-sm
+            w-100
+            min-[640px]:w-140
+            h-auto
+            max-w-screen
+            text-sm
             self-center relative
             text-[#17191a] rounded-xs bg-gray-50/90
           `}
@@ -733,20 +736,20 @@ export default function GalleryComponent() {
           {/* WELCOME */}
           <div className="flex flex-col min-w-[50%]">
 
-            <p className={`self-center text-lg flex gap-4 text-center text-nowrap font-bold ${kosugi.className}`}>
+            <p className={`pr-2 sm:pr-0 self-center text-lg flex gap-4 text-center text-nowrap font-bold ${kosugi.className}`}>
               <span className="slight-slow-spin text-yellow-300">★</span>
               WELCOME TO THE GALLERY
               <span className="slight-slow-spin text-yellow-300">★</span>
             </p>
 
-            <p className="text-justify">This is where I'll be posting some of my artwork, everything from worlds I'm building, to fragments of ideas, to fanart and to nonsensical drawings.</p>
+            <p className="pr-2 sm:pr-0 text-justify">This is where I'll be posting some of my artwork, everything from worlds I'm building, to fragments of ideas, to fanart and to nonsensical drawings.</p>
             &nbsp;
-            <p>Have fun looking around!</p>
+            <p className="pr-2 sm:pr-0">Have fun looking around!</p>
             
-            <hr className="mt-4 mb-2 border-black/50 w-full block" />
+            <hr className="my-2 border-black/50 w-full block" />
 
             {/* BOTTOM */}
-            <div className={`flex justify-between w-full h-full gap-4 pt-2`}>
+            <div className={`flex justify-between w-full h-full gap-2`}>
 
               {/* INTERACTABLES */}
               <div className="flex flex-col text-nowrap pb-2">
@@ -792,7 +795,8 @@ export default function GalleryComponent() {
               </div>
               
               {/* MOBILE ME DRAWING */}
-              <div className="block sm:hidden border border-black self-end h-30 aspect-square relative nonsel pointer-events-none">
+              {/* <div className="block sm:hidden border border-black self-end h-30 aspect-square relative nonsel pointer-events-none"> */}
+              <div className="block min-[640px]:hidden border border-black self-end h-25 min-[340px]:h-30 aspect-square relative nonsel pointer-events-none">
                 <img src="/images/gallery-me.png" className="absolute bottom-0 right-0" />
               </div>
             
@@ -941,7 +945,7 @@ export default function GalleryComponent() {
 
                       <span className={`
                         ${tag.state ? "scale-100" : "scale-70 -rotate-90 -translate-y-px"} 
-                        text-xl md:text-2xl w-3 h-3 ml-px flex items-center justify-center
+                        text-2xl w-3 h-3 ml-px flex items-center justify-center
                         transition-all duration-500
                         ${sono.className}
                         `}
@@ -1034,7 +1038,7 @@ export default function GalleryComponent() {
 
                       <span className={`
                         ${tag.state ? "scale-100" : "scale-70 -rotate-90 -translate-y-px"} 
-                        text-xl md:text-2xl w-3 h-3 ml-px flex items-center justify-center
+                        text-2xl w-3 h-3 ml-px flex items-center justify-center
                         transition-all duration-500
                         ${sono.className}
                         `}
