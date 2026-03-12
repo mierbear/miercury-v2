@@ -11,7 +11,7 @@ import NextLink from "next/link";
 import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Micro_5, Righteous, Coral_Pixels, Sono, Oranienbaum, Gowun_Batang } from "next/font/google"
+import { Micro_5, Righteous, Coral_Pixels, Sono, Bodoni_Moda, Gowun_Batang, Noto_Serif_JP } from "next/font/google"
 import NavLinkMarq from "@/components/indexNavLinkMarquee";
 import NavLinkImg from "@/components/indexNavLinkImg";
 import NavLinkBot from "@/components/indexNavLinkBot";
@@ -45,8 +45,13 @@ const righteous = Righteous({
   subsets: ["latin"],
 })
 
-const oranienbaum = Oranienbaum({
+const bodoni = Bodoni_Moda({
   weight: "400",
+  subsets: ["latin"],
+})
+
+const noto = Noto_Serif_JP({
+  weight: ["400", "700"],
   subsets: ["latin"],
 })
 
@@ -481,14 +486,14 @@ export default function Home() {
           src: artwork.url,
           description: (
             <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
-              <p className={`text-4xl font-bold ${oranienbaum.className}`}>{artwork.title}</p>
-              <p className={`text-xs ${sono.className} text-gray-300`}>({artwork.date})</p>
+              <p className={`text-4xl font-bold ${bodoni.className}`}>{artwork.title}</p>
+              <p className={`${noto.className} text-gray-300 font-bold`}>({artwork.date})</p>
               <div className="flex gap-2">
                 {artwork.tags.map((tag, index) => 
-                  <p key={index} className={`text-xs ${sono.className} text-gray-400`}>#{tag}</p>
+                  <p key={index} className={`text-xs ${noto.className} text-gray-400`}>#{tag}</p>
                 )}
               </div>
-              <p className={`text-lg ${gowun.className} mt-3 text-center`}>{artwork.description}</p>
+              <p className={`${noto.className} mt-3 text-center`}>{artwork.description}</p>
             </div>
           ),
         },
@@ -621,7 +626,7 @@ export default function Home() {
               onMouseLeave={() => setArtHover(false)}
               >
                 <p
-                className={`text-3xl font-semibold self-start pl-2 h-12 flex ${oranienbaum.className} items-center text-nowrap justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
+                className={`text-3xl font-semibold self-start pl-2 h-12 flex ${bodoni.className} items-center text-nowrap justify-center nonsel transition-colors duration-400 ${artHover ? "text-yellow-300 white-glow" : "text-white"}`}>
                   <span className={`${artHover && "spin"} mr-3`}>{artHover ? "★" : "✦"}</span> FEATURED ARTWORK
                 </p>
                 
@@ -658,9 +663,9 @@ export default function Home() {
                   px-4 pt-2 self-start w-[50%] h-28
                   overflow-y-auto thin-scrollbar"
                 >
-                  <p className={`text-xl md:text-2xl font-bold ${oranienbaum.className}`}>{artwork?.title}</p>
-                  <p className={`text-xs ${sono.className} text-gray-300`}>({artwork?.date})</p>
-                  <p className={`text-sm ${gowun.className} mt-2 tetx-center`}>{artwork?.description}</p>
+                  <p className={`text-xl md:text-2xl font-bold ${bodoni.className}`}>{artwork?.title}</p>
+                  <p className={`text-xs ${noto.className} text-gray-300 font-bold`}>({artwork?.date})</p>
+                  <p className={`text-xs ${noto.className} mt-2 text-center`}>{artwork?.description}</p>
                 </div>
                 
                 {/* FRAME */}

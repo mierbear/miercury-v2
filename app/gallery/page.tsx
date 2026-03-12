@@ -3,7 +3,7 @@ import GalleryComponent from "@/components/galleryComponent";
 import { Gowun_Batang } from "next/font/google";
 
 const gowun = Gowun_Batang({
-  weight: "400",
+  weight: ["400", "700"],
   subsets: ["latin"],
 })
 

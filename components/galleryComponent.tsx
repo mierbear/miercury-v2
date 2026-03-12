@@ -7,22 +7,22 @@ import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
-import { Oranienbaum, Gowun_Batang, Sono, Kosugi_Maru } from "next/font/google";
+import { Bodoni_Moda, Sono, Noto_Serif_JP, Kosugi_Maru } from "next/font/google";
 import Marquee from "react-fast-marquee";
 import Footer from "@/components/footerComponent";
 import NextLink from "next/link";
 
-const oranienbaum = Oranienbaum({
+const bodoni = Bodoni_Moda({
   weight: "400",
   subsets: ["latin"],
 })
 
-const gowun = Gowun_Batang({
+const sono = Sono({
   weight: ["400", "700"],
   subsets: ["latin"],
 })
 
-const sono = Sono({
+const noto = Noto_Serif_JP({
   weight: ["400", "700"],
   subsets: ["latin"],
 })
@@ -188,14 +188,14 @@ export default function GalleryComponent() {
     src: art.url,
     description: (
       <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
-        <p className={`text-4xl font-bold ${oranienbaum.className}`}>{art.title}</p>
-        <p className={`text-xs ${sono.className} text-gray-300`}>({art.date})</p>
+        <p className={`text-4xl font-bold ${bodoni.className}`}>{art.title}</p>
+        <p className={`${noto.className} text-gray-300 font-bold`}>({art.date})</p>
         <div className="flex gap-2">
           {art.tags.map((tag, index) => 
-            <p key={index} className={`text-xs ${sono.className} text-gray-400`}>#{tag}</p>
+            <p key={index} className={`text-xs ${noto.className} text-gray-400`}>#{tag}</p>
           )}
         </div>
-        <p className={`text-lg ${gowun.className} mt-3 text-center`}>{art.description}</p>
+        <p className={`${noto.className} mt-3 text-center`}>{art.description}</p>
       </div>
     ),
   }));
@@ -206,14 +206,14 @@ export default function GalleryComponent() {
           src: featArtwork.url,
           description: (
             <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
-              <p className={`text-4xl font-bold ${oranienbaum.className}`}>{featArtwork.title}</p>
-              <p className={`text-xs ${sono.className} text-gray-300`}>({featArtwork.date})</p>
+              <p className={`text-4xl font-bold ${bodoni.className}`}>{featArtwork.title}</p>
+              <p className={`${noto.className} text-gray-300 font-bold`}>({featArtwork.date})</p>
               <div className="flex gap-2">
                 {featArtwork.tags.map((tag, index) => 
-                  <p key={index} className={`text-xs ${sono.className} text-gray-400`}>#{tag}</p>
+                  <p key={index} className={`text-xs ${noto.className} text-gray-400`}>#{tag}</p>
                 )}
               </div>
-              <p className={`text-lg ${gowun.className} mt-3 text-center`}>{featArtwork.description}</p>
+              <p className={`${noto.className} mt-3 text-center`}>{featArtwork.description}</p>
             </div>
           ),
         },
@@ -225,8 +225,8 @@ export default function GalleryComponent() {
       src: "/images/gallery-bg-full.jpg",
       description: (
         <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
-          <p className={`text-4xl font-bold ${oranienbaum.className}`}>Gallery Background</p>
-          <p className={`text-lg ${gowun.className} mt-3 text-center`}>a bunch of sketches i gathered from 2025-2026, took a while to do</p>
+          <p className={`text-4xl font-bold ${bodoni.className}`}>Gallery Background</p>
+          <p className={`${noto.className} mt-3 text-center`}>a bunch of sketches i gathered from 2025-2026, took a while to do</p>
         </div>
       ),
     },
@@ -578,8 +578,8 @@ export default function GalleryComponent() {
               ${openQuestions === true ? "scale-80 opacity-60" : "scale-100 opacity-100"}
               `}
               >
-              <p className={`md:text-5xl sm:text-4xl text-3xl font-bold text-center meow text-white ${oranienbaum.className}`}>"{featArtwork?.title}"</p>
-              <p className={`text-xs md:self-start meow ${sono.className} text-white`}>({featArtwork?.date})</p>
+              <p className={`md:text-5xl sm:text-4xl text-3xl font-bold text-center meow text-white ${bodoni.className}`}>"{featArtwork?.title}"</p>
+              <p className={`text-sm md:self-start meow ${noto.className} text-white`}>({featArtwork?.date})</p>
             </div>
             
             <div 
@@ -623,7 +623,7 @@ export default function GalleryComponent() {
 
               {/* TITLE */}
               <div className={`flex flex-col items-center justify-center min-h-12 max-h-12 w-full relative`}>
-                <p className={`text-2xl text-center text-nowrap ${oranienbaum.className}`}>
+                <p className={`text-2xl text-center text-nowrap ${bodoni.className}`}>
                   {openQuestions === true ? "ask and you shall recieve.." :
                   openQuestions === false ? "welcome to the gallery!" :
                   "..."}
@@ -725,17 +725,17 @@ export default function GalleryComponent() {
             pl-4 py-2 pr-2 my-16 gap-4
             w-140 h-auto
             max-w-screen text-sm
-            self-center  ${kosugi.className} relative
+            self-center relative
             text-[#17191a] rounded-xs bg-gray-50/90
           `}
         >
 
           {/* WELCOME */}
-          <div className="flex flex-col text-sm min-w-[50%]">
+          <div className="flex flex-col min-w-[50%]">
 
-            <p className={`self-center text-lg flex gap-4 text-center text-nowrap font-bold ${gowun.className}`}>
+            <p className={`self-center text-lg flex gap-4 text-center text-nowrap font-bold ${kosugi.className}`}>
               <span className="slight-slow-spin text-yellow-300">★</span>
-              Welcome to The Gallery!
+              WELCOME TO THE GALLERY
               <span className="slight-slow-spin text-yellow-300">★</span>
             </p>
 
@@ -746,7 +746,7 @@ export default function GalleryComponent() {
             <hr className="mt-4 mb-2 border-black/50 w-full block" />
 
             {/* BOTTOM */}
-            <div className={`flex justify-between w-full h-full gap-4 pt-2 ${sono.className}`}>
+            <div className={`flex justify-between w-full h-full gap-4 pt-2`}>
 
               {/* INTERACTABLES */}
               <div className="flex flex-col text-nowrap pb-2">
@@ -759,7 +759,7 @@ export default function GalleryComponent() {
                   // onClick={openQuestions === "closed" ? () => openQuestionHandler() : undefined}
                 >
                   <span className="text-[8px]">●</span>
-                  <span className="hover:underline -translate-y-px flex w-full text-center">i have questions (a lot)</span>
+                  <span className="decoration-[#17191a]/25 transition-colors duration-100 hover:decoration-[#17191a] underline underline-offset-2 -translate-y-px flex w-full text-center">i have questions (a lot)</span>
                 </p>
                 
                 <p 
@@ -768,7 +768,7 @@ export default function GalleryComponent() {
                   onClick={() => setContentVisible(false)}
                 >
                   <span className="text-[8px]">●</span>
-                  <span className="hover:underline -translate-y-px flex w-full text-center">i wanna see the background</span>
+                  <span className="decoration-[#17191a]/25 transition-colors duration-100 hover:decoration-[#17191a] underline underline-offset-2 -translate-y-px flex w-full text-center">i wanna see the background</span>
                 </p>
 
                 <NextLink 
@@ -778,7 +778,7 @@ export default function GalleryComponent() {
                   onClick={() => console.log(`mrow`)}
                 >
                   <span className="text-[8px]">●</span>
-                  <span className="hover:underline -translate-y-px flex w-full text-center">learn about my characters</span>
+                  <span className="decoration-[#17191a]/25 transition-colors duration-100 hover:decoration-[#17191a] underline underline-offset-2 -translate-y-px flex w-full text-center">learn about my characters</span>
                 </NextLink>
 
                 <p 
@@ -787,7 +787,7 @@ export default function GalleryComponent() {
                   onClick={() => showRandomArt()}
                 >
                   <span className="text-[8px]">●</span>
-                  <span className="hover:underline -translate-y-px flex w-full text-center">surprise me</span>
+                  <span className="decoration-[#17191a]/25 transition-colors duration-100 hover:decoration-[#17191a] underline underline-offset-2 -translate-y-px flex w-full text-center">surprise me</span>
                 </p>
               </div>
               
@@ -1149,7 +1149,7 @@ export default function GalleryComponent() {
                     className={`
                     absolute bottom-0 text-white bg-black/60 w-full text-xs md:text-sm
                     backdrop-blur-xs truncate py-1.5 md:py-2 pl-2 md:pl-3 pr-[20%]
-                    ${sono.className}
+                    ${kosugi.className}
                     `}
                   >
                     {artwork.title}
@@ -1168,7 +1168,7 @@ export default function GalleryComponent() {
                 <p className={`
                   md:text-9xl text-7xl text-[#17191a]/20
                   ${face === sadFaces[2] && "translate-x-6"}
-                  ${oranienbaum.className}
+                  ${noto.className}
                 `}>
                   {face}
                 </p>
@@ -1185,8 +1185,8 @@ export default function GalleryComponent() {
                   className={`
                     self-center justify-center p-4 px-8 rounded-md 
                     flex pointer-events-auto cursor-pointer
-                    transition-all duration-300 text-xl mt-6 border-red-700/50 border
-                    bg-red-200 hover:bg-red-500 text-red-700 hover:text-white font-bold
+                    transition-all duration-300 text-xl mt-6 border-red-900/50 border-2
+                    bg-red-200 hover:bg-red-500 text-red-900 hover:text-white font-bold
                     ${kosugi.className}
                   `}
                 >
@@ -1229,7 +1229,7 @@ export default function GalleryComponent() {
           ))}
 
           {currentArtworks.length > 0 || (
-            <p className="h-8 ">
+            <p className="h-8 text-white">
               ...
             </p>
           )}
@@ -1244,15 +1244,15 @@ export default function GalleryComponent() {
       <div
         className={`
           ${contentVisible ? "opacity-0 nonsel pointer-events-none" : "opacity-100"} 
-          ${sono.className}
+          ${bodoni.className}
           z-50 fixed bottom-4 left-4 md:bottom-8 md:left-8
-          text-2xl md:text-6xl text-yellow-300 md:text-white hover:text-yellow-300
-          font-bold meow transition-all duration-300
+          text-5xl md:text-7xl lg:text-8xl text-yellow-300 md:text-white hover:text-yellow-300
+          font-bold transition-all duration-300
         `}
         onClick={() => setContentVisible(true)}
       >
         <p className="cursor-pointer">take me back!</p>
-        <p className="block md:hidden text-xs">(tap on the bg to view the full image)</p>
+        <p className="block md:hidden text-xs">(tap the bg to view the full image)</p>
       </div>
 
       {/* BACKGROUND */}
