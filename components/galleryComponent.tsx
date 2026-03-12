@@ -919,7 +919,7 @@ export default function GalleryComponent() {
             >
               
               {/* FIRST COL */}
-              <div className="gap-0.5 flex flex-col flex-1">
+              <div className="gap-0.5 md:gap-0 flex flex-col flex-1">
                 {tags.slice(0, 3).map(tag => (
                   <div 
                     className={`w-full ${tag.name === tags[tags.length - 1].name && "col-start-2 row-start-1 row-span-3 md:col-start-auto md:row-start-auto md:row-span-1"}`}
@@ -982,7 +982,7 @@ export default function GalleryComponent() {
                             min-h-10 md:min-h-12 h-full w-full
                             border transition-colors duration-300
                             ${selectedTags.includes(eachTag) ? "border-yellow-700/40 border bg-yellow-100 hover:bg-yellow-200" : "border-gray-300 bg-white hover:bg-gray-50"}
-                            ${eachTag === tag.tags[tag.tags.length - 1] && "md:mb-2 mb-0"}
+                            ${eachTag === tag.tags[tag.tags.length - 1] && "md:mb-3 mb-0"}
                           `}
                           onClick={() => toggleTag(eachTag)}
                         >
@@ -1012,7 +1012,7 @@ export default function GalleryComponent() {
               </div>
               
               {/* 2ND COL */}
-              <div className="gap-0.5 flex flex-col flex-1">
+              <div className="gap-0.5 md:gap-0 flex flex-col flex-1">
                 {tags.slice(3).map(tag => (
                   <div 
                     className={`w-full ${tag.name === tags[tags.length - 1].name && "col-start-2 row-start-1 row-span-3 md:col-start-auto md:row-start-auto md:row-span-1"}`}
@@ -1075,7 +1075,7 @@ export default function GalleryComponent() {
                             min-h-10 md:min-h-12 h-full w-full
                             border transition-colors duration-300
                             ${selectedTags.includes(eachTag) ? "border-yellow-700/40 border bg-yellow-100 hover:bg-yellow-200" : "border-gray-300 bg-white hover:bg-gray-50"}
-                            ${eachTag === tag.tags[tag.tags.length - 1] && "md:mb-2 mb-0"}
+                            ${eachTag === tag.tags[tag.tags.length - 1] && "md:mb-3 mb-0"}
                           `}
                           onClick={() => toggleTag(eachTag)}
                         >

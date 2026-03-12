@@ -556,7 +556,7 @@ export default function Home() {
                 flex flex-col flex-100
                 transition-flex duration-1000 nonsel 
                 justify-center items-center relative 
-                cursor-pointer w-full px-4 overflow-hidden
+                cursor-pointer w-full md:px-4 overflow-hidden
                 max-h-120 min-h-120 order-2 md:order-4
                 `}
                 onMouseEnter={() => setArtHover(true)}
@@ -580,7 +580,7 @@ export default function Home() {
                 />
     
                 <div className={`
-                  absolute bottom-12 left-10 hover:opacity-0 transition-all duration-500
+                  absolute bottom-12 left-6 md:left-10 hover:opacity-0 transition-all duration-500
                   flex flex-col text-nowrap md:origin-bottom-left
                   nonsel cursor-pointer
                   `}
@@ -592,7 +592,7 @@ export default function Home() {
                 <div 
                   className={`
                   flex items-center overflow-hidden
-                  absolute top-0 w-full px-4
+                  absolute top-0 w-full md:px-4
                   `}
                 >
                   <Marquee
@@ -612,7 +612,7 @@ export default function Home() {
                 <div 
                   className={`
                   flex items-center overflow-hidden
-                  absolute bottom-0 w-full px-4
+                  absolute bottom-0 w-full md:px-4
                   `}
                 >
                   <Marquee
@@ -962,7 +962,6 @@ export default function Home() {
                     <p className="text-xl font-bold self-center">TO-DO: </p>
                     {/* <p className="text-xs">○ </p> */}
                     <p className="text-xs font-bold underline">○ DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
-                    <p className="text-xs font-bold underline">○ finish the gallery page</p>
                     <p className="text-xs font-bold underline">○ finish the ocs page</p>
                     <p className="text-xs font-bold underline">○ finish the mtwim page</p>
                     <p className="text-xs font-bold underline">○ finish the games page</p>
@@ -970,7 +969,6 @@ export default function Home() {
                     <p className="text-xs font-bold underline">○ finish the blog page</p>
                     <p className="text-xs">○ make illustration for top right section</p>
                     <p className="text-xs">○ style each section in index</p>
-                    <p className="text-xs">○ make featured art frame properly</p>
                     <p className="text-xs">○ set up wanted posters for pp</p>
                     <p className="text-xs">○ set up images for navmenu</p>
                     <p className="text-xs">○ set up supabase for pp gallery</p>
@@ -991,6 +989,9 @@ export default function Home() {
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">DONE: </p>
                     {/* <p className="text-xs">● </p> */}
+                    <p className="text-xs">● make featured art frame properly</p>
+                    <p className="text-xs font-bold underline">● finish the gallery page</p>
+                    <p className="text-xs">● a LOT of things for the gallery i cant list down lol</p>
                     <p className="text-xs font-bold underline">● finish the about me page</p>
                     <p className="text-xs">● implement lightbox for artworks </p>
                     <p className="text-xs">● learn how to draw again LOL</p>
