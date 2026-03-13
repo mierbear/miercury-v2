@@ -86,10 +86,6 @@ body {
   transition: all .6s ease;
 }
 
-.gameList {
-  transition: all 1s ease;
-}
-
 .blue:hover {
   transition: all .6s ease;
   color: rgb(0, 255, 255);

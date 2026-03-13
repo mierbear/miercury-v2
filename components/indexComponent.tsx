@@ -516,14 +516,14 @@ export default function Home() {
       </div>
 
       {/* TITLE */}
-      <div className="w-270 max-w-screen h-auto flex justify-end align-center items-center top-0 flex-col relative">
+      <div className="w-5xl max-w-screen h-auto flex justify-end align-center items-center top-0 flex-col relative">
         <Title />
 
         <p className="absolute text-white/4 nonsel left-0 z-50">meow</p>
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="content w-270 max-w-screen bg-transparent text-black z-10 grid grid-rows-[1.2em_1fr] relative">
+      <div className="content w-5xl max-w-screen bg-transparent text-black z-10 grid grid-rows-[1.2em_1fr] relative">
 
         <TitleBot />  
 
@@ -557,7 +557,7 @@ export default function Home() {
                 transition-flex duration-1000 nonsel 
                 justify-center items-center relative 
                 cursor-pointer w-full lg:px-4 overflow-hidden
-                max-h-140 min-h-140 order-2 md:order-4
+                max-h-160 min-h-160 order-2 md:order-4
                 `}
                 onMouseEnter={() => setArtHover(true)}
                 onMouseLeave={() => setArtHover(false)}
@@ -570,11 +570,11 @@ export default function Home() {
                     cursor-pointer
                     object-cover
     
-                    min-h-140
+                    min-h-160
                     max-h-[60vh]
                     w-full
                     max-w-screen
-                    min-[768px]:max-h-140
+                    min-[768px]:max-h-160
                     min-[768px]:min-w-full
                     `}
                     onClick={() => setFeaturedLightBoxOpen(true)}
@@ -635,7 +635,7 @@ export default function Home() {
               </div>
               
               {/* MIER DRAWING */}
-              <div className="relative w-full h-0 z-100 overflow-visible order-3 md:order-5">
+              <div className="relative w-full h-0 z-100 overflow-visible order-3 md:order-4">
                 <img 
                   ref={featArtMiniRef} 
                   src={artwork?.url} 
@@ -675,10 +675,103 @@ export default function Home() {
                 />
               </div>
 
-              <hr className="my-4 border-gray-500/30 w-[90%] block order-4 md:order-6" />
+              <hr className="mt-4 mb-4 md:mb-0 border-gray-500/30 w-[90%] block order-4 md:order-5" />
+
+              {/* REST */}
+              <div className="grid grid-cols-1 md:grid-cols-[62fr_38fr] mt-0 md:mt-4 mb-4 items-center text-white w-full gap-4 order-6">
+
+                {/* BLOG */}
+                <div className="flex flex-col">
+                  <p className={`pl-5 md:pl-1 pb-1 ${sono.className} text-xs`}>✦ recent blog posts:</p>
+                  <div className="flex mx-4 md:mx-0 md:h-60 flex-col items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 thin-scrollbar overflow-y-auto">
+
+                    {latestPost === null ? null : (
+                      <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">
+                        <NextLink href={`/blog/post/${latestPost.slug}`}>
+                          <p className={`${sono.className} font-bold text-base xs:text-xl sm:text-2xl hover:underline blue`}>{latestPost.title}</p>
+                        </NextLink>
+                        <div className={`${sono.className} text-xs text-gray-400 nonsel flex`} onClick={clickDate}>
+                          <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
+                        </div>
+                        <div className="prose prose-invert text-justify pt-5 mb-4 text-xs">
+                          <p>{latestPostSnippet}...</p>
+                        </div>
+                        
+                        <p className="absolute bottom-0 text-xs hover:underline right-4 blue"><a href={`/blog/post/${latestPost.slug}`}>continue reading?</a></p>
+                      </div>
+                    )}
+
+                    <div className={`${sono.className} w-full`}>
+                      <hr className="mb-4 border-gray-500/60 w-full" />
+                      {posts.map((post) => {
+                        return (
+                          <div key={post.id} className="rounded-md w-full flex flex-row items-center justify-between pl-4 pr-4">
+
+                            <NextLink href={`/blog/post/${post.slug}`}>
+                              <p className="font-bold hover:underline blue">{post.title}</p>
+                            </NextLink>
+                            
+                            <div className="text-xs text-gray-400 nonsel flex">
+                              <p className="">— {post.date}</p>
+                            </div>
+
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </div>
+
+                {/* MISC */}
+                <div className="flex flex-col">
+                  <p className={`pl-5 md:pl-1 pb-1 ${sono.className} text-xs`}>✦ misc.</p>
+                  <div className="flex flex-col sm:flex-row md:flex-col justify-between md:h-60 gap-4">
+                    
+                    <NextLink 
+                      className="
+                      bg-[#17191a] hover:bg-yellow-300 text-white hover:text-black hover:border-black border-3 px-8 py-4 md:py-0 border-[#d8e0e3] 
+                      rounded-2xl border-dotted flex-auto flex items-center nonsel transition-colors duration-100
+                      justify-center ml-4 sm:ml-0 md:ml-0 mr-4 md:mr-0 w-[60%] md:w-full sm:h-50 md:h-auto sm:w-auto self-center
+                      order-2
+                      "
+                      href="https://mier.atabook.org/"
+                      target="_blank" rel="noopener noreferrer"
+                    >
+
+                      <p className="text-center">sign my guestbook!</p>
+
+                    </NextLink>
+
+                    <div 
+                      className="
+                      flex mx-4 ml-4 md:m-0 mt-0 sm:mr-0 flex-col bg-[#17191a]/50
+                      border-[#17191a] border-2 h-50 md:h-40 text-xs relative
+                      rounded-l-xl rounded-t-xl
+                      order-1
+                      "
+                    >
+
+                      <p className={`${sono.className} sticky top-0 z-10 bg-[#17191a] p-2 pl-3 w-full rounded-t-xl`}>CHANGELOGS</p>
+                      <div className="super-thin-scrollbar h-full overflow-y-auto">
+                        {logs?.map((log, index) => {
+                          return (
+                            <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
+                              <p className={`${sono.className} text-gray-400`}><span className="text-orange-400 text-[9px]">●</span> {log.date}</p>
+                              <p className="text-justify">{log.log}</p>
+                            </div>
+                          )
+                        })}
+                      </div>
+
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
 
               {/* CAROUSEL */}
-              <div className="order-6 md:order-1 flex flex-col relative">
+              <div className="order-8 md:order-1 flex flex-col relative">
                 <p className="text-white absolute top-0 left-0 py-1 px-2 z-100 text-xs bg-black/30 rounded-br-md ml-px mt-px nonsel">brought to you by...</p>
                 <div className="flex flex-col justify-center items-center relative w-full aspect-25/9 mx-auto border-x-0 md:border-x text-white border-[#d8e0e3]/70 border">
 
@@ -764,100 +857,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <hr className="mt-4 border-gray-500/30 w-[90%] block order-7 md:order-2" />
-
-              {/* REST */}
-              <div className="grid grid-cols-1 md:grid-cols-[62fr_38fr] mt-4 md:mt-0 mb-4 items-center text-white w-full gap-4 order-8">
-
-                {/* BLOG */}
-                <div className="flex flex-col">
-                  <p className={`pl-5 md:pl-1 pb-1 ${sono.className} text-xs`}>✦ recent blog posts:</p>
-                  <div className="flex mx-4 md:mx-0 md:h-60 flex-col items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 thin-scrollbar overflow-y-auto">
-
-                    {latestPost === null ? null : (
-                      <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">
-                        <NextLink href={`/blog/post/${latestPost.slug}`}>
-                          <p className={`${sono.className} font-bold text-base xs:text-xl sm:text-2xl hover:underline blue`}>{latestPost.title}</p>
-                        </NextLink>
-                        <div className={`${sono.className} text-xs text-gray-400 nonsel flex`} onClick={clickDate}>
-                          <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
-                        </div>
-                        <div className="prose prose-invert text-justify pt-5 mb-4 text-xs">
-                          <p>{latestPostSnippet}...</p>
-                        </div>
-                        
-                        <p className="absolute bottom-0 text-xs hover:underline right-4 blue"><a href={`/blog/post/${latestPost.slug}`}>continue reading?</a></p>
-                      </div>
-                    )}
-
-                    <div className={`${sono.className} w-full`}>
-                      <hr className="mb-4 border-gray-500/60 w-full" />
-                      {posts.map((post) => {
-                        return (
-                          <div key={post.id} className="rounded-md w-full flex flex-row items-center justify-between pl-4 pr-4">
-
-                            <NextLink href={`/blog/post/${post.slug}`}>
-                              <p className="font-bold hover:underline blue">{post.title}</p>
-                            </NextLink>
-                            
-                            <div className="text-xs text-gray-400 nonsel flex">
-                              <p className="">— {post.date}</p>
-                            </div>
-
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-
-                {/* MISC */}
-                <div className="flex flex-col">
-                  <p className={`pl-5 md:pl-1 pb-1 ${sono.className} text-xs`}>✦ misc.</p>
-                  <div className="flex flex-col sm:flex-row md:flex-col justify-between md:h-60 gap-4">
-                    
-                    <NextLink 
-                      className="
-                      bg-[#17191a] border-3 px-8 py-4 md:py-0 border-[#d8e0e3] 
-                      rounded-2xl border-dotted flex-auto flex items-center nonsel
-                      justify-center ml-4 sm:ml-0 md:ml-0 mr-4 md:mr-0 w-[60%] md:w-full sm:h-50 md:h-auto sm:w-auto self-center
-                      order-2
-                      "
-                      href="https://mier.atabook.org/"
-                      target="_blank" rel="noopener noreferrer"
-                    >
-
-                      <p className="text-center">sign my guestbook!</p>
-
-                    </NextLink>
-
-                    <div 
-                      className="
-                      flex mx-4 ml-4 md:m-0 mt-0 sm:mr-0 flex-col bg-[#17191a]/50
-                      border-[#17191a] border-2 h-50 md:h-40 text-xs relative
-                      rounded-l-xl rounded-t-xl
-                      order-1
-                      "
-                    >
-
-                      <p className={`${sono.className} sticky top-0 z-10 bg-[#17191a] p-2 pl-3 w-full rounded-t-xl`}>CHANGELOGS</p>
-                      <div className="super-thin-scrollbar h-full overflow-y-auto">
-                        {logs?.map((log, index) => {
-                          return (
-                            <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
-                              <p className={`${sono.className} text-gray-400`}><span className="text-orange-400 text-[9px]">●</span> {log.date}</p>
-                              <p className="text-justify">{log.log}</p>
-                            </div>
-                          )
-                        })}
-                      </div>
-
-                    </div>
-
-                  </div>
-                </div>
-
-              </div>
+              <hr className="mb-4 md:mt-4 md:mb-0 border-gray-500/30 w-[90%] block order-7 md:order-2" />
 
             </div> 
 

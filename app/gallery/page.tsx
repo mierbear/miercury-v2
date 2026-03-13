@@ -1,4 +1,3 @@
-import Image from "next/image";
 import GalleryComponent from "@/components/galleryComponent";
 import { Gowun_Batang } from "next/font/google";
 
