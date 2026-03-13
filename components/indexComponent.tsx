@@ -266,8 +266,8 @@ export default function Home() {
     pupil: HTMLImageElement,
     mouseX: number,
     mouseY: number,
-    maxDistance = 30,
-    radius = 600
+    maxDistance = 20,
+    radius = 1000
   ) => {
     const rect = pupil.getBoundingClientRect();
 
@@ -293,10 +293,10 @@ export default function Home() {
     if (!ready) return;
 
     const move = (e: MouseEvent) => {
-      if (!leftPupilRef.current ) return;
+      if (!leftPupilRef.current || !rightPupilRef.current) return;
 
       movePupil(leftPupilRef.current, e.clientX, e.clientY);
-      // movePupil(rightPupilRef.current, e.clientX, e.clientY);
+      movePupil(rightPupilRef.current, e.clientX, e.clientY);
     };
 
     window.addEventListener("mousemove", move);
@@ -724,10 +724,12 @@ export default function Home() {
 
                       {/* EYE */}
                       <div className="relative aspect-25/9 flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
-                        <img className="scale-60 md:scale-100 absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
-                        <img className="scale-60 md:scale-100 absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
-                        <div className="absolute bottom-0 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
-                          <p className="text-white text-sm text-center w-full">
+                        <img className="-translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
+                        <img className="-translate-x-full scale-x-[-1] absolute nonsel pointer-events-none bg-white border-4 border-black z-20" src="/images/lid.png" />
+                        <img className="translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={rightPupilRef} />
+                        <img className="translate-x-full absolute nonsel pointer-events-none bg-white border-4 border-black z-20" src="/images/lid.png" />
+                        <div className="absolute bottom-2 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
+                          <p className={`text-white text-sm text-center w-full ${gowun.className}`}>
                             I know what you're up to.
                           </p>
                         </div>
