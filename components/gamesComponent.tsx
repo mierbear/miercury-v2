@@ -18,12 +18,12 @@ const GamesComponent = () => {
       <div className={`w-5xl max-w-screen flex-auto flex flex-col bg-white transition-opacity duration-500 z-50`}>
 
         {/* INTRO */}
-        <div className="bg-amber-300 h-80">
+        <div className="bg-gray-600 h-80">
           <p>fdsdfewfwef</p>
         </div>
                 
         {/* GAMES LIST */}
-        <div className="flex flex-col gap-4 bg-white flex-auto p-4">
+        <div className="flex flex-col gap-2 bg-white flex-auto p-4">
 
           <Game 
             src="/videos/games/fish.mov" 
@@ -34,7 +34,7 @@ const GamesComponent = () => {
           />
           
           <Game 
-            src="/videos/games/fish.mov" 
+            src="/videos/games/match.mov" 
             link="/match/index.html"
             title="Match Game" 
             date="03/18/2025"

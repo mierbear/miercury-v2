@@ -59,7 +59,7 @@ const Project = ({ src, link, title, date, description }: Props) => {
       onMouseLeave={() => { isPhone ? undefined : setHovered(false); isPhone ? undefined : videoRef.current?.pause(); }}
       className={`
         transition-all duration-500 flex flex-row
-        h-50 overflow-hidden w-full
+        h-40 md:h-50 overflow-hidden w-full
         rounded-2xl bg-gray-200
         ${hovered ? "grayscale-0 scale-100" : "grayscale-50"}
       `}
@@ -73,9 +73,12 @@ const Project = ({ src, link, title, date, description }: Props) => {
         muted
         playsInline
         
-        className={`h-full transition-all duration-500 ${
-          hovered ? "grayscale-0" : "grayscale-50"
-        }`}
+        className={`
+          h-full transition-colors duration-500
+          ${hovered ? "grayscale-0" : "grayscale-50"}
+           object-cover
+          max-w-[30vw]
+        `}
       />
 
       {/* INFO */}
@@ -85,11 +88,11 @@ const Project = ({ src, link, title, date, description }: Props) => {
         <div className="px-4">
 
           {/* TITLE */}
-          <h2 
+          <p 
             className={`
             flex transition-gap duration-500
-            ${hovered ? "gap-3" : "gap-2"} 
-            text-3xl font-bold ${noto.className}
+            ${hovered ? "gap-3" : "gap-2"} text-nowrap
+            text-xl sm:text-2xl md:text-3xl font-bold ${noto.className}
             `}
           >
             <span className={`
@@ -102,16 +105,16 @@ const Project = ({ src, link, title, date, description }: Props) => {
               {hovered ? "★" : "✦"}
             </span>
             {title}
-          </h2>
+          </p>
           
           {/* DATE */}
-          <p className={`text-sm ${sono.className} text-black/60`}>{date}</p>
+          <p className={`text-xs sm:text-sm ${sono.className} text-black/60`}>{date}</p>
         </div>
 
         <hr className="my-2 border-gray-500/30 w-full" />
 
         {/* DESCRIPTION */}
-        <p className="text-sm px-4">
+        <p className="text-xs sm:text-sm md:text-base px-4">
           {description} 
         </p>
 
