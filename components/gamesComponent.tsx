@@ -2,7 +2,8 @@
 import NextLink from "next/link";
 import React from "react";
 import { useEffect, useRef, useState } from "react";
-import Footer from "./footerComponent";
+import Footer from "@/components/footerComponent";
+import Game from "@/components/gameListingComponent"
 
 const GamesComponent = () => {
 
@@ -22,27 +23,23 @@ const GamesComponent = () => {
         </div>
                 
         {/* GAMES LIST */}
-        <div className="grid grid-cols-2 md:grid-cols-3 bg-amber-100 flex-auto">
+        <div className="flex flex-col gap-4 bg-white flex-auto p-4">
 
-          <NextLink 
-            href="/match/index.html" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="flex justify-center items-center bg-[#858d94]">
-            <span>match</span>
-          </NextLink>
-
-          <NextLink 
-            href="/mierfishing/index.html" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="flex justify-center items-center bg-[#707c86]">
-            <span>fishing</span>
-          </NextLink>
-
-          <div className="flex justify-center items-center bg-[#858d94]">
-            <span>more to come!</span>
-          </div>
+          <Game 
+            src="/videos/games/fish.mov" 
+            link="/mierfishing/index.html" 
+            title="Mier Fishing" 
+            date="04/05/2025"
+            description="A fishing typing game I made for fun purely in vanilla HTML/CSS/JS." 
+          />
+          
+          <Game 
+            src="/videos/games/fish.mov" 
+            link="/match/index.html"
+            title="Match Game" 
+            date="03/18/2025"
+            description="My first attempt in making a game 3-4 months into learning web development." 
+          />
 
         </div>
       </div>
