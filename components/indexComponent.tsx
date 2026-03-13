@@ -556,31 +556,33 @@ export default function Home() {
                 flex flex-col flex-100
                 transition-flex duration-1000 nonsel 
                 justify-center items-center relative 
-                cursor-pointer w-full md:px-4 overflow-hidden
-                max-h-120 min-h-120 order-2 md:order-4
+                cursor-pointer w-full lg:px-4 overflow-hidden
+                max-h-140 min-h-140 order-2 md:order-4
                 `}
                 onMouseEnter={() => setArtHover(true)}
                 onMouseLeave={() => setArtHover(false)}
               >
                 
+                {/* ART */}
                 <img src={artwork?.url}
                   onLoad={handleImageLoad}
                   className={`
                     cursor-pointer
                     object-cover
     
-                    min-h-120
+                    min-h-140
                     max-h-[60vh]
                     w-full
                     max-w-screen
-                    min-[768px]:max-h-120
+                    min-[768px]:max-h-140
                     min-[768px]:min-w-full
                     `}
                     onClick={() => setFeaturedLightBoxOpen(true)}
                 />
-    
+
+                {/* ART DESCRIPTION */}
                 <div className={`
-                  absolute bottom-12 left-6 md:left-10 hover:opacity-0 transition-all duration-500
+                  absolute bottom-12 left-6 lg:left-10 hover:opacity-0 transition-all duration-500
                   flex flex-col text-nowrap md:origin-bottom-left
                   nonsel cursor-pointer
                   `}
@@ -589,14 +591,15 @@ export default function Home() {
                   <p className={`text-xs md:text-sm md:self-start meow ${noto.className} text-white`}>({artwork?.date})</p>
                 </div>
                 
+                {/* MARQUEES */}
                 <div 
                   className={`
                   flex items-center overflow-hidden
-                  absolute top-0 w-full md:px-4
+                  absolute top-0 w-full lg:px-4
                   `}
                 >
                   <Marquee
-                    speed={30}
+                    speed={10}
                     autoFill={true}
                     direction="right"
                     className={`
@@ -609,14 +612,15 @@ export default function Home() {
                   </Marquee>
                 </div>
 
+                {/* MARQUEES */}
                 <div 
                   className={`
                   flex items-center overflow-hidden
-                  absolute bottom-0 w-full md:px-4
+                  absolute bottom-0 w-full lg:px-4
                   `}
                 >
                   <Marquee
-                    speed={30}
+                    speed={10}
                     autoFill={true}
                     className={`
                       text-xs flex py-2
@@ -650,7 +654,7 @@ export default function Home() {
                   className="
                   nonsel absolute bottom-0 right-0 h-60
                   origin-bottom-right cursor-pointer
-                  translate-x-10 translate-y-11 z-12
+                  translate-x-8 translate-y-11 z-12
                   " 
                 />
                 <img 
@@ -658,7 +662,7 @@ export default function Home() {
                   className={`
                     nonsel pointer-events-none absolute 
                     bottom-0 right-0 h-60 wings origin-bottom-right
-                    translate-x-10 translate-y-10 z-13
+                    translate-x-8 translate-y-10 z-13
                   `} 
                 />
                 <img 
@@ -666,7 +670,7 @@ export default function Home() {
                   className={`
                     nonsel pointer-events-none absolute 
                     bottom-0 right-0 h-60 wings origin-bottom-right
-                    translate-x-10 translate-y-10 z-11
+                    translate-x-8 translate-y-10 z-11
                   `} 
                 />
               </div>
@@ -674,138 +678,181 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-[90%] block order-4 md:order-6" />
 
               {/* CAROUSEL */}
-              <div className="flex flex-col justify-center items-center relative w-full aspect-25/9 mx-auto border-x-0 md:border-x text-white border-[#d8e0e3]/70 border order-6 md:order-1">
+              <div className="order-6 md:order-1 flex flex-col relative">
+                <p className="text-white absolute top-0 left-0 py-1 px-2 z-100 text-xs bg-black/30 rounded-br-md ml-px mt-px nonsel">brought to you by...</p>
+                <div className="flex flex-col justify-center items-center relative w-full aspect-25/9 mx-auto border-x-0 md:border-x text-white border-[#d8e0e3]/70 border">
 
-                <div className="w-full h-full absolute bg-[#17191a] mix-blend-lighten z-100 pointer-events-none">
-
-                </div>
-
-                <div
-                  className="overflow-hidden flex items-center justify-center h-full"
-                  onMouseEnter={() => autoplay.current.stop()}
-                  onMouseLeave={() => autoplay.current.play()}
-                  ref={emblaRef}
-                >
-                  <div className={`flex ${ready ? "opacity-100" : "opacity-0"}`}>
-                    
-                    <div className="aspect-25/9 flex-[0_0_100%] overflow-hidden relative">
-                      <NextLink
-                      href="https://vertuously.com/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="relative block w-full h-full"
-                      onMouseEnter={() => {setAdVertHover(true)}}
-                      onMouseLeave={() => {setAdVertHover(false)}}
-                      >
-                        <div className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col nonsel pointer-events-none">
-                          <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8 text-nowrap`} ref={vertAdRef}>Take a dive?</p>
-                          <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
-                        </div>
-
-                        <video autoPlay muted loop className="object-cover h-full w-full nonsel pointer-events-none">
-                          <source src="/videos/vert.webm" type="video/webm" />
-                        </video>
-                      </NextLink>
-                    </div>
-
-                    <div className="aspect-25/9 flex-[0_0_100%]">
-                      <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
-                        <img src="/images/indexbanner.png" className="w-full h-full bg-[#17191a]/40 nonsel pointer-events-none object-cover" />
-                      </NextLink>
-                    </div>
-
-                    <div className="relative aspect-25/9 flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
-                      <img className="scale-60 md:scale-100 absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
-                      <img className="scale-60 md:scale-100 absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
-                      <div className="absolute bottom-0 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
-                        <Marquee
-                          className="w-full"
-                          speed={20}
-                          autoFill={true}
-                        >
-                          <p className="text-white text-sm tracking-wide">
-                            i know what you're up to.
-                          </p>
-                        </Marquee>
-                      </div>
-                    </div>
+                  <div className="w-full h-full absolute bg-[#17191a] mix-blend-lighten z-100 pointer-events-none">
 
                   </div>
-                </div>
-                
-                <button onClick={scrollPrev} className="absolute cursor-pointer text-xl h-full transition-bg duration-400 hover:bg-black/50 px-4 left-0">🠴</button>
-                <button onClick={scrollNext} className="absolute cursor-pointer text-xl h-full transition-bg duration-400 hover:bg-black/50 px-4 right-0">🠶</button>
-                <div className="flex gap-2 justify-center absolute bottom-2">
-                  {slides.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => emblaApi?.scrollTo(i)}
-                      className={`w-2 h-2 rounded-full transition cursor-pointer
-                        ${i === selectedIndex ? 'bg-white' : 'bg-white/30'}`}
-                    />
-                  ))}
-                </div>
 
+                  <div
+                    className="overflow-hidden flex items-center justify-center h-full"
+                    onMouseEnter={() => autoplay.current.stop()}
+                    onMouseLeave={() => autoplay.current.play()}
+                    ref={emblaRef}
+                  >
+                    <div className={`flex ${ready ? "opacity-100" : "opacity-0"}`}>
+                      
+                      {/* VERT */}
+                      <div className="aspect-25/9 flex-[0_0_100%] overflow-hidden relative">
+                        <NextLink
+                        href="https://vertuously.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="relative block w-full h-full"
+                        onMouseEnter={() => {setAdVertHover(true)}}
+                        onMouseLeave={() => {setAdVertHover(false)}}
+                        >
+                          <div className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col nonsel pointer-events-none">
+                            <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8 text-nowrap`} ref={vertAdRef}>Take a dive?</p>
+                            <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
+                          </div>
+
+                          <video autoPlay muted loop className="object-cover h-full w-full nonsel pointer-events-none">
+                            <source src="/videos/vert.webm" type="video/webm" />
+                          </video>
+                        </NextLink>
+                      </div>
+
+                      {/* FISHING */}
+                      <div className="aspect-25/9 flex-[0_0_100%]">
+                        <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
+                          <img src="/images/indexbanner.png" className="w-full h-full bg-[#17191a]/40 nonsel pointer-events-none object-cover" />
+                        </NextLink>
+                      </div>
+
+                      {/* EYE */}
+                      <div className="relative aspect-25/9 flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
+                        <img className="scale-60 md:scale-100 absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
+                        <img className="scale-60 md:scale-100 absolute nonsel pointer-events-none bg-white z-20" src="/images/lid.png" />
+                        <div className="absolute bottom-0 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
+                          <p className="text-white text-sm text-center w-full">
+                            I know what you're up to.
+                          </p>
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                  
+                  <img 
+                    src="/images/arrow-left.svg"  
+                    onClick={scrollPrev} 
+                    className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 hover:bg-black/20 left-0" 
+                  />
+                  
+                  <img 
+                    src="/images/arrow-right.svg" 
+                    onClick={scrollNext} 
+                    className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 hover:bg-black/20 right-0" 
+                  />
+
+                  <div className="flex gap-2 justify-center absolute bottom-2">
+                    {slides.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => emblaApi?.scrollTo(i)}
+                        className={`w-2 h-2 rounded-full transition cursor-pointer
+                          ${i === selectedIndex ? 'bg-white' : 'bg-white/30'}`}
+                      />
+                    ))}
+                  </div>
+
+                </div>
               </div>
 
               <hr className="mt-4 border-gray-500/30 w-[90%] block order-7 md:order-2" />
 
-              {/* MISC */}
-              <div className="grid grid-cols-1 md:grid-cols-[62fr_38fr] md:mb-4 items-center text-white w-full gap-4 order-8">
+              {/* REST */}
+              <div className="grid grid-cols-1 md:grid-cols-[62fr_38fr] mt-4 md:mt-0 mb-4 items-center text-white w-full gap-4 order-8">
 
                 {/* BLOG */}
-                <div className="flex mx-4 md:mx-0 flex-col md:h-70 items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 thin-scrollbar overflow-y-auto">
+                <div className="flex flex-col">
+                  <p className={`pl-5 md:pl-1 pb-1 ${sono.className} text-xs`}>✦ recent blog posts:</p>
+                  <div className="flex mx-4 md:mx-0 md:h-60 flex-col items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 thin-scrollbar overflow-y-auto">
 
-                  {latestPost === null ? null : (
-                    <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">
-                      <NextLink href={`/blog/post/${latestPost.slug}`}>
-                        <p className={`${sono.className} font-bold text-base xs:text-xl sm:text-2xl hover:underline blue`}>{latestPost.title}</p>
-                      </NextLink>
-                      <div className={`${sono.className} text-xs text-gray-400 nonsel flex`} onClick={clickDate}>
-                        <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
-                      </div>
-                      <div className="prose prose-invert text-justify pt-5 mb-4 text-xs">
-                        <p>{latestPostSnippet}...</p>
-                      </div>
-                      
-                      <p className="absolute bottom-0 text-xs hover:underline right-4 blue"><a href={`/blog/post/${latestPost.slug}`}>continue reading?</a></p>
-                    </div>
-                  )}
-
-                  <div className={`${sono.className} w-full`}>
-                    <hr className="mb-4 border-gray-500/60 w-full" />
-                    {posts.map((post) => {
-                      return (
-                        <div key={post.id} className="rounded-md w-full flex flex-row items-center justify-between pl-4 pr-4">
-
-                          <NextLink href={`/blog/post/${post.slug}`}>
-                            <p className="font-bold hover:underline blue">{post.title}</p>
-                          </NextLink>
-                          
-                          <div className="text-xs text-gray-400 nonsel flex">
-                            <p className="">— {post.date}</p>
-                          </div>
-
+                    {latestPost === null ? null : (
+                      <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">
+                        <NextLink href={`/blog/post/${latestPost.slug}`}>
+                          <p className={`${sono.className} font-bold text-base xs:text-xl sm:text-2xl hover:underline blue`}>{latestPost.title}</p>
+                        </NextLink>
+                        <div className={`${sono.className} text-xs text-gray-400 nonsel flex`} onClick={clickDate}>
+                          <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
                         </div>
-                      );
-                    })}
+                        <div className="prose prose-invert text-justify pt-5 mb-4 text-xs">
+                          <p>{latestPostSnippet}...</p>
+                        </div>
+                        
+                        <p className="absolute bottom-0 text-xs hover:underline right-4 blue"><a href={`/blog/post/${latestPost.slug}`}>continue reading?</a></p>
+                      </div>
+                    )}
+
+                    <div className={`${sono.className} w-full`}>
+                      <hr className="mb-4 border-gray-500/60 w-full" />
+                      {posts.map((post) => {
+                        return (
+                          <div key={post.id} className="rounded-md w-full flex flex-row items-center justify-between pl-4 pr-4">
+
+                            <NextLink href={`/blog/post/${post.slug}`}>
+                              <p className="font-bold hover:underline blue">{post.title}</p>
+                            </NextLink>
+                            
+                            <div className="text-xs text-gray-400 nonsel flex">
+                              <p className="">— {post.date}</p>
+                            </div>
+
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
 
-                {/* LOGS */}
-                <div className="flex m-4 md:m-0 mt-0 flex-col md:h-70 bg-[#17191a]/50 border-[#17191a] border-2 h-50 text-xs relative rounded-l-xl rounded-t-xl">
-                  <p className={`${sono.className} sticky top-0 z-10 bg-[#17191a] p-2 pl-3 w-full rounded-t-xl`}>CHANGELOGS</p>
-                  <div className="super-thin-scrollbar h-full overflow-y-auto">
-                    {logs?.map((log, index) => {
-                      return (
-                        <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
-                          <p className={`${sono.className} text-gray-400`}><span className="text-orange-400 text-[9px]">●</span> {log.date}</p>
-                          <p className="text-justify">{log.log}</p>
-                        </div>
-                      )
-                    })}
-                  </div>
+                {/* MISC */}
+                <div className="flex flex-col">
+                  <p className={`pl-5 md:pl-1 pb-1 ${sono.className} text-xs`}>✦ misc.</p>
+                  <div className="flex flex-col sm:flex-row md:flex-col justify-between md:h-60 gap-4">
+                    
+                    <NextLink 
+                      className="
+                      bg-[#17191a] border-3 px-8 py-4 md:py-0 border-[#d8e0e3] 
+                      rounded-2xl border-dotted flex-auto flex items-center nonsel
+                      justify-center ml-4 sm:ml-0 md:ml-0 mr-4 md:mr-0 w-[60%] md:w-full sm:h-50 md:h-auto sm:w-auto self-center
+                      order-2
+                      "
+                      href="https://mier.atabook.org/"
+                      target="_blank" rel="noopener noreferrer"
+                    >
 
+                      <p className="text-center">sign my guestbook!</p>
+
+                    </NextLink>
+
+                    <div 
+                      className="
+                      flex mx-4 ml-4 md:m-0 mt-0 sm:mr-0 flex-col bg-[#17191a]/50
+                      border-[#17191a] border-2 h-50 md:h-40 text-xs relative
+                      rounded-l-xl rounded-t-xl
+                      order-1
+                      "
+                    >
+
+                      <p className={`${sono.className} sticky top-0 z-10 bg-[#17191a] p-2 pl-3 w-full rounded-t-xl`}>CHANGELOGS</p>
+                      <div className="super-thin-scrollbar h-full overflow-y-auto">
+                        {logs?.map((log, index) => {
+                          return (
+                            <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
+                              <p className={`${sono.className} text-gray-400`}><span className="text-orange-400 text-[9px]">●</span> {log.date}</p>
+                              <p className="text-justify">{log.log}</p>
+                            </div>
+                          )
+                        })}
+                      </div>
+
+                    </div>
+
+                  </div>
                 </div>
 
               </div>
