@@ -96,9 +96,9 @@ const Project = ({ src, link, title, date, description }: Props) => {
             `}
           >
             <span className={`
-              ${hovered ? "scale-100 spin" : "scale-80 -rotate-90 -translate-y-px"} 
+              ${hovered ? "scale-100 spin duration-900" : "scale-80 -rotate-90 -translate-y-px duration-600"} 
               w-4 h-4 mt-1 flex items-center justify-center
-              transition-all duration-500 self-center
+              transition-all self-center
               ${sono.className}
               `}
             >

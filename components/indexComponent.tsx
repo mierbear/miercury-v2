@@ -485,15 +485,15 @@ export default function Home() {
         {
           src: artwork.url,
           description: (
-            <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
-              <p className={`text-4xl font-bold ${bodoni.className}`}>{artwork.title}</p>
-              <p className={`${noto.className} text-gray-300 font-bold`}>({artwork.date})</p>
-              <div className="flex gap-2">
+            <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-2 md:py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+              <p className={`text-xl sm:text-2xl md:text-4xl font-bold ${bodoni.className}`}>{artwork.title}</p>
+              <p className={`${noto.className} text-xs sm:text-sm md:text-base text-gray-300 font-bold`}>({artwork.date})</p>
+              <div className="flex flex-wrap gap-2">
                 {artwork.tags.map((tag, index) => 
-                  <p key={index} className={`text-xs ${noto.className} text-gray-400`}>#{tag}</p>
+                  <p key={index} className={`text-xs sm:text-sm md:text-base ${kosugi.className} text-gray-400`}>#{tag}</p>
                 )}
               </div>
-              <p className={`${noto.className} mt-3 text-center`}>{artwork.description}</p>
+              <p className={`${noto.className} text-xs sm:text-sm md:text-base mt-3 text-center`}>{artwork.description}</p>
             </div>
           ),
         },
@@ -1013,7 +1013,6 @@ export default function Home() {
                     <p className="text-xs font-bold underline">○ DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
                     <p className="text-xs font-bold underline">○ finish the ocs page</p>
                     <p className="text-xs font-bold underline">○ finish the mtwim page</p>
-                    <p className="text-xs font-bold underline">○ finish the games page</p>
                     <p className="text-xs font-bold underline">○ finish the pp page</p>
                     <p className="text-xs font-bold underline">○ finish the blog page</p>
                     <p className="text-xs">○ make illustration for top right section</p>
@@ -1039,6 +1038,7 @@ export default function Home() {
                     <p className="text-xl font-bold self-center">DONE: </p>
                     {/* <p className="text-xs">● </p> */}
                     <p className="text-xs">● make featured art frame properly</p>
+                    <p className="text-xs font-bold underline">● finish the games page</p>
                     <p className="text-xs font-bold underline">● finish the gallery page</p>
                     <p className="text-xs">● a LOT of things for the gallery i cant list down lol</p>
                     <p className="text-xs font-bold underline">● finish the about me page</p>

@@ -187,15 +187,15 @@ export default function GalleryComponent() {
   const slides = filteredArtworks.map((art) => ({
     src: art.url,
     description: (
-      <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
-        <p className={`text-4xl font-bold ${bodoni.className}`}>{art.title}</p>
-        <p className={`${noto.className} text-gray-300 font-bold`}>({art.date})</p>
-        <div className="flex gap-2">
+      <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-2 md:py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+        <p className={`text-xl sm:text-2xl md:text-4xl font-bold ${bodoni.className}`}>{art.title}</p>
+        <p className={`${noto.className} text-xs sm:text-sm md:text-base text-gray-300 font-bold`}>({art.date})</p>
+        <div className="flex flex-wrap gap-2">
           {art.tags.map((tag, index) => 
-            <p key={index} className={`text-xs ${noto.className} text-gray-400`}>#{tag}</p>
+            <p key={index} className={`text-xs sm:text-sm md:text-base ${kosugi.className} text-gray-400`}>#{tag}</p>
           )}
         </div>
-        <p className={`${noto.className} mt-3 text-center`}>{art.description}</p>
+        <p className={`${noto.className} text-xs sm:text-sm md:text-base mt-3 text-center`}>{art.description}</p>
       </div>
     ),
   }));
@@ -205,15 +205,15 @@ export default function GalleryComponent() {
         {
           src: featArtwork.url,
           description: (
-            <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
-              <p className={`text-4xl font-bold ${bodoni.className}`}>{featArtwork.title}</p>
-              <p className={`${noto.className} text-gray-300 font-bold`}>({featArtwork.date})</p>
-              <div className="flex gap-2">
+            <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-2 md:py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+              <p className={`text-xl sm:text-2xl md:text-4xl font-bold ${bodoni.className}`}>{featArtwork.title}</p>
+              <p className={`${noto.className} text-xs sm:text-sm md:text-base text-gray-300 font-bold`}>({featArtwork.date})</p>
+              <div className="flex flex-wrap gap-2">
                 {featArtwork.tags.map((tag, index) => 
-                  <p key={index} className={`text-xs ${noto.className} text-gray-400`}>#{tag}</p>
+                  <p key={index} className={`text-xs sm:text-sm md:text-base ${kosugi.className} text-gray-400`}>#{tag}</p>
                 )}
               </div>
-              <p className={`${noto.className} mt-3 text-center`}>{featArtwork.description}</p>
+              <p className={`${noto.className} text-xs sm:text-sm md:text-base mt-3 text-center`}>{featArtwork.description}</p>
             </div>
           ),
         },
@@ -224,9 +224,9 @@ export default function GalleryComponent() {
     {
       src: "/images/gallery-bg-full.jpg",
       description: (
-        <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
-          <p className={`text-4xl font-bold ${bodoni.className}`}>Gallery Background</p>
-          <p className={`${noto.className} mt-3 text-center`}>a bunch of sketches i gathered from 2025-2026, took a while to do</p>
+        <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-2 md:py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
+          <p className={`text-xl sm:text-2xl md:text-4xl font-bold ${bodoni.className}`}>Gallery Background</p>
+          <p className={`${noto.className} text-xs sm:text-sm md:text-base mt-3 text-center`}>a bunch of sketches i gathered from 2025-2026, took a while to do</p>
         </div>
       ),
     },
