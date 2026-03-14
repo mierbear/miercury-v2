@@ -4,6 +4,7 @@ type ArtType = {
   description: string;
   tags: string[];
   date: string;
+  created_at: string;
   url: string;
   featured: boolean;
 }

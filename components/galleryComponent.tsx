@@ -97,8 +97,8 @@ export default function GalleryComponent() {
       "skullbound",
       "flower delivery",
       "simeons descent",
-      "PIO",
-      "pacific purgatory",
+      "pio",
+      "pp",
       "mier",
     ],
   }

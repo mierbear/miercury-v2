@@ -287,25 +287,39 @@ export default function page() {
   const addArtRef = useRef<HTMLInputElement | null>(null);
   const artTitleRef = useRef<HTMLInputElement | null>(null);
   const artDescRef = useRef<HTMLTextAreaElement | null>(null);
+  const artDateRef = useRef<HTMLInputElement | null>(null);
   const [artUrl, setArtUrl] = useState<string | null>(null);
   const [artTitle, setArtTitle] = useState<string | null>(null);
   const [artDescription, setArtDescription] = useState<string | null>(null);
+  const [artCreatedAt, setArtCreatedAt] = useState<string | null>(null);
+  const [artTags, setArtTags] = useState<string[]>([]);
+  const [showTagDropdown, setShowTagDropdown] = useState(false);
+
+  const tags = [
+    "original",
+    "friends",
+    "fanart",
+    "favorite",
+    "collab",
+    "shitpost",
+    "mtwim",
+    "skullbound",
+    "flower delivery",
+    "simeons descent",
+    "pio",
+    "pp",
+    "mier"
+  ];
 
   const artSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const getDate = (date = new Date()) => {
-    const yy = String(date.getFullYear()).slice(-2);
-    const mm = String(date.getMonth() + 1).padStart(2, "0");
-    const dd = String(date.getDate()).padStart(2, "0");
-
-    return `${yy}.${mm}.${dd}`;
-    }
-
     const { error } = await supabase.from("art").insert({
       title: artTitle,
       description: artDescription,
-      date: getDate(), 
+      date: artCreatedAt?.slice(2, 10).replace(/-/g, "."), 
+      created_at: artCreatedAt,
+      tags: artTags,
       url: artUrl,
     })
 
@@ -319,9 +333,12 @@ export default function page() {
     addArtRef.current!.value = "";
     artTitleRef.current!.value = "";
     artDescRef.current!.value = "";
+    artDateRef.current!.value = "";
     setArtUrl("");
     setArtTitle("");
     setArtDescription("");
+    setArtCreatedAt("");
+    setArtTags([]);
 
     fetchArtworks();
   }
@@ -620,15 +637,16 @@ export default function page() {
               ):(
                 <button 
                   onClick={() => addArtRef.current?.click()}
-                  className="px-4 py-2 mb-4  monospace border border-white rounded-md cursor-pointer"
+                  className="px-4 py-2 monospace border border-white rounded-md cursor-pointer"
                 >
                   no artwork selected...
                 </button>
               )}
 
 
-              <form className="flex flex-col items-center" onSubmit={artSubmitHandler}>
+              <form className="flex flex-col items-center w-full gap-2" onSubmit={artSubmitHandler}>
 
+                {/* IMG */}
                 <input
                   type="file"
                   accept="image/*"
@@ -644,26 +662,76 @@ export default function page() {
                   }}
                 />
 
+                {/* TITLE */}
                 <input 
                   type="text"
                   placeholder="input title.."
-                  className="w-full mb-4 monospace text-xl"
+                  className="w-full my-2 monospace text-xl"
                   onChange={(e) => {
                     setArtTitle(e.target.value);
                   }}
                   ref={artTitleRef}
                 />
 
-
+                {/* DESCRIPTION */}
                 <textarea 
                   placeholder="input description.."
-                  className="w-full mb-4 monospace text-xs h-36"
+                  className="w-full monospace text-xs h-36"
                   onChange={(e) => {
                     setArtDescription(e.target.value);
                   }}
                   ref={artDescRef}
                 />
 
+                {/* TAGS */}
+                <div className="w-full relative">
+                  <div className="flex flex-wrap gap-1 items-center">
+                    <span className="monospace text-xs text-white/50">tags:</span>
+                    {artTags.map(tag => (
+                      <span
+                        key={tag}
+                        className="text-xs monospace border border-white/30 px-2 py-0.5 rounded cursor-pointer hover:border-red-500 hover:text-red-500"
+                        onClick={() => setArtTags(prev => prev.filter(t => t !== tag))}
+                      >
+                        #{tag}
+                      </span>
+                    ))}
+                    <button
+                      type="button"
+                      className="text-xs monospace border border-white/30 px-2 py-0.5 rounded cursor-pointer hover:border-white"
+                      onClick={() => setShowTagDropdown(p => !p)}
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  {/* DATE */}
+                  <input
+                    type="datetime-local"
+                    className="w-full p-2 my-2 monospace text-sm bg-gray-400"
+                    onChange={(e) => setArtCreatedAt(e.target.value)}
+                    ref={artDateRef}
+                  />
+
+                  {showTagDropdown && (
+                    <div className="absolute top-full left-0 mt-1 bg-[#101113] border border-white/20 rounded p-2 flex flex-wrap gap-1 z-10 w-full">
+                      {tags.filter(tag => !artTags.includes(tag)).map(tag => (
+                        <span
+                          key={tag}
+                          className="text-xs monospace border border-white/30 px-2 py-0.5 rounded cursor-pointer hover:border-white"
+                          onClick={() => {
+                            setArtTags(prev => [...prev, tag]);
+                            setShowTagDropdown(false);
+                          }}
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                
+                {/* SUBMIT */}
                 <button
                 type="submit"
                 className="cursor-pointer px-4 py-2 text-xs monospace border border-white rounded-md"
