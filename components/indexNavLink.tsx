@@ -41,19 +41,37 @@ export default function LinkItem({ desc, active, type, pos, link, onHover }: Lin
       <div>
         
         {/* TITLE */}
-        <p className={`
-          ${sono.className} nonsel pointer-events-none h-12.5 flex
-          items-center pl-3.5 gap-2.5 transition-colors duration-400
-          ${active === link ? "text-yellow-300 white-glow text-xl" : "text-white/50"}
+        <NextLink 
+          href={`/${link}`}
+          className={`
+          ${sono.className} 
+          nonsel h-12.5 flex
+          items-center pl-3.5 transition-all duration-400
+          ${active === link || "pointer-events-none"}
+          ${active === link ? "text-yellow-300 white-glow text-xl gap-3.5" : "text-white/50 gap-2.5"}
           `}
         >
-          <span className={`${active === link ? "text-2xl spin" : ""}`}>
+          <span className={`
+            ${active === link ? "scale-100 spin" : "scale-70 -rotate-90 -translate-y-px"} 
+            text-2xl w-3 h-3 ml-px flex items-center justify-center
+            transition-all duration-500
+            ${sono.className}
+            `}
+          >
             {active === link ? "★" : "✦"}
           </span>
-          <span className={active === link ? "underline" : ""}>
-            {active === link ? `${link}!` : `${link}`}
+
+          <span 
+            className={`
+              text-xl
+              w-full h-full text-start flex items-center
+              origin-left transition-[scale] duration-500
+              ${active === link ? "scale-100" : "scale-80"}
+            `}
+          >
+            {link}
           </span>
-        </p>
+        </NextLink>
 
         {/* DESCRIPTION */}
         <p className={`
