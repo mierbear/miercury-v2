@@ -266,10 +266,6 @@ export default function page() {
     fetchLogs();
   }
 
-  const handleTabClick = (tab: "blog" | "log" | "art" | "meow") => {
-    setCurrentTab(tab);
-  }
-
   const uploadImage = async (file: File) => {
     const fileExt = file.name.split(".").pop();
     const fileName = `${crypto.randomUUID()}.${fileExt}`;
@@ -381,13 +377,18 @@ export default function page() {
     fetchArtworks();
   }
 
+  const [page, setPage] = useState(1);
+  const perPage = 12;
+  const totalPages = Math.ceil((artworks?.length ?? 0) / perPage);
+  const pagedArt = artworks?.slice((page - 1) * perPage, page * perPage);
+
 
   return (
-    <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50">
+    <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50 monospace">
 
     {isLoggedIn ?(
 
-      <div className="min-h-screen w-260 align-center items-center flex flex-col nonsel">
+      <div className="min-h-screen w-5xl align-center items-center flex flex-col nonsel">
 
         {/* HEADER */}
         <div className="h-60 flex flex-col justify-end">
@@ -398,32 +399,33 @@ export default function page() {
           <p>you're not gonna try and hack my website are u ... u_u</p>
         </div>
 
+        {/* OPTIONS */}
         <div className="w-full grid grid-cols-4 h-16">
           
           <p 
-          className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
-          onClick={() => {handleTabClick("blog")}}
+            className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
+            onClick={() => {setCurrentTab("blog")}}
           >
             post on your blog
           </p>
 
           <p 
-          className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
-          onClick={() => {handleTabClick("log")}}
+            className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
+            onClick={() => {setCurrentTab("log")}}
           >
             post new log
           </p>
 
           <p 
-          className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
-          onClick={() => {handleTabClick("art")}}
+            className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
+            onClick={() => {setCurrentTab("art")}}
           >
             post new drawing
           </p>
 
           <p 
-          className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
-          onClick={() => {handleTabClick("meow")}}
+            className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
+            onClick={() => {setCurrentTab("meow")}}
           >
             meow
           </p>
@@ -501,6 +503,7 @@ export default function page() {
           </div>
         )}
 
+        {/* LOG */}
         {currentTab === "log" && (
           <div className="w-full bg-black grid grid-cols-[1fr_2fr] h-100">
             <div className="bg-[#535961]/20 p-4 overflow-y-auto h-full">
@@ -550,38 +553,59 @@ export default function page() {
           </div>
         )}
 
+        {/* ART */}
         {currentTab === "art" && (
           <div className="w-full bg-black grid grid-cols-[5fr_3fr]">
             
             {/* art list */}
-            <div className="bg-[#535961]/20 p-4 overflow-y-auto h-full w-full grid grid-cols-3 gap-4">
-              {artworks?.map((art) => {
-                return (
-                  <div
-                    className="flex flex-col relative"
-                    key={art.id}
-                  >
-                    <p
-                    className={`text-2xl ${art.featured ? "text-yellow-300" : "text-white"} cursor-pointer absolute top-0.5 right-1`}
-                    onClick={() => handleArtFeature(art.id)}
+            <div className="flex flex-col items-center">
+
+              <div className="bg-[#535961]/20 p-4 overflow-y-auto h-full w-full grid grid-cols-3 gap-2">
+                {pagedArt?.map((art) => {
+                  return (
+                    <div
+                      className="flex flex-col relative"
+                      key={art.id}
                     >
-                      {art.featured ? "★" : "✦"}
-                    </p>
-                    <img src={art.url} className="w-full h-48 object-cover" />
-                    <div className="flex justify-between items-center w-full">
-                      <p className="font-bold text-lg">{art.title}</p>
                       <p
-                      className="text-2xl text-red-600 cursor-pointer"
-                      onClick={() => handleArtDelete(art.id)}
+                      className={`text-2xl ${art.featured ? "text-yellow-300" : "text-white"} cursor-pointer absolute top-0.5 right-1`}
+                      onClick={() => handleArtFeature(art.id)}
                       >
-                        🞮
+                        {art.featured ? "★" : "✦"}
                       </p>
+                      <img src={art.url} className="w-full h-48 object-cover" />
+                      <div className="flex justify-between items-center w-full">
+                        <p className="font-bold text-lg truncate">{art.title}</p>
+                        <p
+                        className="text-2xl text-red-600 cursor-pointer"
+                        onClick={() => handleArtDelete(art.id)}
+                        >
+                          🞮
+                        </p>
+                      </div>
+                      <p className="text-xs text-white/30">{art.date}</p>
+                      <p className="text-xs truncate">{art.description}</p>
                     </div>
-                    <p className="text-xs">{art.description}</p>
-                    <p className="text-xs text-white/30">{art.date}</p>
-                  </div>
-                )
-              })}
+                  )
+                })}
+
+              </div>
+
+              <div className="flex gap-2 items-center p-4">
+                {Array.from({ length: totalPages }, (_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setPage(i + 1)}
+                    className={`
+                      ${page === i + 1 ? "text-yellow-300" : "text-white"}
+                      cursor-pointer
+                      `}
+                  >
+                    {i + 1}
+                  </button>
+                ))}
+              </div>
+
             </div>
             
             {/* upload art */}

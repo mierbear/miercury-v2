@@ -57,6 +57,7 @@ export default function GalleryComponent() {
     tags:
     [
       "rendered", 
+      "wip", 
       "sketch", 
     ],
   }
@@ -93,11 +94,11 @@ export default function GalleryComponent() {
     tags:
     [
       "mtwim",
-      "pp",
+      "skullbound",
       "flower delivery",
-      "skulls",
-      "cave hermit",
       "simeons descent",
+      "PIO",
+      "pacific purgatory",
       "mier",
     ],
   }
