@@ -905,7 +905,7 @@ export default function GalleryComponent() {
             transition-all duration-500 overflow-hidden md:mt-4 mx-2
             ${tagHide 
               ? "max-h-0 mt-0 md:h-auto md:mx-0 md:w-0" 
-              : `${tagStates.some(Boolean) ? "max-h-119" : "max-h-35"} py-2 md:py-0 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4`}
+              : `${tagStates.some(Boolean) ? "max-h-129.5" : "max-h-35"} py-2 md:py-0 md:w-42 lg:w-50 md:h-full md:max-h-full md:mt-0 md:mx-4 md:mb-4`}
             `}
           >
 

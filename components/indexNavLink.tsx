@@ -1,6 +1,8 @@
+"use client";
 import NextLink from "next/link";
 import Marquee from "react-fast-marquee";
 import { Sono } from "next/font/google";
+import { useState, useEffect } from "react";
 
 const sono = Sono({
   weight: "400",
@@ -26,6 +28,13 @@ type LinkItemProps = {
 };
 
 export default function LinkItem({ desc, active, type, pos, link, onHover }: LinkItemProps) {
+
+  const [isPhone, setIsPhone] = useState(false);
+
+  useEffect(() => {
+    setIsPhone(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
   return (
     <div
       className={`
@@ -47,6 +56,7 @@ export default function LinkItem({ desc, active, type, pos, link, onHover }: Lin
           ${sono.className} 
           nonsel h-12.5 flex
           items-center pl-3.5 transition-all duration-400
+          ${isPhone && "pointer-events-none"}
           ${active === link || "pointer-events-none"}
           ${active === link ? "text-yellow-300 white-glow text-xl gap-3.5" : "text-white/50 gap-2.5"}
           `}
