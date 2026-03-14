@@ -12,9 +12,7 @@ import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import { Micro_5, Righteous, Coral_Pixels, Sono, Bodoni_Moda, Gowun_Batang, Noto_Serif_JP, Kosugi_Maru } from "next/font/google"
-import NavLinkMarq from "@/components/indexNavLinkMarquee";
-import NavLinkImg from "@/components/indexNavLinkImg";
-import NavLinkBot from "@/components/indexNavLinkBot";
+import NavLink from "@/components/indexNavLink";
 import LogType from "@/types/logType";
 import ArtType from "@/types/artType";
 import Tooltip from "@/components/tooltipComponent";
@@ -940,13 +938,13 @@ export default function Home() {
               {/* NAV */}
               <div className={`mx-4 mb-4 text-white grid grid-rows-[240px_50px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative`} ref={linksDivRef}>
                 
-                <NavLinkMarq desc="learn about my characters" active={activeLink} link="characters" onHover={handleHover} />
-                <NavLinkImg desc="look at my art" active={activeLink} link="gallery" onHover={handleHover} />
-                <NavLinkImg desc="learn about a story i want to tell" active={activeLink} link="mtwim" onHover={handleHover} />
-                <NavLinkImg desc="play my own games here" active={activeLink} link="games" onHover={handleHover} />
-                <NavLinkImg desc="learn about my own art community" active={activeLink} link="pp" onHover={handleHover} />
-                <NavLinkImg desc="read my ramblings" active={activeLink} link="blog" onHover={handleHover} />
-                <NavLinkBot desc="learn more about me" active={activeLink} link="about" onHover={handleHover} />
+                <NavLink desc="learn about my characters" active={activeLink} type="marq" pos="top" link="characters" onHover={handleHover} />
+                <NavLink desc="look at my art" active={activeLink} type="img" pos="mid" link="gallery" onHover={handleHover} />
+                <NavLink desc="learn about a story i want to tell" active={activeLink} type="img" pos="mid" link="mtwim" onHover={handleHover} />
+                <NavLink desc="play my own games here" active={activeLink} type="img" pos="mid" link="games" onHover={handleHover} />
+                <NavLink desc="learn about my own art community" active={activeLink} type="img" pos="mid" link="pp" onHover={handleHover} />
+                <NavLink desc="read my ramblings" active={activeLink} type="img" pos="mid" link="blog" onHover={handleHover} />
+                <NavLink desc="learn more about me" active={activeLink} type="img" pos="bot" link="about" onHover={handleHover} />
 
               </div> 
 
@@ -962,7 +960,7 @@ export default function Home() {
           
           {/* BOTTOM ROW */}
           <div
-            className="w-full flex flex-col justify-center opacity-0 transition-opacity duration-2000"
+            className="w-full flex flex-col justify-center opacity-0 transition-opacity duration-2000 mt-4 md:mt-0"
             ref={bottomContentRef}
           >
 
@@ -1037,8 +1035,8 @@ export default function Home() {
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">DONE: </p>
                     {/* <p className="text-xs">● </p> */}
-                    <p className="text-xs">● make featured art frame properly</p>
                     <p className="text-xs font-bold underline">● finish the games page</p>
+                    <p className="text-xs">● make featured art frame properly</p>
                     <p className="text-xs font-bold underline">● finish the gallery page</p>
                     <p className="text-xs">● a LOT of things for the gallery i cant list down lol</p>
                     <p className="text-xs font-bold underline">● finish the about me page</p>
