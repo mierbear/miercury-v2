@@ -7,6 +7,8 @@ import NextLink from "next/link";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
 import Fade from "embla-carousel-fade";
+import Footer from "@/components/footerComponent";
+import { FORMERR } from "dns";
 
 const font = Bodoni_Moda({
   weight: "400",
@@ -32,7 +34,19 @@ export default function Home() {
 
   const news = [`— the secret santa event is over, thank you to those who participated <3 check out the secret santa gallery to see the results! — have a merry christmas and a happy new year! —`];
 
-  const [currentTab, setCurrentTab] = useState<"about" | "lore" | "characters" | "home" | "history">("about")
+  type tabs = "about" | "lore" | "characters" | "home" | "history" | "collabs" | "santa"
+  
+  const tabs = [
+    "home",
+    "about",
+    "collabs",
+    "santa",
+    "lore",
+    "history",
+    "characters",
+  ]
+
+  const [currentTab, setCurrentTab] = useState<string>("about")
 
   const autoplay = useRef(
       Autoplay({
@@ -71,7 +85,7 @@ export default function Home() {
   
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center bg-[#c1f8ff]">
-      <div className="flex flex-col z-100 w-300 max-w-screen">
+      <div className="flex flex-col z-100 w-6xl max-w-screen">
 
         {/* TITLE */}
         <div className="flex flex-col justify-end h-[20vh]">
@@ -155,34 +169,16 @@ export default function Home() {
           <div className="grid grid-cols-[1fr_4fr]">
 
             {/* LEFT COL */}
-            <div className="flex flex-col justify-between">
+            <div className="flex flex-col justify-between p-4">
 
               {/* TABS */}
-              <div className="grid grid-rows-1 pt-4">
-                
-                <button onClick={() => {setCurrentTab("home")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
-                  Home
-                </button>
+              <div className="grid grid-rows-1 gap-2">
 
-                <button onClick={() => {setCurrentTab("about")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
-                  About
-                </button>
-                
-                <button onClick={() => {setCurrentTab("characters")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
-                  Characters
-                </button>
-
-                <button onClick={() => {setCurrentTab("lore")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
-                  "Lore"
-                </button>
-
-                <button onClick={() => {setCurrentTab("history")}} className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
-                  History
-                </button>
-                
-                <button className={` bg-white cursor-pointer rounded p-4 text-center m-4 mt-0`}>
-                  Collabs
-                </button>
+                {tabs.map(tab => (
+                  <button key={tab} onClick={() => {setCurrentTab(tab)}} className={` bg-white cursor-pointer rounded p-4 text-center`}>
+                    {tab.slice(0, 1).toLocaleUpperCase()}{tab.slice(1)}
+                  </button>
+                ))}
               
               </div>
 
@@ -205,7 +201,7 @@ export default function Home() {
             </div>
 
             {/* RIGHT COL */}
-            <div className="bg-white/30 rounded-xl flex flex-col p-6 m-4 ml-0">
+            <div className="bg-white/50 rounded-xl flex flex-col p-6 m-4 ml-0">
 
               {/* ABOUT */}
               {currentTab === "about" && (
@@ -269,18 +265,7 @@ export default function Home() {
       </div>
 
       {/* FOOTER */}
-      <div className="bg-[#17191a] min-w-screen z-1">
-        <footer className="relative z-1">
-          <div className="bg-[#101113]/90 py-2 min-w-screen flex flex-col justify-center align-center items-center bottom-0 text-white text-xs">
-
-            <p>Copyright © 2025 Miercury. All Rights Reserved.</p>
-            <p>
-              <a href="mailto:admin@miercury.com">admin@miercury.com</a>
-            </p>
-
-          </div>
-        </footer>
-      </div>
+      <Footer />
 
       <Tooltip info="go fishing?" status={tooltipVisible} />
       <video autoPlay muted loop className="object-cover fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 min-w-[120vw] min-h-[120vh] blur-[10px]">

@@ -113,9 +113,6 @@ export default function GalleryComponent() {
   const [artworks, setArtworks] = useState<ArtType[]>([]);
   const [featArtwork, setFeatArtwork] = useState<ArtType | null>(null);
 
-  // const isPhone = typeof window !== "undefined" &&
-  // window.matchMedia("(pointer: coarse)").matches;
-    
   const fetchFeatArt = async () => {
     const { error, data } = await supabase
       .from("art")

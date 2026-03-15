@@ -87,8 +87,11 @@ export default function Home() {
   const [latestPost, setLatestPost] = useState<PostType | null>(null);
   const [latestPostSnippet, setLatestPostSnippet] = useState<string | null>(null);
   
-  const isPhone = typeof window !== "undefined" &&
-  window.matchMedia("(pointer: coarse)").matches;
+  const [isPhone, setIsPhone] = useState(false);
+
+  useEffect(() => {
+    setIsPhone(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
   
   const router = useRouter();
 
@@ -618,13 +621,14 @@ export default function Home() {
             className={
               `${boldonse.className}
               nonsel
-              text-[#d8e0e3]
+              ${ready ? "text-[#d8e0e3] miercury-glow" : "text-[#17191a]"}
+              
+              transition-color duration-2000
               text-5xl
               min-[512px]:text-6xl
               min-[640px]:text-7xl
               min-[768px]:text-8xl
               min-[1024px]:text-9xl
-              miercury-glow
               cursor-pointer
               text-nowrap
               `}
@@ -641,7 +645,7 @@ export default function Home() {
       {/* MAIN CONTENT */}
       <div className="content w-5xl max-w-screen bg-transparent text-black z-10 grid grid-rows-[1.2em_1fr] relative">
 
-        <div ref={divRef} className="bg-[#d8e0e3] rounded-t-xl flex flex-col justify-center items-center z-11 miercury-platform-glow nonsel text-nowrap ">
+        <div ref={divRef} className={`${ready ? "bg-[#d8e0e3] miercury-platform-glow" : "bg-[#17191a]"} transition-color duration-2000 rounded-t-xl flex flex-col justify-center items-center z-11 nonsel text-nowrap`}>
           <p ref={textRef} style={{ visibility: "hidden" }} className={`text-[10px] min-[375px]:text-xs ${sono.className} text-[#17191a] translate-y-px min-[375px]:translate-y-0`}>welcome to the firmament, keep it mirthful</p>
         </div>
 
@@ -870,7 +874,7 @@ export default function Home() {
                     >
 
                       <p className={`${sono.className} sticky top-0 z-10 bg-[#17191a] p-2 pl-3 w-full rounded-t-xl`}>CHANGELOGS</p>
-                      <div className="super-thin-scrollbar h-full overflow-y-auto">
+                      <div className="thin-scrollbar h-full overflow-y-auto">
                         {logs?.map((log, index) => {
                           return (
                             <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
@@ -927,11 +931,13 @@ export default function Home() {
                       </div>
 
                       {/* FISHING */}
-                      <div className="aspect-25/9 flex-[0_0_100%]">
-                        <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
-                          <img src="/images/indexbanner.png" className="w-full h-full bg-[#17191a]/40 nonsel pointer-events-none object-cover" />
-                        </NextLink>
-                      </div>
+                      {isPhone || (
+                        <div className="aspect-25/9 flex-[0_0_100%]">
+                          <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
+                            <img src="/images/indexbanner.png" className="w-full h-full bg-[#17191a]/40 nonsel pointer-events-none object-cover" />
+                          </NextLink>
+                        </div>
+                      )}
 
                       {/* EYE */}
                       <div className="relative aspect-25/9 flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">

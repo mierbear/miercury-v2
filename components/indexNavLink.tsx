@@ -51,7 +51,7 @@ export default function LinkItem({ desc, active, type, pos, link, onHover }: Lin
         
         {/* TITLE */}
         <NextLink 
-          href={`/${link}`}
+          href={`/${link === "blog" ? "blog/page/1" : link}`}
           className={`
           ${sono.className} 
           nonsel h-12.5 flex
@@ -95,7 +95,7 @@ export default function LinkItem({ desc, active, type, pos, link, onHover }: Lin
 
         {/* MEDIA */}
         <NextLink
-        href={`/${link}`}
+        href={`/${link === "blog" ? "blog/page/1" : link}`}
         >
           {type === "img" ? (
             <img src={`/images/${link}.png`} className="h-47.5 w-full nonsel object-cover" />

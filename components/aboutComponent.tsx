@@ -423,8 +423,6 @@ export default function Home() {
     "im a sucker for sad/motivational stories/music",
     "im sometimes forgetful lol",
     "i might have dementia",
-    "i like ragebaiting my friends",
-    "i like gaslighting my friends",
     "i like looking into conspiracy theories for fun",
     "i laugh about almost everything",
     "dont take everything i say seriously",
