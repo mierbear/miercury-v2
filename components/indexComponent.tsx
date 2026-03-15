@@ -1,30 +1,37 @@
 "use client";
-import Stars from "@/components/indexStars";
-import Title from "@/components/indexTitle";
-import TitleBot from "@/components/indexTitleBot";
-import PostType from "@/types/postType";
+// REACT
 import { useEffect, useRef, useState, useCallback } from "react";
+import NextLink from "next/link";
+import { useRouter } from "next/navigation";
+
+// FONTS
+import { Micro_5, Righteous, Coral_Pixels, Sono, Bodoni_Moda, Gowun_Batang, Noto_Serif_JP, Kosugi_Maru, Boldonse } from "next/font/google";
+
+// 3RD PARTY
 import gsap from "gsap";
 import { TextPlugin } from "gsap/TextPlugin";
 import { SplitText } from "gsap/SplitText";
-import NextLink from "next/link";
-import supabase from "@/lib/supabaseClient";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Micro_5, Righteous, Coral_Pixels, Sono, Bodoni_Moda, Gowun_Batang, Noto_Serif_JP, Kosugi_Maru } from "next/font/google"
-import NavLink from "@/components/indexNavLink";
-import LogType from "@/types/logType";
-import ArtType from "@/types/artType";
-import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
-import { useRouter } from "next/navigation";
 import Lightbox from "yet-another-react-lightbox";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import type { SlideImage } from "yet-another-react-lightbox";
-import quotes from "@/components/quotes";
+import supabase from "@/lib/supabaseClient";
+
+// OWN
+import Stars from "@/components/indexStars";
+import NavLink from "@/components/indexNavLink";
+import Tooltip from "@/components/tooltipComponent";
 import Footer from "@/components/footerComponent";
+import quotes from "@/components/quotes";
+
+// TYPES
+import PostType from "@/types/postType";
+import LogType from "@/types/logType";
+import ArtType from "@/types/artType";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -65,6 +72,11 @@ const gowun = Gowun_Batang({
 
 const sono = Sono({
   weight: ["400", "600"],
+  subsets: ["latin"],
+})
+
+const boldonse = Boldonse({
+  weight: "400",
   subsets: ["latin"],
 })
 
@@ -505,6 +517,91 @@ export default function Home() {
     setOrientation(img.naturalWidth > img.naturalHeight ? 'landscape' : 'portrait');
   };
 
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
+
+  const bellFX = () => {
+    new Audio("/audio/bells.mp3").play();
+  }
+
+  const titleAnim = () => {
+    if (!titleRef.current) return;
+
+    gsap.set(titleRef.current, { autoAlpha: 1 });
+
+    const split = new SplitText(titleRef.current, { type: "words" });
+
+    gsap.to(split.words, {
+      keyframes:{
+        "50%":{yPercent: 120},
+        "100%":{yPercent: 0},
+      },
+      duration: 2,
+      opacity: 1,
+      stagger: {
+          each: 0.04,
+        },
+      ease: "power4.out",
+    })
+
+    bellFX();
+
+    return () => {
+      // tl.kill();
+      split.revert();
+    };
+  }
+
+  useEffect(() => {
+    if (!titleRef.current) return;
+
+    gsap.set(titleRef.current, { autoAlpha: 1 });
+
+    const split = new SplitText(titleRef.current, { type: "chars" });
+
+    const tl = gsap.timeline();
+
+    tl.from(split.chars, {
+      duration: 1,
+      opacity: 0,
+      yPercent: 120,
+      stagger: 0.05,
+      ease: "power4.out",
+      delay: 1,
+    })
+
+    return () => {
+      tl.kill();
+      split.revert();
+    };
+  }, []);
+
+  const divRef = useRef<HTMLDivElement | null>(null);
+  const textRef = useRef<HTMLHeadingElement | null>(null);
+
+  useEffect(() => {
+    if (!divRef.current || !textRef.current) return;
+
+    gsap.set(textRef.current, { autoAlpha: 1 });
+
+    const split = new SplitText(divRef.current, { type: "words" });
+
+    const tl = gsap.timeline();
+
+    tl.from(split.words, {
+      duration: 1,
+      opacity: 0,
+      yPercent: 50,
+      stagger: 0.12,
+      ease: "power4.out",
+      delay: 1.6,
+    })
+
+    return () => {
+      tl.kill();
+      split.revert();
+    };
+  }, []);
+
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
 
@@ -515,7 +612,28 @@ export default function Home() {
 
       {/* TITLE */}
       <div className="w-5xl max-w-screen h-auto flex justify-end align-center items-center top-0 flex-col relative">
-        <Title />
+        <div className="z-10 justify-end overflow-y-hidden min-h-[20vh] pt-32 md:pt-64 items-end flex">
+          <h1
+            ref={titleRef}
+            className={
+              `${boldonse.className}
+              nonsel
+              text-[#d8e0e3]
+              text-5xl
+              min-[512px]:text-6xl
+              min-[640px]:text-7xl
+              min-[768px]:text-8xl
+              min-[1024px]:text-9xl
+              miercury-glow
+              cursor-pointer
+              text-nowrap
+              `}
+            style={{ visibility: "hidden" }}
+            onClick={titleAnim}
+          >
+            MIERCURY
+          </h1>
+        </div>
 
         <p className="absolute text-white/4 nonsel left-0 z-50">meow</p>
       </div>
@@ -523,7 +641,9 @@ export default function Home() {
       {/* MAIN CONTENT */}
       <div className="content w-5xl max-w-screen bg-transparent text-black z-10 grid grid-rows-[1.2em_1fr] relative">
 
-        <TitleBot />  
+        <div ref={divRef} className="bg-[#d8e0e3] rounded-t-xl flex flex-col justify-center items-center z-11 miercury-platform-glow nonsel text-nowrap ">
+          <p ref={textRef} style={{ visibility: "hidden" }} className={`text-[10px] min-[375px]:text-xs ${sono.className} text-[#17191a] translate-y-px min-[375px]:translate-y-0`}>welcome to the firmament, keep it mirthful</p>
+        </div>
 
         <div className={`${ready ? "bg-[#586474]/50" : "bg-[#17191a] pointer-events-none"} backdrop-blur-[2px] w-full flex flex-col items-center transition-colors duration-4000`}>
 
@@ -832,13 +952,13 @@ export default function Home() {
                   <img 
                     src="/images/arrow-left.svg"  
                     onClick={scrollPrev} 
-                    className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 hover:bg-black/20 left-0" 
+                    className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 opacity-30 hover:opacity-100 hover:bg-black/20 left-0" 
                   />
                   
                   <img 
                     src="/images/arrow-right.svg" 
                     onClick={scrollNext} 
-                    className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 hover:bg-black/20 right-0" 
+                    className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 opacity-30 hover:opacity-100 hover:bg-black/20 right-0" 
                   />
 
                   <div className="flex gap-2 justify-center absolute bottom-2">
