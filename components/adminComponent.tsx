@@ -314,13 +314,22 @@ export default function page() {
   const artSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const getDate = (date = new Date()) => {
+      const yy = String(date.getFullYear()).slice(-2);
+      const mm = String(date.getMonth() + 1).padStart(2, "0");
+      const dd = String(date.getDate()).padStart(2, "0");
+
+      return `${yy}.${mm}.${dd}`;
+    }
+
     const { error } = await supabase.from("art").insert({
       title: artTitle,
       description: artDescription,
-      date: artCreatedAt?.slice(2, 10).replace(/-/g, "."), 
-      created_at: artCreatedAt,
       tags: artTags,
       url: artUrl,
+      ...(artCreatedAt 
+        ? { created_at: artCreatedAt, date: artCreatedAt?.slice(2, 10).replace(/-/g, ".") } 
+        : { date: getDate() }),
     })
 
     if (error) {
