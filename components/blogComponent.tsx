@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PostType from "@/types/postType";
 import NextLink from "next/link";
 
@@ -30,33 +30,48 @@ export default function Blog(props: BlogComponentProps) {
     setProperDate(!properDate);
   }
 
+  const years = [...new Set(allPosts.map(post => post.date.slice(0, 2)))];
+  const [activeYears, setActiveYears] = useState<number[]>([])
+
   return (
     <div className="min-w-screen min-h-screen align-center items-center flex flex-col text-white">
 
       {/* SPACE */}
-      <div className="h-42 w-240 flex flex-col justify-center items-center">
+      <div className="h-42 w-5xl flex flex-col justify-center items-center max-w-screen">
         <h1>blog</h1>
       </div>
 
       {/* CONTENT */}
-      <div className="grid grid-cols-[1fr_2fr] w-5xl min-h-screen">
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,3fr)] w-5xl min-h-screen max-w-screen">
 
         {/* ARCHIVE */}
-        <div className="bg-[#adb7be]/20 flex flex-col items-center">
+        <div className="bg-[#adb7be]/20 flex flex-col items-center w-full">
           <h1 className="py-4 font-bold">archive</h1>
 
-          {allPosts.map((post) => (
-            <div
-              key={post.id}
-              className="rounded-md max-w-[85ch] w-full flex flex-row items-center justify-between pl-4 pr-4 z-50"
-            >
-              <NextLink href={`/blog/post/${post.slug}`}>
-                <p className="hover:underline blue text-sm">{post.title}</p>
-              </NextLink>
-
-              <div className="text-xs text-gray-400 select-none flex">
-                <p>— {post.date}</p>
+          {years.map((year) => (
+            <div key={year} className="w-full px-4 py-2">
+              <div className="flex items-center gap-3">
+                <p className="text-xl">20{year}</p>
+                <hr className="border-gray-600 w-full block" />
               </div>
+              {allPosts.map((post) => (
+                post.date.slice(0,2) === year && (
+                  <div
+                    key={post.id}
+                    className="flex justify-between"
+                  >
+
+                    <NextLink href={`/blog/post/${post.slug}`}>
+                      <p className="hover:underline blue truncate">{post.title.length < 20 ? post.title : `${post.title.slice(0, 20)}...`}</p>
+                    </NextLink>
+
+                    <div className="text-xs text-gray-400 select-none flex">
+                      <p>— {post.date.slice(3)}</p>
+                    </div>
+
+                  </div>
+                )
+              ))}
             </div>
           ))}
         </div>
@@ -64,8 +79,8 @@ export default function Blog(props: BlogComponentProps) {
         {/* BLOG */}
         <div className="bg-[#c9d3d6]/20">
           {posts.map((post) => (
-            <div key={post.id} className="p-5 rounded-md mb-2 max-w-[85ch] w-full">
-              <h1 className="font-bold text-2xl">{post.title}</h1>
+            <div key={post.id} className="p-8 rounded-md mb-2 w-full">
+              <NextLink href={`/blog/post/${post.slug}`} className="font-bold text-2xl hover:underline blue">{post.title}</NextLink>
               <div className="text-xs pt-0.5 text-gray-400 nonsel flex" onClick={clickDate}>
                 <p className="underline">{properDate ? post.spec_date : post.date}</p>
                 {post.updated_date && <p className="pl-5">last updated at:</p>}
