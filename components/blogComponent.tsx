@@ -31,7 +31,12 @@ export default function Blog(props: BlogComponentProps) {
   }
 
   const years = [...new Set(allPosts.map(post => post.date.slice(0, 2)))];
-  const [activeYears, setActiveYears] = useState<number[]>([])
+  const [activeYears, setActiveYears] = useState<string[]>([])
+
+  const yearClickHandler = (year: string) => {
+    activeYears.includes(year) ? setActiveYears(activeYears.filter((currentyear) => currentyear !== year))
+    : setActiveYears(prev => [...prev, year])
+  }
 
   return (
     <div className="min-w-screen min-h-screen align-center items-center flex flex-col text-white">
@@ -51,14 +56,14 @@ export default function Blog(props: BlogComponentProps) {
           {years.map((year) => (
             <div key={year} className="w-full px-4 py-2">
               <div className="flex items-center gap-3">
-                <p className="text-xl">20{year}</p>
+                <p className="text-xl cursor-pointer" onClick={() => yearClickHandler(year)}>20{year}</p>
                 <hr className="border-gray-600 w-full block" />
               </div>
               {allPosts.map((post) => (
                 post.date.slice(0,2) === year && (
                   <div
                     key={post.id}
-                    className="flex justify-between"
+                    className={`justify-between ${activeYears.includes(year) ? "flex" : "hidden"}`}
                   >
 
                     <NextLink href={`/blog/post/${post.slug}`}>
