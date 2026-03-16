@@ -11,7 +11,7 @@ const GamesComponent = () => {
     <div className="min-w-screen min-h-screen align-center items-center flex flex-col relative bg-[#17191a] nonsel">
 
       {/* SPACE */}
-      <div className="w-5xl max-w-screen flex flex-col justify-end items-center h-32">
+      <div className="w-5xl max-w-screen flex flex-col justify-end items-center h-42">
       </div>
 
       {/* MAIN */}

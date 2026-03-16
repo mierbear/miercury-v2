@@ -49,10 +49,12 @@ export default function PostPage() {
   if (!currentPost) return null;
   
   return (
-    <BlogComponent
-      type="slug"
-      post={currentPost}
-      allPosts={posts}
-    />
+    <main className={`monospace`}>
+      <BlogComponent
+        type="slug"
+        post={currentPost}
+        allPosts={posts}
+      />
+    </main>
   );
 }

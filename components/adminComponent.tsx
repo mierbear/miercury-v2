@@ -113,6 +113,7 @@ export default function page() {
         content: newPost.content,
         updated_date: getDate(),
         updated_spec_date: getSpecDate(),
+        slug: getSlug(getDate(), newPost.title),
       }).eq("id", editingPost);
 
       if (error) {
