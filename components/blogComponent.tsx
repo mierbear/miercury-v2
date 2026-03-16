@@ -45,15 +45,18 @@ export default function Blog(props: BlogComponentProps) {
   }
 
   return (
-    <div className="min-w-screen min-h-screen align-center items-center flex flex-col text-white">
+    <div className="min-w-screen min-h-screen align-center items-center flex flex-col text-white monospace">
 
       {/* SPACE */}
       <div className="h-42 w-5xl flex flex-col justify-center items-center max-w-screen">
-        <h1>blog</h1>
+      </div>
+
+      <div className="h-60 bg-[#adb7be]/20 w-5xl mb-4">
+        <p>test header</p>
       </div>
 
       {/* CONTENT */}
-      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,3fr)] w-5xl min-h-screen max-w-screen">
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,3fr)] gap-4 w-5xl min-h-screen max-w-screen">
 
         {/* ARCHIVE */}
         <div className="bg-[#adb7be]/20 flex flex-col items-center w-full">
@@ -61,14 +64,14 @@ export default function Blog(props: BlogComponentProps) {
 
           {years.map((year) => (
             
-            <div key={year} className={`w-full px-4 ${activeYears.includes(year) && "pb-4"}`}>
+            <div key={year} className={`w-full px-4 ${activeYears.includes(year) ? "pb-6" : "pb-2"}`}>
               <div 
-                className={`flex items-center cursor-pointer transition-gap duration-300 ${activeYears.includes(year) ? "gap-4" : "gap-2"}`}
+                className={`flex items-center cursor-pointer transition-gap duration-500 nonsel ${activeYears.includes(year) ? "gap-3" : "gap-2"}`}
                 onClick={() => yearClickHandler(year)}
                 >
                 <span 
                   className={`
-                  ${activeYears.includes(year) ? "scale-100 spin" : "scale-70 -rotate-90 -translate-y-px"} 
+                  ${activeYears.includes(year) ? "scale-100 spin -translate-x-px" : "scale-70 -rotate-90 -translate-y-px"} 
                   text-2xl w-3 h-3 ml-px flex items-center justify-center
                   transition-all duration-500
                   ${sono.className}
@@ -96,11 +99,11 @@ export default function Blog(props: BlogComponentProps) {
                 post.date.slice(0,2) === year && (
                   <div
                     key={post.id}
-                    className={`justify-between ${activeYears.includes(year) ? "flex" : "hidden"}`}
+                    className={`justify-between nonsel ${activeYears.includes(year) ? "flex" : "hidden"}`}
                   >
 
                     <NextLink href={`/blog/post/${post.slug}`}>
-                      <p className="hover:underline blue truncate">{post.title.length < 20 ? post.title : `${post.title.slice(0, 20)}...`}</p>
+                      <p className="hover:underline blue truncate">{post.title.length < 18 ? post.title : `${post.title.slice(0, 18)}...`}</p>
                     </NextLink>
 
                     <div className="text-xs text-gray-400 select-none flex">

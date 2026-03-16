@@ -55,7 +55,7 @@ export default function Home({
   }, []);
 
   return (
-    <main className={`monospace`}>
+    <main>
       <BlogComponent
         type="index"
         posts={currentPosts}
