@@ -812,7 +812,7 @@ export default function Home() {
                         <NextLink href={`/blog/post/${latestPost.slug}`}>
                           <p className={`${sono.className} font-bold text-base xs:text-xl sm:text-2xl hover:underline blue`}>{latestPost.title}</p>
                         </NextLink>
-                        <div className={`${sono.className} text-xs text-gray-400 nonsel flex`} onClick={clickDate}>
+                        <div className={`${sono.className} text-xs text-gray-400 nonsel flex w-max cursor-pointer`} onClick={clickDate}>
                           <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
                         </div>
                         <div className="prose prose-invert text-justify pt-5 mb-4 text-xs">

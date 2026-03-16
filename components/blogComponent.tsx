@@ -2,6 +2,12 @@
 import { useState, useEffect } from "react";
 import PostType from "@/types/postType";
 import NextLink from "next/link";
+import { Sono } from "next/font/google";
+
+const sono = Sono({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 type BlogComponentProps =
   | {
@@ -31,7 +37,7 @@ export default function Blog(props: BlogComponentProps) {
   }
 
   const years = [...new Set(allPosts.map(post => post.date.slice(0, 2)))];
-  const [activeYears, setActiveYears] = useState<string[]>([])
+  const [activeYears, setActiveYears] = useState<string[]>([new Date().getFullYear().toString().slice(2, 4)])
 
   const yearClickHandler = (year: string) => {
     activeYears.includes(year) ? setActiveYears(activeYears.filter((currentyear) => currentyear !== year))
@@ -54,11 +60,38 @@ export default function Blog(props: BlogComponentProps) {
           <h1 className="py-4 font-bold">archive</h1>
 
           {years.map((year) => (
-            <div key={year} className="w-full px-4 py-2">
-              <div className="flex items-center gap-3">
-                <p className="text-xl cursor-pointer" onClick={() => yearClickHandler(year)}>20{year}</p>
+            
+            <div key={year} className={`w-full px-4 ${activeYears.includes(year) && "pb-4"}`}>
+              <div 
+                className={`flex items-center cursor-pointer transition-gap duration-300 ${activeYears.includes(year) ? "gap-4" : "gap-2"}`}
+                onClick={() => yearClickHandler(year)}
+                >
+                <span 
+                  className={`
+                  ${activeYears.includes(year) ? "scale-100 spin" : "scale-70 -rotate-90 -translate-y-px"} 
+                  text-2xl w-3 h-3 ml-px flex items-center justify-center
+                  transition-all duration-500
+                  ${sono.className}
+                  `}
+                >
+                  {activeYears.includes(year) ? "★" : "✦"}
+                </span>
+
+                <span 
+                  className={`
+                    text-xl
+                    h-full text-start flex items-center
+                    origin-left transition-[scale] duration-500
+                    ${activeYears.includes(year) ? "scale-100" : "scale-80"}
+                  `}
+                >
+                  20{year}
+                </span>
+
                 <hr className="border-gray-600 w-full block" />
+
               </div>
+
               {allPosts.map((post) => (
                 post.date.slice(0,2) === year && (
                   <div
@@ -78,15 +111,17 @@ export default function Blog(props: BlogComponentProps) {
                 )
               ))}
             </div>
+
           ))}
+
         </div>
         
         {/* BLOG */}
         <div className="bg-[#c9d3d6]/20">
           {posts.map((post) => (
-            <div key={post.id} className="p-8 rounded-md mb-2 w-full">
+            <div key={post.id} className={`p-8  w-full ${post === posts[posts.length - 1] || "border-b border-gray-400"}`}>
               <NextLink href={`/blog/post/${post.slug}`} className="font-bold text-2xl hover:underline blue">{post.title}</NextLink>
-              <div className="text-xs pt-0.5 text-gray-400 nonsel flex" onClick={clickDate}>
+              <div className="text-xs pt-0.5 text-gray-400 nonsel flex w-max cursor-pointer" onClick={clickDate}>
                 <p className="underline">{properDate ? post.spec_date : post.date}</p>
                 {post.updated_date && <p className="pl-5">last updated at:</p>}
                 {post.updated_date && (
@@ -99,7 +134,6 @@ export default function Blog(props: BlogComponentProps) {
                 className="post prose prose-invert pt-5 max-w-none"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
-              <hr className="my-6 border-neutral-500/40 max-w-[80ch] w-full translate-y-6.5" />
             </div>
           ))}
         </div>
