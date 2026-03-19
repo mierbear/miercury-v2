@@ -694,3 +694,68 @@ div[data-youtube-video] iframe {
 .wings {
   animation: wings-float 2s ease-in-out infinite;
 }
+
+.parallax-content {
+  position: relative;
+  z-index: 10;
+  padding: 20px;
+  color: white;
+  text-align: center;
+}
+
+.parallax-container {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  z-index: -1;
+  top: 0;
+  left: 0;
+}
+
+.parallax-layer {
+  top: 0;
+  left: 0;
+  will-change: transform;
+  position: absolute;
+  width: 100%;
+  height: 200%;
+  background-size: cover;
+  background-position: center;
+}
+
+.layer1 {
+  background-image: url(https://i.imgur.com/R31SQNB.png);
+  background-position: cover;
+  transform: translateZ(-0.1px) scale(1.0);
+  z-index: 1;
+}
+
+.layer2 {
+  background-image: url(https://i.imgur.com/mQWkuVV.png);
+  background-position: cover;
+  transform: translateZ(-0.2px) scale(1.0);
+  z-index: 2;
+}
+
+.layer3 {
+  background-image: url(https://i.imgur.com/8JJbGHX.png);
+  background-position: cover;
+  transform: translateZ(-0.3px) scale(1.0);
+  z-index: 3;
+}
+
+.layer4 {
+  background-image: url(https://i.imgur.com/s3cSCmh.png);
+  background-position: cover;
+  transform: translateZ(-0.4px) scale(1.0);
+  z-index: 4;
+}
+
+.layer5 {
+  background-image: url(https://i.imgur.com/uHfFCGt.png);
+  background-position: cover;
+  position: fixed;
+  transform: translateZ(-10px) scale(1.0);
+  z-index: 5;
+}

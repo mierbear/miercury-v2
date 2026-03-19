@@ -44,6 +44,27 @@ export default function Blog(props: BlogComponentProps) {
     : setActiveYears(prev => [...prev, year])
   }
 
+  useEffect(() => {
+    const layers = [
+      { selector: ".layer1", speed: -0.1 },
+      { selector: ".layer2", speed: -0.2 },
+      { selector: ".layer3", speed: -0.3 },
+      { selector: ".layer4", speed: -0.4 },
+      { selector: ".layer5", speed: -0.5 },
+    ];
+
+    const handleScroll = () => {
+      const scrollPosition = window.pageYOffset;
+      layers.forEach(({ selector, speed }) => {
+        const el = document.querySelector<HTMLDivElement>(selector);
+        if (el) el.style.transform = `translateY(${scrollPosition * speed}px)`;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className="min-w-screen min-h-screen align-center items-center flex flex-col text-white monospace">
 
@@ -56,22 +77,22 @@ export default function Blog(props: BlogComponentProps) {
       </div>
 
       {/* CONTENT */}
-      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,3fr)] gap-4 w-5xl min-h-screen max-w-screen">
+      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,3fr)] w-5xl min-h-screen max-w-screen">
 
         {/* ARCHIVE */}
-        <div className="bg-[#adb7be]/20 flex flex-col items-center w-full">
+        <div className="bg-black/50 flex flex-col items-center w-full pl-8">
           <h1 className="py-4 font-bold">archive</h1>
 
           {years.map((year) => (
             
-            <div key={year} className={`w-full px-4 ${activeYears.includes(year) ? "pb-6" : "pb-2"}`}>
+            <div key={year} className={`w-full ${activeYears.includes(year) ? "pb-6" : "pb-2"}`}>
               <div 
                 className={`flex items-center cursor-pointer transition-gap duration-500 nonsel ${activeYears.includes(year) ? "gap-3" : "gap-2"}`}
                 onClick={() => yearClickHandler(year)}
                 >
                 <span 
                   className={`
-                  ${activeYears.includes(year) ? "scale-100 spin -translate-x-px" : "scale-70 -rotate-90 -translate-y-px"} 
+                  ${activeYears.includes(year) ? "scale-100 -translate-x-px" : "scale-70 -rotate-90 -translate-y-px"} 
                   text-2xl w-3 h-3 ml-px flex items-center justify-center
                   transition-all duration-500
                   ${sono.className}
@@ -120,9 +141,9 @@ export default function Blog(props: BlogComponentProps) {
         </div>
         
         {/* BLOG */}
-        <div className="bg-[#c9d3d6]/20">
+        <div className="bg-black/50">
           {posts.map((post) => (
-            <div key={post.id} className={`p-8  w-full ${post === posts[posts.length - 1] || "border-b border-gray-400"}`}>
+            <div key={post.id} className={`p-8 pb-0 w-full`}>
               <NextLink href={`/blog/post/${post.slug}`} className="font-bold text-2xl hover:underline blue">{post.title}</NextLink>
               <div className="text-xs pt-0.5 text-gray-400 nonsel flex w-max cursor-pointer" onClick={clickDate}>
                 <p className="underline">{properDate ? post.spec_date : post.date}</p>
@@ -137,6 +158,10 @@ export default function Blog(props: BlogComponentProps) {
                 className="post prose prose-invert pt-5 max-w-none"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
+              
+              {post === posts[posts.length - 1] || (
+                <hr className="mt-8 border-gray-500/30" />
+              )}
             </div>
           ))}
         </div>
@@ -145,7 +170,7 @@ export default function Blog(props: BlogComponentProps) {
 
       {/* PAGES */}
       {!isSlug && totalPages && currentPage && (
-        <div className="flex gap-2 bg-[#c9d3d6]/40 w-5xl items-center justify-center h-20">
+        <div className="flex gap-2 bg-black/50 w-5xl items-center justify-center h-20">
           {currentPage > 1 && (
             <NextLink href={`/blog/page/${currentPage - 1}`}>←</NextLink>
           )}
@@ -159,6 +184,14 @@ export default function Blog(props: BlogComponentProps) {
           )}
         </div>
       )}
+
+      <div className='parallax-container'>
+        <div className='parallax-layer layer1'/>
+        <div className='parallax-layer layer2'/>
+        <div className='parallax-layer layer3'/>
+        <div className='parallax-layer layer4'/>
+        <div className='parallax-layer layer5'/>
+      </div>
 
     </div>
   );
