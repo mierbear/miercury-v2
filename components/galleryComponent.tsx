@@ -760,7 +760,13 @@ export default function GalleryComponent() {
                   // onClick={openQuestions === "closed" ? () => openQuestionHandler() : undefined}
                 >
                   <span className="text-[8px]">●</span>
-                  <span className="decoration-[#17191a]/25 transition-colors duration-100 hover:decoration-[#17191a] underline underline-offset-2 -translate-y-px flex w-full text-center">i have questions (a lot)</span>
+                  <span className={`
+                    decoration-red-500/50 transition-colors duration-100 
+                    hover:decoration-red-500 underline-offset-2
+                    -translate-y-px flex w-full text-center line-through`}
+                  >
+                    i have questions (a lot)
+                  </span>
                 </p>
                 
                 <p 
@@ -769,7 +775,13 @@ export default function GalleryComponent() {
                   onClick={() => setContentVisible(false)}
                 >
                   <span className="text-[8px]">●</span>
-                  <span className="decoration-[#17191a]/25 transition-colors duration-100 hover:decoration-[#17191a] underline underline-offset-2 -translate-y-px flex w-full text-center">i wanna see the background</span>
+                  <span className={`
+                    decoration-[#17191a]/25 transition-colors duration-100 
+                    hover:decoration-[#17191a] underline underline-offset-2
+                    -translate-y-px flex w-full text-center`}
+                  >
+                    i wanna see the background
+                  </span>
                 </p>
 
                 <NextLink 
@@ -779,7 +791,13 @@ export default function GalleryComponent() {
                   onClick={() => console.log(`mrow`)}
                 >
                   <span className="text-[8px]">●</span>
-                  <span className="decoration-[#17191a]/25 transition-colors duration-100 hover:decoration-[#17191a] underline underline-offset-2 -translate-y-px flex w-full text-center">learn about my characters</span>
+                  <span className={`
+                    decoration-[#17191a]/25 transition-colors duration-100 
+                    hover:decoration-[#17191a] underline underline-offset-2
+                    -translate-y-px flex w-full text-center`}
+                  >
+                    learn about my characters
+                  </span>
                 </NextLink>
 
                 <p 
@@ -788,7 +806,13 @@ export default function GalleryComponent() {
                   onClick={() => showRandomArt()}
                 >
                   <span className="text-[8px]">●</span>
-                  <span className="decoration-[#17191a]/25 transition-colors duration-100 hover:decoration-[#17191a] underline underline-offset-2 -translate-y-px flex w-full text-center">surprise me</span>
+                  <span className={`
+                    decoration-[#17191a]/25 transition-colors duration-100 
+                    hover:decoration-[#17191a] underline underline-offset-2
+                    -translate-y-px flex w-full text-center`}
+                  >
+                    surprise me
+                  </span>
                 </p>
               </div>
               

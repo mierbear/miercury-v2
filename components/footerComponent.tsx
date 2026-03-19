@@ -2,6 +2,7 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { Anonymous_Pro } from "next/font/google";
+import { usePathname } from "next/navigation";
 
 const anonymous = Anonymous_Pro({
   weight: "400",
@@ -52,9 +53,27 @@ const Footer = () => {
     }
   }
 
+  const pathname = usePathname();
+
+  const routes = [
+  { bg: "bg-[#101113]/50", href: "/" },
+  { bg: "bg-[#101113]/90", href: "/characters" },
+  { bg: "bg-[#101113]/90", href: "/mtwim" },
+  { bg: "bg-[#101113]/90", href: "/games" },
+  { bg: "bg-[#1a2d3cd9]", href: "/pp" },
+  { bg: "bg-[#101113]/90", href: "/gallery" },
+  { bg: "bg-black",        href: "/blog" },
+]
+
+  const currentRoute = routes.find((route) =>
+    route.href === "/"
+      ? pathname === "/"
+      : pathname.startsWith(route.href)
+  );
+
  return (
   <footer className={`z-50 h-12 relative ${anonymous.className}`}>
-    <div className="bg-[#101113]/90 py-2 min-w-screen h-full flex flex-col justify-center align-center items-center bottom-0 text-white text-[10px] min-[375px]:text-xs">
+    <div className={`${currentRoute?.bg} py-2 min-w-screen h-full flex flex-col justify-center align-center items-center bottom-0 text-white text-[10px] min-[375px]:text-xs`}>
 
       <p className="text-center text-nowrap">
         Copyright © 2025 - {currentYear} Miercury. All Rights Reserved.
