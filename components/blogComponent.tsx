@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import PostType from "@/types/postType";
 import NextLink from "next/link";
 import { Sono } from "next/font/google";
+import Footer from "@/components/footerComponent";
 
 const sono = Sono({
   weight: "400",
@@ -184,6 +185,8 @@ export default function Blog(props: BlogComponentProps) {
           )}
         </div>
       )}
+
+      <Footer />
 
       <div className='parallax-container'>
         <div className='parallax-layer layer1'/>
