@@ -5,7 +5,7 @@ import supabase from "@/lib/supabaseClient";
 import { useParams } from "next/navigation";
 import PostType from "@/types/postType";
 
-const POSTS_PER_PAGE = 3;
+const POSTS_PER_PAGE = 2;
 
 export default function Home({
   params,

@@ -4,6 +4,7 @@ import PostType from "@/types/postType";
 import NextLink from "next/link";
 import { Sono } from "next/font/google";
 import Footer from "@/components/footerComponent";
+import quotes from "./quotes";
 
 const sono = Sono({
   weight: "400",
@@ -65,6 +66,13 @@ export default function Blog(props: BlogComponentProps) {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const getQuote = (quotes: string[]): string => {
+    const today = new Date();
+    const day = Math.floor((today.getTime() - new Date(today.getFullYear(), 0, 0).getTime()) / 1000 / 60 / 60 / 24);
+    const index = day % quotes.length;
+    return quotes[index];
+  };
 
   return (
     <div className="min-w-screen min-h-screen align-center items-center flex flex-col text-white monospace">
@@ -165,26 +173,31 @@ export default function Blog(props: BlogComponentProps) {
               )}
             </div>
           ))}
+
+          {/* PAGES */}
+          {!isSlug && totalPages && currentPage && (
+            <div className="flex gap-2 w-full items-center justify-center h-20">
+              {currentPage > 1 && (
+                <NextLink className={`blue`} href={`/blog/page/${currentPage - 1}`}>←</NextLink>
+              )}
+
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                <NextLink className={`${page === currentPage ? "underline full-blue pointer-events-none" : "blue"}`} key={page} href={`/blog/page/${page}`}>{page}</NextLink>
+              ))}
+
+              {currentPage < totalPages && (
+                <NextLink className={`blue`} href={`/blog/page/${currentPage + 1}`}>→</NextLink>
+              )}
+            </div>
+          )}
+
         </div>
 
       </div>
 
-      {/* PAGES */}
-      {!isSlug && totalPages && currentPage && (
-        <div className="flex gap-2 bg-black/50 w-5xl items-center justify-center h-20">
-          {currentPage > 1 && (
-            <NextLink href={`/blog/page/${currentPage - 1}`}>←</NextLink>
-          )}
-
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-            <NextLink key={page} href={`/blog/page/${page}`} className={`${page === currentPage && "underline"}`}>{page}</NextLink>
-          ))}
-
-          {currentPage < totalPages && (
-            <NextLink href={`/blog/page/${currentPage + 1}`}>→</NextLink>
-          )}
-        </div>
-      )}
+      <div className="text-[12px] pb-4 w-5xl bg-black/50 flex justify-center">
+        <p>{getQuote(quotes)}</p>
+      </div>
 
       <Footer />
 

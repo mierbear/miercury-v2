@@ -91,6 +91,10 @@ body {
   color: rgb(0, 255, 255);
 }
 
+.full-blue {
+  color: rgb(0, 255, 255);
+}
+
 .adminPost {
   transition: all 0.2s ease;
 }
