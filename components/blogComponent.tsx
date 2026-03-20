@@ -142,7 +142,7 @@ export default function Blog(props: BlogComponentProps) {
                   >
 
                     <NextLink href={`/blog/post/${post.slug}`}>
-                      <p className="hover:underline yellow truncate">{post.title.length < 18 ? post.title : `${post.title.slice(0, 18)}...`}</p>
+                      <p className="hover:underline yellow-link truncate">{post.title.length < 18 ? post.title : `${post.title.slice(0, 18)}...`}</p>
                     </NextLink>
 
                     <div className="text-xs text-gray-400 select-none flex">
@@ -163,7 +163,7 @@ export default function Blog(props: BlogComponentProps) {
         <div className="bg-black/50">
           {posts.map((post) => (
             <div key={post.id} className={`p-8 pb-0 w-full`}>
-              <NextLink href={`/blog/post/${post.slug}`} className="font-bold text-2xl hover:underline yellow">{post.title}</NextLink>
+              <NextLink href={`/blog/post/${post.slug}`} className="font-bold text-2xl hover:underline yellow-link">{post.title}</NextLink>
               <div className="text-xs pt-0.5 text-gray-400 nonsel flex w-max cursor-pointer" onClick={clickDate}>
                 <p className="underline">{properDate ? post.spec_date : post.date}</p>
                 {post.updated_date && <p className="pl-5">last updated at:</p>}
@@ -188,15 +188,15 @@ export default function Blog(props: BlogComponentProps) {
           {!isSlug && totalPages && currentPage && (
             <div className="flex gap-2 w-full items-center justify-center h-20">
               {currentPage > 1 && (
-                <NextLink className={`yellow`} href={`/blog/page/${currentPage - 1}`}>←</NextLink>
+                <NextLink className={`yellow-link`} href={`/blog/page/${currentPage - 1}`}>←</NextLink>
               )}
 
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                <NextLink className={`${page === currentPage ? "underline full-yellow pointer-events-none" : "yellow"}`} key={page} href={`/blog/page/${page}`}>{page}</NextLink>
+                <NextLink className={`${page === currentPage ? "underline full-yellow pointer-events-none" : "yellow-link"}`} key={page} href={`/blog/page/${page}`}>{page}</NextLink>
               ))}
 
               {currentPage < totalPages && (
-                <NextLink className={`yellow`} href={`/blog/page/${currentPage + 1}`}>→</NextLink>
+                <NextLink className={`yellow-link`} href={`/blog/page/${currentPage + 1}`}>→</NextLink>
               )}
             </div>
           )}

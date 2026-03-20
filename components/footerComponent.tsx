@@ -56,13 +56,13 @@ const Footer = () => {
   const pathname = usePathname();
 
   const routes = [
-  { bg: "bg-[#101113]/50", href: "/" },
-  { bg: "bg-[#101113]/90", href: "/characters" },
-  { bg: "bg-[#101113]/90", href: "/mtwim" },
-  { bg: "bg-[#101113]/90", href: "/games" },
-  { bg: "bg-[#1a2d3cd9]", href: "/pp" },
-  { bg: "bg-[#101113]/90", href: "/gallery" },
-  { bg: "bg-black/90",        href: "/blog" },
+  { bg: "bg-[#101113]/50", text: "blue",   href: "/" },
+  { bg: "bg-[#101113]/90", text: "blue",   href: "/characters" },
+  { bg: "bg-[#101113]/90", text: "blue",   href: "/mtwim" },
+  { bg: "bg-[#101113]/90", text: "blue",   href: "/games" },
+  { bg: "bg-[#1a2d3cd9]",  text: "blue",   href: "/pp" },
+  { bg: "bg-[#101113]/90", text: "yellow", href: "/gallery" },
+  { bg: "bg-black/90",     text: "yellow", href: "/blog" },
 ]
 
   const currentRoute = routes.find((route) =>
@@ -80,12 +80,12 @@ const Footer = () => {
         <br />
         <a
         href="mailto:admin@miercury.com"
-        className="hover:underline blue"
+        className={`hover:underline ${currentRoute?.text}`}
         >admin@miercury.com</a>
       </p>
 
       <div className={`right-1 absolute flex items-center justify-center md:visible invisible`}>
-        <p ref={loginTextRef} onClick={handleLoginClick} className="pr-5 text-gray-100/90 hover:underline blue cursor-pointer nonsel">log in</p>
+        <p ref={loginTextRef} onClick={handleLoginClick} className={`pr-5 text-gray-100/90 hover:underline ${currentRoute?.text} cursor-pointer nonsel`}>log in</p>
       </div>
 
     </div>

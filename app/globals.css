@@ -97,6 +97,11 @@ body {
 
 .yellow:hover {
   transition: all .6s ease;
+  color: rgb(255, 223, 32);
+}
+
+.yellow-link:hover {
+  transition: all .6s ease;
   color: rgb(208, 135, 0);
 }
 
