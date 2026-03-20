@@ -95,6 +95,15 @@ body {
   color: rgb(0, 255, 255);
 }
 
+.yellow:hover {
+  transition: all .6s ease;
+  color: rgb(208, 135, 0);
+}
+
+.full-yellow {
+  color: rgb(255, 223, 32);
+}
+
 .adminPost {
   transition: all 0.2s ease;
 }
@@ -458,7 +467,7 @@ body {
 
 .post a,
 .tiptap a {
-  color: rgb(0, 255, 255);
+  color: oklch(90.5% 0.182 98.111);
   text-decoration: underline;
 }
 

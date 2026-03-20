@@ -62,7 +62,7 @@ const Footer = () => {
   { bg: "bg-[#101113]/90", href: "/games" },
   { bg: "bg-[#1a2d3cd9]", href: "/pp" },
   { bg: "bg-[#101113]/90", href: "/gallery" },
-  { bg: "bg-black",        href: "/blog" },
+  { bg: "bg-black/90",        href: "/blog" },
 ]
 
   const currentRoute = routes.find((route) =>

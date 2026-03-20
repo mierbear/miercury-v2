@@ -81,22 +81,31 @@ export default function Blog(props: BlogComponentProps) {
       <div className="h-42 w-5xl flex flex-col justify-center items-center max-w-screen">
       </div>
 
-      <div className="h-60 bg-[#adb7be]/20 w-5xl mb-4">
-        <p>test header</p>
+      <div className="bg-black/50 w-5xl p-8 pb-0 flex flex-col gap-2">
+        <p className="text-5xl">mier();</p>
+        <p className="text-xs">devlog || art || music || healing of the soul :3</p>
       </div>
 
       {/* CONTENT */}
       <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,3fr)] w-5xl min-h-screen max-w-screen">
 
-        {/* ARCHIVE */}
-        <div className="bg-black/50 flex flex-col items-center w-full pl-8">
-          <h1 className="py-4 font-bold">archive</h1>
+        {/* LEFT COL */}
+        <div className="bg-black/50 flex flex-col w-full pl-8 pt-8">
+
+          {/* IMG */}
+          <img src="/images/blog-mier.png" className="nonsel pointer-events-none mb-4" />
+
+          <p className="text-sm font-bold">(Ephesians 6:12)</p>
+          <p className="text-xs text-gray-200">For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places.</p>
+
+          {/* ARCHIVE */}
+          <h1 className="py-4 italic font-bold self-center">archive</h1>
 
           {years.map((year) => (
             
             <div key={year} className={`w-full ${activeYears.includes(year) ? "pb-6" : "pb-2"}`}>
               <div 
-                className={`flex items-center cursor-pointer transition-gap duration-500 nonsel ${activeYears.includes(year) ? "gap-3" : "gap-2"}`}
+                className={`flex items-center cursor-pointer transition-gap duration-500 nonsel ${activeYears.includes(year) ? "gap-3 text-yellow-300" : "gap-2"}`}
                 onClick={() => yearClickHandler(year)}
                 >
                 <span 
@@ -133,7 +142,7 @@ export default function Blog(props: BlogComponentProps) {
                   >
 
                     <NextLink href={`/blog/post/${post.slug}`}>
-                      <p className="hover:underline blue truncate">{post.title.length < 18 ? post.title : `${post.title.slice(0, 18)}...`}</p>
+                      <p className="hover:underline yellow truncate">{post.title.length < 18 ? post.title : `${post.title.slice(0, 18)}...`}</p>
                     </NextLink>
 
                     <div className="text-xs text-gray-400 select-none flex">
@@ -143,6 +152,7 @@ export default function Blog(props: BlogComponentProps) {
                   </div>
                 )
               ))}
+
             </div>
 
           ))}
@@ -153,7 +163,7 @@ export default function Blog(props: BlogComponentProps) {
         <div className="bg-black/50">
           {posts.map((post) => (
             <div key={post.id} className={`p-8 pb-0 w-full`}>
-              <NextLink href={`/blog/post/${post.slug}`} className="font-bold text-2xl hover:underline blue">{post.title}</NextLink>
+              <NextLink href={`/blog/post/${post.slug}`} className="font-bold text-2xl hover:underline yellow">{post.title}</NextLink>
               <div className="text-xs pt-0.5 text-gray-400 nonsel flex w-max cursor-pointer" onClick={clickDate}>
                 <p className="underline">{properDate ? post.spec_date : post.date}</p>
                 {post.updated_date && <p className="pl-5">last updated at:</p>}
@@ -178,15 +188,15 @@ export default function Blog(props: BlogComponentProps) {
           {!isSlug && totalPages && currentPage && (
             <div className="flex gap-2 w-full items-center justify-center h-20">
               {currentPage > 1 && (
-                <NextLink className={`blue`} href={`/blog/page/${currentPage - 1}`}>←</NextLink>
+                <NextLink className={`yellow`} href={`/blog/page/${currentPage - 1}`}>←</NextLink>
               )}
 
               {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
-                <NextLink className={`${page === currentPage ? "underline full-blue pointer-events-none" : "blue"}`} key={page} href={`/blog/page/${page}`}>{page}</NextLink>
+                <NextLink className={`${page === currentPage ? "underline full-yellow pointer-events-none" : "yellow"}`} key={page} href={`/blog/page/${page}`}>{page}</NextLink>
               ))}
 
               {currentPage < totalPages && (
-                <NextLink className={`blue`} href={`/blog/page/${currentPage + 1}`}>→</NextLink>
+                <NextLink className={`yellow`} href={`/blog/page/${currentPage + 1}`}>→</NextLink>
               )}
             </div>
           )}
@@ -196,7 +206,9 @@ export default function Blog(props: BlogComponentProps) {
       </div>
 
       <div className="text-[12px] pb-4 w-5xl bg-black/50 flex justify-center">
-        <p>{getQuote(quotes)}</p>
+        <NextLink href="/quotes" className={`${sono.className}`}>
+          <p>{getQuote(quotes)}</p>
+        </NextLink>
       </div>
 
       <Footer />
