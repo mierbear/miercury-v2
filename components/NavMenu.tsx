@@ -94,16 +94,16 @@ const NavMenu = () => {
   }
 
   const routes = [
-    { img: "moon.png", desc: "home", href: "/" },
-    { img: "moon.png", desc: "with everyone", href: "/characters" },
-    { img: "moon.png", desc: "somewhere cold", href: "/mtwim" },
+    { img: "moon.png", desc: "home",                          href: "/" },
+    { img: "moon.png", desc: "with everyone",                 href: "/characters" },
+    { img: "moon.png", desc: "somewhere cold",                href: "/mtwim" },
     { img: "moon.png", desc: "looking for something to play", href: "/games" },
-    { img: "moon.png", desc: "in Pacific Purgatory", href: "/pp" },
-    { img: "moon.png", desc: "in the gallery", href: "/gallery" },
-    { img: "moon.png", desc: "in my mind", href: "/blog" },
-    { img: "sun.png", desc: "here with me", href: "/about" },
-    { img: "moon.png", desc: "with my projected principles", href: "/quotes" },
-    { img: "moon.png", desc: "in the secret base..", href: "/admin" },
+    { img: "moon.png", desc: "in Pacific Purgatory",          href: "/pp" },
+    { img: "moon.png", desc: "in the gallery",                href: "/gallery" },
+    { img: "star.png", desc: "in my mind",                    href: "/blog" },
+    { img: "sun.png",  desc: "here with me",                  href: "/about" },
+    { img: "moon.png", desc: "with my projected principles",  href: "/quotes" },
+    { img: "moon.png", desc: "in the secret base..",          href: "/admin" },
   ]
 
   const currentRoute = routes.find((route) =>

@@ -103,7 +103,7 @@ export default function Blog(props: BlogComponentProps) {
 
           {years.map((year) => (
             
-            <div key={year} className={`w-full ${activeYears.includes(year) ? "pb-6" : "pb-2"}`}>
+            <div key={year} className={`w-full ${activeYears.includes(year) ? "pb-4" : "pb-2"}`}>
               <div 
                 className={`flex items-center cursor-pointer transition-gap duration-500 nonsel ${activeYears.includes(year) ? "gap-3 text-yellow-300" : "gap-2"}`}
                 onClick={() => yearClickHandler(year)}
@@ -157,6 +157,14 @@ export default function Blog(props: BlogComponentProps) {
 
           ))}
 
+          <p className="text-xs text-gray-400 mt-8 text-center">
+            the entire bg and aesthetic i just copied directly from<br />my&nbsp;
+            <NextLink href="https://miermiermiermier.blogspot.com/" target="_blank" rel="noopener noreferrer" className="yellow underline">
+              old blog
+            </NextLink> 
+            &nbsp;lol
+          </p>
+
         </div>
         
         {/* BLOG */}
@@ -205,11 +213,13 @@ export default function Blog(props: BlogComponentProps) {
 
       </div>
 
-      <div className="text-[12px] pb-4 w-5xl bg-black/50 flex justify-center">
-        <NextLink href="/quotes" className={`${sono.className}`}>
-          <p>{getQuote(quotes)}</p>
+      <div className={`${isSlug && "pt-20"} pb-4 w-5xl bg-black/50 flex justify-center`}>
+        <NextLink href="/quotes" target="_blank" rel="noopener noreferrer">
+          <p className="text-xs">{getQuote(quotes)}</p>
         </NextLink>
       </div>
+
+      <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
 
       <Footer />
 
