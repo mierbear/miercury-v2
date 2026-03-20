@@ -1,5 +1,10 @@
 import PpComponent from "@/components/ppComponent";
 import { Questrial } from "next/font/google";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Pacific Purgatory",
+};
 
 const questrial = Questrial({
   weight: "400",

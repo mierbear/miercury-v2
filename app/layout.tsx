@@ -7,15 +7,12 @@ import "tiptap-extension-resizable-image/styles.css";
 import "./globals.css";
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/captions.css";
-// import { Sono } from "next/font/google";
-
-// const sono = Sono({
-//   weight: "400",
-//   subsets: ["latin"],
-// })
 
 export const metadata: Metadata = {
-  title: "Miercury",
+  title: {
+    template: "%s",
+    default: "Miercury",
+  },
   description: "Miercury",
 };
 

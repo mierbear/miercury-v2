@@ -1138,29 +1138,27 @@ export default function Home() {
                     <p className="text-xs font-bold underline">○ finish the ocs page</p>
                     <p className="text-xs font-bold underline">○ finish the mtwim page</p>
                     <p className="text-xs font-bold underline">○ finish the pp page</p>
-                    <p className="text-xs font-bold underline">○ finish the blog page</p>
                     <p className="text-xs">○ make illustration for top right section</p>
                     <p className="text-xs">○ style each section in index</p>
                     <p className="text-xs">○ set up wanted posters for pp</p>
                     <p className="text-xs">○ set up images for navmenu</p>
                     <p className="text-xs">○ set up supabase for pp gallery</p>
                     <p className="text-xs">○ set up favicons for each route</p>
-                    <p className="text-xs">○ set up different 'moons' for each route</p>
                     <p className="text-xs">○ finish the scrollTrigger course</p>
                     <p className="text-xs">○ add more ppl to stars bg (revise it even)</p>
-                    <p className="text-xs">○ make assets for mtwim</p>
-                    <p className="text-xs">○ make assets for characters</p>
                     <p className="text-xs">○ add shooting stars</p>
                     <p className="text-xs">○ add lots of easter eggs</p>
-                    <p className="text-xs">○ make scary easter egg?</p>
+                    <p className="text-xs">○ port mieros here</p>
                     <p className="text-xs">○ add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
-                    <p className="text-xs">○ make another game</p>
+                    <p className="text-xs">○ make another game (horror one? card game?)</p>
                   </div>
 
                   {/* DONE */}
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">DONE: </p>
                     {/* <p className="text-xs">● </p> */}
+                    <p className="text-xs">● set up tab titles for routes</p>
+                    <p className="text-xs font-bold underline">● finish the blog page</p>
                     <p className="text-xs font-bold underline">● finish the games page</p>
                     <p className="text-xs">● make featured art frame properly</p>
                     <p className="text-xs font-bold underline">● finish the gallery page</p>
