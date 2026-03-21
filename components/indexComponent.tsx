@@ -32,6 +32,7 @@ import quotes from "@/components/quotes";
 import PostType from "@/types/postType";
 import LogType from "@/types/logType";
 import ArtType from "@/types/artType";
+import { read } from "fs";
 
 gsap.registerPlugin(TextPlugin);
 
@@ -911,23 +912,25 @@ export default function Home() {
                       
                       {/* VERT */}
                       <div className="aspect-25/9 flex-[0_0_100%] overflow-hidden relative">
-                        <NextLink
-                        href="https://vertuously.com/"
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        <div
                         className="relative block w-full h-full"
                         onMouseEnter={() => {setAdVertHover(true)}}
                         onMouseLeave={() => {setAdVertHover(false)}}
                         >
-                          <div className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col nonsel pointer-events-none">
+                          <NextLink 
+                          href="https://vertuously.com/"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col">
                             <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8 text-nowrap`} ref={vertAdRef}>Take a dive?</p>
                             <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
-                          </div>
+                          </NextLink>
 
-                          <video autoPlay muted loop className="object-cover h-full w-full nonsel pointer-events-none">
+                          <video autoPlay muted loop className={`object-cover h-full w-full nonsel pointer-events-none ${ready ? "block" : "hidden"}`}>
                             <source src="/videos/vert.webm" type="video/webm" />
                           </video>
-                        </NextLink>
+                          
+                        </div>
                       </div>
 
                       {/* FISHING */}
