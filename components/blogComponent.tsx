@@ -33,6 +33,11 @@ export default function Blog(props: BlogComponentProps) {
   const totalPages = isSlug ? null : Math.ceil(allPosts.length / props.postsPerPage);
   const currentPage = isSlug ? null : props.currentPage;
   const [properDate, setProperDate] = useState(false);
+  const [isPhone, setIsPhone] = useState(false);
+  
+    useEffect(() => {
+      setIsPhone(window.matchMedia("(pointer: coarse)").matches);
+    }, []);
 
   const clickDate = () => {
     setProperDate(!properDate);
@@ -81,16 +86,16 @@ export default function Blog(props: BlogComponentProps) {
       <div className="h-42 w-5xl flex flex-col justify-center items-center max-w-screen">
       </div>
 
-      <div className="bg-black/50 w-5xl p-8 pb-0 flex flex-col gap-2">
+      <div className="bg-black/50 w-5xl p-8 pb-0 flex flex-col gap-2 max-w-screen">
         <p className="text-5xl">mier();</p>
         <p className="text-xs">devlog || art || music || healing of the soul :3</p>
       </div>
 
       {/* CONTENT */}
-      <div className="grid grid-cols-[minmax(0,1fr)_minmax(0,3fr)] w-5xl min-h-screen max-w-screen">
+      <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] w-5xl min-h-screen max-w-screen">
 
         {/* LEFT COL */}
-        <div className="bg-black/50 flex flex-col w-full pl-8 pt-8">
+        <div className="bg-black/50 flex flex-col w-full p-8 pb-0 md:pr-0">
 
           {/* IMG */}
           <img src="/images/blog-mier.png" className="nonsel pointer-events-none mb-4" />
@@ -142,7 +147,7 @@ export default function Blog(props: BlogComponentProps) {
                   >
 
                     <NextLink href={`/blog/post/${post.slug}`}>
-                      <p className="hover:underline yellow-link truncate">{post.title.length < 18 ? post.title : `${post.title.slice(0, 18)}...`}</p>
+                      <p className={`hover:underline ${isPhone || "yellow-link"} truncate`}>{post.title.length < 18 ? post.title : `${post.title.slice(0, 18)}...`}</p>
                     </NextLink>
 
                     <div className="text-xs text-gray-400 select-none flex">
@@ -157,7 +162,7 @@ export default function Blog(props: BlogComponentProps) {
 
           ))}
 
-          <p className="text-xs text-gray-400 mt-8 text-center">
+          <p className="text-xs text-gray-400 mt-8 text-center md:block hidden">
             the entire bg and aesthetic i just copied directly from<br />my&nbsp;
             <NextLink href="https://miermiermiermier.blogspot.com/" target="_blank" rel="noopener noreferrer" className="yellow underline">
               old blog
@@ -165,10 +170,11 @@ export default function Blog(props: BlogComponentProps) {
             &nbsp;lol
           </p>
 
+          <hr className="border-gray-500/30 w-full block md:hidden mt-8" />
         </div>
         
         {/* BLOG */}
-        <div className="bg-black/50">
+        <div className="bg-black/50 max-w-screen">
           {posts.map((post) => (
             <div key={post.id} className={`p-8 pb-0 w-full`}>
               <NextLink href={`/blog/post/${post.slug}`} className="font-bold text-2xl hover:underline yellow-link">{post.title}</NextLink>
@@ -213,7 +219,7 @@ export default function Blog(props: BlogComponentProps) {
 
       </div>
 
-      <div className={`${isSlug && "pt-20"} pb-4 w-5xl bg-black/50 flex justify-center`}>
+      <div className={`${isSlug && "pt-20"} pb-4 w-5xl bg-black/50 hidden md:flex justify-center`}>
         <NextLink href="/quotes" target="_blank" rel="noopener noreferrer">
           <p className="text-xs">{getQuote(quotes)}</p>
         </NextLink>
