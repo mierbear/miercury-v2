@@ -487,6 +487,11 @@ body {
   margin-bottom: 1.25rem;
 }
 
+.post img {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
 div[data-youtube-video] {
   display: flex;
   justify-content: center;
