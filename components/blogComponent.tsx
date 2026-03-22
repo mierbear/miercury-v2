@@ -95,10 +95,10 @@ export default function Blog(props: BlogComponentProps) {
       <div className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,3fr)] w-5xl min-h-screen max-w-screen">
 
         {/* LEFT COL */}
-        <div className="bg-black/50 flex flex-col w-full p-8 pb-0 md:pr-0">
+        <div className="bg-black/50 flex flex-col w-full p-8 pb-0 md:pr-0 max-w-screen">
 
           {/* IMG */}
-          <img src="/images/blog-mier.png" className="nonsel pointer-events-none mb-4 w-70 md:w-full" />
+          <img src="/images/blog-mier.png" className="nonsel pointer-events-none object-cover mb-4 max-h-125 w-full md:w-full object-top" />
 
           <p className="text-sm font-bold">(Ephesians 6:12)</p>
           <p className="text-xs text-gray-200">For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places.</p>
