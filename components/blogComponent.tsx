@@ -165,13 +165,13 @@ export default function Blog(props: BlogComponentProps) {
           </div>
 
 
-          <p className="text-xs text-gray-400 mt-8 text-center md:block hidden">
-            the entire bg and aesthetic i just copied directly from<br />my&nbsp;
+          {/* <p className="text-xs text-gray-400 mt-8 md:block hidden">
+            the entire bg is just copied directly from my&nbsp;
             <NextLink href="https://miermiermiermier.blogspot.com/" target="_blank" rel="noopener noreferrer" className="yellow underline">
               old blog
             </NextLink> 
-            &nbsp;lol
-          </p>
+            &nbsp;that i asked chatgpt to make since i didnt know how to code back then lol
+          </p> */}
 
           <hr className="border-gray-600/50 w-full block md:hidden mt-8" />
         </div>
@@ -222,11 +222,18 @@ export default function Blog(props: BlogComponentProps) {
             </div>
           )}
 
+          {/* GO HOME */}
+          {isSlug && (
+            <div className="flex gap-2 w-full items-center justify-center h-20">
+              <NextLink href="../../blog/page/1" className="full-yellow cursor-pointer yellow-link">see all posts?</NextLink>
+            </div>  
+          )}
+
         </div>
 
       </div>
 
-      <div className={`${isSlug && "pt-20"} pb-4 w-5xl bg-black/50 hidden md:flex justify-center`}>
+      <div className={`pb-4 w-5xl bg-black/50 hidden md:flex justify-center`}>
         <NextLink href="/quotes" target="_blank" rel="noopener noreferrer">
           <p className="text-xs">{getQuote(quotes)}</p>
         </NextLink>
@@ -236,12 +243,12 @@ export default function Blog(props: BlogComponentProps) {
 
       <Footer />
 
-      <div className='parallax-container'>
-        <div className='parallax-layer layer1'/>
-        <div className='parallax-layer layer2'/>
-        <div className='parallax-layer layer3'/>
-        <div className='parallax-layer layer4'/>
-        <div className='parallax-layer layer5'/>
+      <div className='parallax-container pointer-events-none nonsel'>
+        <div className='parallax-layer layer1 pointer-events-none nonsel'/>
+        <div className='parallax-layer layer2 pointer-events-none nonsel'/>
+        <div className='parallax-layer layer3 pointer-events-none nonsel'/>
+        <div className='parallax-layer layer4 pointer-events-none nonsel'/>
+        <div className='parallax-layer layer5 pointer-events-none nonsel'/>
       </div>
 
     </div>
