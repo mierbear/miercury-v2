@@ -13,7 +13,6 @@ type LinkKey =
 | "characters"
 | "mtwim"
 | "games"
-| "pp"
 | "gallery"
 | "blog"
 | "about";

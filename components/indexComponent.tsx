@@ -323,7 +323,6 @@ export default function Home() {
   | "characters"
   | "mtwim"
   | "games"
-  | "pp"
   | "gallery"
   | "blog"
   | "about";
@@ -335,13 +334,12 @@ export default function Home() {
     setActiveLink(link);
 
     const rows = {
-      characters:  "240px 50px 50px 50px 50px 50px 50px",
-      gallery:     "50px 240px 50px 50px 50px 50px 50px",
-      mtwim:       "50px 50px 240px 50px 50px 50px 50px",
-      games:       "50px 50px 50px 240px 50px 50px 50px",
-      pp:          "50px 50px 50px 50px 240px 50px 50px",
-      blog:        "50px 50px 50px 50px 50px 240px 50px",
-      about:       "50px 50px 50px 50px 50px 50px 240px",
+      characters:  "240px 50px 50px 50px 50px 50px",
+      gallery:     "50px 240px 50px 50px 50px 50px",
+      mtwim:       "50px 50px 240px 50px 50px 50px",
+      games:       "50px 50px 50px 240px 50px 50px",
+      blog:        "50px 50px 50px 50px 240px 50px",
+      about:       "50px 50px 50px 50px 50px 240px",
     };
 
     linksDivRef.current.style.gridTemplateRows = rows[link];
@@ -1065,13 +1063,12 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-[90%] md:w-[80%] mx-auto" />
 
               {/* NAV */}
-              <div className={`mx-4 mb-4 text-white grid grid-rows-[240px_50px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative`} ref={linksDivRef}>
+              <div className={`mx-4 mb-4 text-white grid grid-rows-[240px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative`} ref={linksDivRef}>
                 
                 <NavLink desc="learn about my characters" active={activeLink} type="marq" pos="top" link="characters" onHover={handleHover} />
                 <NavLink desc="look at my art" active={activeLink} type="img" pos="mid" link="gallery" onHover={handleHover} />
                 <NavLink desc="learn about a story i want to tell" active={activeLink} type="img" pos="mid" link="mtwim" onHover={handleHover} />
                 <NavLink desc="play my own games here" active={activeLink} type="img" pos="mid" link="games" onHover={handleHover} />
-                <NavLink desc="learn about my own art community" active={activeLink} type="img" pos="mid" link="pp" onHover={handleHover} />
                 <NavLink desc="read my ramblings" active={activeLink} type="img" pos="mid" link="blog" onHover={handleHover} />
                 <NavLink desc="learn more about me" active={activeLink} type="img" pos="bot" link="about" onHover={handleHover} />
 
@@ -1140,12 +1137,9 @@ export default function Home() {
                     <p className="text-xs font-bold underline">○ DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
                     <p className="text-xs font-bold underline">○ finish the ocs page</p>
                     <p className="text-xs font-bold underline">○ finish the mtwim page</p>
-                    <p className="text-xs font-bold underline">○ finish the pp page</p>
                     <p className="text-xs">○ make illustration for top right section</p>
                     <p className="text-xs">○ style each section in index</p>
-                    <p className="text-xs">○ set up wanted posters for pp</p>
                     <p className="text-xs">○ set up images for navmenu</p>
-                    <p className="text-xs">○ set up supabase for pp gallery</p>
                     <p className="text-xs">○ set up favicons for each route</p>
                     <p className="text-xs">○ finish the scrollTrigger course</p>
                     <p className="text-xs">○ add more ppl to stars bg (revise it even)</p>
@@ -1194,10 +1188,8 @@ export default function Home() {
                     <p className="text-xs">● improve navbar for index</p>
                     <p className="text-xs">● implement index and slug pages for blog </p>
                     <p className="text-xs">● make blog page</p>
-                    <p className="text-xs">● make the pp page</p>
                     <p className="text-xs">● add all old posts from the old miercury websites here</p>
                     <p className="text-xs">● fix bg low opacity bug</p>
-                    <p className="text-xs">● set up carousel for pp</p>
                     <p className="text-xs">● add image uploading function for tiptap</p>
                     <p className="text-xs">● set up atabook</p>
                     <p className="text-xs">● perhaps have the blog be its own page instead</p>

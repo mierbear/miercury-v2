@@ -60,7 +60,6 @@ const Footer = () => {
   { bg: "bg-[#101113]/90", text: "blue",   href: "/characters" },
   { bg: "bg-[#101113]/90", text: "blue",   href: "/mtwim" },
   { bg: "bg-[#101113]/90", text: "blue",   href: "/games" },
-  { bg: "bg-[#1a2d3cd9]",  text: "blue",   href: "/pp" },
   { bg: "bg-[#101113]/90", text: "yellow", href: "/gallery" },
   { bg: "bg-black/90",     text: "yellow", href: "/blog" },
 ]

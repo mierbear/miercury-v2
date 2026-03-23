@@ -98,7 +98,6 @@ const NavMenu = () => {
     { img: "moon.png", desc: "with everyone",                 href: "/characters" },
     { img: "moon.png", desc: "somewhere cold",                href: "/mtwim" },
     { img: "moon.png", desc: "looking for something to play", href: "/games" },
-    { img: "moon.png", desc: "in Pacific Purgatory",          href: "/pp" },
     { img: "moon.png", desc: "in the gallery",                href: "/gallery" },
     { img: "star.png", desc: "in my mind",                    href: "/blog" },
     { img: "sun.png",  desc: "here with me",                  href: "/about" },
