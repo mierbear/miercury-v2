@@ -34,7 +34,7 @@ export default function Home() {
 
   const news = [`— the secret santa event is over, thank you to those who participated <3 check out the secret santa gallery to see the results! — have a merry christmas and a happy new year! —`];
 
-  type tabs = "about" | "lore" | "characters" | "home" | "history" | "collabs" | "santa"
+  type tabs = "about" | "lore" | "characters" | "home" | "collabs" | "santa"
   
   const tabs = [
     "home",
@@ -42,7 +42,6 @@ export default function Home() {
     "collabs",
     "santa",
     "lore",
-    "history",
     "characters",
   ]
 
@@ -176,7 +175,9 @@ export default function Home() {
 
                 {tabs.map(tab => (
                   <button key={tab} onClick={() => {setCurrentTab(tab)}} className={` bg-white cursor-pointer rounded p-4 text-center`}>
+                    {tab === "lore" && '"'}
                     {tab.slice(0, 1).toLocaleUpperCase()}{tab.slice(1)}
+                    {tab === "lore" && '"'}
                   </button>
                 ))}
               
@@ -191,7 +192,7 @@ export default function Home() {
                 >
                   <img 
                     src={mierHover ? "/images/mierfisheth2.png" : "/images/mierfisheth.png"}
-                    className="origin-bottom-right relative scale-150 nonsel translate-y-[15%] lg:translate-x-0 translate-x-[20%] z-100 cursor-pointer" 
+                    className="origin-bottom-right hidden min-[1152px]:block relative scale-150 nonsel translate-y-[33%] z-100 cursor-pointer" 
                     onMouseEnter={mierHoverHandler}
                     onMouseLeave={mierUnhoverHandler}
                   />
@@ -202,6 +203,11 @@ export default function Home() {
 
             {/* RIGHT COL */}
             <div className="bg-white/50 rounded-xl flex flex-col p-6 m-4 ml-0">
+              
+              {/* HOME */}
+              {currentTab === "home" && (
+                <p>home</p>
+              )}
 
               {/* ABOUT */}
               {currentTab === "about" && (
@@ -244,6 +250,16 @@ export default function Home() {
                   In fact, you should support Ethan Silva through <a href="https://pacificpurgatory.bandcamp.com" target="_blank" className="underline cursor-pointer text-[#098899]" rel="noopener noreferrer">Bandcamp</a> and listening to his music on <a href="https://open.spotify.com/artist/0syDmy3yzknmkbJGdExEpW" target="_blank" className="underline cursor-pointer text-[#098899]" rel="noopener noreferrer">Spotify</a>!
                   </p>
                 </div>
+              )}
+
+              {/* COLLABS */}
+              {currentTab === "collabs" && (
+                <p>collabs</p>
+              )}
+
+              {/* SANTA */}
+              {currentTab === "santa" && (
+                <p>santa</p>
               )}
 
               {/* LORE */}
