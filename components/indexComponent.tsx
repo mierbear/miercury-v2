@@ -992,22 +992,25 @@ export default function Home() {
               {/* INTRO */}
               <div className="m-4 mb-0 text-white border-[#d8e0e3]/40 relative border-dotted border flex flex-col items-center pb-14">
 
-                <div className="p-4 flex items-center flex-col">
+                <div className="p-4 flex flex-col gap-4 text-sm">
                   <img
                     src="/images/pfp.png"
-                    className="mb-4 max-w-[50%]"
+                    className="max-w-[50%] self-center"
                     onMouseEnter={() => boing()}
                     ref={pfpRef}
                   />
 
-                  <p className="text-sm text-justify">
+                  <p className="text-justify self-center">
                     Hello, welcome to <span className={`${sono.className} font-bold`}>Miercury!</span> This is a place for me to share my thoughts, projects and artworks. You can read more about me <a href="/about" className="underline blue text-">here.</a>
-                    <br />
-                    <br />
+                  </p>
+
+                  <p className="text-center">
                     I hope you enjoy your stay.
                   </p>
-                </div>
 
+                </div>
+                
+                {/* DISCORD STATUS */}
                 <div className="border-t border-b border-[#d8e0e3]/40 border-dotted w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80 nonsel">
                     <p className={`
                       ${status === "online" ? "text-[#8fffff] online-glow" : ""}
@@ -1041,7 +1044,8 @@ export default function Home() {
                     <p className="italic text-xs">"{bio}"</p>
                   )}
                 </div>
-
+                
+                {/* SOCIALS */}
                 <div className="flex flex-row justify-center items-center gap-3 absolute bottom-0 right-0 pb-2 px-4">
                   <NextLink href="https://x.com/mierursa" target="_blank" rel="noopener noreferrer">
                     <img src="/images/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
@@ -1077,8 +1081,38 @@ export default function Home() {
               <hr className="border-gray-500/30 w-[90%] mx-auto md:hidden" />
 
               {/* ?? */}
-              <div className="hidden flex-1 flex-col items-center justify-center w-full h-full border-[#d8e0e3]/40 relative border-dotted border">
-              </div>
+              
+              <div className="m-4 text-white border-[#d8e0e3]/40 bg-white/10 h-full border-dotted border hidden flex-col items-center">
+              
+                {/* <div className={`flex flex-col w-full ${sono.className}`}>
+                  <p className="flex gap-2">
+                    <span className="text-[10px] translate-y-px decoration-none">
+                    ● 
+                    </span>
+                    <span className={`
+                    transition-colors duration-100 decoration-white/50
+                    underline underline-offset-2 hover:decoration-white
+                    text-[12px] cursor-pointer
+                    `}>
+                    current song stuck in my head
+                    </span>
+                  </p>
+
+                  <p className="flex gap-2">
+                    <span className="text-[10px] translate-y-px decoration-none">
+                    ● 
+                    </span>
+                    <span className={`
+                    transition-colors duration-100 decoration-white/50
+                    underline underline-offset-2 hover:decoration-white
+                    text-[12px] cursor-pointer
+                    `}>
+                    current game addicted to
+                    </span>
+                  </p>
+                </div> */}
+                
+              </div> 
 
             </div> 
           
@@ -1138,13 +1172,12 @@ export default function Home() {
                     <p className="text-xs font-bold underline">○ finish the ocs page</p>
                     <p className="text-xs font-bold underline">○ finish the mtwim page</p>
                     <p className="text-xs">○ make illustration for top right section</p>
-                    <p className="text-xs">○ style each section in index</p>
-                    <p className="text-xs">○ set up images for navmenu</p>
-                    <p className="text-xs">○ set up favicons for each route</p>
+                    <p className="text-xs">○ style the links in navmenu</p>
                     <p className="text-xs">○ finish the scrollTrigger course</p>
                     <p className="text-xs">○ add more ppl to stars bg (revise it even)</p>
                     <p className="text-xs">○ add shooting stars</p>
                     <p className="text-xs">○ add lots of easter eggs</p>
+                    <p className="text-xs">○ make hide and seek easter egg</p>
                     <p className="text-xs">○ port mieros here</p>
                     <p className="text-xs">○ add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
                     <p className="text-xs">○ make another game (horror one? card game?)</p>
@@ -1161,6 +1194,7 @@ export default function Home() {
                     <p className="text-xs font-bold underline">● finish the gallery page</p>
                     <p className="text-xs">● a LOT of things for the gallery i cant list down lol</p>
                     <p className="text-xs font-bold underline">● finish the about me page</p>
+                    <p className="text-xs">● style each section in index</p>
                     <p className="text-xs">● implement lightbox for artworks </p>
                     <p className="text-xs">● learn how to draw again LOL</p>
                     <p className="text-xs">● bring back old drawer navmenu style</p>

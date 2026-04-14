@@ -17,6 +17,4 @@ export default function Home() {
       <GalleryComponent />
     </main>
   );
-
-  
 }
