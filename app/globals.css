@@ -559,6 +559,13 @@ div[data-youtube-video] iframe {
   animation-iteration-count: infinite;
 }
 
+.slow-backwards-spin {
+  animation-name: backwards-spin;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
 .spin-slow {
   animation-duration: 360s;
 }

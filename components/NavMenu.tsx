@@ -96,7 +96,7 @@ const NavMenu = () => {
   const routes = [
     { img: "moon.png", desc: "home",                          href: "/" },
     { img: "moon.png", desc: "with everyone",                 href: "/characters" },
-    { img: "moon.png", desc: "somewhere cold",                href: "/mtwim" },
+    { img: "snowflake.svg", desc: "somewhere cold",                href: "/mtwim" },
     { img: "moon.png", desc: "looking for something to play", href: "/games" },
     { img: "moon.png", desc: "in the gallery",                href: "/gallery" },
     { img: "star.png", desc: "in my mind",                    href: "/blog" },
