@@ -11,7 +11,27 @@ const rozha = Gloock({
 export default function Mtwim() {
 
   const [comicOpen, setComicOpen] = useState(false);
+  
+  const totalPages = 18; 
+  const [currentPage, setCurrentPage] = useState(1);
+  const formattedPage = String(currentPage).padStart(3, '0');
 
+  useEffect(() => {
+    if (!comicOpen) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      if (e.deltaY > 0) {
+        setCurrentPage(prev => Math.min(prev + 1, totalPages));
+      } else {
+        setCurrentPage(prev => Math.max(prev - 1, 1));
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel);
+
+    return () => window.removeEventListener("wheel", handleWheel);
+  }, [comicOpen]);
+  
   return (
     <div className="min-w-screen min-h-screen max-w-screen flex flex-col items-center">
 
@@ -52,7 +72,7 @@ export default function Mtwim() {
       </div>
 
       <div className={`${comicOpen || "hidden"} flex flex-col justify-center items-center h-screen w-full bg-black z-10000 relative`}>
-        <img src="images/mtwim/001.png" className="h-full nonsel pointer-events-none" />
+        <img src={`images/mtwim/${formattedPage}.png`} className="h-full nonsel pointer-events-none" />
         <p 
           className="text-6xl absolute text-white hover:text-blue-400 right-4 top-3 cursor-pointer duration-200"
           onClick={() => setComicOpen(false)}
