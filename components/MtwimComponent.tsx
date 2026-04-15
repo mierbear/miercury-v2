@@ -1,7 +1,7 @@
 "use client";
 import Marquee from "react-fast-marquee";
 import { Gloock } from "next/font/google";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 const rozha = Gloock({
   weight: "400",
@@ -11,10 +11,16 @@ const rozha = Gloock({
 export default function Mtwim() {
 
   const [comicOpen, setComicOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   
   const totalPages = 18; 
   const [currentPage, setCurrentPage] = useState(1);
   const formattedPage = String(currentPage).padStart(3, '0');
+  const currentPageRef = useRef(currentPage);
+
+  useEffect(() => {
+    currentPageRef.current = currentPage;
+  }, [currentPage]);
 
   useEffect(() => {
     if (!comicOpen) return;
@@ -22,8 +28,14 @@ export default function Mtwim() {
     const handleWheel = (e: WheelEvent) => {
       if (e.deltaY > 0) {
         setCurrentPage(prev => Math.min(prev + 1, totalPages));
+        if (currentPageRef.current !== totalPages) {
+          setLoading(true);
+        }
       } else {
         setCurrentPage(prev => Math.max(prev - 1, 1));
+        if (currentPageRef.current !== 1) {
+          setLoading(true);
+        }
       }
     };
 
@@ -31,9 +43,15 @@ export default function Mtwim() {
       switch (e.key) {
         case "ArrowUp":
           setCurrentPage(prev => Math.max(prev - 1, 1));
+          if (currentPageRef.current !== 1) {
+            setLoading(true);
+          }
           break;
         case "ArrowDown":
           setCurrentPage(prev => Math.min(prev + 1, totalPages));
+          if (currentPageRef.current !== totalPages) {
+            setLoading(true);
+          }
           break;
         case "Escape":
           setComicOpen(false);
@@ -101,7 +119,17 @@ export default function Mtwim() {
       <div className={`${comicOpen || "hidden"} flex flex-col justify-center items-center h-screen w-full bg-[#18191a] z-10000 relative`}>
 
         {/* PAGE */}
-        <img src={`images/mtwim/${formattedPage}.png`} className="h-full w-auto object-cover nonsel pointer-events-none" />
+        <img
+          src={`images/mtwim/${formattedPage}.png`} 
+          className="h-full w-auto object-cover nonsel pointer-events-none" 
+          onLoad={() => setLoading(false)}  
+        />
+
+        {loading && (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <p className="text-white text-2xl animate-pulse meow">loading...</p>
+          </div>
+        )}
 
         {/* X */}
         <p 
