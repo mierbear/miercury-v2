@@ -1,6 +1,7 @@
 "use client";
 import Marquee from "react-fast-marquee";
 import { Gloock } from "next/font/google";
+import { useEffect, useState } from "react";
 
 const rozha = Gloock({
   weight: "400",
@@ -9,11 +10,13 @@ const rozha = Gloock({
 
 export default function Mtwim() {
 
+  const [comicOpen, setComicOpen] = useState(false);
+
   return (
     <div className="min-w-screen min-h-screen max-w-screen flex flex-col items-center">
 
       {/* TOP */}
-      <div className="flex flex-col justify-center items-center h-screen w-full">
+      <div className={`${comicOpen && "hidden"} flex flex-col justify-center items-center h-screen w-full`}>
         <div className="bg-[#9eadb9] h-[16%] w-full"></div>
         <div className="bg-[#90b5d3] h-[68%] w-full relative items-center justify-center flex">
 
@@ -35,7 +38,12 @@ export default function Mtwim() {
           <div className="absolute h-full w-160 left-20 bg-black/30 z-70 flex gap-6 items-center justify-center flex-col">
             <p className="text-6xl font-bold text-center px-10  ">Mier: The Weakest Ice Mage</p>
             <p className="">sdfdsfdsfsdf</p>
-            <p className="px-12 py-8 text-xl bg-white rounded-2xl cursor-pointer">READ PROLOGUE</p>
+            <p 
+              className="px-12 py-8 text-xl bg-white rounded-2xl cursor-pointer"
+              onClick={() => setComicOpen(true)}
+            >
+              READ PROLOGUE
+            </p>
           </div>
           
         </div>
@@ -43,7 +51,16 @@ export default function Mtwim() {
         <div className="bg-[#000000] h-[16%] w-full z-60"></div>
       </div>
 
-      <div className="h-screen w-7xl bg-white flex flex-col items-center">
+      <div className={`${comicOpen || "hidden"} flex flex-col justify-center items-center h-screen w-full bg-black z-10000 relative`}>
+        <img src="images/mtwim/001.png" className="h-full nonsel pointer-events-none" />
+        <p 
+          className="text-6xl absolute text-white hover:text-blue-400 right-4 top-3 cursor-pointer duration-200"
+          onClick={() => setComicOpen(false)}
+          >🞮
+        </p>
+      </div>
+
+      <div className={`${comicOpen && "hidden"} h-screen w-7xl bg-white flex flex-col items-center`}>
         CONTENT
       </div>
 
