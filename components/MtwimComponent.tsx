@@ -54,6 +54,8 @@ export default function Mtwim() {
     setCurrentPage(1);
     setComicOpen(true);
   }
+
+  const [controlsHover, setControlsHover] = useState(false);
   
   return (
     <div className="min-w-screen min-h-screen max-w-screen flex flex-col items-center">
@@ -96,13 +98,45 @@ export default function Mtwim() {
       </div>
 
       {/* COMIC */}
-      <div className={`${comicOpen || "hidden"} flex flex-col justify-center items-center h-screen w-full bg-black z-10000 relative`}>
-        <img src={`images/mtwim/${formattedPage}.png`} className="h-full nonsel pointer-events-none" />
+      <div className={`${comicOpen || "hidden"} flex flex-col justify-center items-center h-screen w-full bg-[#18191a] z-10000 relative`}>
+
+        {/* PAGE */}
+        <img src={`images/mtwim/${formattedPage}.png`} className="h-full w-auto object-cover nonsel pointer-events-none" />
+
+        {/* X */}
         <p 
           className="text-6xl absolute text-white hover:text-blue-400 right-4 top-3 cursor-pointer duration-200"
           onClick={() => setComicOpen(false)}
           >🞮
         </p>
+
+        {/* LEFT */}
+        <div 
+          className={`
+            border border-white text-white flex-col flex
+            items-center justify-center absolute
+            bottom-6 left-6 p-4 gap-4 max-w-90
+            overflow-hidden nonsel duration-200
+            ${controlsHover ? "opacity-0 pointer-events-none" : "hover:opacity-100 opacity-70"}
+          `}
+        >
+          <p className="text-center">currently this is just a sketch of how reading the comic would look and feel like!<br />i'll eventually draw these into full sized pages and much more in the future.</p>
+          <p 
+            className={`py-2 px-4 border self-start border-white cursor-pointer italic`}
+            onMouseEnter={() => setControlsHover(true)}
+          >
+            controls?
+          </p>
+          <img src="/images/snowflake.svg" className="absolute right-[-50%] slow-spin opacity-30 nonsel pointer-events-none" />
+        </div>
+
+        <img 
+          src="images/mtwim/controls.png" 
+          className={`absolute left-0 bottom-0 p-10 duration-200 cursor-help nonsel ${controlsHover ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          onMouseEnter={() => setControlsHover(true)}
+          onMouseLeave={() => setControlsHover(false)}
+        />
+
       </div>
 
       <div className={`${comicOpen && "hidden"} h-screen w-7xl bg-white flex flex-col items-center`}>
