@@ -121,10 +121,11 @@ export default function Mtwim() {
         {/* PAGE */}
         <img
           src={`images/mtwim/${formattedPage}.png`} 
-          className="h-full w-auto object-cover nonsel pointer-events-none" 
+          className="max-w-full max-h-full w-auto h-auto object-contain nonsel pointer-events-none" 
           onLoad={() => setLoading(false)}  
         />
 
+        {/* LOADING TEXT */}
         {loading && (
           <div className="absolute inset-0 flex items-center justify-center">
             <p className="text-white text-2xl animate-pulse meow">loading...</p>
@@ -143,14 +144,15 @@ export default function Mtwim() {
           className={`
             border border-white text-white flex-col flex
             items-center justify-center absolute
-            bottom-6 left-6 p-4 gap-4 max-w-90
+            bottom-6 left-6 p-4 gap-2 max-w-90
             overflow-hidden nonsel duration-200
             ${controlsHover ? "opacity-0 pointer-events-none" : "hover:opacity-100 opacity-70"}
           `}
         >
-          <p className="text-center">currently this is just a sketch of how reading the comic would look and feel like!<br />i'll eventually draw these into full sized pages and much more in the future.</p>
+          <p className="text-center font-bold">currently this is just a sketch of how reading the comic would look and feel like!</p>
+          <p className="text-center">i'll eventually draw these into full sized pages and much more in the future.</p>
           <p 
-            className={`py-2 px-4 border self-start border-white cursor-pointer italic`}
+            className={`py-2 px-4 mt-2 border self-start border-white cursor-pointer italic`}
             onMouseEnter={() => setControlsHover(true)}
           >
             controls?
