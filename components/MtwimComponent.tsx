@@ -27,10 +27,33 @@ export default function Mtwim() {
       }
     };
 
-    window.addEventListener("wheel", handleWheel);
+    const handleKeys = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "ArrowUp":
+          setCurrentPage(prev => Math.max(prev - 1, 1));
+          break;
+        case "ArrowDown":
+          setCurrentPage(prev => Math.min(prev + 1, totalPages));
+          break;
+        case "Escape":
+          setComicOpen(false);
+          break;
+      }
+    }
 
-    return () => window.removeEventListener("wheel", handleWheel);
+    window.addEventListener("wheel", handleWheel);
+    window.addEventListener("keydown", handleKeys);
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("keydown", handleKeys);
+    };
   }, [comicOpen]);
+
+  const openComicHandler = () => {
+    setCurrentPage(1);
+    setComicOpen(true);
+  }
   
   return (
     <div className="min-w-screen min-h-screen max-w-screen flex flex-col items-center">
@@ -43,10 +66,11 @@ export default function Mtwim() {
           {/* MARQUEE */}
           <Marquee speed={30} className="absolute" >
             <div className="flex items-center nonsel pointer-events-none">
-              <p className={`text-[80vh] ${rozha.className} opacity-5`}>MIER THE ICE MAGE</p>
+              <p className={`text-[80vh] ${rozha.className} opacity-5`}>&nbsp;MAGE</p>
               <div className="h-[60vh] w-[60vh] flex slow-backwards-spin items-center justify-center">
                 <p className="text-[60vh] text-white monospace opacity-30">❆</p>
               </div>
+              <p className={`text-[80vh] ${rozha.className} opacity-5`}>MIER THE ICE</p>
             </div>
           </Marquee>
 
@@ -55,12 +79,12 @@ export default function Mtwim() {
           <img src="/images/mtwim/mier.png"  className="z-50 scale-70 origin-bottom-right nonsel pointer-events-none absolute -right-20 bottom-0 figure-breathe-medium" />
           
           {/* CTA */}
-          <div className="absolute h-full w-160 left-20 bg-black/30 z-70 flex gap-6 items-center justify-center flex-col">
+          <div className="absolute h-full w-160 left-30 bg-black/30 z-70 flex gap-6 items-center justify-center flex-col">
             <p className="text-6xl font-bold text-center px-10  ">Mier: The Weakest Ice Mage</p>
             <p className="">sdfdsfdsfsdf</p>
             <p 
               className="px-12 py-8 text-xl bg-white rounded-2xl cursor-pointer"
-              onClick={() => setComicOpen(true)}
+              onClick={() => openComicHandler()}
             >
               READ PROLOGUE
             </p>
@@ -71,6 +95,7 @@ export default function Mtwim() {
         <div className="bg-[#000000] h-[16%] w-full z-60"></div>
       </div>
 
+      {/* COMIC */}
       <div className={`${comicOpen || "hidden"} flex flex-col justify-center items-center h-screen w-full bg-black z-10000 relative`}>
         <img src={`images/mtwim/${formattedPage}.png`} className="h-full nonsel pointer-events-none" />
         <p 
