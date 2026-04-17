@@ -68,9 +68,9 @@ export default function Mtwim() {
     };
   }, [comicOpen]);
 
-  const openComicHandler = () => {
+  const openComicHandler = (boolean: boolean) => {
     setCurrentPage(1);
-    setComicOpen(true);
+    setComicOpen(boolean);
   }
 
   const [controlsHover, setControlsHover] = useState(false);
@@ -104,7 +104,7 @@ export default function Mtwim() {
             <p className="">sdfdsfdsfsdf</p>
             <p 
               className="px-12 py-8 text-xl bg-white rounded-2xl cursor-pointer"
-              onClick={() => openComicHandler()}
+              onClick={() => openComicHandler(true)}
             >
               READ PROLOGUE
             </p>
@@ -122,7 +122,7 @@ export default function Mtwim() {
         <img
           src={`images/mtwim/${formattedPage}.png`} 
           className="max-w-full max-h-full w-auto h-auto object-contain nonsel pointer-events-none" 
-          onLoad={() => setLoading(false)}  
+          onLoad={() => setLoading(false)}
         />
 
         {/* LOADING TEXT */}
@@ -135,7 +135,7 @@ export default function Mtwim() {
         {/* X */}
         <p 
           className="text-6xl absolute text-white hover:text-blue-400 right-4 top-3 cursor-pointer duration-200"
-          onClick={() => setComicOpen(false)}
+          onClick={() => openComicHandler(false)}
           >🞮
         </p>
 
