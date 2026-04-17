@@ -2,6 +2,8 @@
 import Marquee from "react-fast-marquee";
 import { Gloock } from "next/font/google";
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
+import supabase from "@/lib/supabaseClient";
 
 const rozha = Gloock({
   weight: "400",
@@ -10,76 +12,40 @@ const rozha = Gloock({
 
 export default function Mtwim() {
 
-  const [comicOpen, setComicOpen] = useState(false);
-  const [loading, setLoading] = useState(false);
-  
-  const totalPages = 18; 
-  const [currentPage, setCurrentPage] = useState(1);
-  const formattedPage = String(currentPage).padStart(3, '0');
-  const currentPageRef = useRef(currentPage);
+  const [currentPage, setCurrentPage] = useState<string>("about");
+  const [pages, setPages] = useState<string[]>([]);
+  const comicRef = useRef<any>(null);
 
   useEffect(() => {
-    currentPageRef.current = currentPage;
-  }, [currentPage]);
+    const fetchPages = async () => {
+      const { data, error } = await supabase
+        .storage
+        .from('mtwim')
+        .list('chapter-001');
 
-  useEffect(() => {
-    if (!comicOpen) return;
+      if (error || !data) return;
 
-    const handleWheel = (e: WheelEvent) => {
-      if (e.deltaY > 0) {
-        setCurrentPage(prev => Math.min(prev + 1, totalPages));
-        if (currentPageRef.current !== totalPages) {
-          setLoading(true);
-        }
-      } else {
-        setCurrentPage(prev => Math.max(prev - 1, 1));
-        if (currentPageRef.current !== 1) {
-          setLoading(true);
-        }
-      }
+      const urls = data
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(file => {
+          const { data: urlData } = supabase
+            .storage
+            .from('mtwim')
+            .getPublicUrl(`chapter-001/${file.name}`);
+          return urlData.publicUrl;
+        });
+
+      setPages(urls);
     };
 
-    const handleKeys = (e: KeyboardEvent) => {
-      switch (e.key) {
-        case "ArrowUp":
-          setCurrentPage(prev => Math.max(prev - 1, 1));
-          if (currentPageRef.current !== 1) {
-            setLoading(true);
-          }
-          break;
-        case "ArrowDown":
-          setCurrentPage(prev => Math.min(prev + 1, totalPages));
-          if (currentPageRef.current !== totalPages) {
-            setLoading(true);
-          }
-          break;
-        case "Escape":
-          setComicOpen(false);
-          break;
-      }
-    }
+    fetchPages();
+  }, []);
 
-    window.addEventListener("wheel", handleWheel);
-    window.addEventListener("keydown", handleKeys);
-
-    return () => {
-      window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("keydown", handleKeys);
-    };
-  }, [comicOpen]);
-
-  const openComicHandler = (boolean: boolean) => {
-    setCurrentPage(1);
-    setComicOpen(boolean);
-  }
-
-  const [controlsHover, setControlsHover] = useState(false);
-  
   return (
     <div className="min-w-screen min-h-screen max-w-screen flex flex-col items-center">
 
       {/* TOP */}
-      <div className={`${comicOpen && "hidden"} flex flex-col justify-center items-center h-screen w-full`}>
+      <div className={`flex flex-col justify-center items-center h-screen w-full`}>
         <div className="bg-[#9eadb9] h-[16%] w-full"></div>
         <div className="bg-[#90b5d3] h-[68%] w-full relative items-center justify-center flex">
 
@@ -104,7 +70,12 @@ export default function Mtwim() {
             <p className="">sdfdsfdsfsdf</p>
             <p 
               className="px-12 py-8 text-xl bg-white rounded-2xl cursor-pointer"
-              onClick={() => openComicHandler(true)}
+              onClick={() => {
+                setCurrentPage("comic");
+                setTimeout(() => {
+                  comicRef.current?.scrollIntoView({ behavior: "smooth" });
+                }, 0);
+              }}
             >
               READ PROLOGUE
             </p>
@@ -115,62 +86,62 @@ export default function Mtwim() {
         <div className="bg-[#000000] h-[16%] w-full z-60"></div>
       </div>
 
-      {/* COMIC */}
-      <div className={`${comicOpen || "hidden"} flex flex-col justify-center items-center h-screen w-full bg-[#18191a] z-10000 relative`}>
+      <div className={`${currentPage === "comic" ? "h-0" : "min-h-screen"} w-7xl bg-white flex flex-col items-center`}>
 
-        {/* PAGE */}
-        <img
-          src={`images/mtwim/${formattedPage}.png`} 
-          className="max-w-full max-h-full w-auto h-auto object-contain nonsel pointer-events-none" 
-          onLoad={() => setLoading(false)}
-        />
-
-        {/* LOADING TEXT */}
-        {loading && (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <p className="text-white text-2xl animate-pulse meow">loading...</p>
+        {/* ABOUT */}
+        {currentPage === "about" && (
+          <div className="flex flex-col items-center">
+            <p>about</p>
           </div>
         )}
 
-        {/* X */}
-        <p 
-          className="text-6xl absolute text-white hover:text-blue-400 right-4 top-3 cursor-pointer duration-200"
-          onClick={() => openComicHandler(false)}
-          >🞮
-        </p>
-
-        {/* LEFT */}
-        <div 
-          className={`
-            border border-white text-white flex-col flex
-            items-center justify-center absolute
-            bottom-6 left-6 p-4 gap-2 max-w-90
-            overflow-hidden nonsel duration-200
-            ${controlsHover ? "opacity-0 pointer-events-none" : "hover:opacity-100 opacity-70"}
-          `}
-        >
-          <p className="text-center font-bold">currently this is just a sketch of how reading the comic would look and feel like!</p>
-          <p className="text-center">i'll eventually draw these into full sized pages and much more in the future.</p>
-          <p 
-            className={`py-2 px-4 mt-2 border self-start border-white cursor-pointer italic`}
-            onMouseEnter={() => setControlsHover(true)}
+        {/* COMIC */}
+        {currentPage === "comic" && (
+          <div
+            className={`flex relative`}
+            ref={comicRef}
           >
-            controls?
-          </p>
-          <img src="/images/snowflake.svg" className="absolute right-[-50%] slow-spin opacity-30 nonsel pointer-events-none" />
-        </div>
+            
+            {/* PAGES */}
+            <div className="flex flex-col items-center w-[68%]">
+              {pages.map((src, i) => (
+                <Image
+                  key={i}
+                  src={src}
+                  alt={`Page ${i + 1}`}
+                  width={800}
+                  height={1200}
+                  className="w-full h-auto"
+                />
+              ))}
+            </div>
+            
+            {/* RIGHT PANEL */}
+            <div className="w-[32%] bg-gray-300 sticky top-0 h-screen overflow-y-auto p-4 gap-4 flex flex-col">
+              <p>right side</p>
 
-        <img 
-          src="images/mtwim/controls.png" 
-          className={`absolute left-0 bottom-0 p-10 duration-200 cursor-help nonsel ${controlsHover ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-          onMouseEnter={() => setControlsHover(true)}
-          onMouseLeave={() => setControlsHover(false)}
-        />
+              <div className="grid grid-rows bg-gray-400">
+                <p>chapter 1</p>
+                <p>chapter 2</p>
+                <p>etc...</p>
+              </div>
 
-      </div>
+              <div 
+              className={`
+                border border-white text-white flex-col flex
+                items-center justify-center
+                p-4 gap-2 
+                nonsel duration-200
+              `}
+              >
+                <p className="text-center font-bold">currently this is just a sketch of how reading the comic would look and feel like!</p>
+                <p className="text-center">i'll eventually draw these into full sized pages and much more in the future.</p>
+              </div>
+            </div>
+            
+          </div>
+        )}
 
-      <div className={`${comicOpen && "hidden"} h-screen w-7xl bg-white flex flex-col items-center`}>
-        CONTENT
       </div>
 
     </div>
