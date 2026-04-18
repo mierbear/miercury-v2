@@ -90,6 +90,8 @@ export default function Mtwim() {
     }
   };
 
+  const [open, setOpen] = useState(false);
+
   return (
     <div className="min-w-screen min-h-screen max-w-screen flex flex-col items-center">
 
@@ -186,27 +188,49 @@ export default function Mtwim() {
             <div 
               className={`
               bg-gray-300 ${fullscreen 
-              ? "fixed bottom-0 w-screen flex flex-row" 
+              ? "fixed bottom-0 w-screen flex flex-row items-center px-4" 
               : "w-[25%] sticky top-0 h-screen overflow-y-auto p-4 gap-4 flex flex-col items-center"}
               `}
             >
               {/* CHAPTERS */}
-              <div className="grid grid-rows bg-gray-400 w-full">
-                <p>you're currently reading chapter {currentChapter}</p>
-                {chapters.map((chapter, i) => (
-                  <p
-                    key={chapter}
-                    className={`cursor-pointer ${currentChapter === i + 1 && "pointer-events-none"}`}
-                    onClick={() => {
-                      setCurrentChapter(i + 1)
-                      setTimeout(() => {
-                        comicRef.current?.scrollIntoView({ behavior: "smooth" });
-                      }, 0);
-                    }}
-                  >
-                    chapter {i + 1}
-                  </p>
-                ))}
+              <div className={`relative ${fullscreen ? "w-80" : "w-full"} mr-auto z-100`}>
+  
+                <div
+                  className="bg-gray-500 cursor-pointer p-2 text-center"
+                  onClick={() => setOpen(prev => !prev)}
+                >
+                  Chapter {currentChapter}
+                </div>
+
+                <div
+                  className={`
+                    absolute left-0 w-full
+                    bg-gray-400 overflow-hidden
+                    ${fullscreen ? "bottom-full" : ""}
+                    ${open ? "opacity-100" : "max-h-0 opacity-0 pointer-events-none"}
+                  `}
+                >
+                  {chapters.map((chapter, i) => (
+                    <p
+                      key={chapter}
+                      className={`
+                        cursor-pointer p-2 text-center
+                        hover:bg-gray-500
+                        ${currentChapter === i + 1 && "bg-gray-600 pointer-events-none"}
+                      `}
+                      onClick={() => {
+                        setCurrentChapter(i + 1);
+                        setOpen(false);
+
+                        setTimeout(() => {
+                          comicRef.current?.scrollIntoView({ behavior: "smooth" });
+                        }, 0);
+                      }}
+                    >
+                      Chapter {i + 1}
+                    </p>
+                  ))}
+                </div>
               </div>
 
               {/* ZOOM */}
@@ -221,16 +245,16 @@ export default function Mtwim() {
                 />
                 <p>zoom: {zoom}%</p>
               </div>
-              
+
               {/* CONTROLS */}
-              <div className={`grid grid-cols-2 h-20 px-2 nonsel`}>
+              <div className={`grid grid-cols-2 h-16 px-2 nonsel items-center`}>
                 <img
-                  className="cursor-pointer h-20"
+                  className="cursor-pointer h-14"
                   src={scrollMode ? "/images/book.svg" : "/images/scroll.svg"}
                   onClick={() => setScrollMode(!scrollMode)}
                 />
                 <img
-                  className="cursor-pointer h-20 scale-80 origin-right"
+                  className="cursor-pointer h-14 scale-80 origin-right"
                   src={fullscreen ? "/images/minscreen.svg" : "/images/fullscreen.svg"}
                   onClick={() => toggleFullscreen()}
                 />
