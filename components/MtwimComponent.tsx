@@ -12,16 +12,42 @@ const rozha = Gloock({
 
 export default function Mtwim() {
 
+  const [chapters, setChapters] = useState<string[]>([]);
+  const [currentChapter, setCurrentChapter] = useState<number>(1)
   const [currentPage, setCurrentPage] = useState<string>("about");
   const [pages, setPages] = useState<string[]>([]);
   const comicRef = useRef<any>(null);
+  const formattedChapter = String(currentChapter).padStart(3, '0');
+  
 
+  // FETCH CHAPTERS AMOUNT
+  useEffect(() => {
+    const fetchChapters = async () => {
+      const { data, error } = await supabase
+        .storage
+        .from('mtwim')
+        .list();
+
+      if (error || !data) return;
+      
+      const chapters = data
+        .filter(item => item.id === null)
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map(item => item.name)
+
+      setChapters(chapters)
+    };
+
+    fetchChapters();
+  }, [])
+
+  // FETCH CHAPTER PAGES
   useEffect(() => {
     const fetchPages = async () => {
       const { data, error } = await supabase
         .storage
         .from('mtwim')
-        .list('chapter-001');
+        .list(`chapter-${formattedChapter}`);
 
       if (error || !data) return;
 
@@ -31,7 +57,7 @@ export default function Mtwim() {
           const { data: urlData } = supabase
             .storage
             .from('mtwim')
-            .getPublicUrl(`chapter-001/${file.name}`);
+            .getPublicUrl(`chapter-${formattedChapter}/${file.name}`);
           return urlData.publicUrl;
         });
 
@@ -39,7 +65,7 @@ export default function Mtwim() {
     };
 
     fetchPages();
-  }, []);
+  }, [currentChapter]);
 
   return (
     <div className="min-w-screen min-h-screen max-w-screen flex flex-col items-center">
@@ -50,7 +76,7 @@ export default function Mtwim() {
         <div className="bg-[#90b5d3] h-[68%] w-full relative items-center justify-center flex">
 
           {/* MARQUEE */}
-          <Marquee speed={30} className="absolute" >
+          <Marquee speed={30} className="absolute pointer-events-none nonsel" >
             <div className="flex items-center nonsel pointer-events-none">
               <p className={`text-[80vh] ${rozha.className} opacity-5`}>&nbsp;MAGE</p>
               <div className="h-[60vh] w-[60vh] flex slow-backwards-spin items-center justify-center">
@@ -121,9 +147,16 @@ export default function Mtwim() {
               <p>right side</p>
 
               <div className="grid grid-rows bg-gray-400">
-                <p>chapter 1</p>
-                <p>chapter 2</p>
-                <p>etc...</p>
+                <p>you're currently reading chapter {currentChapter}</p>
+                {chapters.map((chapter, i) => (
+                  <p
+                    key={chapter}
+                    className="cursor-pointer"
+                    onClick={() => setCurrentChapter(i + 1)}
+                  >
+                    chapter {i + 1}
+                  </p>
+                ))}
               </div>
 
               <div 
