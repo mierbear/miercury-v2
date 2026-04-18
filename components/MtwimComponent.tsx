@@ -70,6 +70,20 @@ export default function Mtwim() {
     fetchPages();
   }, [currentChapter]);
 
+  const [fullscreen, setFullscreen] = useState(false);
+  const [scrollMode, setScrollMode] = useState(true);
+
+  const toggleFullscreen = () => {
+    // if (!document.fullscreenElement) {
+    //   document.documentElement.requestFullscreen();
+    //   setFullscreen(true);
+    // } else {
+    //   setFullscreen(false);
+    // }
+
+    setFullscreen(!fullscreen);
+  };
+
   return (
     <div className="min-w-screen min-h-screen max-w-screen flex flex-col items-center">
 
@@ -132,7 +146,7 @@ export default function Mtwim() {
           >
             
             {/* PAGES */}
-            <div className="flex flex-col items-center w-[75%] relative bg-black">
+            <div className={`flex flex-col items-center relative bg-black w-[75%] ${fullscreen ? "" : ""}`}>
               {pagesLoading && (
                 <div className="z-10 flex items-center justify-center absolute bg-black w-full h-full">
                   <p className="animate-pulse fixed inset-0">loading...</p>
@@ -152,10 +166,11 @@ export default function Mtwim() {
             </div>
             
             {/* RIGHT PANEL */}
-            <div className="w-[25%] bg-gray-300 sticky top-0 h-screen overflow-y-auto p-4 gap-4 flex flex-col">
+            <div className={`bg-gray-300 sticky top-0 h-screen overflow-y-auto p-4 gap-4 flex flex-col items-center w-[25%] ${fullscreen ? "" : ""}`}>
               <p>right side</p>
-
-              <div className="grid grid-rows bg-gray-400">
+              
+              {/* CHAPTERS */}
+              <div className="grid grid-rows bg-gray-400 w-full">
                 <p>you're currently reading chapter {currentChapter}</p>
                 {chapters.map((chapter, i) => (
                   <p
@@ -171,6 +186,20 @@ export default function Mtwim() {
                     chapter {i + 1}
                   </p>
                 ))}
+              </div>
+              
+              {/* CONTROLS */}
+              <div className="grid grid-cols-2 w-[50%]">
+                <img
+                  className="cursor-pointer"
+                  src={scrollMode ? "/images/book.svg" : "/images/scroll.svg"}
+                  onClick={() => setScrollMode(!scrollMode)}
+                />
+                <img
+                  className="cursor-pointer scale-80"
+                  src={fullscreen ? "/images/minscreen.svg" : "/images/fullscreen.svg"}
+                  onClick={() => toggleFullscreen()}
+                />
               </div>
 
               <div 
