@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import Label from "@/components/NavMenuLabel";
 import ArtType from "@/types/artType";
 import supabase from "@/lib/supabaseClient";
+import Marquee from "react-fast-marquee";
 
 const anonymous = Anonymous_Pro({
   weight: "400",
@@ -374,6 +375,14 @@ const NavMenu = () => {
               className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative duration-400 ${activeLink === "mtwim" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
             >
               
+              {/* CONSTRUCTION TAPE */}
+              <div className={`absolute bottom-30 h-20 w-auto z-10 flex object-cover transition-opacity ${activeLink === "mtwim" ? "opacity-100 duration-800" : "opacity-0 duration-400"}`}>
+                <img src="images/constructiontape.png" className="object-cover" />
+                <img src="images/constructiontape.png" className="object-cover" />
+                <p className="absolute self-center text-center w-full meow">under construction!</p>
+              </div>
+
+
               {/* CHARACTERS */}
               <div className="absolute bottom-0 w-full h-full grid grid-cols-2">
 
