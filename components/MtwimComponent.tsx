@@ -72,6 +72,7 @@ export default function Mtwim() {
 
   const [fullscreen, setFullscreen] = useState(false);
   const [scrollMode, setScrollMode] = useState(true);
+  const [zoom, setZoom] = useState(80);
 
   const toggleFullscreen = () => {
     // if (!document.fullscreenElement) {
@@ -82,6 +83,11 @@ export default function Mtwim() {
     // }
 
     setFullscreen(!fullscreen);
+    if (fullscreen) {
+      setZoom(80);
+    } else {
+      setZoom(40);
+    }
   };
 
   return (
@@ -129,7 +135,13 @@ export default function Mtwim() {
         <div className="bg-[#000000] h-[16%] w-full z-60"></div>
       </div>
 
-      <div className={`${currentPage === "comic" ? "h-0" : "min-h-screen"} w-7xl bg-white flex flex-col items-center`}>
+      <div
+        className={`
+        ${currentPage === "comic" ? "h-0" : "min-h-screen"}
+        ${fullscreen ? "w-full" : "w-7xl"}
+        bg-white flex flex-col items-center
+        `}
+      >
 
         {/* ABOUT */}
         {currentPage === "about" && (
@@ -141,12 +153,12 @@ export default function Mtwim() {
         {/* COMIC */}
         {currentPage === "comic" && (
           <div
-            className={`flex relative w-7xl bg-gray-50`}
+            className={`flex relative w-full bg-gray-50`}
             ref={comicRef}
           >
             
             {/* PAGES */}
-            <div className={`flex flex-col items-center relative bg-black w-[75%] ${fullscreen ? "" : ""}`}>
+            <div className={`flex flex-col items-center relative bg-black ${fullscreen ? "w-full" : "w-[75%]"}`}>
               {pagesLoading && (
                 <div className="z-10 flex items-center justify-center absolute bg-black w-full h-full">
                   <p className="animate-pulse fixed inset-0">loading...</p>
@@ -160,15 +172,24 @@ export default function Mtwim() {
                   alt={`Page ${i + 1}`}
                   width={800}
                   height={1200}
-                  className="w-[80%] h-auto"
+                  style={{ width: `${zoom}%`, height: "auto" }}
                 />
               ))}
+
+              {pagesLoading || (
+                <div className="h-40 bg-black w-full">
+                </div>
+              )}
             </div>
             
             {/* RIGHT PANEL */}
-            <div className={`bg-gray-300 sticky top-0 h-screen overflow-y-auto p-4 gap-4 flex flex-col items-center w-[25%] ${fullscreen ? "" : ""}`}>
-              <p>right side</p>
-              
+            <div 
+              className={`
+              bg-gray-300 ${fullscreen 
+              ? "fixed bottom-0 w-screen flex flex-row" 
+              : "w-[25%] sticky top-0 h-screen overflow-y-auto p-4 gap-4 flex flex-col items-center"}
+              `}
+            >
               {/* CHAPTERS */}
               <div className="grid grid-rows bg-gray-400 w-full">
                 <p>you're currently reading chapter {currentChapter}</p>
@@ -187,16 +208,29 @@ export default function Mtwim() {
                   </p>
                 ))}
               </div>
+
+              {/* ZOOM */}
+              <div>
+                <input 
+                type="range"
+                min={20}
+                max={100}
+                value={zoom}
+                onChange={(e) => setZoom(Number(e.target.value))}
+                className="w-full"
+                />
+                <p>zoom: {zoom}%</p>
+              </div>
               
               {/* CONTROLS */}
-              <div className="grid grid-cols-2 w-[50%]">
+              <div className={`grid grid-cols-2 h-20 px-2 nonsel`}>
                 <img
-                  className="cursor-pointer"
+                  className="cursor-pointer h-20"
                   src={scrollMode ? "/images/book.svg" : "/images/scroll.svg"}
                   onClick={() => setScrollMode(!scrollMode)}
                 />
                 <img
-                  className="cursor-pointer scale-80"
+                  className="cursor-pointer h-20 scale-80 origin-right"
                   src={fullscreen ? "/images/minscreen.svg" : "/images/fullscreen.svg"}
                   onClick={() => toggleFullscreen()}
                 />
@@ -208,6 +242,7 @@ export default function Mtwim() {
                 items-center justify-center
                 p-4 gap-2 mt-auto
                 nonsel duration-200
+                ${fullscreen && "hidden"}
               `}
               >
                 <p className="text-center font-bold">currently this is just a sketch of how reading the comic would look and feel like!</p>
