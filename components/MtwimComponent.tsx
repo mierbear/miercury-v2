@@ -16,6 +16,7 @@ export default function Mtwim() {
   const [currentChapter, setCurrentChapter] = useState<number>(1)
   const [currentPage, setCurrentPage] = useState<string>("about");
   const [pages, setPages] = useState<string[]>([]);
+  const [pagesLoading, setPagesLoading] = useState(false);
   const comicRef = useRef<any>(null);
   const formattedChapter = String(currentChapter).padStart(3, '0');
   
@@ -44,6 +45,7 @@ export default function Mtwim() {
   // FETCH CHAPTER PAGES
   useEffect(() => {
     const fetchPages = async () => {
+      setPagesLoading(true);
       const { data, error } = await supabase
         .storage
         .from('mtwim')
@@ -62,6 +64,7 @@ export default function Mtwim() {
         });
 
       setPages(urls);
+      setPagesLoading(false);
     };
 
     fetchPages();
@@ -124,26 +127,32 @@ export default function Mtwim() {
         {/* COMIC */}
         {currentPage === "comic" && (
           <div
-            className={`flex relative`}
+            className={`flex relative w-7xl bg-gray-50`}
             ref={comicRef}
           >
             
             {/* PAGES */}
-            <div className="flex flex-col items-center w-[68%]">
-              {pages.map((src, i) => (
+            <div className="flex flex-col items-center w-[75%] relative bg-black">
+              {pagesLoading && (
+                <div className="z-10 flex items-center justify-center absolute bg-black w-full h-full">
+                  <p className="animate-pulse fixed inset-0">loading...</p>
+                </div>
+              )}
+
+              {pages.map((src, i) => (  
                 <Image
                   key={i}
                   src={src}
                   alt={`Page ${i + 1}`}
                   width={800}
                   height={1200}
-                  className="w-full h-auto"
+                  className="w-[80%] h-auto"
                 />
               ))}
             </div>
             
             {/* RIGHT PANEL */}
-            <div className="w-[32%] bg-gray-300 sticky top-0 h-screen overflow-y-auto p-4 gap-4 flex flex-col">
+            <div className="w-[25%] bg-gray-300 sticky top-0 h-screen overflow-y-auto p-4 gap-4 flex flex-col">
               <p>right side</p>
 
               <div className="grid grid-rows bg-gray-400">
@@ -151,8 +160,13 @@ export default function Mtwim() {
                 {chapters.map((chapter, i) => (
                   <p
                     key={chapter}
-                    className="cursor-pointer"
-                    onClick={() => setCurrentChapter(i + 1)}
+                    className={`cursor-pointer ${currentChapter === i + 1 && "pointer-events-none"}`}
+                    onClick={() => {
+                      setCurrentChapter(i + 1)
+                      setTimeout(() => {
+                        comicRef.current?.scrollIntoView({ behavior: "smooth" });
+                      }, 0);
+                    }}
                   >
                     chapter {i + 1}
                   </p>
@@ -161,9 +175,9 @@ export default function Mtwim() {
 
               <div 
               className={`
-                border border-white text-white flex-col flex
+                border border-black flex-col flex bg-white/80
                 items-center justify-center
-                p-4 gap-2 
+                p-4 gap-2 mt-auto
                 nonsel duration-200
               `}
               >
