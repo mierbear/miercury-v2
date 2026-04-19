@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import supabase from "@/lib/supabaseClient";
 import { useRouter } from "next/navigation";
+import NextLink from "next/link"
 
 export default function Comic({ initialChapter = 1 }: { initialChapter?: number }) {
 
@@ -70,7 +71,7 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
 
   const [openChapters, setOpenChapters] = useState(false);
   const [scrollMode, setScrollMode] = useState(true);
-  const [hidePanel, setHidePanel] = useState(false);
+  const [hidePanel, setHidePanel] = useState(isPhone ? false : true);
 
   return (
     <div
@@ -83,7 +84,7 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
         
         {pagesLoading && (
           <div className="z-10 flex items-center justify-center absolute bg-black w-full h-full">
-            <p className="animate-pulse fixed inset-0">loading...</p>
+            <p className="animate-pulse text-white">loading...</p>
           </div>
         )}
 
@@ -161,7 +162,7 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
         </div>
 
         {/* CONTROLS */}
-        <div className={`grid grid-cols-3 h-16 px-2 nonsel place-items-center`}>
+        <div className={`grid grid-cols-4 h-16 px-2 nonsel place-items-center`}>
           <img
             src="/images/minus.svg"
             className="cursor-pointer h-8"
@@ -177,6 +178,12 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
             src={scrollMode ? "/images/book.svg" : "/images/scroll.svg"}
             onClick={() => setScrollMode(!scrollMode)}
           />
+          <NextLink href="/mtwim">
+            <img
+              className="cursor-pointer h-14"
+              src="/images/home.svg"
+            />
+          </NextLink>
         </div>
 
       </div>
