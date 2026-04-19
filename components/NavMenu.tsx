@@ -257,6 +257,8 @@ const NavMenu = () => {
     getCrowd();
   }, [])
 
+  const onComic = pathname.startsWith("/mtwim/read");
+
   return (
     <div 
       className={`
@@ -267,6 +269,7 @@ const NavMenu = () => {
       duration-1000 transition-colors
       ${open ? "from-[rgb(11,12,13)]/70 via-[rgb(11,12,13)]/40" : "via-transparent from-transparent"}
       ${anonymous.className}
+      ${onComic && "hidden"}
     `}>
       
       {/* HOME LINK */}
