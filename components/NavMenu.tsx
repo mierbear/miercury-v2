@@ -377,8 +377,8 @@ const NavMenu = () => {
               
               {/* CONSTRUCTION TAPE */}
               <div className={`absolute bottom-30 h-20 w-auto z-10 flex object-cover transition-opacity ${activeLink === "mtwim" ? "opacity-100 duration-800" : "opacity-0 duration-400"}`}>
-                <img src="images/constructiontape.png" className="object-cover" />
-                <img src="images/constructiontape.png" className="object-cover" />
+                <img src="/images/constructiontape.png" className="object-cover" />
+                <img src="/images/constructiontape.png" className="object-cover" />
                 <p className="absolute self-center text-center w-full meow">under construction!</p>
               </div>
 
