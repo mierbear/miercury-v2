@@ -63,8 +63,9 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
     fetchPages();
   }, [currentChapter]);
 
-  const [open, setOpen] = useState(false);
+  const [openChapters, setOpenChapters] = useState(false);
   const [scrollMode, setScrollMode] = useState(true);
+  const [hidePanel, setHidePanel] = useState(false);
 
   return (
     <div
@@ -82,36 +83,40 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
         )}
 
         {pages.map((src, i) => (
-          <div key={i} className="snap-start w-full flex justify-center">
+          <div key={i} className={`snap-start w-full flex justify-center ${i === pages.length - 1 && "pb-16"}`}>
             <Image
               src={src}
               alt={`Page ${i + 1}`}
               width={800}
               height={1200}
-              className="w-full max-w-2xl h-auto nonsel pointer-events-none"
+              className="w-175 max-w-screen h-auto nonsel pointer-events-none"
             />
           </div>
         ))}
           
-        {pagesLoading || (
-          <div className="h-16 bg-black w-full">
-          </div>
-        )}
       </div>
       
       {/* PANEL */}
       <div 
         className={`
         bg-gray-300 h-16 z-10
-        fixed bottom-0 w-screen flex flex-row items-center px-4
+        fixed bottom-0 w-screen
+        flex flex-row items-center px-4
+        transition-opacity duration-300
+        ${hidePanel ? "opacity-0" : "opacity-100"}
         `}
+        onMouseEnter={() => setHidePanel(false)}
+        onMouseLeave={() => {
+          setHidePanel(true)
+          setOpenChapters(false)
+        }}
       >
         {/* CHAPTERS */}
         <div className={`relative w-80 mr-auto z-100`}>
 
           <div
             className="bg-gray-500 cursor-pointer p-2 text-center"
-            onClick={() => setOpen(prev => !prev)}
+            onClick={() => setOpenChapters(prev => !prev)}
           >
             Chapter {currentChapter}
           </div>
@@ -121,7 +126,7 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
               absolute left-0 w-full
               bg-gray-400 overflow-hidden
               bottom-full
-              ${open ? "opacity-100" : "max-h-0 opacity-0 pointer-events-none"}
+              ${openChapters ? "opacity-100" : "max-h-0 opacity-0 pointer-events-none"}
             `}
           >
             {chapters.map((chapter, i) => (
@@ -134,7 +139,7 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
                 `}
                 onClick={() => {
                   setCurrentChapter(i + 1);
-                  setOpen(false);
+                  setOpenChapters(false);
                   router.push(`/mtwim/read/${i + 1}`);
                 }}
               >
