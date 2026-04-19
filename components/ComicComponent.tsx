@@ -13,7 +13,12 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
   const comicRef = useRef<any>(null);
   const formattedChapter = String(currentChapter).padStart(3, '0');
   const router = useRouter();
+  const [isPhone, setIsPhone] = useState(false);
   
+  useEffect(() => {
+    setIsPhone(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
   // FETCH CHAPTERS AMOUNT
   useEffect(() => {
     const fetchChapters = async () => {
@@ -105,10 +110,16 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
         transition-opacity duration-300
         ${hidePanel ? "opacity-0" : "opacity-100"}
         `}
-        onMouseEnter={() => setHidePanel(false)}
+        onMouseEnter={() => {
+          if (!isPhone) {
+            setHidePanel(false)
+          }
+        }}
         onMouseLeave={() => {
-          setHidePanel(true)
-          setOpenChapters(false)
+          if (!isPhone) {
+            setHidePanel(true)
+            setOpenChapters(false)
+          }
         }}
       >
         {/* CHAPTERS */}
