@@ -21,28 +21,52 @@ export default function Ocs() {
             }
           `}
         >
-          <div className="w-full h-full flex justify-center items-end">
+          <div
+            className="w-full h-full flex justify-center items-end"
+            onMouseEnter={() => setSelectedMier("icemage")}
+            onMouseLeave={() => setSelectedMier("")}
+          >
             <img
-              className={`object-cover absolute z-22 ${selectedMier === "icemage" && "z-55"}`}
+              className={`
+                object-cover absolute z-22 transition-[translate] duration-1200
+                nonsel pointer-events-none
+                ${selectedMier === "icemage" ? "z-55" :
+                  selectedMier === "tyrant" && "translate-x-[-25%]"
+                }
+              `}
               src="/images/ocs/mierintro-icemage.png"
-              onMouseEnter={() => setSelectedMier("icemage")}
-              onMouseLeave={() => setSelectedMier("")}
             />
           </div>
-          <div className="w-full h-full flex justify-center items-end">
+          <div
+            className="w-full h-full flex justify-center items-end"
+            onMouseEnter={() => setSelectedMier("angel")}
+            onMouseLeave={() => setSelectedMier("")}
+          >
             <img
-              className={`object-cover absolute z-33`}
+              className={`
+                object-cover absolute z-33 transition-[translate] duration-800
+                nonsel pointer-events-none
+                ${selectedMier === "icemage" ? "translate-x-[10%]" :
+                  selectedMier === "tyrant" && "translate-x-[-10%]"
+                }
+              `}
               src="/images/ocs/mierintro-angel.png"
-              onMouseEnter={() => setSelectedMier("angel")}
-              onMouseLeave={() => setSelectedMier("")}
             />
           </div>
-          <div className="w-full h-full flex justify-center items-end">
+          <div
+            className="w-full h-full flex justify-center items-end"
+            onMouseEnter={() => setSelectedMier("tyrant")}
+            onMouseLeave={() => setSelectedMier("")}
+          >
             <img
-              className={`object-cover absolute z-11 ${selectedMier === "tyrant" && "z-55"}`}
+              className={`
+                object-cover absolute z-11 transition-[translate] duration-1200
+                nonsel pointer-events-none
+                ${selectedMier === "tyrant" ? "z-55" :
+                  selectedMier === "icemage" && "translate-x-[25%]"
+                }
+              `}
               src="/images/ocs/mierintro-tyrant.png"
-              onMouseEnter={() => setSelectedMier("tyrant")}
-              onMouseLeave={() => setSelectedMier("")}
             />
           </div>
         </div>
