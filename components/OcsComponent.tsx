@@ -43,6 +43,12 @@ export default function Ocs() {
       setTimeout(() => {
         mierAngelRef.current!.style.opacity = "1";
       }, 1200);
+    } else if (mierType === "angel" && selectedMier) {
+      setSelectedMier(mierType)
+      mierAngelRef.current.style.opacity = "0";
+      setTimeout(() => {
+        mierAngelRef.current!.style.opacity = "1";
+      }, 1200);
     } else {
       setSelectedMier(mierType)
     }
@@ -58,14 +64,15 @@ export default function Ocs() {
       >
         
         {/* PORTRAITS */}
-        <div className="w-full h-full flex items-center justify-center">
+        <div className="flex items-center justify-center">
 
           {/* ICEMAGE */}
           <div
             className={`
-              absolute bottom-0 h-screen overflow-hidden z-88 left-[5vw]
-              ${selectedMier !== "icemage" && "hidden"}
+              absolute bottom-0 h-screen overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer left-[5vw]
+              ${selectedMier === "icemage" ? "" : "-translate-x-full"}
             `}
+            onClick={() => mierSelectHandler("")}
           >
             <img 
               src={`/images/ocs/mier-icemage.png`}
@@ -76,9 +83,10 @@ export default function Ocs() {
           {/* ANGEL */}
           <div
             className={`
-              absolute bottom-0 h-screen overflow-hidden z-88
-              ${selectedMier !== "angel" && "hidden"}
+              absolute bottom-0 h-screen overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer
+              ${selectedMier === "angel" ? "" : "translate-y-full"}
             `}
+            onClick={() => mierSelectHandler("")}
           >
             <img 
               src={`/images/ocs/mier-angel.png`}
@@ -89,9 +97,10 @@ export default function Ocs() {
           {/* TYRANT */}
           <div 
             className={`
-              absolute bottom-0 h-screen overflow-hidden z-88 right-[5vw]
-              ${selectedMier !== "tyrant" && "hidden"}
+              absolute bottom-0 h-screen overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer right-[5vw]
+              ${selectedMier === "tyrant" ? "" : "translate-x-full"}
             `}
+            onClick={() => mierSelectHandler("")}
           >
             <img 
               src={`/images/ocs/mier-tyrant.png`}
@@ -118,7 +127,6 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full flex justify-center items-end cursor-pointer
-              ${selectedMier && selectedMier !== "icemage" && "pointer-events-none"}
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("icemage")
@@ -147,7 +155,6 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full flex justify-center items-end cursor-pointer
-              ${selectedMier && selectedMier !== "angel" && "pointer-events-none"}
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("angel")
@@ -165,7 +172,7 @@ export default function Ocs() {
                   hoveredMier === "angel" ? "scale-110" :
                   hoveredMier === "tyrant" && "translate-x-[-10%]"
                 }
-                ${selectedMier === "angel" ? "translate-y-full opacity-0"
+                ${selectedMier === "angel" ? "translate-y-full"
                   : selectedMier === "icemage" ? "translate-x-[180%]"
                   : selectedMier === "tyrant" ? "translate-x-[-180%]"
                   : selectedMier === ""
@@ -179,7 +186,6 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full flex justify-center items-end cursor-pointer
-              ${selectedMier && selectedMier !== "tyrant" && "pointer-events-none"}
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("tyrant")
