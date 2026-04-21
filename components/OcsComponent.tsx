@@ -55,11 +55,23 @@ export default function Ocs() {
   }
 
   return (
-    <div className="w-screen max-w-screen justify-center align-center items-center flex flex-col">
+    <div className="w-screen max-w-screen justify-center align-center items-center flex flex-col bg-[#879da7]">
 
       {/* MIERS */}
       <div
-        className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#d1f8ff]"
+        className={`
+          w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative transition-colors duration-600
+          ${selectedMier === "angel" ? "bg-[#0e6188]"
+            : selectedMier === "icemage" ? "bg-[#a1c9da]"
+            : selectedMier === "tyrant" ? "bg-[#6e1717]"
+            : ""
+          }
+          ${hoveredMier === "angel" ? "bg-[#0e6188]/30"
+            : hoveredMier === "icemage" ? "bg-[#a1c9da]/30"
+            : hoveredMier === "tyrant" ? "bg-[#6e1717]/30"
+            : ""
+          }
+        `}
         ref={miersRef}
       >
          
@@ -246,9 +258,16 @@ export default function Ocs() {
         </div>
 
         {/* PORTRAITS */}
-        <div className="absolute bottom-12 grid grid-cols-3 gap-4 max-w-screen z-99 bg-[#00000000]">
+        <div className="absolute bottom-8 grid grid-cols-3 gap-4 max-w-screen z-99 bg-[#00000000]">
+
           <div
-            className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
+            className={`
+              transition-all duration-300 border border-black shadow-2xl
+              w-30 h-30 bg-white flex flex-col items-center
+              justify-center nonsel cursor-pointer rounded-md overflow-hidden
+              ${selectedMier === "icemage" ? "scale-110 saturate-100 opacity-100" : "saturate-20"}
+              ${hoveredMier === "icemage" ? "opacity-100 scale-105" : "opacity-40 hover:opacity-100 scale-100"}
+            `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("icemage")
             }}
@@ -256,11 +275,21 @@ export default function Ocs() {
           >
             <img
               src="/images/ocs/mier-portrait-icemage.png"
-              className="nonsel pointer-events-none"  
+              className={`
+                nonsel pointer-events-none transition-scale duration-300
+                ${hoveredMier === "icemage" && "scale-110"}
+                ${selectedMier === "icemage" && "scale-110"}
+              `}
             />
           </div>
           <div
-            className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
+            className={`
+              transition-all duration-300 border border-black shadow-2xl
+              w-30 h-30 bg-white flex flex-col items-center
+              justify-center nonsel cursor-pointer rounded-md overflow-hidden
+              ${selectedMier === "angel" ? "scale-110 saturate-100 opacity-100" : "saturate-20"}
+              ${hoveredMier === "angel" ? "opacity-100 scale-105" : "opacity-40 hover:opacity-100 scale-100"}
+            `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("angel")
             }}
@@ -268,11 +297,21 @@ export default function Ocs() {
           >
             <img
               src="/images/ocs/mier-portrait-angel.png"
-              className="nonsel pointer-events-none"  
+              className={`
+                nonsel pointer-events-none transition-scale duration-300
+                ${hoveredMier === "angel" && "scale-110"}
+                ${selectedMier === "angel" && "scale-110"}
+              `}
             />
           </div>
           <div
-            className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
+            className={`
+              transition-all duration-300 border border-black shadow-2xl
+              w-30 h-30 bg-white flex flex-col items-center
+              justify-center nonsel cursor-pointer rounded-md overflow-hidden
+              ${selectedMier === "tyrant" ? "scale-110 saturate-100 opacity-100" : "saturate-20"}
+              ${hoveredMier === "tyrant" ? "opacity-100 scale-105" : "opacity-40 hover:opacity-100 scale-100"}
+            `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("tyrant")
             }}
@@ -280,7 +319,11 @@ export default function Ocs() {
           >
             <img
               src="/images/ocs/mier-portrait-tyrant.png"
-              className="nonsel pointer-events-none"  
+              className={`
+                nonsel pointer-events-none transition-scale duration-300
+                ${hoveredMier === "tyrant" && "scale-110"}
+                ${selectedMier === "tyrant" && "scale-110"}
+              `}
             />
           </div>
         </div>
