@@ -58,13 +58,48 @@ export default function Ocs() {
       >
         
         {/* PORTRAITS */}
-        <img 
-          src={selectedMier ? `/images/ocs/mier-${selectedMier}.png` : "/images/bit.png"}
-          className={`
-            z-88 w-auto h-auto max-h-screen nonsel pointer-events-none absolute bottom-0
+        <div className="w-full h-full flex items-center justify-center">
 
-          `}
-        />
+          {/* ICEMAGE */}
+          <div
+            className={`
+              absolute bottom-0 h-screen overflow-hidden z-88 left-[5vw]
+              ${selectedMier !== "icemage" && "hidden"}
+            `}
+          >
+            <img 
+              src={`/images/ocs/mier-icemage.png`}
+              className="h-full w-auto max-w-none nonsel pointer-events-none"
+            />
+          </div>
+
+          {/* ANGEL */}
+          <div
+            className={`
+              absolute bottom-0 h-screen overflow-hidden z-88
+              ${selectedMier !== "angel" && "hidden"}
+            `}
+          >
+            <img 
+              src={`/images/ocs/mier-angel.png`}
+              className="h-full w-auto max-w-none nonsel pointer-events-none"
+            />
+          </div>
+
+          {/* TYRANT */}
+          <div 
+            className={`
+              absolute bottom-0 h-screen overflow-hidden z-88 right-[5vw]
+              ${selectedMier !== "tyrant" && "hidden"}
+            `}
+          >
+            <img 
+              src={`/images/ocs/mier-tyrant.png`}
+              className="h-full w-auto max-w-none nonsel pointer-events-none"
+            />
+          </div>
+
+        </div>
 
         {/* GRIDS */}
         <div
@@ -93,7 +128,7 @@ export default function Ocs() {
           >
             <img
               className={`
-                object-cover absolute z-22 transition-transform duration-1200
+                object-cover absolute z-22 max-w-none transition-transform duration-1200
                 nonsel pointer-events-none origin-top
                 ${!selectedMier &&
                   hoveredMier === "icemage" ? "z-55 scale-110 translate-x-[-5%]" :
@@ -123,7 +158,7 @@ export default function Ocs() {
           >
             <img
               className={`
-                object-cover absolute z-33 transition-transform
+                object-cover absolute z-33 max-w-none transition-transform
                 nonsel pointer-events-none origin-top duration-1200
                 ${!selectedMier &&
                   hoveredMier === "icemage" ? "translate-x-[10%]" :
@@ -154,7 +189,7 @@ export default function Ocs() {
           >
             <img
               className={`
-                object-cover absolute z-11 transition-transform duration-1200
+                object-cover absolute z-11 max-w-none transition-transform duration-1200
                 nonsel pointer-events-none origin-top
                 ${!selectedMier &&
                   hoveredMier === "tyrant" ? "z-55 scale-110 translate-x-[5%]" :
@@ -179,7 +214,10 @@ export default function Ocs() {
             }}
             onClick={() => mierSelectHandler("icemage")}
           >
-            <img src="/images/ocs/mier-portrait-icemage.png" />
+            <img
+              src="/images/ocs/mier-portrait-icemage.png"
+              className="nonsel pointer-events-none"  
+            />
           </div>
           <div
             className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
@@ -188,7 +226,10 @@ export default function Ocs() {
             }}
             onClick={() => mierSelectHandler("angel")}
           >
-            <img src="/images/ocs/mier-portrait-angel.png" />
+            <img
+              src="/images/ocs/mier-portrait-angel.png"
+              className="nonsel pointer-events-none"  
+            />
           </div>
           <div
             className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
@@ -197,7 +238,10 @@ export default function Ocs() {
             }}
             onClick={() => mierSelectHandler("tyrant")}
           >
-            <img src="/images/ocs/mier-portrait-tyrant.png" />
+            <img
+              src="/images/ocs/mier-portrait-tyrant.png"
+              className="nonsel pointer-events-none"  
+            />
           </div>
         </div>
 
