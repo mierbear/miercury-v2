@@ -37,6 +37,12 @@ export default function Ocs() {
       setTimeout(() => {
         mierAngelRef.current!.style.opacity = "1";
       }, 1200);
+    } else if (selectedMier === "angel" && mierType) {
+      setSelectedMier(mierType)
+      mierAngelRef.current.style.opacity = "0";
+      setTimeout(() => {
+        mierAngelRef.current!.style.opacity = "1";
+      }, 1200);
     } else {
       setSelectedMier(mierType)
     }
@@ -51,6 +57,16 @@ export default function Ocs() {
         ref={miersRef}
       >
         
+        {/* PORTRAITS */}
+        <img 
+          src={selectedMier ? `/images/ocs/mier-${selectedMier}.png` : "/images/bit.png"}
+          className={`
+            z-88 w-auto h-auto max-h-screen nonsel pointer-events-none absolute bottom-0
+
+          `}
+        />
+
+        {/* GRIDS */}
         <div
           className={`
             grid w-full h-full transition-grid 
@@ -83,7 +99,7 @@ export default function Ocs() {
                   hoveredMier === "icemage" ? "z-55 scale-110 translate-x-[-5%]" :
                   hoveredMier === "tyrant" && "translate-x-[-25%]"
                 }
-                ${selectedMier === "icemage" ? "scale-120"
+                ${selectedMier === "icemage" ? "-translate-x-full"
                   : selectedMier === "" ? ""
                   : "-translate-x-full"
                 }
@@ -114,7 +130,7 @@ export default function Ocs() {
                   hoveredMier === "angel" ? "scale-110" :
                   hoveredMier === "tyrant" && "translate-x-[-10%]"
                 }
-                ${selectedMier === "angel" ? "scale-120"
+                ${selectedMier === "angel" ? "translate-y-full opacity-0"
                   : selectedMier === "icemage" ? "translate-x-[180%]"
                   : selectedMier === "tyrant" ? "translate-x-[-180%]"
                   : selectedMier === ""
@@ -144,7 +160,7 @@ export default function Ocs() {
                   hoveredMier === "tyrant" ? "z-55 scale-110 translate-x-[5%]" :
                   hoveredMier === "icemage" && "translate-x-[25%]"
                 }
-                ${selectedMier === "tyrant" ? "scale-120"
+                ${selectedMier === "tyrant" ? "translate-x-full"
                   : selectedMier === "" ? ""
                   : "translate-x-full"
                 }
