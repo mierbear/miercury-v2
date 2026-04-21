@@ -7,6 +7,7 @@ export default function Ocs() {
   const [hoveredMier, setHoveredMier] = useState("");
   const [selectedMier, setSelectedMier] = useState("");
   const miersRef = useRef<HTMLDivElement | null>(null);
+  const mierAngelRef = useRef<HTMLImageElement | null>(null);
 
   const miersClickHandler = () => {
     if (!miersRef.current) return;
@@ -18,11 +19,24 @@ export default function Ocs() {
   }
 
   const mierSelectHandler = (mierType: string) => {
+    if (!mierAngelRef.current) return;
     miersClickHandler();
     setHoveredMier("");
 
     if (selectedMier === mierType) {
       setSelectedMier("")
+    } else if (mierType === "icemage" && selectedMier === "tyrant") {
+      setSelectedMier(mierType)
+      mierAngelRef.current.style.opacity = "0";
+      setTimeout(() => {
+        mierAngelRef.current!.style.opacity = "1";
+      }, 1200);
+    } else if (mierType === "tyrant" && selectedMier === "icemage") {
+      setSelectedMier(mierType)
+      mierAngelRef.current.style.opacity = "0";
+      setTimeout(() => {
+        mierAngelRef.current!.style.opacity = "1";
+      }, 1200);
     } else {
       setSelectedMier(mierType)
     }
@@ -89,6 +103,7 @@ export default function Ocs() {
             }}
             onMouseLeave={() => setHoveredMier("")}
             onClick={() => mierSelectHandler("angel")}
+            ref={mierAngelRef}
           >
             <img
               className={`
