@@ -78,9 +78,29 @@ export default function Ocs() {
           </div>
         </div>
 
-        {/* <div className="absolute">
-
-        </div> */}
+        <div className="absolute bottom-12 grid grid-cols-3 gap-4 max-w-screen z-99 bg-[#00000000]">
+          <div
+            className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
+            onMouseEnter={() => setHoveredMier("icemage")}
+            onMouseLeave={() => setHoveredMier("")}
+          >
+            <img src="/images/ocs/mier-portrait-icemage.png" />
+          </div>
+          <div
+            className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
+            onMouseEnter={() => setHoveredMier("angel")}
+            onMouseLeave={() => setHoveredMier("")}
+          >
+            <img src="/images/ocs/mier-portrait-angel.png" />
+          </div>
+          <div
+            className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
+            onMouseEnter={() => setHoveredMier("tyrant")}
+            onMouseLeave={() => setHoveredMier("")}
+          >
+            <img src="/images/ocs/mier-portrait-tyrant.png" />
+          </div>
+        </div>
 
       </div>
 
