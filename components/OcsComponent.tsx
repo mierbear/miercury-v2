@@ -4,6 +4,7 @@ import { useEffect, useState, useRef } from "react";
 export default function Ocs() {
 
   const [hoveredMier, setHoveredMier] = useState("");
+  const [selectedMier, setSelectedMier] = useState("");
 
   return (
     <div className="w-screen max-w-screen justify-center align-center items-center flex flex-col">
@@ -13,9 +14,10 @@ export default function Ocs() {
         
         <div
           className={`
-            grid w-full h-full transition-grid duration-1000
+            grid w-full h-full transition-grid 
+            ${selectedMier ? "duration-1000" : "duration-600"}
             ${hoveredMier === "icemage" ? "grid-cols-[3fr_1fr_1fr]" :
-              hoveredMier === "angel" ? "grid-cols-[1fr_3fr_1fr]" :
+              hoveredMier === "angel" ? "grid-cols-[1fr_1.5fr_1fr]" :
               hoveredMier === "tyrant" ? "grid-cols-[1fr_1fr_3fr]" :
               "grid-cols-[1fr_1fr_1fr]"
             }
@@ -24,16 +26,33 @@ export default function Ocs() {
 
           {/* ICE MAGE */}
           <div
-            className="w-full h-full flex justify-center items-end cursor-pointer"
-            onMouseEnter={() => setHoveredMier("icemage")}
+            className={`
+              w-full h-full flex justify-center items-end cursor-pointer
+            `}
+            onMouseEnter={() => {
+              if (!selectedMier) setHoveredMier("icemage")
+            }}
             onMouseLeave={() => setHoveredMier("")}
+            onClick={() => {
+              setHoveredMier("");
+              if (selectedMier) {
+                setSelectedMier("")
+              } else {
+                setSelectedMier("icemage")
+              }
+            }}
           >
             <img
               className={`
-                object-cover absolute z-22 transition-transform duration-1200
+                object-cover absolute z-22 transition-transform duration-1000
                 nonsel pointer-events-none origin-top
-                ${hoveredMier === "icemage" ? "z-55 scale-110 translate-x-[-5%] duration-1400" :
+                ${!selectedMier &&
+                  hoveredMier === "icemage" ? "z-55 scale-110 translate-x-[-5%]" :
                   hoveredMier === "tyrant" && "translate-x-[-25%]"
+                }
+                ${selectedMier === "icemage" ? "scale-120"
+                  : selectedMier === "" ? ""
+                  : "-translate-x-full"
                 }
               `}
               src="/images/ocs/mierintro-icemage.png"
@@ -42,17 +61,35 @@ export default function Ocs() {
 
           {/* ANGEL */}
           <div
-            className="w-full h-full flex justify-center items-end cursor-pointer"
-            onMouseEnter={() => setHoveredMier("angel")}
+            className={`
+              w-full h-full flex justify-center items-end cursor-pointer
+            `}
+            onMouseEnter={() => {
+              if (!selectedMier) setHoveredMier("angel")
+            }}
             onMouseLeave={() => setHoveredMier("")}
+            onClick={() => {
+              setHoveredMier("");
+              if (selectedMier) {
+                setSelectedMier("")
+              } else {
+                setSelectedMier("angel")
+              }
+            }}
           >
             <img
               className={`
-                object-cover absolute z-33 transition-transform duration-800
-                nonsel pointer-events-none origin-top
-                ${hoveredMier === "icemage" ? "translate-x-[10%]" :
-                  hoveredMier === "angel" ? "scale-110 duration-1400" :
+                object-cover absolute z-33 transition-transform
+                nonsel pointer-events-none origin-top duration-1000
+                ${!selectedMier &&
+                  hoveredMier === "icemage" ? "translate-x-[10%]" :
+                  hoveredMier === "angel" ? "scale-110" :
                   hoveredMier === "tyrant" && "translate-x-[-10%]"
+                }
+                ${selectedMier === "angel" ? "scale-120"
+                  : selectedMier === "icemage" ? "translate-x-[180%]"
+                  : selectedMier === "tyrant" ? "translate-x-[-180%]"
+                  : selectedMier === ""
                 }
               `}
               src="/images/ocs/mierintro-angel.png"
@@ -61,21 +98,39 @@ export default function Ocs() {
 
           {/* TYRANT */}
           <div
-            className="w-full h-full flex justify-center items-end cursor-pointer"
-            onMouseEnter={() => setHoveredMier("tyrant")}
+            className={`
+              w-full h-full flex justify-center items-end cursor-pointer
+            `}
+            onMouseEnter={() => {
+              if (!selectedMier) setHoveredMier("tyrant")
+            }}
             onMouseLeave={() => setHoveredMier("")}
+            onClick={() => {
+              setHoveredMier("");
+              if (selectedMier) {
+                setSelectedMier("")
+              } else {
+                setSelectedMier("tyrant")
+              }
+            }}
           >
             <img
               className={`
-                object-cover absolute z-11 transition-transform duration-1200
+                object-cover absolute z-11 transition-transform duration-1000
                 nonsel pointer-events-none origin-top
-                ${hoveredMier === "tyrant" ? "z-55 scale-110 translate-x-[5%] duration-1400" :
+                ${!selectedMier &&
+                  hoveredMier === "tyrant" ? "z-55 scale-110 translate-x-[5%]" :
                   hoveredMier === "icemage" && "translate-x-[25%]"
+                }
+                ${selectedMier === "tyrant" ? "scale-120"
+                  : selectedMier === "" ? ""
+                  : "translate-x-full"
                 }
               `}
               src="/images/ocs/mierintro-tyrant.png"
             />
           </div>
+
         </div>
 
         <div className="absolute bottom-12 grid grid-cols-3 gap-4 max-w-screen z-99 bg-[#00000000]">
