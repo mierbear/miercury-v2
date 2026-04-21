@@ -1,21 +1,35 @@
 "use client";
+import { userAgent } from "next/server";
 import { useEffect, useState, useRef } from "react";
 
 export default function Ocs() {
 
   const [hoveredMier, setHoveredMier] = useState("");
   const [selectedMier, setSelectedMier] = useState("");
+  const miersRef = useRef<HTMLDivElement | null>(null);
+
+  const miersClickHandler = () => {
+    if (!miersRef.current) return;
+
+    miersRef.current.style.pointerEvents = "none";
+    setTimeout(() => {
+      miersRef.current!.style.pointerEvents = "auto";
+    }, 1200);
+  }
 
   return (
     <div className="w-screen max-w-screen justify-center align-center items-center flex flex-col">
 
       {/* MIERS */}
-      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#d1f8ff]">
+      <div
+        className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#d1f8ff]"
+        ref={miersRef}
+      >
         
         <div
           className={`
             grid w-full h-full transition-grid 
-            ${selectedMier ? "duration-1000" : "duration-600"}
+            ${selectedMier ? "duration-1200" : "duration-600"}
             ${hoveredMier === "icemage" ? "grid-cols-[3fr_1fr_1fr]" :
               hoveredMier === "angel" ? "grid-cols-[1fr_1.5fr_1fr]" :
               hoveredMier === "tyrant" ? "grid-cols-[1fr_1fr_3fr]" :
@@ -34,6 +48,7 @@ export default function Ocs() {
             }}
             onMouseLeave={() => setHoveredMier("")}
             onClick={() => {
+              miersClickHandler();
               setHoveredMier("");
               if (selectedMier) {
                 setSelectedMier("")
@@ -44,7 +59,7 @@ export default function Ocs() {
           >
             <img
               className={`
-                object-cover absolute z-22 transition-transform duration-1000
+                object-cover absolute z-22 transition-transform duration-1200
                 nonsel pointer-events-none origin-top
                 ${!selectedMier &&
                   hoveredMier === "icemage" ? "z-55 scale-110 translate-x-[-5%]" :
@@ -69,6 +84,7 @@ export default function Ocs() {
             }}
             onMouseLeave={() => setHoveredMier("")}
             onClick={() => {
+              miersClickHandler();
               setHoveredMier("");
               if (selectedMier) {
                 setSelectedMier("")
@@ -80,7 +96,7 @@ export default function Ocs() {
             <img
               className={`
                 object-cover absolute z-33 transition-transform
-                nonsel pointer-events-none origin-top duration-1000
+                nonsel pointer-events-none origin-top duration-1200
                 ${!selectedMier &&
                   hoveredMier === "icemage" ? "translate-x-[10%]" :
                   hoveredMier === "angel" ? "scale-110" :
@@ -106,6 +122,7 @@ export default function Ocs() {
             }}
             onMouseLeave={() => setHoveredMier("")}
             onClick={() => {
+              miersClickHandler();
               setHoveredMier("");
               if (selectedMier) {
                 setSelectedMier("")
@@ -116,7 +133,7 @@ export default function Ocs() {
           >
             <img
               className={`
-                object-cover absolute z-11 transition-transform duration-1000
+                object-cover absolute z-11 transition-transform duration-1200
                 nonsel pointer-events-none origin-top
                 ${!selectedMier &&
                   hoveredMier === "tyrant" ? "z-55 scale-110 translate-x-[5%]" :
