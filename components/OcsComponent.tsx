@@ -62,8 +62,41 @@ export default function Ocs() {
         className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#d1f8ff]"
         ref={miersRef}
       >
-        
-        {/* PORTRAITS */}
+         
+        {/* DECORS */}
+        <div
+          className="flex items-center justify-center"
+        >
+
+          {/* DECO - ICE MAGE */}
+          <div
+            className={`
+              absolute bottom-0 right-[2vw] h-screen overflow-hidden z-99 transition-[translate] duration-1400 nonsel pointer-events-none
+              ${selectedMier === "icemage" ? "" : "translate-x-[200%]"}
+            `}
+          >
+            <img 
+              src={`/images/ocs/mier-icemage-deco.png`}
+              className="h-full w-auto max-w-none nonsel pointer-events-none"
+            />
+          </div>
+
+          {/* DECO - TYRANT */}
+          <div
+            className={`
+              absolute bottom-0 left-0 h-screen overflow-hidden z-100 transition-opacity duration-600 nonsel pointer-events-none
+              ${selectedMier === "tyrant" ? "opacity-100" : "opacity-0"}
+            `}
+          >
+            <img 
+              src={`/images/ocs/mier-tyrant-deco.png`}
+              className="h-full w-auto max-w-none nonsel pointer-events-none"
+            />
+          </div>
+
+        </div>
+
+        {/* CLOSE-UPS */}
         <div className="flex items-center justify-center">
 
           {/* ICEMAGE */}
@@ -126,7 +159,7 @@ export default function Ocs() {
           {/* ICE MAGE */}
           <div
             className={`
-              w-full h-full flex justify-center items-end cursor-pointer
+              h-screen flex justify-center items-end cursor-pointer
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("icemage")
@@ -136,7 +169,7 @@ export default function Ocs() {
           >
             <img
               className={`
-                object-cover absolute z-22 max-w-none transition-transform duration-1200
+                h-full object-cover absolute z-22 max-w-none transition-transform duration-1200
                 nonsel pointer-events-none origin-top
                 ${!selectedMier &&
                   hoveredMier === "icemage" ? "z-55 scale-110 translate-x-[-5%]" :
@@ -154,7 +187,7 @@ export default function Ocs() {
           {/* ANGEL */}
           <div
             className={`
-              w-full h-full flex justify-center items-end cursor-pointer
+              h-screen flex justify-center items-end cursor-pointer
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("angel")
@@ -165,7 +198,7 @@ export default function Ocs() {
           >
             <img
               className={`
-                object-cover absolute z-33 max-w-none transition-transform
+                h-full object-cover absolute z-33 max-w-none transition-transform
                 nonsel pointer-events-none origin-top duration-1200
                 ${!selectedMier &&
                   hoveredMier === "icemage" ? "translate-x-[10%]" :
@@ -185,7 +218,7 @@ export default function Ocs() {
           {/* TYRANT */}
           <div
             className={`
-              w-full h-full flex justify-center items-end cursor-pointer
+              h-screen flex justify-center items-end cursor-pointer
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("tyrant")
@@ -195,7 +228,7 @@ export default function Ocs() {
           >
             <img
               className={`
-                object-cover absolute z-11 max-w-none transition-transform duration-1200
+                h-full object-cover absolute z-11 max-w-none transition-transform duration-1200
                 nonsel pointer-events-none origin-top
                 ${!selectedMier &&
                   hoveredMier === "tyrant" ? "z-55 scale-110 translate-x-[5%]" :
@@ -212,6 +245,7 @@ export default function Ocs() {
 
         </div>
 
+        {/* PORTRAITS */}
         <div className="absolute bottom-12 grid grid-cols-3 gap-4 max-w-screen z-99 bg-[#00000000]">
           <div
             className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
