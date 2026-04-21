@@ -17,6 +17,17 @@ export default function Ocs() {
     }, 1200);
   }
 
+  const mierSelectHandler = (mierType: string) => {
+    miersClickHandler();
+    setHoveredMier("");
+
+    if (selectedMier === mierType) {
+      setSelectedMier("")
+    } else {
+      setSelectedMier(mierType)
+    }
+  }
+
   return (
     <div className="w-screen max-w-screen justify-center align-center items-center flex flex-col">
 
@@ -42,20 +53,13 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full flex justify-center items-end cursor-pointer
+              ${selectedMier && selectedMier !== "icemage" && "pointer-events-none"}
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("icemage")
             }}
             onMouseLeave={() => setHoveredMier("")}
-            onClick={() => {
-              miersClickHandler();
-              setHoveredMier("");
-              if (selectedMier) {
-                setSelectedMier("")
-              } else {
-                setSelectedMier("icemage")
-              }
-            }}
+            onClick={() => mierSelectHandler("icemage")}
           >
             <img
               className={`
@@ -78,20 +82,13 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full flex justify-center items-end cursor-pointer
+              ${selectedMier && selectedMier !== "angel" && "pointer-events-none"}
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("angel")
             }}
             onMouseLeave={() => setHoveredMier("")}
-            onClick={() => {
-              miersClickHandler();
-              setHoveredMier("");
-              if (selectedMier) {
-                setSelectedMier("")
-              } else {
-                setSelectedMier("angel")
-              }
-            }}
+            onClick={() => mierSelectHandler("angel")}
           >
             <img
               className={`
@@ -116,20 +113,13 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full flex justify-center items-end cursor-pointer
+              ${selectedMier && selectedMier !== "tyrant" && "pointer-events-none"}
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("tyrant")
             }}
             onMouseLeave={() => setHoveredMier("")}
-            onClick={() => {
-              miersClickHandler();
-              setHoveredMier("");
-              if (selectedMier) {
-                setSelectedMier("")
-              } else {
-                setSelectedMier("tyrant")
-              }
-            }}
+            onClick={() => mierSelectHandler("tyrant")}
           >
             <img
               className={`
@@ -153,22 +143,28 @@ export default function Ocs() {
         <div className="absolute bottom-12 grid grid-cols-3 gap-4 max-w-screen z-99 bg-[#00000000]">
           <div
             className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
-            onMouseEnter={() => setHoveredMier("icemage")}
-            onMouseLeave={() => setHoveredMier("")}
+            onMouseEnter={() => {
+              if (!selectedMier) setHoveredMier("icemage")
+            }}
+            onClick={() => mierSelectHandler("icemage")}
           >
             <img src="/images/ocs/mier-portrait-icemage.png" />
           </div>
           <div
             className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
-            onMouseEnter={() => setHoveredMier("angel")}
-            onMouseLeave={() => setHoveredMier("")}
+            onMouseEnter={() => {
+              if (!selectedMier) setHoveredMier("angel")
+            }}
+            onClick={() => mierSelectHandler("angel")}
           >
             <img src="/images/ocs/mier-portrait-angel.png" />
           </div>
           <div
             className="aspect-square w-30 h-30 bg-white flex flex-col items-center justify-center nonsel cursor-pointer rounded-xl overflow-hidden"
-            onMouseEnter={() => setHoveredMier("tyrant")}
-            onMouseLeave={() => setHoveredMier("")}
+            onMouseEnter={() => {
+              if (!selectedMier) setHoveredMier("tyrant")
+            }}
+            onClick={() => mierSelectHandler("tyrant")}
           >
             <img src="/images/ocs/mier-portrait-tyrant.png" />
           </div>
