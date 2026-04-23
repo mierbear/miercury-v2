@@ -336,12 +336,79 @@ export default function Ocs() {
               }
             }}
           >
+
+            {/* DESCRIPTION */}
+            <div
+              className={`
+                w-full h-full px-16 py-[30%] flex flex-col items-center text-white transition-opacity 
+                ${selectedMier ? "opacity-100 duration-1200" : "opacity-0 duration-200"}
+              `}
+            >
+              
+              {/* ICEMAGE */}
+              {selectedMier === "icemage" && (
+                <div
+                  className={`
+                    flex flex-col items-center transition-opacity duration-1000 text-justify
+                    ${selectedMier === "icemage" ? "opacity-100" : "opacity-0"}
+                  `}
+                >
+                  <p className="text-6xl">
+                    Mier Colwyn
+                  </p>
+                  <p>The Ice Mage</p>
+                  <br />
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                </div>
+              )}
+
+              {/* ANGEL */}
+              {selectedMier === "angel" && (
+                <div
+                  className={`
+                    flex flex-col items-center transition-opacity duration-1000 text-justify
+                    ${selectedMier === "angel" ? "opacity-100" : "opacity-0"}
+                  `}
+                >
+                  <p className="text-6xl">
+                    Mier
+                  </p>
+                  <p>The Guide</p>
+                  <br />
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                </div>
+              )}
+
+              {/* TYRANT */}
+              {selectedMier === "tyrant" && (
+                <div
+                  className={`
+                    flex flex-col items-center transition-opacity duration-1000 text-justify
+                    ${selectedMier === "tyrant" ? "opacity-100" : "opacity-0"}
+                  `}
+                >
+                  <p className="text-6xl">
+                    Mier Morozov
+                  </p>
+                  <p>The <span className="line-through">Little</span> Tyrant of Pacific Purgatory</p>
+                  <br />
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                </div>
+              )}
+
+            </div>
             
             {/* PORTRAITS */}
             <div
               className={`
                 absolute grid left-1/2 transform h-[14%] w-[62%] min-w-80
-                -translate-x-1/2 bottom-8 max-w-screen
+                -translate-x-1/2 bottom-16 max-w-screen
                 border border-black rounded-md overflow-hidden 
                 transition-all duration-600
                 ${!selectedMier && "nonsel pointer-events-auto"}
