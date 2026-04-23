@@ -11,18 +11,17 @@ export default function Ocs() {
   const bulletHoleRef = useRef<HTMLDivElement | null>(null);
   const flashRef = useRef<HTMLImageElement | null>(null);
 
-  const blockHandler = () => {
+  const blockHandler = (duration: number) => {
     if (!blockerRef.current) return;
 
     blockerRef.current.style.display = "block";
     setTimeout(() => {
       blockerRef.current!.style.display = "none";
-    }, 1200);
+    }, duration);
   }
 
   const mierSelectHandler = (mierType: string) => {
     if (!mierAngelRef.current || !bulletHoleRef.current || !flashRef.current) return;
-    blockHandler();
     setHoveredMier("");
 
     if (selectedMier === mierType) {
@@ -57,21 +56,18 @@ export default function Ocs() {
 
     // TYRANT CONDITION
     if (mierType === "tyrant" && selectedMier !== "tyrant") {
+      blockHandler(1400);
 
       setTimeout(() => {
         akReadyFX()
       }, 100);
+
       setTimeout(() => {
-        akShootFX()
-        bulletHoleRef.current!.style.opacity = "1"
-        flashRef.current!.style.opacity = "1"
-
-        setTimeout(() => {
-          flashRef.current!.style.opacity = "0"
-        }, 50);
-
+        mierShoot()
       }, 1000);
+
     } else {
+      blockHandler(1200);
       bulletHoleRef.current!.style.opacity = "0"
       flashRef.current!.style.opacity = "0"
     }
@@ -84,6 +80,16 @@ export default function Ocs() {
 
   const akShootFX = () => {
     new Audio("/audio/shoot-1.mp3").play();
+  }
+
+  const mierShoot = () => {
+    akShootFX()
+    bulletHoleRef.current!.style.opacity = "1"
+    flashRef.current!.style.opacity = "1"
+
+    setTimeout(() => {
+      flashRef.current!.style.opacity = "0"
+    }, 50);
   }
 
   return (
@@ -113,38 +119,31 @@ export default function Ocs() {
         `}
       >
          
-        {/* DECORS */}
+        {/* DECO - ICE MAGE */}
         <div
-          className="flex items-center justify-center"
+          className={`
+            absolute bottom-0 right-[2vw] h-screen overflow-hidden z-99 transition-[translate] duration-1400 nonsel pointer-events-none
+            ${selectedMier === "icemage" ? "" : "translate-x-[200%]"}
+          `}
         >
-
-          {/* DECO - ICE MAGE */}
-          <div
-            className={`
-              absolute bottom-0 right-[2vw] h-screen overflow-hidden z-99 transition-[translate] duration-1400 nonsel pointer-events-none
-              ${selectedMier === "icemage" ? "" : "translate-x-[200%]"}
-            `}
-          >
-            <img 
-              src={`/images/ocs/mier-icemage-deco.png`}
-              className="h-full w-auto max-w-none nonsel pointer-events-none"
-            />
-          </div>
-
-          {/* DECO - TYRANT */}
-          <div
-            className={`
-              absolute bottom-0 left-0 h-screen overflow-hidden z-100 transition-opacity nonsel pointer-events-none opacity-0
-              ${selectedMier === "tyrant" ? "duration-100" : "duration-300"}
-            `}
-            ref={bulletHoleRef}
-          >
-            <img 
-              src={`/images/ocs/mier-tyrant-deco.png`}
-              className="h-full w-auto max-w-none nonsel pointer-events-none"
-            />
-          </div>
-
+          <img 
+            src={`/images/ocs/mier-icemage-deco.png`}
+            className="h-full w-auto max-w-none nonsel pointer-events-none"
+          />
+        </div>
+        
+        {/* DECO - TYRANT */}
+        <div
+          className={`
+            fixed h-screen w-screen z-5556 transition-opacity nonsel pointer-events-none opacity-0
+            ${selectedMier === "tyrant" ? "duration-100" : "duration-300"}
+          `}
+          ref={bulletHoleRef}
+        >
+          <img 
+            src={`/images/ocs/mier-tyrant-deco.png`}
+            className="h-full w-auto max-w-none nonsel pointer-events-none"
+          />
         </div>
 
         {/* CLOSE-UPS */}
@@ -292,7 +291,7 @@ export default function Ocs() {
         <div
           className={`
             absolute grid h-screen w-screen z-99
-            transition-all duration-600
+            transition-all duration-800
             ${selectedMier === "icemage" ? "grid-cols-[1.75fr_1fr_0.25fr]"
             : selectedMier === "angel" ?   "grid-cols-[0.25fr_1fr_1.75fr]"
             : selectedMier === "tyrant" ?  "grid-cols-[0.25fr_1fr_1.75fr]"
@@ -399,6 +398,12 @@ export default function Ocs() {
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                  <p
+                    className="cursor-pointer"
+                    onClick={() => mierShoot()}
+                  >
+                    shoot me again!
+                  </p>
                 </div>
               )}
 
@@ -520,7 +525,7 @@ export default function Ocs() {
       </div>
 
       {/* KANIN */}
-      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#e0f8b9] z-111">
+      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#a4bb80] z-111">
         KANIN
       </div>
 
