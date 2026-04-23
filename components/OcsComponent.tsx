@@ -258,93 +258,120 @@ export default function Ocs() {
         </div>
 
         {/* PORTRAITS */}
-          <div
+        <div
+          className={`
+            absolute grid h-screen w-screen z-99
+            transition-all duration-600
+            ${selectedMier === "icemage" ? "grid-cols-[1.75fr_1fr_0.25fr]"
+            : selectedMier === "angel" ?   "grid-cols-[0.25fr_1fr_1.75fr]"
+            : selectedMier === "tyrant" ?  "grid-cols-[0.25fr_1fr_1.75fr]"
+            : "grid-cols-[1fr_1fr_1fr]"
+            }
+          `}
+        >
+          
+          <div className="w-full h-full">
+          </div>
+
+          <div 
             className={`
-              absolute grid left-1/2 transform h-[14%] w-[28%] min-w-80 z-99
-              -translate-x-1/2 bottom-8 max-w-screen bg-[#00000000]
-              border border-black rounded-md overflow-hidden 
-              transition-all duration-600
-              ${!selectedMier && "nonsel pointer-events-auto"}
-              ${selectedMier === "icemage" ? "grid-cols-[1.2fr_1fr_1fr]"
-              : selectedMier === "angel" ?   "grid-cols-[1fr_1.2fr_1fr]"
-              : selectedMier === "tyrant" ?  "grid-cols-[1fr_1fr_1.2fr]"
-              : "grid-cols-[1fr_1fr_1fr]"
-              }
+              w-full h-full relative transition-colors
+              ${selectedMier ? "bg-black/20 duration-1200" : "bg-[#00000000] duration-200"}
             `}
           >
+            <div
+              className={`
+                absolute grid left-1/2 transform h-[14%] w-[62%] min-w-80
+                -translate-x-1/2 bottom-8 max-w-screen
+                border border-black rounded-md overflow-hidden 
+                transition-all duration-600
+                ${!selectedMier && "nonsel pointer-events-auto"}
+                ${selectedMier === "icemage" ? "grid-cols-[1.2fr_1fr_1fr]"
+                : selectedMier === "angel" ?   "grid-cols-[1fr_1.2fr_1fr]"
+                : selectedMier === "tyrant" ?  "grid-cols-[1fr_1fr_1.2fr]"
+                : "grid-cols-[1fr_1fr_1fr]"
+                }
+              `}
+            >
 
-            <div
-              className={`
-                transition-all duration-300 shadow-2xl
-                flex flex-col items-center
-                justify-center nonsel cursor-pointer overflow-hidden
-                ${selectedMier === "icemage" ? " saturate-100 opacity-100" : "saturate-20"}
-                ${hoveredMier === "icemage" ? "opacity-100 " : "opacity-40 hover:opacity-100 "}
-              `}
-              onMouseEnter={() => {
-                if (!selectedMier) setHoveredMier("icemage")
-              }}
-              onClick={() => mierSelectHandler("icemage")}
-            >
-              <img
-                src="/images/ocs/mier-portrait-icemage.png"
+              <div
                 className={`
-                  nonsel pointer-events-none transition-scale duration-300 min-h-full min-w-full object-cover
-                  ${hoveredMier === "icemage" && "scale-110"}
-                  ${selectedMier === "icemage" && "scale-110"}
+                  transition-all duration-300 shadow-2xl
+                  flex flex-col items-center
+                  justify-center nonsel cursor-pointer overflow-hidden
+                  ${selectedMier === "icemage" ? " saturate-100 opacity-100" : "saturate-20"}
+                  ${hoveredMier === "icemage" ? "opacity-100 " : "opacity-40 hover:opacity-100 "}
                 `}
-              />
-            </div>
-            <div
-              className={`
-                transition-all duration-300 shadow-2xl
-                flex flex-col items-center
-                justify-center nonsel cursor-pointer overflow-hidden
-                ${selectedMier === "angel" ? " saturate-100 opacity-100" : "saturate-20"}
-                ${hoveredMier === "angel" ? "opacity-100 " : "opacity-40 hover:opacity-100 "}
-              `}
-              onMouseEnter={() => {
-                if (!selectedMier) setHoveredMier("angel")
-              }}
-              onClick={() => mierSelectHandler("angel")}
-            >
-              <img
-                src="/images/ocs/mier-portrait-angel.png"
+                onMouseEnter={() => {
+                  if (!selectedMier) setHoveredMier("icemage")
+                }}
+                onClick={() => mierSelectHandler("icemage")}
+              >
+                <img
+                  src="/images/ocs/mier-portrait-icemage.png"
+                  className={`
+                    nonsel pointer-events-none transition-scale duration-300 min-h-full min-w-full object-cover
+                    ${hoveredMier === "icemage" && "scale-110"}
+                    ${selectedMier === "icemage" && "scale-110"}
+                  `}
+                />
+              </div>
+              <div
                 className={`
-                  nonsel pointer-events-none transition-scale duration-300 min-h-full min-w-full object-cover
-                  ${hoveredMier === "angel" && "scale-110"}
-                  ${selectedMier === "angel" && "scale-110"}
+                  transition-all duration-300 shadow-2xl
+                  flex flex-col items-center
+                  justify-center nonsel cursor-pointer overflow-hidden
+                  ${selectedMier === "angel" ? " saturate-100 opacity-100" : "saturate-20"}
+                  ${hoveredMier === "angel" ? "opacity-100 " : "opacity-40 hover:opacity-100 "}
                 `}
-              />
-            </div>
-            <div
-              className={`
-                transition-all duration-300 shadow-2xl
-                flex flex-col items-center
-                justify-center nonsel cursor-pointer overflow-hidden
-                ${selectedMier === "tyrant" ? " saturate-100 opacity-100" : "saturate-20"}
-                ${hoveredMier === "tyrant" ? "opacity-100 " : "opacity-40 hover:opacity-100 "}
-              `}
-              onMouseEnter={() => {
-                if (!selectedMier) setHoveredMier("tyrant")
-              }}
-              onClick={() => mierSelectHandler("tyrant")}
-            >
-              <img
-                src="/images/ocs/mier-portrait-tyrant.png"
+                onMouseEnter={() => {
+                  if (!selectedMier) setHoveredMier("angel")
+                }}
+                onClick={() => mierSelectHandler("angel")}
+              >
+                <img
+                  src="/images/ocs/mier-portrait-angel.png"
+                  className={`
+                    nonsel pointer-events-none transition-scale duration-300 min-h-full min-w-full object-cover
+                    ${hoveredMier === "angel" && "scale-110"}
+                    ${selectedMier === "angel" && "scale-110"}
+                  `}
+                />
+              </div>
+              <div
                 className={`
-                  nonsel pointer-events-none transition-scale duration-300 min-h-full min-w-full object-cover
-                  ${hoveredMier === "tyrant" && "scale-110"}
-                  ${selectedMier === "tyrant" && "scale-110"}
+                  transition-all duration-300 shadow-2xl
+                  flex flex-col items-center
+                  justify-center nonsel cursor-pointer overflow-hidden
+                  ${selectedMier === "tyrant" ? " saturate-100 opacity-100" : "saturate-20"}
+                  ${hoveredMier === "tyrant" ? "opacity-100 " : "opacity-40 hover:opacity-100 "}
                 `}
-              />
+                onMouseEnter={() => {
+                  if (!selectedMier) setHoveredMier("tyrant")
+                }}
+                onClick={() => mierSelectHandler("tyrant")}
+              >
+                <img
+                  src="/images/ocs/mier-portrait-tyrant.png"
+                  className={`
+                    nonsel pointer-events-none transition-scale duration-300 min-h-full min-w-full object-cover
+                    ${hoveredMier === "tyrant" && "scale-110"}
+                    ${selectedMier === "tyrant" && "scale-110"}
+                  `}
+                />
+              </div>
             </div>
           </div>
+          
+          <div className="w-full h-full">
+          </div>
+
+        </div>
 
       </div>
 
       {/* KANIN */}
-      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#e0f8b9] z-100">
+      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#e0f8b9] z-111">
         KANIN
       </div>
 
