@@ -9,6 +9,7 @@ export default function Ocs() {
   const blockerRef = useRef<HTMLDivElement | null>(null);
   const mierAngelRef = useRef<HTMLImageElement | null>(null);
   const bulletHoleRef = useRef<HTMLDivElement | null>(null);
+  const flashRef = useRef<HTMLImageElement | null>(null);
 
   const blockHandler = () => {
     if (!blockerRef.current) return;
@@ -20,7 +21,7 @@ export default function Ocs() {
   }
 
   const mierSelectHandler = (mierType: string) => {
-    if (!mierAngelRef.current) return;
+    if (!mierAngelRef.current || !bulletHoleRef.current || !flashRef.current) return;
     blockHandler();
     setHoveredMier("");
 
@@ -56,9 +57,33 @@ export default function Ocs() {
 
     // TYRANT CONDITION
     if (mierType === "tyrant" && selectedMier !== "tyrant") {
-      console.log("BAM PEWPEW")
+
+      setTimeout(() => {
+        akReadyFX()
+      }, 100);
+      setTimeout(() => {
+        akShootFX()
+        bulletHoleRef.current!.style.opacity = "1"
+        flashRef.current!.style.opacity = "1"
+
+        setTimeout(() => {
+          flashRef.current!.style.opacity = "0"
+        }, 50);
+
+      }, 1000);
+    } else {
+      bulletHoleRef.current!.style.opacity = "0"
+      flashRef.current!.style.opacity = "0"
     }
 
+  }
+
+  const akReadyFX = () => {
+    new Audio("/audio/shoot-0.mp3").play();
+  }
+
+  const akShootFX = () => {
+    new Audio("/audio/shoot-1.mp3").play();
   }
 
   return (
@@ -109,7 +134,8 @@ export default function Ocs() {
           {/* DECO - TYRANT */}
           <div
             className={`
-              absolute bottom-0 left-0 h-screen overflow-hidden z-100 transition-opacity duration-50 nonsel pointer-events-none opacity-0
+              absolute bottom-0 left-0 h-screen overflow-hidden z-100 transition-opacity nonsel pointer-events-none opacity-0
+              ${selectedMier === "tyrant" ? "duration-100" : "duration-300"}
             `}
             ref={bulletHoleRef}
           >
@@ -153,17 +179,24 @@ export default function Ocs() {
           </div>
 
           {/* TYRANT */}
-          <div 
-            className={`
-              absolute bottom-0 h-screen overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer right-[5vw]
-              ${selectedMier === "tyrant" ? "" : "translate-x-full"}
-            `}
-            onClick={() => mierSelectHandler("")}
-          >
-            <img 
-              src={`/images/ocs/mier-tyrant.png`}
-              className="h-full w-auto max-w-none nonsel pointer-events-none"
-            />
+          <div className="absolute bottom-0 right-[5vw] h-screen z-88">
+            <div 
+              className={`
+                relative h-full overflow-hidden transition-[translate] duration-1200 cursor-pointer
+                ${selectedMier === "tyrant" ? "" : "translate-x-full"}
+              `}
+              onClick={() => mierSelectHandler("")}
+            >
+              <img 
+                src={`/images/ocs/mier-tyrant.png`}
+                className="h-full w-auto max-w-none nonsel pointer-events-none"
+              />
+              <img 
+                src={`/images/ocs/mier-tyrant-flash.png`}
+                className="absolute inset-0 h-full w-auto max-w-none nonsel pointer-events-none transition-opacity duration-50 opacity-0"
+                ref={flashRef}
+              />
+            </div>
           </div>
 
         </div>
@@ -288,10 +321,11 @@ export default function Ocs() {
           <div 
             className={`
               w-full h-full relative transition-colors
-              ${selectedMier ? "bg-black/20 duration-1200" : "bg-[#00000000] duration-200 cursor-pointer"}
+              ${selectedMier ? "bg-black/50 duration-1200" : "bg-[#00000000] duration-200 cursor-pointer"}
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("angel")
+              if (selectedMier === "tyrant") bulletHoleRef.current!.style.opacity = "0"
             }}
             onMouseLeave={() => setHoveredMier("")}
             onClick={() => {
