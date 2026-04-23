@@ -21,6 +21,45 @@ export default function Ocs() {
     }, duration);
   }
 
+  const akReadyFX = () => {
+    new Audio("/audio/shoot-0.mp3").play();
+  }
+
+  const akShootFX = () => {
+    new Audio("/audio/shoot-1.mp3").play();
+  }
+
+  const mierShoot = () => {
+    recoil();
+    shatter();
+    akShootFX();
+    bulletHoleRef.current!.style.opacity = "1"
+    flashRef.current!.style.opacity = "1"
+
+    setTimeout(() => {
+      flashRef.current!.style.opacity = "0"
+    }, 50);
+  }
+
+  const recoil = () => {
+    mierTyrantRef.current?.classList.remove("recoil");
+    void mierTyrantRef.current?.offsetWidth;
+    mierTyrantRef.current?.classList.add("recoil");
+  }
+  
+  const shatter = () => {
+    bulletHoleRef.current?.classList.remove("shatter");
+    void bulletHoleRef.current?.offsetWidth;
+    bulletHoleRef.current?.classList.add("shatter");
+  }
+
+  // const [checkedMiers, setCheckedMiers] = useState(0);
+
+  // const mierCheckHandler = () => {
+  // }
+
+  const [openWhy, setOpenWhy] = useState(false);
+
   const mierSelectHandler = (mierType: string) => {
     if (!mierAngelRef.current || !bulletHoleRef.current || !flashRef.current) return;
     setHoveredMier("");
@@ -75,38 +114,6 @@ export default function Ocs() {
 
   }
 
-  const akReadyFX = () => {
-    new Audio("/audio/shoot-0.mp3").play();
-  }
-
-  const akShootFX = () => {
-    new Audio("/audio/shoot-1.mp3").play();
-  }
-
-  const mierShoot = () => {
-    recoil();
-    shatter();
-    akShootFX();
-    bulletHoleRef.current!.style.opacity = "1"
-    flashRef.current!.style.opacity = "1"
-
-    setTimeout(() => {
-      flashRef.current!.style.opacity = "0"
-    }, 50);
-  }
-
-  const recoil = () => {
-    mierTyrantRef.current?.classList.remove("recoil");
-    void mierTyrantRef.current?.offsetWidth;
-    mierTyrantRef.current?.classList.add("recoil");
-  }
-  
-  const shatter = () => {
-    bulletHoleRef.current?.classList.remove("shatter");
-    void bulletHoleRef.current?.offsetWidth;
-    bulletHoleRef.current?.classList.add("shatter");
-  }
-
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#879da7] relative">
       
@@ -115,6 +122,55 @@ export default function Ocs() {
         className="fixed w-full h-full bg-[#00000000] z-1000 hidden"
         ref={blockerRef}
       >
+      </div>
+
+      {/* WHY?? */}
+      <div 
+        className={`
+          fixed w-full h-full z-544 items-center justify-center
+          backdrop-blur-[2px]
+          ${openWhy ? "flex" : "hidden"}
+        `}
+      >
+        <div
+          className="bg-gray-200 flex flex-col items-center w-2xl h-[80%] rounded-3xl text-center nonsel relative"
+        >
+
+          {/* X */}
+          <p 
+            className="cursor-pointer hover:text-red-500 text-5xl absolute top-2 right-6"
+            onClick={() => setOpenWhy(false)}
+          >
+            x
+          </p>
+          
+          {/* TEXT */}
+          <div className="p-12">
+            <p className="text-3xl">why many miers??</p>
+            <br />
+            <p>because i have</p>
+            <p className="text-5xl slow-breathe">same hair syndrome u_u</p>
+            <br />
+            <br />
+            <p>
+              it just started as me drawing mier with different hair/eye colors for fun, and then drawing him with black hair because it was easier to just fill in the hair to render it quickly, then so on.
+            <br />
+            <br />
+              but then as time passed i just slowly realized i clearly havent studied hair structure at all and just had a 'comfort hair' to draw all the time. and even if i try not to make it like mier's hair, the general shape/style still bleeds into other hairstyles i draw because i genuinely really love how it looks.
+            <br />
+              (which can be very clear to see once you scroll down more...)
+            <br />
+            <br />
+              so now i just let it be and accepted that there are 'multiple versions' of mier LOL
+            </p>
+          </div>
+          
+          {/* IMG */}
+          <img  
+            src="/images/ocs/miers.png"
+            className="absolute bottom-0 w-full nonsel pointer-events-none"
+          />
+        </div>
       </div>
 
       {/* MIERS */}
@@ -416,6 +472,7 @@ export default function Ocs() {
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
                   <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
+                  <br />
                   <p
                     className="cursor-pointer"
                     onClick={() => mierShoot()}
@@ -423,6 +480,16 @@ export default function Ocs() {
                     shoot me again!
                   </p>
                 </div>
+              )}
+
+              {/* WHY?? */}
+              {selectedMier && (
+                <p
+                  className="absolute bottom-8 text-sm text-white/80 text-center underline cursor-pointer"
+                  onClick={() => setOpenWhy(true)}
+                >
+                  this makes no sense, why are there multiple miers?!?
+                </p>
               )}
 
             </div>
