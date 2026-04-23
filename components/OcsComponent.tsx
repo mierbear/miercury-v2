@@ -309,7 +309,7 @@ export default function Ocs() {
         <div
           className={`
             absolute grid h-screen w-screen z-99
-            transition-all duration-800
+            transition-all duration-800 nonsel
             ${selectedMier === "icemage" ? "grid-cols-[1.75fr_1fr_0.25fr]"
             : selectedMier === "angel" ?   "grid-cols-[0.25fr_1fr_1.75fr]"
             : selectedMier === "tyrant" ?  "grid-cols-[0.25fr_1fr_1.75fr]"
@@ -435,9 +435,9 @@ export default function Ocs() {
                 border border-black rounded-md overflow-hidden 
                 transition-all duration-600
                 ${!selectedMier && "nonsel pointer-events-auto"}
-                ${selectedMier === "icemage" ? "grid-cols-[1.2fr_1fr_1fr]"
-                : selectedMier === "angel" ?   "grid-cols-[1fr_1.2fr_1fr]"
-                : selectedMier === "tyrant" ?  "grid-cols-[1fr_1fr_1.2fr]"
+                ${selectedMier === "icemage" ? "grid-cols-[38fr_31fr_31fr]"
+                : selectedMier === "angel" ?   "grid-cols-[31fr_38fr_31fr]"
+                : selectedMier === "tyrant" ?  "grid-cols-[31fr_31fr_38fr]"
                 : "grid-cols-[1fr_1fr_1fr]"
                 }
               `}
@@ -453,6 +453,13 @@ export default function Ocs() {
                 `}
                 onMouseEnter={() => {
                   if (!selectedMier) setHoveredMier("icemage")
+                }}
+                onMouseLeave={() => {
+                  if (!selectedMier) {
+                    setHoveredMier("angel")
+                  } else {
+                    setHoveredMier("")
+                  }
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
@@ -479,6 +486,13 @@ export default function Ocs() {
                 onMouseEnter={() => {
                   if (!selectedMier) setHoveredMier("angel")
                 }}
+                onMouseLeave={() => {
+                  if (!selectedMier) {
+                    setHoveredMier("angel")
+                  } else {
+                    setHoveredMier("")
+                  }
+                }}
                 onClick={(e) => {
                   e.stopPropagation();
                   mierSelectHandler("angel")
@@ -503,6 +517,13 @@ export default function Ocs() {
                 `}
                 onMouseEnter={() => {
                   if (!selectedMier) setHoveredMier("tyrant")
+                }}
+                onMouseLeave={() => {
+                  if (!selectedMier) {
+                    setHoveredMier("angel")
+                  } else {
+                    setHoveredMier("")
+                  }
                 }}
                 onClick={(e) => {
                   e.stopPropagation();
