@@ -8,6 +8,7 @@ export default function Ocs() {
   const [selectedMier, setSelectedMier] = useState("");
   const blockerRef = useRef<HTMLDivElement | null>(null);
   const mierAngelRef = useRef<HTMLImageElement | null>(null);
+  const bulletHoleRef = useRef<HTMLDivElement | null>(null);
 
   const blockHandler = () => {
     if (!blockerRef.current) return;
@@ -51,6 +52,11 @@ export default function Ocs() {
       }, 1200);
     } else {
       setSelectedMier(mierType)
+    }
+
+    // TYRANT CONDITION
+    if (mierType === "tyrant" && selectedMier !== "tyrant") {
+      console.log("BAM PEWPEW")
     }
 
   }
@@ -103,9 +109,9 @@ export default function Ocs() {
           {/* DECO - TYRANT */}
           <div
             className={`
-              absolute bottom-0 left-0 h-screen overflow-hidden z-100 transition-opacity duration-600 nonsel pointer-events-none
-              ${selectedMier === "tyrant" ? "opacity-100" : "opacity-0"}
+              absolute bottom-0 left-0 h-screen overflow-hidden z-100 transition-opacity duration-50 nonsel pointer-events-none opacity-0
             `}
+            ref={bulletHoleRef}
           >
             <img 
               src={`/images/ocs/mier-tyrant-deco.png`}
@@ -324,7 +330,10 @@ export default function Ocs() {
                 onMouseEnter={() => {
                   if (!selectedMier) setHoveredMier("icemage")
                 }}
-                onClick={() => mierSelectHandler("icemage")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  mierSelectHandler("icemage")
+                }}
               >
                 <img
                   src="/images/ocs/mier-portrait-icemage.png"
@@ -346,7 +355,10 @@ export default function Ocs() {
                 onMouseEnter={() => {
                   if (!selectedMier) setHoveredMier("angel")
                 }}
-                onClick={() => mierSelectHandler("angel")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  mierSelectHandler("angel")
+                }}
               >
                 <img
                   src="/images/ocs/mier-portrait-angel.png"
@@ -368,7 +380,10 @@ export default function Ocs() {
                 onMouseEnter={() => {
                   if (!selectedMier) setHoveredMier("tyrant")
                 }}
-                onClick={() => mierSelectHandler("tyrant")}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  mierSelectHandler("tyrant")
+                }}
               >
                 <img
                   src="/images/ocs/mier-portrait-tyrant.png"
