@@ -6,21 +6,21 @@ export default function Ocs() {
 
   const [hoveredMier, setHoveredMier] = useState("");
   const [selectedMier, setSelectedMier] = useState("");
-  const miersRef = useRef<HTMLDivElement | null>(null);
+  const blockerRef = useRef<HTMLDivElement | null>(null);
   const mierAngelRef = useRef<HTMLImageElement | null>(null);
 
-  const miersClickHandler = () => {
-    if (!miersRef.current) return;
+  const blockHandler = () => {
+    if (!blockerRef.current) return;
 
-    miersRef.current.style.pointerEvents = "none";
+    blockerRef.current.style.display = "block";
     setTimeout(() => {
-      miersRef.current!.style.pointerEvents = "auto";
+      blockerRef.current!.style.display = "none";
     }, 1200);
   }
 
   const mierSelectHandler = (mierType: string) => {
     if (!mierAngelRef.current) return;
-    miersClickHandler();
+    blockHandler();
     setHoveredMier("");
 
     if (selectedMier === mierType) {
@@ -52,10 +52,18 @@ export default function Ocs() {
     } else {
       setSelectedMier(mierType)
     }
+
   }
 
   return (
-    <div className="w-screen max-w-screen justify-center align-center items-center flex flex-col bg-[#879da7]">
+    <div className="w-screen max-w-screen align-center flex flex-col bg-[#879da7] relative">
+      
+      {/* BLOCKER */}
+      <div
+        className="fixed w-full h-full bg-[#00000000] z-1000 hidden"
+        ref={blockerRef}
+      >
+      </div>
 
       {/* MIERS */}
       <div
@@ -72,7 +80,6 @@ export default function Ocs() {
             : ""
           }
         `}
-        ref={miersRef}
       >
          
         {/* DECORS */}
@@ -155,7 +162,7 @@ export default function Ocs() {
 
         </div>
 
-        {/* GRIDS */}
+        {/* INTROS */}
         <div
           className={`
             grid w-full h-full transition-grid 
@@ -173,11 +180,6 @@ export default function Ocs() {
             className={`
               h-screen flex justify-center items-end cursor-pointer
             `}
-            onMouseEnter={() => {
-              if (!selectedMier) setHoveredMier("icemage")
-            }}
-            onMouseLeave={() => setHoveredMier("")}
-            onClick={() => mierSelectHandler("icemage")}
           >
             <img
               className={`
@@ -201,11 +203,6 @@ export default function Ocs() {
             className={`
               h-screen flex justify-center items-end cursor-pointer
             `}
-            onMouseEnter={() => {
-              if (!selectedMier) setHoveredMier("angel")
-            }}
-            onMouseLeave={() => setHoveredMier("")}
-            onClick={() => mierSelectHandler("angel")}
             ref={mierAngelRef}
           >
             <img
@@ -232,11 +229,6 @@ export default function Ocs() {
             className={`
               h-screen flex justify-center items-end cursor-pointer
             `}
-            onMouseEnter={() => {
-              if (!selectedMier) setHoveredMier("tyrant")
-            }}
-            onMouseLeave={() => setHoveredMier("")}
-            onClick={() => mierSelectHandler("tyrant")}
           >
             <img
               className={`
@@ -257,7 +249,7 @@ export default function Ocs() {
 
         </div>
 
-        {/* PORTRAITS */}
+        {/* MIER INFO */}
         <div
           className={`
             absolute grid h-screen w-screen z-99
@@ -270,15 +262,42 @@ export default function Ocs() {
           `}
         >
           
-          <div className="w-full h-full">
+          <div
+            className="w-full h-full cursor-pointer"
+            onMouseEnter={() => {
+              if (!selectedMier) setHoveredMier("icemage")
+            }}
+            onMouseLeave={() => setHoveredMier("")}
+            onClick={() => {
+              if (!selectedMier) {
+                mierSelectHandler("icemage")
+              } else {
+                mierSelectHandler("")
+              }
+            }}
+          >
           </div>
-
+          
+          {/* INFO */}
           <div 
             className={`
               w-full h-full relative transition-colors
-              ${selectedMier ? "bg-black/20 duration-1200" : "bg-[#00000000] duration-200"}
+              ${selectedMier ? "bg-black/20 duration-1200" : "bg-[#00000000] duration-200 cursor-pointer"}
             `}
+            onMouseEnter={() => {
+              if (!selectedMier) setHoveredMier("angel")
+            }}
+            onMouseLeave={() => setHoveredMier("")}
+            onClick={() => {
+              if (!selectedMier) {
+                mierSelectHandler("angel")
+              } else {
+                return
+              }
+            }}
           >
+            
+            {/* PORTRAITS */}
             <div
               className={`
                 absolute grid left-1/2 transform h-[14%] w-[62%] min-w-80
@@ -361,9 +380,23 @@ export default function Ocs() {
                 />
               </div>
             </div>
+
           </div>
           
-          <div className="w-full h-full">
+          <div
+            className="w-full h-full cursor-pointer"
+            onMouseEnter={() => {
+              if (!selectedMier) setHoveredMier("tyrant")
+            }}
+            onMouseLeave={() => setHoveredMier("")}
+            onClick={() => {
+              if (!selectedMier) {
+                mierSelectHandler("tyrant")
+              } else {
+                mierSelectHandler("")
+              }
+            }}
+          >
           </div>
 
         </div>
