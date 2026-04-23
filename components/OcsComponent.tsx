@@ -8,6 +8,7 @@ export default function Ocs() {
   const [selectedMier, setSelectedMier] = useState("");
   const blockerRef = useRef<HTMLDivElement | null>(null);
   const mierAngelRef = useRef<HTMLImageElement | null>(null);
+  const mierTyrantRef = useRef<HTMLImageElement | null>(null);
   const bulletHoleRef = useRef<HTMLDivElement | null>(null);
   const flashRef = useRef<HTMLImageElement | null>(null);
 
@@ -83,13 +84,27 @@ export default function Ocs() {
   }
 
   const mierShoot = () => {
-    akShootFX()
+    recoil();
+    shatter();
+    akShootFX();
     bulletHoleRef.current!.style.opacity = "1"
     flashRef.current!.style.opacity = "1"
 
     setTimeout(() => {
       flashRef.current!.style.opacity = "0"
     }, 50);
+  }
+
+  const recoil = () => {
+    mierTyrantRef.current?.classList.remove("recoil");
+    void mierTyrantRef.current?.offsetWidth;
+    mierTyrantRef.current?.classList.add("recoil");
+  }
+  
+  const shatter = () => {
+    bulletHoleRef.current?.classList.remove("shatter");
+    void bulletHoleRef.current?.offsetWidth;
+    bulletHoleRef.current?.classList.add("shatter");
   }
 
   return (
@@ -178,7 +193,10 @@ export default function Ocs() {
           </div>
 
           {/* TYRANT */}
-          <div className="absolute bottom-0 right-[5vw] h-screen z-88">
+          <div
+            className="absolute bottom-0 right-[5vw] h-screen z-88"
+            ref={mierTyrantRef}
+          >
             <div 
               className={`
                 relative h-full overflow-hidden transition-[translate] duration-1200 cursor-pointer
