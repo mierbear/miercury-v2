@@ -497,8 +497,8 @@ export default function Ocs() {
             {/* PORTRAITS */}
             <div
               className={`
-                absolute grid left-1/2 transform h-[14%] w-[62%] min-w-80
-                -translate-x-1/2 bottom-16 max-w-screen
+                absolute grid left-1/2 transform h-[14%] w-[62%] min-w-80 max-w-full
+                -translate-x-1/2 bottom-16
                 border border-black rounded-md overflow-hidden 
                 transition-all duration-600
                 ${!selectedMier && "nonsel pointer-events-auto"}
@@ -632,27 +632,102 @@ export default function Ocs() {
 
       {/* KANIN */}
       <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#a4bb80] z-111">
-        KANIN
+        
+        <div className="w-full h-full grid grid-cols-2">
+          <div className="w-full h-full relative">
+            <img src="/images/ocs/kanin.png" className="h-full w-auto max-w-none absolute right-[-10%]" />
+          </div>
+          
+          <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
+            <div />
+            
+            <div className="bg-black/30 w-full h-full">
+
+            </div>
+
+            <div />
+          </div>
+
+        </div>
+
       </div>
 
       {/* SKULLBOUND */}
       <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#acaaa9] z-200">
-        SKULLBOUND
+        <div className="w-full h-full relative flex items-center justify-center">
+          <img className="h-full w-auto absolute" src="/images/ocs/brutus.png" />
+          <img className="h-full w-auto absolute" src="/images/ocs/ignatius.png" />
+          <img className="h-full w-auto absolute" src="/images/ocs/aurelius.png" />
+          <img className="h-full w-auto absolute" src="/images/ocs/rufus.png" />
+
+        </div>
       </div>
 
       {/* QUINCE */}
       <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#9e937a] z-300">
-        QUINCE
+        
+        <div className="w-full h-full grid grid-cols-2">
+          <div className="w-full h-full relative">
+            <img src="/images/ocs/quince.png" className="h-full w-auto max-w-none absolute right-[-10%]" />
+          </div>
+          
+          <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
+            <div />
+            
+            <div className="bg-black/30 w-full h-full">
+
+            </div>
+
+            <div />
+          </div>
+          
+        </div>
+
       </div>
 
       {/* SIMEON */}
       <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#303a8d] z-400">
-        SIMEON
+
+        <div className="w-full h-full grid grid-cols-2">
+          
+          <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
+            <div />
+            
+            <div className="bg-black/30 w-full h-full">
+
+            </div>
+
+            <div />
+          </div>
+
+          <div className="w-full h-full relative">
+            <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute left-[-40%]" />
+          </div>
+          
+        </div>
+
       </div>
 
       {/* PIO */}
       <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#413f3d] z-500">
-        PIO
+
+        <div className="w-full h-full grid grid-cols-2">
+          <div className="w-full h-full relative">
+            <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute right-[-40%]" />
+          </div>
+          
+          <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
+            <div />
+            
+            <div className="bg-black/30 w-full h-full">
+
+            </div>
+
+            <div />
+          </div>
+          
+        </div>
+
       </div>
 
 
