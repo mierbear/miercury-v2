@@ -717,10 +717,50 @@ export default function Ocs() {
             }
           `}
         >
-          <img className="h-full w-auto max-w-none absolute nonsel pointer-events-none" src="/images/ocs/brutus.png" />
-          <img className="h-full w-auto max-w-none absolute nonsel pointer-events-none" src="/images/ocs/ignatius.png" />
-          <img className="h-full w-auto max-w-none absolute nonsel pointer-events-none" src="/images/ocs/aurelius.png" />
-          <img className="h-full w-auto max-w-none absolute nonsel pointer-events-none" src="/images/ocs/rufus.png" />
+          <img
+            className={`
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-colors duration-600
+              ${hoveredBrother === "brutus" ? "saturate-100 brightness-100" :
+                hoveredBrother && hoveredBrother !== "brutus" ? "saturate-50 brightness-70" :
+                "saturate-100 brightness-100"
+              }
+            `}
+            src="/images/ocs/brutus.png"
+            style={{ transition: "filter 0.6s" }}
+          />
+          <img
+            className={`
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-colors duration-600
+              ${hoveredBrother === "ignatius" ? "saturate-100 brightness-100" :
+                hoveredBrother && hoveredBrother !== "ignatius" ? "saturate-50 brightness-70" :
+                "saturate-100 brightness-100"
+              }
+            `}
+            src="/images/ocs/ignatius.png"
+            style={{ transition: "filter 0.6s" }}
+          />
+          <img
+            className={`
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-colors duration-600
+              ${hoveredBrother === "aurelius" ? "saturate-100 brightness-100" :
+                hoveredBrother && hoveredBrother !== "aurelius" ? "saturate-50 brightness-70" :
+                "saturate-100 brightness-100"
+              }
+            `}
+            src="/images/ocs/aurelius.png"
+            style={{ transition: "filter 0.6s" }}
+          />
+          <img
+            className={`
+              h-full w-auto max-w-none absolute nonsel pointer-events-none
+              ${hoveredBrother === "rufus" ? "saturate-100 brightness-100" :
+                hoveredBrother && hoveredBrother !== "rufus" ? "saturate-50 brightness-70" :
+                "saturate-100 brightness-100"
+              }
+            `}
+            src="/images/ocs/rufus.png"
+            style={{ transition: "filter 0.6s" }}
+          />
         </div>
       </div>
 
