@@ -114,6 +114,14 @@ export default function Ocs() {
 
   }
 
+  // SKULLBOUND
+  const skullboundHitboxRef = useRef<HTMLDivElement | null>(null);
+  const [hoveredBrother, setHoveredBrother] = useState("")
+
+  const brotherHoverHandler = (brother: string) => {
+    setHoveredBrother(brother);
+  }
+
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#879da7] relative">
       
@@ -635,7 +643,7 @@ export default function Ocs() {
         
         <div className="w-full h-full grid grid-cols-2">
           <div className="w-full h-full relative">
-            <img src="/images/ocs/kanin.png" className="h-full w-auto max-w-none absolute right-[-10%]" />
+            <img src="/images/ocs/kanin.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-10%]" />
           </div>
           
           <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
@@ -654,12 +662,51 @@ export default function Ocs() {
 
       {/* SKULLBOUND */}
       <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#acaaa9] z-200">
-        <div className="w-full h-full relative flex items-center justify-center">
-          <img className="h-full w-auto absolute" src="/images/ocs/brutus.png" />
-          <img className="h-full w-auto absolute" src="/images/ocs/ignatius.png" />
-          <img className="h-full w-auto absolute" src="/images/ocs/aurelius.png" />
-          <img className="h-full w-auto absolute" src="/images/ocs/rufus.png" />
 
+        {/* HITBOX */}
+        <div
+          className={`
+            grid w-full h-full absolute z-20 transition-grid duration-300 opacity-20 cursor-pointer
+            ${hoveredBrother === 
+              "ignatius" ? "grid-cols-[2fr_1fr] grid-rows-[2fr_1fr]" :
+              hoveredBrother ===
+              "brutus"   ? "grid-cols-[1fr_2fr] grid-rows-[2fr_1fr]" :
+              hoveredBrother ===
+              "aurelius" ? "grid-cols-[2fr_1fr] grid-rows-[1fr_2fr]" :
+              hoveredBrother ===
+              "rufus"    ? "grid-cols-[1fr_2fr] grid-rows-[1fr_2fr]" :
+              "grid-cols-[1fr_1fr] grid-rows-[1fr_1fr]"
+            }
+          `}
+          ref={skullboundHitboxRef}
+        >
+          <div
+            className="w-full h-full bg-orange-300" 
+            onMouseEnter={() => brotherHoverHandler("ignatius")}
+            onMouseLeave={() => brotherHoverHandler("")}
+          />
+          <div
+            className="w-full h-full bg-gray-600" 
+            onMouseEnter={() => brotherHoverHandler("brutus")}
+            onMouseLeave={() => brotherHoverHandler("")}
+          />
+          <div
+            className="w-full h-full bg-cyan-200" 
+            onMouseEnter={() => brotherHoverHandler("aurelius")}
+            onMouseLeave={() => brotherHoverHandler("")}
+          />
+          <div
+            className="w-full h-full bg-green-400" 
+            onMouseEnter={() => brotherHoverHandler("rufus")}
+            onMouseLeave={() => brotherHoverHandler("")}
+          />
+        </div>
+
+        <div className="w-full h-full relative flex items-center justify-center">
+          <img className="h-full w-auto absolute nonsel pointer-events-none" src="/images/ocs/brutus.png" />
+          <img className="h-full w-auto absolute nonsel pointer-events-none" src="/images/ocs/ignatius.png" />
+          <img className="h-full w-auto absolute nonsel pointer-events-none" src="/images/ocs/aurelius.png" />
+          <img className="h-full w-auto absolute nonsel pointer-events-none" src="/images/ocs/rufus.png" />
         </div>
       </div>
 
@@ -668,7 +715,7 @@ export default function Ocs() {
         
         <div className="w-full h-full grid grid-cols-2">
           <div className="w-full h-full relative">
-            <img src="/images/ocs/quince.png" className="h-full w-auto max-w-none absolute right-[-10%]" />
+            <img src="/images/ocs/quince.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-10%]" />
           </div>
           
           <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
@@ -701,7 +748,7 @@ export default function Ocs() {
           </div>
 
           <div className="w-full h-full relative">
-            <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute left-[-40%]" />
+            <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none left-[-40%]" />
           </div>
           
         </div>
@@ -713,7 +760,7 @@ export default function Ocs() {
 
         <div className="w-full h-full grid grid-cols-2">
           <div className="w-full h-full relative">
-            <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute right-[-40%]" />
+            <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-40%]" />
           </div>
           
           <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
