@@ -702,13 +702,14 @@ export default function Ocs() {
           />
         </div>
 
+        {/* IMAGES */}
         <div
           className={`
             w-full h-full relative flex items-center justify-center transition-transform duration-1200
             ${hoveredBrother === 
-              "ignatius" ? "translate-x-[40%] translate-y-[13%] scale-130" :
+              "ignatius" ? "translate-x-[50%] translate-y-[13%] scale-130" :
               hoveredBrother ===
-              "brutus"   ? "translate-x-[-40%] translate-y-[13%] scale-130" :
+              "brutus"   ? "translate-x-[-50%] translate-y-[13%] scale-130" :
               hoveredBrother ===
               "aurelius" ? "translate-x-[40%] translate-y-[-13%] scale-130" :
               hoveredBrother ===
@@ -719,47 +720,43 @@ export default function Ocs() {
         >
           <img
             className={`
-              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-colors duration-600
-              ${hoveredBrother === "brutus" ? "saturate-100 brightness-100" :
-                hoveredBrother && hoveredBrother !== "brutus" ? "saturate-50 brightness-70" :
-                "saturate-100 brightness-100"
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1000
+              ${hoveredBrother === "brutus" ? "saturate-100 brightness-100 scale-105 origin-top-left" :
+                hoveredBrother && hoveredBrother !== "brutus" ? "saturate-50 brightness-70 scale-100" :
+                "saturate-100 brightness-100 scale-100"
               }
             `}
             src="/images/ocs/brutus.png"
-            style={{ transition: "filter 0.6s" }}
           />
           <img
             className={`
-              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-colors duration-600
-              ${hoveredBrother === "ignatius" ? "saturate-100 brightness-100" :
-                hoveredBrother && hoveredBrother !== "ignatius" ? "saturate-50 brightness-70" :
-                "saturate-100 brightness-100"
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1000
+              ${hoveredBrother === "ignatius" ? "saturate-100 brightness-100 scale-105 origin-top-right" :
+                hoveredBrother && hoveredBrother !== "ignatius" ? "saturate-50 brightness-70 scale-100" :
+                "saturate-100 brightness-100 scale-100"
               }
             `}
             src="/images/ocs/ignatius.png"
-            style={{ transition: "filter 0.6s" }}
           />
           <img
             className={`
-              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-colors duration-600
-              ${hoveredBrother === "aurelius" ? "saturate-100 brightness-100" :
-                hoveredBrother && hoveredBrother !== "aurelius" ? "saturate-50 brightness-70" :
-                "saturate-100 brightness-100"
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1000
+              ${hoveredBrother === "aurelius" ? "saturate-100 brightness-100 scale-110 origin-bottom-right" :
+                hoveredBrother && hoveredBrother !== "aurelius" ? "saturate-50 brightness-70 scale-100" :
+                "saturate-100 brightness-100 scale-100"
               }
             `}
             src="/images/ocs/aurelius.png"
-            style={{ transition: "filter 0.6s" }}
           />
           <img
             className={`
-              h-full w-auto max-w-none absolute nonsel pointer-events-none
-              ${hoveredBrother === "rufus" ? "saturate-100 brightness-100" :
-                hoveredBrother && hoveredBrother !== "rufus" ? "saturate-50 brightness-70" :
-                "saturate-100 brightness-100"
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1000
+              ${hoveredBrother === "rufus" ? "saturate-100 brightness-100 scale-110 origin-bottom-left" :
+                hoveredBrother && hoveredBrother !== "rufus" ? "saturate-50 brightness-70 scale-100" :
+                "saturate-100 brightness-100 scale-100"
               }
             `}
             src="/images/ocs/rufus.png"
-            style={{ transition: "filter 0.6s" }}
           />
         </div>
       </div>
