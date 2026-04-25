@@ -661,20 +661,20 @@ export default function Ocs() {
       </div>
 
       {/* SKULLBOUND */}
-      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#acaaa9] z-200">
+      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#acaaa9] z-200 overflow-hidden">
 
         {/* HITBOX */}
         <div
           className={`
-            grid w-full h-full absolute z-20 transition-grid duration-300 opacity-20 cursor-pointer
+            grid w-[80%] h-[80%] absolute z-20 transition-grid duration-1200 opacity-20 cursor-pointer
             ${hoveredBrother === 
-              "ignatius" ? "grid-cols-[2fr_1fr] grid-rows-[2fr_1fr]" :
+              "ignatius" ? "grid-cols-[4fr_1fr] grid-rows-[4fr_1fr]" :
               hoveredBrother ===
-              "brutus"   ? "grid-cols-[1fr_2fr] grid-rows-[2fr_1fr]" :
+              "brutus"   ? "grid-cols-[1fr_4fr] grid-rows-[4fr_1fr]" :
               hoveredBrother ===
-              "aurelius" ? "grid-cols-[2fr_1fr] grid-rows-[1fr_2fr]" :
+              "aurelius" ? "grid-cols-[4fr_1fr] grid-rows-[1fr_4fr]" :
               hoveredBrother ===
-              "rufus"    ? "grid-cols-[1fr_2fr] grid-rows-[1fr_2fr]" :
+              "rufus"    ? "grid-cols-[1fr_4fr] grid-rows-[1fr_4fr]" :
               "grid-cols-[1fr_1fr] grid-rows-[1fr_1fr]"
             }
           `}
@@ -702,11 +702,25 @@ export default function Ocs() {
           />
         </div>
 
-        <div className="w-full h-full relative flex items-center justify-center">
-          <img className="h-full w-auto absolute nonsel pointer-events-none" src="/images/ocs/brutus.png" />
-          <img className="h-full w-auto absolute nonsel pointer-events-none" src="/images/ocs/ignatius.png" />
-          <img className="h-full w-auto absolute nonsel pointer-events-none" src="/images/ocs/aurelius.png" />
-          <img className="h-full w-auto absolute nonsel pointer-events-none" src="/images/ocs/rufus.png" />
+        <div
+          className={`
+            w-full h-full relative flex items-center justify-center transition-transform duration-1200
+            ${hoveredBrother === 
+              "ignatius" ? "translate-x-[40%] translate-y-[13%] scale-130" :
+              hoveredBrother ===
+              "brutus"   ? "translate-x-[-40%] translate-y-[13%] scale-130" :
+              hoveredBrother ===
+              "aurelius" ? "translate-x-[40%] translate-y-[-13%] scale-130" :
+              hoveredBrother ===
+              "rufus"    ? "translate-x-[-40%] translate-y-[-13%] scale-130" :
+              ""
+            }
+          `}
+        >
+          <img className="h-full w-auto max-w-none absolute nonsel pointer-events-none" src="/images/ocs/brutus.png" />
+          <img className="h-full w-auto max-w-none absolute nonsel pointer-events-none" src="/images/ocs/ignatius.png" />
+          <img className="h-full w-auto max-w-none absolute nonsel pointer-events-none" src="/images/ocs/aurelius.png" />
+          <img className="h-full w-auto max-w-none absolute nonsel pointer-events-none" src="/images/ocs/rufus.png" />
         </div>
       </div>
 
