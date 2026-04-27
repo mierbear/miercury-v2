@@ -2,6 +2,7 @@
 import { userAgent } from "next/server";
 import { useEffect, useState, useRef } from "react";
 import OcInfo from "@/components/OcInfoComponent";
+import Footer from "@/components/footerComponent";
 
 export default function Ocs() {
 
@@ -124,7 +125,7 @@ export default function Ocs() {
   }
 
   return (
-    <div className="w-screen max-w-screen align-center flex flex-col bg-[#879da7] relative">
+    <div className="w-screen max-w-screen align-center flex flex-col gap-[10vh] bg-[#17191a] relative">
       
       {/* BLOCKER */}
       <div
@@ -182,27 +183,20 @@ export default function Ocs() {
         </div>
       </div>
 
+      <div />
+
       {/* MIERS */}
       <div
         className={`
-          w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative transition-colors duration-600
-          ${selectedMier === "angel" ? "bg-[#0e6188]"
-            : selectedMier === "icemage" ? "bg-[#a1c9da]"
-            : selectedMier === "tyrant" ? "bg-[#6e1717]"
-            : ""
-          }
-          ${hoveredMier === "angel" ? "bg-[#0e6188]/30"
-            : hoveredMier === "icemage" ? "bg-[#a1c9da]/30"
-            : hoveredMier === "tyrant" ? "bg-[#6e1717]/30"
-            : ""
-          }
+          w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative transition-colors duration-600 overflow-hidden
+          bg-[#879da7]
         `}
       >
          
         {/* DECO - ICE MAGE */}
         <div
           className={`
-            absolute bottom-0 right-[2vw] h-screen overflow-hidden z-99 transition-[translate] duration-1400 nonsel pointer-events-none
+            absolute bottom-0 right-[2vw] h-full overflow-hidden z-99 transition-[translate] duration-1400 nonsel pointer-events-none
             ${selectedMier === "icemage" ? "" : "translate-x-[200%]"}
           `}
         >
@@ -215,7 +209,7 @@ export default function Ocs() {
         {/* DECO - TYRANT */}
         <div
           className={`
-            fixed h-screen w-screen z-5556 transition-opacity nonsel pointer-events-none opacity-0
+            fixed h-full w-screen z-5556 transition-opacity nonsel pointer-events-none opacity-0
             ${selectedMier === "tyrant" ? "duration-100" : "duration-300"}
           `}
           ref={bulletHoleRef}
@@ -232,7 +226,7 @@ export default function Ocs() {
           {/* ICEMAGE */}
           <div
             className={`
-              absolute bottom-0 h-screen overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer left-[5vw]
+              absolute bottom-0 h-full overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer left-[5vw]
               ${selectedMier === "icemage" ? "" : "-translate-x-full"}
             `}
           >
@@ -245,7 +239,7 @@ export default function Ocs() {
           {/* ANGEL */}
           <div
             className={`
-              absolute bottom-0 h-screen overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer
+              absolute bottom-0 h-full overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer
               ${selectedMier === "angel" ? "" : "translate-y-full"}
             `}
           >
@@ -257,7 +251,7 @@ export default function Ocs() {
 
           {/* TYRANT */}
           <div
-            className="absolute bottom-0 right-[5vw] h-screen z-88"
+            className="absolute bottom-0 right-[5vw] h-full z-88"
             ref={mierTyrantRef}
           >
             <div 
@@ -296,7 +290,7 @@ export default function Ocs() {
           {/* ICE MAGE */}
           <div
             className={`
-              h-screen flex justify-center items-end cursor-pointer
+              h-full flex justify-center items-end cursor-pointer
             `}
           >
             <img
@@ -319,7 +313,7 @@ export default function Ocs() {
           {/* ANGEL */}
           <div
             className={`
-              h-screen flex justify-center items-end cursor-pointer
+              h-full flex justify-center items-end cursor-pointer
             `}
             ref={mierAngelRef}
           >
@@ -345,7 +339,7 @@ export default function Ocs() {
           {/* TYRANT */}
           <div
             className={`
-              h-screen flex justify-center items-end cursor-pointer
+              h-full flex justify-center items-end cursor-pointer
             `}
           >
             <img
@@ -370,7 +364,7 @@ export default function Ocs() {
         {/* MIER INFO */}
         <div
           className={`
-            absolute grid h-screen w-screen z-99
+            absolute grid h-full w-screen z-99
             transition-all duration-800 nonsel
             ${selectedMier === "icemage" ? "grid-cols-[1.75fr_1fr_0.25fr]"
             : selectedMier === "angel" ?   "grid-cols-[0.25fr_1fr_1.75fr]"
@@ -419,7 +413,7 @@ export default function Ocs() {
             {/* DESCRIPTION */}
             <div
               className={`
-                w-full h-full px-16 py-[30%] flex flex-col items-center text-white transition-opacity 
+                w-full h-full px-16 py-[15vh] flex flex-col items-center text-white transition-opacity 
                 ${selectedMier ? "opacity-100 duration-1200" : "opacity-0 duration-200"}
               `}
             >
@@ -637,7 +631,7 @@ export default function Ocs() {
       </div>
 
       {/* KANIN */}
-      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#a4bb80] z-111">
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#a4bb80] overflow-hidden">
         
         <div className="w-full h-full grid grid-cols-2">
           <div className="w-full h-full relative">
@@ -651,12 +645,12 @@ export default function Ocs() {
       </div>
 
       {/* SKULLBOUND */}
-      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#acaaa9] z-200 overflow-hidden">
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#acaaa9] overflow-hidden">
 
         {/* HITBOX */}
         <div
           className={`
-            grid w-[80%] h-[80%] absolute z-20 transition-grid duration-1200 opacity-20 cursor-pointer
+            grid w-[80%] h-[80%] absolute z-20 transition-grid duration-1600 opacity-10 cursor-pointer
             ${hoveredBrother === 
               "ignatius" ? "grid-cols-[4fr_1fr] grid-rows-[4fr_1fr]" :
               hoveredBrother ===
@@ -695,15 +689,15 @@ export default function Ocs() {
         {/* IMAGES */}
         <div
           className={`
-            w-full h-full relative flex items-center justify-center transition-transform duration-1200
+            w-full h-full relative flex items-center justify-center transition-transform duration-1600
             ${hoveredBrother === 
-              "ignatius" ? "translate-x-[50%] translate-y-[13%] scale-130" :
+              "ignatius" ? "translate-x-[45%] translate-y-[13%] scale-130" :
               hoveredBrother ===
-              "brutus"   ? "translate-x-[-50%] translate-y-[13%] scale-130" :
+              "brutus"   ? "translate-x-[-45%] translate-y-[13%] scale-130" :
               hoveredBrother ===
-              "aurelius" ? "translate-x-[40%] translate-y-[-13%] scale-130" :
+              "aurelius" ? "translate-x-[40%] translate-y-[-15%] scale-130" :
               hoveredBrother ===
-              "rufus"    ? "translate-x-[-40%] translate-y-[-13%] scale-130" :
+              "rufus"    ? "translate-x-[-40%] translate-y-[-15%] scale-130" :
               ""
             }
           `}
@@ -752,11 +746,11 @@ export default function Ocs() {
       </div>
 
       {/* QUINCE */}
-      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#9e937a] z-300">
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#9e937a] overflow-hidden">
         
         <div className="w-full h-full grid grid-cols-2">
           <div className="w-full h-full relative">
-            <img src="/images/ocs/quince.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-10%]" />
+            <img src="/images/ocs/quince.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-5%]" />
           </div>
           
           <OcInfo name="Quince" title="The Flower Deliver Boy" info="Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad." />
@@ -766,14 +760,14 @@ export default function Ocs() {
       </div>
 
       {/* SIMEON */}
-      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#303a8d] z-400">
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#303a8d] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-2">
           
           <OcInfo name="Simeon" title="The Sunken One" info="In a twist of fate, he embarks on a journey to the depths in search of his brother amongst the crowd of souls in the sea." />
 
           <div className="w-full h-full relative">
-            <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none left-[-40%]" />
+            <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none left-[-25%]" />
           </div>
           
         </div>
@@ -781,11 +775,11 @@ export default function Ocs() {
       </div>
 
       {/* PIO */}
-      <div className="w-screen max-w-screen h-screen max-h-screen justify-center align-center items-center flex flex-col relative bg-[#413f3d] z-500">
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#413f3d] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-2">
           <div className="w-full h-full relative">
-            <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-40%]" />
+            <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-25%]" />
           </div>
           
           <OcInfo name="Pio" title="The Deaf Hermit" info="Outcasted by everyone, he finds solace and friendship with his metallic friend." />
@@ -794,6 +788,7 @@ export default function Ocs() {
 
       </div>
 
+      <Footer />
 
     </div>
   )
