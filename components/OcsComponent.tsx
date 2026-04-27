@@ -124,6 +124,27 @@ export default function Ocs() {
     setHoveredBrother(brother);
   }
 
+  // SCROLL FUNCTIONS
+  const mierScrollRef   = useRef<HTMLDivElement | null>(null)
+  const kaninScrollRef  = useRef<HTMLDivElement | null>(null)
+  const skullScrollRef  = useRef<HTMLDivElement | null>(null)
+  const quinceScrollRef = useRef<HTMLDivElement | null>(null)
+  const simeonScrollRef = useRef<HTMLDivElement | null>(null)
+  const pioScrollRef    = useRef<HTMLDivElement | null>(null)
+
+  const characters = [
+    {name: "mier",   ref: mierScrollRef   },
+    {name: "kanin",  ref: kaninScrollRef  },
+    {name: "skulls", ref: skullScrollRef  },
+    {name: "quince", ref: quinceScrollRef },
+    {name: "simeon", ref: simeonScrollRef },
+    {name: "pio",    ref: pioScrollRef    }
+  ]
+
+  const scrollToHandler = (ref: React.RefObject<HTMLDivElement | null>) => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  }
+
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
       
@@ -183,9 +204,21 @@ export default function Ocs() {
         </div>
       </div>
 
-      <div className="h-[10vh]" />
+      {/* NAV */}
+      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-4000 text-white meow p-4 gap-2 flex flex-col items-center bg-white/20">
+        {characters.map((character, index) => (
+          <p
+            key={index}
+            className="cursor-pointer"
+            onClick={() => scrollToHandler(character.ref)}
+          >
+            {character.name}
+          </p>
+        ))}
+      </div>
 
       {/* MIERS */}
+      <div className="h-[10vh]" ref={mierScrollRef} />
       <div
         className={`
           w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative transition-colors duration-600 overflow-hidden
@@ -630,9 +663,8 @@ export default function Ocs() {
 
       </div>
 
-      <div className="h-[10vh]" />
-
       {/* KANIN */}
+      <div className="h-[10vh]" ref={kaninScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#a4bb80] overflow-hidden">
         
         <div className="w-full h-full grid grid-cols-2">
@@ -646,9 +678,8 @@ export default function Ocs() {
 
       </div>
       
-      <div className="h-[10vh]" />
-
       {/* SKULLBOUND */}
+      <div className="h-[10vh]" ref={skullScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#acaaa9] overflow-hidden">
 
         {/* HITBOX */}
@@ -749,9 +780,8 @@ export default function Ocs() {
         </div>
       </div>
 
-      <div className="h-[10vh]" />
-
       {/* QUINCE */}
+      <div className="h-[10vh]" ref={quinceScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#9e937a] overflow-hidden">
         
         <div className="w-full h-full grid grid-cols-2">
@@ -765,9 +795,8 @@ export default function Ocs() {
 
       </div>
 
-      <div className="h-[10vh]" />
-
       {/* SIMEON */}
+      <div className="h-[10vh]" ref={simeonScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#303a8d] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-2">
@@ -782,9 +811,8 @@ export default function Ocs() {
 
       </div>
 
-      <div className="h-[10vh]" />
-
       {/* PIO */}
+      <div className="h-[10vh]" ref={pioScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#413f3d] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-2">
