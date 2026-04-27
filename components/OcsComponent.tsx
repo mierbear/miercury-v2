@@ -234,7 +234,6 @@ export default function Ocs() {
               absolute bottom-0 h-screen overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer left-[5vw]
               ${selectedMier === "icemage" ? "" : "-translate-x-full"}
             `}
-            onClick={() => mierSelectHandler("")}
           >
             <img 
               src={`/images/ocs/mier-icemage.png`}
@@ -248,7 +247,6 @@ export default function Ocs() {
               absolute bottom-0 h-screen overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer
               ${selectedMier === "angel" ? "" : "translate-y-full"}
             `}
-            onClick={() => mierSelectHandler("")}
           >
             <img 
               src={`/images/ocs/mier-angel.png`}
@@ -266,7 +264,6 @@ export default function Ocs() {
                 relative h-full overflow-hidden transition-[translate] duration-1200 cursor-pointer
                 ${selectedMier === "tyrant" ? "" : "translate-x-full"}
               `}
-              onClick={() => mierSelectHandler("")}
             >
               <img 
                 src={`/images/ocs/mier-tyrant.png`}
