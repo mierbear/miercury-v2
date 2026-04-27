@@ -184,10 +184,10 @@ export default function Ocs() {
             <br />
             <br />
             <p>
-              it just started as me drawing mier with different hair/eye colors for fun, and then drawing him with black hair because it was easier to just fill in the hair to render it quickly, then so on.
+              it started as me drawing mier with different hair/eye colors for fun, and then drawing him with black hair since it was easier to just fill in the hair to render it quickly, then so on.
             <br />
             <br />
-              but then as time passed i just slowly realized i clearly havent studied hair structure at all and just had a 'comfort hair' to draw all the time. and even if i try not to make it like mier's hair, the general shape/style still bleeds into other hairstyles i draw because i genuinely really love how it looks.
+              but as time passed i slowly realized i clearly havent studied hair structure at all and just had a 'comfort hair' to draw all the time. and even if i try not to make it like mier's hair, the general shape/style still bleeds into other hairstyles i draw because i genuinely really love how it looks.
             <br />
               (which can be very clear to see once you scroll down more...)
             <br />
@@ -205,7 +205,7 @@ export default function Ocs() {
       </div>
 
       {/* NAV */}
-      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-4000 text-white meow p-4 gap-2 flex flex-col items-center bg-white/20">
+      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-543 text-white meow p-4 gap-2 flex flex-col items-center bg-white/20">
         {characters.map((character, index) => (
           <p
             key={index}
