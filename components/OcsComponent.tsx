@@ -125,7 +125,7 @@ export default function Ocs() {
   }
 
   return (
-    <div className="w-screen max-w-screen align-center flex flex-col gap-[10vh] bg-[#17191a] relative">
+    <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
       
       {/* BLOCKER */}
       <div
@@ -183,7 +183,7 @@ export default function Ocs() {
         </div>
       </div>
 
-      <div />
+      <div className="h-[10vh]" />
 
       {/* MIERS */}
       <div
@@ -630,6 +630,8 @@ export default function Ocs() {
 
       </div>
 
+      <div className="h-[10vh]" />
+
       {/* KANIN */}
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#a4bb80] overflow-hidden">
         
@@ -643,6 +645,8 @@ export default function Ocs() {
         </div>
 
       </div>
+      
+      <div className="h-[10vh]" />
 
       {/* SKULLBOUND */}
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#acaaa9] overflow-hidden">
@@ -745,6 +749,8 @@ export default function Ocs() {
         </div>
       </div>
 
+      <div className="h-[10vh]" />
+
       {/* QUINCE */}
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#9e937a] overflow-hidden">
         
@@ -758,6 +764,8 @@ export default function Ocs() {
         </div>
 
       </div>
+
+      <div className="h-[10vh]" />
 
       {/* SIMEON */}
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#303a8d] overflow-hidden">
@@ -774,6 +782,8 @@ export default function Ocs() {
 
       </div>
 
+      <div className="h-[10vh]" />
+
       {/* PIO */}
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#413f3d] overflow-hidden">
 
@@ -787,6 +797,8 @@ export default function Ocs() {
         </div>
 
       </div>
+
+      <div className="h-[6vh]" />
 
       <Footer />
 
