@@ -1,6 +1,7 @@
 "use client";
 import { userAgent } from "next/server";
 import { useEffect, useState, useRef } from "react";
+import OcInfo from "@/components/OcInfoComponent";
 
 export default function Ocs() {
 
@@ -643,15 +644,7 @@ export default function Ocs() {
             <img src="/images/ocs/kanin.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-10%]" />
           </div>
           
-          <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
-            <div />
-            
-            <div className="bg-black/30 w-full h-full">
-
-            </div>
-
-            <div />
-          </div>
+          <OcInfo name="Kanin" title="The Gatekeeper" info="sfsd" />
 
         </div>
 
@@ -766,15 +759,7 @@ export default function Ocs() {
             <img src="/images/ocs/quince.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-10%]" />
           </div>
           
-          <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
-            <div />
-            
-            <div className="bg-black/30 w-full h-full">
-
-            </div>
-
-            <div />
-          </div>
+          <OcInfo name="Quince" title="The Flower Deliver Boy" info="Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad." />
           
         </div>
 
@@ -785,15 +770,7 @@ export default function Ocs() {
 
         <div className="w-full h-full grid grid-cols-2">
           
-          <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
-            <div />
-            
-            <div className="bg-black/30 w-full h-full">
-
-            </div>
-
-            <div />
-          </div>
+          <OcInfo name="Simeon" title="The Sunken One" info="In a twist of fate, he embarks on a journey to the depths in search of his brother amongst the crowd of souls in the sea." />
 
           <div className="w-full h-full relative">
             <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none left-[-40%]" />
@@ -811,15 +788,7 @@ export default function Ocs() {
             <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-40%]" />
           </div>
           
-          <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr] z-20">
-            <div />
-            
-            <div className="bg-black/30 w-full h-full">
-
-            </div>
-
-            <div />
-          </div>
+          <OcInfo name="Pio" title="The Deaf Hermit" info="Outcasted by everyone, he finds solace and friendship with his metallic friend." />
           
         </div>
 
