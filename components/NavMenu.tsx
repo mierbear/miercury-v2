@@ -318,7 +318,9 @@ const NavMenu = () => {
       if (mierFish.current === 8) {
         setFished(true);
       }
-    }, 600);
+
+      // console.log(mierProgress.current);
+    }, 500);
   };
 
   const stopFishing = () => {
@@ -523,7 +525,16 @@ const NavMenu = () => {
               style={{ background: "linear-gradient(to bottom, rgb(105, 166, 208), rgb(105, 166, 208), rgb(117, 180, 216), rgb(160, 233, 255))" }}
             >
 
-              <div className={`relative w-full h-full origin-center`}>
+              <div
+                className={`
+                  relative w-full h-full origin-center transition-all ease-in-out
+                  ${fished ? "duration-1000" : mierProgress.current ? "duration-100" : "duration-2000"}
+                  ${fished ? "translate-x-[10%]" : activeLink === "games" ? "translate-x-[0%]" : "translate-x-[0%] xl:translate-x-[-20%]"}
+                `}
+                style={{
+                  scale: `${fished ? `110%` : `${100 - (mierProgress.current * 12)}%`}`,
+                }}
+              >
                 
                 {/* MIER */}
                 <img 
@@ -532,14 +543,14 @@ const NavMenu = () => {
                     min-h-full object-cover absolute overflow-visible
                     transition-[translate] duration-400
                   `}
-                  style={{ translate: `${mierProgress.current * 10}px` }}
+                  style={{ translate: `${mierProgress.current * 15}px` }}
                 />
 
                 {/* BG */}
                 <img 
                   src={`/images/games/bg.png`}
                   className={`
-                    min-h-full object-cover absolute
+                    min-h-full object-cover absolute overflow-visible
                   `}
                 />
 
@@ -547,7 +558,7 @@ const NavMenu = () => {
                 <img 
                   src={`/images/games/fish-${currentFish || "0"}.png`}
                   className={`
-                    min-h-full object-cover absolute
+                    min-h-full object-cover absolute overflow-visible glowing
                     ${fished ? "block" : "hidden"}
                   `}
                 />
@@ -556,7 +567,7 @@ const NavMenu = () => {
                 <img 
                   src={`/images/games/water.png`}
                   className={`
-                    min-h-full object-cover absolute waves
+                    min-h-full object-cover absolute overflow-visible waves
                   `}
                 />
 

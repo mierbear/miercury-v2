@@ -868,3 +868,21 @@ div[data-youtube-video] iframe {
     transform: scale(1.2) translate(0, 0);
   }
 }
+
+.glowing {
+  animation: glow infinite ease-in-out 2s;
+}
+
+@keyframes glow {
+  0% {
+    filter: drop-shadow(0px 0px 15px #FFFFFF);
+  }
+
+  50% {
+    filter: drop-shadow(0px 0px 5px #ffffff4e);
+  }
+
+  100% {
+    filter: drop-shadow(0px 0px 15px #FFFFFF);
+  }
+}
