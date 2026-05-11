@@ -60,6 +60,7 @@ export default function Ocs() {
   // const mierCheckHandler = () => {
   // }
 
+  const [openInfo, setOpenInfo] = useState(false);
   const [openWhy, setOpenWhy] = useState(false);
 
   const mierSelectHandler = (mierType: string) => {
@@ -155,6 +156,22 @@ export default function Ocs() {
       >
       </div>
 
+      {/* OC INFO */}
+      <div 
+        className={`
+          fixed w-2xl h-70 z-544 items-center justify-center bottom-4 left-1/2 -translate-x-1/2 bg-gray-200
+          ${openInfo ? "flex" : "hidden"}
+        `}
+      >
+        {/* X */}
+        <p 
+          className="cursor-pointer hover:text-red-500 text-5xl absolute top-2 right-6"
+          onClick={() => setOpenInfo(false)}
+        >
+          x
+        </p>
+      </div>
+
       {/* WHY?? */}
       <div 
         className={`
@@ -205,7 +222,7 @@ export default function Ocs() {
       </div>
 
       {/* NAV */}
-      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-543 text-white meow p-4 gap-2 flex flex-col items-center bg-white/20">
+      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-543 text-white meow p-4 gap-2 flex flex-col items-center bg-white/20 nonsel">
         {characters.map((character, index) => (
           <p
             key={index}
@@ -215,16 +232,17 @@ export default function Ocs() {
             {character.name}
           </p>
         ))}
+        <p 
+          className="w-8 h-8 bg-black rounded-full flex items-center justify-center cursor-pointer"
+          onClick={() => setOpenInfo(true)}
+        >
+          ?
+        </p>
       </div>
 
       {/* MIERS */}
       <div className="h-[10vh]" ref={mierScrollRef} />
-      <div
-        className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative transition-colors duration-600 overflow-hidden
-          bg-[#879da7]
-        `}
-      >
+      <div className={`w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#879da7] overflow-hidden transition-colors duration-600`}>
          
         {/* DECO - ICE MAGE */}
         <div
@@ -826,9 +844,11 @@ export default function Ocs() {
 
       </div>
 
-      <div className="h-[6vh]" />
+      <div className="h-[10vh] flex flex-col">
+        <div className="h-full" />
+        <Footer />
+      </div>
 
-      <Footer />
 
     </div>
   )
