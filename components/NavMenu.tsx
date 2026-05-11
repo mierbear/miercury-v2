@@ -272,6 +272,10 @@ const NavMenu = () => {
       const img = new window.Image();
       img.src = `/images/games/fish-${i}.png`;
     });
+    Array.from({ length: 9 }, (_, i) => {
+      const img = new window.Image();
+      img.src = `/images/games/mier-${i}.png`;
+    });
   }, []);
   
   const fishHandler = (bool: boolean) => {
@@ -382,13 +386,23 @@ const NavMenu = () => {
             <div
               onClick={() => handleSelect("characters")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("characters") : undefined}
-              className={`cursor-pointer flex justify-center items-center bg-[#838177] overflow-hidden relative transition-saturate duration-400 ${activeLink === "characters" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
+              className={`
+                cursor-pointer flex justify-center items-center
+                overflow-hidden relative transition-saturate duration-400
+                ${activeLink === "characters"
+                ? "saturate-100 brightness-100 bg-[rgb(33,37,38)]"
+                : "saturate-60 brightness-40 bg-[rgb(48,54,56)]"}
+              `}
             >
 
-              <div className="aspect-square h-[110%] md:h-[130%] xl:h-[95%] flex justify-center items-center">
+              <div className="aspect-square h-[110%] md:h-[130%] xl:h-[95%] flex justify-center items-center relative">
+                <img
+                  src="images/moon-stars.png"
+                  className="slowest-spin w-auto nonsel pointer-events-none absolute scale-[150%]"
+                />
                 <img
                   src="/images/moon-characters.png"
-                  className="slower-spin w-auto nonsel pointer-events-none"
+                  className="slower-spin w-auto nonsel pointer-events-none absolute"
                 />
               </div>
 
@@ -399,7 +413,7 @@ const NavMenu = () => {
             <div 
               onClick={() => handleSelect("gallery")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("gallery") : undefined}
-              className={`cursor-pointer flex justify-center items-center bg-[#393a3b] overflow-hidden relative duration-400 ${activeLink === "gallery" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
+              className={`cursor-pointer flex justify-center items-center bg-[#d4d1ca] overflow-hidden relative duration-400 ${activeLink === "gallery" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
             >
               
               {/* LIGHTS */}
@@ -527,7 +541,7 @@ const NavMenu = () => {
 
               <div
                 className={`
-                  relative w-full h-full origin-center transition-all ease-in-out
+                  relative w-full h-full origin-center transition-all ease-in-out nonsel pointer-events-none
                   ${fished ? "duration-1000" : mierProgress.current ? "duration-100" : "duration-2000"}
                   ${fished ? "translate-x-[10%]" : activeLink === "games" ? "translate-x-[0%]" : "translate-x-[0%] xl:translate-x-[-20%]"}
                 `}

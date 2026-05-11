@@ -94,7 +94,7 @@ export default function GalleryComponent() {
     tags:
     [
       "mtwim",
-      "skullbound",
+      "calvarius",
       "flower delivery",
       "simeons descent",
       "pio",

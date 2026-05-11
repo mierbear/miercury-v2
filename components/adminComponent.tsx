@@ -297,6 +297,9 @@ export default function page() {
   const [showTagDropdown, setShowTagDropdown] = useState(false);
 
   const tags = [
+    "rendered",
+    "wip",
+    "sketch",
     "original",
     "friends",
     "fanart",
@@ -304,7 +307,7 @@ export default function page() {
     "collab",
     "shitpost",
     "mtwim",
-    "skullbound",
+    "calvarius",
     "flower delivery",
     "simeons descent",
     "pio",
