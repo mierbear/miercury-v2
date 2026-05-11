@@ -42,6 +42,8 @@ const NavMenu = () => {
   
   const moonClickHandler = () => {
     listReset();
+    pauseFishing();
+    setFished(false);
     if (navMenuRef.current === null || overlayRef.current === null || moonRef.current === null || menuRef.current === null || goHomeRef.current === null) return;
 
     if (isDesktop()) {
@@ -177,9 +179,9 @@ const NavMenu = () => {
     }
 
     if (link === "games") {
-      setFished(true)
+      fishHandler(true)
     } else {
-      setFished(false)
+      fishHandler(false)
     }
 
   };
@@ -265,7 +267,55 @@ const NavMenu = () => {
 
   const onComic = pathname.startsWith("/mtwim/read");
 
+  // PRELOAD
+  useEffect(() => {
+    Array.from({ length: 24 }, (_, i) => {
+      const img = new window.Image();
+      img.src = `/images/games/fish-${i}.png`;
+    });
+  }, []);
+  
+  const fishHandler = (bool: boolean) => {
+    setFished(bool);
+    
+    if (bool === true && activeLink !== "games") {
+      playFishing();
+    } else if (bool === false) {
+      pauseFishing();
+    }
+  };
+
   const [fished, setFished] = useState(false);
+  const [currentFish, setCurrentFish] = useState<number | null>(null);
+  const [mierState, setMierState] = useState<string>("start");
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const mierFish = useRef(0)
+
+  const resetFishing = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }
+
+  const playFishing = () => {
+    resetFishing();
+    mierFish.current = 0;
+    setMierState(`${mierFish.current}`);
+
+    intervalRef.current = setInterval(() => {
+      setCurrentFish(Math.floor(Math.random() * 24));
+      if (mierFish.current < 9) {
+        mierFish.current += 1;  
+        setMierState(`${mierFish.current}`)
+      }
+    }, 600);
+  };
+
+  const pauseFishing = () => {
+    resetFishing();
+    setMierState(`start`)
+  };
 
   return (
     <div 
@@ -464,7 +514,16 @@ const NavMenu = () => {
             >
 
               <div className={`relative w-full h-full origin-center`}>
+                
+                {/* MIER */}
+                <img 
+                  src={`/images/games/mier-${mierState || "start"}.png`}
+                  className={`
+                    min-h-full object-cover absolute
+                  `}
+                />
 
+                {/* BG */}
                 <img 
                   src={`/images/games/bg.png`}
                   className={`
@@ -472,21 +531,16 @@ const NavMenu = () => {
                   `}
                 />
 
+                {/* FISH */}
                 <img 
-                  src={`/images/games/mier-finish-0.png`}
-                  className={`
-                    min-h-full object-cover absolute
-                  `}
-                />
-
-                <img 
-                  src={`/images/games/fish-10.png`}
+                  src={`/images/games/fish-${currentFish || "0"}.png`}
                   className={`
                     min-h-full object-cover absolute
                     ${fished ? "block" : "hidden"}
                   `}
                 />
 
+                {/* WATER */}
                 <img 
                   src={`/images/games/water.png`}
                   className={`
