@@ -176,6 +176,12 @@ const NavMenu = () => {
     menuRef.current.style.gridTemplateColumns = cols[link];
     }
 
+    if (link === "games") {
+      setFished(true)
+    } else {
+      setFished(false)
+    }
+
   };
 
   useEffect(() => {
@@ -258,6 +264,8 @@ const NavMenu = () => {
   }, [])
 
   const onComic = pathname.startsWith("/mtwim/read");
+
+  const [fished, setFished] = useState(false);
 
   return (
     <div 
@@ -447,8 +455,46 @@ const NavMenu = () => {
             <div 
               onClick={() => handleSelect("games")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("games") : undefined}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8a8b7d] overflow-hidden relative duration-400 ${activeLink === "games" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
+              className={`
+                cursor-pointer landing-tile flex justify-center items-center
+                overflow-hidden relative duration-400
+                ${activeLink === "games" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}
+                `}
+              style={{ background: "linear-gradient(to bottom, rgb(105, 166, 208), rgb(105, 166, 208), rgb(117, 180, 216), rgb(160, 233, 255))" }}
             >
+
+              <div className={`relative w-full h-full origin-center`}>
+
+                <img 
+                  src={`/images/games/bg.png`}
+                  className={`
+                    min-h-full object-cover absolute
+                  `}
+                />
+
+                <img 
+                  src={`/images/games/mier-finish-0.png`}
+                  className={`
+                    min-h-full object-cover absolute
+                  `}
+                />
+
+                <img 
+                  src={`/images/games/fish-10.png`}
+                  className={`
+                    min-h-full object-cover absolute
+                    ${fished ? "block" : "hidden"}
+                  `}
+                />
+
+                <img 
+                  src={`/images/games/water.png`}
+                  className={`
+                    min-h-full object-cover absolute waves
+                  `}
+                />
+
+              </div>
               
               <Label activeLink={activeLink} link="games" title="GAMES" desc="play my games here!" />
             </div>
