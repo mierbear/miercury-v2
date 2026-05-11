@@ -42,8 +42,7 @@ const NavMenu = () => {
   
   const moonClickHandler = () => {
     listReset();
-    pauseFishing();
-    setFished(false);
+    stopFishing();
     if (navMenuRef.current === null || overlayRef.current === null || moonRef.current === null || menuRef.current === null || goHomeRef.current === null) return;
 
     if (isDesktop()) {
@@ -276,12 +275,10 @@ const NavMenu = () => {
   }, []);
   
   const fishHandler = (bool: boolean) => {
-    setFished(bool);
-    
     if (bool === true && activeLink !== "games") {
       playFishing();
     } else if (bool === false) {
-      pauseFishing();
+      stopFishing();
     }
   };
 
@@ -290,31 +287,44 @@ const NavMenu = () => {
   const [mierState, setMierState] = useState<string>("start");
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const mierFish = useRef(0)
+  const mierProgress = useRef(0)
 
   const resetFishing = () => {
     if (intervalRef.current) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
     }
+    mierProgress.current = 0;
   }
 
   const playFishing = () => {
     resetFishing();
     mierFish.current = 0;
     setMierState(`${mierFish.current}`);
+    setCurrentFish(Math.floor(Math.random() * 24));
 
     intervalRef.current = setInterval(() => {
-      setCurrentFish(Math.floor(Math.random() * 24));
-      if (mierFish.current < 9) {
+      if (mierFish.current < 8) {
         mierFish.current += 1;  
         setMierState(`${mierFish.current}`)
+      }
+      
+      if (mierFish.current > 3 && mierFish.current < 8) {
+        mierProgress.current -= 1;  
+      } else {
+        mierProgress.current = 0;
+      }
+
+      if (mierFish.current === 8) {
+        setFished(true);
       }
     }, 600);
   };
 
-  const pauseFishing = () => {
+  const stopFishing = () => {
     resetFishing();
     setMierState(`start`)
+    setFished(false);
   };
 
   return (
@@ -519,8 +529,10 @@ const NavMenu = () => {
                 <img 
                   src={`/images/games/mier-${mierState || "start"}.png`}
                   className={`
-                    min-h-full object-cover absolute
+                    min-h-full object-cover absolute overflow-visible
+                    transition-[translate] duration-400
                   `}
+                  style={{ translate: `${mierProgress.current * 10}px` }}
                 />
 
                 {/* BG */}
