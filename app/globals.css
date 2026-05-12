@@ -554,7 +554,7 @@ div[data-youtube-video] iframe {
 
 .slowest-spin {
   animation-name: spin;
-  animation-duration: 180s;
+  animation-duration: 360s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }

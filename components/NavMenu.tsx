@@ -413,7 +413,7 @@ const NavMenu = () => {
             <div 
               onClick={() => handleSelect("gallery")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("gallery") : undefined}
-              className={`cursor-pointer flex justify-center items-center bg-[#d4d1ca] overflow-hidden relative duration-400 ${activeLink === "gallery" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
+              className={`cursor-pointer flex justify-center items-center bg-gray-200 overflow-hidden relative duration-400 ${activeLink === "gallery" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
             >
               
               {/* LIGHTS */}
@@ -423,12 +423,31 @@ const NavMenu = () => {
               </div>
 
               {/* FEATURED ARTWORK */}
-              <div className="h-[90%] absolute flex justify-center items-center">
-                <img ref={featArtRef} src={artwork?.url} className={`w-full h-full object-cover nonsel pointer-events-none`} />
+              <div 
+                className={`
+                  h-[80%] mb-[12%] absolute flex justify-center items-center
+                  border-y-12 border-t-[#ada283] border-b-[#6b6965] shadow-2xl
+                  transition-all duration-600
+                  ${activeLink === "gallery" ? "blur-none" : "blur-[1px]"}
+                `}
+              >
+
+                <img
+                  ref={featArtRef}
+                  src={artwork?.url}
+                  className={`w-full h-full object-cover nonsel pointer-events-none`}
+                />
+                
               </div>
 
               {/* CHARACTERS */}
-              <div className="absolute bottom-0 w-full h-[50%] xl:h-[40%] grid grid-cols-2">
+              <div 
+                className={`
+                  absolute bottom-0 w-full h-[50%] xl:h-[40%]
+                  grid grid-cols-2 transition-all duration-1000
+                  ${activeLink === "gallery" ? "blur-[2px] translate-y-4" : "blur-none translate-y-0"}
+                `}
+              >
 
                 {/* LEFT SIDE */}
                 <div className="relative">
