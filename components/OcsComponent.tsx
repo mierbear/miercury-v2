@@ -811,12 +811,12 @@ export default function Ocs() {
                 {["ignatius", "aurelius", "rufus", "brutus"].map((brother, index) => (
                 <div
                   key={index}
-                  className="w-full h-full flex items-center justify-center"
+                  className="w-full h-full flex items-center justify-center cursor-pointer"
+                  onClick={() => setCurrentBrother(currentBrother === brother ? "" : brother)}
                 >
                   <img 
                     src={`/images/ocs/calvarius-pfp-${brother}.png`} 
-                    className="cursor-pointer w-full h-full object-cover"
-                    onClick={() => setCurrentBrother(currentBrother === brother ? "" : brother)}
+                    className="w-full h-full object-cover nonsel pointer-events-none"
                   />
                 </div>
                 ))}
@@ -836,12 +836,21 @@ export default function Ocs() {
 
       {/* QUINCE */}
       <div className="h-[10vh]" ref={quinceScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#9e937a] overflow-hidden">
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-row relative  overflow-hidden">
         
-        <div className="w-full h-full grid grid-cols-2">
-          <div className="w-full h-full relative">
-            <img src="/images/ocs/quince.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-5%]" />
-          </div>
+        <div className="w-[70%] h-full flex justify-end bg-[rgb(31,32,33)]">
+          <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto" />
+          <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto" />
+          <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto" />
+          <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto" />
+        </div>
+
+        <div className="w-[30%] h-full flex bg-[rgb(44,47,45)]">
+          
+        </div>
+
+        <div className="w-full h-full grid grid-cols-2 absolute">
+          <div className="w-full h-full relative" />
           
           <OcInfo name="Quince" title="The Flower Deliver Boy" info="Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad." />
           
