@@ -118,7 +118,7 @@ export default function Ocs() {
   }
 
   // SKULLBOUND
-  const skullboundHitboxRef = useRef<HTMLDivElement | null>(null);
+  const calvariusHitboxRef = useRef<HTMLDivElement | null>(null);
   const [hoveredBrother, setHoveredBrother] = useState("")
 
   const brotherHoverHandler = (brother: string) => {
@@ -128,7 +128,7 @@ export default function Ocs() {
   // SCROLL FUNCTIONS
   const mierScrollRef   = useRef<HTMLDivElement | null>(null)
   const kaninScrollRef  = useRef<HTMLDivElement | null>(null)
-  const skullScrollRef  = useRef<HTMLDivElement | null>(null)
+  const calvariusScrollRef  = useRef<HTMLDivElement | null>(null)
   const quinceScrollRef = useRef<HTMLDivElement | null>(null)
   const simeonScrollRef = useRef<HTMLDivElement | null>(null)
   const pioScrollRef    = useRef<HTMLDivElement | null>(null)
@@ -136,7 +136,7 @@ export default function Ocs() {
   const characters = [
     {name: "mier",   ref: mierScrollRef   },
     {name: "kanin",  ref: kaninScrollRef  },
-    {name: "skulls", ref: skullScrollRef  },
+    {name: "skulls", ref: calvariusScrollRef  },
     {name: "quince", ref: quinceScrollRef },
     {name: "simeon", ref: simeonScrollRef },
     {name: "pio",    ref: pioScrollRef    }
@@ -696,8 +696,8 @@ export default function Ocs() {
 
       </div>
       
-      {/* SKULLBOUND */}
-      <div className="h-[10vh]" ref={skullScrollRef} />
+      {/* CAVARIUS */}
+      <div className="h-[10vh]" ref={calvariusScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#acaaa9] overflow-hidden">
 
         {/* HITBOX */}
@@ -715,7 +715,7 @@ export default function Ocs() {
               "grid-cols-[1fr_1fr] grid-rows-[1fr_1fr]"
             }
           `}
-          ref={skullboundHitboxRef}
+          ref={calvariusHitboxRef}
         >
           <div
             className="w-full h-full bg-orange-300" 
@@ -744,56 +744,56 @@ export default function Ocs() {
           className={`
             w-full h-full relative flex items-center justify-center transition-transform duration-1600
             ${hoveredBrother === 
-              "ignatius" ? "translate-x-[45%] translate-y-[13%] scale-130" :
+              "ignatius" ? "translate-x-[85%] translate-y-[68%] scale-360" :
               hoveredBrother ===
-              "brutus"   ? "translate-x-[-45%] translate-y-[13%] scale-130" :
+              "brutus"   ? "translate-x-[-80%] translate-y-[110%] scale-360" :
               hoveredBrother ===
-              "aurelius" ? "translate-x-[40%] translate-y-[-15%] scale-130" :
+              "aurelius" ? "translate-x-[60%] translate-y-[19%] scale-360" :
               hoveredBrother ===
-              "rufus"    ? "translate-x-[-40%] translate-y-[-15%] scale-130" :
-              ""
+              "rufus"    ? "translate-x-[-62%] translate-y-[-16%] scale-360" :
+              "translate-y-[12%] scale-140"
             }
           `}
         >
           <img
             className={`
-              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1000
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
               ${hoveredBrother === "brutus" ? "saturate-100 brightness-100 scale-105 origin-top-left" :
                 hoveredBrother && hoveredBrother !== "brutus" ? "saturate-50 brightness-70 scale-100" :
                 "saturate-100 brightness-100 scale-100"
               }
             `}
-            src="/images/ocs/brutus.png"
+            src="/images/ocs/calvarius-brutus.png"
           />
           <img
             className={`
-              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1000
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
               ${hoveredBrother === "ignatius" ? "saturate-100 brightness-100 scale-105 origin-top-right" :
                 hoveredBrother && hoveredBrother !== "ignatius" ? "saturate-50 brightness-70 scale-100" :
                 "saturate-100 brightness-100 scale-100"
               }
             `}
-            src="/images/ocs/ignatius.png"
+            src="/images/ocs/calvarius-ignatius.png"
           />
           <img
             className={`
-              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1000
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
               ${hoveredBrother === "aurelius" ? "saturate-100 brightness-100 scale-110 origin-bottom-right" :
                 hoveredBrother && hoveredBrother !== "aurelius" ? "saturate-50 brightness-70 scale-100" :
                 "saturate-100 brightness-100 scale-100"
               }
             `}
-            src="/images/ocs/aurelius.png"
+            src="/images/ocs/calvarius-aurelius.png"
           />
           <img
             className={`
-              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1000
+              h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
               ${hoveredBrother === "rufus" ? "saturate-100 brightness-100 scale-110 origin-bottom-left" :
                 hoveredBrother && hoveredBrother !== "rufus" ? "saturate-50 brightness-70 scale-100" :
                 "saturate-100 brightness-100 scale-100"
               }
             `}
-            src="/images/ocs/rufus.png"
+            src="/images/ocs/calvarius-rufus.png"
           />
         </div>
       </div>
