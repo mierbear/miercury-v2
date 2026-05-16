@@ -119,11 +119,7 @@ export default function Ocs() {
 
   // SKULLBOUND
   const calvariusHitboxRef = useRef<HTMLDivElement | null>(null);
-  const [hoveredBrother, setHoveredBrother] = useState("")
-
-  const brotherHoverHandler = (brother: string) => {
-    setHoveredBrother(brother);
-  }
+  const [currentBrother, setCurrentBrother] = useState("");
 
   // SCROLL FUNCTIONS
   const mierScrollRef   = useRef<HTMLDivElement | null>(null)
@@ -700,56 +696,17 @@ export default function Ocs() {
       <div className="h-[10vh]" ref={calvariusScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#acaaa9] overflow-hidden">
 
-        {/* HITBOX */}
-        <div
-          className={`
-            grid w-[80%] h-[80%] absolute z-20 transition-grid duration-1600 opacity-10 cursor-pointer
-            ${hoveredBrother === 
-              "ignatius" ? "grid-cols-[4fr_1fr] grid-rows-[4fr_1fr]" :
-              hoveredBrother ===
-              "brutus"   ? "grid-cols-[1fr_4fr] grid-rows-[4fr_1fr]" :
-              hoveredBrother ===
-              "aurelius" ? "grid-cols-[4fr_1fr] grid-rows-[1fr_4fr]" :
-              hoveredBrother ===
-              "rufus"    ? "grid-cols-[1fr_4fr] grid-rows-[1fr_4fr]" :
-              "grid-cols-[1fr_1fr] grid-rows-[1fr_1fr]"
-            }
-          `}
-          ref={calvariusHitboxRef}
-        >
-          <div
-            className="w-full h-full bg-orange-300" 
-            onMouseEnter={() => brotherHoverHandler("ignatius")}
-            onMouseLeave={() => brotherHoverHandler("")}
-          />
-          <div
-            className="w-full h-full bg-gray-600" 
-            onMouseEnter={() => brotherHoverHandler("brutus")}
-            onMouseLeave={() => brotherHoverHandler("")}
-          />
-          <div
-            className="w-full h-full bg-cyan-200" 
-            onMouseEnter={() => brotherHoverHandler("aurelius")}
-            onMouseLeave={() => brotherHoverHandler("")}
-          />
-          <div
-            className="w-full h-full bg-green-400" 
-            onMouseEnter={() => brotherHoverHandler("rufus")}
-            onMouseLeave={() => brotherHoverHandler("")}
-          />
-        </div>
-
         {/* IMAGES */}
         <div
           className={`
             w-full h-full relative flex items-center justify-center transition-transform duration-1600
-            ${hoveredBrother === 
+            ${currentBrother === 
               "ignatius" ? "translate-x-[85%] translate-y-[68%] scale-360" :
-              hoveredBrother ===
+              currentBrother ===
               "brutus"   ? "translate-x-[-80%] translate-y-[110%] scale-360" :
-              hoveredBrother ===
+              currentBrother ===
               "aurelius" ? "translate-x-[60%] translate-y-[19%] scale-360" :
-              hoveredBrother ===
+              currentBrother ===
               "rufus"    ? "translate-x-[-62%] translate-y-[-16%] scale-360" :
               "translate-y-[12%] scale-140"
             }
@@ -758,8 +715,8 @@ export default function Ocs() {
           <img
             className={`
               h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
-              ${hoveredBrother === "brutus" ? "saturate-100 brightness-100 scale-105 origin-top-left" :
-                hoveredBrother && hoveredBrother !== "brutus" ? "saturate-50 brightness-70 scale-100" :
+              ${currentBrother === "brutus" ? "saturate-100 brightness-100 scale-105 origin-top-left" :
+                currentBrother && currentBrother !== "brutus" ? "saturate-50 brightness-70 scale-100" :
                 "saturate-100 brightness-100 scale-100"
               }
             `}
@@ -768,8 +725,8 @@ export default function Ocs() {
           <img
             className={`
               h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
-              ${hoveredBrother === "ignatius" ? "saturate-100 brightness-100 scale-105 origin-top-right" :
-                hoveredBrother && hoveredBrother !== "ignatius" ? "saturate-50 brightness-70 scale-100" :
+              ${currentBrother === "ignatius" ? "saturate-100 brightness-100 scale-105 origin-top-right" :
+                currentBrother && currentBrother !== "ignatius" ? "saturate-50 brightness-70 scale-100" :
                 "saturate-100 brightness-100 scale-100"
               }
             `}
@@ -778,8 +735,8 @@ export default function Ocs() {
           <img
             className={`
               h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
-              ${hoveredBrother === "aurelius" ? "saturate-100 brightness-100 scale-110 origin-bottom-right" :
-                hoveredBrother && hoveredBrother !== "aurelius" ? "saturate-50 brightness-70 scale-100" :
+              ${currentBrother === "aurelius" ? "saturate-100 brightness-100 scale-110 origin-bottom-right" :
+                currentBrother && currentBrother !== "aurelius" ? "saturate-50 brightness-70 scale-100" :
                 "saturate-100 brightness-100 scale-100"
               }
             `}
@@ -788,14 +745,93 @@ export default function Ocs() {
           <img
             className={`
               h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
-              ${hoveredBrother === "rufus" ? "saturate-100 brightness-100 scale-110 origin-bottom-left" :
-                hoveredBrother && hoveredBrother !== "rufus" ? "saturate-50 brightness-70 scale-100" :
+              ${currentBrother === "rufus" ? "saturate-100 brightness-100 scale-110 origin-bottom-left" :
+                currentBrother && currentBrother !== "rufus" ? "saturate-50 brightness-70 scale-100" :
                 "saturate-100 brightness-100 scale-100"
               }
             `}
             src="/images/ocs/calvarius-rufus.png"
           />
         </div>
+        
+        {/* BROTHER INFO */}
+        <div className="w-full h-full grid grid-cols-2 absolute">
+          <div className="w-full h-full relative" />
+          
+          <div
+            className={`
+              absolute grid h-full w-screen z-20
+              transition-all duration-800 nonsel
+              ${currentBrother === "brutus" ? "grid-cols-[1.75fr_1fr_0.25fr]"
+              : currentBrother === "rufus" ?   "grid-cols-[1.75fr_1fr_0.25fr]"
+              : currentBrother === "ignatius" ?   "grid-cols-[0.25fr_1fr_1.75fr]"
+              : currentBrother === "aurelius" ?  "grid-cols-[0.25fr_1fr_1.75fr]"
+              : "grid-cols-[1fr_1fr_1fr]"
+              }
+            `}
+          >
+            <div />
+            
+            {/* INFO */}
+            <div 
+              className={`
+              flex flex-col relative items-center text-center
+              w-full h-full text-white px-16 py-[15vh]
+              bg-none
+              `}
+            >
+              
+              {/* NAME */}
+              <p className="text-6xl">
+              NAMEE
+              </p>
+
+              {/* TITLE */}
+              <p>
+              TITLE
+              </p>
+              <br />
+
+              {/* INFO */}
+              <p className=""> 
+              INFOOO
+              </p>
+              <br />
+
+              {/* PORTRAITS */}
+              <div
+                className={`
+                  absolute grid left-1/2 transform h-[14%] w-[62%] min-w-80 max-w-full
+                  -translate-x-1/2 bottom-16
+                  border border-black rounded-md overflow-hidden 
+                  transition-all duration-600 grid-cols-[1fr_1fr_1fr_1fr]
+                `}
+              >
+
+                {["ignatius", "aurelius", "rufus", "brutus"].map((brother, index) => (
+                <div
+                  key={index}
+                  className="w-full h-full flex items-center justify-center"
+                >
+                  <img 
+                    src={`/images/ocs/calvarius-pfp-${brother}.png`} 
+                    className="cursor-pointer w-full h-full object-cover"
+                    onClick={() => setCurrentBrother(currentBrother === brother ? "" : brother)}
+                  />
+                </div>
+                ))}
+                
+
+              </div>
+
+            </div>
+
+            <div />
+
+          </div>
+
+        </div>
+
       </div>
 
       {/* QUINCE */}
