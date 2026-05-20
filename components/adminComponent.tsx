@@ -300,6 +300,8 @@ export default function page() {
     "rendered",
     "wip",
     "sketch",
+    "animated",
+    "pixelated",
     "original",
     "friends",
     "fanart",

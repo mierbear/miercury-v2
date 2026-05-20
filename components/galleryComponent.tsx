@@ -59,6 +59,8 @@ export default function GalleryComponent() {
       "rendered", 
       "wip", 
       "sketch", 
+      "animated", 
+      "pixelated", 
     ],
   }
 
@@ -159,11 +161,6 @@ export default function GalleryComponent() {
 
   const toggleTag = (tag: string) => {
     setSelectedTags(prev => {
-      if (styleTags.tags.includes(tag)) {
-        const filtered = prev.filter(t => !styleTags.tags.includes(t))
-        return prev.includes(tag) ? filtered : [...filtered, tag]
-      }
-      
       return prev.includes(tag)
       ? prev.filter(t => t !== tag)
       : [...prev, tag]
@@ -942,7 +939,7 @@ export default function GalleryComponent() {
               
               {/* FIRST COL */}
               <div className="gap-0.5 md:gap-0 flex flex-col flex-1">
-                {tags.slice(0, 3).map(tag => (
+                {tags.slice(0, 2).map(tag => (
                   <div 
                     className={`w-full ${tag.name === tags[tags.length - 1].name && "col-start-2 row-start-1 row-span-3 md:col-start-auto md:row-start-auto md:row-span-1"}`}
                     key={tag.name}  
@@ -1035,7 +1032,7 @@ export default function GalleryComponent() {
               
               {/* 2ND COL */}
               <div className="gap-0.5 md:gap-0 flex flex-col flex-1">
-                {tags.slice(3).map(tag => (
+                {tags.slice(2).map(tag => (
                   <div 
                     className={`w-full ${tag.name === tags[tags.length - 1].name && "col-start-2 row-start-1 row-span-3 md:col-start-auto md:row-start-auto md:row-span-1"}`}
                     key={tag.name}  
