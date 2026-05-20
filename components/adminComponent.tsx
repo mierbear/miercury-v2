@@ -134,7 +134,7 @@ export default function page() {
     editorRef.current!.commands.clearContent();
   }
 
-  const handleDelete = async (id: number) => {
+  const handleBlogPostDelete = async (id: number) => {
 
     const {error} = await supabase.from("posts").delete().eq("id", id);
 
@@ -414,6 +414,20 @@ export default function page() {
   const totalPages = Math.ceil((artworks?.length ?? 0) / perPage);
   const pagedArt = artworks?.slice((page - 1) * perPage, page * perPage);
 
+  const currentAction = useRef<(() => void) | null>(null);
+  const [currentActionDesc, setCurrentActionDesc] = useState<string | null>(null);
+  const [currentActionUrl, setCurrentActionUrl] = useState<string | null>(null);
+  const confirmAction = (action: () => void, desc: string, url?: string) => {
+    currentAction.current = action;
+    setCurrentActionDesc(desc);
+    url ? setCurrentActionUrl(url) : setCurrentActionUrl(null)
+  }
+  const closeAction = () => {
+    currentAction.current = null;
+    setCurrentActionDesc(null);
+    setCurrentActionUrl(null);
+  }
+
 
   return (
     <div className="min-w-screen min-h-screen justify-center align-center items-center flex flex-col text-white z-50 monospace">
@@ -421,6 +435,40 @@ export default function page() {
     {isLoggedIn ?(
 
       <div className="min-h-screen w-5xl align-center items-center flex flex-col nonsel">
+        
+        {/* CONFIRM */}
+        <div 
+          className={`
+          w-screen h-screen fixed bg-black/30 z-100
+          flex items-center justify-center
+          ${currentActionDesc ? "block" : "hidden"}
+          `}
+        >
+          <div className="w-120 h-80 bg-gray-200 text-black flex flex-col items-center justify-center">
+            {currentActionUrl && (
+              <img src={currentActionUrl} className="max-h-40 max-w-full object-contain" />
+            )}
+            <p className="font-bold">{currentActionDesc}</p>
+            <p className="pt-4">are you sure you want to do this?</p>
+            <div className="flex gap-8 text-xl">
+              <p 
+                onClick={() => {
+                  currentAction.current?.()
+                  closeAction();
+                }}
+                className="cursor-pointer"
+                >
+                YES
+              </p>
+              <p 
+                onClick={closeAction}
+                className="cursor-pointer"
+              >
+                NO
+              </p>
+            </div>
+          </div>
+        </div>
 
         {/* HEADER */}
         <div className="h-60 flex flex-col justify-end">
@@ -481,12 +529,12 @@ export default function page() {
                       <p className="text-xs text-neutral-400/60">{post.date}</p>
                     </div>
 
-                    {/* <img
-                      src="/images/trash.svg"
-                      alt="Delete"
-                      className="cursor-pointer max-h-5 linkButton"
-                      onClick={() => {handleDelete(post.id)}}
-                    /> */}
+                    <p
+                      className="text-2xl text-red-600 cursor-pointer"
+                      onClick={() => confirmAction(() => handleBlogPostDelete(post.id), `DELETE "${post.title.slice(0, 10)}..."`)}
+                    >
+                      🞮
+                    </p>
                   </div>
                 );
               })}
@@ -550,10 +598,10 @@ export default function page() {
                       </div>
                       <div className="flex justify-center items-center">
                         <p
-                        className="text-2xl text-red-600 cursor-pointer"
-                        onClick={() => handleLogDelete(log.id)}
+                          className="text-2xl text-red-600 cursor-pointer"
+                          onClick={() => confirmAction(() => handleLogDelete(log.id), `DELETE "${log.log.slice(0, 10)}..."`)}
                         >
-                          🞨
+                          🞮
                         </p>
                       </div>
                     </div>
@@ -609,8 +657,8 @@ export default function page() {
                       <div className="flex justify-between items-center w-full">
                         <p className="font-bold text-lg truncate">{art.title}</p>
                         <p
-                        className="text-2xl text-red-600 cursor-pointer"
-                        onClick={() => handleArtDelete(art.id)}
+                          className="text-2xl text-red-600 cursor-pointer"
+                          onClick={() => confirmAction(() => handleArtDelete(art.id), `DELETE "${art.title}"`, art.url)}
                         >
                           🞮
                         </p>
