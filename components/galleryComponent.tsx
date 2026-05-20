@@ -57,10 +57,10 @@ export default function GalleryComponent() {
     tags:
     [
       "rendered", 
-      "wip", 
       "sketch", 
       "animated", 
       "pixelated", 
+      "wip/unfinished", 
     ],
   }
 

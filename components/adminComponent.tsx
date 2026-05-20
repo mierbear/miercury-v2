@@ -298,10 +298,10 @@ export default function page() {
 
   const tags = [
     "rendered",
-    "wip",
     "sketch",
     "animated",
     "pixelated",
+    "wip/unfinished",
     "original",
     "friends",
     "fanart",
