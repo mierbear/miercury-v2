@@ -576,7 +576,7 @@ const NavMenu = () => {
                     min-h-full object-cover absolute overflow-visible
                     transition-[translate] duration-400
                   `}
-                  style={{ translate: `${mierProgress.current * 15}px` }}
+                  style={{ translate: `${mierProgress.current * 20}px` }}
                 />
 
                 {/* BG */}

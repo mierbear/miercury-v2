@@ -441,7 +441,7 @@ export default function Ocs() {
           <div 
             className={`
               w-full h-full relative transition-colors
-              ${selectedMier ? "bg-black/50 duration-1200" : "bg-[#00000000] duration-200 cursor-pointer"}
+              ${selectedMier ? "bg-black/30 duration-1200" : "bg-[#00000000] duration-200 cursor-pointer"}
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("angel")
@@ -679,7 +679,7 @@ export default function Ocs() {
 
       {/* KANIN */}
       <div className="h-[10vh]" ref={kaninScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#a4bb80] overflow-hidden">
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#32352c] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
 
@@ -695,31 +695,46 @@ export default function Ocs() {
       </div>
       
       {/* CAVARIUS */}
-      <div className="h-[10vh]" ref={calvariusScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#acaaa9] overflow-hidden">
+      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[#32352c] to-[rgb(36,45,60)]" ref={calvariusScrollRef} />
+      <div 
+        className={`
+        w-screen max-w-screen h-[80vh] max-h-[80vh]
+        justify-center align-center items-center
+        flex flex-col relative overflow-hidden
+      bg-[rgb(36,45,60)]
+        `}
+      >
 
         {/* IMAGES */}
         <div
           className={`
             w-full h-full relative flex items-center justify-center transition-transform duration-1600
             ${currentBrother === 
-              "ignatius" ? "translate-x-[85%] translate-y-[68%] scale-360" :
+              "ignatius" ? "translate-x-[80%] translate-y-[71%] scale-360" :
               currentBrother ===
-              "brutus"   ? "translate-x-[-80%] translate-y-[110%] scale-360" :
+              "brutus"   ? "translate-x-[-75%] translate-y-[108%] scale-360" :
               currentBrother ===
               "aurelius" ? "translate-x-[60%] translate-y-[19%] scale-360" :
               currentBrother ===
-              "rufus"    ? "translate-x-[-62%] translate-y-[-16%] scale-360" :
-              "translate-y-[12%] scale-140"
+              "rufus"    ? "translate-x-[-62%] translate-y-[-18%] scale-360" :
+              "translate-y-[16%] scale-140 -rotate-7"
             }
           `}
         >
+          <img 
+            src="/images/ocs/calvarius-bg.jpg"
+            className={`
+              ${currentBrother ? "brightness-80" : "brightness-100"}
+              transition-brightness duration-600 h-full w-auto
+              object-cover absolute scale-120 translate-y-[-5%]
+            `}
+          />
           <img
             className={`
               h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
-              ${currentBrother === "brutus" ? "saturate-100 brightness-100 scale-105 origin-top-left" :
-                currentBrother && currentBrother !== "brutus" ? "saturate-50 brightness-70 scale-100" :
-                "saturate-100 brightness-100 scale-100"
+              ${currentBrother === "brutus" ? "saturate-100 brightness-100 scale-105 origin-top-left blur-[0px]" :
+                currentBrother && currentBrother !== "brutus" ? "saturate-50 brightness-70 scale-100 blur-[1px]" :
+                "saturate-100 brightness-100 scale-100 blur-[0px]"
               }
             `}
             src="/images/ocs/calvarius-brutus.png"
@@ -727,9 +742,9 @@ export default function Ocs() {
           <img
             className={`
               h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
-              ${currentBrother === "ignatius" ? "saturate-100 brightness-100 scale-105 origin-top-right" :
-                currentBrother && currentBrother !== "ignatius" ? "saturate-50 brightness-70 scale-100" :
-                "saturate-100 brightness-100 scale-100"
+              ${currentBrother === "ignatius" ? "saturate-100 brightness-100 scale-105 origin-top-right blur-[0px]" :
+                currentBrother && currentBrother !== "ignatius" ? "saturate-50 brightness-70 scale-100 blur-[1px]" :
+                "saturate-100 brightness-100 scale-100 blur-[0px]"
               }
             `}
             src="/images/ocs/calvarius-ignatius.png"
@@ -737,9 +752,9 @@ export default function Ocs() {
           <img
             className={`
               h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
-              ${currentBrother === "aurelius" ? "saturate-100 brightness-100 scale-110 origin-bottom-right" :
-                currentBrother && currentBrother !== "aurelius" ? "saturate-50 brightness-70 scale-100" :
-                "saturate-100 brightness-100 scale-100"
+              ${currentBrother === "aurelius" ? "saturate-100 brightness-100 scale-110 origin-bottom-right blur-[0px]" :
+                currentBrother && currentBrother !== "aurelius" ? "saturate-50 brightness-70 scale-100 blur-[1px]" :
+                "saturate-100 brightness-100 scale-100 blur-[0px]"
               }
             `}
             src="/images/ocs/calvarius-aurelius.png"
@@ -747,9 +762,9 @@ export default function Ocs() {
           <img
             className={`
               h-full w-auto max-w-none absolute nonsel pointer-events-none transition-all duration-1600
-              ${currentBrother === "rufus" ? "saturate-100 brightness-100 scale-110 origin-bottom-left" :
-                currentBrother && currentBrother !== "rufus" ? "saturate-50 brightness-70 scale-100" :
-                "saturate-100 brightness-100 scale-100"
+              ${currentBrother === "rufus" ? "saturate-100 brightness-100 scale-110 origin-bottom-left blur-[0px]" :
+                currentBrother && currentBrother !== "rufus" ? "saturate-50 brightness-70 scale-100 blur-[1px]" :
+                "saturate-100 brightness-100 scale-100 blur-[0px]"
               }
             `}
             src="/images/ocs/calvarius-rufus.png"
@@ -778,47 +793,46 @@ export default function Ocs() {
             <div 
               className={`
               flex flex-col relative items-center text-center
-              w-full h-full text-white px-16 py-[15vh]
-              bg-none
+              w-full h-full text-white
+              ${currentBrother ? "bg-black/30 duration-1200 backdrop-blur-[2px]" : "bg-[#00000000] duration-200 backdrop-blur-[0px]"}
               `}
             >
               
-              {/* NAME */}
-              <p className="text-6xl">
-              NAMEE
-              </p>
-
-              {/* TITLE */}
-              <p>
-              TITLE
-              </p>
-              <br />
-
-              {/* INFO */}
-              <p className=""> 
-              INFOOO
-              </p>
-              <br />
+              {currentBrother === "ignatius" && (
+                <OcInfo name="Ignatius" title="The 2nd Son" info="sdfdsfd" hidebg={true} />
+              )}
+              {currentBrother === "aurelius" && (
+                <OcInfo name="Aurelius" title="The 3rd Son" info="sdfdsfd" hidebg={true} />
+              )}
+              {currentBrother === "rufus" && (
+                <OcInfo name="Rufus" title="The 4th Son" info="sdfdsfd" hidebg={true} />
+              )}
+              {currentBrother === "brutus" && (
+                <OcInfo name="Brutus" title="The 1st Son" info="sdfdsfd" hidebg={true} />
+              )}
 
               {/* PORTRAITS */}
               <div
                 className={`
-                  absolute grid left-1/2 transform h-[14%] w-[62%] min-w-80 max-w-full
-                  -translate-x-1/2 bottom-16
+                  absolute grid left-1/2 transform h-25 w-auto
+                  -translate-x-1/2 bottom-4 z-40
                   border border-black rounded-md overflow-hidden 
-                  transition-all duration-600 grid-cols-[1fr_1fr_1fr_1fr]
+                  transition-all duration-600 grid-cols-4
                 `}
               >
 
                 {["ignatius", "aurelius", "rufus", "brutus"].map((brother, index) => (
                 <div
                   key={index}
-                  className="w-full h-full flex items-center justify-center cursor-pointer"
+                  className="w-full h-full flex items-center justify-center cursor-pointer overflow-hidden"
                   onClick={() => setCurrentBrother(currentBrother === brother ? "" : brother)}
                 >
                   <img 
                     src={`/images/ocs/calvarius-pfp-${brother}.png`} 
-                    className="w-full h-full object-cover nonsel pointer-events-none"
+                    className={`
+                      w-full h-full object-cover nonsel pointer-events-none
+                      transition-scale duration-300 scale-120
+                    `}
                   />
                 </div>
                 ))}
@@ -837,12 +851,12 @@ export default function Ocs() {
       </div>
 
       {/* QUINCE */}
-      <div className="h-[10vh]" ref={quinceScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-row relative  overflow-hidden">
+      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[rgb(36,45,60)] to-[rgb(24,28,25)]" ref={quinceScrollRef} />
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-row relative bg-[rgb(24,28,25)] overflow-hidden">
 
-        <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr] bg-[rgb(44,47,45)]">
+        <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
 
-          <div className="w-full h-full relative col-span-2 flex items-center justify-center bg-linear-to-r from-[rgb(31,32,33)] via-[rgb(44,47,45)] to-[rgb(44,47,45)]">
+          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
             <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
             <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
             <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
@@ -857,7 +871,7 @@ export default function Ocs() {
       </div>
 
       {/* SIMEON */}
-      <div className="h-[10vh]" ref={simeonScrollRef} />
+      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[rgb(24,28,25)] to-[rgb(28,37,44)]" ref={simeonScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(28,37,44)] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr]">
@@ -874,8 +888,8 @@ export default function Ocs() {
       </div>
 
       {/* PIO */}
-      <div className="h-[10vh]" ref={pioScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#413f3d] overflow-hidden">
+      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[rgb(28,37,44)] to-[rgb(56,54,49)]" ref={pioScrollRef} />
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(56,54,49)] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
 
@@ -891,7 +905,7 @@ export default function Ocs() {
       </div>
 
       <div className="h-[10vh] flex flex-col">
-        <div className="h-full" />
+        <div className="h-full brightness-70 saturate-70 bg-linear-to-b from-[rgb(56,54,49)] to-[#101113]/50" />
         <Footer />
       </div>
 
