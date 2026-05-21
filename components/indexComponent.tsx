@@ -677,7 +677,7 @@ export default function Home() {
                 flex flex-col flex-100
                 transition-flex duration-1000 nonsel 
                 justify-center items-center relative 
-                cursor-pointer w-full lg:px-4 overflow-hidden
+                w-full lg:px-4 overflow-hidden
                 max-h-160 min-h-160 order-2 md:order-4
                 `}
                 onMouseEnter={() => setArtHover(true)}
@@ -716,7 +716,7 @@ export default function Home() {
                 <div 
                   className={`
                   flex items-center overflow-hidden
-                  absolute top-0 w-full lg:px-4
+                  absolute top-0 w-full lg:px-4 nonsel pointer-events-none
                   `}
                 >
                   <Marquee
@@ -737,7 +737,7 @@ export default function Home() {
                 <div 
                   className={`
                   flex items-center overflow-hidden
-                  absolute bottom-0 w-full lg:px-4
+                  absolute bottom-0 w-full lg:px-4 nonsel pointer-events-none
                   `}
                 >
                   <Marquee
@@ -1147,10 +1147,10 @@ export default function Home() {
                 autoFill={true}
                 className="text-xs sm:text-sm md:text-md flex text-white nonsel"
               >
-                <NextLink href="/quotes" className={`${sono.className}`}>
+                <p className={`${sono.className}`}>
                   <span className="inline-flex backwards-spin items-center justify-center">✦</span>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{getQuote(quotes)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                </NextLink>
+                </p>
               </Marquee>
             </div>
 
