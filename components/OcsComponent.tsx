@@ -680,13 +680,15 @@ export default function Ocs() {
       {/* KANIN */}
       <div className="h-[10vh]" ref={kaninScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#a4bb80] overflow-hidden">
-        
-        <div className="w-full h-full grid grid-cols-2">
-          <div className="w-full h-full relative">
-            <img src="/images/ocs/kanin.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-10%]" />
+
+        <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
+
+          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+            <img src="/images/ocs/kanin.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
           </div>
           
           <OcInfo name="Kanin" title="The Gatekeeper" info="sfsd" />
+          <div />
 
         </div>
 
@@ -837,37 +839,34 @@ export default function Ocs() {
       {/* QUINCE */}
       <div className="h-[10vh]" ref={quinceScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-row relative  overflow-hidden">
-        
-        <div className="w-[70%] h-full flex justify-end bg-[rgb(31,32,33)]">
-          <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto" />
-          <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto" />
-          <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto" />
-          <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto" />
-        </div>
 
-        <div className="w-[30%] h-full flex bg-[rgb(44,47,45)]">
-          
-        </div>
+        <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr] bg-[rgb(44,47,45)]">
 
-        <div className="w-full h-full grid grid-cols-2 absolute">
-          <div className="w-full h-full relative" />
+          <div className="w-full h-full relative col-span-2 flex items-center justify-center bg-linear-to-r from-[rgb(31,32,33)] via-[rgb(44,47,45)] to-[rgb(44,47,45)]">
+            <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
+            <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
+            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
+            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
+          </div>
           
           <OcInfo name="Quince" title="The Flower Deliver Boy" info="Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad." />
-          
+          <div />
+
         </div>
 
       </div>
 
       {/* SIMEON */}
       <div className="h-[10vh]" ref={simeonScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#303a8d] overflow-hidden">
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(28,37,44)] overflow-hidden">
 
-        <div className="w-full h-full grid grid-cols-2">
+        <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr]">
           
+          <div />
           <OcInfo name="Simeon" title="The Sunken One" info="In a twist of fate, he embarks on a journey to the depths in search of his brother amongst the crowd of souls in the sea." />
 
-          <div className="w-full h-full relative">
-            <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none left-[-25%]" />
+          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+            <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none" />
           </div>
           
         </div>
@@ -878,13 +877,15 @@ export default function Ocs() {
       <div className="h-[10vh]" ref={pioScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#413f3d] overflow-hidden">
 
-        <div className="w-full h-full grid grid-cols-2">
-          <div className="w-full h-full relative">
-            <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none right-[-25%]" />
+        <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
+
+          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+            <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none" />
           </div>
           
           <OcInfo name="Pio" title="The Deaf Hermit" info="Outcasted by everyone, he finds solace and friendship with his metallic friend." />
-          
+          <div />
+
         </div>
 
       </div>
