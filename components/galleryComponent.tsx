@@ -101,7 +101,7 @@ export default function GalleryComponent() {
       "simeons descent",
       "pio",
       "pp",
-      "mier",
+      "miercury",
     ],
   }
 

@@ -314,7 +314,7 @@ export default function page() {
     "simeons descent",
     "pio",
     "pp",
-    "mier"
+    "miercury"
   ];
 
   const artSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
