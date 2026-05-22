@@ -130,17 +130,43 @@ export default function Ocs() {
   const pioScrollRef    = useRef<HTMLDivElement | null>(null)
 
   const characters = [
-    {name: "mier",   ref: mierScrollRef   },
-    {name: "kanin",  ref: kaninScrollRef  },
-    {name: "skulls", ref: calvariusScrollRef  },
-    {name: "quince", ref: quinceScrollRef },
-    {name: "simeon", ref: simeonScrollRef },
-    {name: "pio",    ref: pioScrollRef    }
+    {name: "mier",      ref: mierScrollRef      },
+    {name: "kanin",     ref: kaninScrollRef     },
+    {name: "calvarius", ref: calvariusScrollRef },
+    {name: "quince",    ref: quinceScrollRef    },
+    {name: "simeon",    ref: simeonScrollRef    },
+    {name: "pio",       ref: pioScrollRef       }
   ]
 
   const scrollToHandler = (ref: React.RefObject<HTMLDivElement | null>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }
+
+  const [currentOc, setCurrentOc] = useState<string>("mier");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolledPercentage = window.scrollY / scrollableHeight * 100;
+
+      if (scrolledPercentage < 16.67) {
+        setCurrentOc(`mier`);
+      } else if (scrolledPercentage < 33.33) {
+        setCurrentOc(`kanin`);
+      } else if (scrolledPercentage < 50) {
+        setCurrentOc(`calvarius`);
+      } else if (scrolledPercentage < 66.67) {
+        setCurrentOc(`quince`);
+      } else if (scrolledPercentage < 83.33) {
+        setCurrentOc(`simeon`);
+      } else {
+        setCurrentOc(`pio`);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
@@ -218,18 +244,31 @@ export default function Ocs() {
       </div>
 
       {/* NAV */}
-      <div className="fixed right-4 top-1/2 -translate-y-1/2 z-543 text-white meow p-4 gap-2 flex flex-col items-center bg-white/20 nonsel">
+      <div 
+        className={`
+          fixed right-4 top-1/2 -translate-y-1/2 z-543 text-white
+          meow px-3 py-6 gap-2 flex flex-col items-center bg-white/20 nonsel
+        `}
+      >
         {characters.map((character, index) => (
-          <p
+          <div
             key={index}
             className="cursor-pointer"
             onClick={() => scrollToHandler(character.ref)}
           >
-            {character.name}
-          </p>
+            <img
+              src={`/images/ocs/icon-${character.name}.png`}
+              className={`
+                aspect-square w-15 h-15 scale-110
+                transition-all duration-300 nonsel
+                pointer-events-none
+                ${currentOc === character.name ? "saturate-100 brightness-100 scale-120" : "saturate-50 brightness-50 scale-100"}
+              `}
+            />
+          </div>
         ))}
         <p 
-          className="w-8 h-8 bg-black rounded-full flex items-center justify-center cursor-pointer"
+          className="w-10 h-10 mt-4 bg-black rounded-full flex items-center justify-center cursor-pointer"
           onClick={() => setOpenInfo(true)}
         >
           ?
@@ -856,7 +895,7 @@ export default function Ocs() {
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
 
-          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+          <div className="w-full h-full relative col-span-2 flex items-center justify-center overflow-visible">
             <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
             <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
             <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />

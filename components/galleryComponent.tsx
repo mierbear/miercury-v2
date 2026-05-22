@@ -34,8 +34,7 @@ const kosugi = Kosugi_Maru({
 
 export default function GalleryComponent() {
 
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  
+  const [selectedTags, setSelectedTags] = useState<string[]>(["rendered"]);
   const [styleOpen, setStyleOpen] = useState(true)
   const [characterOpen, setCharacterOpen] = useState(true)
   const [categoryOpen, setCategoryOpen] = useState(true)
