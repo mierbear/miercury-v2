@@ -5,7 +5,7 @@ export default function Info({ name, title, info, hidebg }: { name: string, titl
   return (
     <div className="w-full h-full z-20">
       
-      <div className={`flex flex-col items-center text-center w-full h-full ${hidebg || "bg-black/30"} text-white px-16 py-[15vh] nonsel pointer-events-none`}>
+      <div className={`flex relative flex-col items-center text-center w-full h-full ${hidebg || "bg-black/30"} text-white px-16 py-[15vh] nonsel pointer-events-none`}>
         
         {/* NAME */}
         <p className="text-6xl">
@@ -23,6 +23,11 @@ export default function Info({ name, title, info, hidebg }: { name: string, titl
         {info}
         </p>
         <br />
+
+        <img 
+          className="absolute bottom-0 opacity-50"
+          src={`/images/ocs/${name.toLowerCase()}-alt.png`}
+        />
 
       </div>
 

@@ -246,8 +246,8 @@ export default function Ocs() {
       {/* NAV */}
       <div 
         className={`
-          fixed right-4 top-1/2 -translate-y-1/2 z-543 text-white
-          meow px-3 py-6 gap-2 flex flex-col items-center bg-white/20 nonsel
+          fixed right-4 top-1/2 -translate-y-1/2 z-543 text-white rounded-full
+          meow px-3 py-6 gap-2 flex flex-col items-center bg-black/20 nonsel
         `}
       >
         {characters.map((character, index) => (
