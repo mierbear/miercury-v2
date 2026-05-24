@@ -477,6 +477,32 @@ export default function GalleryComponent() {
     openLightBox(randomIndex)
   }
 
+  const getPages = () => {
+    const pages: (number | "...")[] = [];
+    
+    if (totalPages <= 7) {
+      return Array.from({ length: totalPages }, (_, i) => i + 1);
+    }
+
+    pages.push(1);
+    
+    if (currentPage > 4) {
+      pages.push("...");
+    }
+
+    for (let i = Math.max(2, currentPage - 2); i <= Math.min(totalPages - 1, currentPage + 2); i++) {
+      pages.push(i);
+    }
+    
+    if (currentPage < totalPages - 3) {
+      pages.push("...");
+    }
+
+    pages.push(totalPages);
+    
+    return pages;
+  };
+
   const [ready, setReady] = useState(false);
   useEffect(() => {
     setReady(true);
@@ -1230,24 +1256,26 @@ export default function GalleryComponent() {
           min-[1152px]:border-x py-6
           `}
         >
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => (
-            <button
-              key={pageNum}
-              onClick={() => setCurrentPage(pageNum)}
-              className={`
-                cursor-pointer border
-                ${currentPage === pageNum
-                  ? "bg-yellow-200 text-yellow-900 border-yellow-700/50 font-semibold"
-                  : "bg-white text-gray-500 border-gray-200 hover:bg-yellow-100 hover:text-yellow-800 hover:border-yellow-500/40"
-                }
-                ${kosugi.className}
-                transition-bg duration-300
-                rounded-full aspect-square
-                h-8 w-8
-              `}
-            >
-              {pageNum}
-            </button>
+          {getPages().map((pageNum, i) => (
+            pageNum === "..." ? (
+              <span key={i} className="text-gray-400 px-1">...</span>
+            ) : (
+              <button
+                key={i}
+                onClick={() => setCurrentPage(pageNum)}
+                className={`
+                  cursor-pointer border transition-colors duration-300
+                  rounded-full aspect-square h-8 w-8
+                  ${currentPage === pageNum
+                    ? "bg-yellow-200 text-yellow-900 border-yellow-700/50 font-semibold"
+                    : "bg-white text-gray-500 border-gray-200 hover:bg-yellow-100 hover:text-yellow-800 hover:border-yellow-500/40"
+                  }
+                  ${kosugi.className}
+                `}
+              >
+                {pageNum}
+              </button>
+            )
           ))}
 
           {currentArtworks.length > 0 || (
