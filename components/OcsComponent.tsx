@@ -275,6 +275,20 @@ export default function Ocs() {
         </p>
       </div>
 
+      {/* DECO - TYRANT */}
+      <div
+        className={`
+          fixed h-full w-screen z-5556 transition-opacity nonsel pointer-events-none opacity-0
+          ${selectedMier === "tyrant" ? "duration-100" : "duration-300"}
+        `}
+        ref={bulletHoleRef}
+      >
+        <img 
+          src={`/images/ocs/mier-tyrant-deco.png`}
+          className="h-full w-auto max-w-none nonsel pointer-events-none"
+        />
+      </div>
+
       {/* MIERS */}
       <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={mierScrollRef} />
       <div 
@@ -296,20 +310,6 @@ export default function Ocs() {
         >
           <img 
             src={`/images/ocs/mier-icemage-deco.png`}
-            className="h-full w-auto max-w-none nonsel pointer-events-none"
-          />
-        </div>
-        
-        {/* DECO - TYRANT */}
-        <div
-          className={`
-            fixed h-full w-screen z-5556 transition-opacity nonsel pointer-events-none opacity-0
-            ${selectedMier === "tyrant" ? "duration-100" : "duration-300"}
-          `}
-          ref={bulletHoleRef}
-        >
-          <img 
-            src={`/images/ocs/mier-tyrant-deco.png`}
             className="h-full w-auto max-w-none nonsel pointer-events-none"
           />
         </div>
