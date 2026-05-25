@@ -1,11 +1,18 @@
 "use client"
 
-export default function Info({ name, title, info, hidebg }: { name: string, title: string, info: string, hidebg?: boolean }) {
+export default function Info({ name, title, info, hidebg, list }: { name: string, title: string, info: string, hidebg?: boolean, list?: boolean }) {
 
   return (
     <div className="w-full h-full z-20">
       
-      <div className={`flex relative flex-col items-center text-center w-full h-full ${hidebg || "bg-black/30"} text-white px-16 py-[15vh] nonsel pointer-events-none`}>
+      <div
+        className={`
+          flex relative flex-col items-center text-center
+          text-sm w-full h-full text-white
+          px-16 py-[15vh] nonsel pointer-events-none
+          ${hidebg || "bg-black/60"}
+        `}
+      >
         
         {/* NAME */}
         <p className="text-6xl">
@@ -19,13 +26,26 @@ export default function Info({ name, title, info, hidebg }: { name: string, titl
         <br />
 
         {/* INFO */}
-        <p className=""> 
-        {info}
-        </p>
+        <div> 
+          {list ?
+          (
+            <ul className="list-disc list-inside">
+              {info.split("*").map((item, i, arr) => (
+                <li 
+                  key={i} 
+                  className={`${i === arr.length - 1 ? "font-bold text-xl pt-4" : "py-1"}`}
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          ) : (info)
+          }
+        </div>
         <br />
 
         <img 
-          className="absolute bottom-0 opacity-50"
+          className="absolute bottom-0 opacity-30"
           src={`/images/ocs/${name.toLowerCase()}-alt.png`}
         />
 

@@ -276,7 +276,7 @@ export default function Ocs() {
       </div>
 
       {/* MIERS */}
-      <div className="h-[10vh]" ref={mierScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={mierScrollRef} />
       <div className={`w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#879da7] overflow-hidden transition-colors duration-600`}>
          
         {/* DECO - ICE MAGE */}
@@ -717,7 +717,7 @@ export default function Ocs() {
       </div>
 
       {/* KANIN */}
-      <div className="h-[10vh]" ref={kaninScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={kaninScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(25,27,29)] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
@@ -735,7 +735,7 @@ export default function Ocs() {
       </div>
       
       {/* CAVARIUS */}
-      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,45,60)]" ref={calvariusScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,45,60)]" ref={calvariusScrollRef} />
       <div 
         className={`
         w-screen max-w-screen h-[80vh] max-h-[80vh]
@@ -834,21 +834,69 @@ export default function Ocs() {
               className={`
               flex flex-col relative items-center text-center
               w-full h-full text-white
-              ${currentBrother ? "bg-black/30 duration-1200 backdrop-blur-[2px]" : "bg-[#00000000] duration-200 backdrop-blur-[0px]"}
+              ${currentBrother ? "bg-black/60 duration-1200 backdrop-blur-[2px]" : "bg-[#00000000] duration-200 backdrop-blur-[0px]"}
               `}
             >
               
               {currentBrother === "ignatius" && (
-                <OcInfo name="Ignatius" title="The 2nd Son" info="sdfdsfd" hidebg={true} />
+                <OcInfo 
+                  name="Ignatius"
+                  title="The 2nd Son"
+                  hidebg={true}
+                  list={true}
+                  info="
+                  Primarily fights with a spear, being able to run around nimbly and effectively poke enemies from afar. (balanced)
+                  *The mischief of the group. He likes to playfully tease his younger brothers, angering Rufus and scaring Aurelius. (mostly angering Rufus)
+                  *Very active and hates dull moments. He loves making people laugh and is a bit of an adrenaline junkie.
+                  *Highly respects Brutus and wishes to be someone like him. Deep inside, he doubts if he is capable of it, masking it with his joker personality.
+                  *In the end, he builds his self-worth and now fully believes in himself.
+                  "
+                />
               )}
               {currentBrother === "aurelius" && (
-                <OcInfo name="Aurelius" title="The 3rd Son" info="sdfdsfd" hidebg={true} />
+                <OcInfo 
+                  name="Aurelius"
+                  title="The 3rd Son"
+                  hidebg={true}
+                  list={true}
+                  info="
+                  Primarily fights with a giant hammer that is counter-balanced with the heavy skull on his right shoulder, while being the most effective with using magic attacks (mage / heavy-hitter)
+                  *The heart of the group. Despite the overwhelmingly distressing situation they are in (and being the first to cry), he always sees the bright side of things and always relays it to his brothers
+                  *He is forgiving of wrongdoers and can be a bit naive, which his brothers have to tell him off from time to time.
+                  *In his free time, he is often seen exploring on his own in the woods inspecting insects/creatures.
+                  *In the end, he stands up and faces life head on even if he’s crying.
+                  "
+                />
               )}
               {currentBrother === "rufus" && (
-                <OcInfo name="Rufus" title="The 4th Son" info="sdfdsfd" hidebg={true} />
+                <OcInfo 
+                  name="Rufus"
+                  title="The 4th Son"
+                  hidebg={true}
+                  list={true}
+                  info="
+                  Primarily fights with a sword, while also using the skull on his head to sprint head on towards enemies to ram them with the point. (glass cannon)
+                  *The hothead of the group, he can't control his anger. (lol)
+                  *Despite being the youngest, he is very protective over Aurelius as if he were the older brother.
+                  *Him and Ignatius are very competitive against each other, frequently getting into petty fights, only to make up 5 minutes later.
+                  *In the end, he transmutes his anger and have it no longer dictate his judgement.
+                  "
+                />
               )}
               {currentBrother === "brutus" && (
-                <OcInfo name="Brutus" title="The 1st Son" info="sdfdsfd" hidebg={true} />
+                <OcInfo 
+                  name="Brutus"
+                  title="The 1st Son"
+                  hidebg={true}
+                  list={true}
+                  info="
+                  Primarily fights with a giant greatsword, being able to take many hits while dealing heavy damage with his sword and shove enemies with the three-pointed skull on his left shoulder. (tank)
+                  *The leader and brain of the group, usually scolds Ignatius for misbehaving. (and Rufus for following along)
+                  *At nighttime, he stays awake for as long as he can until he falls asleep, watching over his brothers.
+                  *Discreetly favors Aurelius over the other two. He tries his best to guide him in everything he knows in his knowledge as the oldest brother, rather than in physical capability.
+                  *In the end, he no longer worries and has faith in his brothers capabilities.
+                  "
+                />
               )}
 
               {/* PORTRAITS */}
@@ -891,7 +939,7 @@ export default function Ocs() {
       </div>
 
       {/* QUINCE */}
-      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[rgb(36,45,60)] to-[rgb(24,28,25)]" ref={quinceScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,45,60)] to-[rgb(24,28,25)]" ref={quinceScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-row relative bg-[rgb(24,28,25)] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
@@ -911,7 +959,7 @@ export default function Ocs() {
       </div>
 
       {/* SIMEON */}
-      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[rgb(24,28,25)] to-[rgb(28,37,44)]" ref={simeonScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(24,28,25)] to-[rgb(28,37,44)]" ref={simeonScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(28,37,44)] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr]">
@@ -928,7 +976,7 @@ export default function Ocs() {
       </div>
 
       {/* PIO */}
-      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[rgb(28,37,44)] to-[rgb(56,54,49)]" ref={pioScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(28,37,44)] to-[rgb(56,54,49)]" ref={pioScrollRef} />
       <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(56,54,49)] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
@@ -945,7 +993,7 @@ export default function Ocs() {
       </div>
 
       <div className="h-[10vh] flex flex-col">
-        <div className="h-full brightness-70 saturate-70 bg-linear-to-b from-[rgb(56,54,49)] to-[#101113]/50" />
+        <div className="h-full brightness-40 saturate-70 bg-linear-to-b from-[rgb(56,54,49)] to-[#101113]/50" />
         <Footer />
       </div>
 
