@@ -718,12 +718,13 @@ export default function Ocs() {
 
       {/* KANIN */}
       <div className="h-[10vh]" ref={kaninScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#32352c] overflow-hidden">
+      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(25,27,29)] overflow-hidden">
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
 
           <div className="w-full h-full relative col-span-2 flex items-center justify-center">
-            <img src="/images/ocs/kanin.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
+            <img src="/images/ocs/kanin-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none translate-y-[50%] slowest-spin" />
+            <img src="/images/ocs/kanin-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
           </div>
           
           <OcInfo name="Kanin" title="The Gatekeeper" info="sfsd" />
@@ -734,7 +735,7 @@ export default function Ocs() {
       </div>
       
       {/* CAVARIUS */}
-      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[#32352c] to-[rgb(36,45,60)]" ref={calvariusScrollRef} />
+      <div className="h-[10vh] brightness-70 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,45,60)]" ref={calvariusScrollRef} />
       <div 
         className={`
         w-screen max-w-screen h-[80vh] max-h-[80vh]
@@ -755,7 +756,7 @@ export default function Ocs() {
               currentBrother ===
               "aurelius" ? "translate-x-[60%] translate-y-[19%] scale-360" :
               currentBrother ===
-              "rufus"    ? "translate-x-[-62%] translate-y-[-18%] scale-360" :
+              "rufus"    ? "translate-x-[-62%] translate-y-[-10%] scale-360" :
               "translate-y-[16%] scale-140 -rotate-7"
             }
           `}
