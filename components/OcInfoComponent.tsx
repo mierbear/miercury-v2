@@ -10,7 +10,7 @@ export default function Info({ name, title, info, hidebg, list }: { name: string
           flex relative flex-col items-center text-center
           text-sm w-full h-full text-white
           px-16 py-[15vh] nonsel pointer-events-none
-          ${hidebg || "bg-black/60"}
+          ${hidebg || "bg-[#101113]/50"}
         `}
       >
         

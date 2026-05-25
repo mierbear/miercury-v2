@@ -277,7 +277,15 @@ export default function Ocs() {
 
       {/* MIERS */}
       <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={mierScrollRef} />
-      <div className={`w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[#879da7] overflow-hidden transition-colors duration-600`}>
+      <div 
+        className={`
+          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          justify-center align-center items-center
+          flex flex-col relative bg-[#879da7]
+          overflow-hidden transition-brightness duration-600
+          ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
+        `}
+      >
          
         {/* DECO - ICE MAGE */}
         <div
@@ -480,7 +488,7 @@ export default function Ocs() {
           <div 
             className={`
               w-full h-full relative transition-colors
-              ${selectedMier ? "bg-black/30 duration-1200" : "bg-[#00000000] duration-200 cursor-pointer"}
+              ${selectedMier ? "bg-[#101113]/50 duration-1200" : "bg-[#00000000] duration-200 cursor-pointer"}
             `}
             onMouseEnter={() => {
               if (!selectedMier) setHoveredMier("angel")
@@ -718,11 +726,20 @@ export default function Ocs() {
 
       {/* KANIN */}
       <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={kaninScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(25,27,29)] overflow-hidden">
+      <div
+        className={`
+          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          justify-center align-center items-center
+          flex flex-col relative bg-[rgb(25,27,29)]
+          overflow-hidden transition-brightness duration-600
+          ${currentOc === "kanin" ? "brightness-100" : "brightness-50"}
+        `}
+      >
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
 
           <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+            <img src="/images/stars.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none scale-400 spin spin-slow" />
             <img src="/images/ocs/kanin-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none translate-y-[50%] slowest-spin" />
             <img src="/images/ocs/kanin-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
           </div>
@@ -738,10 +755,11 @@ export default function Ocs() {
       <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,45,60)]" ref={calvariusScrollRef} />
       <div 
         className={`
-        w-screen max-w-screen h-[80vh] max-h-[80vh]
-        justify-center align-center items-center
-        flex flex-col relative overflow-hidden
-      bg-[rgb(36,45,60)]
+          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          justify-center align-center items-center
+          flex flex-col relative bg-[rgb(36,45,60)]
+          overflow-hidden transition-brightness duration-600
+          ${currentOc === "calvarius" ? "brightness-100" : "brightness-50"}
         `}
       >
 
@@ -754,7 +772,7 @@ export default function Ocs() {
               currentBrother ===
               "brutus"   ? "translate-x-[-75%] translate-y-[108%] scale-360" :
               currentBrother ===
-              "aurelius" ? "translate-x-[60%] translate-y-[19%] scale-360" :
+              "aurelius" ? "translate-x-[60%] translate-y-[29%] scale-360" :
               currentBrother ===
               "rufus"    ? "translate-x-[-62%] translate-y-[-10%] scale-360" :
               "translate-y-[16%] scale-140 -rotate-7"
@@ -834,7 +852,7 @@ export default function Ocs() {
               className={`
               flex flex-col relative items-center text-center
               w-full h-full text-white
-              ${currentBrother ? "bg-black/60 duration-1200 backdrop-blur-[2px]" : "bg-[#00000000] duration-200 backdrop-blur-[0px]"}
+              ${currentBrother ? "bg-[#101113]/50 duration-1200 backdrop-blur-[5px]" : "bg-[#00000000] duration-200 backdrop-blur-[0px]"}
               `}
             >
               
@@ -879,7 +897,7 @@ export default function Ocs() {
                   *The hothead of the group, he can't control his anger. (lol)
                   *Despite being the youngest, he is very protective over Aurelius as if he were the older brother.
                   *Him and Ignatius are very competitive against each other, frequently getting into petty fights, only to make up 5 minutes later.
-                  *In the end, he transmutes his anger and have it no longer dictate his judgement.
+                  *In the end, he reigns in his anger and have it no longer dictate his judgement.
                   "
                 />
               )}
@@ -890,7 +908,7 @@ export default function Ocs() {
                   hidebg={true}
                   list={true}
                   info="
-                  Primarily fights with a giant greatsword, being able to take many hits while dealing heavy damage with his sword and shove enemies with the three-pointed skull on his left shoulder. (tank)
+                  Primarily fights with a giant greatsword, being able to take many hits while dealing heavy damage with his sword and ramming through enemies with the three-pointed skull on his left shoulder. (tank)
                   *The leader and brain of the group, usually scolds Ignatius for misbehaving. (and Rufus for following along)
                   *At nighttime, he stays awake for as long as he can until he falls asleep, watching over his brothers.
                   *Discreetly favors Aurelius over the other two. He tries his best to guide him in everything he knows in his knowledge as the oldest brother, rather than in physical capability.
@@ -940,15 +958,23 @@ export default function Ocs() {
 
       {/* QUINCE */}
       <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,45,60)] to-[rgb(24,28,25)]" ref={quinceScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-row relative bg-[rgb(24,28,25)] overflow-hidden">
+      <div 
+        className={`
+          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          justify-center align-center items-center
+          flex flex-row relative bg-[rgb(24,28,25)] 
+          overflow-hidden transition-brightness duration-600
+          ${currentOc === "quince" ? "brightness-100" : "brightness-50"}
+        `}
+      >
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
 
           <div className="w-full h-full relative col-span-2 flex items-center justify-center overflow-visible">
-            <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
+            <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none lurk" />
             <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
-            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
-            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
+            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none figure-breathe-fast" />
+            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none figure-breathe-fast" />
           </div>
           
           <OcInfo name="Quince" title="The Flower Deliver Boy" info="Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad." />
@@ -960,7 +986,15 @@ export default function Ocs() {
 
       {/* SIMEON */}
       <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(24,28,25)] to-[rgb(28,37,44)]" ref={simeonScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(28,37,44)] overflow-hidden">
+      <div 
+        className={`
+          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          justify-center align-center items-center
+          flex flex-col relative bg-[rgb(28,37,44)]
+          overflow-hidden transition-brightness duration-600
+          ${currentOc === "simeon" ? "brightness-100" : "brightness-50"}
+        `}
+      >
 
         <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr]">
           
@@ -977,7 +1011,15 @@ export default function Ocs() {
 
       {/* PIO */}
       <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(28,37,44)] to-[rgb(56,54,49)]" ref={pioScrollRef} />
-      <div className="w-screen max-w-screen h-[80vh] max-h-[80vh] justify-center align-center items-center flex flex-col relative bg-[rgb(56,54,49)] overflow-hidden">
+      <div
+        className={`
+          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          justify-center align-center items-center
+          flex flex-col relative bg-[rgb(56,54,49)]
+          overflow-hidden transition-brightness duration-600
+          ${currentOc === "pio" ? "brightness-100" : "brightness-50"}
+        `}
+      >
 
         <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
 

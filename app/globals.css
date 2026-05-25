@@ -893,3 +893,85 @@ div[data-youtube-video] iframe {
     filter: drop-shadow(0px 0px 15px #FFFFFF);
   }
 }
+
+.lurk {
+  animation: lurk infinite ease-in-out 0.1s;
+}
+
+@keyframes lurk {
+  0% {
+    translate: 0px 0px;
+  }
+
+  10% {
+    translate: -3px 2px;
+  }
+
+  20% {
+    translate: 2px -1px;
+  }
+
+  25% {
+    translate: -1px 3px;
+  }
+
+  30% {
+    translate: 4px -2px;
+  }
+
+  35% {
+    translate: -2px 1px;
+  }
+
+  40% {
+    translate: 1px 4px;
+  }
+
+  50% {
+    translate: -4px -3px;
+  }
+
+  55% {
+    translate: 3px 2px;
+  }
+
+  60% {
+    translate: -1px -4px;
+  }
+
+  70% {
+    translate: 5px 1px;
+  }
+
+  73% {
+    translate: -3px -2px;
+  }
+
+  75% {
+    translate: 2px 3px;
+  }
+
+  77% {
+    translate: -5px 1px;
+  }
+
+  80% {
+    translate: 3px -3px;
+  }
+
+  85% {
+    translate: -2px 4px;
+  }
+
+  90% {
+    translate: 4px -1px;
+  }
+
+  95% {
+    translate: -3px 2px;
+  }
+
+  100% {
+    translate: 0px 0px;
+  }
+}
