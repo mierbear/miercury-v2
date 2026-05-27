@@ -146,25 +146,26 @@ export default function Ocs() {
 
   useEffect(() => {
     const handleScroll = () => {
-      const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const scrolledPercentage = window.scrollY / scrollableHeight * 100;
+      const scrollY = window.scrollY + window.innerHeight / 2;
 
-      if (scrolledPercentage < 16.67) {
-        setCurrentOc(`mier`);
-      } else if (scrolledPercentage < 33.33) {
-        setCurrentOc(`kanin`);
-      } else if (scrolledPercentage < 50) {
-        setCurrentOc(`calvarius`);
-      } else if (scrolledPercentage < 66.67) {
-        setCurrentOc(`quince`);
-      } else if (scrolledPercentage < 83.33) {
-        setCurrentOc(`simeon`);
+      if (pioScrollRef.current && scrollY >= pioScrollRef.current.offsetTop) {
+        setCurrentOc("pio");
+      } else if (simeonScrollRef.current && scrollY >= simeonScrollRef.current.offsetTop) {
+        setCurrentOc("simeon");
+      } else if (quinceScrollRef.current && scrollY >= quinceScrollRef.current.offsetTop) {
+        setCurrentOc("quince");
+      } else if (calvariusScrollRef.current && scrollY >= calvariusScrollRef.current.offsetTop) {
+        setCurrentOc("calvarius");
+      } else if (kaninScrollRef.current && scrollY >= kaninScrollRef.current.offsetTop) {
+        setCurrentOc("kanin");
       } else {
-        setCurrentOc(`pio`);
+        setCurrentOc("mier");
       }
     };
 
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
