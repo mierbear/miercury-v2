@@ -217,13 +217,13 @@ export default function Ocs() {
           
           {/* TEXT */}
           <div className="p-12">
-            <p className="text-3xl">why many miers??</p>
+            <p className="text-3xl underline">why many miers??</p>
             <br />
-            <p>because i have</p>
-            <p className="text-5xl slow-breathe">same hair syndrome u_u</p>
+            <p>because i have..</p>
+            <p className="text-5xl font-bold  slow-breathe">same hair syndrome u_u</p>
             <br />
             <br />
-            <p>
+            <p className="text-justify">
               it started as me drawing mier with different hair/eye colors for fun, and then drawing him with black hair since it was easier to just fill in the hair to render it quickly, then so on.
             <br />
             <br />
