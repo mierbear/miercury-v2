@@ -684,12 +684,30 @@ div[data-youtube-video] iframe {
   }
 }
 
+@keyframes subtle-breathe {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 .breathe {
   animation: breathe 1s ease-in-out infinite;
 }
 
 .slow-breathe {
   animation: breathe 3s ease-in-out infinite;
+}
+
+.subtle-breathe {
+  animation: subtle-breathe 3s ease-in-out infinite;
 }
 
 .active-tab {
@@ -720,6 +738,24 @@ div[data-youtube-video] iframe {
 
 .figure-breathe-slow {
   animation: figure-breathe 6s ease-in-out infinite;
+}
+
+@keyframes panic {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(6px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.panic {
+  animation: panic 1.7s ease-in-out infinite;
 }
 
 .yarl__root {

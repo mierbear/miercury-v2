@@ -162,6 +162,13 @@ export default function Ocs() {
     currentBrother === "aurelius" ? "bg-[rgba(26,32,36,0.6)]" :
     currentBrother === "rufus"    ? "bg-[rgba(25,29,22,0.6)]" :
     "rgba(16,17,19,0.6)"
+    
+  const brotherColors = {
+    brutus:   "rgb(114,129,206)",
+    ignatius: "rgb(212,174,113)",
+    aurelius: "rgb(132,191,210)",
+    rufus:    "rgb(157,206,114)"
+  }
 
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
@@ -920,24 +927,31 @@ export default function Ocs() {
               {/* PORTRAITS */}
               <div
                 className={`
-                  absolute grid left-1/2 transform h-25 w-auto
-                  -translate-x-1/2 bottom-4 z-40
-                  border border-black rounded-md overflow-hidden 
+                  absolute grid bottom-4 z-40 gap-2 w-[60%]
                   transition-all duration-600 grid-cols-4
+                  ${currentBrother || "subtle-breathe"}
                 `}
               >
 
                 {["ignatius", "aurelius", "rufus", "brutus"].map((brother, index) => (
                 <div
                   key={index}
-                  className="w-full h-full flex items-center justify-center cursor-pointer overflow-hidden"
+                  className={`
+                    w-full h-full flex items-center justify-center cursor-pointer shadow-2xl
+                    overflow-hidden border-3 rounded-full duration-300 hover:scale-105
+                    ${currentBrother === brother ? "scale-105 saturate-140 border-5" 
+                    : currentBrother && currentBrother !== brother ? "scale-95 hover:saturate-100 saturate-20" 
+                    : "saturate-100"}
+                    `}
                   onClick={() => setCurrentBrother(currentBrother === brother ? "" : brother)}
+                  style={{ borderColor: brotherColors[brother as keyof typeof brotherColors] }}
                 >
                   <img 
                     src={`/images/ocs/calvarius-pfp-${brother}.png`} 
                     className={`
                       w-full h-full object-cover nonsel pointer-events-none
-                      transition-scale duration-300 scale-120
+                      transition-scale duration-300
+                      ${currentBrother === brother ? "scale-120" : "scale-110"}
                     `}
                   />
                 </div>
@@ -976,8 +990,8 @@ export default function Ocs() {
           <div className="w-full h-full relative col-span-2 flex items-center justify-center overflow-visible">
             <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none lurk" />
             <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
-            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none figure-breathe-fast" />
-            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none figure-breathe-fast" />
+            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none panic" />
+            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none panic" />
           </div>
           
           <OcInfo
