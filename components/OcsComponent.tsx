@@ -69,25 +69,12 @@ export default function Ocs() {
 
     if (selectedMier === mierType) {
       setSelectedMier("")
-    } else if (mierType === "icemage" && selectedMier === "tyrant") {
-      setSelectedMier(mierType)
-      mierAngelRef.current.style.opacity = "0";
-      setTimeout(() => {
-        mierAngelRef.current!.style.opacity = "1";
-      }, 1200);
-    } else if (mierType === "tyrant" && selectedMier === "icemage") {
-      setSelectedMier(mierType)
-      mierAngelRef.current.style.opacity = "0";
-      setTimeout(() => {
-        mierAngelRef.current!.style.opacity = "1";
-      }, 1200);
-    } else if (selectedMier === "angel" && mierType) {
-      setSelectedMier(mierType)
-      mierAngelRef.current.style.opacity = "0";
-      setTimeout(() => {
-        mierAngelRef.current!.style.opacity = "1";
-      }, 1200);
-    } else if (mierType === "angel" && selectedMier) {
+    } else if (
+        mierType === "icemage" && selectedMier === "tyrant" ||
+        mierType === "tyrant" && selectedMier === "icemage" ||
+        mierType === "angel" && selectedMier ||
+        selectedMier === "angel" && mierType
+      ) {
       setSelectedMier(mierType)
       mierAngelRef.current.style.opacity = "0";
       setTimeout(() => {
@@ -846,7 +833,10 @@ export default function Ocs() {
               }
             `}
           >
-            <div />
+            <div 
+              className={`${currentBrother ? "cursor-pointer" : "pointer-events-none"}`}
+              onClick={() => setCurrentBrother("")}
+            />
             
             {/* INFO */}
             <div 
@@ -949,7 +939,10 @@ export default function Ocs() {
 
             </div>
 
-            <div />
+            <div 
+              className={`${currentBrother ? "cursor-pointer" : "pointer-events-none"}`}
+              onClick={() => setCurrentBrother("")}
+            />
 
           </div>
 
