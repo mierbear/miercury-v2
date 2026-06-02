@@ -156,6 +156,13 @@ export default function Ocs() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const brotherBg =
+    currentBrother === "brutus"   ? "bg-[rgba(15,16,20,0.6)]" :
+    currentBrother === "ignatius" ? "bg-[rgba(29,25,21,0.6)]" :
+    currentBrother === "aurelius" ? "bg-[rgba(26,32,36,0.6)]" :
+    currentBrother === "rufus"    ? "bg-[rgba(25,29,22,0.6)]" :
+    "rgba(16,17,19,0.6)"
+
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
       
@@ -843,7 +850,9 @@ export default function Ocs() {
               className={`
               flex flex-col relative items-center text-center
               w-full h-full text-white
-              ${currentBrother ? "bg-[#101113]/50 duration-1200 backdrop-blur-[5px]" : "bg-[#00000000] duration-200 backdrop-blur-[0px]"}
+              ${currentBrother 
+                ? `${brotherBg} duration-600 backdrop-blur-[5px]` 
+                : "bg-[#00000000] duration-200 backdrop-blur-[0px]"}
               `}
             >
               
@@ -971,7 +980,12 @@ export default function Ocs() {
             <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none figure-breathe-fast" />
           </div>
           
-          <OcInfo name="Quince" title="The Flower Deliver Boy" info="Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad." />
+          <OcInfo
+            name="Quince"
+            title="The Flower Deliver Boy" 
+            info="Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad." 
+            bg="rgba(13,16,15,0.6)"
+          />
           <div />
 
         </div>
@@ -993,7 +1007,12 @@ export default function Ocs() {
         <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr]">
           
           <div />
-          <OcInfo name="Simeon" title="The Sunken One" info="In a twist of fate, he embarks on a journey to the depths in search of his brother amongst the crowd of souls in the sea." />
+          <OcInfo 
+            name="Simeon"
+            title="The Sunken One" 
+            info="In a twist of fate, he embarks on a journey to the depths in search of his brother amongst the crowd of souls in the sea." 
+            bg="rgba(12,16,20,0.6)"
+          />
 
           <div className="w-full h-full relative col-span-2 flex items-center justify-center">
             <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none" />
@@ -1021,7 +1040,7 @@ export default function Ocs() {
             <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none" />
           </div>
           
-          <OcInfo name="Pio" title="The Deaf Hermit" info="Outcasted by everyone, he finds solace and friendship with his metallic friend." />
+          <OcInfo name="Pio" title="The Deaf Hermit" info="Outcasted by everyone, he finds solace and friendship with his metallic friend.*(currently my least worked on story, might fully redesign them in the future)" />
           <div />
 
         </div>

@@ -1,6 +1,6 @@
 "use client"
 
-export default function Info({ name, title, info, hidebg, list }: { name: string, title: string, info: string, hidebg?: boolean, list?: boolean }) {
+export default function Info({ name, title, info, bg, hidebg, list }: { name: string, title: string, info: string, bg?: string, hidebg?: boolean, list?: boolean }) {
 
   return (
     <div className="w-full h-full z-20">
@@ -10,8 +10,8 @@ export default function Info({ name, title, info, hidebg, list }: { name: string
           flex relative flex-col items-center text-center
           text-sm w-full h-full text-white
           px-16 py-[15vh] nonsel pointer-events-none
-          ${hidebg || "bg-[#101113]/50"}
         `}
+        style={{ backgroundColor: hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.6)" }}
       >
         
         {/* NAME */}
@@ -39,7 +39,15 @@ export default function Info({ name, title, info, hidebg, list }: { name: string
                 </li>
               ))}
             </ul>
-          ) : (info)
+          ) : (
+            info.split("*").map((item, i) => (
+              <p 
+                key={i} 
+                className="pb-2"
+              >
+                {item}
+              </p>
+            )))
           }
         </div>
         <br />
