@@ -736,7 +736,10 @@ export default function Ocs() {
                     : currentBrother && currentBrother !== brother ? "scale-95 hover:saturate-100 saturate-20" 
                     : "saturate-100"}
                     `}
-                  onClick={() => setCurrentBrother(currentBrother === brother ? "" : brother)}
+                  onClick={() => {
+                    setCurrentBrother(currentBrother === brother ? "" : brother);
+                    if (!currentBrother || currentBrother !== brother) calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
+                  }}
                   style={{ borderColor: brotherColors[brother as keyof typeof brotherColors] }}
                 >
                   <img 
