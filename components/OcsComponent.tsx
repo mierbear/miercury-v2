@@ -126,9 +126,26 @@ export default function Ocs() {
   const [openWhy, setOpenWhy] = useState(false);
 
   const selectMier = (mier: string) => {
-    blockHandler(1200)
     setHoveredMier("");
     setSelectedMier(mier);
+
+     if (mier === "tyrant" && selectedMier !== "tyrant") {
+      blockHandler(1400);
+
+      setTimeout(() => {
+        akReadyFX()
+      }, 100);
+
+      setTimeout(() => {
+        mierShoot()
+      }, 1000);
+
+    } else {
+      blockHandler(1200);
+      bulletHoleRef.current!.style.opacity = "0"
+      flashRef.current!.style.opacity = "0"
+    }
+
   }
 
   return (
@@ -369,7 +386,7 @@ export default function Ocs() {
              src={`/images/ocs/mier-tyrant-bg.png`}
             />
             <img 
-              src={`/images/ocs/mier-intro-tyrant.png`} 
+              src={`/images/ocs/mier-intro-tyrant.png`}
               className={`
                 absolute object-cover h-full nonsel pointer-events-none
                 transition-transform duration-1000
@@ -394,6 +411,15 @@ export default function Ocs() {
               <div className="w-full h-full relative col-span-2 flex items-center justify-center">
                 <img
                   src="/images/ocs/mier-tyrant.png"
+                  ref={mierTyrantRef}
+                  className={`
+                    h-full w-auto max-w-none absolute transition-transform
+                    ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
+                  `}
+                />
+                <img
+                  src="/images/ocs/mier-tyrant-flash.png"
+                  ref={flashRef}
                   className={`
                     h-full w-auto max-w-none absolute transition-transform
                     ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
