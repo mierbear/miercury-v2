@@ -61,16 +61,10 @@ export default function Ocs() {
       } else {
         setCurrentOc("mier");
       }
-
-      if (kaninScrollRef.current && scrollY >= kaninScrollRef.current.offsetTop) {
-        setSelectedMier("")
-      }
-
     };
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -172,8 +166,13 @@ export default function Ocs() {
         behavior: "smooth",
       });
     }
-
   }
+
+  useEffect(() => {
+    if (currentOc !== "mier" && selectedMier === "angel") {
+      setSelectedMier("");
+    }
+  }, [currentOc, selectedMier]);
 
   const clearTyrantDeco = () => {
     bulletHoleRef.current!.style.opacity = "0"
