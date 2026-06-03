@@ -57,7 +57,7 @@ const Footer = () => {
 
   const routes = [
   { bg: "bg-[#101113]/50", text: "blue",   href: "/" },
-  { bg: "bg-[#101113]/90", text: "blue",   href: "/characters" },
+  { bg: "bg-[#101113]",    text: "blue",   href: "/characters" },
   { bg: "bg-[#101113]/90", text: "blue",   href: "/mtwim" },
   { bg: "bg-[#101113]/90", text: "blue",   href: "/games" },
   { bg: "bg-[#101113]/90", text: "yellow", href: "/gallery" },

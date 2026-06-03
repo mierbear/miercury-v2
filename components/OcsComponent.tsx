@@ -22,12 +22,12 @@ export default function Ocs() {
   const [currentBrother, setCurrentBrother] = useState("");
 
   // SCROLL FUNCTIONS
-  const mierScrollRef   = useRef<HTMLDivElement | null>(null)
-  const kaninScrollRef  = useRef<HTMLDivElement | null>(null)
+  const mierScrollRef       = useRef<HTMLDivElement | null>(null)
+  const kaninScrollRef      = useRef<HTMLDivElement | null>(null)
   const calvariusScrollRef  = useRef<HTMLDivElement | null>(null)
-  const quinceScrollRef = useRef<HTMLDivElement | null>(null)
-  const simeonScrollRef = useRef<HTMLDivElement | null>(null)
-  const pioScrollRef    = useRef<HTMLDivElement | null>(null)
+  const quinceScrollRef     = useRef<HTMLDivElement | null>(null)
+  const simeonScrollRef     = useRef<HTMLDivElement | null>(null)
+  const pioScrollRef        = useRef<HTMLDivElement | null>(null)
 
   const characters = [
     {name: "mier",      ref: mierScrollRef      },
@@ -61,6 +61,11 @@ export default function Ocs() {
       } else {
         setCurrentOc("mier");
       }
+
+      if (kaninScrollRef.current && scrollY >= kaninScrollRef.current.offsetTop) {
+        setSelectedMier("")
+      }
+
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -141,11 +146,22 @@ export default function Ocs() {
       }, 1000);
 
     } else {
+      clearTyrantDeco();
       blockHandler(1200);
-      bulletHoleRef.current!.style.opacity = "0"
-      flashRef.current!.style.opacity = "0"
     }
 
+    if (!selectedMier) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+
+  }
+
+  const clearTyrantDeco = () => {
+    bulletHoleRef.current!.style.opacity = "0"
+    flashRef.current!.style.opacity = "0"
   }
 
   return (
@@ -270,6 +286,24 @@ export default function Ocs() {
         />
       </div>
 
+      {/* ANGEL SELECT */}
+      <div 
+        className={`
+          flex items-center justify-center scale-120
+          w-screen h-screen z-200 fixed nonsel pointer-events-none
+          transition-brightness duration-600
+          ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
+        `}
+      >
+        <img
+          src="/images/ocs/mier-angel.png"
+          className={`
+            transition-transform ease-in-out
+            ${selectedMier === "angel" ? "translate-y-0 duration-1000" : "translate-y-[200vh] duration-2000"}
+          `}
+        />
+      </div>
+
       {/* MIERS */}
       <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={mierScrollRef} />
       <div 
@@ -305,7 +339,7 @@ export default function Ocs() {
           >
             <img 
              className={`
-              absolute object-cover h-full min-w-full transition-scale duration-1000 
+              absolute object-cover h-full min-w-full transition-scale duration-1000 nonsel pointer-events-none
               ${selectedMier === "icemage" ? "scale-110" : "scale-100"}
              `}
              src={`/images/ocs/mier-icemage-bg.png`}
@@ -319,32 +353,6 @@ export default function Ocs() {
               `}
             />
 
-            {/* SELECT */}
-            <div className={`absolute w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]`}>
-
-              <div className="w-full h-full relative col-span-2 flex items-center justify-center">
-                <img
-                  src="/images/ocs/mier-icemage.png"
-                  className={`
-                    h-full w-auto max-w-none absolute transition-transform
-                    ${selectedMier === "icemage" ? "translate-x-0 duration-1100" : "translate-x-[-100vw] duration-1800"}
-                  `}
-                />
-              </div>
-              
-              <div
-                className={`
-                  duration-300 pointer-events-auto
-                  ${selectedMier === "icemage" ? "opacity-100 duration-1200 w-full" : "opacity-0 duration-300 w-[80%]"}
-                `}
-              >
-                <OcInfo name="Mier Colwin" title="The Ice Mage" info="dgdrgeg" />
-              </div>
-
-              <div />
-
-            </div>
-
           </div>
 
           {/* ANGEL */}
@@ -356,7 +364,7 @@ export default function Ocs() {
           >
             <img 
              className={`
-              absolute object-cover h-full min-w-full transition-scale duration-1000 
+              absolute object-cover h-full min-w-full transition-scale duration-1000 nonsel pointer-events-none
               ${selectedMier === "angel" ? "scale-110" : "scale-100"}
              `}
              src={`/images/ocs/mier-angel-bg.png`}
@@ -380,7 +388,7 @@ export default function Ocs() {
           >
             <img 
              className={`
-              absolute object-cover h-full min-w-full transition-scale duration-1000 
+              absolute object-cover h-full min-w-full transition-scale duration-1000 nonsel pointer-events-none
               ${selectedMier === "tyrant" ? "scale-110" : "scale-100"}
              `}
              src={`/images/ocs/mier-tyrant-bg.png`}
@@ -394,41 +402,71 @@ export default function Ocs() {
               `}
             />
 
-            {/* SELECT */}
-            <div className={`absolute w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr] nonsel pointer-events-none`}>
+          </div>
 
-              <div />
+        </div>
 
-              <div
-                className={`
-                  pointer-events-auto
-                  ${selectedMier === "tyrant" ? "opacity-100 duration-1200 w-full" : "opacity-0 duration-300 w-[80%]"}
-                `}
-              >
-                <OcInfo name="Mier Morozov" title="The Little Tyrant of Pacific Purgatory" info="dgdrgeg" />
-              </div>
+        {/* ICE MAGE SELECT */}
+        <div className={`absolute w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr] pointer-events-none`}>
 
-              <div className="w-full h-full relative col-span-2 flex items-center justify-center">
-                <img
-                  src="/images/ocs/mier-tyrant.png"
-                  ref={mierTyrantRef}
-                  className={`
-                    h-full w-auto max-w-none absolute transition-transform
-                    ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
-                  `}
-                />
-                <img
-                  src="/images/ocs/mier-tyrant-flash.png"
-                  ref={flashRef}
-                  className={`
-                    h-full w-auto max-w-none absolute transition-transform
-                    ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
-                  `}
-                />
-              </div>
+          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+            <img
+              src="/images/ocs/mier-icemage.png"
+              className={`
+                h-full w-auto max-w-none absolute transition-transform ease-in-out
+                ${selectedMier === "icemage" ? "translate-x-0 duration-1100" : "translate-x-[-100vw] duration-1800"}
+              `}
+            />
+          </div>
+          
+          <div
+            className={`
+              duration-300 w-full ease-in-out
+              ${selectedMier === "icemage" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
+            `}
+          >
+            <OcInfo name="Mier Colwin" title="The Ice Mage" info="lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er " />
+          </div>
 
-            </div>
+          <div />
 
+        </div>
+
+        {/* TYRANT SELECT */}
+        <div className={`absolute w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr] nonsel pointer-events-none`}>
+
+          <div />
+
+          <div
+            className={`
+              pointer-events-auto ease-in-out
+              ${selectedMier === "tyrant" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
+            `}
+            onMouseEnter={() => clearTyrantDeco()}
+          >
+            <OcInfo name="Mier Morozov" title="The Little Tyrant of Pacific Purgatory" info="dgdrgeg" />
+          </div>
+
+          <div 
+            className={`
+              w-full h-full relative col-span-2 flex items-center justify-center transition-transform
+              ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
+            `}
+          >
+            <img
+              src="/images/ocs/mier-tyrant.png"
+              ref={mierTyrantRef}
+              className={`
+                h-full w-auto max-w-none absolute
+              `}
+            />
+            <img
+              src="/images/ocs/mier-tyrant-flash.png"
+              ref={flashRef}
+              className={`
+                h-full w-auto max-w-none absolute opacity-0
+              `}
+            />
           </div>
 
         </div>
@@ -436,10 +474,10 @@ export default function Ocs() {
       </div>
 
       {/* KANIN */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={kaninScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)] z-201" ref={kaninScrollRef} />
       <div
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
           justify-center align-center items-center
           flex flex-col relative bg-[rgb(25,27,29)]
           overflow-hidden transition-brightness duration-600
@@ -463,10 +501,10 @@ export default function Ocs() {
       </div>
       
       {/* CAVARIUS */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,45,60)]" ref={calvariusScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,45,60)] z-201" ref={calvariusScrollRef} />
       <div 
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
           justify-center align-center items-center
           flex flex-col relative bg-[rgb(36,45,60)]
           overflow-hidden transition-brightness duration-600
@@ -683,10 +721,10 @@ export default function Ocs() {
       </div>
 
       {/* QUINCE */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,45,60)] to-[rgb(24,28,25)]" ref={quinceScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,45,60)] to-[rgb(24,28,25)] z-201" ref={quinceScrollRef} />
       <div 
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
           justify-center align-center items-center
           flex flex-row relative bg-[rgb(24,28,25)] 
           overflow-hidden transition-brightness duration-600
@@ -716,10 +754,10 @@ export default function Ocs() {
       </div>
 
       {/* SIMEON */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(24,28,25)] to-[rgb(28,37,44)]" ref={simeonScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(24,28,25)] to-[rgb(28,37,44)] z-201" ref={simeonScrollRef} />
       <div 
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
           justify-center align-center items-center
           flex flex-col relative bg-[rgb(28,37,44)]
           overflow-hidden transition-brightness duration-600
@@ -746,10 +784,10 @@ export default function Ocs() {
       </div>
 
       {/* PIO */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(28,37,44)] to-[rgb(56,54,49)]" ref={pioScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(28,37,44)] to-[rgb(56,54,49)] z-201" ref={pioScrollRef} />
       <div
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
           justify-center align-center items-center
           flex flex-col relative bg-[rgb(56,54,49)]
           overflow-hidden transition-brightness duration-600
@@ -770,8 +808,8 @@ export default function Ocs() {
 
       </div>
 
-      <div className="h-[10vh] flex flex-col">
-        <div className="h-full brightness-40 saturate-70 bg-linear-to-b from-[rgb(56,54,49)] to-[#101113]/50" />
+      <div className="h-[10vh] flex flex-col z-201 bg-[#101113]">
+        <div className="h-full bg-linear-to-b from-[rgb(27,27,25)] to-[#101113]" />
         <Footer />
       </div>
 
