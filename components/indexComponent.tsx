@@ -252,7 +252,7 @@ export default function Home() {
     fetchStatus();
   }, [])
 
-
+  // PRELOAD
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -269,9 +269,9 @@ export default function Home() {
 
   }, [])
 
-  const randomizer = (arr: string[]) => {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
+  // const randomizer = (arr: string[]) => {
+  //   return arr[Math.floor(Math.random() * arr.length)];
+  // }
 
   const leftPupilRef = useRef<HTMLImageElement | null>(null);
   const rightPupilRef = useRef<HTMLImageElement | null>(null);

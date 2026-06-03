@@ -26,6 +26,16 @@ const Stars = () => {
       document.removeEventListener("visibilitychange", handleVisibility);
   }, []);
 
+  // PRELOAD AUDIO
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const audio = new Audio("/audio/bells.mp3");
+    audio.preload = "auto";
+
+    audioRef.current = audio;
+  }, []);
+
   return (
     <div className={`min-w-screen min-h-screen bg-[#17191a] flex justify-end align-center items-center flex-col fixed top-0 -translate-y-[30vh] transition-opacity duration-3000 ${ready ? "opacity-100" : "opacity-0"}`}>
 

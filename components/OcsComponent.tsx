@@ -95,6 +95,22 @@ export default function Ocs() {
   const bulletHoleRef = useRef<HTMLDivElement | null>(null);
   const flashRef = useRef<HTMLImageElement | null>(null);
 
+   // PRELOAD AUDIO
+  const audioRefs = useRef<HTMLAudioElement[]>([]);
+
+  useEffect(() => {
+    const files = [
+      "/audio/shoot-0.mp3",
+      "/audio/shoot-1.mp3",
+    ];
+
+    audioRefs.current = files.map(src => {
+      const audio = new Audio(src);
+      audio.preload = "auto";
+      return audio;
+    });
+  }, []);
+
   const akReadyFX = () => {
     new Audio("/audio/shoot-0.mp3").play();
   }
@@ -299,7 +315,7 @@ export default function Ocs() {
           src="/images/ocs/mier-angel.png"
           className={`
             transition-transform ease-in-out
-            ${selectedMier === "angel" ? "translate-y-0 duration-1000" : "translate-y-[200vh] duration-1500"}
+            ${selectedMier === "angel" ? "translate-y-0 duration-1200" : "translate-y-[200vh] duration-1600"}
           `}
         />
       </div>
