@@ -126,6 +126,7 @@ export default function Ocs() {
   const [openWhy, setOpenWhy] = useState(false);
 
   const selectMier = (mier: string) => {
+    blockHandler(1200)
     setHoveredMier("");
     setSelectedMier(mier);
   }
@@ -263,6 +264,8 @@ export default function Ocs() {
           ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
         `}
       >
+
+        {/* GRIDS */}
         <div 
           className={`
           w-full h-full grid transition-grid duration-900 absolute
@@ -298,6 +301,33 @@ export default function Ocs() {
                 ${selectedMier === "icemage" && "translate-x-[-100vw] duration-1400"}
               `}
             />
+
+            {/* SELECT */}
+            <div className={`absolute w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]`}>
+
+              <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+                <img
+                  src="/images/ocs/mier-icemage.png"
+                  className={`
+                    h-full w-auto max-w-none absolute transition-transform
+                    ${selectedMier === "icemage" ? "translate-x-0 duration-1100" : "translate-x-[-100vw] duration-1800"}
+                  `}
+                />
+              </div>
+              
+              <div
+                className={`
+                  duration-300 pointer-events-auto
+                  ${selectedMier === "icemage" ? "opacity-100 duration-1200 w-full" : "opacity-0 duration-300 w-[80%]"}
+                `}
+              >
+                <OcInfo name="Mier Colwin" title="The Ice Mage" info="dgdrgeg" />
+              </div>
+
+              <div />
+
+            </div>
+
           </div>
 
           {/* ANGEL */}
@@ -346,6 +376,33 @@ export default function Ocs() {
                 ${selectedMier === "tyrant" && "translate-x-[100vw] duration-1400"}
               `}
             />
+
+            {/* SELECT */}
+            <div className={`absolute w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr] nonsel pointer-events-none`}>
+
+              <div />
+
+              <div
+                className={`
+                  pointer-events-auto
+                  ${selectedMier === "tyrant" ? "opacity-100 duration-1200 w-full" : "opacity-0 duration-300 w-[80%]"}
+                `}
+              >
+                <OcInfo name="Mier Morozov" title="The Little Tyrant of Pacific Purgatory" info="dgdrgeg" />
+              </div>
+
+              <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+                <img
+                  src="/images/ocs/mier-tyrant.png"
+                  className={`
+                    h-full w-auto max-w-none absolute transition-transform
+                    ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
+                  `}
+                />
+              </div>
+
+            </div>
+
           </div>
 
         </div>

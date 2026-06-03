@@ -15,12 +15,12 @@ export default function Info({ name, title, info, bg, hidebg, list }: { name: st
       >
         
         {/* NAME */}
-        <p className="text-6xl">
+        <p className="text-6xl text-nowrap">
         {name}
         </p>
 
         {/* TITLE */}
-        <p>
+        <p className="text-nowrap">
         {title}
         </p>
         <br />
