@@ -1203,7 +1203,7 @@ export default function GalleryComponent() {
                     {artwork.title}
                   </p>
 
-                  <img src={artwork.url} className={`nonsel pointer-events-none aspect-3/4 md:aspect-square object-cover`} />
+                  <img alt={artwork.title} src={artwork.url} className={`nonsel pointer-events-none aspect-3/4 md:aspect-square object-cover`} />
 
                 </div>
               ))}

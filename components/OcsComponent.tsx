@@ -255,16 +255,17 @@ export default function Ocs() {
         {characters.map((character, index) => (
           <div
             key={index}
-            className="cursor-pointer"
+            className="cursor-pointer group"
             onClick={() => scrollToHandler(character.ref)}
           >
             <img
               src={`/images/ocs/icon-${character.name}.png`}
               className={`
-                aspect-square w-15 h-15 scale-110
-                transition-all duration-300 nonsel
-                pointer-events-none
-                ${currentOc === character.name ? "saturate-100 brightness-100 scale-120" : "saturate-50 brightness-50 scale-100"}
+                aspect-square w-15 h-15
+                transition-all duration-300 nonsel pointer-events-none
+                ${currentOc === character.name 
+                  ? "saturate-100 brightness-100 scale-120" 
+                  : "saturate-50 brightness-50 scale-100 group-hover:scale-110"}
               `}
             />
           </div>
