@@ -11,7 +11,7 @@ export default function Info({ name, title, info, bg, hidebg, list }: { name: st
           text-sm w-full h-full text-white
           px-16 py-[15vh] nonsel pointer-events-none
         `}
-        style={{ backgroundColor: hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.6)" }}
+        style={{ backgroundColor: hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.7)" }}
       >
         
         {/* NAME */}

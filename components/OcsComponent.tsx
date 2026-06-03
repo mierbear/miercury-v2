@@ -75,10 +75,10 @@ export default function Ocs() {
   }, []);
 
   const brotherBg =
-    currentBrother === "brutus"   ? "bg-[rgba(15,16,20,0.6)]" :
-    currentBrother === "ignatius" ? "bg-[rgba(29,25,21,0.6)]" :
-    currentBrother === "aurelius" ? "bg-[rgba(26,32,36,0.6)]" :
-    currentBrother === "rufus"    ? "bg-[rgba(25,29,22,0.6)]" :
+    currentBrother === "brutus"   ? "bg-[rgba(15,16,20,0.7)]" :
+    currentBrother === "ignatius" ? "bg-[rgba(29,25,21,0.7)]" :
+    currentBrother === "aurelius" ? "bg-[rgba(26,32,36,0.7)]" :
+    currentBrother === "rufus"    ? "bg-[rgba(25,29,22,0.7)]" :
     "rgba(16,17,19,0.6)"
     
   const brotherColors = {
@@ -299,7 +299,7 @@ export default function Ocs() {
           src="/images/ocs/mier-angel.png"
           className={`
             transition-transform ease-in-out
-            ${selectedMier === "angel" ? "translate-y-0 duration-1000" : "translate-y-[200vh] duration-2000"}
+            ${selectedMier === "angel" ? "translate-y-0 duration-1000" : "translate-y-[200vh] duration-1500"}
           `}
         />
       </div>
@@ -311,8 +311,7 @@ export default function Ocs() {
           w-screen max-w-screen h-[80vh] max-h-[80vh]
           justify-center align-center items-center
           flex flex-col relative bg-[#879da7]
-          overflow-hidden transition-brightness duration-600
-          ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
+          overflow-hidden
         `}
       >
 
@@ -332,14 +331,20 @@ export default function Ocs() {
         >
           {/* ICE MAGE */}
           <div
-            className="w-full h-full relative flex items-end justify-center cursor-pointer bg-amber-100"
+            className={`
+              w-full h-full relative flex items-end justify-center cursor-pointer
+              transition-brightness duration-600
+              ${currentOc !== "mier" || currentOc === "mier" && selectedMier && selectedMier !== "icemage" ? "brightness-50" :
+                selectedMier === "icemage" || hoveredMier === "icemage" || !hoveredMier ? "brightness-100" : "brightness-50"
+              }
+            `}
             onMouseEnter={selectedMier ? undefined : () => setHoveredMier("icemage")}
             onMouseLeave={() => setHoveredMier("")}
             onClick={selectedMier === "icemage" ? () => selectMier("") : () => selectMier("icemage")}
           >
             <img 
              className={`
-              absolute object-cover h-full min-w-full transition-scale duration-1000 nonsel pointer-events-none
+              absolute object-cover h-full min-w-full transition-scale duration-2000 nonsel pointer-events-none
               ${selectedMier === "icemage" ? "scale-110" : "scale-100"}
              `}
              src={`/images/ocs/mier-icemage-bg.png`}
@@ -357,14 +362,20 @@ export default function Ocs() {
 
           {/* ANGEL */}
           <div
-            className="w-full h-full relative flex items-end justify-center cursor-pointer bg-blue-100"
+            className={`
+              w-full h-full relative flex items-end justify-center cursor-pointer
+              transition-brightness duration-600
+              ${currentOc !== "mier" || currentOc === "mier" && selectedMier && selectedMier !== "angel" ? "brightness-50" :
+                selectedMier === "angel" || hoveredMier === "angel" || !hoveredMier ? "brightness-100" : "brightness-50"
+              }
+            `}
             onMouseEnter={selectedMier ? undefined : () => setHoveredMier("angel")}
             onMouseLeave={() => setHoveredMier("")}
             onClick={selectedMier === "angel" ? () => selectMier("") : () => selectMier("angel")}
           >
             <img 
              className={`
-              absolute object-cover h-full min-w-full transition-scale duration-1000 nonsel pointer-events-none
+              absolute object-cover h-full min-w-full transition-scale duration-2000 nonsel pointer-events-none
               ${selectedMier === "angel" ? "scale-110" : "scale-100"}
              `}
              src={`/images/ocs/mier-angel-bg.png`}
@@ -381,14 +392,20 @@ export default function Ocs() {
 
           {/* TYRANT */}
           <div
-            className="w-full h-full relative flex items-end justify-center cursor-pointer bg-red-100"
+            className={`
+              w-full h-full relative flex items-end justify-center cursor-pointer
+              transition-brightness duration-600
+              ${currentOc !== "mier" || currentOc === "mier" && selectedMier && selectedMier !== "tyrant" ? "brightness-50" :
+                selectedMier === "tyrant" || hoveredMier === "tyrant" || !hoveredMier ? "brightness-100" : "brightness-50"
+              }
+            `}
             onMouseEnter={selectedMier ? undefined : () => setHoveredMier("tyrant")}
             onMouseLeave={() => setHoveredMier("")}
             onClick={selectedMier === "tyrant" ? () => selectMier("") : () => selectMier("tyrant")}
           >
             <img 
              className={`
-              absolute object-cover h-full min-w-full transition-scale duration-1000 nonsel pointer-events-none
+              absolute object-cover h-full min-w-full transition-scale duration-2000 nonsel pointer-events-none
               ${selectedMier === "tyrant" ? "scale-110" : "scale-100"}
              `}
              src={`/images/ocs/mier-tyrant-bg.png`}
@@ -407,13 +424,19 @@ export default function Ocs() {
         </div>
 
         {/* ICE MAGE SELECT */}
-        <div className={`absolute w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr] pointer-events-none`}>
+        <div 
+          className={`
+            absolute w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]
+            nonsel pointer-events-none transition-brightness duration-600
+            ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
+          `}
+        >
 
           <div className="w-full h-full relative col-span-2 flex items-center justify-center">
             <img
               src="/images/ocs/mier-icemage.png"
               className={`
-                h-full w-auto max-w-none absolute transition-transform ease-in-out
+                h-full w-auto max-w-none absolute transition-transform ease-in-out scale-120
                 ${selectedMier === "icemage" ? "translate-x-0 duration-1100" : "translate-x-[-100vw] duration-1800"}
               `}
             />
@@ -433,7 +456,13 @@ export default function Ocs() {
         </div>
 
         {/* TYRANT SELECT */}
-        <div className={`absolute w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr] nonsel pointer-events-none`}>
+        <div 
+          className={`
+            absolute w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr]
+            nonsel pointer-events-none transition-brightness duration-600
+            ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
+          `}
+        >
 
           <div />
 
@@ -449,7 +478,7 @@ export default function Ocs() {
 
           <div 
             className={`
-              w-full h-full relative col-span-2 flex items-center justify-center transition-transform
+              w-full h-full relative col-span-2 flex items-center justify-center transition-transform ease-in-out scale-120
               ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
             `}
           >
@@ -489,6 +518,7 @@ export default function Ocs() {
 
           <div className="w-full h-full relative col-span-2 flex items-center justify-center">
             <img src="/images/stars.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none scale-400 spin spin-slow" />
+            <img src="/images/stars2.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none scale-400 spin spin-medium" />
             <img src="/images/ocs/kanin-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none translate-y-[50%] slowest-spin" />
             <img src="/images/ocs/kanin-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
           </div>
@@ -745,7 +775,7 @@ export default function Ocs() {
             name="Quince"
             title="The Flower Deliver Boy" 
             info="Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad." 
-            bg="rgba(13,16,15,0.6)"
+            bg="rgba(13,16,15,0.7)"
           />
           <div />
 
@@ -772,7 +802,7 @@ export default function Ocs() {
             name="Simeon"
             title="The Sunken One" 
             info="In a twist of fate, he embarks on a journey to the depths in search of his brother amongst the crowd of souls in the sea." 
-            bg="rgba(12,16,20,0.6)"
+            bg="rgba(12,16,20,0.7)"
           />
 
           <div className="w-full h-full relative col-span-2 flex items-center justify-center">
@@ -801,7 +831,12 @@ export default function Ocs() {
             <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none" />
           </div>
           
-          <OcInfo name="Pio" title="The Deaf Hermit" info="Outcasted by everyone, he finds solace and friendship with his metallic friend.*(currently my least worked on story, might fully redesign them in the future)" />
+          <OcInfo
+            name="Pio" 
+            title="The Deaf Hermit"
+            info="Outcasted by everyone, he finds solace and friendship with his metallic friend.*(currently my least worked on story, might fully redesign them in the future)" 
+            bg="rgba(11,11,10,0.7)"
+          />
           <div />
 
         </div>
