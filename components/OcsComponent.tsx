@@ -6,13 +6,7 @@ import Footer from "@/components/footerComponent";
 
 export default function Ocs() {
 
-  const [hoveredMier, setHoveredMier] = useState("");
-  const [selectedMier, setSelectedMier] = useState("");
   const blockerRef = useRef<HTMLDivElement | null>(null);
-  const mierAngelRef = useRef<HTMLImageElement | null>(null);
-  const mierTyrantRef = useRef<HTMLImageElement | null>(null);
-  const bulletHoleRef = useRef<HTMLDivElement | null>(null);
-  const flashRef = useRef<HTMLImageElement | null>(null);
 
   const blockHandler = (duration: number) => {
     if (!blockerRef.current) return;
@@ -21,87 +15,6 @@ export default function Ocs() {
     setTimeout(() => {
       blockerRef.current!.style.display = "none";
     }, duration);
-  }
-
-  const akReadyFX = () => {
-    new Audio("/audio/shoot-0.mp3").play();
-  }
-
-  const akShootFX = () => {
-    new Audio("/audio/shoot-1.mp3").play();
-  }
-
-  const mierShoot = () => {
-    recoil();
-    shatter();
-    akShootFX();
-    bulletHoleRef.current!.style.opacity = "1"
-    flashRef.current!.style.opacity = "1"
-
-    setTimeout(() => {
-      flashRef.current!.style.opacity = "0"
-    }, 50);
-  }
-
-  const recoil = () => {
-    mierTyrantRef.current?.classList.remove("recoil");
-    void mierTyrantRef.current?.offsetWidth;
-    mierTyrantRef.current?.classList.add("recoil");
-  }
-  
-  const shatter = () => {
-    bulletHoleRef.current?.classList.remove("shatter");
-    void bulletHoleRef.current?.offsetWidth;
-    bulletHoleRef.current?.classList.add("shatter");
-  }
-
-  // const [checkedMiers, setCheckedMiers] = useState(0);
-
-  // const mierCheckHandler = () => {
-  // }
-
-  const [openInfo, setOpenInfo] = useState(false);
-  const [openWhy, setOpenWhy] = useState(false);
-
-  const mierSelectHandler = (mierType: string) => {
-    if (!mierAngelRef.current || !bulletHoleRef.current || !flashRef.current) return;
-    setHoveredMier("");
-
-    if (selectedMier === mierType) {
-      setSelectedMier("")
-    } else if (
-        mierType === "icemage" && selectedMier === "tyrant" ||
-        mierType === "tyrant" && selectedMier === "icemage" ||
-        mierType === "angel" && selectedMier ||
-        selectedMier === "angel" && mierType
-      ) {
-      setSelectedMier(mierType)
-      mierAngelRef.current.style.opacity = "0";
-      setTimeout(() => {
-        mierAngelRef.current!.style.opacity = "1";
-      }, 1200);
-    } else {
-      setSelectedMier(mierType)
-    }
-
-    // TYRANT CONDITION
-    if (mierType === "tyrant" && selectedMier !== "tyrant") {
-      blockHandler(1400);
-
-      setTimeout(() => {
-        akReadyFX()
-      }, 100);
-
-      setTimeout(() => {
-        mierShoot()
-      }, 1000);
-
-    } else {
-      blockHandler(1200);
-      bulletHoleRef.current!.style.opacity = "0"
-      flashRef.current!.style.opacity = "0"
-    }
-
   }
 
   // SKULLBOUND
@@ -168,6 +81,53 @@ export default function Ocs() {
     ignatius: "rgb(212,174,113)",
     aurelius: "rgb(132,191,210)",
     rufus:    "rgb(157,206,114)"
+  }
+
+  const [hoveredMier, setHoveredMier] = useState("");
+  const [selectedMier, setSelectedMier] = useState("");
+  const mierAngelRef = useRef<HTMLImageElement | null>(null);
+  const mierTyrantRef = useRef<HTMLImageElement | null>(null);
+  const bulletHoleRef = useRef<HTMLDivElement | null>(null);
+  const flashRef = useRef<HTMLImageElement | null>(null);
+
+  const akReadyFX = () => {
+    new Audio("/audio/shoot-0.mp3").play();
+  }
+
+  const akShootFX = () => {
+    new Audio("/audio/shoot-1.mp3").play();
+  }
+
+  const mierShoot = () => {
+    recoil();
+    shatter();
+    akShootFX();
+    bulletHoleRef.current!.style.opacity = "1"
+    flashRef.current!.style.opacity = "1"
+
+    setTimeout(() => {
+      flashRef.current!.style.opacity = "0"
+    }, 50);
+  }
+
+  const recoil = () => {
+    mierTyrantRef.current?.classList.remove("recoil");
+    void mierTyrantRef.current?.offsetWidth;
+    mierTyrantRef.current?.classList.add("recoil");
+  }
+  
+  const shatter = () => {
+    bulletHoleRef.current?.classList.remove("shatter");
+    void bulletHoleRef.current?.offsetWidth;
+    bulletHoleRef.current?.classList.add("shatter");
+  }
+
+  const [openInfo, setOpenInfo] = useState(false);
+  const [openWhy, setOpenWhy] = useState(false);
+
+  const selectMier = (mier: string) => {
+    setHoveredMier("");
+    setSelectedMier(mier);
   }
 
   return (
@@ -303,428 +263,93 @@ export default function Ocs() {
           ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
         `}
       >
-         
-        {/* DECO - ICE MAGE */}
-        <div
+        <div 
           className={`
-            absolute bottom-0 right-[2vw] h-full overflow-hidden z-99 transition-[translate] duration-1400 nonsel pointer-events-none
-            ${selectedMier === "icemage" ? "" : "translate-x-[200%]"}
+          w-full h-full grid transition-grid duration-900 absolute
+          ${hoveredMier  === "icemage" ? "grid-cols-[2.6fr_1.2fr_1fr]" :
+            hoveredMier  === "angel"   ? "grid-cols-[1.1fr_2.6fr_1.1fr]" :
+            hoveredMier  === "tyrant"  ? "grid-cols-[1fr_1.2fr_2.6fr]" :
+            selectedMier === "icemage" ? "grid-cols-[1fr_0fr_0fr]" :
+            selectedMier === "angel"   ? "grid-cols-[0fr_1fr_0fr]" :
+            selectedMier === "tyrant"  ? "grid-cols-[0fr_0fr_1fr]" :
+            "grid-cols-[1fr_1fr_1fr] duration-1200"
+          }
           `}
         >
-          <img 
-            src={`/images/ocs/mier-icemage-deco.png`}
-            className="h-full w-auto max-w-none nonsel pointer-events-none"
-          />
-        </div>
-
-        {/* CLOSE-UPS */}
-        <div className="flex items-center justify-center">
-
-          {/* ICEMAGE */}
-          <div
-            className={`
-              absolute bottom-0 h-full overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer left-[5vw]
-              ${selectedMier === "icemage" ? "" : "-translate-x-full"}
-            `}
-          >
-            <img 
-              src={`/images/ocs/mier-icemage.png`}
-              className="h-full w-auto max-w-none nonsel pointer-events-none"
-            />
-          </div>
-
-          {/* ANGEL */}
-          <div
-            className={`
-              absolute bottom-0 h-full overflow-hidden z-88 transition-[translate] duration-1200 cursor-pointer
-              ${selectedMier === "angel" ? "" : "translate-y-full"}
-            `}
-          >
-            <img 
-              src={`/images/ocs/mier-angel.png`}
-              className="h-full w-auto max-w-none nonsel pointer-events-none"
-            />
-          </div>
-
-          {/* TYRANT */}
-          <div
-            className="absolute bottom-0 right-[5vw] h-full z-88"
-            ref={mierTyrantRef}
-          >
-            <div 
-              className={`
-                relative h-full overflow-hidden transition-[translate] duration-1200 cursor-pointer
-                ${selectedMier === "tyrant" ? "" : "translate-x-full"}
-              `}
-            >
-              <img 
-                src={`/images/ocs/mier-tyrant.png`}
-                className="h-full w-auto max-w-none nonsel pointer-events-none"
-              />
-              <img 
-                src={`/images/ocs/mier-tyrant-flash.png`}
-                className="absolute inset-0 h-full w-auto max-w-none nonsel pointer-events-none transition-opacity duration-50 opacity-0"
-                ref={flashRef}
-              />
-            </div>
-          </div>
-
-        </div>
-
-        {/* INTROS */}
-        <div
-          className={`
-            grid w-full h-full transition-grid 
-            ${selectedMier ? "duration-1200" : "duration-600"}
-            ${hoveredMier === "icemage" ? "grid-cols-[1.5fr_1fr_1fr]" :
-              hoveredMier === "angel" ? "grid-cols-[1fr_1.5fr_1fr]" :
-              hoveredMier === "tyrant" ? "grid-cols-[1fr_1fr_1.5fr]" :
-              "grid-cols-[1fr_1fr_1fr]"
-            }
-          `}
-        >
-
           {/* ICE MAGE */}
           <div
-            className={`
-              h-full flex justify-center items-end cursor-pointer
-            `}
+            className="w-full h-full relative flex items-end justify-center cursor-pointer bg-amber-100"
+            onMouseEnter={selectedMier ? undefined : () => setHoveredMier("icemage")}
+            onMouseLeave={() => setHoveredMier("")}
+            onClick={selectedMier === "icemage" ? () => selectMier("") : () => selectMier("icemage")}
           >
-            <img
+            <img 
+             className={`
+              absolute object-cover h-full min-w-full transition-scale duration-1000 
+              ${selectedMier === "icemage" ? "scale-110" : "scale-100"}
+             `}
+             src={`/images/ocs/mier-icemage-bg.png`}
+            />
+            <img 
+              src={`/images/ocs/mier-intro-icemage.png`} 
               className={`
-                h-full object-cover absolute z-22 max-w-none transition-transform duration-1200
-                nonsel pointer-events-none origin-top
-                ${!selectedMier &&
-                  hoveredMier === "icemage" ? "z-55" :
-                  hoveredMier === "tyrant" && "translate-x-[-25%]"
-                }
-                ${selectedMier === "icemage" ? "-translate-x-full"
-                  : selectedMier === "" ? ""
-                  : "-translate-x-full"
-                }
+                absolute object-cover h-full nonsel pointer-events-none
+                transition-transform duration-1000
+                ${selectedMier === "icemage" && "translate-x-[-100vw] duration-1400"}
               `}
-              src="/images/ocs/mierintro-icemage.png"
             />
           </div>
 
           {/* ANGEL */}
           <div
-            className={`
-              h-full flex justify-center items-end cursor-pointer
-            `}
-            ref={mierAngelRef}
+            className="w-full h-full relative flex items-end justify-center cursor-pointer bg-blue-100"
+            onMouseEnter={selectedMier ? undefined : () => setHoveredMier("angel")}
+            onMouseLeave={() => setHoveredMier("")}
+            onClick={selectedMier === "angel" ? () => selectMier("") : () => selectMier("angel")}
           >
-            <img
+            <img 
+             className={`
+              absolute object-cover h-full min-w-full transition-scale duration-1000 
+              ${selectedMier === "angel" ? "scale-110" : "scale-100"}
+             `}
+             src={`/images/ocs/mier-angel-bg.png`}
+            />
+            <img 
+              src={`/images/ocs/mier-intro-angel.png`} 
               className={`
-                h-full object-cover absolute z-33 max-w-none transition-transform
-                nonsel pointer-events-none origin-top duration-1200
-                ${!selectedMier &&
-                  hoveredMier === "icemage" ? "translate-x-[10%]" :
-                  hoveredMier === "angel" ? "scale-110" :
-                  hoveredMier === "tyrant" && "translate-x-[-10%]"
-                }
-                ${selectedMier === "angel" ? "translate-y-full"
-                : selectedMier === "icemage" ? "translate-x-[180%]"
-                : selectedMier === "tyrant" ? "translate-x-[-180%]"
-                : selectedMier === ""
-                }
-              `}
-              src="/images/ocs/mierintro-angel.png"
+              absolute object-cover h-full nonsel pointer-events-none
+              transition-transform duration-1000
+              ${selectedMier === "angel" && "translate-y-[110%]"}
+            `}
             />
           </div>
 
           {/* TYRANT */}
           <div
-            className={`
-              h-full flex justify-center items-end cursor-pointer
-            `}
+            className="w-full h-full relative flex items-end justify-center cursor-pointer bg-red-100"
+            onMouseEnter={selectedMier ? undefined : () => setHoveredMier("tyrant")}
+            onMouseLeave={() => setHoveredMier("")}
+            onClick={selectedMier === "tyrant" ? () => selectMier("") : () => selectMier("tyrant")}
           >
-            <img
+            <img 
+             className={`
+              absolute object-cover h-full min-w-full transition-scale duration-1000 
+              ${selectedMier === "tyrant" ? "scale-110" : "scale-100"}
+             `}
+             src={`/images/ocs/mier-tyrant-bg.png`}
+            />
+            <img 
+              src={`/images/ocs/mier-intro-tyrant.png`} 
               className={`
-                h-full object-cover absolute z-11 max-w-none transition-transform duration-1200
-                nonsel pointer-events-none origin-top
-                ${!selectedMier &&
-                  hoveredMier === "tyrant" ? "z-55" :
-                  hoveredMier === "icemage" && "translate-x-[25%]"
-                }
-                ${selectedMier === "tyrant" ? "translate-x-full"
-                  : selectedMier === "" ? ""
-                  : "translate-x-full"
-                }
+                absolute object-cover h-full nonsel pointer-events-none
+                transition-transform duration-1000
+                ${selectedMier === "tyrant" && "translate-x-[100vw] duration-1400"}
               `}
-              src="/images/ocs/mierintro-tyrant.png"
             />
           </div>
 
         </div>
-
-        {/* MIER INFO */}
-        <div
-          className={`
-            absolute grid h-full w-screen z-99
-            transition-all duration-800 nonsel
-            ${selectedMier === "icemage" ? "grid-cols-[1.75fr_1fr_0.25fr]"
-            : selectedMier === "angel" ?   "grid-cols-[0.25fr_1fr_1.75fr]"
-            : selectedMier === "tyrant" ?  "grid-cols-[0.25fr_1fr_1.75fr]"
-            : "grid-cols-[1fr_1fr_1fr]"
-            }
-          `}
-        >
           
-          <div
-            className="w-full h-full cursor-pointer"
-            onMouseEnter={() => {
-              if (!selectedMier) setHoveredMier("icemage")
-            }}
-            onMouseLeave={() => setHoveredMier("")}
-            onClick={() => {
-              if (!selectedMier) {
-                mierSelectHandler("icemage")
-              } else {
-                mierSelectHandler("")
-              }
-            }}
-          >
-          </div>
-          
-          {/* INFO */}
-          <div 
-            className={`
-              w-full h-full relative transition-colors
-              ${selectedMier ? "bg-[#101113]/50 duration-1200" : "bg-[#00000000] duration-200 cursor-pointer"}
-            `}
-            onMouseEnter={() => {
-              if (!selectedMier) setHoveredMier("angel")
-              if (selectedMier === "tyrant") bulletHoleRef.current!.style.opacity = "0"
-            }}
-            onMouseLeave={() => setHoveredMier("")}
-            onClick={() => {
-              if (!selectedMier) {
-                mierSelectHandler("angel")
-              } else {
-                return
-              }
-            }}
-          >
-
-            {/* DESCRIPTION */}
-            <div
-              className={`
-                w-full h-full px-16 py-[15vh] flex flex-col items-center text-white transition-opacity 
-                ${selectedMier ? "opacity-100 duration-1200" : "opacity-0 duration-200"}
-              `}
-            >
-              
-              {/* ICEMAGE */}
-              {selectedMier === "icemage" && (
-                <div
-                  className={`
-                    flex flex-col items-center transition-opacity duration-1000 text-justify
-                    ${selectedMier === "icemage" ? "opacity-100" : "opacity-0"}
-                  `}
-                >
-                  <p className="text-6xl">
-                    Mier Colwyn
-                  </p>
-                  <p>The Ice Mage</p>
-                  <br />
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
-                </div>
-              )}
-
-              {/* ANGEL */}
-              {selectedMier === "angel" && (
-                <div
-                  className={`
-                    flex flex-col items-center transition-opacity duration-1000 text-justify
-                    ${selectedMier === "angel" ? "opacity-100" : "opacity-0"}
-                  `}
-                >
-                  <p className="text-6xl">
-                    Mier
-                  </p>
-                  <p>The Guide</p>
-                  <br />
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
-                </div>
-              )}
-
-              {/* TYRANT */}
-              {selectedMier === "tyrant" && (
-                <div
-                  className={`
-                    flex flex-col items-center transition-opacity duration-1000 text-justify
-                    ${selectedMier === "tyrant" ? "opacity-100" : "opacity-0"}
-                  `}
-                >
-                  <p className="text-6xl">
-                    Mier Morozov
-                  </p>
-                  <p>The <span className="line-through">Little</span> Tyrant of Pacific Purgatory</p>
-                  <br />
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
-                  <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo voluptates reiciendis nulla accusamus ullam repellat, nihil in, ipsa nesciunt sint odio ipsum! Incidunt vel sit facilis tempora error mollitia quisquam?</p>
-                  <br />
-                  <p
-                    className="cursor-pointer"
-                    onClick={() => mierShoot()}
-                  >
-                    shoot me again!
-                  </p>
-                </div>
-              )}
-
-              {/* WHY?? */}
-              {selectedMier && (
-                <p
-                  className="absolute bottom-8 text-sm text-white/80 text-center underline cursor-pointer"
-                  onClick={() => setOpenWhy(true)}
-                >
-                  this makes no sense, why are there multiple miers?!?
-                </p>
-              )}
-
-            </div>
-            
-            {/* PORTRAITS */}
-            <div
-              className={`
-                absolute grid left-1/2 transform h-[14%] w-[62%] min-w-80 max-w-full
-                -translate-x-1/2 bottom-16
-                border border-black rounded-md overflow-hidden 
-                transition-all duration-600
-                ${!selectedMier && "nonsel pointer-events-auto"}
-                ${selectedMier === "icemage" ? "grid-cols-[38fr_31fr_31fr]"
-                : selectedMier === "angel" ?   "grid-cols-[31fr_38fr_31fr]"
-                : selectedMier === "tyrant" ?  "grid-cols-[31fr_31fr_38fr]"
-                : "grid-cols-[1fr_1fr_1fr]"
-                }
-              `}
-            >
-
-              <div
-                className={`
-                  transition-all duration-300 shadow-2xl
-                  flex flex-col items-center
-                  justify-center nonsel cursor-pointer overflow-hidden
-                  ${selectedMier === "icemage" ? " saturate-100 opacity-100" : "saturate-20"}
-                  ${hoveredMier === "icemage" ? "opacity-100 " : "opacity-40 hover:opacity-100 "}
-                `}
-                onMouseEnter={() => {
-                  if (!selectedMier) setHoveredMier("icemage")
-                }}
-                onMouseLeave={() => {
-                  if (!selectedMier) {
-                    setHoveredMier("angel")
-                  } else {
-                    setHoveredMier("")
-                  }
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  mierSelectHandler("icemage")
-                }}
-              >
-                <img
-                  src="/images/ocs/mier-portrait-icemage.png"
-                  className={`
-                    nonsel pointer-events-none transition-scale duration-300 min-h-full min-w-full object-cover
-                    ${hoveredMier === "icemage" && "scale-110"}
-                    ${selectedMier === "icemage" && "scale-110"}
-                  `}
-                />
-              </div>
-              <div
-                className={`
-                  transition-all duration-300 shadow-2xl
-                  flex flex-col items-center
-                  justify-center nonsel cursor-pointer overflow-hidden
-                  ${selectedMier === "angel" ? " saturate-100 opacity-100" : "saturate-20"}
-                  ${hoveredMier === "angel" ? "opacity-100 " : "opacity-40 hover:opacity-100 "}
-                `}
-                onMouseEnter={() => {
-                  if (!selectedMier) setHoveredMier("angel")
-                }}
-                onMouseLeave={() => {
-                  if (!selectedMier) {
-                    setHoveredMier("angel")
-                  } else {
-                    setHoveredMier("")
-                  }
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  mierSelectHandler("angel")
-                }}
-              >
-                <img
-                  src="/images/ocs/mier-portrait-angel.png"
-                  className={`
-                    nonsel pointer-events-none transition-scale duration-300 min-h-full min-w-full object-cover
-                    ${hoveredMier === "angel" && "scale-110"}
-                    ${selectedMier === "angel" && "scale-110"}
-                  `}
-                />
-              </div>
-              <div
-                className={`
-                  transition-all duration-300 shadow-2xl
-                  flex flex-col items-center
-                  justify-center nonsel cursor-pointer overflow-hidden
-                  ${selectedMier === "tyrant" ? " saturate-100 opacity-100" : "saturate-20"}
-                  ${hoveredMier === "tyrant" ? "opacity-100 " : "opacity-40 hover:opacity-100 "}
-                `}
-                onMouseEnter={() => {
-                  if (!selectedMier) setHoveredMier("tyrant")
-                }}
-                onMouseLeave={() => {
-                  if (!selectedMier) {
-                    setHoveredMier("angel")
-                  } else {
-                    setHoveredMier("")
-                  }
-                }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  mierSelectHandler("tyrant")
-                }}
-              >
-                <img
-                  src="/images/ocs/mier-portrait-tyrant.png"
-                  className={`
-                    nonsel pointer-events-none transition-scale duration-300 min-h-full min-w-full object-cover
-                    ${hoveredMier === "tyrant" && "scale-110"}
-                    ${selectedMier === "tyrant" && "scale-110"}
-                  `}
-                />
-              </div>
-            </div>
-
-          </div>
-          
-          <div
-            className="w-full h-full cursor-pointer"
-            onMouseEnter={() => {
-              if (!selectedMier) setHoveredMier("tyrant")
-            }}
-            onMouseLeave={() => setHoveredMier("")}
-            onClick={() => {
-              if (!selectedMier) {
-                mierSelectHandler("tyrant")
-              } else {
-                mierSelectHandler("")
-              }
-            }}
-          >
-          </div>
-
-        </div>
-
       </div>
 
       {/* KANIN */}
