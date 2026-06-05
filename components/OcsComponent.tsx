@@ -178,7 +178,7 @@ export default function Ocs() {
   const clearTyrantDeco = () => {
     bulletHoleRef.current!.style.opacity = "0"
     flashRef.current!.style.opacity = "0"
-  }
+  } 
 
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
@@ -280,12 +280,12 @@ export default function Ocs() {
             />
           </div>
         ))}
-        <p 
+        {/* <p 
           className="w-10 h-10 mt-4 bg-black rounded-full flex items-center justify-center cursor-pointer"
           onClick={() => setOpenInfo(true)}
         >
           ?
-        </p>
+        </p> */}
       </div>
 
       {/* DECO - TYRANT */}
@@ -314,10 +314,20 @@ export default function Ocs() {
         <img
           src="/images/ocs/mier-angel.png"
           className={`
-            transition-transform ease-in-out
+            transition-transform ease-in-out absolute
             ${selectedMier === "angel" ? "translate-y-0 duration-1200" : "translate-y-[200vh] duration-1600"}
           `}
         />
+        {Array.from({ length: 10 }, (_, i) => (
+          <img 
+            key={i} 
+            src={`images/ocs/mier-angel-deco-${String(i).padStart(2, '0')}.png`}
+            className={`
+              transition-transform ease-in-out absolute scale-170 figure-breathe-slow
+              ${selectedMier === "angel" ? "translate-y-0 duration-1200" : "translate-y-[200vh] duration-1600"}
+            `}
+          />
+        ))}
       </div>
 
       {/* MIERS */}
@@ -450,7 +460,21 @@ export default function Ocs() {
 
           <div className="w-full h-full relative col-span-2 flex items-center justify-center">
             <img
-              src="/images/ocs/mier-icemage.png"
+              src="/images/ocs/mier-icemage-0.png"
+              className={`
+                h-full w-auto max-w-none absolute transition-transform ease-in-out scale-120
+                ${selectedMier === "icemage" ? "translate-x-0 duration-1100" : "translate-x-[-100vw] duration-1800"}
+              `}
+            />
+            <img
+              src="/images/ocs/mier-icemage-deco.png"
+              className={`
+                h-full w-auto max-w-none absolute transition-transform ease-in-out scale-110 slow-backwards-spin
+                ${selectedMier === "icemage" ? "translate-x-0 duration-1100" : "translate-x-[-100vw] duration-1800"}
+              `}
+            />
+            <img
+              src="/images/ocs/mier-icemage-1.png"
               className={`
                 h-full w-auto max-w-none absolute transition-transform ease-in-out scale-120
                 ${selectedMier === "icemage" ? "translate-x-0 duration-1100" : "translate-x-[-100vw] duration-1800"}
@@ -464,7 +488,7 @@ export default function Ocs() {
               ${selectedMier === "icemage" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
             `}
           >
-            <OcInfo name="Mier Colwin" title="The Ice Mage" info="lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er " />
+            <OcInfo name="Mier Colwyn" title="The Ice Mage" info="lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er " />
           </div>
 
           <div />
