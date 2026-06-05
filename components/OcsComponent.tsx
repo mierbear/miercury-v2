@@ -322,8 +322,9 @@ export default function Ocs() {
           <img 
             key={i} 
             src={`images/ocs/mier-angel-deco-${String(i).padStart(2, '0')}.png`}
+            style={{ animationDelay: `${i * 0.15}s` }}
             className={`
-              transition-transform ease-in-out absolute scale-170 figure-breathe-slow
+              transition-transform ease-in-out absolute scale-170 panic
               ${selectedMier === "angel" ? "translate-y-0 duration-1200" : "translate-y-[200vh] duration-1600"}
             `}
           />
