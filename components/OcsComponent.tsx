@@ -181,9 +181,9 @@ export default function Ocs() {
   }
 
   const mierColors = {
-    icemage: "rgb(0,200,255)",
-    angel:   "rgb(0,0,255)",
-    tyrant:  "rgb(255,0,0)",
+    icemage: "#b6c9db",
+    angel:   "#4592a5",
+    tyrant:  "#9c1313",
   }
 
 
@@ -318,24 +318,32 @@ export default function Ocs() {
           ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
         `}
       >
-        <img
-          src="/images/ocs/mier-angel.png"
+        <div 
           className={`
-            transition-transform ease-in-out absolute
-            ${selectedMier === "angel" ? "translate-y-0 duration-1200" : "translate-y-[200vh] duration-1600"}
+            w-full h-full flex items-center justify-center
+            transition-brightness duration-600
+            ${selectedMier === "angel" ? "brightness-100" : "brightness-50"}
           `}
-        />
-        {Array.from({ length: 10 }, (_, i) => (
-          <img 
-            key={i} 
-            src={`images/ocs/mier-angel-deco-${String(i).padStart(2, '0')}.png`}
-            style={{ animationDelay: `${i * 0.15}s` }}
+        >
+          <img
+            src="/images/ocs/mier-angel.png"
             className={`
-              transition-transform ease-in-out absolute scale-170 panic
+              transition-transform ease-in-out absolute
               ${selectedMier === "angel" ? "translate-y-0 duration-1200" : "translate-y-[200vh] duration-1600"}
             `}
           />
-        ))}
+          {Array.from({ length: 10 }, (_, i) => (
+            <img 
+              key={i} 
+              src={`images/ocs/mier-angel-deco-${String(i).padStart(2, '0')}.png`}
+              style={{ animationDelay: `${i * 0.15}s` }}
+              className={`
+                transition-transform ease-in-out absolute scale-170 panic
+                ${selectedMier === "angel" ? "translate-y-0 duration-1200" : "translate-y-[200vh] duration-1600"}
+              `}
+            />
+          ))}
+        </div>
       </div>
 
       {/* MIERS */}
@@ -469,6 +477,8 @@ export default function Ocs() {
           <div 
             className={`
               w-full h-full relative col-span-2 flex items-center justify-center
+              transition-brightness duration-600
+              ${selectedMier === "icemage" ? "brightness-100" : "brightness-50"}
             `}
           >
             <img
@@ -540,22 +550,25 @@ export default function Ocs() {
 
           <div 
             className={`
-              w-full h-full relative col-span-2 flex items-center justify-center transition-transform ease-in-out scale-120
-              ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
+              w-full h-full relative col-span-2 flex items-center justify-center
+              transition-brightness duration-600
+              ${selectedMier === "tyrant" ? "brightness-100" : "brightness-50"}
             `}
           >
             <img
               src="/images/ocs/mier-tyrant.png"
               ref={mierTyrantRef}
               className={`
-                h-full w-auto max-w-none absolute
+                h-full w-auto max-w-none absolute transition-transform ease-in-out scale-120
+                ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
               `}
             />
             <img
               src="/images/ocs/mier-tyrant-flash.png"
               ref={flashRef}
               className={`
-                h-full w-auto max-w-none absolute opacity-0
+                h-full w-auto max-w-none absolute opacity-0 transition-transform ease-in-out scale-120
+                ${selectedMier === "tyrant" ? "translate-x-0 duration-1100" : "translate-x-[100vw] duration-1800"}
               `}
             />
           </div>
@@ -583,11 +596,13 @@ export default function Ocs() {
             className={`
               w-full h-full flex items-center justify-center cursor-pointer shadow-2xl
               overflow-hidden border-5 rounded-full duration-300 hover:scale-102
-              ${selectedMier === mier ? "scale-102 saturate-100" 
+              ${selectedMier === mier || hoveredMier === mier ? "scale-102 saturate-100" 
               : selectedMier && selectedMier !== mier ? "scale-98 hover:saturate-100 saturate-20 brightness-75 hover:brightness-100" 
               : "saturate-100"}
               `}
             onClick={selectedMier === mier ? () => selectMier("") : () => selectMier(mier)}
+            onMouseEnter={selectedMier ? undefined : () => setHoveredMier(mier)}
+            onMouseLeave={() => setHoveredMier("")}
             style={{ borderColor: mierColors[mier as keyof typeof mierColors] }}
           >
             <img 
@@ -846,6 +861,7 @@ export default function Ocs() {
               : "saturate-100"}
               `}
             onClick={() => {
+              blockHandler(1200);
               setCurrentBrother(currentBrother === brother ? "" : brother);
               if (!currentBrother || currentBrother !== brother) calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
             }}
