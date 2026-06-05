@@ -178,7 +178,14 @@ export default function Ocs() {
   const clearTyrantDeco = () => {
     bulletHoleRef.current!.style.opacity = "0"
     flashRef.current!.style.opacity = "0"
-  } 
+  }
+
+  const mierColors = {
+    icemage: "rgb(0,200,255)",
+    angel:   "rgb(0,0,255)",
+    tyrant:  "rgb(255,0,0)",
+  }
+
 
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
@@ -381,7 +388,7 @@ export default function Ocs() {
               className={`
                 absolute object-cover h-full nonsel pointer-events-none
                 transition-transform duration-1200 scale-170
-                ${selectedMier === "icemage" && "translate-x-[-200vw] duration-1400"}
+                ${selectedMier && "translate-x-[-200vw] duration-1400"}
               `}
             />
 
@@ -412,7 +419,7 @@ export default function Ocs() {
               className={`
               absolute object-cover h-full nonsel pointer-events-none
               transition-transform duration-1200 scale-160
-              ${selectedMier === "angel" && "translate-y-[200vh]"}
+              ${selectedMier && "translate-y-[200vh]"}
             `}
             />
           </div>
@@ -442,7 +449,7 @@ export default function Ocs() {
               className={`
                 absolute object-cover h-full nonsel pointer-events-none
                 transition-transform duration-1200 scale-170
-                ${selectedMier === "tyrant" && "translate-x-[200vw] duration-1400"}
+                ${selectedMier && "translate-x-[200vw] duration-1400"}
               `}
             />
 
@@ -459,7 +466,11 @@ export default function Ocs() {
           `}
         >
 
-          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+          <div 
+            className={`
+              w-full h-full relative col-span-2 flex items-center justify-center
+            `}
+          >
             <img
               src="/images/ocs/mier-icemage-0.png"
               className={`
@@ -556,7 +567,42 @@ export default function Ocs() {
       {/* KANIN */}
       <div className="h-[10vh] z-201 flex items-center justify-center relative" ref={kaninScrollRef}>
         <div className="w-full h-full brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)] absolute" />
-        <p 
+
+        <div
+          className={`
+            absolute grid gap-2 h-full w-auto py-2 scale-120
+            transition-all duration-600 grid-cols-3
+            ${selectedMier || "subtle-breathe"}
+            ${currentOc === "mier" ? "translate-y-[-30%] brightness-100 opacity-100" : "translate-y-full brightness-40 opacity-0 pointer-events-none"}
+          `}
+        >
+
+          {["icemage", "angel", "tyrant"].map((mier, index) => (
+          <div
+            key={index}
+            className={`
+              w-full h-full flex items-center justify-center cursor-pointer shadow-2xl
+              overflow-hidden border-5 rounded-full duration-300 hover:scale-102
+              ${selectedMier === mier ? "scale-102 saturate-100" 
+              : selectedMier && selectedMier !== mier ? "scale-98 hover:saturate-100 saturate-20 brightness-75 hover:brightness-100" 
+              : "saturate-100"}
+              `}
+            onClick={selectedMier === mier ? () => selectMier("") : () => selectMier(mier)}
+            style={{ borderColor: mierColors[mier as keyof typeof mierColors] }}
+          >
+            <img 
+              src={`/images/ocs/mier-portrait-${mier}.png`} 
+              className={`
+                w-full h-full object-cover nonsel pointer-events-none
+                transition-scale duration-300
+                ${selectedMier === mier ? "scale-120" : "scale-110"}
+              `}
+            />
+          </div>
+          ))}
+        </div>
+
+        {/* <p 
           className={`
             brightness-100 transition-opacity duration-300 text-white/80 cursor-pointer nonsel
             underline-offset-2 underline decoration-white/50 hover:decoration-white/80
@@ -565,7 +611,7 @@ export default function Ocs() {
           onClick={() => setOpenWhy(true)}
         >
           why are there multiple miers ?? this makes no sense !! 
-        </p>
+        </p> */}
       </div>
       <div
         className={`
