@@ -912,6 +912,32 @@ div[data-youtube-video] iframe {
   }
 }
 
+.scaleless-waves {
+  animation: scaleless-waves 5s ease-in-out infinite;
+}
+
+@keyframes scaleless-waves {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  25% {
+    transform: translate(8px, -6px);
+  }
+
+  50% {
+    transform: translate(-7px, 7px);
+  }
+
+  75% {
+    transform: translate(6px, -8px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
 .glowing {
   animation: glow infinite ease-in-out 2s;
 }

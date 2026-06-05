@@ -467,13 +467,23 @@ export default function Ocs() {
                 ${selectedMier === "icemage" ? "translate-x-0 duration-1100" : "translate-x-[-100vw] duration-1800"}
               `}
             />
-            <img
-              src="/images/ocs/mier-icemage-deco.png"
+            <div
               className={`
-                h-full w-auto max-w-none absolute transition-transform ease-in-out scale-110 slow-backwards-spin
+                h-full w-full max-w-none absolute transition-transform ease-in-out scale-110 slow-backwards-spin flex items-center justify-center
                 ${selectedMier === "icemage" ? "translate-x-0 duration-1100" : "translate-x-[-100vw] duration-1800"}
               `}
-            />
+            >
+              {Array.from({ length: 22 }, (_, i) => (
+                <img 
+                  key={i} 
+                  src={`images/ocs/mier-icemage-deco-${String(i).padStart(2, '0')}.png`}
+                  style={{ animationDelay: `${i * 1}s` }}
+                  className={`
+                    w-auto h-full ease-in-out absolute scaleless-waves
+                  `}
+                />
+              ))}
+            </div>
             <img
               src="/images/ocs/mier-icemage-1.png"
               className={`
@@ -600,9 +610,9 @@ export default function Ocs() {
           className={`
             w-full h-full relative flex items-center justify-center transition-transform duration-1600
             ${currentBrother === 
-              "ignatius" ? "translate-x-[80%] translate-y-[71%] scale-360" :
+              "ignatius" ? "translate-x-[83%] translate-y-[66%] scale-360" :
               currentBrother ===
-              "brutus"   ? "translate-x-[-75%] translate-y-[108%] scale-360" :
+              "brutus"   ? "translate-x-[-76%] translate-y-[106%] scale-360" :
               currentBrother ===
               "aurelius" ? "translate-x-[60%] translate-y-[29%] scale-360" :
               currentBrother ===
