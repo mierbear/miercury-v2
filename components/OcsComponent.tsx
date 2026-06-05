@@ -84,10 +84,10 @@ export default function Ocs() {
 
   const [hoveredMier, setHoveredMier] = useState("");
   const [selectedMier, setSelectedMier] = useState("");
-  const mierAngelRef = useRef<HTMLImageElement | null>(null);
   const mierTyrantRef = useRef<HTMLImageElement | null>(null);
-  const bulletHoleRef = useRef<HTMLDivElement | null>(null);
+  const bulletHoleRef = useRef<HTMLImageElement | null>(null);
   const flashRef = useRef<HTMLImageElement | null>(null);
+  const [shot, setShot] = useState(false);
 
    // PRELOAD AUDIO
   const audioRefs = useRef<HTMLAudioElement[]>([]);
@@ -117,6 +117,7 @@ export default function Ocs() {
     recoil();
     shatter();
     akShootFX();
+    setShot(true);
     bulletHoleRef.current!.style.opacity = "1"
     flashRef.current!.style.opacity = "1"
 
@@ -174,6 +175,7 @@ export default function Ocs() {
   }, [currentOc, selectedMier]);
 
   const clearTyrantDeco = () => {
+    setShot(false);
     bulletHoleRef.current!.style.opacity = "0"
     flashRef.current!.style.opacity = "0"
   }
@@ -296,15 +298,44 @@ export default function Ocs() {
       {/* DECO - TYRANT */}
       <div
         className={`
-          fixed h-full w-screen z-5556 transition-opacity nonsel pointer-events-none opacity-0
-          ${selectedMier === "tyrant" ? "duration-100" : "duration-300"}
+          fixed h-full w-screen z-5556 transition-opacity nonsel pointer-events-none
         `}
-        ref={bulletHoleRef}
-      >
+        >
         <img 
           src={`/images/ocs/mier-tyrant-deco.png`}
-          className="h-full w-auto max-w-none nonsel pointer-events-none"
+          className={`
+            h-full w-auto max-w-none nonsel pointer-events-none opacity-0
+            ${selectedMier === "tyrant" ? "duration-100" : "duration-300"}
+          `}
+          ref={bulletHoleRef}
         />
+        <div
+          className={`
+            absolute bottom-4 right-4 text-white font-bold text-3xl nonsel flex gap-4
+          `}
+        >
+          
+          <p
+            onClick={() => mierShoot()} 
+            className={`
+              transition-opacity duration-300 cursor-pointer
+              ${currentOc === "mier" && selectedMier === "tyrant" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+            `}
+          >
+            shoot me again!
+          </p>
+
+          <p 
+            onClick={() => clearTyrantDeco()} 
+            className={`
+              transition-opacity duration-300 cursor-pointer
+              ${shot ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+            `}
+          >
+            clear
+          </p>
+
+        </div>
       </div>
 
       {/* ANGEL SELECT */}
