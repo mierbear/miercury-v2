@@ -69,10 +69,10 @@ export default function Ocs() {
   }, []);
 
   const brotherBg =
-    currentBrother === "brutus"   ? "bg-[rgba(15,16,20,0.7)]" :
-    currentBrother === "ignatius" ? "bg-[rgba(29,25,21,0.7)]" :
+    currentBrother === "brutus"   ? "bg-[rgba(16,17,20,0.7)]" :
+    currentBrother === "ignatius" ? "bg-[rgba(28,25,22,0.7)]" :
     currentBrother === "aurelius" ? "bg-[rgba(26,32,36,0.7)]" :
-    currentBrother === "rufus"    ? "bg-[rgba(25,29,22,0.7)]" :
+    currentBrother === "rufus"    ? "bg-[rgba(25,28,23,0.7)]" :
     "rgba(16,17,19,0.6)"
     
   const brotherColors = {
@@ -172,6 +172,7 @@ export default function Ocs() {
     if (currentOc !== "mier" && selectedMier === "angel") {
       setSelectedMier("");
     }
+    setOpenWhy(false);
   }, [currentOc, selectedMier]);
 
   const clearTyrantDeco = () => {
@@ -222,7 +223,7 @@ export default function Ocs() {
             className="cursor-pointer hover:text-red-500 text-5xl absolute top-2 right-6"
             onClick={() => setOpenWhy(false)}
           >
-            x
+            🞮
           </p>
           
           {/* TEXT */}
@@ -333,7 +334,7 @@ export default function Ocs() {
         {/* GRIDS */}
         <div 
           className={`
-          w-full h-full grid transition-grid duration-900 absolute
+          w-full h-full grid transition-grid duration-800 absolute
           ${hoveredMier  === "icemage" ? "grid-cols-[2.6fr_1.2fr_1fr]" :
             hoveredMier  === "angel"   ? "grid-cols-[1.1fr_2.6fr_1.1fr]" :
             hoveredMier  === "tyrant"  ? "grid-cols-[1fr_1.2fr_2.6fr]" :
@@ -368,7 +369,7 @@ export default function Ocs() {
               src={`/images/ocs/mier-intro-icemage.png`} 
               className={`
                 absolute object-cover h-full nonsel pointer-events-none
-                transition-transform duration-1000 scale-170
+                transition-transform duration-1200 scale-170
                 ${selectedMier === "icemage" && "translate-x-[-200vw] duration-1400"}
               `}
             />
@@ -399,7 +400,7 @@ export default function Ocs() {
               src={`/images/ocs/mier-intro-angel.png`} 
               className={`
               absolute object-cover h-full nonsel pointer-events-none
-              transition-transform duration-1000 scale-160
+              transition-transform duration-1200 scale-160
               ${selectedMier === "angel" && "translate-y-[200vh]"}
             `}
             />
@@ -429,7 +430,7 @@ export default function Ocs() {
               src={`/images/ocs/mier-intro-tyrant.png`}
               className={`
                 absolute object-cover h-full nonsel pointer-events-none
-                transition-transform duration-1000 scale-170
+                transition-transform duration-1200 scale-170
                 ${selectedMier === "tyrant" && "translate-x-[200vw] duration-1400"}
               `}
             />
@@ -518,10 +519,7 @@ export default function Ocs() {
       </div>
 
       {/* KANIN */}
-      <div 
-        className="h-[10vh] z-201 flex items-center justify-center relative" 
-        ref={kaninScrollRef}
-      >
+      <div className="h-[10vh] z-201 flex items-center justify-center relative" ref={kaninScrollRef}>
         <div className="w-full h-full brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)] absolute" />
         <p 
           className={`
@@ -561,7 +559,7 @@ export default function Ocs() {
       </div>
       
       {/* CAVARIUS */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,45,60)] z-201" ref={calvariusScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,46,60)] z-201" ref={calvariusScrollRef} />
       <div 
         className={`
           w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
@@ -731,45 +729,6 @@ export default function Ocs() {
                 />
               )}
 
-              {/* PORTRAITS */}
-              <div
-                className={`
-                  absolute grid bottom-4 z-40 gap-2 w-[60%]
-                  transition-all duration-600 grid-cols-4
-                  ${currentBrother || "subtle-breathe"}
-                `}
-              >
-
-                {["ignatius", "aurelius", "rufus", "brutus"].map((brother, index) => (
-                <div
-                  key={index}
-                  className={`
-                    w-full h-full flex items-center justify-center cursor-pointer shadow-2xl
-                    overflow-hidden border-3 rounded-full duration-300 hover:scale-105
-                    ${currentBrother === brother ? "scale-105 saturate-140 border-5" 
-                    : currentBrother && currentBrother !== brother ? "scale-95 hover:saturate-100 saturate-20" 
-                    : "saturate-100"}
-                    `}
-                  onClick={() => {
-                    setCurrentBrother(currentBrother === brother ? "" : brother);
-                    if (!currentBrother || currentBrother !== brother) calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
-                  }}
-                  style={{ borderColor: brotherColors[brother as keyof typeof brotherColors] }}
-                >
-                  <img 
-                    src={`/images/ocs/calvarius-pfp-${brother}.png`} 
-                    className={`
-                      w-full h-full object-cover nonsel pointer-events-none
-                      transition-scale duration-300
-                      ${currentBrother === brother ? "scale-120" : "scale-110"}
-                    `}
-                  />
-                </div>
-                ))}
-                
-
-              </div>
-
             </div>
 
             <div 
@@ -784,7 +743,45 @@ export default function Ocs() {
       </div>
 
       {/* QUINCE */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,48,60)] to-[rgb(24,28,25)] z-201" ref={quinceScrollRef} />
+      <div className="h-[10vh] z-201 relative flex items-center justify-center" ref={quinceScrollRef}>
+        <div className="w-full h-full brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,46,60)] to-[rgb(24,28,25)] absolute" />
+        <div
+          className={`
+            absolute grid gap-2 h-full w-auto py-2 scale-120
+            transition-all duration-600 grid-cols-4
+            ${currentBrother || "subtle-breathe"}
+            ${currentOc === "calvarius" ? "translate-y-[-30%] brightness-100 opacity-100" : "translate-y-full brightness-40 opacity-0 pointer-events-none"}
+          `}
+        >
+
+          {["ignatius", "aurelius", "rufus", "brutus"].map((brother, index) => (
+          <div
+            key={index}
+            className={`
+              w-full h-full flex items-center justify-center cursor-pointer shadow-2xl
+              overflow-hidden border-5 rounded-full duration-300 hover:scale-102
+              ${currentBrother === brother ? "scale-102 saturate-100" 
+              : currentBrother && currentBrother !== brother ? "scale-98 hover:saturate-100 saturate-20 brightness-75 hover:brightness-100" 
+              : "saturate-100"}
+              `}
+            onClick={() => {
+              setCurrentBrother(currentBrother === brother ? "" : brother);
+              if (!currentBrother || currentBrother !== brother) calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
+            }}
+            style={{ borderColor: brotherColors[brother as keyof typeof brotherColors] }}
+          >
+            <img 
+              src={`/images/ocs/calvarius-pfp-${brother}.png`} 
+              className={`
+                w-full h-full object-cover nonsel pointer-events-none
+                transition-scale duration-300
+                ${currentBrother === brother ? "scale-120" : "scale-110"}
+              `}
+            />
+          </div>
+          ))}
+        </div>
+      </div>
       <div 
         className={`
           w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
