@@ -160,12 +160,10 @@ export default function Ocs() {
       blockHandler(1200);
     }
 
-    if (!selectedMier) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   }
 
   useEffect(() => {
@@ -356,6 +354,20 @@ export default function Ocs() {
           overflow-hidden
         `}
       >
+
+        {/* ANGEL INFO */}
+        <div
+          className={`
+            z-200 bg-[rgba(16,17,19,0.7)] absolute w-[60%] h-[33%] bottom-4
+            flex flex-col items-center justify-center text-white duration-300 ease-in-out
+            ${selectedMier === "angel" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
+          `}
+        >
+          <p className="text-6xl text-nowrap">Mier</p>
+          <p className="text-nowrap">The Guide</p>
+          <br />
+          <p className="">dgerghtrhgfdsreg</p>
+        </div>
 
         {/* GRIDS */}
         <div 
@@ -750,7 +762,11 @@ export default function Ocs() {
           >
             <div 
               className={`${currentBrother ? "cursor-pointer" : "pointer-events-none"}`}
-              onClick={() => setCurrentBrother("")}
+              onClick={() => {
+                blockHandler(1200);
+                setCurrentBrother("");
+                calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
+              }}
             />
             
             {/* INFO */}
@@ -829,7 +845,11 @@ export default function Ocs() {
 
             <div 
               className={`${currentBrother ? "cursor-pointer" : "pointer-events-none"}`}
-              onClick={() => setCurrentBrother("")}
+              onClick={() => {
+                blockHandler(1200);
+                setCurrentBrother("");
+                calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
+              }}
             />
 
           </div>
@@ -863,7 +883,7 @@ export default function Ocs() {
             onClick={() => {
               blockHandler(1200);
               setCurrentBrother(currentBrother === brother ? "" : brother);
-              if (!currentBrother || currentBrother !== brother) calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
+              calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
             }}
             style={{ borderColor: brotherColors[brother as keyof typeof brotherColors] }}
           >
