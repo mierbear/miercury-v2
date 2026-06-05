@@ -348,7 +348,7 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full relative flex items-end justify-center cursor-pointer
-              transition-brightness duration-600
+              transition-brightness duration-600 overflow-hidden 
               ${currentOc !== "mier" || currentOc === "mier" && selectedMier && selectedMier !== "icemage" ? "brightness-50" :
                 selectedMier === "icemage" || hoveredMier === "icemage" || !hoveredMier ? "brightness-100" : "brightness-50"
               }
@@ -362,14 +362,14 @@ export default function Ocs() {
               absolute object-cover h-full min-w-full transition-scale duration-2000 nonsel pointer-events-none
               ${selectedMier === "icemage" ? "scale-110" : "scale-100"}
              `}
-             src={`/images/ocs/mier-icemage-bg.png`}
+             src={`/images/ocs/mier-icemage-bg.jpg`}
             />
             <img 
               src={`/images/ocs/mier-intro-icemage.png`} 
               className={`
                 absolute object-cover h-full nonsel pointer-events-none
-                transition-transform duration-1000
-                ${selectedMier === "icemage" && "translate-x-[-100vw] duration-1400"}
+                transition-transform duration-1000 scale-170
+                ${selectedMier === "icemage" && "translate-x-[-200vw] duration-1400"}
               `}
             />
 
@@ -379,7 +379,7 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full relative flex items-end justify-center cursor-pointer
-              transition-brightness duration-600
+              transition-brightness duration-600 overflow-hidden
               ${currentOc !== "mier" || currentOc === "mier" && selectedMier && selectedMier !== "angel" ? "brightness-50" :
                 selectedMier === "angel" || hoveredMier === "angel" || !hoveredMier ? "brightness-100" : "brightness-50"
               }
@@ -393,14 +393,14 @@ export default function Ocs() {
               absolute object-cover h-full min-w-full transition-scale duration-2000 nonsel pointer-events-none
               ${selectedMier === "angel" ? "scale-110" : "scale-100"}
              `}
-             src={`/images/ocs/mier-angel-bg.png`}
+             src={`/images/ocs/mier-angel-bg.jpg`}
             />
             <img 
               src={`/images/ocs/mier-intro-angel.png`} 
               className={`
               absolute object-cover h-full nonsel pointer-events-none
-              transition-transform duration-1000
-              ${selectedMier === "angel" && "translate-y-[110%]"}
+              transition-transform duration-1000 scale-160
+              ${selectedMier === "angel" && "translate-y-[200vh]"}
             `}
             />
           </div>
@@ -409,7 +409,7 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full relative flex items-end justify-center cursor-pointer
-              transition-brightness duration-600
+              transition-brightness duration-600 overflow-hidden
               ${currentOc !== "mier" || currentOc === "mier" && selectedMier && selectedMier !== "tyrant" ? "brightness-50" :
                 selectedMier === "tyrant" || hoveredMier === "tyrant" || !hoveredMier ? "brightness-100" : "brightness-50"
               }
@@ -423,14 +423,14 @@ export default function Ocs() {
               absolute object-cover h-full min-w-full transition-scale duration-2000 nonsel pointer-events-none
               ${selectedMier === "tyrant" ? "scale-110" : "scale-100"}
              `}
-             src={`/images/ocs/mier-tyrant-bg.png`}
+             src={`/images/ocs/mier-tyrant-bg.jpg`}
             />
             <img 
               src={`/images/ocs/mier-intro-tyrant.png`}
               className={`
                 absolute object-cover h-full nonsel pointer-events-none
-                transition-transform duration-1000
-                ${selectedMier === "tyrant" && "translate-x-[100vw] duration-1400"}
+                transition-transform duration-1000 scale-170
+                ${selectedMier === "tyrant" && "translate-x-[200vw] duration-1400"}
               `}
             />
 
@@ -518,7 +518,22 @@ export default function Ocs() {
       </div>
 
       {/* KANIN */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)] z-201" ref={kaninScrollRef} />
+      <div 
+        className="h-[10vh] z-201 flex items-center justify-center relative" 
+        ref={kaninScrollRef}
+      >
+        <div className="w-full h-full brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)] absolute" />
+        <p 
+          className={`
+            brightness-100 transition-opacity duration-300 text-white/80 cursor-pointer nonsel
+            underline-offset-2 underline decoration-white/50 hover:decoration-white/80
+            ${currentOc !== "mier" ? "opacity-0 pointer-events-none" : "opacity-100"}
+          `}
+          onClick={() => setOpenWhy(true)}
+        >
+          why are there multiple miers ?? this makes no sense !! 
+        </p>
+      </div>
       <div
         className={`
           w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
@@ -551,7 +566,7 @@ export default function Ocs() {
         className={`
           w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
           justify-center align-center items-center
-          flex flex-col relative bg-[rgb(36,45,60)]
+          flex flex-col relative bg-[rgb(36,48,60)]
           overflow-hidden transition-brightness duration-600
           ${currentOc === "calvarius" ? "brightness-100" : "brightness-50"}
         `}
@@ -769,7 +784,7 @@ export default function Ocs() {
       </div>
 
       {/* QUINCE */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,45,60)] to-[rgb(24,28,25)] z-201" ref={quinceScrollRef} />
+      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,48,60)] to-[rgb(24,28,25)] z-201" ref={quinceScrollRef} />
       <div 
         className={`
           w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
