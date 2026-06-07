@@ -272,7 +272,13 @@ export default function Ocs() {
         {characters.map((character, index) => (
           <div
             key={index}
-            className="cursor-pointer group"
+            className={`
+              group duration-300
+              ${currentOc === character.name || "cursor-pointer"}
+              ${character.name === "mier" && selectedMier === "icemage" ? "hue-rotate-170 rotate-55" :
+                character.name === "mier" && selectedMier === "angel"   ? "hue-rotate-150 saturate-50 rotate-140" :
+                character.name === "mier" && selectedMier === "tyrant" && "brightness-60 saturate-200 hue-rotate-[-55deg] -rotate-40"}
+            `}
             onClick={() => scrollToHandler(character.ref)}
           >
             <img
@@ -686,7 +692,8 @@ export default function Ocs() {
           <div className="w-full h-full relative col-span-2 flex items-center justify-center">
             <img src="/images/stars.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none scale-400 spin spin-slow" />
             <img src="/images/stars2.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none scale-400 spin spin-medium" />
-            <img src="/images/ocs/kanin-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none translate-y-[50%] slowest-spin" />
+            <img src="/images/ocs/kanin-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
+            <img src="/images/ocs/kanin-deco.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none translate-y-[50%] slowest-spin" />
             <img src="/images/ocs/kanin-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
           </div>
           
@@ -729,7 +736,7 @@ export default function Ocs() {
             src="/images/ocs/calvarius-bg.jpg"
             className={`
               ${currentBrother ? "brightness-80" : "brightness-100"}
-              transition-brightness duration-600 h-full w-auto
+              transition-brightness duration-600 h-full w-auto nonsel pointer-events-none
               object-cover absolute scale-120 translate-y-[-5%]
             `}
           />
