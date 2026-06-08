@@ -273,7 +273,7 @@ export default function Ocs() {
           <div
             key={index}
             className={`
-              group duration-300
+              group
               ${currentOc === character.name || "cursor-pointer"}
               ${character.name === "mier" && selectedMier === "icemage" ? "hue-rotate-170 rotate-55" :
                 character.name === "mier" && selectedMier === "angel"   ? "hue-rotate-150 saturate-50 rotate-140" :
@@ -304,7 +304,7 @@ export default function Ocs() {
       {/* DECO - TYRANT */}
       <div
         className={`
-          fixed h-full w-screen z-5556 transition-opacity nonsel pointer-events-none
+          fixed h-full w-screen z-1000 transition-opacity nonsel pointer-events-none
         `}
         >
         <img 
