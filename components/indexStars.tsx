@@ -1,6 +1,7 @@
 "use client";
 import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
+import ShootingStars from "./shootingStars";
 
 const Stars = () => {
   const [ready, setReady] = useState(false);
@@ -51,9 +52,10 @@ const Stars = () => {
         <img src="/images/stars3.png" className="spin spin-fast nonsel pointer-events-none stars" />
       </div>
 
-
       <div style={{ pointerEvents: "none" }} className="nonsel glow translate-y-[30vh]"></div>
       <img src={"/images/bg.png"} className="fixed bg-[#17191a] -z-60 translate-y-[30vh] min-w-screen min-h-screen object-cover nonsel" style={{ pointerEvents: "none" }} />
+
+      <ShootingStars count={16} />
     </div>
   )
 }

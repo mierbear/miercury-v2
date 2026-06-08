@@ -995,13 +995,13 @@ export default function Home() {
                 <div className="p-4 flex flex-col gap-4 text-sm">
                   <img
                     src="/images/pfp.png"
-                    className="max-w-[50%] self-center"
+                    className="max-w-[50%] self-center rounded-full"
                     onMouseEnter={() => boing()}
                     ref={pfpRef}
                   />
 
                   <p className="text-justify self-center">
-                    Hello, welcome to <span className={`${sono.className} font-bold`}>Miercury!</span> This is a place for me to share my thoughts, projects and artworks. You can read more about me <a href="/about" className="underline blue text-">here.</a>
+                    Hello, welcome to <span className={`${sono.className} font-bold`}>Miercury!</span> This is a place for me to share my artworks, projects and thoughts. You can read more about me <a href="/about" className="underline blue">here</a>.
                   </p>
 
                   <p className="text-center">
@@ -1171,14 +1171,11 @@ export default function Home() {
                     <p className="text-xs font-bold underline">○ DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
                     <p className="text-xs font-bold underline">○ finish the ocs page</p>
                     <p className="text-xs font-bold underline">○ finish the mtwim page</p>
-                    <p className="text-xs">○ make illustration for top right section</p>
-                    <p className="text-xs">○ style the links in navmenu</p>
-                    <p className="text-xs">○ finish the scrollTrigger course</p>
+                    <p className="text-xs">○ add loading screens for pages that need it</p>
                     <p className="text-xs">○ add more ppl to stars bg (revise it even)</p>
-                    <p className="text-xs">○ add shooting stars</p>
                     <p className="text-xs">○ add lots of easter eggs</p>
                     <p className="text-xs">○ make hide and seek easter egg</p>
-                    <p className="text-xs">○ port mieros here</p>
+                    <p className="text-xs">○ port mierOS here</p>
                     <p className="text-xs">○ add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
                     <p className="text-xs">○ make another game (horror one? card game?)</p>
                   </div>
@@ -1187,6 +1184,8 @@ export default function Home() {
                   <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
                     <p className="text-xl font-bold self-center">DONE: </p>
                     {/* <p className="text-xs">● </p> */}
+                    <p className="text-xs">● add shooting stars</p>
+                    <p className="text-xs">● style the links in navmenu</p>
                     <p className="text-xs">● set up tab titles for routes</p>
                     <p className="text-xs font-bold underline">● finish the blog page</p>
                     <p className="text-xs font-bold underline">● finish the games page</p>

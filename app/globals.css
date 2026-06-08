@@ -1037,3 +1037,32 @@ div[data-youtube-video] iframe {
     translate: 0px 0px;
   }
 }
+
+@keyframes shoot {
+  0% {
+    transform: rotate(-45deg) translateX(0);
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: rotate(-45deg) translateX(-50vh);
+    opacity: 0;
+  }
+}
+
+.shooting-star {
+  height: 1px;
+  background: linear-gradient(90deg, white, transparent);
+  transform: rotate(-45deg);
+  transform-origin: left center;
+  animation: shoot linear infinite;
+  opacity: 0;
+}
