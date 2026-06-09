@@ -5,9 +5,10 @@ import { useEffect, useRef, useState } from "react";
 type TooltipProps = {
   info: string;
   status: boolean;
+  structured?: boolean;
 };
 
-export default function Tooltip({ info, status }: TooltipProps) {
+export default function Tooltip({ info, status, structured }: TooltipProps) {
   const tooltipRef = useRef<HTMLDivElement | null>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -52,7 +53,21 @@ export default function Tooltip({ info, status }: TooltipProps) {
         ${status? "visible" : "invisible"}
       `}
     >
-      <p>{info}</p>
+      {structured ? (
+        <div className="">
+          {info.split("*").map((item, i, arr) => (
+            <p 
+              key={i} 
+              className={`py-2`}
+            >
+              {item}
+              {i !== arr.length - 1 && <br />}
+            </p>
+          ))}
+        </div>
+      ) : (
+        <p>{info}</p>
+      )}
     </div>
   );
 }

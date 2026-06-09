@@ -961,13 +961,17 @@ export default function Home() {
               <div className="m-4 mb-0 text-white border-[#d8e0e3]/40 relative border-dotted border flex flex-col items-center pb-14">
 
                 <div className="p-4 flex flex-col gap-4 text-sm">
-                  <img
-                    src="/images/pfp.png"
-                    className="max-w-[50%] self-center rounded-full"
+                  <div
+                    className="max-w-[70%] self-center rounded-full overflow-hidden group cursor-pointer"
                     onMouseEnter={() => boing()}
                     onClick={() => boing()}
-                    ref={pfpRef}
-                  />
+                  >
+                    <img 
+                      src="/images/pfp.png"
+                      className="scale-140 group-hover:scale-160 transition-scale duration-300 nonsel pointer-events-none"
+                      ref={pfpRef}
+                    />
+                  </div>
 
                   <p className="text-justify self-center">
                     Hello, welcome to <span className={`${sono.className} font-bold`}>Miercury!</span> This is a place for me to share my artworks, projects and thoughts. You can read more about me <a href="/about" className="underline blue">here</a>.

@@ -3,6 +3,7 @@ import { userAgent } from "next/server";
 import { useEffect, useState, useRef } from "react";
 import OcInfo from "@/components/OcInfoComponent";
 import Footer from "@/components/footerComponent";
+import Tooltip from "@/components/tooltipComponent";
 
 export default function Ocs() {
 
@@ -69,10 +70,10 @@ export default function Ocs() {
   }, []);
 
   const brotherBg =
-    currentBrother === "brutus"   ? "bg-[rgba(16,17,20,0.7)]" :
-    currentBrother === "ignatius" ? "bg-[rgba(28,25,22,0.7)]" :
-    currentBrother === "aurelius" ? "bg-[rgba(26,32,36,0.7)]" :
-    currentBrother === "rufus"    ? "bg-[rgba(25,28,23,0.7)]" :
+    currentBrother === "brutus"   ? "bg-[rgba(16,17,20,0.8)]" :
+    currentBrother === "ignatius" ? "bg-[rgba(28,25,22,0.8)]" :
+    currentBrother === "aurelius" ? "bg-[rgba(26,32,36,0.8)]" :
+    currentBrother === "rufus"    ? "bg-[rgba(25,28,23,0.8)]" :
     "rgba(16,17,19,0.6)"
     
   const brotherColors = {
@@ -186,6 +187,12 @@ export default function Ocs() {
     tyrant:  "#9c1313",
   }
 
+  const tooltipText = `
+    Pacific Purgatory / PP (the community I host) has no connection or relation to Pacific Purgatory (the musician, Ethan Silva).*
+    It was a session title I chose on a whim because I liked their music and it just stuck there overtime for everybody.*
+    Ever since then, I've met a lot of friends and artists that I love and look up to. :D (one of them is the reason I'm a webdev, whom I'm deeply grateful for)
+    `
+  const [tooltipVisible, setTooltipVisible] = useState(false);
 
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
@@ -235,11 +242,10 @@ export default function Ocs() {
           
           {/* TEXT */}
           <div className="p-12">
-            <p className="text-3xl underline">why many miers??</p>
+            <p className="text-2xl underline">why many miers??</p>
             <br />
             <p>because i have..</p>
-            <p className="text-5xl font-bold  slow-breathe">same hair syndrome u_u</p>
-            <br />
+            <p className="text-4xl font-bold  slow-breathe">same hair syndrome u_u</p>
             <br />
             <p className="text-justify">
               it started as me drawing mier with different hair/eye colors for fun, and then drawing him with black hair since it was easier to just fill in the hair to render it quickly, then so on.
@@ -301,7 +307,7 @@ export default function Ocs() {
         </p> */}
       </div>
 
-      {/* DECO - TYRANT */}
+      {/* TYRANT DECO - WHY */}
       <div
         className={`
           fixed h-full w-screen z-1000 transition-opacity nonsel pointer-events-none
@@ -317,7 +323,23 @@ export default function Ocs() {
         />
         <div
           className={`
-            absolute bottom-4 right-4 text-white font-bold text-3xl nonsel flex gap-4
+            absolute bottom-4 left-4 text-white font-bold nonsel flex gap-4
+          `}
+        >
+          <p
+            onClick={() => setOpenWhy(true)} 
+            className={`
+              transition-opacity duration-300 cursor-pointer
+              ${currentOc === "mier" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+            `}
+          >
+            why are there multiple miers ?? this makes no sense !!
+          </p>
+        </div>
+
+        <div
+          className={`
+            absolute bottom-4 right-4 text-white font-bold nonsel flex
           `}
         >
           
@@ -328,9 +350,18 @@ export default function Ocs() {
               ${currentOc === "mier" && selectedMier === "tyrant" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
-            shoot me again!
+            shoot me again&nbsp;
           </p>
-
+          
+          <p
+            className={`
+              transition-opacity duration-300
+              ${currentOc === "mier" && shot ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+            `}
+          >
+            |
+          </p>
+          
           <p 
             onClick={() => clearTyrantDeco()} 
             className={`
@@ -338,7 +369,7 @@ export default function Ocs() {
               ${shot ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
-            clear
+            &nbsp;clear
           </p>
 
         </div>
@@ -347,7 +378,7 @@ export default function Ocs() {
       {/* ANGEL SELECT */}
       <div 
         className={`
-          flex items-center justify-center scale-120
+          flex items-center justify-center scale-100
           w-screen h-screen z-200 fixed nonsel pointer-events-none
           transition-brightness duration-600
           ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
@@ -363,7 +394,7 @@ export default function Ocs() {
           <img
             src="/images/ocs/mier-angel.png"
             className={`
-              transition-transform ease-in-out absolute
+              transition-transform ease-in-out absolute min-h-full w-auto max-w-none bg-cover
               ${selectedMier === "angel" ? "translate-y-0 duration-1200" : "translate-y-[200vh] duration-1600"}
             `}
           />
@@ -373,7 +404,7 @@ export default function Ocs() {
               src={`images/ocs/mier-angel-deco-${String(i).padStart(2, '0')}.png`}
               style={{ animationDelay: `${i * 0.15}s` }}
               className={`
-                transition-transform ease-in-out absolute scale-170 panic
+                transition-transform ease-in-out absolute scale-200 panic
                 ${selectedMier === "angel" ? "translate-y-0 duration-1200" : "translate-y-[200vh] duration-1600"}
               `}
             />
@@ -395,7 +426,7 @@ export default function Ocs() {
         {/* ANGEL INFO */}
         <div
           className={`
-            z-200 bg-[rgba(16,17,19,0.7)] absolute w-[60%] h-[33%] bottom-4
+            z-200 bg-[rgba(16,17,19,0.7)] absolute w-[60%] h-[33%] bottom-4 px-16 nonsel
             flex flex-col items-center justify-center text-white duration-300 ease-in-out
             ${selectedMier === "angel" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
           `}
@@ -403,7 +434,11 @@ export default function Ocs() {
           <p className="text-6xl text-nowrap">Mier</p>
           <p className="text-nowrap">The Guide</p>
           <br />
-          <p className="">dgerghtrhgfdsreg</p>
+          <p className="text-center">
+            Created as a magician character back in 2018. Many revisions were made and now finalized as a sort of messenger that can travel between worlds.
+            <br />
+            He acts as my artist 'mascot' which I draw frequently.
+          </p>
         </div>
 
         {/* GRIDS */}
@@ -569,7 +604,15 @@ export default function Ocs() {
               ${selectedMier === "icemage" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
             `}
           >
-            <OcInfo name="Mier Colwyn" title="The Ice Mage" info="lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er lorem sdff sdfsdf f wef ew erg erg egergergerg er " />
+            <OcInfo
+              name="Mier Colwyn"
+              title="The Ice Mage"
+              info={`
+                Despite being orphaned and losing everything, he strives to be the strongest mage in the world after being taken under the tutelage of Frank, The Ice Cannon.*
+                This is a Gurren Lagann ripoff that I've thought about and written a lot for, which I'll make into a 3D animated series in the far future...*
+                (This is also generally 'the only Mier' that I want to show off to the wider public with his individual story.. The other two really only act as a mascot/persona when I'm hanging out with friends or just drawing for fun.)
+              `} 
+            />
           </div>
 
           <div />
@@ -594,7 +637,59 @@ export default function Ocs() {
             `}
             onMouseEnter={() => clearTyrantDeco()}
           >
-            <OcInfo name="Mier Morozov" title="The Little Tyrant of Pacific Purgatory" info="dgdrgeg" />
+            
+              <div
+                className={`
+                  flex relative flex-col items-center text-center justify-center
+                  text-sm w-full h-full text-white px-16 pb-[10%]
+                  nonsel pointer-events-none
+                `}
+                style={{ backgroundColor: "rgba(16,17,19,0.7)" }}
+              >
+                
+                {/* NAME */}
+                <p className="text-6xl text-nowrap">
+                  Mier Morozov
+                </p>
+
+                {/* TITLE */}
+                <p className="text-nowrap">
+                  The&nbsp; 
+                  <span className="line-through">
+                    Little
+                  </span>
+                  &nbsp;Tyrant of Pacific Purgatory
+                </p>
+                <br />
+                <br />
+
+                {/* INFO */}
+                <div className="gap-4 flex flex-col">
+                  <p>
+                    Made as the captain of&nbsp;
+                    <span 
+                      className="underline underline-offset-2 pointer-events-auto decoration-white/50 hover:decoration-white cursor-help"
+                      onMouseEnter={() => setTooltipVisible(true)}
+                      onMouseLeave={() => setTooltipVisible(false)}
+                    >
+                    Pacific Purgatory (?)
+                    </span>
+                    , an art community I grew in Drawpile since the May of 2023.
+                    <br />
+                  </p>
+                  <p>Since 90% of the sessions and artists in Drawpile were and for furry/nsfw art, I conjured/adapted the most offensive and obnoxiously edgy character/persona in a pure contrarian act and love of countering culture.</p>
+                  <p>He is a ruthless, psychopathic and genocidal maniac who has a deep seated hatred for furries and nsfw artists.</p>
+                  <p>(It should obviously go without saying that he's supposed to be a satirical and extreme character lol)</p>
+                </div>
+                <br />
+
+                {/* <img 
+                  className="absolute bottom-0 opacity-30"
+                  src="/images/ocs/${name.toLowerCase()}-alt.png"
+                /> */}
+
+              </div>
+
           </div>
 
           <div 
@@ -1033,7 +1128,7 @@ export default function Ocs() {
         <Footer />
       </div>
 
-
+      <Tooltip info={tooltipText} status={tooltipVisible} structured={true} />
     </div>
   )
 }

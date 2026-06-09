@@ -7,9 +7,9 @@ export default function Info({ name, title, info, bg, hidebg, list }: { name: st
       
       <div
         className={`
-          flex relative flex-col items-center text-center
-          text-sm w-full h-full text-white
-          px-16 py-[15vh] nonsel pointer-events-none
+          flex relative flex-col items-center text-center justify-center
+          text-sm w-full h-full text-white px-16 pb-[10%]
+          nonsel pointer-events-none
         `}
         style={{ backgroundColor: hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.7)" }}
       >
@@ -24,6 +24,7 @@ export default function Info({ name, title, info, bg, hidebg, list }: { name: st
         {title}
         </p>
         <br />
+        <br />
 
         {/* INFO */}
         <div> 
@@ -33,7 +34,7 @@ export default function Info({ name, title, info, bg, hidebg, list }: { name: st
               {info.split("*").map((item, i, arr) => (
                 <li 
                   key={i} 
-                  className={`${i === arr.length - 1 ? "font-bold text-xl pt-4" : "py-1"}`}
+                  className={`${i === arr.length - 1 ? "font-bold text-xl" : "pb-4"}`}
                 >
                   {item}
                 </li>
@@ -43,7 +44,7 @@ export default function Info({ name, title, info, bg, hidebg, list }: { name: st
             info.split("*").map((item, i) => (
               <p 
                 key={i} 
-                className="pb-2"
+                className="pb-4"
               >
                 {item}
               </p>

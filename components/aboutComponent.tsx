@@ -1,7 +1,7 @@
 "use client";
 import { use, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
-import TooltipComponent from "@/components/tooltipComponent";
+import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
 import { measureMemory } from "vm";
 
@@ -1089,7 +1089,7 @@ export default function Home() {
         </Marquee>
       </div>
 
-      <TooltipComponent info={tooltipText} status={tooltipVisible} />
+      <Tooltip info={tooltipText} status={tooltipVisible} />
       
     </div>
   );
