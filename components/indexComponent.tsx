@@ -377,46 +377,9 @@ export default function Home() {
     pfpRef.current?.classList.add("jelly");
   }
 
-  const featArtRef = useRef<HTMLImageElement | null>(null);
   const featArtMiniRef = useRef<HTMLImageElement | null>(null);
-
   const loadingScreenRef = useRef<HTMLDivElement | null>(null);
-
-  const vertAdRef = useRef<HTMLParagraphElement | null>(null);
-  const vertAdRef2 = useRef<HTMLParagraphElement | null>(null);
-
-  useEffect(() => {
-    const refs = [vertAdRef, vertAdRef2];
-    const splits: SplitText[] = [];
-
-    refs.forEach(ref => {
-      if (!ref.current) return;
-
-      const split = new SplitText(ref.current, { type: "chars" });
-      splits.push(split);
-
-      gsap.to(split.chars, {
-        yPercent: -12,
-        duration: 1.6,
-        ease: "sine.inOut",
-        repeat: -1,
-        yoyo: true,
-        stagger: {
-          each: 0.08,
-          repeat: -1,
-          yoyo: true,
-        }
-      });
-    });
-
-    return () => {
-      splits.forEach(split => split.revert());
-      gsap.killTweensOf("*");
-    };
-  }, []);
-
   const [adVertHover, setAdVertHover] = useState(false);
-  
   const [artwork, setArtwork] = useState<ArtType | null>(null);
   
   const fetchArt = async () => {
@@ -925,8 +888,8 @@ export default function Home() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col">
-                            <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8 text-nowrap`} ref={vertAdRef}>Take a dive?</p>
-                            <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`} ref={vertAdRef2}>project your thoughts and feelings as you delve deeper in the abyss</p>
+                            <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8 text-nowrap`}>Take a dive?</p>
+                            <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`}>project your thoughts and feelings as you delve deeper in the abyss</p>
                           </NextLink>
 
                           <video autoPlay muted loop className={`object-cover h-full w-full nonsel pointer-events-none ${ready ? "block" : "hidden"}`}>
@@ -1002,6 +965,7 @@ export default function Home() {
                     src="/images/pfp.png"
                     className="max-w-[50%] self-center rounded-full"
                     onMouseEnter={() => boing()}
+                    onClick={() => boing()}
                     ref={pfpRef}
                   />
 
