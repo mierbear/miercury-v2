@@ -1059,7 +1059,7 @@ div[data-youtube-video] iframe {
 }
 
 .shooting-star {
-  height: 1px;
+  height: 2px;
   background: linear-gradient(90deg, white, transparent);
   transform: rotate(-45deg);
   transform-origin: left center;

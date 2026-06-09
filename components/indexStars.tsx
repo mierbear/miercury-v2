@@ -55,7 +55,7 @@ const Stars = () => {
       <div style={{ pointerEvents: "none" }} className="nonsel glow translate-y-[30vh]"></div>
       <img src={"/images/bg.png"} className="fixed bg-[#17191a] -z-60 translate-y-[30vh] min-w-screen min-h-screen object-cover nonsel" style={{ pointerEvents: "none" }} />
 
-      <ShootingStars count={16} />
+      <ShootingStars count={12} />
     </div>
   )
 }

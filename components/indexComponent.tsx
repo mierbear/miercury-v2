@@ -229,11 +229,16 @@ export default function Home() {
 
       const json = await res.json();
       setStatus(json.data.discord_status);
+      
+      const customStatus = json.data.activities.find((activity: any) => activity.type === 4);
 
-      if (json.data.activities.find((activity: any) => activity.type === 4)?.emoji) {
-        setBio(`${json.data.activities.find((activity: any) => activity.type === 4).emoji.name} ${json.data.activities.find((activity: any) => activity.type === 4).state}`);
-      } else {
-        setBio(`${json.data.activities.find((activity: any) => activity.type === 4).state}`);
+      if (customStatus) {
+        const parts = [
+          customStatus.emoji?.name,
+          customStatus.state,
+        ].filter(Boolean);
+
+        setBio(parts.join(" "));
       }
 
       if (json.data.activities.find((activity: any) => activity.type === 0)) {
@@ -802,16 +807,16 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-[62fr_38fr] mt-0 md:mt-4 mb-4 items-center text-white w-full gap-4 order-6">
 
                 {/* BLOG */}
-                <div className="flex flex-col">
+                <div className="flex flex-col monospace">
                   <p className={`pl-5 md:pl-1 pb-1 ${sono.className} text-xs`}>✦ recent blog posts:</p>
-                  <div className="flex mx-4 md:mx-0 md:h-60 flex-col items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 thin-scrollbar overflow-y-auto">
+                  <div className="flex mx-4 md:mx-0 md:h-72 flex-col items-center justify-between border-[#d8e0e3]/80 border border-dashed pb-4 thin-scrollbar overflow-y-auto">
 
                     {latestPost === null ? null : (
                       <div key={latestPost.id} className="p-4 rounded-md mb-2 w-full relative flex-1 flex-col flex">
                         <NextLink href={`/blog/post/${latestPost.slug}`}>
-                          <p className={`${sono.className} font-bold text-base xs:text-xl sm:text-2xl hover:underline blue`}>{latestPost.title}</p>
+                          <p className={`font-bold text-base xs:text-xl sm:text-2xl hover:underline blue`}>{latestPost.title}</p>
                         </NextLink>
-                        <div className={`${sono.className} text-xs text-gray-400 nonsel flex w-max cursor-pointer`} onClick={clickDate}>
+                        <div className={`text-xs text-gray-400 nonsel flex w-max cursor-pointer`} onClick={clickDate}>
                           <p className="underline">{properDate ? (latestPost.spec_date) : latestPost.date}</p>
                         </div>
                         <div className="prose prose-invert text-justify pt-5 mb-4 text-xs">
@@ -822,7 +827,7 @@ export default function Home() {
                       </div>
                     )}
 
-                    <div className={`${sono.className} w-full`}>
+                    <div className={`w-full`}>
                       <hr className="mb-4 border-gray-500/60 w-full" />
                       {posts.map((post) => {
                         return (
@@ -846,15 +851,15 @@ export default function Home() {
                 {/* MISC */}
                 <div className="flex flex-col">
                   <p className={`pl-5 md:pl-1 pb-1 ${sono.className} text-xs`}>✦ misc.</p>
-                  <div className="flex flex-col sm:flex-row md:flex-col justify-between md:h-60 gap-4">
+                  <div className="flex flex-col sm:flex-row md:flex-col justify-between md:h-72 gap-4">
                     
                     <NextLink 
-                      className="
+                      className={`
                       bg-[#17191a] hover:bg-yellow-300 text-white hover:text-black hover:border-black border-3 px-8 py-4 md:py-0 border-[#d8e0e3] 
                       rounded-2xl border-dotted flex-auto flex items-center nonsel transition-colors duration-100
                       justify-center ml-4 sm:ml-0 md:ml-0 mr-4 md:mr-0 w-[60%] md:w-full sm:h-50 md:h-auto sm:w-auto self-center
                       order-2
-                      "
+                      `}
                       href="https://mier.atabook.org/"
                       target="_blank" rel="noopener noreferrer"
                     >
@@ -864,12 +869,12 @@ export default function Home() {
                     </NextLink>
 
                     <div 
-                      className="
+                      className={`
                       flex mx-4 ml-4 md:m-0 mt-0 sm:mr-0 flex-col bg-[#17191a]/50
-                      border-[#17191a] border-2 h-50 md:h-40 text-xs relative
+                      border-[#17191a] border-2 h-50 md:h-50 text-xs relative
                       rounded-l-xl rounded-t-xl
                       order-1
-                      "
+                      `}
                     >
 
                       <p className={`${sono.className} sticky top-0 z-10 bg-[#17191a] p-2 pl-3 w-full rounded-t-xl`}>CHANGELOGS</p>
@@ -892,7 +897,7 @@ export default function Home() {
               </div>
 
               {/* CAROUSEL */}
-              <div className="order-8 md:order-1 flex flex-col relative">
+              <div className="order-8 md:order-1 flex flex-col relative w-full h-full">
                 <p className="text-white absolute top-0 left-0 py-1 px-2 z-100 text-xs bg-black/30 rounded-br-md ml-px mt-px nonsel">brought to you by...</p>
                 <div className="flex flex-col justify-center items-center relative w-full aspect-25/9 mx-auto border-x-0 md:border-x text-white border-[#d8e0e3]/70 border">
 
@@ -1040,8 +1045,10 @@ export default function Home() {
                     </p>
                   )}
 
-                  {status !== "offline" && (
-                    <p className="italic text-xs">"{bio}"</p>
+                  {status !== "offline" && bio && (
+                    <p className="">
+                      "{bio}"
+                    </p>
                   )}
                 </div>
                 
@@ -1155,98 +1162,12 @@ export default function Home() {
             </div>
 
             <hr className="border-gray-500/30 w-full mt-4" />
-            
-            {/* TO DO LIST */}
-            <div className="w-full flex flex-col p-4">
-              <div className="text-white p-4 border-[#d8e0e3]/70 border flex flex-col ">
-                <h1 className="font-bold text-2xl self-center">to do list</h1>
-                <p className="pb-5 text-xs self-center">(will be gone eventually)</p>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  
-                  {/* TO DO */}
-                  <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
-                    <p className="text-xl font-bold self-center">TO-DO: </p>
-                    {/* <p className="text-xs">○ </p> */}
-                    <p className="text-xs font-bold underline">○ DRAW ASSETS (A LOT OF IT! LOCK IN! WE'RE LIKE 80% THERE)</p>
-                    <p className="text-xs font-bold underline">○ finish the ocs page</p>
-                    <p className="text-xs font-bold underline">○ finish the mtwim page</p>
-                    <p className="text-xs">○ add loading screens for pages that need it</p>
-                    <p className="text-xs">○ add more ppl to stars bg (revise it even)</p>
-                    <p className="text-xs">○ add lots of easter eggs</p>
-                    <p className="text-xs">○ make hide and seek easter egg</p>
-                    <p className="text-xs">○ port mierOS here</p>
-                    <p className="text-xs">○ add mier widget. (potentially make it persist across all routes) ((use local storage for it))</p>
-                    <p className="text-xs">○ make another game (horror one? card game?)</p>
-                  </div>
-
-                  {/* DONE */}
-                  <div className="flex flex-col p-4 border-[#d8e0e3]/70 border overflow-y-auto h-100 scrollbar">
-                    <p className="text-xl font-bold self-center">DONE: </p>
-                    {/* <p className="text-xs">● </p> */}
-                    <p className="text-xs">● add shooting stars</p>
-                    <p className="text-xs">● style the links in navmenu</p>
-                    <p className="text-xs">● set up tab titles for routes</p>
-                    <p className="text-xs font-bold underline">● finish the blog page</p>
-                    <p className="text-xs font-bold underline">● finish the games page</p>
-                    <p className="text-xs">● make featured art frame properly</p>
-                    <p className="text-xs font-bold underline">● finish the gallery page</p>
-                    <p className="text-xs">● a LOT of things for the gallery i cant list down lol</p>
-                    <p className="text-xs font-bold underline">● finish the about me page</p>
-                    <p className="text-xs">● style each section in index</p>
-                    <p className="text-xs">● implement lightbox for artworks </p>
-                    <p className="text-xs">● learn how to draw again LOL</p>
-                    <p className="text-xs">● bring back old drawer navmenu style</p>
-                    <p className="text-xs">● show featured art in index</p>
-                    <p className="text-xs">● make daily popup modal persist across routes</p>
-                    <p className="text-xs">● make daily popup modal</p>
-                    <p className="text-xs">● fix the fcked up font management</p>
-                    <p className="text-xs">● add qotd in index (what u see above rn)</p>
-                    <p className="text-xs">● revise about me page (its so ass bruh..)</p>
-                    <p className="text-xs">● show latest drawing in index</p>
-                    <p className="text-xs">● set up supabase for gallery</p>
-                    <p className="text-xs">● optimize stars background when unfocused</p>
-                    <p className="text-xs">● learn how to make svgs</p>
-                    <p className="text-xs">● make navmenu look good</p>
-                    <p className="text-xs">● revise navmenu</p>
-                    <p className="text-xs">● make index page responsive</p>
-                    <p className="text-xs">● turn most gsap animations into plain css</p>
-                    <p className="text-xs">● make adVERT impressive</p>
-                    <p className="text-xs">● set up navmenu revision skeleton</p>
-                    <p className="text-xs">● add loading screen for index</p>
-                    <p className="text-xs">● improve art section in index</p>
-                    <p className="text-xs">● add changelog to index</p>
-                    <p className="text-xs">● make the admin page actually legible LOL</p>
-                    <p className="text-xs">● add more to the about me page</p>
-                    <p className="text-xs">● improve navbar for index</p>
-                    <p className="text-xs">● implement index and slug pages for blog </p>
-                    <p className="text-xs">● make blog page</p>
-                    <p className="text-xs">● add all old posts from the old miercury websites here</p>
-                    <p className="text-xs">● fix bg low opacity bug</p>
-                    <p className="text-xs">● add image uploading function for tiptap</p>
-                    <p className="text-xs">● set up atabook</p>
-                    <p className="text-xs">● perhaps have the blog be its own page instead</p>
-                    <p className="text-xs">● make the about me page</p>
-                    <p className="text-xs">● finish secret santa</p>
-                    <p className="text-xs">● add more to the space background </p>
-                    <p className="text-xs">● implement editing posts with tiptap</p>
-                    <p className="text-xs">● implement tiptap on post dashboard</p>
-                    <p className="text-xs">● make a dashboard for blog crud operations</p>
-                    <p className="text-xs">● connect this to supabase so you can add blog posts</p>
-                    <p className="text-xs">● add vercel web analytics functionality</p>
-                  </div>
-                  
-                </div>
-              </div>
-            </div>
 
           </div>
 
         </div>
        
-        
-                
-      </div>  
+      </div>
       
       {/* FOOTER */}
       <Footer />
