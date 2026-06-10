@@ -1,4 +1,15 @@
 "use client"
+import { Bodoni_Moda, Noto_Serif_JP } from "next/font/google"
+
+const bodoni = Bodoni_Moda({
+  weight: "400",
+  subsets : ["latin"]
+})
+
+const noto = Noto_Serif_JP({
+  weight: "400",
+  subsets : ["latin"]
+})
 
 export default function Info({ name, title, info, bg, hidebg, list }: { name: string, title: string, info: string, bg?: string, hidebg?: boolean, list?: boolean }) {
 
@@ -8,26 +19,25 @@ export default function Info({ name, title, info, bg, hidebg, list }: { name: st
       <div
         className={`
           flex relative flex-col items-center text-center justify-center
-          text-sm w-full h-full text-white px-16 pb-[10%]
-          nonsel pointer-events-none
+          w-full h-full text-white px-16
+          nonsel pointer-events-none ${noto.className}
         `}
         style={{ backgroundColor: hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.7)" }}
       >
         
         {/* NAME */}
-        <p className="text-6xl text-nowrap">
+        <p className={`text-6xl text-nowrap ${bodoni.className}`}>
         {name}
         </p>
 
         {/* TITLE */}
-        <p className="text-nowrap">
+        <p className="text-nowrap text-xl">
         {title}
         </p>
         <br />
-        <br />
 
         {/* INFO */}
-        <div> 
+        <div className=""> 
           {list ?
           (
             <ul className="list-disc list-inside">

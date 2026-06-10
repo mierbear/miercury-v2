@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import Ocs from "@/components/OcsComponent";
-import { Sono } from "next/font/google";
+import { Noto_Serif_JP } from "next/font/google";
 
 export const metadata: Metadata = {
   title: "Characters",
 };
 
-const sono = Sono({
+const sono = Noto_Serif_JP({
   weight: "400",
   subsets: ["latin"],
 })

@@ -4,6 +4,22 @@ import { useEffect, useState, useRef } from "react";
 import OcInfo from "@/components/OcInfoComponent";
 import Footer from "@/components/footerComponent";
 import Tooltip from "@/components/tooltipComponent";
+import { Bodoni_Moda, Noto_Serif_JP, Barlow_Semi_Condensed } from "next/font/google"
+
+const bodoni = Bodoni_Moda({
+  weight: "400",
+  subsets : ["latin"]
+})
+
+const noto = Noto_Serif_JP({
+  weight: "400",
+  subsets : ["latin"]
+})
+
+const barlow = Barlow_Semi_Condensed ({
+  weight: "400",
+  subsets : ["latin"]
+})
 
 export default function Ocs() {
 
@@ -166,6 +182,12 @@ export default function Ocs() {
       top: 0,
       behavior: "smooth",
     });
+
+    if (currentOc !== "mier" && mier === "angel") {
+      setTimeout(() => {
+        setSelectedMier(mier);
+      }, 0);
+    }
   }
 
   useEffect(() => {
@@ -190,7 +212,7 @@ export default function Ocs() {
   const tooltipText = `
     Pacific Purgatory / PP (the community I host) has no connection or relation to Pacific Purgatory (the musician, Ethan Silva).*
     It was a session title I chose on a whim because I liked their music and it just stuck there overtime for everybody.*
-    Ever since then, I've met a lot of friends and artists that I love and look up to. :D (one of them is the reason I'm a webdev, whom I'm deeply grateful for)
+    Ever since then, I've met a lot of friends and artists that I love and look up to. :D (one of them is the reason why I became a webdev, whom I'm deeply grateful for)
     `
   const [tooltipVisible, setTooltipVisible] = useState(false);
 
@@ -229,29 +251,27 @@ export default function Ocs() {
         `}
       >
         <div
-          className="bg-gray-200 flex flex-col items-center w-2xl h-[80%] rounded-3xl text-center nonsel relative"
+          className="bg-gray-200 flex flex-col items-center w-2xl h-auto rounded-3xl text-center nonsel relative"
         >
 
           {/* X */}
           <p 
-            className="cursor-pointer hover:text-red-500 text-5xl absolute top-2 right-6"
+            className="cursor-pointer hover:text-red-500 text-4xl absolute top-3 right-3"
             onClick={() => setOpenWhy(false)}
           >
             🞮
           </p>
           
           {/* TEXT */}
-          <div className="p-12">
-            <p className="text-2xl underline">why many miers??</p>
-            <br />
+          <div className="p-12 pb-[40%]">
             <p>because i have..</p>
-            <p className="text-4xl font-bold  slow-breathe">same hair syndrome u_u</p>
+            <p className={`text-4xl font-bold slow-breathe ${bodoni.className}`}>same hair syndrome u_u</p>
             <br />
             <p className="text-justify">
-              it started as me drawing mier with different hair/eye colors for fun, and then drawing him with black hair since it was easier to just fill in the hair to render it quickly, then so on.
+              it started as me drawing mier with different hair/eye colors for fun, and then drawing him with black hair since it was easier to just fill in the hair to render it quickly and so on.
             <br />
             <br />
-              but as time passed i slowly realized i clearly havent studied hair structure at all and just had a 'comfort hair' to draw all the time. and even if i try not to make it like mier's hair, the general shape/style still bleeds into other hairstyles i draw because i genuinely really love how it looks.
+              but as time passed, i slowly realized i clearly havent studied hair structure at all and just had a 'comfort hair' to draw all the time. and even if i try to not make it like mier's hair, the general shape/style still bleeds into other hairstyles i draw because i genuinely really love how it looks.
             <br />
               (which can be very clear to see once you scroll down more...)
             <br />
@@ -310,7 +330,8 @@ export default function Ocs() {
       {/* TYRANT DECO - WHY */}
       <div
         className={`
-          fixed h-full w-screen z-1000 transition-opacity nonsel pointer-events-none
+          fixed h-full w-screen z-1000 transition-opacity nonsel pointer-events-none text-[26px]
+          ${barlow.className}
         `}
         >
         <img 
@@ -323,13 +344,13 @@ export default function Ocs() {
         />
         <div
           className={`
-            absolute bottom-4 left-4 text-white font-bold nonsel flex gap-4
+            absolute bottom-4 left-4 font-bold nonsel flex gap-4
           `}
         >
           <p
             onClick={() => setOpenWhy(true)} 
             className={`
-              transition-opacity duration-300 cursor-pointer
+              transition-opacity duration-300 cursor-pointer text-white/50 hover:text-white
               ${currentOc === "mier" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
@@ -339,23 +360,23 @@ export default function Ocs() {
 
         <div
           className={`
-            absolute bottom-4 right-4 text-white font-bold nonsel flex
+            absolute bottom-4 right-4 font-bold nonsel flex gap-4
           `}
         >
           
           <p
             onClick={() => mierShoot()} 
             className={`
-              transition-opacity duration-300 cursor-pointer
+              transition-opacity duration-300 cursor-pointer text-white/50 hover:text-white
               ${currentOc === "mier" && selectedMier === "tyrant" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
-            shoot me again&nbsp;
+            shoot me again
           </p>
           
           <p
             className={`
-              transition-opacity duration-300
+              transition-opacity duration-300 text-white/50
               ${currentOc === "mier" && shot ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
@@ -365,11 +386,11 @@ export default function Ocs() {
           <p 
             onClick={() => clearTyrantDeco()} 
             className={`
-              transition-opacity duration-300 cursor-pointer
+              transition-opacity duration-300 cursor-pointer text-white/50 hover:text-white
               ${shot ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
-            &nbsp;clear
+            clear
           </p>
 
         </div>
@@ -429,10 +450,15 @@ export default function Ocs() {
             z-200 bg-[rgba(16,17,19,0.7)] absolute w-[60%] h-[33%] bottom-4 px-16 nonsel
             flex flex-col items-center justify-center text-white duration-300 ease-in-out
             ${selectedMier === "angel" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
+            ${noto.className}
           `}
         >
-          <p className="text-6xl text-nowrap">Mier</p>
-          <p className="text-nowrap">The Guide</p>
+          <p className={`text-6xl text-nowrap ${bodoni.className}`}>
+            Mier
+          </p>
+          <p className="text-nowrap text-xl">
+            The Guide
+          </p>
           <br />
           <p className="text-center">
             Created as a magician character back in 2018. Many revisions were made and now finalized as a sort of messenger that can travel between worlds.
@@ -608,9 +634,9 @@ export default function Ocs() {
               name="Mier Colwyn"
               title="The Ice Mage"
               info={`
-                Despite being orphaned and losing everything, he strives to be the strongest mage in the world after being taken under the tutelage of Frank, The Ice Cannon.*
+                Despite being orphaned and losing everything, he strives to be the strongest mage (physically) after being taken under the tutelage of Frank, The Ice Cannon.*
                 This is a Gurren Lagann ripoff that I've thought about and written a lot for, which I'll make into a 3D animated series in the far future...*
-                (This is also generally 'the only Mier' that I want to show off to the wider public with his individual story.. The other two really only act as a mascot/persona when I'm hanging out with friends or just drawing for fun.)
+                (This is also generally 'the only Mier' that I want to show off to the wider public with his individual story.. The other two really only act as a mascot/persona when I'm drawing with friends or for fun.)
               `} 
             />
           </div>
@@ -641,19 +667,19 @@ export default function Ocs() {
               <div
                 className={`
                   flex relative flex-col items-center text-center justify-center
-                  text-sm w-full h-full text-white px-16 pb-[10%]
-                  nonsel pointer-events-none
+                  w-full h-full text-white px-16
+                  nonsel pointer-events-none ${noto.className}
                 `}
                 style={{ backgroundColor: "rgba(16,17,19,0.7)" }}
               >
                 
                 {/* NAME */}
-                <p className="text-6xl text-nowrap">
+                <p className={`text-6xl text-nowrap ${bodoni.className}`}>
                   Mier Morozov
                 </p>
 
                 {/* TITLE */}
-                <p className="text-nowrap">
+                <p className="text-nowrap text-xl">
                   The&nbsp; 
                   <span className="line-through">
                     Little
@@ -661,12 +687,11 @@ export default function Ocs() {
                   &nbsp;Tyrant of Pacific Purgatory
                 </p>
                 <br />
-                <br />
-
+                  
                 {/* INFO */}
                 <div className="gap-4 flex flex-col">
                   <p>
-                    Made as the captain of&nbsp;
+                    Made as the pirate captain of&nbsp;
                     <span 
                       className="underline underline-offset-2 pointer-events-auto decoration-white/50 hover:decoration-white cursor-help"
                       onMouseEnter={() => setTooltipVisible(true)}
@@ -677,7 +702,7 @@ export default function Ocs() {
                     , an art community I grew in Drawpile since the May of 2023.
                     <br />
                   </p>
-                  <p>Since 90% of the sessions and artists in Drawpile were and for furry/nsfw art, I conjured/adapted the most offensive and obnoxiously edgy character/persona in a pure contrarian act and love of countering culture.</p>
+                  <p>Since 90% of the sessions and artists in Drawpile were and for furry/nsfw art, I conjured/adapted the most offensive and obnoxiously edgy character/persona in a pure contrarian act and love of counter culture.</p>
                   <p>He is a ruthless, psychopathic and genocidal maniac who has a deep seated hatred for furries and nsfw artists.</p>
                   <p>(It should obviously go without saying that he's supposed to be a satirical and extreme character lol)</p>
                 </div>
@@ -792,7 +817,13 @@ export default function Ocs() {
             <img src="/images/ocs/kanin-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
           </div>
           
-          <OcInfo name="Kanin" title="The Gatekeeper" info="sfsd" />
+          <OcInfo 
+            name="Kanin" 
+            title="The Gatekeeper"
+            info={`
+              At the cost of a rib, made as the distant and alluring counterpart for Mier, also as a 'mascot' herself.
+            `}
+          />
           <div />
 
         </div>
@@ -916,42 +947,42 @@ export default function Ocs() {
               {currentBrother === "ignatius" && (
                 <OcInfo 
                   name="Ignatius"
-                  title="The 2nd Son"
+                  title="The 2nd Son / The Buffoon"
                   hidebg={true}
                   list={true}
                   info="
-                  Primarily fights with a spear, being able to run around nimbly and effectively poke enemies from afar. (balanced)
-                  *The mischief of the group. He likes to playfully tease his younger brothers, angering Rufus and scaring Aurelius. (mostly angering Rufus)
+                  The mischief of the group. He likes to playfully tease his younger brothers, angering Rufus and scaring Aurelius. (mostly angering Rufus)
+                  *Primarily fights with a spear, being able to run around nimbly and effectively poke enemies from afar. (balanced)
                   *Very active and hates dull moments. He loves making people laugh and is a bit of an adrenaline junkie.
                   *Highly respects Brutus and wishes to be someone like him. Deep inside, he doubts if he is capable of it, masking it with his joker personality.
-                  *In the end, he builds his self-worth and now fully believes in himself.
+                  *In the end, he fully believes in himself as he embodies the man he wants and needs to be.
                   "
                 />
               )}
               {currentBrother === "aurelius" && (
                 <OcInfo 
                   name="Aurelius"
-                  title="The 3rd Son"
+                  title="The 3rd Son / The Crybaby"
                   hidebg={true}
                   list={true}
                   info="
-                  Primarily fights with a giant hammer that is counter-balanced with the heavy skull on his right shoulder, while being the most effective with using magic attacks (mage / heavy-hitter)
-                  *The heart of the group. Despite the overwhelmingly distressing situation they are in (and being the first to cry), he always sees the bright side of things and always relays it to his brothers
+                  The heart of the group. Despite the overwhelmingly distressing situation they are in (and being the first to cry), he always sees the bright side of things and always relays it to his brothers
+                  *Primarily fights with a giant hammer that is counter-balanced with the heavy skull on his right shoulder, while being the most effective with using magic attacks (mage / heavy-hitter)
                   *He is forgiving of wrongdoers and can be a bit naive, which his brothers have to tell him off from time to time.
                   *In his free time, he is often seen exploring on his own in the woods inspecting insects/creatures.
-                  *In the end, he stands up and faces life head on even if he’s crying.
+                  *In the end, he stands up and faces his fears head on even if he’s crying.
                   "
                 />
               )}
               {currentBrother === "rufus" && (
                 <OcInfo 
                   name="Rufus"
-                  title="The 4th Son"
+                  title="The 4th Son / The Indignant"
                   hidebg={true}
                   list={true}
                   info="
-                  Primarily fights with a sword, while also using the skull on his head to sprint head on towards enemies to ram them with the point. (glass cannon)
-                  *The hothead of the group, he can't control his anger. (lol)
+                  The hothead of the group, he can't control his anger. (lol)
+                  *Primarily fights with a sword, while also using the skull on his head to sprint head on towards enemies to ram them with the point. (glass cannon)
                   *Despite being the youngest, he is very protective over Aurelius as if he were the older brother.
                   *Him and Ignatius are very competitive against each other, frequently getting into petty fights, only to make up 5 minutes later.
                   *In the end, he reigns in his anger and have it no longer dictate his judgement.
@@ -961,15 +992,15 @@ export default function Ocs() {
               {currentBrother === "brutus" && (
                 <OcInfo 
                   name="Brutus"
-                  title="The 1st Son"
+                  title="The 1st Son / The Unwavering"
                   hidebg={true}
                   list={true}
                   info="
-                  Primarily fights with a giant greatsword, being able to take many hits while dealing heavy damage with his sword and ramming through enemies with the three-pointed skull on his left shoulder. (tank)
-                  *The leader and brain of the group, usually scolds Ignatius for misbehaving. (and Rufus for following along)
+                  The leader and brain of the group, usually scolds Ignatius for misbehaving. (and Rufus for following along)
+                  *Primarily fights with a giant greatsword, being able to take many hits while dealing heavy damage with his sword and ramming through enemies with the three-pointed skull on his left shoulder. (tank)
                   *At nighttime, he stays awake for as long as he can until he falls asleep, watching over his brothers.
                   *Discreetly favors Aurelius over the other two. He tries his best to guide him in everything he knows in his knowledge as the oldest brother, rather than in physical capability.
-                  *In the end, he no longer worries and has faith in his brothers capabilities.
+                  *In the end, he learns to no longer worry and have faith in his brothers capabilities.
                   "
                 />
               )}
@@ -1053,9 +1084,12 @@ export default function Ocs() {
           
           <OcInfo
             name="Quince"
-            title="The Flower Deliver Boy" 
-            info="Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad." 
+            title="The Flower Delivery Boy" 
             bg="rgba(13,16,15,0.7)"
+            info={`
+              Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad.
+              *Planning to make this into a survival horror RPG, blatantly inspired by the Fear & Hunger series by Miro Haverinen.
+            `}
           />
           <div />
 
@@ -1081,8 +1115,11 @@ export default function Ocs() {
           <OcInfo 
             name="Simeon"
             title="The Sunken One" 
-            info="In a twist of fate, he embarks on a journey to the depths in search of his brother amongst the crowd of souls in the sea." 
             bg="rgba(12,16,20,0.7)"
+            info={`
+              In a twist of fate, he embarks on a journey to the depths in search of his brother amongst the crowd of souls in the sea.
+              *(also planned to be made as a horror but tear-jerker RPG ...though it's fair to say every story I make is sad lol)
+            `}
           />
 
           <div className="w-full h-full relative col-span-2 flex items-center justify-center">
