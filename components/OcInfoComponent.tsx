@@ -11,61 +11,51 @@ const noto = Noto_Serif_JP({
   subsets : ["latin"]
 })
 
-export default function Info({ name, title, info, bg, hidebg, list }: { name: string, title: string, info: string, bg?: string, hidebg?: boolean, list?: boolean }) {
+export default function Info({ name, title, info, bg, hidebg }: { name: string, title: string, info: string, bg?: string, hidebg?: boolean }) {
 
   return (
     <div className="w-full h-full z-20">
       
       <div
         className={`
-          flex relative flex-col items-center text-center justify-center
-          w-full h-full text-white px-16 overflow-hidden
+          flex relative flex-col text-center items-center justify-center
+          w-full h-full text-white px-16 overflow-hidden gap-4
           nonsel pointer-events-none ${noto.className}
         `}
         style={{ backgroundColor: hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.7)" }}
       >
         
-        {/* NAME */}
-        <p className={`text-6xl text-nowrap ${bodoni.className}`}>
-        {name}
-        </p>
+        <div className="flex flex-col items-center justify-center w-full">
+          {/* NAME */}
+          <p className={`text-6xl text-nowrap ${bodoni.className}`}>
+          {name}
+          </p>
 
-        {/* TITLE */}
-        <p className="text-nowrap text-xl">
-        {title}
-        </p>
-        <br />
+          {/* TITLE */}
+          <p className="text-nowrap text-xl pb-2">
+          {title}
+          </p>
+
+          <hr className="w-full mx-auto border-white/30" />
+        </div>
 
         {/* INFO */}
-        <div className=""> 
-          {list ?
-          (
-            <ul className="list-disc list-inside">
-              {info.split("*").map((item, i, arr) => (
-                <li 
-                  key={i} 
-                  className={`${i === arr.length - 1 ? "font-bold text-xl" : "pb-4"}`}
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            info.split("*").map((item, i) => (
-              <p 
-                key={i} 
-                className="pb-4"
-              >
-                {item}
-              </p>
-            )))
+        <div className="flex flex-col items-center justify-center w-full gap-4"> 
+          {info.split("*").map((item, i) => 
+            <p 
+              key={i} 
+            >
+              {item}
+            </p>
+            )
           }
         </div>
         <br />
 
         <img 
           className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
-          src={list ? "/images/ocs/calvarius-alt.png" : `/images/ocs/${name.toLowerCase()}-alt.png`}
+          src={name.slice(-2) === "us" ? "/images/ocs/calvarius-alt.png" : `/images/ocs/${name.toLowerCase()}-alt.png`}
+          // LOL
         />
 
       </div>

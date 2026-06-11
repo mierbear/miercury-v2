@@ -447,24 +447,33 @@ export default function Ocs() {
         {/* ANGEL INFO */}
         <div
           className={`
-            z-200 bg-[rgba(16,17,19,0.7)] absolute w-[60%] h-[33%] bottom-4 px-16 nonsel
+            z-200 bg-[rgba(16,17,19,0.7)] absolute w-[60%] h-[33%] bottom-4 px-16 nonsel gap-4 text-center
             flex flex-col items-center justify-center text-white duration-300 ease-in-out overflow-hidden
             ${selectedMier === "angel" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
             ${noto.className}
           `}
         >
-          <p className={`text-6xl text-nowrap ${bodoni.className}`}>
-            Mier
-          </p>
-          <p className="text-nowrap text-xl">
-            The Guide
-          </p>
-          <br />
-          <p className="text-center">
-            Created as a magician character back in 2018. Many revisions were made and now finalized as a sort of messenger that can travel between worlds.
-            <br />
-            He acts as my artist 'mascot' which I draw frequently.
-          </p>
+          <div className="flex flex-col items-center justify-center w-full">
+            {/* NAME */}
+            <p className={`text-6xl text-nowrap ${bodoni.className}`}>
+              Mier
+            </p>
+
+            {/* TITLE */}
+            <p className="text-nowrap text-xl pb-2">
+              The Guide
+            </p>
+
+            <hr className="w-[60%] mx-auto border-white/30" />
+          </div>
+            
+          {/* INFO */}
+          <div className="flex flex-col items-center justify-center w-full gap-4"> 
+            <p>
+              Created as a magician character back in 2018. Many revisions were made and now finalized as a sort of messenger that can travel between worlds.
+              He acts as my artist 'mascot' which I draw frequently.
+            </p>
+          </div>
 
           <img 
             className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
@@ -672,34 +681,37 @@ export default function Ocs() {
             
               <div
                 className={`
-                  flex relative flex-col items-center text-center justify-center
-                  w-full h-full text-white px-16 overflow-hidden
+                  flex relative flex-col text-center items-center justify-center
+                  w-full h-full text-white px-16 overflow-hidden gap-4
                   nonsel pointer-events-none ${noto.className}
                 `}
                 style={{ backgroundColor: "rgba(16,17,19,0.7)" }}
               >
                 
-                {/* NAME */}
-                <p className={`text-6xl text-nowrap ${bodoni.className}`}>
-                  Mier Morozov
-                </p>
+                <div className="flex flex-col items-center justify-center w-full">
+                  {/* NAME */}
+                  <p className={`text-6xl text-nowrap ${bodoni.className}`}>
+                    Mier Morozov
+                  </p>
 
-                {/* TITLE */}
-                <p className="text-nowrap text-xl">
-                  The&nbsp; 
-                  <span className="line-through">
-                    Little
-                  </span>
-                  &nbsp;Tyrant of Pacific Purgatory
-                </p>
-                <br />
+                  {/* TITLE */}
+                  <p className="text-nowrap text-xl pb-2">
+                    The&nbsp; 
+                    <span className="line-through">
+                      Little
+                    </span>
+                    &nbsp;Tyrant of Pacific Purgatory
+                  </p>
+
+                  <hr className="w-full mx-auto border-white/30" />
+                </div>
                   
                 {/* INFO */}
-                <div className="gap-4 flex flex-col">
+                <div className="flex flex-col items-center justify-center w-full gap-4"> 
                   <p>
                     Made as the pirate captain of&nbsp;
                     <span 
-                      className="underline underline-offset-2 pointer-events-auto decoration-white/50 hover:decoration-white cursor-help"
+                      className="underline underline-offset-4 pointer-events-auto decoration-white/30 hover:decoration-white/80 cursor-help"
                       onMouseEnter={() => setTooltipVisible(true)}
                       onMouseLeave={() => setTooltipVisible(false)}
                     >
@@ -945,12 +957,10 @@ export default function Ocs() {
                   name="Ignatius"
                   title="The 2nd Son / The Buffoon"
                   hidebg={true}
-                  list={true}
                   info="
                   The mischief of the group. He likes to playfully tease his younger brothers, angering Rufus and scaring Aurelius. (mostly angering Rufus)
                   *Primarily fights with a spear, being able to run around nimbly and effectively poke enemies from afar. (balanced)
-                  *Very active and hates dull moments. He loves making people laugh and is a bit of an adrenaline junkie.
-                  *Highly respects Brutus and wishes to be someone like him. Deep inside, he doubts if he is capable of it, masking it with his joker personality.
+                  *Very active and hates dull moments. He loves making people laugh and is a bit of an adrenaline junkie. He highly respects Brutus and wishes to be someone like him. Deep inside, he doubts if he is capable of it, masking it with his joker personality.
                   *In the end, he fully believes in himself as he embodies the man he wants and needs to be.
                   "
                 />
@@ -960,12 +970,10 @@ export default function Ocs() {
                   name="Aurelius"
                   title="The 3rd Son / The Crybaby"
                   hidebg={true}
-                  list={true}
                   info="
                   The heart of the group. Despite the overwhelmingly distressing situation they are in (and being the first to cry), he always sees the bright side of things and always relays it to his brothers
                   *Primarily fights with a giant hammer that is counter-balanced with the heavy skull on his right shoulder, while being the most effective with using magic attacks (mage / heavy-hitter)
-                  *He is forgiving of wrongdoers and can be a bit naive, which his brothers have to tell him off from time to time.
-                  *In his free time, he is often seen exploring on his own in the woods inspecting insects/creatures.
+                  *He is forgiving of wrongdoers and can be a bit naive, which his brothers have to tell him off from time to time. In his free time, he is often seen exploring on his own in the woods inspecting insects/creatures.
                   *In the end, he stands up and faces his fears head on even if he’s crying.
                   "
                 />
@@ -975,12 +983,10 @@ export default function Ocs() {
                   name="Rufus"
                   title="The 4th Son / The Indignant"
                   hidebg={true}
-                  list={true}
                   info="
                   The hothead of the group, he can't control his anger. (lol)
                   *Primarily fights with a sword, while also using the skull on his head to sprint head on towards enemies to ram them with the point. (glass cannon)
-                  *Despite being the youngest, he is very protective over Aurelius as if he were the older brother.
-                  *Him and Ignatius are very competitive against each other, frequently getting into petty fights, only to make up 5 minutes later.
+                  *Despite being the youngest, he is very protective over Aurelius as if he were the older brother. He and Ignatius are very competitive against each other, frequently getting into petty fights, only to make up 5 minutes later.
                   *In the end, he reigns in his anger and have it no longer dictate his judgement.
                   "
                 />
@@ -990,12 +996,10 @@ export default function Ocs() {
                   name="Brutus"
                   title="The 1st Son / The Unwavering"
                   hidebg={true}
-                  list={true}
                   info="
                   The leader and brain of the group, usually scolds Ignatius for misbehaving. (and Rufus for following along)
                   *Primarily fights with a giant greatsword, being able to take many hits while dealing heavy damage with his sword and ramming through enemies with the three-pointed skull on his left shoulder. (tank)
-                  *At nighttime, he stays awake for as long as he can until he falls asleep, watching over his brothers.
-                  *Discreetly favors Aurelius over the other two. He tries his best to guide him in everything he knows in his knowledge as the oldest brother, rather than in physical capability.
+                  *At nighttime, he stays awake for as long as he can until he falls asleep, watching over his brothers. He discreetly favors Aurelius over the other two. He tries his best to guide him in everything he knows in his knowledge as the oldest brother, rather than in physical capability.
                   *In the end, he learns to no longer worry and have faith in his brothers capabilities.
                   "
                 />
