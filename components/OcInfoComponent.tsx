@@ -19,7 +19,7 @@ export default function Info({ name, title, info, bg, hidebg, list }: { name: st
       <div
         className={`
           flex relative flex-col items-center text-center justify-center
-          w-full h-full text-white px-16
+          w-full h-full text-white px-16 overflow-hidden
           nonsel pointer-events-none ${noto.className}
         `}
         style={{ backgroundColor: hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.7)" }}
@@ -64,8 +64,8 @@ export default function Info({ name, title, info, bg, hidebg, list }: { name: st
         <br />
 
         <img 
-          className="absolute bottom-0 opacity-30"
-          src={`/images/ocs/${name.toLowerCase()}-alt.png`}
+          className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
+          src={list ? "/images/ocs/calvarius-alt.png" : `/images/ocs/${name.toLowerCase()}-alt.png`}
         />
 
       </div>

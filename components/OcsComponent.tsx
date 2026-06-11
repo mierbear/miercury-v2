@@ -448,7 +448,7 @@ export default function Ocs() {
         <div
           className={`
             z-200 bg-[rgba(16,17,19,0.7)] absolute w-[60%] h-[33%] bottom-4 px-16 nonsel
-            flex flex-col items-center justify-center text-white duration-300 ease-in-out
+            flex flex-col items-center justify-center text-white duration-300 ease-in-out overflow-hidden
             ${selectedMier === "angel" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
             ${noto.className}
           `}
@@ -465,6 +465,11 @@ export default function Ocs() {
             <br />
             He acts as my artist 'mascot' which I draw frequently.
           </p>
+
+          <img 
+            className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
+            src="/images/ocs/mier-alt.png"
+          />
         </div>
 
         {/* GRIDS */}
@@ -655,7 +660,8 @@ export default function Ocs() {
         >
 
           <div />
-
+          
+          {/* INFO */}
           <div
             className={`
               pointer-events-auto ease-in-out
@@ -667,7 +673,7 @@ export default function Ocs() {
               <div
                 className={`
                   flex relative flex-col items-center text-center justify-center
-                  w-full h-full text-white px-16
+                  w-full h-full text-white px-16 overflow-hidden
                   nonsel pointer-events-none ${noto.className}
                 `}
                 style={{ backgroundColor: "rgba(16,17,19,0.7)" }}
@@ -708,15 +714,16 @@ export default function Ocs() {
                 </div>
                 <br />
 
-                {/* <img 
-                  className="absolute bottom-0 opacity-30"
-                  src="/images/ocs/${name.toLowerCase()}-alt.png"
-                /> */}
+                <img 
+                  className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
+                  src="/images/ocs/mier morozov-alt.png"
+                />
 
               </div>
 
           </div>
-
+          
+          {/* IMAGES */}
           <div 
             className={`
               w-full h-full relative col-span-2 flex items-center justify-center
@@ -785,17 +792,6 @@ export default function Ocs() {
           </div>
           ))}
         </div>
-
-        {/* <p 
-          className={`
-            brightness-100 transition-opacity duration-300 text-white/80 cursor-pointer nonsel
-            underline-offset-2 underline decoration-white/50 hover:decoration-white/80
-            ${currentOc !== "mier" ? "opacity-0 pointer-events-none" : "opacity-100"}
-          `}
-          onClick={() => setOpenWhy(true)}
-        >
-          why are there multiple miers ?? this makes no sense !! 
-        </p> */}
       </div>
       <div
         className={`
@@ -821,7 +817,7 @@ export default function Ocs() {
             name="Kanin" 
             title="The Gatekeeper"
             info={`
-              At the cost of a rib, made as the distant and alluring counterpart for Mier, also as a 'mascot' herself.
+              At the cost of a rib, made as the quiet and alluring counterpart for Mier, also as a 'mascot' herself.
             `}
           />
           <div />
@@ -1088,7 +1084,7 @@ export default function Ocs() {
             bg="rgba(13,16,15,0.7)"
             info={`
               Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad.
-              *Planning to make this into a survival horror RPG, blatantly inspired by the Fear & Hunger series by Miro Haverinen.
+              *(planning to make this into a survival horror RPG, blatantly inspired by the Fear & Hunger series by Miro Haverinen.)
             `}
           />
           <div />
@@ -1151,7 +1147,7 @@ export default function Ocs() {
           <OcInfo
             name="Pio" 
             title="The Deaf Hermit"
-            info="Outcasted by everyone, he finds solace and friendship with his metallic friend.*(currently my least worked on story, might fully redesign them in the future)" 
+            info="Outcasted by everyone, he finds solace and friendship with his metallic friend.*(currently my least worked on story. might fully redesign them in the future since the mech honestly looks kinda ridiculous LOL)" 
             bg="rgba(11,11,10,0.7)"
           />
           <div />
