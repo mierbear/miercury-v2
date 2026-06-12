@@ -326,7 +326,7 @@ export default function Home() {
 
   type LinkKey =
   | "characters"
-  | "mtwim"
+  | "worlds"
   | "games"
   | "gallery"
   | "blog"
@@ -341,7 +341,7 @@ export default function Home() {
     const rows = {
       characters:  "240px 50px 50px 50px 50px 50px",
       gallery:     "50px 240px 50px 50px 50px 50px",
-      mtwim:       "50px 50px 240px 50px 50px 50px",
+      worlds:       "50px 50px 240px 50px 50px 50px",
       games:       "50px 50px 50px 240px 50px 50px",
       blog:        "50px 50px 50px 50px 240px 50px",
       about:       "50px 50px 50px 50px 50px 240px",
@@ -962,7 +962,7 @@ export default function Home() {
 
                 <div className="p-4 flex flex-col gap-4 text-sm">
                   <div
-                    className="max-w-[70%] self-center rounded-full overflow-hidden group cursor-pointer"
+                    className="w-60 max-w-full md:w-full md:max-w-[70%] self-center rounded-full overflow-hidden group cursor-pointer"
                     onMouseEnter={() => boing()}
                     onClick={() => boing()}
                   >
@@ -1046,7 +1046,7 @@ export default function Home() {
                 
                 <NavLink desc="learn about my characters" active={activeLink} type="marq" pos="top" link="characters" onHover={handleHover} />
                 <NavLink desc="look at my art" active={activeLink} type="img" pos="mid" link="gallery" onHover={handleHover} />
-                <NavLink desc="learn about a story i want to tell" active={activeLink} type="img" pos="mid" link="mtwim" onHover={handleHover} />
+                <NavLink desc="learn about my stories" active={activeLink} type="img" pos="mid" link="worlds" onHover={handleHover} wip={true} />
                 <NavLink desc="play my own games here" active={activeLink} type="img" pos="mid" link="games" onHover={handleHover} />
                 <NavLink desc="read my ramblings" active={activeLink} type="img" pos="mid" link="blog" onHover={handleHover} />
                 <NavLink desc="learn more about me" active={activeLink} type="img" pos="bot" link="about" onHover={handleHover} />

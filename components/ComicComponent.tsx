@@ -80,7 +80,7 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
     >
       
       {/* PAGES */}
-      <div className="flex flex-col items-center relative bg-black w-full overflow-y-scroll h-screen">
+      <div className="flex flex-col items-center relative bg-black w-full overflow-y-scroll h-full">
         
         {pagesLoading && (
           <div className="z-10 flex items-center justify-center absolute bg-black w-full h-full">
@@ -152,7 +152,7 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
                 onClick={() => {
                   setCurrentChapter(i + 1);
                   setOpenChapters(false);
-                  router.push(`/mtwim/read/${i + 1}`);
+                  router.push(`/worlds/read/${i + 1}`);
                 }}
               >
                 Chapter {i + 1}
@@ -178,7 +178,7 @@ export default function Comic({ initialChapter = 1 }: { initialChapter?: number 
             src={scrollMode ? "/images/book.svg" : "/images/scroll.svg"}
             onClick={() => setScrollMode(!scrollMode)}
           />
-          <NextLink href="/mtwim">
+          <NextLink href="/worlds">
             <img
               className="cursor-pointer h-14"
               src="/images/home.svg"

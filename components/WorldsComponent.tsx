@@ -12,7 +12,7 @@ const rozha = Gloock({
   subsets: ["latin"],
 })
 
-export default function Mtwim() {
+export default function Worlds() {
 
   const [currentPage, setCurrentPage] = useState<string>("about");
 
@@ -44,7 +44,7 @@ export default function Mtwim() {
             <p className="text-6xl font-bold text-center px-10  ">Mier: The Weakest Ice Mage</p>
             <p className="">sdfdsfdsfsdf</p>
             <NextLink 
-              href="/mtwim/read/1"
+              href="/worlds/read/1"
               className="px-12 py-8 text-xl bg-white rounded-2xl cursor-pointer"
             >
               READ PROLOGUE

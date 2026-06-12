@@ -14,7 +14,7 @@ const anonymous = Anonymous_Pro({
 type LinkKey =
   | "characters"
   | "gallery"
-  | "mtwim"
+  | "worlds"
   | "games"
   | null
 

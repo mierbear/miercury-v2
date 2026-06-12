@@ -98,7 +98,7 @@ const NavMenu = () => {
   const routes = [
     { img: "moon.png",      desc: "home",                          href: "/" },
     { img: "star.png",      desc: "with everyone",                 href: "/characters" },
-    { img: "snowflake.svg", desc: "somewhere cold",                href: "/mtwim" },
+    { img: "snowflake.svg", desc: "somewhere cold",                href: "/worlds" },
     { img: "moon.png",      desc: "looking for something to play", href: "/games" },
     { img: "moon.png",      desc: "in the gallery",                href: "/gallery" },
     { img: "star.png",      desc: "in my mind",                    href: "/blog" },
@@ -138,7 +138,7 @@ const NavMenu = () => {
   type LinkKey =
   | "characters"
   | "gallery"
-  | "mtwim"
+  | "worlds"
   | "games"
 
   const [activeLink, setActiveLink] = useState<LinkKey | null>(null);
@@ -152,7 +152,7 @@ const NavMenu = () => {
     const cols = {
       characters:  "2fr 1.125fr 1.025fr .95fr",
       gallery:     "1.05fr 2fr 1.05fr 1fr",
-      mtwim:       "1fr 1.05fr 2fr 1.05fr",
+      worlds:      "1fr 1.05fr 2fr 1.05fr",
       games:       ".95fr 1.025fr 1.125fr 2fr",
     }
 
@@ -162,14 +162,14 @@ const NavMenu = () => {
     const cols = {
       characters:  "2fr 1fr",
       gallery:     "1fr 2fr",
-      mtwim:       "2fr 1fr",
+      worlds:      "2fr 1fr",
       games:       "1fr 2fr",
     }
     
     const rows = {
       characters:  "2fr 1fr",
       gallery:     "2fr 1fr",
-      mtwim:       "1fr 2fr",
+      worlds:      "1fr 2fr",
       games:       "1fr 2fr",
     }
 
@@ -202,8 +202,13 @@ const NavMenu = () => {
 
   const handleSelect = (link: LinkKey) => {
     if (activeLink === link) {
-      moonClickHandler();
-      router.push(`/${link}`);
+      
+      // OPEN CONSTRUCTION SOON
+      // if (link !== "worlds") {
+        moonClickHandler();
+        router.push(`/${link}`);
+      // }
+
     } else {
       setActiveLink(link);
       navMenuSelectHandler(link);
@@ -264,7 +269,7 @@ const NavMenu = () => {
     getCrowd();
   }, [])
 
-  const onComic = pathname.startsWith("/mtwim/read");
+  const onComic = pathname.startsWith("/worlds/read");
 
   // PRELOAD
   useEffect(() => {
@@ -474,19 +479,19 @@ const NavMenu = () => {
               <Label activeLink={activeLink} link="gallery" title="GALLERY" desc="gaze upon my art!" />
             </div>
 
-            {/* MTWIM */}
+            {/* WORLDS */}
             <div 
-              onClick={() => handleSelect("mtwim")}
-              onMouseEnter={!isPhone ? () => navMenuSelectHandler("mtwim") : undefined}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative duration-400 ${activeLink === "mtwim" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
+              onClick={() => handleSelect("worlds")}
+              onMouseEnter={!isPhone ? () => navMenuSelectHandler("worlds") : undefined}
+              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative duration-400 ${activeLink === "worlds" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
             >
               
               {/* CONSTRUCTION TAPE */}
-              {/* <div className={`absolute bottom-30 h-20 w-auto z-10 flex object-cover transition-opacity ${activeLink === "mtwim" ? "opacity-100 duration-800" : "opacity-0 duration-400"}`}>
+              <div className={`absolute bottom-30 h-20 w-auto z-10 flex object-cover`}>
                 <img src="/images/constructiontape.png" className="object-cover" />
                 <img src="/images/constructiontape.png" className="object-cover" />
-                <p className="absolute self-center text-center w-full meow">under construction!</p>
-              </div> */}
+                <p className="absolute self-center text-center w-full meow">UNDER CONSTRUCTION!</p>
+              </div>
 
 
               {/* CHARACTERS */}
@@ -538,12 +543,7 @@ const NavMenu = () => {
 
               </div>
 
-              {/* <div className="w-full h-full relative">
-                <img src="/images/mtwimfrank.png" className="absolute left-0 scale-110 bottom-0 h-full object-cover" />
-                <img src="/images/mtwimmier.png" className="absolute right-0 scale-110 bottom-0 h-full object-cover" />
-              </div>  */}
-
-              <Label activeLink={activeLink} link="mtwim" title="MTWIM" desc="learn about a story i want to tell!" />
+              <Label activeLink={activeLink} link="worlds" title="WORLDS" desc="learn about the stories i want to tell!" />
             </div>
             
             {/* GAMES */}

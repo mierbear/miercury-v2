@@ -1087,7 +1087,7 @@ export default function Ocs() {
             title="The Flower Delivery Boy" 
             bg="rgba(13,16,15,0.7)"
             info={`
-              Tricked into a false delivery by a demonic deity, he now must find a way out of a kingdom gone horribly mad.
+              Tricked into a false delivery by demonic floral deities, he now must find a way out of a kingdom gone horribly mad.
               *(planning to make this into a survival horror RPG, blatantly inspired by the Fear & Hunger series by Miro Haverinen.)
             `}
           />
@@ -1151,7 +1151,7 @@ export default function Ocs() {
           <OcInfo
             name="Pio" 
             title="The Deaf Hermit"
-            info="Outcasted by everyone, he finds solace and friendship with his metallic friend.*(currently my least worked on story. might fully redesign them in the future since the mech honestly looks kinda ridiculous LOL)" 
+            info="Outcasted by everyone, he finds solace and friendship with his metallic friend.*(currently my least developed story. might fully redesign them in the future since the mech honestly looks kinda ridiculous LOL)" 
             bg="rgba(11,11,10,0.7)"
           />
           <div />

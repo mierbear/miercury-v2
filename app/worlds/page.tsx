@@ -1,15 +1,15 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import MtwimComponent from "@/components/MtwimComponent";
+import Worlds from "@/components/WorldsComponent";
 
 export const metadata: Metadata = {
-  title: "Mier: The Weakest Ice Mage",
+  title: "Worlds",
 };
 
 export default function Home() {
   return (
     <main className={``}>
-      <MtwimComponent />
+      <Worlds />
     </main>
   );
 }
