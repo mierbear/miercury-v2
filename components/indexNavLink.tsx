@@ -11,7 +11,6 @@ const sono = Sono({
 
 type LinkKey =
 | "characters"
-| "worlds"
 | "games"
 | "gallery"
 | "blog"
@@ -24,10 +23,9 @@ type LinkItemProps = {
   pos: string;
   link: LinkKey;
   onHover: (link: LinkItemProps["link"]) => void;
-  wip?: boolean
 };
 
-export default function LinkItem({ desc, active, type, pos, link, onHover, wip }: LinkItemProps) {
+export default function LinkItem({ desc, active, type, pos, link, onHover }: LinkItemProps) {
 
   const [isPhone, setIsPhone] = useState(false);
 
@@ -47,7 +45,6 @@ export default function LinkItem({ desc, active, type, pos, link, onHover, wip }
       onMouseEnter={() => onHover(link)}
       onClick={() => onHover(link)}
     >
-      {/* <div className={`${wip ? "w-full h-full bg-none absolute" : "hidden"}`} /> */}
 
       <div>
         

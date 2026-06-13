@@ -326,7 +326,6 @@ export default function Home() {
 
   type LinkKey =
   | "characters"
-  | "worlds"
   | "games"
   | "gallery"
   | "blog"
@@ -339,12 +338,11 @@ export default function Home() {
     setActiveLink(link);
 
     const rows = {
-      characters:  "240px 50px 50px 50px 50px 50px",
-      gallery:     "50px 240px 50px 50px 50px 50px",
-      worlds:       "50px 50px 240px 50px 50px 50px",
-      games:       "50px 50px 50px 240px 50px 50px",
-      blog:        "50px 50px 50px 50px 240px 50px",
-      about:       "50px 50px 50px 50px 50px 240px",
+      characters:  "240px 50px 50px 50px 50px",
+      gallery:     "50px 240px 50px 50px 50px",
+      games:       "50px 50px 240px 50px 50px",
+      blog:        "50px 50px 50px 240px 50px",
+      about:       "50px 50px 50px 50px 240px",
     };
 
     linksDivRef.current.style.gridTemplateRows = rows[link];
@@ -1046,7 +1044,6 @@ export default function Home() {
                 
                 <NavLink desc="learn about my characters" active={activeLink} type="marq" pos="top" link="characters" onHover={handleHover} />
                 <NavLink desc="look at my art" active={activeLink} type="img" pos="mid" link="gallery" onHover={handleHover} />
-                <NavLink desc="learn about my stories" active={activeLink} type="img" pos="mid" link="worlds" onHover={handleHover} wip={true} />
                 <NavLink desc="play my own games here" active={activeLink} type="img" pos="mid" link="games" onHover={handleHover} />
                 <NavLink desc="read my ramblings" active={activeLink} type="img" pos="mid" link="blog" onHover={handleHover} />
                 <NavLink desc="learn more about me" active={activeLink} type="img" pos="bot" link="about" onHover={handleHover} />
