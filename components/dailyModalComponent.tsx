@@ -40,8 +40,8 @@ export default function DailyModal() {
           <p onClick={closeModal} className="scale-200 text-red-600 cursor-pointer">🞨</p>
         </div>
         <div className="flex flex-col">
-          <p className="text-red-500 font-bold">This site is still in development and many routes are still unfinished.</p>
-          <p>Expect changes for the next month or two, there's still a lot of work to be done.</p>
+          <p className="text-red-500 font-bold">This site is still in development!</p>
+          <p>I'm almost done with this though.. expect it to be done in around a week.</p>
           <p>Check back once in a while, thanks for visiting. &lt;3</p>
         </div>
       </div>

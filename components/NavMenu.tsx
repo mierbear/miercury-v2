@@ -43,13 +43,13 @@ const NavMenu = () => {
   const moonClickHandler = () => {
     listReset();
     stopFishing();
+    resetInlineStyles();
     if (navMenuRef.current === null || overlayRef.current === null || moonRef.current === null || menuRef.current === null || goHomeRef.current === null) return;
 
     if (isDesktop()) {
-      menuRef.current.style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
+      menuRef.current.style.gridTemplateColumns = "1fr 1fr 1fr";
     } else {
-      menuRef.current.style.gridTemplateColumns = "1fr 1fr";
-      menuRef.current.style.gridTemplateRows = "1fr 1fr";
+      menuRef.current.style.gridTemplateRows = "1fr 1fr 1fr";
     }
 
     // CLOSE
@@ -115,7 +115,7 @@ const NavMenu = () => {
 
   const menuRef = useRef<HTMLDivElement | null>(null);
 
-  const isDesktop = () => window.innerWidth >= 1280;
+  const isDesktop = () => window.innerWidth >= 1024;
 
   const isPhone = typeof window !== "undefined" &&
   window.matchMedia("(pointer: coarse)").matches;
@@ -131,14 +131,13 @@ const NavMenu = () => {
       return;
     }
 
-    menuRef.current!.style.gridTemplateColumns = "1fr 1fr 1fr 1fr";
+    menuRef.current!.style.gridTemplateColumns = "1fr 1fr 1fr";
     menuRef.current!.style.removeProperty("grid-template-columns");
   };
 
   type LinkKey =
   | "characters"
   | "gallery"
-  | "worlds"
   | "games"
 
   const [activeLink, setActiveLink] = useState<LinkKey | null>(null);
@@ -150,31 +149,21 @@ const NavMenu = () => {
 
     if (isDesktop()) {
     const cols = {
-      characters:  "2fr 1.125fr 1.025fr .95fr",
-      gallery:     "1.05fr 2fr 1.05fr 1fr",
-      worlds:      "1fr 1.05fr 2fr 1.05fr",
-      games:       ".95fr 1.025fr 1.125fr 2fr",
+      characters:  "2fr 1.125fr 1.025fr",
+      gallery:     "1.075fr 2fr 1.075fr",
+      games:       "1.025fr 1.125fr 2fr",
     }
 
     menuRef.current.style.gridTemplateColumns = cols[link];
     } else {
     
-    const cols = {
-      characters:  "2fr 1fr",
-      gallery:     "1fr 2fr",
-      worlds:      "2fr 1fr",
-      games:       "1fr 2fr",
-    }
-    
     const rows = {
-      characters:  "2fr 1fr",
-      gallery:     "2fr 1fr",
-      worlds:      "1fr 2fr",
-      games:       "1fr 2fr",
+      characters:  "4fr 1fr 1fr",
+      gallery:     "1fr 4fr 1fr",
+      games:       "1fr 1fr 4fr",
     }
 
     menuRef.current.style.gridTemplateRows = rows[link];
-    menuRef.current.style.gridTemplateColumns = cols[link];
     }
 
     if (link === "games") {
@@ -202,13 +191,8 @@ const NavMenu = () => {
 
   const handleSelect = (link: LinkKey) => {
     if (activeLink === link) {
-      
-      // OPEN CONSTRUCTION SOON
-      // if (link !== "worlds") {
-        moonClickHandler();
-        router.push(`/${link}`);
-      // }
-
+      moonClickHandler();
+      router.push(`/${link}`);
     } else {
       setActiveLink(link);
       navMenuSelectHandler(link);
@@ -385,7 +369,7 @@ const NavMenu = () => {
         
         {/* MENU */}
         <div className="w-full h-full flex-col">
-          <div className="w-full h-full grid grid-rows-2 grid-cols-2 xl:grid-cols-4 xl:grid-rows-none rounded-b-4xl overflow-hidden relative transition-grid ease-in-out duration-500" ref={menuRef}>
+          <div className="w-full h-full grid rounded-b-4xl overflow-hidden relative transition-grid ease-in-out duration-500" ref={menuRef}>
 
             {/* CHARACTERS */}
             <div
@@ -396,11 +380,17 @@ const NavMenu = () => {
                 overflow-hidden relative transition-saturate duration-400
                 ${activeLink === "characters"
                 ? "saturate-100 brightness-100 bg-[rgb(33,37,38)]"
-                : "saturate-60 brightness-40 bg-[rgb(48,54,56)]"}
+                : "saturate-60 brightness-60 bg-[rgb(48,54,56)]"}
               `}
             >
 
-              <div className="aspect-square h-[110%] md:h-[130%] xl:h-[95%] flex justify-center items-center relative">
+              <div 
+                className={`
+                  aspect-square w-full h-auto lg:h-full lg:w-auto flex justify-center items-center relative 
+                  transition-scale duration-800 ease-in-out
+                  ${activeLink === "characters" ? "scale-105" : "scale-100"}
+                `}
+              >
                 <img
                   src="/images/moon-stars.png"
                   className="slowest-spin w-auto nonsel pointer-events-none absolute scale-[150%]"
@@ -418,7 +408,7 @@ const NavMenu = () => {
             <div 
               onClick={() => handleSelect("gallery")}
               onMouseEnter={!isPhone ? () => navMenuSelectHandler("gallery") : undefined}
-              className={`cursor-pointer flex justify-center items-center bg-gray-200 overflow-hidden relative duration-400 ${activeLink === "gallery" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
+              className={`cursor-pointer flex justify-center items-center bg-gray-200 overflow-hidden relative duration-400 ${activeLink === "gallery" ? "saturate-100 brightness-100" : "saturate-60 brightness-60"}`}
             >
               
               {/* LIGHTS */}
@@ -430,10 +420,10 @@ const NavMenu = () => {
               {/* FEATURED ARTWORK */}
               <div 
                 className={`
-                  h-[80%] mb-[12%] absolute flex justify-center items-center
+                  h-100 lg:h-[80%] absolute flex justify-center items-center
                   border-y-12 border-t-[#ada283] border-b-[#6b6965] shadow-2xl
-                  transition-all duration-600
-                  ${activeLink === "gallery" ? "blur-none" : "blur-[1px]"}
+                  transition-all duration-500
+                  ${activeLink === "gallery" ? "blur-none mb-[12%] lg:mb-[12%]" : "blur-[1px] mb-[60%] lg:mb-[12%]"}
                 `}
               >
 
@@ -445,12 +435,12 @@ const NavMenu = () => {
                 
               </div>
 
-              {/* CHARACTERS */}
+              {/* AUDIENCE */}
               <div 
                 className={`
-                  absolute bottom-0 w-full h-[50%] xl:h-[40%]
+                  absolute bottom-0 w-full h-60 lg:h-80
                   grid grid-cols-2 transition-all duration-1000
-                  ${activeLink === "gallery" ? "blur-[2px] translate-y-4" : "blur-none translate-y-0"}
+                  ${activeLink === "gallery" ? "blur-[2px] translate-y-8" : "blur-none translate-y-0"}
                 `}
               >
 
@@ -479,73 +469,6 @@ const NavMenu = () => {
               <Label activeLink={activeLink} link="gallery" title="GALLERY" desc="gaze upon my art!" />
             </div>
 
-            {/* WORLDS */}
-            <div 
-              onClick={() => handleSelect("worlds")}
-              onMouseEnter={!isPhone ? () => navMenuSelectHandler("worlds") : undefined}
-              className={`cursor-pointer landing-tile flex justify-center items-center bg-[#8b979b] overflow-hidden relative duration-400 ${activeLink === "worlds" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}`}
-            >
-              
-              {/* CONSTRUCTION TAPE */}
-              <div className={`absolute bottom-30 h-20 w-auto z-10 flex object-cover`}>
-                <img src="/images/constructiontape.png" className="object-cover" />
-                <img src="/images/constructiontape.png" className="object-cover" />
-                <p className="absolute self-center text-center w-full meow">UNDER CONSTRUCTION!</p>
-              </div>
-
-
-              {/* CHARACTERS */}
-              <div className="absolute bottom-0 w-full h-full grid grid-cols-2">
-
-                {/* FRANK */}
-                <div className="relative flex justify-center">
-                  <img
-                    src={`/images/mtwimfrank.png`}
-                    className={`
-                      scale-105
-                      translate-x-6
-                      min-[768px]:scale-160
-                      min-[768px]:translate-x-7
-                      min-[1024px]:translate-x-10
-                      min-[1280px]:scale-105
-                      min-[1280px]:translate-x-9
-                      min-[1600px]:translate-x-5
-                      transition-translate
-                      duration-300
-                      absolute 
-                      h-full w-auto max-w-none 
-                      nonsel pointer-events-none 
-                      object-cover`}
-                  />
-                </div>
-
-                {/* MIER */}
-                <div className="relative flex justify-center">
-                  <img
-                    src={`/images/mtwimmier.png`}
-                    className={`
-                      scale-105
-                      -translate-x-9
-                      min-[768px]:scale-160
-                      min-[768px]:-translate-x-12
-                      min-[1024px]:-translate-x-15
-                      min-[1280px]:scale-105
-                      min-[1280px]:-translate-x-12
-                      min-[1600px]:-translate-x-8
-                      transition-translate
-                      duration-300
-                      absolute 
-                      h-full w-auto max-w-none 
-                      nonsel pointer-events-none 
-                      object-cover`}
-                  />
-                </div>
-
-              </div>
-
-              <Label activeLink={activeLink} link="worlds" title="WORLDS" desc="learn about the stories i want to tell!" />
-            </div>
-            
             {/* GAMES */}
             <div 
               onClick={() => handleSelect("games")}
@@ -553,19 +476,19 @@ const NavMenu = () => {
               className={`
                 cursor-pointer landing-tile flex justify-center items-center
                 overflow-hidden relative duration-400
-                ${activeLink === "games" ? "saturate-100 brightness-100" : "saturate-60 brightness-40"}
+                ${activeLink === "games" ? "saturate-100 brightness-100" : "saturate-60 brightness-60"}
                 `}
               style={{ background: "linear-gradient(to bottom, rgb(105, 166, 208), rgb(105, 166, 208), rgb(117, 180, 216), rgb(160, 233, 255))" }}
             >
 
               <div
                 className={`
-                  relative w-full h-full origin-center transition-all ease-in-out nonsel pointer-events-none
+                  relative w-full h-full origin-center transition-all ease-in-out nonsel pointer-events-none flex items-center justify-center
                   ${fished ? "duration-1000" : mierProgress.current ? "duration-100" : "duration-2000"}
-                  ${fished ? "translate-x-[10%]" : activeLink === "games" ? "translate-x-[0%]" : "translate-x-[0%] xl:translate-x-[-20%]"}
+                  ${fished ? "translate-x-[5%]" : activeLink === "games" ? "translate-x-[0%]" : "translate-x-[0%] lg:translate-x-[-20%]"}
                 `}
                 style={{
-                  scale: `${fished ? `110%` : `${100 - (mierProgress.current * 12)}%`}`,
+                  scale: `${fished ? `115%` : `${105 - (mierProgress.current * 12)}%`}`,
                 }}
               >
                 
