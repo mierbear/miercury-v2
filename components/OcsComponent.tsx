@@ -330,7 +330,7 @@ export default function Ocs() {
       {/* TYRANT DECO - WHY */}
       <div
         className={`
-          fixed h-full w-screen z-1000 transition-opacity nonsel pointer-events-none text-[26px]
+          fixed h-full w-screen z-1000 transition-opacity nonsel pointer-events-none text-xl min-[1600px]:text-2xl
           ${barlow.className}
         `}
         >
@@ -448,7 +448,7 @@ export default function Ocs() {
         <div
           className={`
             z-200 bg-[rgba(16,17,19,0.7)] absolute w-[60%] h-[33%] bottom-4 px-16 nonsel gap-4 text-center
-            flex flex-col items-center justify-center text-white duration-300 ease-in-out overflow-hidden
+            flex flex-col items-center justify-center text-white duration-300 ease-in-out overflow-hidden text-sm min-[1600px]:text-base
             ${selectedMier === "angel" ? "opacity-100 duration-1200 pointer-events-auto" : "opacity-0 duration-200 pointer-events-none"}
             ${noto.className}
           `}
@@ -682,7 +682,7 @@ export default function Ocs() {
               <div
                 className={`
                   flex relative flex-col text-center items-center justify-center
-                  w-full h-full text-white px-16 overflow-hidden gap-4
+                  w-full h-full text-white px-16 overflow-hidden gap-4 text-sm min-[1600px]:text-base
                   nonsel pointer-events-none ${noto.className}
                 `}
                 style={{ backgroundColor: "rgba(16,17,19,0.7)" }}
@@ -771,7 +771,8 @@ export default function Ocs() {
 
         <div
           className={`
-            absolute grid gap-2 h-full w-auto py-2 scale-120
+            hidden xl:grid
+            absolute gap-2 h-full w-auto py-2 scale-120
             transition-all duration-600 grid-cols-3
             ${selectedMier || "subtle-breathe"}
             ${currentOc === "mier" ? "translate-y-[-30%] brightness-100 opacity-100" : "translate-y-full brightness-40 opacity-0 pointer-events-none"}
@@ -855,13 +856,29 @@ export default function Ocs() {
           className={`
             w-full h-full relative flex items-center justify-center transition-transform duration-1600
             ${currentBrother === 
-              "ignatius" ? "translate-x-[83%] translate-y-[66%] scale-360" :
+              "ignatius" ? `
+                translate-x-360
+                min-[1600px]:translate-x-400
+                translate-y-[66%] scale-360
+              ` :
               currentBrother ===
-              "brutus"   ? "translate-x-[-76%] translate-y-[106%] scale-360" :
+              "brutus"   ? `
+                -translate-x-340
+                min-[1600px]:-translate-x-370
+                translate-y-[106%] scale-360
+              ` :
               currentBrother ===
-              "aurelius" ? "translate-x-[60%] translate-y-[29%] scale-360" :
+              "aurelius" ? `
+                translate-x-230
+                min-[1600px]:translate-x-290
+                translate-y-[29%] scale-360
+              ` :
               currentBrother ===
-              "rufus"    ? "translate-x-[-62%] translate-y-[-10%] scale-360" :
+              "rufus"    ? `
+                -translate-x-270
+                min-[1600px]:-translate-x-310
+                translate-y-[-10%] scale-360
+              ` :
               "translate-y-[16%] scale-140 -rotate-7"
             }
           `}
@@ -960,7 +977,7 @@ export default function Ocs() {
                   info="
                   The mischief of the group. He likes to playfully tease his younger brothers, angering Rufus and scaring Aurelius. (mostly angering Rufus)
                   *Primarily fights with a spear, being able to run around nimbly and effectively poke enemies from afar. (balanced)
-                  *Very active and hates dull moments. He loves making people laugh and is a bit of an adrenaline junkie. He highly respects Brutus and wishes to be someone like him. Deep inside, he doubts if he is capable of it, masking it with his joker personality.
+                  *He is very active and hates dull moments, Ignatius loves making people laugh and is a bit of an adrenaline junkie. He highly respects Brutus and wishes to be someone like him. Deep inside, he doubts if he is capable of it, masking it with his joker personality.
                   *In the end, he fully believes in himself as he embodies the man he wants and needs to be.
                   "
                 />
@@ -1027,7 +1044,8 @@ export default function Ocs() {
         <div className="w-full h-full brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,46,60)] to-[rgb(24,28,25)] absolute" />
         <div
           className={`
-            absolute grid gap-2 h-full w-auto py-2 scale-120
+            hidden xl:grid
+            absolute gap-2 h-full w-auto py-2 scale-120
             transition-all duration-600 grid-cols-4
             ${currentBrother || "subtle-breathe"}
             ${currentOc === "calvarius" ? "translate-y-[-30%] brightness-100 opacity-100" : "translate-y-full brightness-40 opacity-0 pointer-events-none"}

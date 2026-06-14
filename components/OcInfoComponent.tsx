@@ -19,7 +19,7 @@ export default function Info({ name, title, info, bg, hidebg }: { name: string, 
       <div
         className={`
           flex relative flex-col text-center items-center justify-center
-          w-full h-full text-white px-16 overflow-hidden gap-4
+          w-full h-full text-white px-16 overflow-hidden gap-4 text-sm min-[1600px]:text-base
           nonsel pointer-events-none ${noto.className}
         `}
         style={{ backgroundColor: hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.7)" }}
