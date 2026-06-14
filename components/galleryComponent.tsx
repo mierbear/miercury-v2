@@ -216,7 +216,7 @@ export default function GalleryComponent() {
 
   const BgArtworkRefs: SlideImage[] = [
     {
-      src: "/images/gallery-bg-full.jpg",
+      src: "/images/gallery/gallery-bg-full.jpg",
       description: (
         <div className="hover:opacity-0 transition-opacity duration-300 flex flex-col px-8 py-2 md:py-4 border-gray-400 border bg-black/80 max-w-[85ch] backdrop-blur-[3px] rounded-sm items-center justify-center">
           <p className={`text-xl sm:text-2xl md:text-4xl font-bold ${bodoni.className}`}>Gallery Background</p>
@@ -655,7 +655,7 @@ export default function GalleryComponent() {
                   `}
                   onClick={() => setReceptionFullscreen(!receptionFullscreen)}
                 >
-                  <img className="h-8 min-h-8 nonsel pointer-events-none" src={`/images/${receptionFullscreen ? "minscreen" : "fullscreen"}.svg`} />
+                  <img className="h-8 min-h-8 nonsel pointer-events-none" src={`/images/gallery/${receptionFullscreen ? "minscreen" : "fullscreen"}.svg`} />
                 </div>
               </div>
 
@@ -672,7 +672,7 @@ export default function GalleryComponent() {
                   `}
                 >
                   {currentShow ? (
-                    <img src={`/images/gallery-show-${currentShow}.png`} className="object-cover w-auto h-full" />
+                    <img src={`/images/gallery/gallery-show-${currentShow}.png`} className="object-cover w-auto h-full" />
                   ) : ""}
                 </div>
 
@@ -841,7 +841,7 @@ export default function GalleryComponent() {
               {/* MOBILE ME DRAWING */}
               {/* <div className="block sm:hidden border border-black self-end h-30 aspect-square relative nonsel pointer-events-none"> */}
               <div className="block min-[640px]:hidden border border-black self-end h-25 min-[340px]:h-30 aspect-square relative nonsel pointer-events-none">
-                <img src="/images/gallery-me.png" className="absolute bottom-0 right-0" />
+                <img src="/images/gallery/gallery-me.png" className="absolute bottom-0 right-0" />
               </div>
             
             </div>
@@ -850,7 +850,7 @@ export default function GalleryComponent() {
             
           {/* DESKTOP ME DRAWING */}
           <div className="hidden sm:block border border-black self-end h-50 z-200 aspect-square relative nonsel pointer-events-none">
-            <img src="/images/gallery-me.png" className="absolute bottom-0 right-0" />
+            <img src="/images/gallery/gallery-me.png" className="absolute bottom-0 right-0" />
           </div>
             
         </div>
@@ -1312,7 +1312,7 @@ export default function GalleryComponent() {
       >
         <Marquee speed={5} gradient={false} className="h-screen -mr-px" direction="left" autoFill={true}>
           <img 
-            src={`/images/${contentVisible ? "gallery-bg-blurred" : "gallery-bg"}.png`}
+            src={`/images/gallery/${contentVisible ? "gallery-bg-blurred" : "gallery-bg"}.png`}
             alt="" 
             className="h-screen w-auto"
           />

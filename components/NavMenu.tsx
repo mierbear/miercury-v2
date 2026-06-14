@@ -259,11 +259,11 @@ const NavMenu = () => {
   useEffect(() => {
     Array.from({ length: 24 }, (_, i) => {
       const img = new window.Image();
-      img.src = `/images/games/fish-${i}.png`;
+      img.src = `/images/navmenu/games/fish-${i}.png`;
     });
     Array.from({ length: 9 }, (_, i) => {
       const img = new window.Image();
-      img.src = `/images/games/mier-${i}.png`;
+      img.src = `/images/navmenu/games/mier-${i}.png`;
     });
   }, []);
   
@@ -392,11 +392,11 @@ const NavMenu = () => {
                 `}
               >
                 <img
-                  src="/images/moon-stars.png"
+                  src="/images/navmenu/moon-stars.png"
                   className="slowest-spin w-auto nonsel pointer-events-none absolute scale-[150%]"
                 />
                 <img
-                  src="/images/moon-characters.png"
+                  src="/images/navmenu/moon-characters.png"
                   className="slower-spin w-auto nonsel pointer-events-none absolute"
                 />
               </div>
@@ -413,8 +413,8 @@ const NavMenu = () => {
               
               {/* LIGHTS */}
               <div className="absolute w-full h-full grid grid-cols-2 z-800 opacity-70">
-                <img className="w-full h-full nonsel pointer-events-none" src="/images/light.png" />
-                <img className="w-full h-full nonsel pointer-events-none scale-x-[-1]" src="/images/light.png" />
+                <img className="w-full h-full nonsel pointer-events-none" src="/images/navmenu/light.png" />
+                <img className="w-full h-full nonsel pointer-events-none scale-x-[-1]" src="/images/navmenu/light.png" />
               </div>
 
               {/* FEATURED ARTWORK */}
@@ -448,7 +448,7 @@ const NavMenu = () => {
                 <div className="relative">
                   {crowd[0] && (
                     <img
-                      src={`/images/figure-${crowd[0].name}.png`}
+                      src={`/images/navmenu/figure-${crowd[0].name}.png`}
                       className={`absolute ${crowd[0].name === "ignatius" ? "-right-4" : "right-5"} h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[0].pace}`}
                     />
                   )}
@@ -458,7 +458,7 @@ const NavMenu = () => {
                 <div className="relative">
                   {crowd[1] && (
                     <img
-                      src={`/images/figure-${crowd[1].name}.png`}
+                      src={`/images/navmenu/figure-${crowd[1].name}.png`}
                       className={`absolute ${crowd[0].name === "ignatius" ? "left-4" : "left-5"} h-full w-auto max-w-none nonsel pointer-events-none figure-breathe-${crowd[1].pace}`}
                     />
                   )}
@@ -494,7 +494,7 @@ const NavMenu = () => {
                 
                 {/* MIER */}
                 <img 
-                  src={`/images/games/mier-${mierState || "start"}.png`}
+                  src={`/images/navmenu/games/mier-${mierState || "start"}.png`}
                   className={`
                     min-h-full object-cover absolute overflow-visible
                     transition-[translate] duration-400
@@ -504,7 +504,7 @@ const NavMenu = () => {
 
                 {/* BG */}
                 <img 
-                  src={`/images/games/bg.png`}
+                  src={`/images/navmenu/games/bg.png`}
                   className={`
                     min-h-full object-cover absolute overflow-visible
                   `}
@@ -512,7 +512,7 @@ const NavMenu = () => {
 
                 {/* FISH */}
                 <img 
-                  src={`/images/games/fish-${currentFish || "0"}.png`}
+                  src={`/images/navmenu/games/fish-${currentFish || "0"}.png`}
                   className={`
                     min-h-full object-cover absolute overflow-visible glowing
                     ${fished ? "block" : "hidden"}
@@ -521,7 +521,7 @@ const NavMenu = () => {
 
                 {/* WATER */}
                 <img 
-                  src={`/images/games/water.png`}
+                  src={`/images/navmenu/games/water.png`}
                   className={`
                     min-h-full object-cover absolute overflow-visible waves
                   `}
@@ -592,7 +592,7 @@ const NavMenu = () => {
             transition-transform origin-center
             ease-in-out nonsel pointer-events-none
           `}
-          src={`/images/${currentRoute?.img}`} 
+          src={`/images/navmenu/${currentRoute?.img}`} 
         />
       </div>
       

@@ -262,9 +262,9 @@ export default function Home() {
     if (typeof window === 'undefined') return;
 
     const preload = [
-      "/images/mierhover.png",
-      "/images/mierhover-leftwing.png",
-      "/images/mierhover-rightwing.png",
+      "/images/index/mierhover.png",
+      "/images/index/mierhover-leftwing.png",
+      "/images/index/mierhover-rightwing.png",
     ];
 
     preload.forEach((src) => {
@@ -734,7 +734,7 @@ export default function Home() {
                 />
                 <img 
                   ref={mierDrawingRef} 
-                  src={mierDrawing ? "/images/miersit.png" : "/images/mierhover.png"} 
+                  src={mierDrawing ? "/images/index/miersit.png" : "/images/index/mierhover.png"} 
                   onClick={() => mierDrawingClickHandler()}
                   onMouseEnter={!isPhone ? () => mierDrawingHoverHandler() : undefined} 
                   onMouseLeave={() => mierDrawingUnhoverHandler()}
@@ -745,7 +745,7 @@ export default function Home() {
                   " 
                 />
                 <img 
-                  src={mierDrawing ? "/images/miersit-leftwing.png" : "/images/mierhover-leftwing.png"} 
+                  src={mierDrawing ? "/images/index/miersit-leftwing.png" : "/images/index/mierhover-leftwing.png"} 
                   className={`
                     nonsel pointer-events-none absolute 
                     bottom-0 right-0 h-60 wings origin-bottom-right
@@ -753,7 +753,7 @@ export default function Home() {
                   `} 
                 />
                 <img 
-                  src={mierDrawing ? "/images/miersit-rightwing.png" : "/images/mierhover-rightwing.png"} 
+                  src={mierDrawing ? "/images/index/miersit-rightwing.png" : "/images/index/mierhover-rightwing.png"} 
                   className={`
                     nonsel pointer-events-none absolute 
                     bottom-0 right-0 h-60 wings origin-bottom-right
@@ -901,17 +901,17 @@ export default function Home() {
                       {isPhone || (
                         <div className="aspect-25/9 flex-[0_0_100%]">
                           <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
-                            <img src="/images/indexbanner.png" className="w-full h-full bg-[#17191a]/40 nonsel pointer-events-none object-cover" />
+                            <img src="/images/index/indexbanner.png" className="w-full h-full bg-[#17191a]/40 nonsel pointer-events-none object-cover" />
                           </NextLink>
                         </div>
                       )}
 
                       {/* EYE */}
                       <div className="relative aspect-25/9 flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
-                        <img className="-translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={leftPupilRef} />
-                        <img className="-translate-x-full scale-x-[-1] absolute nonsel pointer-events-none bg-white border-4 border-black z-20" src="/images/lid.png" />
-                        <img className="translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/pupil.png" ref={rightPupilRef} />
-                        <img className="translate-x-full absolute nonsel pointer-events-none bg-white border-4 border-black z-20" src="/images/lid.png" />
+                        <img className="-translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/index/pupil.png" ref={leftPupilRef} />
+                        <img className="-translate-x-full scale-x-[-1] absolute nonsel pointer-events-none bg-white border-4 border-black z-20" src="/images/index/lid.png" />
+                        <img className="translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/index/pupil.png" ref={rightPupilRef} />
+                        <img className="translate-x-full absolute nonsel pointer-events-none bg-white border-4 border-black z-20" src="/images/index/lid.png" />
                         <div className="absolute bottom-2 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
                           <p className={`text-white text-sm text-center w-full ${gowun.className}`}>
                             I know what you're up to.
@@ -923,13 +923,13 @@ export default function Home() {
                   </div>
                   
                   <img 
-                    src="/images/arrow-left.svg"  
+                    src="/images/index/arrow-left.svg"  
                     onClick={scrollPrev} 
                     className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 opacity-30 hover:opacity-100 hover:bg-black/20 left-0" 
                   />
                   
                   <img 
-                    src="/images/arrow-right.svg" 
+                    src="/images/index/arrow-right.svg" 
                     onClick={scrollNext} 
                     className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 opacity-30 hover:opacity-100 hover:bg-black/20 right-0" 
                   />
@@ -965,7 +965,7 @@ export default function Home() {
                     onClick={() => boing()}
                   >
                     <img 
-                      src="/images/pfp.png"
+                      src="/images/index/pfp.png"
                       className="scale-140 group-hover:scale-160 transition-scale duration-300 nonsel pointer-events-none"
                       ref={pfpRef}
                     />
@@ -1021,11 +1021,11 @@ export default function Home() {
                 {/* SOCIALS */}
                 <div className="flex flex-row justify-center items-center gap-3 absolute bottom-0 right-0 pb-2 px-4">
                   <NextLink href="https://x.com/mierursa" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
+                    <img src="/images/index/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
                   </NextLink>
-                    <img onClick={handleDiscordLink} src="/images/discord.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
+                    <img onClick={handleDiscordLink} src="/images/index/discord.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
                   <NextLink href="https://www.youtube.com/@miermiermiermier" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/youtube.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
+                    <img src="/images/index/youtube.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
                   </NextLink>
                   <p
                     ref={discordUsernameRef} 
@@ -1137,7 +1137,7 @@ export default function Home() {
       {/* FOOTER */}
       <Footer />
 
-      <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
+      <img src="/images/index/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
 
       <Stars />
 
