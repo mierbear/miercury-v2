@@ -192,6 +192,18 @@ export default function Home() {
       tag: "",
     },
     {  
+      name: "Legend Of Hei",
+      img: "hei.jpg",
+      comment: "",
+      tag: "love",
+    },
+    {  
+      name: "Violet Evergarden",
+      img: "violet.jpg",
+      comment: "",
+      tag: "",
+    },
+    {  
       name: "Frieren: Beyond Journey's End",
       img: "frieren.jpg",
       comment: "",
@@ -251,6 +263,7 @@ export default function Home() {
     { name: "Grand Chase", img: "grandchase.jpg", comment: "", tag: "", },
     { name: "Elsword", img: "elsword.jpg", comment: "", tag: "", },
     { name: "Soul Knight", img: "soulknight.jpg", comment: "legit the only good phone game LOL", tag: "", },
+    { name: "Phoenotopia", img: "phoenotopia.jpg", comment: "", tag: "", },
     { name: "Sephiria", img: "sephiria.jpg", comment: "", tag: "", },
     { name: "Metaphor: ReFantazio", img: "metaphor.jpg", comment: "", tag: "", },
     { name: "Fear and Hunger", img: "fah.jpg", comment: "", tag: "", },
@@ -259,8 +272,9 @@ export default function Home() {
     { name: "Minecraft", img: "minecraft.jpg", comment: "rlcraft is the only thing that makes me wanna play it ngl", tag: "love", },
     { name: "Cry of Fear", img: "cof.jpg", comment: "", tag: "", },
     { name: "Echo Point Nova", img: "echopointnova.jpg", comment: "", tag: "", },
-    { name: "Left 4 Dead 2", img: "l4d2.jpg", comment: "", tag: "", },
+    { name: "Left 4 Dead 2", img: "l4d2.jpg", comment: "", tag: "best", },
     { name: "Risk of Rain 2", img: "ror2.jpg", comment: "i know so many op exploits/glitches on mul-t (700 hours lol..)", tag: "love", },
+    { name: "Professor Layton", img: "layton.jpg", comment: "", tag: "", },
   ];
 
   const favMusic = [
@@ -361,6 +375,12 @@ export default function Home() {
       tag: "",
     },
     {
+      name: "Isto",
+      img: "isto.jpg",
+      comment: "",
+      tag: "",
+    },
+    {
       name: "Creepy Nuts",
       img: "creepynuts.jpg",
       comment: "",
@@ -396,6 +416,42 @@ export default function Home() {
       comment: "",
       tag: "love",
     },
+    {
+      name: "Galneryus",
+      img: "galneryus.jpg",
+      comment: "",
+      tag: "best",
+    },
+    {
+      name: "Demetori",
+      img: "demetori.jpg",
+      comment: "",
+      tag: "love",
+    },
+    {
+      name: "AAAA (ああああ)",
+      img: "aaaa.jpg",
+      comment: "",
+      tag: "",
+    },
+    {
+      name: "Yorushika",
+      img: "yorushika.jpg",
+      comment: "",
+      tag: "",
+    },
+    {
+      name: "Siinamota",
+      img: "siinamota.jpg",
+      comment: "",
+      tag: "",
+    },
+    {
+      name: "Reol",
+      img: "reol.jpg",
+      comment: "",
+      tag: "",
+    },
   ];
 
   useEffect(() => {
@@ -427,7 +483,6 @@ export default function Home() {
     "i laugh about almost everything",
     "dont take everything i say seriously",
     "if i've pissed you off before, i love you",
-    "i never understood fanbases or being obsessed with something, i value self-expression and individuality highly",
     "i might have dementia",
   ]
 
@@ -555,40 +610,45 @@ export default function Home() {
     return arr[Math.trunc((Math.random() * arr.length))];
   };
 
-  const [face, setFace] = useState<string>(() => 
-    meActive ? randomizer(sadFaces) : randomizer(happyFaces)
-  ); 
+  const [face, setFace] = useState<string>("");
 
   useEffect(() => {
     setFace(meActive ? randomizer(sadFaces) : randomizer(happyFaces));
   }, [meActive]);
-
+  
+  const loadingScreenRef = useRef<HTMLDivElement | null>(null);
+  const [intVis, setIntVis] = useState(true);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    setReady(true);
+    const imagePaths = Array.from({ length: 15 }, (_, i) => `images/about/about-${i}.png`);
+
+    const promises = imagePaths.map(src => new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    }));
+
+    Promise.all(promises).then(() => setReady(true));
   }, []);
-
-  const [intVis, setIntVis] = useState(true);
-
-  if (!ready) return null;
-
-  // OPACITY TRANSITION
 
   return (
     <div className="min-w-screen min-h-screen max-h-screen flex flex-col items-center justify-center">
       
       {/* ABOUT ME */}
-      <div className="
-      w-300
-      max-w-screen 
-      h-screen 
-      grid
-      grid-cols-[0fr_10fr] 
-      sm:grid-cols-[1fr_1fr] 
-      lg:grid-cols-[10fr_6fr]
-      z-90
-      ">
+      <div
+        className={`
+          w-300
+          max-w-screen 
+          h-screen 
+          grid
+          grid-cols-[0fr_10fr] 
+          sm:grid-cols-[1fr_1fr] 
+          lg:grid-cols-[10fr_6fr]
+          z-90
+        `}
+      >
 
         <div></div>
 
@@ -615,7 +675,7 @@ export default function Home() {
               <div 
                 className={`
                 flex flex-col h-full min-h-0 nonsel  px-2
-                [@media(min-height:768px)]:mt-18
+                items-center justify-center
                 `} 
                 ref={factsRef}
               >
@@ -657,8 +717,7 @@ export default function Home() {
                 className={`
                   flex flex-col h-full min-h-0
                   nonsel px-2 overflow-y-auto
-                  [@media(min-height:768px)]:mt-18
-                  thin-scrollbar
+                  thin-scrollbar justify-center
                 `}  
                 ref={infoRef}
               >
@@ -723,6 +782,7 @@ export default function Home() {
                   </p>
                   <p>✦ coding</p>
                   <p>✦ drawing</p>
+                  <p>✦ laughing</p>
                 </div>
 
                 <hr className="my-2 border-white/20" />
@@ -946,7 +1006,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-16">
         <Marquee speed={62} autoFill={true} gradient={false} className="h-screen -mr-px" direction="right">
           <img 
-            src="/images/about-14.png"
+            src="/images/about/about-14.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -956,7 +1016,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-15">
         <Marquee speed={48} autoFill={true} gradient={false} className="h-screen -mr-px" direction="right">
           <img 
-            src="/images/about-13.png"
+            src="/images/about/about-13.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -964,7 +1024,7 @@ export default function Home() {
       </div>
 
       <img 
-        src="/images/about-run.png"
+        src="/images/about/about-12.png"
         alt="" 
         className={`absolute h-screen w-auto transition-[margin] duration-1000 ease-in-out ${intVis ? "mr-[15vw]" : "mr-0"} z-14 sm:block hidden`}
       />
@@ -972,7 +1032,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-13">
         <Marquee speed={32} autoFill={true} gradient={false} className="h-screen -mr-px" direction="right">
           <img 
-            src="/images/about-11.png"
+            src="/images/about/about-11.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -982,7 +1042,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-12">
         <Marquee speed={8} autoFill={true} gradient={false} className="h-screen -mr-px" direction="right">
           <img 
-            src="/images/about-10.png"
+            src="/images/about/about-10.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -992,7 +1052,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-11">
         <Marquee speed={4} autoFill={true} gradient={false} className="h-screen -mr-px" direction="right">
           <img 
-            src="/images/about-9.png"
+            src="/images/about/about-9.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -1002,7 +1062,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-10">
         <Marquee speed={4} autoFill={true} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about-8.png"
+            src="/images/about/about-8.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -1012,7 +1072,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-9">
         <Marquee speed={38} autoFill={true} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about-7.png"
+            src="/images/about/about-7.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -1022,7 +1082,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-8">
         <Marquee speed={24} autoFill={true} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about-6.png"
+            src="/images/about/about-6.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -1032,7 +1092,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-7">
         <Marquee speed={12} autoFill={true} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about-5.png"
+            src="/images/about/about-5.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -1042,7 +1102,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-6">
         <Marquee speed={28} autoFill={true} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about-4.png"
+            src="/images/about/about-4.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -1052,7 +1112,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-5">
         <Marquee speed={8} autoFill={true} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about-3.png"
+            src="/images/about/about-3.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -1062,7 +1122,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-4">
         <Marquee speed={10} autoFill={true} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about-2.png"
+            src="/images/about/about-2.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -1072,7 +1132,7 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-3">
         <Marquee speed={8} autoFill={true} gradient={false} className="h-screen -mr-px">
           <img 
-            src="/images/about-1.png"
+            src="/images/about/about-1.png"
             alt="" 
             className="h-screen w-auto"
           />
@@ -1082,11 +1142,16 @@ export default function Home() {
       <div className="fixed inset-0 overflow-hidden z-2">
         <Marquee speed={8} autoFill={true} gradient={false} className="h-screen -mr-13px bg-[rgb(113,165,200)]">
           <img 
-            src="/images/about-0.png"
+            src="/images/about/about-0.png"
             alt="" 
             className="h-screen w-auto"
           />
         </Marquee>
+      </div>
+
+      {/* LOADING SCREEN */}
+      <div className={`bg-black z-55555 min-w-screen min-h-screen transition-opacity duration-1000 fixed pointer-events-none nonsel ${ready ? "opacity-0" : "opacity-100"}`} ref={loadingScreenRef}>
+        <h1 className="bottom-20 right-20 text-white absolute">loading</h1>
       </div>
 
       <Tooltip info={tooltipText} status={tooltipVisible} />

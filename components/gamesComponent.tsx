@@ -58,7 +58,7 @@ const GamesComponent = () => {
         <div className="z-60 flex md:flex-row flex-col items-center justify-center h-full gap-4 md:gap-8 text-sm sm:text-base py-4 px-4 md:px-8 bg-[#d0d3d8] text-black">
           <div className="md:w-[70%] text-justify">
             <p className="rounded-md text-xl sm:text-2xl text-center font-bold">welcome to my games page !</p>
-            <p>i'll be making more eventually as time passes, it will be simple ones for now though! if you'd like to see updates or know more about my 'serious' projects, check out <NextLink href="./blog/page/1" target="_blank" className="underline">my blog.</NextLink> or check out <NextLink href="./characters" target="_blank" className="underline">my characters</NextLink> to know more about their lore, which i will portray in my future games!</p>
+            <p>i'll be making more eventually as time passes, it will be simple ones for now though! if you'd like to see updates or know more about my 'serious' projects, check out <NextLink href="./blog/page/1" target="_blank" className="underline">my blog.</NextLink> or check out <NextLink href="./characters" target="_blank" className="underline">my characters</NextLink> to know more about their lore, which i will portray in my future games.</p>
             <br />
             <p>currently, i don't have much to show off except for these two games lol</p>
             <p>(this page will be polished and updated once i become a 'proper' game dev)</p>
