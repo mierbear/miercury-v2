@@ -1,5 +1,6 @@
 "use client"
 import { Bodoni_Moda, Noto_Serif_JP } from "next/font/google"
+import { useEffect, useState } from "react"
 
 const bodoni = Bodoni_Moda({
   weight: "400",
@@ -11,7 +12,24 @@ const noto = Noto_Serif_JP({
   subsets : ["latin"]
 })
 
-export default function Info({ name, title, info, bg, hidebg }: { name: string, title: string, info: string, bg?: string, hidebg?: boolean }) {
+type InfoProps = {
+  name: string,
+  title: string,
+  info: string,
+  bg?: string,
+  hidebg?: boolean
+}
+
+export default function Info({ name, title, info, bg, hidebg }: InfoProps) {
+
+  const [desktop, setDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setDesktop(window.innerWidth >= 1280);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <div className="w-full h-full z-20">
@@ -19,15 +37,15 @@ export default function Info({ name, title, info, bg, hidebg }: { name: string, 
       <div
         className={`
           flex relative flex-col text-center items-center justify-center
-          w-full h-full text-white px-16 overflow-hidden gap-4 text-sm min-[1600px]:text-base
+          w-full h-full text-white px-8 min-[640px]:px-16 py-4 overflow-hidden gap-4 text-xs min-[640px]:text-sm min-[1600px]:text-base
           nonsel pointer-events-none ${noto.className}
         `}
-        style={{ backgroundColor: hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.7)" }}
+        style={{ backgroundColor: !desktop ? "rgb(16,17,19)" : hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.7)" }}
       >
         
         <div className="flex flex-col items-center justify-center w-full">
           {/* NAME */}
-          <p className={`text-6xl text-nowrap ${bodoni.className}`}>
+          <p className={`text-5xl xl:text-6xl text-nowrap ${bodoni.className}`}>
           {name}
           </p>
 
@@ -40,7 +58,7 @@ export default function Info({ name, title, info, bg, hidebg }: { name: string, 
         </div>
 
         {/* INFO */}
-        <div className="flex flex-col items-center justify-center w-full gap-4"> 
+        <div className="flex flex-col items-center justify-center w-full gap-0 xl:gap-4"> 
           {info.split("*").map((item, i) => 
             <p 
               key={i} 
@@ -50,7 +68,7 @@ export default function Info({ name, title, info, bg, hidebg }: { name: string, 
             )
           }
         </div>
-        <br />
+        {!desktop || (<br />)}
 
         <img 
           className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"

@@ -162,7 +162,7 @@ export default function Ocs() {
     setHoveredMier("");
     setSelectedMier(mier);
 
-     if (mier === "tyrant" && selectedMier !== "tyrant") {
+     if (mier === "tyrant" && selectedMier !== "tyrant" && desktop) {
       blockHandler(1400);
 
       setTimeout(() => {
@@ -191,7 +191,7 @@ export default function Ocs() {
   }
 
   useEffect(() => {
-    if (currentOc !== "mier" && selectedMier === "angel") {
+    if (currentOc !== "mier" && selectedMier === "angel" && desktop) {
       setSelectedMier("");
     }
     setOpenWhy(false);
@@ -215,6 +215,14 @@ export default function Ocs() {
     Ever since then, I've met a lot of friends and artists that I love and look up to. :D (one of them is the reason why I became a webdev, whom I'm deeply grateful for)
     `
   const [tooltipVisible, setTooltipVisible] = useState(false);
+  const [desktop, setDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setDesktop(window.innerWidth >= 1280);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
@@ -292,7 +300,7 @@ export default function Ocs() {
       <div 
         className={`
           fixed right-4 top-1/2 -translate-y-1/2 z-543 text-white rounded-full
-          meow px-3 py-6 gap-2 flex flex-col items-center bg-black/20 nonsel
+          meow md:px-3 md:py-6 px-2 py-4 gap-2 flex flex-col items-center bg-black/20 nonsel
         `}
       >
         {characters.map((character, index) => (
@@ -310,7 +318,7 @@ export default function Ocs() {
             <img
               src={`/images/ocs/icon-${character.name}.png`}
               className={`
-                aspect-square w-15 h-15
+                aspect-square md:w-15 md:h-15 w-12 h-12
                 transition-all duration-300 nonsel pointer-events-none
                 ${currentOc === character.name 
                   ? "saturate-100 brightness-100 scale-120" 
@@ -354,13 +362,14 @@ export default function Ocs() {
               ${currentOc === "mier" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
-            why are there multiple miers ?? this makes no sense !!
+            {desktop ? "why are there multiple miers ?? this makes no sense !!" : "multiple miers!?"}
           </p>
         </div>
 
         <div
           className={`
-            absolute bottom-4 right-4 font-bold nonsel flex gap-4
+            absolute bottom-4 right-4 font-bold nonsel gap-4
+            hidden xl:flex
           `}
         >
           
@@ -396,10 +405,10 @@ export default function Ocs() {
         </div>
       </div>
 
-      {/* ANGEL SELECT */}
+      {/* MIER PC ANGEL SELECT */}
       <div 
         className={`
-          flex items-center justify-center scale-100
+          items-center justify-center scale-100 hidden xl:flex
           w-screen h-screen z-200 fixed nonsel pointer-events-none
           transition-brightness duration-600
           ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
@@ -434,12 +443,104 @@ export default function Ocs() {
       </div>
 
       {/* MIERS */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={mierScrollRef} />
+      <div className="h-[5vh] xl:h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={mierScrollRef} />
+
+      {/* MIERS - MOBILE */}
       <div 
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh]
+          w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
+          grid xl:hidden justify-center align-center items-center
+          transition-grid duration-800
+          ${hoveredMier === "icemage"  ? "grid-rows-[3fr_1.1fr_1.05fr]" :
+            hoveredMier === "angel"    ? "grid-rows-[1.075fr_3fr_1.075fr]" :
+            hoveredMier === "tyrant"   ? "grid-rows-[1.05fr_1.1fr_3fr]" :
+            selectedMier === "icemage" ? "grid-rows-[1fr_0fr_0fr]" :
+            selectedMier === "angel"   ? "grid-rows-[0fr_1fr_0fr]" :
+            selectedMier === "tyrant"  ? "grid-rows-[0fr_0fr_1fr]" :
+            "grid-rows-[1fr_1fr_1fr] duration-1200"
+          }
+        `}
+      >
+
+        {/* ICE MAGE */}
+        <div
+          className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
+          onMouseEnter={selectedMier ? undefined : () => setHoveredMier("icemage")}
+          onMouseLeave={() => setHoveredMier("")}
+          onClick={selectedMier === "icemage" ? () => selectMier("") : () => selectMier("icemage")}
+        >
+          <div className="relative h-[90vh] w-full flex items-center justify-center">
+            <img
+              src="/images/ocs/mier-icemage-bg.jpg"
+              className="absolute h-full w-full object-cover"
+            />
+            <img
+              src="/images/ocs/mier-icemage.png"
+              className={`
+                h-full max-w-none bg-cover scale-110
+                transition-translate duration-1200
+                ${selectedMier ? "translate-y-0" : "translate-y-20"}
+              `}
+            />
+          </div>
+        </div>
+
+        {/* ANGEL */}
+        <div
+          className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
+          onMouseEnter={selectedMier ? undefined : () => setHoveredMier("angel")}
+          onMouseLeave={() => setHoveredMier("")}
+          onClick={selectedMier === "angel" ? () => selectMier("") : () => selectMier("angel")}
+        >
+          <div className="relative h-[90vh] w-full flex items-center justify-center">
+            <img
+              src="/images/ocs/mier-angel-bg.jpg"
+              className="absolute h-full w-full object-cover"
+            />
+            <img
+              src="/images/ocs/mier-angel.png"
+              className={`
+                h-full max-w-none bg-cover scale-160 translate-x-30
+                transition-translate duration-1200
+                ${selectedMier ? "translate-y-0" : "translate-y-40"}
+              `}
+            />
+          </div>
+        </div>
+
+        {/* TYRANT */}
+        <div
+          className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
+          onMouseEnter={selectedMier ? undefined : () => setHoveredMier("tyrant")}
+          onMouseLeave={() => setHoveredMier("")}
+          onClick={selectedMier === "tyrant" ? () => selectMier("") : () => selectMier("tyrant")}
+        >
+
+          <div className="relative h-[90vh] w-full flex items-center justify-center">
+            <img
+              src="/images/ocs/mier-tyrant-bg.jpg"
+              className="absolute h-full w-full object-cover"
+            />
+            <img
+              src="/images/ocs/mier-tyrant.png"
+              className={`
+                h-full max-w-none bg-cover scale-110
+                transition-translate duration-1200
+                ${selectedMier ? "translate-y-0" : "translate-y-20"}
+              `}
+            />
+          </div>
+          
+        </div>
+        
+      </div>
+
+      {/* MIERS - PC */}
+      <div 
+        className={`
+          w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
           justify-center align-center items-center
-          flex flex-col relative bg-[#879da7]
+          hidden xl:flex flex-col relative bg-[#879da7]
           overflow-hidden
         `}
       >
@@ -682,10 +783,10 @@ export default function Ocs() {
               <div
                 className={`
                   flex relative flex-col text-center items-center justify-center
-                  w-full h-full text-white px-16 overflow-hidden gap-4 text-sm min-[1600px]:text-base
+                  w-full h-full text-white px-16 py-4 overflow-hidden gap-4 text-sm min-[1600px]:text-base
                   nonsel pointer-events-none ${noto.className}
                 `}
-                style={{ backgroundColor: "rgba(16,17,19,0.7)" }}
+                style={{ backgroundColor: !desktop ? "rgb(16,17,19)" : "rgba(16,17,19,0.7)" }}
               >
                 
                 <div className="flex flex-col items-center justify-center w-full">
@@ -766,13 +867,12 @@ export default function Ocs() {
       </div>
 
       {/* KANIN */}
-      <div className="h-[10vh] z-201 flex items-center justify-center relative" ref={kaninScrollRef}>
+      <div className="h-[5vh] xl:h-[10vh] z-201 flex items-center justify-center relative" ref={kaninScrollRef}>
         <div className="w-full h-full brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)] absolute" />
 
         <div
           className={`
-            hidden xl:grid
-            absolute gap-2 h-full w-auto py-2 scale-120
+            absolute gap-2 h-full w-auto py-2 scale-120 grid
             transition-all duration-600 grid-cols-3
             ${selectedMier || "subtle-breathe"}
             ${currentOc === "mier" ? "translate-y-[-30%] brightness-100 opacity-100" : "translate-y-full brightness-40 opacity-0 pointer-events-none"}
@@ -783,8 +883,9 @@ export default function Ocs() {
           <div
             key={index}
             className={`
-              w-full h-full flex items-center justify-center cursor-pointer shadow-2xl
-              overflow-hidden border-5 rounded-full duration-300 hover:scale-102
+              xl:w-20 xl:h-20 w-16 h-16 flex items-center justify-center cursor-pointer shadow-2xl
+              overflow-hidden border-4 rounded-full duration-300 hover:scale-102
+              -translate-y-6 xl:translate-y-0
               ${selectedMier === mier || hoveredMier === mier ? "scale-102 saturate-100" 
               : selectedMier && selectedMier !== mier ? "scale-98 hover:saturate-100 saturate-20 brightness-75 hover:brightness-100" 
               : "saturate-100"}
@@ -808,7 +909,7 @@ export default function Ocs() {
       </div>
       <div
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
+          w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh] z-201
           justify-center align-center items-center
           flex flex-col relative bg-[rgb(25,27,29)]
           overflow-hidden transition-brightness duration-600
@@ -816,9 +917,15 @@ export default function Ocs() {
         `}
       >
 
-        <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
+        <div 
+          className={`
+            w-full h-full grid
+            xl:grid-cols-[1.5fr_0.25fr_1fr_0.25fr] xl:grid-rows-none
+            grid-cols-none grid-rows-[3fr_1fr]
+          `}
+        >
 
-          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+          <div className="w-full h-full relative xl:col-span-2 flex items-center justify-center">
             <img src="/images/stars.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none scale-400 spin spin-slow" />
             <img src="/images/stars2.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none scale-400 spin spin-medium" />
             <img src="/images/ocs/kanin-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
@@ -833,19 +940,31 @@ export default function Ocs() {
               At the cost of a rib, made as the quiet and alluring counterpart for Mier, also as a 'mascot' herself.
             `}
           />
-          <div />
+          
+          <div className="hidden xl:block" />
 
         </div>
 
       </div>
       
       {/* CAVARIUS */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,46,60)] z-201" ref={calvariusScrollRef} />
+      <div className="h-[5vh] xl:h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(36,46,60)] z-201" ref={calvariusScrollRef} />
+
+      {/* CALVARIUS - MOBILE */}
       <div 
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
+          w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
+          flex xl:hidden justify-center align-center items-center bg-white
+        `}
+      >
+        calvarius
+      </div>
+      {/* CALVARIUS - PC */}
+      <div 
+        className={`
+          w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh] z-201
           justify-center align-center items-center
-          flex flex-col relative bg-[rgb(36,48,60)]
+          hidden xl:flex flex-col relative bg-[rgb(36,48,60)]
           overflow-hidden transition-brightness duration-600
           ${currentOc === "calvarius" ? "brightness-100" : "brightness-50"}
         `}
@@ -1040,12 +1159,11 @@ export default function Ocs() {
       </div>
 
       {/* QUINCE */}
-      <div className="h-[10vh] z-201 relative flex items-center justify-center" ref={quinceScrollRef}>
+      <div className="h-[5vh] xl:h-[10vh] z-201 relative flex items-center justify-center" ref={quinceScrollRef}>
         <div className="w-full h-full brightness-40 saturate-70 bg-linear-to-b from-[rgb(36,46,60)] to-[rgb(24,28,25)] absolute" />
         <div
           className={`
-            hidden xl:grid
-            absolute gap-2 h-full w-auto py-2 scale-120
+            absolute gap-2 h-full w-auto py-2 scale-120 grid
             transition-all duration-600 grid-cols-4
             ${currentBrother || "subtle-breathe"}
             ${currentOc === "calvarius" ? "translate-y-[-30%] brightness-100 opacity-100" : "translate-y-full brightness-40 opacity-0 pointer-events-none"}
@@ -1056,8 +1174,9 @@ export default function Ocs() {
           <div
             key={index}
             className={`
-              w-full h-full flex items-center justify-center cursor-pointer shadow-2xl
-              overflow-hidden border-5 rounded-full duration-300 hover:scale-102
+              xl:w-20 xl:h-20 w-16 h-16 flex items-center justify-center cursor-pointer shadow-2xl
+              overflow-hidden border-4 rounded-full duration-300 hover:scale-102
+              -translate-y-6 xl:translate-y-0
               ${currentBrother === brother ? "scale-102 saturate-100" 
               : currentBrother && currentBrother !== brother ? "scale-98 hover:saturate-100 saturate-20 brightness-75 hover:brightness-100" 
               : "saturate-100"}
@@ -1083,7 +1202,7 @@ export default function Ocs() {
       </div>
       <div 
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
+          w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh] z-201
           justify-center align-center items-center
           flex flex-row relative bg-[rgb(24,28,25)] 
           overflow-hidden transition-brightness duration-600
@@ -1091,13 +1210,19 @@ export default function Ocs() {
         `}
       >
 
-        <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
+        <div
+          className={`
+            w-full h-full grid
+            xl:grid-cols-[1.5fr_0.25fr_1fr_0.25fr] xl:grid-rows-none
+            grid-cols-none grid-rows-[3fr_1fr]
+          `}
+        >
 
-          <div className="w-full h-full relative col-span-2 flex items-center justify-center overflow-visible">
-            <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none lurk" />
-            <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none" />
-            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none panic" />
-            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover translate-x-20 overflow-visible nonsel pointer-events-none panic" />
+          <div className="w-full h-full relative min-[1280px]:col-span-2 flex items-center justify-center overflow-visible translate-x-30 min-[768px]:translate-x-0 min-[1280px]:translate-x-20 min-[1600px]:translate-x-10">
+            <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none lurk" />
+            <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
+            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none panic" />
+            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none panic" />
           </div>
           
           <OcInfo
@@ -1109,17 +1234,18 @@ export default function Ocs() {
               *(planning to make this into a survival horror RPG, blatantly inspired by the Fear & Hunger series by Miro Haverinen.)
             `}
           />
-          <div />
+
+          <div className="hidden xl:block" />
 
         </div>
 
       </div>
 
       {/* SIMEON */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(24,28,25)] to-[rgb(28,37,44)] z-201" ref={simeonScrollRef} />
+      <div className="h-[5vh] xl:h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(24,28,25)] to-[rgb(28,37,44)] z-201" ref={simeonScrollRef} />
       <div 
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
+          w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh] z-201
           justify-center align-center items-center
           flex flex-col relative bg-[rgb(28,37,44)]
           overflow-hidden transition-brightness duration-600
@@ -1127,9 +1253,16 @@ export default function Ocs() {
         `}
       >
 
-        <div className="w-full h-full grid grid-cols-[0.25fr_1fr_0.25fr_1.5fr]">
+        <div 
+          className={`
+            w-full h-full grid
+            xl:grid-cols-[0.25fr_1fr_0.25fr_1.5fr] xl:grid-rows-none
+            grid-cols-none grid-rows-[3fr_1fr]
+          `}
+        >
           
-          <div />
+          <div className="hidden xl:block" />
+
           <OcInfo 
             name="Simeon"
             title="The Sunken One" 
@@ -1140,7 +1273,7 @@ export default function Ocs() {
             `}
           />
 
-          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+          <div className="w-full h-full relative xl:col-span-2 flex items-center justify-center order-first xl:order-2">
             <img src="/images/ocs/simeon.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none" />
           </div>
           
@@ -1149,10 +1282,10 @@ export default function Ocs() {
       </div>
 
       {/* PIO */}
-      <div className="h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(28,37,44)] to-[rgb(56,54,49)] z-201" ref={pioScrollRef} />
+      <div className="h-[5vh] xl:h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(28,37,44)] to-[rgb(56,54,49)] z-201" ref={pioScrollRef} />
       <div
         className={`
-          w-screen max-w-screen h-[80vh] max-h-[80vh] z-201
+          w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh] z-201
           justify-center align-center items-center
           flex flex-col relative bg-[rgb(56,54,49)]
           overflow-hidden transition-brightness duration-600
@@ -1160,9 +1293,15 @@ export default function Ocs() {
         `}
       >
 
-        <div className="w-full h-full grid grid-cols-[1.5fr_0.25fr_1fr_0.25fr]">
+        <div 
+          className={`
+            w-full h-full grid
+            xl:grid-cols-[1.5fr_0.25fr_1fr_0.25fr] xl:grid-rows-none
+            grid-cols-none grid-rows-[3fr_1fr]
+          `}
+        >
 
-          <div className="w-full h-full relative col-span-2 flex items-center justify-center">
+          <div className="w-full h-full relative xl:col-span-2 flex items-center justify-center">
             <img src="/images/ocs/pio.png" className="h-full w-auto max-w-none absolute nonsel pointer-events-none" />
           </div>
           
@@ -1172,13 +1311,14 @@ export default function Ocs() {
             info="Outcasted by everyone, he finds solace and friendship with his metallic friend.*(currently my least developed story. might fully redesign them in the future since the mech honestly looks kinda ridiculous LOL)" 
             bg="rgba(11,11,10,0.7)"
           />
-          <div />
+
+          <div className="hidden xl:block" />
 
         </div>
 
       </div>
 
-      <div className="h-[10vh] flex flex-col z-201 bg-[#101113]">
+      <div className="h-[5vh] xl:h-[10vh] flex flex-col z-201 bg-[#101113]">
         <div className="h-full bg-linear-to-b from-[rgb(27,27,25)] to-[#101113]" />
         <Footer />
       </div>
