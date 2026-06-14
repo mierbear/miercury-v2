@@ -362,7 +362,7 @@ export default function Ocs() {
               ${currentOc === "mier" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
-            {desktop ? "why are there multiple miers ?? this makes no sense !!" : "multiple miers!?"}
+            {desktop ? "why are there multiple miers ?? this makes no sense !!" : "miers!?"}
           </p>
         </div>
 
@@ -446,93 +446,151 @@ export default function Ocs() {
       <div className="h-[5vh] xl:h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={mierScrollRef} />
 
       {/* MIERS - MOBILE */}
-      <div 
-        className={`
-          w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
-          grid xl:hidden justify-center align-center items-center
-          transition-grid duration-800
-          ${hoveredMier === "icemage"  ? "grid-rows-[3fr_1.1fr_1.05fr]" :
-            hoveredMier === "angel"    ? "grid-rows-[1.075fr_3fr_1.075fr]" :
-            hoveredMier === "tyrant"   ? "grid-rows-[1.05fr_1.1fr_3fr]" :
-            selectedMier === "icemage" ? "grid-rows-[1fr_0fr_0fr]" :
-            selectedMier === "angel"   ? "grid-rows-[0fr_1fr_0fr]" :
-            selectedMier === "tyrant"  ? "grid-rows-[0fr_0fr_1fr]" :
-            "grid-rows-[1fr_1fr_1fr] duration-1200"
-          }
-        `}
-      >
-
-        {/* ICE MAGE */}
-        <div
-          className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
-          onMouseEnter={selectedMier ? undefined : () => setHoveredMier("icemage")}
-          onMouseLeave={() => setHoveredMier("")}
-          onClick={selectedMier === "icemage" ? () => selectMier("") : () => selectMier("icemage")}
-        >
-          <div className="relative h-[90vh] w-full flex items-center justify-center">
-            <img
-              src="/images/ocs/mier-icemage-bg.jpg"
-              className="absolute h-full w-full object-cover"
-            />
-            <img
-              src="/images/ocs/mier-icemage.png"
-              className={`
-                h-full max-w-none bg-cover scale-110
-                transition-translate duration-1200
-                ${selectedMier ? "translate-y-0" : "translate-y-20"}
-              `}
-            />
-          </div>
-        </div>
-
-        {/* ANGEL */}
-        <div
-          className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
-          onMouseEnter={selectedMier ? undefined : () => setHoveredMier("angel")}
-          onMouseLeave={() => setHoveredMier("")}
-          onClick={selectedMier === "angel" ? () => selectMier("") : () => selectMier("angel")}
-        >
-          <div className="relative h-[90vh] w-full flex items-center justify-center">
-            <img
-              src="/images/ocs/mier-angel-bg.jpg"
-              className="absolute h-full w-full object-cover"
-            />
-            <img
-              src="/images/ocs/mier-angel.png"
-              className={`
-                h-full max-w-none bg-cover scale-160 translate-x-30
-                transition-translate duration-1200
-                ${selectedMier ? "translate-y-0" : "translate-y-40"}
-              `}
-            />
-          </div>
-        </div>
-
-        {/* TYRANT */}
-        <div
-          className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
-          onMouseEnter={selectedMier ? undefined : () => setHoveredMier("tyrant")}
-          onMouseLeave={() => setHoveredMier("")}
-          onClick={selectedMier === "tyrant" ? () => selectMier("") : () => selectMier("tyrant")}
-        >
-
-          <div className="relative h-[90vh] w-full flex items-center justify-center">
-            <img
-              src="/images/ocs/mier-tyrant-bg.jpg"
-              className="absolute h-full w-full object-cover"
-            />
-            <img
-              src="/images/ocs/mier-tyrant.png"
-              className={`
-                h-full max-w-none bg-cover scale-110
-                transition-translate duration-1200
-                ${selectedMier ? "translate-y-0" : "translate-y-20"}
-              `}
-            />
-          </div>
-          
-        </div>
+      <div className="relative xl:hidden">
         
+        {/* GRID */}
+        <div 
+          className={`
+            w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
+            grid xl:hidden justify-center align-center items-center
+            transition-grid duration-800
+            ${hoveredMier === "icemage"  ? "grid-rows-[3fr_1.1fr_1.05fr]" :
+              hoveredMier === "angel"    ? "grid-rows-[1.075fr_3fr_1.075fr]" :
+              hoveredMier === "tyrant"   ? "grid-rows-[1.05fr_1.1fr_3fr]" :
+              selectedMier === "icemage" ? "grid-rows-[1fr_0fr_0fr]" :
+              selectedMier === "angel"   ? "grid-rows-[0fr_1fr_0fr]" :
+              selectedMier === "tyrant"  ? "grid-rows-[0fr_0fr_1fr]" :
+              "grid-rows-[1fr_1fr_1fr] duration-1200"
+            }
+          `}
+        >
+
+          {/* ICE MAGE */}
+          <div
+            className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
+            onMouseEnter={selectedMier ? undefined : () => setHoveredMier("icemage")}
+            onMouseLeave={() => setHoveredMier("")}
+            onClick={selectedMier === "icemage" ? () => selectMier("") : () => selectMier("icemage")}
+          >
+            <div className="relative h-[90vh] w-full flex items-center justify-center nonsel pointer-events-none">
+              <img
+                src="/images/ocs/mier-icemage-bg.jpg"
+                className="absolute h-full w-full object-cover"
+              />
+              <img
+                src="/images/ocs/mier-icemage.png"
+                className={`
+                  h-full max-w-none bg-cover scale-110
+                  transition-translate duration-1200
+                  ${selectedMier ? "translate-y-0" : "translate-y-20"}
+                `}
+              />
+            </div>
+          </div>
+
+          {/* ANGEL */}
+          <div
+            className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
+            onMouseEnter={selectedMier ? undefined : () => setHoveredMier("angel")}
+            onMouseLeave={() => setHoveredMier("")}
+            onClick={selectedMier === "angel" ? () => selectMier("") : () => selectMier("angel")}
+          >
+            <div className="relative h-[90vh] w-full flex items-center justify-center nonsel pointer-events-none">
+              <img
+                src="/images/ocs/mier-angel-bg.jpg"
+                className="absolute h-full w-full object-cover"
+              />
+              <img
+                src="/images/ocs/mier-angel.png"
+                className={`
+                  h-full max-w-none bg-cover scale-160 translate-x-40 md:translate-x-30
+                  transition-translate duration-1200
+                  ${selectedMier ? "translate-y-0" : "translate-y-40"}
+                `}
+              />
+            </div>
+          </div>
+
+          {/* TYRANT */}
+          <div
+            className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
+            onMouseEnter={selectedMier ? undefined : () => setHoveredMier("tyrant")}
+            onMouseLeave={() => setHoveredMier("")}
+            onClick={selectedMier === "tyrant" ? () => selectMier("") : () => selectMier("tyrant")}
+          >
+
+            <div className="relative h-[90vh] w-full flex items-center justify-center nonsel pointer-events-none">
+              <img
+                src="/images/ocs/mier-tyrant-bg.jpg"
+                className="absolute h-full w-full object-cover"
+              />
+              <img
+                src="/images/ocs/mier-tyrant.png"
+                className={`
+                  h-full max-w-none bg-cover scale-110
+                  transition-translate duration-1200
+                  ${selectedMier ? "translate-y-0" : "translate-y-20"}
+                `}
+              />
+            </div>
+            
+          </div>
+
+        </div>
+
+        {/* INFO */}
+        <div 
+          className={`
+            flex absolute items-center justify-center h-[25%] w-full bg-[rgb(16,17,19)] bottom-0
+            transition-opacity duration-300 nonsel flex-col text-center 
+            text-white px-8 min-[640px]:px-16 py-4 overflow-hidden gap-4 text-xs min-[640px]:text-sm min-[1600px]:text-base
+            nonsel ${noto.className}
+            ${selectedMier ? "opacity-100" : "opacity-0 pointer-events-none"}
+          `}
+        >
+          <div className="flex flex-col items-center justify-center w-full">
+            {/* NAME */}
+            <p className={`text-5xl xl:text-6xl text-nowrap ${bodoni.className}`}>
+            {selectedMier === "icemage" ? "Mier Colwyn" :
+             selectedMier === "angel"   ? "Mier" :
+             selectedMier === "tyrant"  ? "Mier Morozov" :
+             ""
+            }
+            </p>
+
+            {/* TITLE */}
+            <p className="text-nowrap text-xl pb-2">
+            {selectedMier === "icemage" ? "The Ice Mage" :
+             selectedMier === "angel"   ? "The Guide" :
+             selectedMier === "tyrant"  ? "The Tyrant" :
+             ""
+            }
+            </p>
+
+            <hr className="w-full mx-auto border-white/30" />
+          </div>
+
+          {/* INFO */}
+          <div className="flex flex-col items-center justify-center w-full gap-0 xl:gap-4"> 
+            <p>
+              {selectedMier === "icemage" ? "Despite being orphaned and losing everything, he strives to be the strongest mage (physically) after being taken under the tutelage of Frank, The Ice Cannon." :
+              selectedMier === "angel"   ? `Created as a magician character back in 2018. Many revisions were made and now finalized as a sort of messenger that can travel between worlds. He acts as my artist 'mascot' which I draw frequently.` :
+              selectedMier === "tyrant"  ? "Made as the pirate captain of PP, an art community I grew in Drawpile since the May of 2023." :
+              ""
+              }
+            </p>
+          </div>
+
+          <img 
+            className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
+            src={`
+              /images/ocs/${
+              selectedMier === "icemage" ? "mier colwyn" :
+              selectedMier === "tyrant"  ? "mier morozov" :
+              "mier"}-alt.png
+            `}
+          />
+        </div>
       </div>
 
       {/* MIERS - PC */}
@@ -883,9 +941,9 @@ export default function Ocs() {
           <div
             key={index}
             className={`
-              xl:w-20 xl:h-20 w-16 h-16 flex items-center justify-center cursor-pointer shadow-2xl
+              xl:w-20 xl:h-20 w-14 h-14 flex items-center justify-center cursor-pointer shadow-2xl
               overflow-hidden border-4 rounded-full duration-300 hover:scale-102
-              -translate-y-6 xl:translate-y-0
+              -translate-y-4 xl:translate-y-0
               ${selectedMier === mier || hoveredMier === mier ? "scale-102 saturate-100" 
               : selectedMier && selectedMier !== mier ? "scale-98 hover:saturate-100 saturate-20 brightness-75 hover:brightness-100" 
               : "saturate-100"}
@@ -1174,9 +1232,9 @@ export default function Ocs() {
           <div
             key={index}
             className={`
-              xl:w-20 xl:h-20 w-16 h-16 flex items-center justify-center cursor-pointer shadow-2xl
+              xl:w-20 xl:h-20 w-14 h-14 flex items-center justify-center cursor-pointer shadow-2xl
               overflow-hidden border-4 rounded-full duration-300 hover:scale-102
-              -translate-y-6 xl:translate-y-0
+              -translate-y-4 xl:translate-y-0
               ${currentBrother === brother ? "scale-102 saturate-100" 
               : currentBrother && currentBrother !== brother ? "scale-98 hover:saturate-100 saturate-20 brightness-75 hover:brightness-100" 
               : "saturate-100"}
