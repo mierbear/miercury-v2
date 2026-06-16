@@ -446,7 +446,7 @@ export default function Ocs() {
       <div className="h-[5vh] xl:h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={mierScrollRef} />
 
       {/* MIERS - MOBILE */}
-      <div className="relative xl:hidden">
+      <div className="relative xl:hidden bg-[rgb(16,17,19)]">
         
         {/* GRID */}
         <div 
@@ -541,7 +541,7 @@ export default function Ocs() {
         {/* INFO */}
         <div 
           className={`
-            flex absolute items-center justify-center h-[25%] w-full bg-[rgb(16,17,19)] bottom-0
+            flex absolute items-center justify-center h-[30%] w-full bg-[rgb(16,17,19)] bottom-0
             transition-opacity duration-300 nonsel flex-col text-center 
             text-white px-8 min-[640px]:px-16 py-4 overflow-hidden gap-4 text-xs min-[640px]:text-sm min-[1600px]:text-base
             nonsel ${noto.className}
@@ -943,7 +943,7 @@ export default function Ocs() {
             className={`
               xl:w-20 xl:h-20 w-14 h-14 flex items-center justify-center cursor-pointer shadow-2xl
               overflow-hidden border-4 rounded-full duration-300 hover:scale-102
-              -translate-y-4 xl:translate-y-0
+              -translate-y-[2.5vh] xl:translate-y-0
               ${selectedMier === mier || hoveredMier === mier ? "scale-102 saturate-100" 
               : selectedMier && selectedMier !== mier ? "scale-98 hover:saturate-100 saturate-20 brightness-75 hover:brightness-100" 
               : "saturate-100"}
@@ -979,7 +979,7 @@ export default function Ocs() {
           className={`
             w-full h-full grid
             xl:grid-cols-[1.5fr_0.25fr_1fr_0.25fr] xl:grid-rows-none
-            grid-cols-none grid-rows-[3fr_1fr]
+            grid-cols-none grid-rows-[7fr_3fr]
           `}
         >
 
@@ -1015,8 +1015,12 @@ export default function Ocs() {
           flex xl:hidden justify-center align-center items-center bg-white
         `}
       >
-        calvarius
+
+        {/* GRID */}
+        fdgdf
+        
       </div>
+
       {/* CALVARIUS - PC */}
       <div 
         className={`
@@ -1032,31 +1036,28 @@ export default function Ocs() {
         <div
           className={`
             w-full h-full relative flex items-center justify-center transition-transform duration-1600
+            ${currentBrother ? "scale-360" : "scale-140 -rotate-7"}
             ${currentBrother === 
               "ignatius" ? `
-                translate-x-360
-                min-[1600px]:translate-x-400
-                translate-y-[66%] scale-360
+                translate-x-[160vh]
+                translate-y-[56vh]
               ` :
               currentBrother ===
               "brutus"   ? `
-                -translate-x-340
-                min-[1600px]:-translate-x-370
-                translate-y-[106%] scale-360
+                -translate-x-[159vh]
+                translate-y-[85vh]
               ` :
               currentBrother ===
               "aurelius" ? `
-                translate-x-230
-                min-[1600px]:translate-x-290
-                translate-y-[29%] scale-360
+                translate-x-[119vh]
+                translate-y-[25vh]
               ` :
               currentBrother ===
               "rufus"    ? `
-                -translate-x-270
-                min-[1600px]:-translate-x-310
-                translate-y-[-10%] scale-360
+                -translate-x-[125vh]
+                translate-y-[-10vh]
               ` :
-              "translate-y-[16%] scale-140 -rotate-7"
+              "translate-y-[16vh]"
             }
           `}
         >
@@ -1272,11 +1273,18 @@ export default function Ocs() {
           className={`
             w-full h-full grid
             xl:grid-cols-[1.5fr_0.25fr_1fr_0.25fr] xl:grid-rows-none
-            grid-cols-none grid-rows-[3fr_1fr]
+            grid-cols-none grid-rows-[7fr_3fr] overflow-visible
           `}
         >
 
-          <div className="w-full h-full relative min-[1280px]:col-span-2 flex items-center justify-center overflow-visible translate-x-30 min-[768px]:translate-x-0 min-[1280px]:translate-x-20 min-[1600px]:translate-x-10">
+          <div
+            className={`
+              w-full h-full relative min-[1280px]:col-span-2
+              flex items-center justify-center overflow-visible
+              translate-x-30 min-[768px]:translate-x-0 
+              min-[1280px]:translate-x-20 min-[1600px]:translate-x-10
+            `}
+          >
             <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none lurk" />
             <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
             <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none panic" />
@@ -1315,7 +1323,7 @@ export default function Ocs() {
           className={`
             w-full h-full grid
             xl:grid-cols-[0.25fr_1fr_0.25fr_1.5fr] xl:grid-rows-none
-            grid-cols-none grid-rows-[3fr_1fr]
+            grid-cols-none grid-rows-[7fr_3fr]
           `}
         >
           
@@ -1355,7 +1363,7 @@ export default function Ocs() {
           className={`
             w-full h-full grid
             xl:grid-cols-[1.5fr_0.25fr_1fr_0.25fr] xl:grid-rows-none
-            grid-cols-none grid-rows-[3fr_1fr]
+            grid-cols-none grid-rows-[7fr_3fr]
           `}
         >
 
