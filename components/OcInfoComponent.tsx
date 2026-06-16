@@ -40,7 +40,7 @@ export default function Info({ name, title, info, bg, hidebg }: InfoProps) {
           w-full h-full text-white px-8 min-[640px]:px-16 py-4 overflow-hidden gap-4 text-xs min-[640px]:text-sm min-[1600px]:text-base
           nonsel pointer-events-none ${noto.className}
         `}
-        style={{ backgroundColor: !desktop ? "rgb(16,17,19)" : hidebg ? "transparent" : bg ? bg : "rgba(16,17,19,0.7)" }}
+        style={{ backgroundColor: hidebg ? "transparent" : !desktop ? "rgb(16,17,19)" : bg ? bg : "rgba(16,17,19,0.7)" }}
       >
         
         <div className="flex flex-col items-center justify-center w-full">

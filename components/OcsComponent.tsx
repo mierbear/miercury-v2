@@ -446,7 +446,13 @@ export default function Ocs() {
       <div className="h-[5vh] xl:h-[10vh] brightness-40 saturate-70 bg-linear-to-b from-[rgb(25,27,29)] to-[rgb(25,27,29)]" ref={mierScrollRef} />
 
       {/* MIERS - MOBILE */}
-      <div className="relative xl:hidden bg-[rgb(16,17,19)]">
+      <div 
+        className={`
+          relative xl:hidden bg-[rgb(16,17,19)]
+          transition-brightness duration-600
+          ${currentOc === "mier" ? "brightness-100" : "brightness-50"}
+        `}
+      >
         
         {/* GRID */}
         <div 
@@ -477,10 +483,38 @@ export default function Ocs() {
                 src="/images/ocs/mier-icemage-bg.jpg"
                 className="absolute h-full w-full object-cover"
               />
+
               <img
-                src="/images/ocs/mier-icemage.png"
+                src="/images/ocs/mier-icemage-0.png"
                 className={`
-                  h-full max-w-none bg-cover scale-110
+                  h-full max-w-none bg-cover scale-110 absolute
+                  transition-translate duration-1200
+                  ${selectedMier ? "translate-y-0" : "translate-y-20"}
+                `}
+              />
+              <div
+                className={`
+                  h-full w-full max-w-none absolute transition-transform
+                  ease-in-out scale-110 absolute slow-backwards-spin
+                  flex items-center justify-center duration-1200
+                  ${selectedMier ? "translate-y-0" : "translate-y-20"}
+                `}
+              >
+                {Array.from({ length: 22 }, (_, i) => (
+                  <img 
+                    key={i} 
+                    src={`images/ocs/mier-icemage-deco-${String(i).padStart(2, '0')}.png`}
+                    style={{ animationDelay: `${i * 1}s` }}
+                    className={`
+                      w-auto h-full ease-in-out absolute scaleless-waves
+                    `}
+                  />
+                ))}
+              </div>
+              <img
+                src="/images/ocs/mier-icemage-1.png"
+                className={`
+                  h-full max-w-none bg-cover scale-110 absolute
                   transition-translate duration-1200
                   ${selectedMier ? "translate-y-0" : "translate-y-20"}
                 `}
@@ -503,11 +537,22 @@ export default function Ocs() {
               <img
                 src="/images/ocs/mier-angel.png"
                 className={`
-                  h-full max-w-none bg-cover scale-160 translate-x-40 md:translate-x-30
+                  h-full max-w-none absolute bg-cover scale-160 translate-x-40 md:translate-x-30
                   transition-translate duration-1200
                   ${selectedMier ? "translate-y-0" : "translate-y-40"}
                 `}
               />
+              {Array.from({ length: 10 }, (_, i) => (
+                <img 
+                  key={i} 
+                  src={`images/ocs/mier-angel-deco-${String(i).padStart(2, '0')}.png`}
+                  style={{ animationDelay: `${i * 0.15}s` }}
+                  className={`
+                    transition-transform ease-in-out absolute scale-200 panic duration-1200
+                    ${selectedMier ? "-translate-y-20" : "translate-y-20"}
+                  `}
+                />
+              ))}
             </div>
           </div>
 
@@ -1013,6 +1058,8 @@ export default function Ocs() {
         className={`
           w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
           flex xl:hidden justify-center align-center items-center bg-white
+          transition-brightness duration-600
+          ${currentOc === "calvarius" ? "brightness-100" : "brightness-50"}
         `}
       >
 
@@ -1022,11 +1069,7 @@ export default function Ocs() {
             w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
             grid xl:hidden justify-center align-center items-center
             transition-grid duration-800
-            ${hoveredBrother === "ignatius" ? "grid-rows-[3fr_1fr] grid-cols-[3fr_1fr]" :
-              hoveredBrother === "brutus"   ? "grid-rows-[3fr_1fr] grid-cols-[1fr_3fr]" :
-              hoveredBrother === "aurelius" ? "grid-rows-[1fr_3fr] grid-cols-[3fr_1fr]" :
-              hoveredBrother === "rufus"    ? "grid-rows-[1fr_3fr] grid-cols-[1fr_3fr]" :
-              currentBrother === "ignatius" ? "grid-rows-[3fr_0fr] grid-cols-[3fr_0fr]" :
+            ${currentBrother === "ignatius" ? "grid-rows-[3fr_0fr] grid-cols-[3fr_0fr]" :
               currentBrother === "brutus"   ? "grid-rows-[3fr_0fr] grid-cols-[0fr_3fr]" :
               currentBrother === "aurelius" ? "grid-rows-[0fr_3fr] grid-cols-[3fr_0fr]" :
               currentBrother === "rufus"    ? "grid-rows-[0fr_3fr] grid-cols-[0fr_3fr]" :
@@ -1039,8 +1082,6 @@ export default function Ocs() {
             <div
               key={index}
               className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
-              onMouseEnter={currentBrother ? undefined : () => setHoveredBrother(brother)}
-              onMouseLeave={() => setHoveredBrother("")}
               onClick={() => {
                 blockHandler(1200);
                 setCurrentBrother(currentBrother === brother ? "" : brother);
@@ -1057,7 +1098,63 @@ export default function Ocs() {
           ))}
           
         </div>
-        
+
+        {/* INFO */}
+        <div 
+          className={`
+            flex absolute items-center justify-center h-[30%] w-full bg-[rgb(16,17,19)] bottom-0
+            transition-opacity duration-300 nonsel flex-col text-center 
+            text-white px-8 min-[640px]:px-16 py-4 overflow-hidden gap-4 text-xs min-[640px]:text-sm min-[1600px]:text-base
+            nonsel ${noto.className}
+            ${currentBrother ? "opacity-100" : "opacity-0 pointer-events-none"}
+          `}
+        >
+          <div className="flex flex-col items-center justify-center w-full">
+            {/* NAME */}
+            <p className={`text-5xl xl:text-6xl text-nowrap ${bodoni.className}`}>
+            {
+            currentBrother === "ignatius" ? "Ignatius" :
+            currentBrother === "brutus"   ? "Brutus" :
+            currentBrother === "aurelius" ? "Aurelius" :
+            currentBrother === "rufus"    ? "Rufus" :
+            ""
+            }
+            </p>
+
+            {/* TITLE */}
+            <p className="text-nowrap text-xl pb-2">
+            {
+            currentBrother === "ignatius" ? "The Buffoon" :
+            currentBrother === "brutus"   ? "The Unwavering" :
+            currentBrother === "aurelius" ? "The Crybaby" :
+            currentBrother === "rufus"    ? "The Indignant" :
+            ""
+            }
+            </p>
+
+            <hr className="w-full mx-auto border-white/30" />
+          </div>
+
+          {/* INFO */}
+          <div className="flex flex-col items-center justify-center w-full gap-0 xl:gap-4"> 
+            <p>
+              {
+              currentBrother === "ignatius" ? "The mischief of the group. He likes to playfully tease his younger brothers, angering Rufus and scaring Aurelius. (mostly angering Rufus)" :
+              currentBrother === "brutus"   ? "The leader and brain of the group, usually scolds Ignatius for misbehaving. (and Rufus for following along)" :
+              currentBrother === "aurelius" ? "The heart of the group. Despite the overwhelmingly distressing situation they are in, he always sees the bright side of things." :
+              currentBrother === "rufus"    ? "The hothead of the group, he can't control his anger. (lol)" :
+              ""
+              }
+            </p>
+          </div>
+
+          <img 
+            className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
+            src={`
+              /images/ocs/calvarius-alt.png
+            `}
+          />
+        </div>
       </div>
 
       {/* CALVARIUS - PC */}
@@ -1096,7 +1193,7 @@ export default function Ocs() {
                 -translate-x-[125vh]
                 translate-y-[-10vh]
               ` :
-              "translate-y-[16vh]"
+              "translate-y-[13vh]"
             }
           `}
         >
