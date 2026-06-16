@@ -35,7 +35,7 @@ export default function Ocs() {
   }
 
   // SKULLBOUND
-  const calvariusHitboxRef = useRef<HTMLDivElement | null>(null);
+  const [hoveredBrother, setHoveredBrother] = useState("");
   const [currentBrother, setCurrentBrother] = useState("");
 
   // SCROLL FUNCTIONS
@@ -1017,7 +1017,46 @@ export default function Ocs() {
       >
 
         {/* GRID */}
-        fdgdf
+        <div 
+          className={`
+            w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
+            grid xl:hidden justify-center align-center items-center
+            transition-grid duration-800
+            ${hoveredBrother === "ignatius" ? "grid-rows-[3fr_1fr] grid-cols-[3fr_1fr]" :
+              hoveredBrother === "brutus"   ? "grid-rows-[3fr_1fr] grid-cols-[1fr_3fr]" :
+              hoveredBrother === "aurelius" ? "grid-rows-[1fr_3fr] grid-cols-[3fr_1fr]" :
+              hoveredBrother === "rufus"    ? "grid-rows-[1fr_3fr] grid-cols-[1fr_3fr]" :
+              currentBrother === "ignatius" ? "grid-rows-[3fr_0fr] grid-cols-[3fr_0fr]" :
+              currentBrother === "brutus"   ? "grid-rows-[3fr_0fr] grid-cols-[0fr_3fr]" :
+              currentBrother === "aurelius" ? "grid-rows-[0fr_3fr] grid-cols-[3fr_0fr]" :
+              currentBrother === "rufus"    ? "grid-rows-[0fr_3fr] grid-cols-[0fr_3fr]" :
+              "grid-rows-[1fr_1fr] grid-cols-[1fr_1fr] duration-1200"
+            }
+          `}
+        >
+
+          {["ignatius", "brutus", "aurelius", "rufus"].map((brother, index) => (
+            <div
+              key={index}
+              className={`w-full h-full flex items-center justify-center overflow-hidden cursor-pointer`}
+              onMouseEnter={currentBrother ? undefined : () => setHoveredBrother(brother)}
+              onMouseLeave={() => setHoveredBrother("")}
+              onClick={() => {
+                blockHandler(1200);
+                setCurrentBrother(currentBrother === brother ? "" : brother);
+                calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
+              }}
+            >
+              <div className="relative h-[90vh] w-full flex items-center justify-center nonsel pointer-events-none">
+                <img
+                  src={`/images/ocs/calvarius-pfp-${brother}.png`} 
+                  className="absolute h-full w-full object-cover"
+                />
+              </div>
+            </div>
+          ))}
+          
+        </div>
         
       </div>
 
