@@ -908,10 +908,21 @@ export default function Home() {
 
                       {/* EYE */}
                       <div className="relative aspect-25/9 flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
-                        <img className="-translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/index/pupil.png" ref={leftPupilRef} />
-                        <img className="-translate-x-full scale-x-[-1] absolute nonsel pointer-events-none bg-white border-4 border-black z-20" src="/images/index/lid.png" />
-                        <img className="translate-x-full absolute nonsel pointer-events-none pupil z-25" src="/images/index/pupil.png" ref={rightPupilRef} />
-                        <img className="translate-x-full absolute nonsel pointer-events-none bg-white border-4 border-black z-20" src="/images/index/lid.png" />
+
+                        {/* LEFT */}
+                        <div className="absolute -translate-x-full flex items-center justify-center">
+                          <div className="bg-white rounded-full w-full h-full absolute" />
+                          <img className="scale-x-[-1] nonsel pointer-events-none relative z-20" src="/images/index/lid.png" />
+                          <img className="nonsel pointer-events-none pupil absolute z-25" src="/images/index/pupil.png" ref={leftPupilRef} />
+                        </div>
+
+                        {/* RIGHT */}
+                        <div className="absolute translate-x-full flex items-center justify-center">
+                          <div className="bg-white rounded-full w-full h-full absolute" />
+                          <img className="nonsel pointer-events-none relative z-20" src="/images/index/lid.png" />
+                          <img className="nonsel pointer-events-none pupil absolute z-25" src="/images/index/pupil.png" ref={rightPupilRef} />
+                        </div>
+                        
                         <div className="absolute bottom-2 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
                           <p className={`text-white text-sm text-center w-full ${gowun.className}`}>
                             I know what you're up to.

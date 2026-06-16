@@ -1320,14 +1320,12 @@ export default function Ocs() {
             className={`
               w-full h-full relative min-[1280px]:col-span-2
               flex items-center justify-center overflow-visible
-              translate-x-30 min-[768px]:translate-x-0 
-              min-[1280px]:translate-x-20 min-[1600px]:translate-x-10
             `}
           >
-            <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none lurk" />
-            <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
-            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none panic" />
-            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none panic" />
+            <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none ml-30 min-[768px]:ml-0 min-[1280px]:ml-20 min-[1600px]:ml-10 lurk" />
+            <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none ml-30 min-[768px]:ml-0 min-[1280px]:ml-20 min-[1600px]:ml-10" />
+            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none ml-30 min-[768px]:ml-0 min-[1280px]:ml-20 min-[1600px]:ml-10 panic" />
+            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none ml-30 min-[768px]:ml-0 min-[1280px]:ml-20 min-[1600px]:ml-10 panic" />
           </div>
           
           <OcInfo
