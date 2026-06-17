@@ -1068,11 +1068,11 @@ div[data-youtube-video] iframe {
 }
 
 .loading-spin {
-  animation: loading-spin infinite ease-in-out 3s;
+  animation: loading-spin infinite ease-in-out 1.5s;
 }
 
 .loading-spin-counter {
-  animation: loading-spin-counter infinite ease-in-out 3s;
+  animation: loading-spin-counter infinite ease-in-out 1.5s;
 }
 
 @keyframes loading-spin {

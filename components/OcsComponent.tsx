@@ -5,6 +5,7 @@ import OcInfo from "@/components/OcInfoComponent";
 import Footer from "@/components/footerComponent";
 import Tooltip from "@/components/tooltipComponent";
 import { Bodoni_Moda, Noto_Serif_JP, Barlow_Semi_Condensed } from "next/font/google"
+import Loading from "./LoadingScreenComponent";
 
 const bodoni = Bodoni_Moda({
   weight: "400",
@@ -222,6 +223,37 @@ export default function Ocs() {
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
+  }, []);
+
+  const loadingScreenRef = useRef<HTMLDivElement | null>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const imagePaths = [
+      "/images/ocs/mier-intro-angel.png",
+      "/images/ocs/mier-intro-tyrant.png",
+      "/images/ocs/mier-intro-icemage.png",
+      "/images/ocs/mier-portrait-angel.png",
+      "/images/ocs/mier-portrait-tyrant.png",
+      "/images/ocs/mier-portrait-icemage.png",
+      "/images/ocs/mier-angel.png",
+      "/images/ocs/mier-tyrant.png",
+      "/images/ocs/mier-icemage.png",
+      "/images/ocs/mier-angel-bg.jpg",
+      "/images/ocs/mier-tyrant-bg.jpg",
+      "/images/ocs/mier-icemage-bg.jpg",
+      "/images/ocs/mier-tyrant-flash.jpg",
+      "/images/ocs/mier-tyrant-deco.jpg",
+    ]
+
+    const promises = imagePaths.map(src => new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    }));
+
+    Promise.all(promises).then(() => setReady(true));
   }, []);
 
   return (
@@ -1567,6 +1599,7 @@ export default function Ocs() {
         <Footer />
       </div>
 
+      <Loading ready={ready} loadingRef={loadingScreenRef} />
       <Tooltip info={tooltipText} status={tooltipVisible} structured={true} />
     </div>
   )

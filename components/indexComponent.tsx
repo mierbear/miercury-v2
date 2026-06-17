@@ -27,6 +27,7 @@ import NavLink from "@/components/indexNavLink";
 import Tooltip from "@/components/tooltipComponent";
 import Footer from "@/components/footerComponent";
 import quotes from "@/components/quotes";
+import Loading from "@/components/LoadingScreenComponent";
 
 // TYPES
 import PostType from "@/types/postType";
@@ -502,7 +503,7 @@ export default function Home() {
       yPercent: 120,
       stagger: 0.05,
       ease: "power4.out",
-      delay: 1,
+      delay: 1.3,
     })
 
     return () => {
@@ -529,7 +530,7 @@ export default function Home() {
       yPercent: 50,
       stagger: 0.12,
       ease: "power4.out",
-      delay: 1.6,
+      delay: 1.9,
     })
 
     return () => {
@@ -565,22 +566,19 @@ export default function Home() {
   const bottomContentRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    
-    setTimeout(() => {
+    if (!ready) return;
+
+    const timer = setTimeout(() => {
       if (!topContentRef.current || !bottomContentRef.current) return;
-      topContentRef.current.style.opacity = "100%"
-      bottomContentRef.current.style.opacity = "100%"
+      topContentRef.current.style.opacity = "100%";
+      bottomContentRef.current.style.opacity = "100%";
     }, 1600);
-    
+
+    return () => clearTimeout(timer);
   }, [ready]);
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">
-
-      {/* LOADING SCREEN */}
-      <div className={`bg-black z-55555 min-w-screen min-h-screen transition-opacity duration-1000 fixed pointer-events-none nonsel ${ready ? "opacity-0" : "opacity-100"}`} ref={loadingScreenRef}>
-        <h1 className="bottom-20 right-20 text-white absolute">loading</h1>
-      </div>
 
       {/* TITLE */}
       <div className="w-5xl max-w-screen h-auto flex justify-end align-center items-center top-0 flex-col relative">
@@ -1188,6 +1186,9 @@ export default function Home() {
           buttonNext: () => null,
         }}
       />
+
+      {/* LOADING SCREEN */}
+      <Loading ready={ready} loadingRef={loadingScreenRef} />
     </div>
   );
 }

@@ -1,10 +1,11 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import PostType from "@/types/postType";
 import NextLink from "next/link";
 import { Sono } from "next/font/google";
 import Footer from "@/components/footerComponent";
 import quotes from "./quotes";
+import Loading from "./LoadingScreenComponent";
 
 const sono = Sono({
   weight: "400",
@@ -78,6 +79,32 @@ export default function Blog(props: BlogComponentProps) {
     const index = day % quotes.length;
     return quotes[index];
   };
+
+  const loadingScreenRef = useRef<HTMLDivElement | null>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const preload = [
+      "https://i.imgur.com/R31SQNB.png",
+      "https://i.imgur.com/mQWkuVV.png",
+      "https://i.imgur.com/8JJbGHX.png",
+      "https://i.imgur.com/s3cSCmh.png",
+      "https://i.imgur.com/uHfFCGt.png",
+      "/images/mierwalk.gif",
+      "/images/blog-mier.png",
+      "/images/index/mierwalk.gif",
+      "",
+    ];
+
+    const promises = preload.map(src => new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    }));
+
+    Promise.all(promises).then(() => setReady(true));
+  }, []);
 
   return (
     <div className="min-w-screen min-h-screen align-center items-center flex flex-col text-white monospace">
@@ -239,9 +266,10 @@ export default function Blog(props: BlogComponentProps) {
         </NextLink>
       </div>
 
-      <img src="/images/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
+      <img src="/images/index/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
 
       <Footer />
+      <Loading ready={ready} loadingRef={loadingScreenRef} />
 
       <div className='parallax-container pointer-events-none nonsel'>
         <div className='parallax-layer layer1 pointer-events-none nonsel'/>

@@ -1,11 +1,36 @@
 "use client";
 import NextLink from "next/link";
-import React from "react";
-import { useEffect, useRef, useState } from "react";
 import Footer from "@/components/footerComponent";
-import Game from "@/components/gameListingComponent"
+import Game from "@/components/gameListingComponent";
+import Loading from "./LoadingScreenComponent";
+import { useEffect, useRef, useState } from "react";
 
 const GamesComponent = () => {
+
+  const loadingScreenRef = useRef<HTMLDivElement | null>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const images = ["/images/games-mier.png"];
+    const videos = ["/videos/games/fish.mov", "/videos/games/match.mov"];
+
+    const imagePromises = images.map(src => new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    }));
+
+    const videoPromises = videos.map(src => new Promise<void>((resolve) => {
+      const video = document.createElement("video");
+      video.preload = "auto";
+      video.oncanplaythrough = () => resolve();
+      video.onerror = () => resolve();
+      video.src = src;
+    }));
+
+    Promise.all([...imagePromises, ...videoPromises]).then(() => setReady(true));
+  }, []);
 
   return (
     <div className="min-w-screen min-h-screen align-center items-center flex flex-col relative bg-[#17191a] nonsel">
@@ -110,6 +135,7 @@ const GamesComponent = () => {
       </div>
 
       <Footer />
+      <Loading ready={ready} loadingRef={loadingScreenRef} />
 
     </div>
   )

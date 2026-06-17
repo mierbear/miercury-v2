@@ -11,6 +11,7 @@ import { Bodoni_Moda, Sono, Noto_Serif_JP, Kosugi_Maru } from "next/font/google"
 import Marquee from "react-fast-marquee";
 import Footer from "@/components/footerComponent";
 import NextLink from "next/link";
+import Loading from "@/components/LoadingScreenComponent";
 
 const bodoni = Bodoni_Moda({
   weight: "400",
@@ -503,8 +504,31 @@ export default function GalleryComponent() {
     return pages;
   };
 
+  const loadingScreenRef = useRef<HTMLDivElement | null>(null);
   const [ready, setReady] = useState(false);
+
   useEffect(() => {
+    const imagePaths = [
+      "/images/gallery/gallery-banner.png",
+      "/images/gallery/gallery-banner-mobile.png",
+      "/images/gallery/gallery-me.png",
+      "/images/gallery/gallery-bg.png",
+      "/images/gallery/gallery-bg-blurred.png",
+    ]
+
+    const promises = imagePaths.map(src => new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    }));
+
+    Promise.all(promises).then(() => setReady(true));
+  }, []);
+
+  useEffect(() => {
+    if (!ready) return;
+
     setReady(true);
     fetchFeatArt();
     fetchArtworks();
@@ -515,7 +539,7 @@ export default function GalleryComponent() {
       setCategoryOpen(false);
       setWorldOpen(false);
     }
-  }, []);
+  }, [ready]);
 
   return (
     <div className="min-w-screen min-h-screen align-center items-center flex flex-col relative bg-[#17191a] nonsel">
@@ -863,8 +887,8 @@ export default function GalleryComponent() {
           border-[#17191a] border-t
           min-[1152px]:rounded-t-xl
           min-[1152px]:border-x 
-          bg-[url("/images/gallery-banner-mobile.png")]
-          min-[768px]:bg-[url("/images/gallery-banner.png")]
+          bg-[url("/images/gallery/gallery-banner-mobile.png")]
+          min-[768px]:bg-[url("/images/gallery/gallery-banner.png")]
           `}
         >
           
@@ -1411,6 +1435,8 @@ export default function GalleryComponent() {
           buttonNext: () => null,
         }}
       />
+
+      <Loading ready={ready} loadingRef={loadingScreenRef} />
 
     </div>
   )};
