@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import NavMenu from "@/components/NavMenu";
-import DailyModal from "@/components/dailyModalComponent";
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import "tiptap-extension-resizable-image/styles.css";
@@ -25,7 +24,6 @@ export default function RootLayout({
     <html lang="en">
       <body className={`bg-[#17191a]`}>
         <NavMenu />
-        <DailyModal />
         {children}
         <Analytics />
         <SpeedInsights />

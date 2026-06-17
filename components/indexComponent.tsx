@@ -539,6 +539,19 @@ export default function Home() {
     };
   }, []);
 
+  const potentialPeople = [
+    "gang",
+    "calvarius",
+    "simeon",
+    "quince",
+  ];
+
+  const [people, setPeople] = useState<string>("")
+
+  useEffect(() => {
+    setPeople(potentialPeople[Math.floor(Math.random() * potentialPeople.length)])
+  }, [])
+
   // PRELOAD
   useEffect(() => {
     const preload = [
@@ -884,12 +897,12 @@ export default function Home() {
                         onMouseLeave={() => {setAdVertHover(false)}}
                         >
                           <NextLink 
-                          href="https://vertuously.com/"
+                          href="https://x.com/daruezio"
                           target="_blank"
                           rel="noopener noreferrer"
                           className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col">
-                            <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8 text-nowrap`}>Take a dive?</p>
-                            <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`}>project your thoughts and feelings as you delve deeper in the abyss</p>
+                            <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8 text-nowrap`}>DARUEZIO</p>
+                            <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`}>see what the art of a top ~5% deadlock player looks like</p>
                           </NextLink>
 
                           <video autoPlay muted loop className={`object-cover h-full w-full nonsel pointer-events-none ${ready ? "block" : "hidden"}`}>
@@ -1053,7 +1066,7 @@ export default function Home() {
               <hr className="my-4 border-gray-500/30 w-[90%] md:w-[80%] mx-auto" />
 
               {/* NAV */}
-              <div className={`mx-4 mb-4 text-white grid grid-rows-[240px_50px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative`} ref={linksDivRef}>
+              <div className={`mx-4 mb-4 text-white grid grid-rows-[240px_50px_50px_50px_50px] transition-[grid_template-rows] duration-200 relative`} ref={linksDivRef}>
                 
                 <NavLink desc="learn about my characters" active={activeLink} type="marq" pos="top" link="characters" onHover={handleHover} />
                 <NavLink desc="look at my art" active={activeLink} type="img" pos="mid" link="gallery" onHover={handleHover} />
@@ -1065,39 +1078,13 @@ export default function Home() {
 
               <hr className="border-gray-500/30 w-[90%] mx-auto md:hidden" />
 
-              {/* ?? */}
-              
-              <div className="m-4 text-white border-[#d8e0e3]/40 bg-white/10 h-full border-dotted border hidden flex-col items-center">
-              
-                {/* <div className={`flex flex-col w-full ${sono.className}`}>
-                  <p className="flex gap-2">
-                    <span className="text-[10px] translate-y-px decoration-none">
-                    ● 
-                    </span>
-                    <span className={`
-                    transition-colors duration-100 decoration-white/50
-                    underline underline-offset-2 hover:decoration-white
-                    text-[12px] cursor-pointer
-                    `}>
-                    current song stuck in my head
-                    </span>
-                  </p>
-
-                  <p className="flex gap-2">
-                    <span className="text-[10px] translate-y-px decoration-none">
-                    ● 
-                    </span>
-                    <span className={`
-                    transition-colors duration-100 decoration-white/50
-                    underline underline-offset-2 hover:decoration-white
-                    text-[12px] cursor-pointer
-                    `}>
-                    current game addicted to
-                    </span>
-                  </p>
-                </div> */}
-                
-              </div> 
+              {/* GANG */}
+              <div className="w-full h-full relative md:block hidden nonsel pointer-events-none">
+                <img 
+                  className="absolute bottom-0 w-full h-auto max-h-none"
+                  src={`/images/index/index-${people}.png`}
+                />
+              </div>
 
             </div> 
           
