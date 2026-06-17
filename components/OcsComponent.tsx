@@ -495,7 +495,7 @@ export default function Ocs() {
               <div
                 className={`
                   h-full w-full max-w-none absolute transition-transform
-                  ease-in-out scale-110 absolute slow-backwards-spin
+                  ease-in-out scale-110 slow-backwards-spin
                   flex items-center justify-center duration-1200
                   ${selectedMier ? "translate-y-0" : "translate-y-20"}
                 `}
@@ -1068,7 +1068,7 @@ export default function Ocs() {
           className={`
             w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
             grid xl:hidden justify-center align-center items-center
-            transition-grid duration-800
+            transition-grid duration-1000
             ${currentBrother === "ignatius" ? "grid-rows-[3fr_0fr] grid-cols-[3fr_0fr]" :
               currentBrother === "brutus"   ? "grid-rows-[3fr_0fr] grid-cols-[0fr_3fr]" :
               currentBrother === "aurelius" ? "grid-rows-[0fr_3fr] grid-cols-[3fr_0fr]" :
@@ -1088,10 +1088,25 @@ export default function Ocs() {
                 calvariusScrollRef.current?.scrollIntoView({ behavior: "smooth" });
               }}
             >
-              <div className="relative h-[90vh] w-full flex items-center justify-center nonsel pointer-events-none">
+              <div 
+                className={`
+                  relative h-[90vh] w-full flex items-center justify-center nonsel pointer-events-none
+                  ${currentBrother ? "scale-220" : "scale-100"}
+                  transition-[scale] duration-1000 ease-in-out
+                `}
+              >
                 <img
-                  src={`/images/ocs/calvarius-pfp-${brother}.png`} 
-                  className="absolute h-full w-full object-cover"
+                  src={`/images/ocs/calvarius-${brother}.png`} 
+                  className={`
+                    absolute h-full w-full object-cover overflow-visible
+                    ${brother === "ignatius" ? "translate-x-[50vh] translate-y-[22vh]" :
+                      brother === "brutus"   ? "translate-x-[-47vh] translate-y-[36vh]" :
+                      brother === "aurelius" ? "translate-x-[19vh] translate-y-[-2vh]" :
+                      brother === "rufus"    ? "translate-x-[-28vh] translate-y-[-8vh]" :
+                      ""
+                    }
+                    origin-center scale-150
+                  `}
                 />
               </div>
             </div>
@@ -1175,22 +1190,22 @@ export default function Ocs() {
             ${currentBrother ? "scale-360" : "scale-140 -rotate-7"}
             ${currentBrother === 
               "ignatius" ? `
-                translate-x-[160vh]
+                translate-x-[155vh]
                 translate-y-[56vh]
               ` :
               currentBrother ===
               "brutus"   ? `
-                -translate-x-[159vh]
-                translate-y-[85vh]
+                -translate-x-[154vh]
+                translate-y-[84vh]
               ` :
               currentBrother ===
               "aurelius" ? `
-                translate-x-[119vh]
+                translate-x-[108vh]
                 translate-y-[25vh]
               ` :
               currentBrother ===
               "rufus"    ? `
-                -translate-x-[125vh]
+                -translate-x-[119vh]
                 translate-y-[-10vh]
               ` :
               "translate-y-[13vh]"
@@ -1318,7 +1333,7 @@ export default function Ocs() {
                   The hothead of the group, he can't control his anger. (lol)
                   *Primarily fights with a sword, while also using the skull on his head to sprint head on towards enemies to ram them with the point. (glass cannon)
                   *Despite being the youngest, he is very protective over Aurelius as if he were the older brother. He and Ignatius are very competitive against each other, frequently getting into petty fights, only to make up 5 minutes later.
-                  *In the end, he reigns in his anger and have it no longer dictate his judgement.
+                  *In the end, he reigns in his fury and have it no longer dictate his judgement.
                   "
                 />
               )}
@@ -1419,10 +1434,10 @@ export default function Ocs() {
               flex items-center justify-center overflow-visible
             `}
           >
-            <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none ml-30 min-[768px]:ml-0 min-[1280px]:ml-20 min-[1600px]:ml-10 lurk" />
-            <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none ml-30 min-[768px]:ml-0 min-[1280px]:ml-20 min-[1600px]:ml-10" />
-            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none ml-30 min-[768px]:ml-0 min-[1280px]:ml-20 min-[1600px]:ml-10 panic" />
-            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none ml-30 min-[768px]:ml-0 min-[1280px]:ml-20 min-[1600px]:ml-10 panic" />
+            <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none lurk" />
+            <img src="/images/ocs/fd-1.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none" />
+            <img src="/images/ocs/fd-2.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none panic" />
+            <img src="/images/ocs/fd-3.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none panic" />
           </div>
           
           <OcInfo
