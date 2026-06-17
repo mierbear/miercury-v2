@@ -89,6 +89,7 @@ export default function Home() {
   const [latestPostSnippet, setLatestPostSnippet] = useState<string | null>(null);
   
   const [isPhone, setIsPhone] = useState(false);
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
     setIsPhone(window.matchMedia("(pointer: coarse)").matches);
@@ -156,22 +157,6 @@ export default function Home() {
   const clickDate = () => {
     setProperDate(!properDate);
   }
-
-  const topContentRef = useRef<HTMLDivElement | null>(null)
-  const bottomContentRef = useRef<HTMLDivElement | null>(null)
-
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    
-    setReady(true),
-    
-    setTimeout(() => {
-      if (!topContentRef.current || !bottomContentRef.current) return;
-      topContentRef.current.style.opacity = "100%"
-      bottomContentRef.current.style.opacity = "100%"
-    }, 1600);
-    
-  }, []);
   
   const autoplay = useRef(
     Autoplay({
@@ -255,23 +240,6 @@ export default function Home() {
 
   useEffect(() => {
     fetchStatus();
-  }, [])
-
-  // PRELOAD
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    const preload = [
-      "/images/index/mierhover.png",
-      "/images/index/mierhover-leftwing.png",
-      "/images/index/mierhover-rightwing.png",
-    ];
-
-    preload.forEach((src) => {
-      const img = new window.Image();
-      img.src = src;
-    });
-
   }, [])
 
   // const randomizer = (arr: string[]) => {
@@ -569,6 +537,42 @@ export default function Home() {
       split.revert();
     };
   }, []);
+
+  // PRELOAD
+  useEffect(() => {
+    const preload = [
+      "/images/index/mierhover.png",
+      "/images/index/mierhover-leftwing.png",
+      "/images/index/mierhover-rightwing.png",
+      "/images/index/nav/characters.png",
+      "/images/index/nav/gallery.png",
+      "/images/index/nav/games.png",
+      "/images/index/nav/blog.png",
+      "/images/index/nav/about.png",
+    ];
+
+    const promises = preload.map(src => new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    }));
+
+    Promise.all(promises).then(() => setReady(true));
+  }, []);
+
+  const topContentRef = useRef<HTMLDivElement | null>(null)
+  const bottomContentRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    
+    setTimeout(() => {
+      if (!topContentRef.current || !bottomContentRef.current) return;
+      topContentRef.current.style.opacity = "100%"
+      bottomContentRef.current.style.opacity = "100%"
+    }, 1600);
+    
+  }, [ready]);
 
   return (
     <div className="bg-[#17191a] min-w-screen min-h-screen align-center items-center flex flex-col relative">

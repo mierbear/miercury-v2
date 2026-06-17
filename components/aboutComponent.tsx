@@ -3,6 +3,7 @@ import { use, useEffect, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Tooltip from "@/components/tooltipComponent";
 import Marquee from "react-fast-marquee";
+import Loading from "@/components/LoadingScreenComponent";
 import { measureMemory } from "vm";
 
 export default function Home() {
@@ -1150,9 +1151,7 @@ export default function Home() {
       </div>
 
       {/* LOADING SCREEN */}
-      <div className={`bg-black z-55555 min-w-screen min-h-screen transition-opacity duration-1000 fixed pointer-events-none nonsel ${ready ? "opacity-0" : "opacity-100"}`} ref={loadingScreenRef}>
-        <h1 className="bottom-20 right-20 text-white absolute">loading</h1>
-      </div>
+      <Loading ready={ready} loadingRef={loadingScreenRef} />
 
       <Tooltip info={tooltipText} status={tooltipVisible} />
       

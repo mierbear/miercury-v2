@@ -1066,3 +1066,23 @@ div[data-youtube-video] iframe {
   animation: shoot linear infinite;
   opacity: 0;
 }
+
+.loading-spin {
+  animation: loading-spin infinite ease-in-out 3s;
+}
+
+.loading-spin-counter {
+  animation: loading-spin-counter infinite ease-in-out 3s;
+}
+
+@keyframes loading-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loading-spin-counter {
+  to {
+    transform: rotate(-360deg);
+  }
+}
