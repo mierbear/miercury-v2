@@ -1099,7 +1099,7 @@ export default function Ocs() {
         <div 
           className={`
             w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
-            grid xl:hidden justify-center align-center items-center relative
+            grid justify-center align-center items-center relative
             transition-grid duration-1000
             ${currentBrother === "ignatius" ? "grid-rows-[3fr_0fr] grid-cols-[3fr_0fr]" :
               currentBrother === "brutus"   ? "grid-rows-[3fr_0fr] grid-cols-[0fr_3fr]" :
@@ -1125,48 +1125,19 @@ export default function Ocs() {
                 src="/images/ocs/calvarius-bg.jpg"
                 className={`
                   absolute inset-0 w-full h-full min-h-[90vh] object-cover scale-200 nonsel pointer-events-none overflow-visible
-                  ${brother === "ignatius" ? "translate-x-[90vh]" :
-                    brother === "brutus"   ? "translate-x-[-20vh]" :
-                    brother === "aurelius" ? "translate-x-[4vh]" :
-                    brother === "rufus"   && "translate-x-[-4vh]"
-                  }
                   `}
               />
-
-              {/* BG COLOR */}
-              {/* <div 
-                className={`
-                w-full h-full absolute
-                ${
-                  brother === "ignatius" ? "bg-[rgb(159,149,133)]" :
-                  brother === "brutus"   ? "bg-[rgb(140,145,168)]" :
-                  brother === "aurelius" ? "bg-[rgb(137,158,165)]" :
-                  brother === "rufus"   && "bg-[rgb(135,153,121)]" 
-                }
-                ${currentBrother ? "opacity-0" : "opacity-100"}
-                transition-opacity duration-600
-                `}
-              /> */}
 
               {/* IMAGE */}
               <div 
                 className={`
                   absolute h-[90vh] w-full flex items-center justify-center nonsel pointer-events-none
-                  ${currentBrother ? "scale-220 duration-800" : "scale-100 duration-1200"}
-                  transition-[scale]
+                  ${currentBrother ? "scale-150 translate-y-[-16vh] duration-800" : "scale-100 duration-1200"}
                 `}
               >
                 <img
-                  src={`/images/ocs/calvarius-${brother}.png`} 
-                  className={`
-                    absolute h-full w-full object-cover overflow-visible
-                    ${brother === "ignatius" ? "translate-x-[50vh] translate-y-[22vh]" :
-                      brother === "brutus"   ? "translate-x-[-47vh] translate-y-[36vh]" :
-                      brother === "aurelius" ? "translate-x-[19vh] translate-y-[-2vh]" :
-                      brother === "rufus"    ? "translate-x-[-28vh] translate-y-[-8vh]" :
-                      ""
-                    }
-                    origin-center scale-150
+                  src={`/images/ocs/calvarius-${brother}-mobile.png`} 
+                  className={`absolute h-full w-auto max-w-none
                   `}
                 />
               </div>
@@ -1492,7 +1463,7 @@ export default function Ocs() {
           <div
             className={`
               w-full h-full relative min-[1280px]:col-span-2
-              flex items-center justify-center overflow-visible
+              flex items-center justify-center overflow-visible ml-20 sm:ml-0
             `}
           >
             <img src="/images/ocs/fd-0.png" className="absolute h-full w-auto object-cover overflow-visible nonsel pointer-events-none lurk" />
