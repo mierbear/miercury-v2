@@ -1089,7 +1089,7 @@ export default function Ocs() {
       <div 
         className={`
           w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
-          flex xl:hidden justify-center align-center items-center bg-white
+          flex xl:hidden justify-center align-center items-center bg-white relative
           transition-brightness duration-600
           ${currentOc === "calvarius" ? "brightness-100" : "brightness-50"}
         `}
@@ -1156,7 +1156,7 @@ export default function Ocs() {
             ${currentBrother ? "opacity-100" : "opacity-0 pointer-events-none"}
           `}
         >
-          
+
           <img 
             className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
             src={`
