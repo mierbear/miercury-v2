@@ -1099,7 +1099,7 @@ export default function Ocs() {
         <div 
           className={`
             w-screen max-w-screen h-[90vh] max-h-[90vh] xl:h-[80vh] xl:max-h-[80vh]
-            grid justify-center align-center items-center relative
+            grid justify-center align-center items-center relative z-0
             transition-grid duration-1000
             ${currentBrother === "ignatius" ? "grid-rows-[3fr_0fr] grid-cols-[3fr_0fr]" :
               currentBrother === "brutus"   ? "grid-rows-[3fr_0fr] grid-cols-[0fr_3fr]" :
@@ -1150,12 +1150,20 @@ export default function Ocs() {
         <div 
           className={`
             flex absolute items-center justify-center h-[30%] w-full bg-[rgb(16,17,19)] bottom-0
-            transition-opacity duration-300 nonsel flex-col text-center 
+            transition-opacity duration-300 nonsel flex-col text-center z-50
             text-white px-8 min-[640px]:px-16 py-4 overflow-hidden gap-4 text-xs min-[640px]:text-sm min-[1600px]:text-base
             nonsel ${noto.className}
             ${currentBrother ? "opacity-100" : "opacity-0 pointer-events-none"}
           `}
         >
+          
+          <img 
+            className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
+            src={`
+              /images/ocs/calvarius-alt.png
+            `}
+          />
+
           <div className="flex flex-col items-center justify-center w-full">
             {/* NAME */}
             <p className={`text-5xl xl:text-6xl text-nowrap ${bodoni.className}`}>
@@ -1195,12 +1203,6 @@ export default function Ocs() {
             </p>
           </div>
 
-          <img 
-            className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
-            src={`
-              /images/ocs/calvarius-alt.png
-            `}
-          />
         </div>
       </div>
 
