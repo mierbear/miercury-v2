@@ -2,14 +2,23 @@
 import { useState, useRef, useEffect } from "react";
 
 const MierOS = () => {
-  const [openLogin, setOpenLogin] = useState<boolean>(false);
   const [passwordContent, setPasswordContent] = useState("");
   const [userPassword, setUserPassword] = useState<string>("meow");
+  const [openLogin, setOpenLogin] = useState<boolean>(false);
   const errorRef = useRef<HTMLDivElement | null>(null);
+  const loginScreenRef = useRef<HTMLDivElement | null>(null);
+  const blackScreenRef = useRef<HTMLDivElement | null>(null);
+  const desktopRef = useRef<HTMLDivElement | null>(null);
+  const passwordContentRef = useRef<HTMLInputElement | null>(null);
+  const [logging, setLogging] = useState<boolean>(false);
 
   const checkLogin = () => {
     if (passwordContent === userPassword) {
+      setOpenLogin(false);
       console.log(`yeah!!`)
+      passwordContentRef.current!.value = "";
+      setPasswordContent("");
+      login(true);
     } else {
       errorRef.current!.style.opacity = `1`;
       setTimeout(() => {
@@ -19,14 +28,37 @@ const MierOS = () => {
     }
   };
 
+  const login = (login: boolean) => {
+    blackScreenRef.current!.style.display = `flex`;
+
+    setTimeout(() => {
+      setLogging(true);
+    }, login ? 0 : 2000);
+
+    setTimeout(() => {
+      loginScreenRef.current!.style.display = `${login ? "none" : "flex"}`;
+      desktopRef.current!.style.display = `${login ? "flex" : "none"}`;
+    }, login ? 1000 : 3000);
+
+    setTimeout(() => {
+      setLogging(false);
+      setTimeout(() => {
+        blackScreenRef.current!.style.display = `none`;
+      }, 1000);
+    }, login ? 1500 : 3500);
+  }
+
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
+
+      {/* LOG IN SCREEN */}
       <div 
         className={`
           w-screen h-screen bg-[rgb(167,196,216)]
           flex items-center justify-center transition-all
           duration-1200 ease-[ease] fixed z-1000 nonsel
         `}
+        ref={loginScreenRef}
       >
 
         {/* WRONG PASSWORD */}
@@ -89,7 +121,7 @@ const MierOS = () => {
             </div>
           </div>
           
-          {/* BOTTOM / LOGIN */}
+          {/* BOTTOM */}
           <div 
             className={`
               flex justify-center items-center
@@ -107,6 +139,7 @@ const MierOS = () => {
               autoFocus={true}
               autoComplete="off"
               onChange={(e) => setPasswordContent(e.currentTarget.value)}
+              ref={passwordContentRef}
             />
 
             <div
@@ -141,7 +174,36 @@ const MierOS = () => {
 
         </div>
 
-      </div>  
+      </div>
+
+      {/* BLACK SCREEN */}
+      <div 
+        className={`
+          w-screen h-screen bg-black hidden
+          transition-opacity duration-1000
+          ease-in-out z-2000 fixed nonsel pointer-events-none
+          ${logging ? "opacity-100" : "opacity-0"}
+        `}
+        ref={blackScreenRef}
+      />
+
+      {/* DESKTOP */}
+      <div
+        className={`
+          w-screen h-screen flex items-center justify-center fixed
+          text-white
+        `}
+        ref={desktopRef}
+      >
+        dgdfgdgsgfdgsergdfg
+        <p
+          onClick={() => login(false)}
+        >
+          LOG OUT
+        </p>
+      </div>
+
+
     </div>
   )
 }
