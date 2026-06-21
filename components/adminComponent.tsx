@@ -175,7 +175,7 @@ export default function page() {
 
   const [editingPost, setEditingPost] = useState<number | null>(null);
 
-  const newPostRef = useRef<HTMLButtonElement | null>(null);
+  const newPostRef = useRef<HTMLDivElement | null>(null);
   
   const handleNewPost = () => {
     setEditingPost(null);
@@ -204,7 +204,7 @@ export default function page() {
     }
   }
 
-  const [currentTab, setCurrentTab] = useState<"blog" | "log" | "art" | "meow">("blog")
+  const [currentTab, setCurrentTab] = useState<"blog" | "log" | "art">("blog")
   const [logContent, setLogContent] = useState("");
   const logInputRef = useRef<HTMLInputElement | null>(null);
   const [logs, setLogs] = useState<LogType[] | null>(null);
@@ -476,38 +476,43 @@ export default function page() {
         </div>
 
         <div className="text-xs text-black w-full bg-[#d8e0e3] flex justify-center items-center rounded-t-md p-0.5">
-          <p>you're not gonna try and hack my website are u ... u_u</p>
+          <p>you're not gonna try and hack my website are you ... u_u</p>
         </div>
 
         {/* OPTIONS */}
-        <div className="w-full grid grid-cols-4 h-16">
+        <div className="w-full grid grid-cols-3 h-16">
           
           <p 
-            className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
+            className={`
+              flex items-center justify-center text-3xl
+              cursor-pointer hover:underline
+              ${currentTab === "blog" ? "bg-[#ccd3d6] font-bold text-black" : "bg-[#c3cacc] text-black/50"}
+            `}
             onClick={() => {setCurrentTab("blog")}}
           >
-            post on your blog
+            BLOG
           </p>
 
           <p 
-            className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
+            className={`
+              flex items-center justify-center text-3xl
+              cursor-pointer hover:underline
+              ${currentTab === "log" ? "bg-[#ccd3d6] font-bold text-black" : "bg-[#c3cacc] text-black/50"}
+            `}
             onClick={() => {setCurrentTab("log")}}
           >
-            post new log
+            LOGS
           </p>
 
           <p 
-            className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
+            className={`
+              flex items-center justify-center text-3xl
+              cursor-pointer hover:underline
+              ${currentTab === "art" ? "bg-[#ccd3d6] font-bold text-black" : "bg-[#c3cacc] text-black/50"}
+            `}
             onClick={() => {setCurrentTab("art")}}
           >
-            post new drawing
-          </p>
-
-          <p 
-            className="flex items-center justify-center font-bold bg-[#d8e0e3] text-black cursor-pointer hover:underline"
-            onClick={() => {setCurrentTab("meow")}}
-          >
-            meow
+            GALLERY
           </p>
 
         </div>
@@ -517,11 +522,23 @@ export default function page() {
           <div className="grid grid-cols-[2fr_6fr] w-full">
 
             <div className="bg-black flex flex-col items-center overflow-y-auto scroll-smooth">
-              {posts.map((post) => {
-                return (
+              <div
+                ref={newPostRef}
+                className={`
+                  flex items-center justify-center px-5 h-20 w-full cursor-pointer
+                  ${editingPost ? "bg-black hover:bg-[#17191a]/80" : "bg-[#24303b]"}
+                `}
+                onClick={handleNewPost}
+              >
+                new post?
+              </div>
+              {posts.map((post) =>  (
                   <div
                     key={post.id}
-                    className="flex items-center justify-between bg-black px-5 h-20 w-full cursor-pointer adminPost"
+                    className={`
+                      flex items-center justify-between px-5 h-20 w-full cursor-pointer
+                      ${post.id === editingPost ? "bg-[#24303b]" : "bg-black hover:bg-[#17191a]/80"}
+                    `}
                     onClick={() => {handlePostListClick(post.id)}}
                   >
                     <div className="flex flex-col">
@@ -536,8 +553,8 @@ export default function page() {
                       🞮
                     </p>
                   </div>
-                );
-              })}
+                )
+              )}
             </div>
             <div className="bg-black flex flex-col">
             
@@ -551,33 +568,23 @@ export default function page() {
                   ref={titleRef}
                   type="text"
                   placeholder="input title.."
-                  className="w-full mb-4 monospace text-2xl"
+                  className="w-full mb-4 monospace text-2xl bg-[#17191a]"
                   onChange={(e) => {
                     setNewPost((prev) => ({ ...prev, title: e.target.value }))
                   }}
                 />
-
+                
                 <Tiptap content={postContent} onChange={onChange} onEditorReady={(editor) => (editorRef.current = editor)} />
                 
                 <button
                   ref={postButtonRef}
                   type="submit"
-                  className="cursor-pointer"
+                  className="cursor-pointer mt-4 px-8 py-4 text-xs monospace border border-white/30 rounded-md"
                 >
-                  post..
+                  {editingPost ? "edit current post.." : "make new post to blog.."}
                 </button>
 
               </form>
-              
-              <div>
-                <button
-                  ref={newPostRef}
-                  className="bg-[#101113]/90 p-2 rounded-md cursor-pointer"
-                  onClick={handleNewPost}
-                >
-                  new post?
-                </button>
-              </div>
 
             </div>
           </div>
@@ -614,7 +621,7 @@ export default function page() {
                 <input
                 type="text"
                 placeholder="input log"
-                className="bg-[#101113]/90 p-4 w-full h-86 text-white monospace"
+                className="bg-[#17191a] p-4 w-full h-86 text-white monospace"
                 onChange={(e) => {
                   setLogContent(e.target.value);
                 }}
@@ -638,9 +645,9 @@ export default function page() {
           <div className="w-full bg-black grid grid-cols-[5fr_3fr]">
             
             {/* art list */}
-            <div className="flex flex-col items-center">
+            <div className="bg-[#535961]/20 flex flex-col items-center">
 
-              <div className="bg-[#535961]/20 p-4 overflow-y-auto h-full w-full grid grid-cols-3 gap-2">
+              <div className="p-4 pr-0 overflow-y-auto h-full w-full grid grid-cols-3 gap-3">
                 {pagedArt?.map((art) => {
                   return (
                     <div
@@ -657,7 +664,7 @@ export default function page() {
                       <div className="flex justify-between items-center w-full">
                         <p className="font-bold text-lg truncate">{art.title}</p>
                         <p
-                          className="text-2xl text-red-600 cursor-pointer"
+                          className="text-xl text-red-600 cursor-pointer"
                           onClick={() => confirmAction(() => handleArtDelete(art.id), `DELETE "${art.title}"`, art.url)}
                         >
                           🞮
@@ -689,23 +696,26 @@ export default function page() {
             </div>
             
             {/* upload art */}
-            <div className="bg-bg-[#101113]/90 flex flex-col items-center p-4">
-
-              {artUrl ? (
-                <img
-                src={artUrl}
-                className="w-full object-cover cursor-pointer"
-                onClick={() => addArtRef.current?.click()}
-                />
-              ):(
-                <button 
+            <div className="bg-[#535961]/20 flex flex-col items-center p-4">
+              
+              <div
+                className="w-full h-auto aspect-square flex items-center justify-center"
+              >
+                {artUrl ? (
+                  <img
+                  src={artUrl}
+                  className="h-full w-auto w-max-none object-cover cursor-pointer"
                   onClick={() => addArtRef.current?.click()}
-                  className="px-4 py-2 monospace border border-white rounded-md cursor-pointer"
-                >
-                  no artwork selected...
-                </button>
-              )}
-
+                  />
+                ):(
+                  <button 
+                    onClick={() => addArtRef.current?.click()}
+                    className="w-[90%] h-[90%] monospace border border-white rounded-md cursor-pointer"
+                  >
+                    no artwork selected...
+                  </button>
+                )}
+              </div>
 
               <form className="flex flex-col items-center w-full gap-2" onSubmit={artSubmitHandler}>
 
@@ -729,7 +739,7 @@ export default function page() {
                 <input 
                   type="text"
                   placeholder="input title.."
-                  className="w-full my-2 monospace text-xl"
+                  className="w-full my-2 monospace text-xl bg-[#17191a]"
                   onChange={(e) => {
                     setArtTitle(e.target.value);
                   }}
@@ -739,7 +749,7 @@ export default function page() {
                 {/* DESCRIPTION */}
                 <textarea 
                   placeholder="input description.."
-                  className="w-full monospace text-xs h-36"
+                  className="w-full monospace text-xs h-36 bg-[#17191a]"
                   onChange={(e) => {
                     setArtDescription(e.target.value);
                   }}
@@ -797,19 +807,13 @@ export default function page() {
                 {/* SUBMIT */}
                 <button
                 type="submit"
-                className="cursor-pointer px-4 py-2 text-xs monospace border border-white rounded-md"
+                className="cursor-pointer px-8 py-4 text-xs monospace border border-white/30 rounded-md"
                 >
-                  post..
+                  post artwork to gallery..
                 </button>
               </form>
             </div>
             
-          </div>
-        )}
-
-        {currentTab === "meow" && (
-          <div className="w-full bg-black flex flex-col justify-center items-center">
-            <p>meow</p>
           </div>
         )}
         

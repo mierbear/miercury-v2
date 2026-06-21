@@ -109,15 +109,6 @@ body {
   color: rgb(255, 223, 32);
 }
 
-.adminPost {
-  transition: all 0.2s ease;
-}
-
-.adminPost:hover {
-  cursor: pointer;
-  background-color: rgb(32, 33, 34);
-}
-
 .x:hover {
   color: red;
   cursor: pointer;

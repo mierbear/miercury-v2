@@ -70,7 +70,7 @@ export default function RichTextEditor({
     immediatelyRender: false,
     editorProps: {
       attributes: {
-        class: "p-5 w-full text-white bg-[#17191a] outline-none",
+        class: "p-5 w-full text-white outline-none",
       },
     },
     onUpdate: ({ editor }) => {
@@ -104,7 +104,9 @@ export default function RichTextEditor({
 
   return (
     <div className="w-full overflow-y-auto h-[70vh] relative border-2 border-[#17191a] bg-[#17191a]">
-      <MenuBar editor={editor} uploadImage={uploadImage} />
+      <div className="sticky top-0 z-10 bg-[#17191a]">
+        <MenuBar editor={editor} uploadImage={uploadImage} />
+      </div>
       <EditorContent editor={editor} />
     </div>
   );

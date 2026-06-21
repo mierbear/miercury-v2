@@ -30,16 +30,30 @@ export default function Label ({activeLink, title, desc, link}: LabelProps) {
     <div className={`z-850 absolute bottom-0 h-18 xl:h-24 pb-1 w-full flex flex-col items-center justify-center transition-all duration-400 ${activeLink === link ? "text-yellow-200 bg-[#17191a]/90 white-glow nonsel pointer-events-none" : "text-white bg-[#17191a]/30"}`}>
 
       <div className={`${sono.className} text-3xl xl:text-4xl transition-transform duration-400 ${activeLink === link ? "translate-y-0 scale-100" : "translate-y-2.5 scale-80"} flex items-center gap-4`}>
-        <span className={`flex items-center justify-center origin-center transition-scale duration-400 ease-in-out ${activeLink === link ? "spin scale-100" : "scale-80"}`}>
-        {activeLink === link ? "★" : "✦"}
+        <span 
+          className={`
+            flex items-center justify-center origin-center transition-scale duration-400 ease-in-out 
+            ${activeLink === link ? "scale-100 spin duration-900" : "scale-80 -rotate-90 -translate-y-px duration-600"} 
+            w-4 h-4 mt-1 flex items-center justify-center
+            transition-all self-center
+          `}
+        >
+          {activeLink === link ? "★" : "✦"}
         </span>
 
         <span className={`flex items-center justify-center origin-center transition-scale duration-400 ease-in-out ${activeLink === link ? "scale-100 font-bold" : "scale-80"}`}>
         {title}
         </span>
 
-        <span className={`flex items-center justify-center origin-center transition-scale duration-400 ease-in-out ${activeLink === link ? "spin scale-100" : "scale-80"}`}>
-        {activeLink === link ? "★" : "✦"}
+        <span 
+          className={`
+            flex items-center justify-center origin-center transition-scale duration-400 ease-in-out 
+            ${activeLink === link ? "scale-100 spin duration-900" : "scale-80 -rotate-90 -translate-y-px duration-600"} 
+            w-4 h-4 mt-1 flex items-center justify-center
+            transition-all self-center
+          `}
+        >
+          {activeLink === link ? "★" : "✦"}
         </span>
       </div>
 
