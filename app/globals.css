@@ -1077,3 +1077,21 @@ div[data-youtube-video] iframe {
     transform: rotate(-360deg);
   }
 }
+
+.error {
+  animation: error 1.2s infinite ease-in-out;
+}
+
+@keyframes error {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
