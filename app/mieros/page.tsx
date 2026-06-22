@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 const inconsolata = Inconsolata({
-  weight: "300",
+  weight: ["200", "300"],
   subsets: ["latin"],
 })
 
