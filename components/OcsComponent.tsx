@@ -263,8 +263,7 @@ export default function Ocs() {
       <div
         className="fixed w-full h-full bg-[#00000000] z-1000 hidden"
         ref={blockerRef}
-      >
-      </div>
+      />
 
       {/* OC INFO */}
       <div 
