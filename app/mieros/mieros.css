@@ -339,8 +339,6 @@
     mix-blend-mode: normal;
     background-color: rgba(38, 47, 54, 0.595);
     box-shadow: 0 0 10px rgba(230, 250, 255, 0.304);
-    display: none;
-    opacity: 0;
 }
 
 .notes {
@@ -365,10 +363,7 @@
 }
 
 .mieramp {
-    /* display: grid;
-    opacity: 1; */
-    display: none;
-    opacity: 0;
+    display: grid;
     grid-template-rows: 8vw 1fr;
     position: absolute;
     right: 0px;
@@ -754,14 +749,6 @@ li {
 .icon:hover {
     cursor: pointer;
     transform: scale(1.1);
-}
-
-.taskbar-mini-icons {
-    display: flex;
-    margin-left: auto;
-    gap: 10px;
-    font-size: .9vw;
-    margin-bottom: 4.5px;
 }
 
 /* MENU */

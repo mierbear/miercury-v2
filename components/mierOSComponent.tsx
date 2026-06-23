@@ -24,6 +24,7 @@ const MierOS = () => {
       console.log(`yeah!!`)
       passwordContentRef.current!.value = "";
       setPasswordContent("");
+      blockHandler(1500)
       login(true);
     } else {
       errorRef.current!.style.opacity = `1`;
@@ -95,6 +96,8 @@ const MierOS = () => {
   ]
 
   const [openMenu, setOpenMenu] = useState<boolean>(false);
+  const [mierAmpOpen, setMierAmpOpen] = useState<boolean>(false);
+  const [notesOpen, setNotesOpen] = useState<boolean>(false);
   const blockerRef = useRef<HTMLDivElement | null>(null);
 
   const blockHandler = (duration: number) => {
@@ -254,13 +257,24 @@ const MierOS = () => {
         ref={desktopRef}
       >
 
+        {/* DESKTOP */}
         <div className="items">
             <div className="item">
-                <img draggable="false" src="/os/note.png" className="icon notes-icon" />
+                <img 
+                  draggable="false"
+                  src="/os/note.png"
+                  className="icon notes-icon"
+                  onClick={() => setNotesOpen(!notesOpen)}
+                />
                 <p>notes/reminders</p>
             </div>
             <div className="item">
-                <img draggable="false" src="/os/mieramp.png" className="icon mieramp-icon" />
+                <img 
+                  draggable="false"
+                  src="/os/mieramp.png"
+                  className="icon mieramp-icon"
+                  onClick={() => setMierAmpOpen(!mierAmpOpen)}
+                />
                 <p>MierAmp</p>
             </div>
             <div className="item">
@@ -272,42 +286,64 @@ const MierOS = () => {
                 <p>bear</p>
             </div>
         </div>  
-
-        <div className="mieramp program draggable">
-            <div className="amp-top">
-                <div className="wrapper2">
-                    <p>―――――― MierAmp ――――――</p>
-                    <p className="ampX">🞮</p>
-                </div>
-                <div className="amp-player">
-                <p className="current-song-name">now playing: ...</p>
-                <div className="wrapper2">
-                    <p className="current-song-time"></p>
-                    <p className="time-seperate"> | </p>
-                    <p className="current-song-duration"></p>
-                </div>
-                <input type="range" id="progressBar" />
-                <div className="wrapper2">
-                    <p className="player-button mb-0.75" data-action="prev">⏮</p>
-                    <p className="player-button" data-action="play">▶</p>
-                    <p className="player-button" data-action="pause">❚❚</p>
-                    <p className="player-button" data-action="stop">⏹</p>
-                    <p className="player-button mb-0.75" data-action="next">⏭</p>
-                </div>
+        
+        {/* MIERAMP */}
+        <div 
+          className={`
+            mieramp program draggable
+            ${mierAmpOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
+          `}
+        >
+          <div className="amp-top">
+            <div className="wrapper2">
+              <p>―――――― MierAmp ――――――</p>
+              <p 
+                className="ampX"
+                onClick={() => setMierAmpOpen(false)}
+              >
+                🞮
+              </p>
             </div>
-            </div>  
-            <div className="amp-bot">
-                <ul className="amp-list" id="trackList"></ul>
+            <div className="amp-player">
+            <p className="current-song-name">now playing: ...</p>
+            <div className="wrapper2">
+              <p className="current-song-time"></p>
+              <p className="time-seperate"> | </p>
+              <p className="current-song-duration"></p>
             </div>
+            <input type="range" id="progressBar" />
+            <div className="wrapper2">
+              <p className="player-button mb-0.75" data-action="prev">⏮</p>
+              <p className="player-button" data-action="play">▶</p>
+              <p className="player-button" data-action="pause">❚❚</p>
+              <p className="player-button" data-action="stop">⏹</p>
+              <p className="player-button mb-0.75" data-action="next">⏭</p>
+            </div>
+          </div>
+          </div>  
+          <div className="amp-bot">
+            <ul className="amp-list" id="trackList"></ul>
+          </div>
         </div>
-
-        <div className="notes program draggable">
+        
+        {/* NOTES */}
+        <div 
+          className={`
+            notes program draggable
+            ${notesOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
+          `}
+        >
             <div className="wrapper3">
                 <p className="note-category note-current">current</p>
                 <p className="note-category note-finished">finished</p>
                 <p className="note-category note-reminders">reminders</p>
                 <p className="notesDate">🗓</p>
-                <p className="notesX">🞮</p>
+                <p 
+                  className="notesX"
+                  onClick={() => setNotesOpen(false)}
+                >
+                  🞮
+                </p>
             </div>
             <div className="note-inside">
                 <div className="wrapper" data-wrapperid="<%= note.id %>">
@@ -322,6 +358,7 @@ const MierOS = () => {
             </div>
         </div>
 
+        {/* TASKBAR */}
         <div className="taskbar">
           <div className="taskbar-wrapper-left">
             <img 
@@ -343,15 +380,15 @@ const MierOS = () => {
               <p className="tab">M:\MierOS\system32...</p>
             </div>
           </div>
-          <div className="taskbar-mini-icons">
+          <div className="flex ml-auto gap-2.5 text-[0.9vw]">
             <p>🖂</p>
             <p>🛜</p>
             <p>🔊</p>
             <p>🔌</p>
           </div>
           <div className="taskbar-wrapper-right">
-            <p className="clock tiny-clock"></p>
-            <p className="taskbar-date"></p>
+            <p className="translate-y-0.5 clock tiny-clock">06:30 PM</p>
+            <p className="-translate-y-0.5 taskbar-date">02/10/11</p>
           </div>
         </div>
 
