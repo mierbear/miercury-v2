@@ -1,5 +1,11 @@
 'use client';
 import { useState, useRef, useEffect } from "react";
+import { Roboto_Mono } from "next/font/google";
+
+const roboto = Roboto_Mono({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 const MierOS = () => {
   const [passwordContent, setPasswordContent] = useState("");
@@ -71,6 +77,22 @@ const MierOS = () => {
 
     draw();
   }, []);
+
+  const adviceList = [
+    "faith",
+    "love",
+    "purity",
+    "determination",
+    "wisdom",
+    "comfort",
+    "sadness",
+    "anger",
+    "sloth",
+    "fear",
+    "shame",
+    "despair",
+    "what should i do now?",
+  ]
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -211,135 +233,259 @@ const MierOS = () => {
         ref={blackScreenRef}
       />
 
-      {/* DESKTOP */}
+      {/* MIEROS */}
       <div
         className={`
-          w-screen h-screen flex items-center justify-center fixed
-          text-white
+          w-screen h-screen fixed transition-all duration-2000
+          ease-[ease] bg-white z-500 hidden
         `}
         ref={desktopRef}
       >
-       <div className="items">
-          <div className="item">
-            <img draggable="false" src="assets/note.png" className="icon notes-icon" />
+
+        {/* DESKTOP */}
+        <div 
+          className={`
+            top-[5vh] left-[5vh] h-[90vh] w-auto
+            z-1 fixed pointer-events-auto grid
+            grid-rows-[1fr_1fr_1fr_1fr_1fr_1fr]
+            grid-cols-[1fr_1fr] grid-flow-col gap-2.5
+          `}
+        >
+          <div className="items-center text-center justify-center text-lg">
+            <img
+              draggable="false"
+              src="/os/note.png"
+              className="h-[8vw] w-[8vw] transition-all duration-500 ease-[ease]"
+            />
             <p>notes/reminders</p>
           </div>
-          <div className="item">
-            <img draggable="false" src="assets/mieramp.png" className="icon mieramp-icon" />
+          <div className="items-center text-center justify-center text-lg">
+            <img
+              draggable="false"
+              src="/os/mieramp.png"
+              className="h-[8vw] w-[8vw] transition-all duration-500 ease-[ease]"
+            />
             <p>MierAmp</p>
           </div>
-          <div className="item">
-            <img draggable="false" src="assets/bear.png" className="icon" />
+          <div className="items-center text-center justify-center text-lg">
+            <img
+              draggable="false"
+              src="/os/bear.png"
+              className="h-[8vw] w-[8vw] transition-all duration-500 ease-[ease]"
+            />
             <p>bear</p>
           </div>
-          <div className="item">
-            <img draggable="false" src="assets/bear.png" className="icon" />
+          <div className="items-center text-center justify-center text-lg">
+            <img
+              draggable="false"
+              src="/os/bear.png"
+              className="h-[8vw] w-[8vw] transition-all duration-500 ease-[ease]"
+            />
             <p>bear</p>
           </div>
         </div>  
-
-        <div className="mieramp program draggable">
-            <div className="amp-top">
-              <div className="wrapper2">
-                <p>―――――― MierAmp ――――――</p>
-                <p className="ampX">🞮</p>
-              </div>
-              <div className="amp-player">
-              <p className="current-song-name">now playing: ...</p>
-              <div className="wrapper2">
-                <p className="current-song-time"></p>
-                <p className="time-seperate"> | </p>
-                <p className="current-song-duration"></p>
-              </div>
-              <input type="range" id="progressBar" />
-              <div className="wrapper2">
-                <p className="player-button mb-0.75" data-action="prev">⏮</p>
-                <p className="player-button" data-action="play">▶</p>
-                <p className="player-button" data-action="pause">❚❚</p>
-                <p className="player-button" data-action="stop">⏹</p>
-                <p className="player-button mb-0.75" data-action="next">⏭</p>
-              </div>
+        
+        {/* MIERAMP */}
+        <div
+          className={`
+            z-40 rounded-[5px] text-[1vw] mix-blend-normal
+            bg-[rgba(38,47,54,0.595)] shadow-[0_0_10px_rgba(230,250,255,0.304)]
+            grid grid-rows-[8vw_1fr] absolute
+            right-0 top-0 h-[94vh] w-[18vw]
+            left-auto gap-2 text-[rgb(180,250,255)]
+            draggable
+          `}
+        >
+          <div className="p-8">
+            <div className="transition-all duration-100 ease-[ease] justify-center gap-8 w-full flex">
+              <p>―――――― MierAmp ――――――</p>
+              <p className="absolute right-2.5 transition-all duration-200 ease-in-out cursor-pointer hover:text-[#ff0000] hover:scale-105">🞮</p>
             </div>
-            </div>  
-            <div className="amp-bot">
-              <ul className="amp-list" id="trackList"></ul>
+            <div className="bg-[#0000007b] text-[1vw] mt-1 justify-center items-center text-center w-full h-full place-content-around">
+            <p className="">now playing: ...</p>
+            <div className="transition-all duration-100 ease-[ease] justify-center gap-8 w-full flex">
+              <p className="current-song-time">time</p>
+              <p className="time-seperate"> | </p>
+              <p className="current-song-duration">duration</p>
             </div>
-        </div>
-
-        <div className="notes program draggable">
-          <div className="wrapper3">
-            <p className="note-category note-current">current</p>
-            <p className="note-category note-finished">finished</p>
-            <p className="note-category note-reminders">reminders</p>
-            <p className="notesDate">🗓</p>
-            <p className="notesX">🞮</p>
+            <input type="range" id="progressBar" />
+            <div className="transition-all duration-100 ease-[ease] justify-center gap-8 w-full flex">
+              <p className="w-[10%] justify-around justify-self-center cursor-pointer hover:scale-105 mb-0.75">⏮</p>
+              <p className="w-[10%] justify-around justify-self-center cursor-pointer hover:scale-105">▶</p>
+              <p className="w-[10%] justify-around justify-self-center cursor-pointer hover:scale-105">❚❚</p>
+              <p className="w-[10%] justify-around justify-self-center cursor-pointer hover:scale-105">⏹</p>
+              <p className="w-[10%] justify-around justify-self-center cursor-pointer hover:scale-105 mb-0.75">⏭</p>
+            </div>
           </div>
-          <div className="note-inside">
-            <div className="wrapper">
+          </div>  
+          <div className="p-8 pt-0 w-full flex-col overflow-y-auto h-auto">
+            <ul className="bg-[#0000007b] p-1 h-auto min-h-full" id="trackList"></ul>
+          </div>
+        </div>
+        
+        {/* NOTES */}
+        <div 
+          className={`
+            flex-col justify-evenly items-center h-[65vh] program draggable
+          `}
+        >
+          <div className="w-full flex gap-2">
+            <p 
+              className={`
+                flex gap-2 justify-between bg-[#003cff00] ml-[1vw]
+              `}
+            >
+              current
+            </p>
+            <p 
+              className={`
+                flex gap-2 justify-between bg-[#003cff00]
+              `}
+            >
+              finished
+            </p>
+            <p 
+              className={`
+                flex gap-2 justify-between bg-[#003cff00]
+              `}
+            >
+              reminders
+            </p>
+            <p 
+              className={`
+                relative text-[2vw] ml-auto mr-[0.5vw]
+                transition-all duration-200 ease-in-out
+                text-white
+              `}
+            >
+              🗓
+            </p>
+            <p 
+              className={`
+                relative text-[2vw] ml-0 mr-[0.5vw]
+                transition-all duration-200 ease-in-out
+                text-white hover:text-[#ff0000] hover:scale-110
+              `}
+            >
+              🞮
+            </p>
+          </div>
+
+          <div 
+            className={`
+              bg-[rgb(251,255,255)] w-[24vw] max-h-[50vh] overflow-y-auto
+              pr-2.5 transition-all duration-2000 ease-[ease] flex flex-col
+              border-[1vw] border-[#003cff00] min-h-[50vh]
+            `}
+          >
+            <div 
+              className={`
+                w-full flex gap-2 justify-between bg-[#003cff00]
+                py-1 px-2 transition-all duration-100 ease-in-out
+                hover:text-[rgba(146,219,255,0.266)] hover:scale-102
+              `}
+            >
               <p className="note" id="<%= note.id %>">NOTE <span className="date">NOTE DATE</span></p>
               <p className="noteFinish note-action">੦</p>
               <p className="noteDelete note-action">🞩</p>
             </div>
           </div>
-          <div className="wrapper2 input-wrapper">
+          <div className="transition-all duration-100 ease-[ease] justify-center gap-8 w-full flex input-wrapper">
             <input className="add add-input" type="text" placeholder="add to list..." autoFocus={true} autoComplete="off" />
             <button className="add add-button">!!</button>
         </div>
         </div>
-
-        <div className="taskbar">
-          <div className="taskbar-wrapper-left">
-            <img draggable="false" className="logo" src="assets/logo.png" />
-            <div className="tab-wrapper">
-              <img draggable="false" className="tab-icon" src="assets/icon0.png" />
+        
+        {/* TASKBAR */}
+        <div
+          className={`
+            h-[4.5vh] w-screen flex justify-between items-center
+            gap-[2vh] bottom-0 absolute transition-none z-100 text-sm
+            text-white mix-blend-normal taskbar
+          `}
+        >
+          <div className="my-0 mx-[1vw] flex justify-center items-center">
+            <img draggable="false" className="h-[6vh] z-1001 mb-[2vh] mr-[1vh] ml-[-.5vh] transition-scale duration-500 ease-[ease] cursor-pointer hover:scale-110" src="/os/logo.png" />
+            <div className="min-w-[10vw] flex justify-center items-center pr-[1vw] pl=[0.25vw] hover:bg-white/15 transition-all duration-200 ease-in-out">
+              <img draggable="false" className="h-[4vh] my-0 mx-[0.5vw]" src="/os/icon0.png" />
               <p className="tab">Pacific Purgatory</p>
             </div>
-            <div className="tab-wrapper">
-              <img draggable="false" className="tab-icon" src="assets/icon1.png" />
+            <div className="min-w-[10vw] flex justify-center items-center pr-[1vw] pl=[0.25vw] hover:bg-white/15 transition-all duration-200 ease-in-out">
+              <img draggable="false" className="h-[4vh] my-0 mx-[0.5vw]" src="/os/icon1.png" />
               <p className="tab">MLC Media Mlayer</p>
             </div>
-            <div className="tab-wrapper">
-              <img draggable="false" className="tab-icon" src="assets/icon2.png" />
+            <div className="min-w-[10vw] flex justify-center items-center pr-[1vw] pl=[0.25vw] hover:bg-white/15 transition-all duration-200 ease-in-out">
+              <img draggable="false" className="h-[4vh] my-0 mx-[0.5vw]" src="/os/icon2.png" />
               <p className="tab">M:\MierOS\system32...</p>
             </div>
           </div>
-          <div className="taskbar-mini-icons">
+          <div className="flex ml-auto gap-2.5 text-[0.9vw]">
             <p>🖂</p>
             <p>🛜</p>
             <p>🔊</p>
             <p>🔌</p>
           </div>
-          <div className="taskbar-wrapper-right">
-            <p className="clock tiny-clock"></p>
-            <p className="taskbar-date"></p>
+          <div className="my-0 mx-[1vw] flex justify-center items-center flex-col">
+            <p className="clock tiny-clock">6:30 PM</p>
+            <p className="taskbar-date">02/10/11</p>
           </div>
         </div>
-
-        <div className="menu">
+        
+        {/* MIERDOWS */}
+        <div
+          className={`
+            absolute h-[80vh] w-[30vw] z-50 flex-col bg-[rgba(38,47,54)]/82
+            shadow-[0_0_10px_rgba(230,250,255,0.304)] bottom-[5vh] left-[0.5vh]
+            transition-all duration-100 ease-in-out text-white justify-center
+            items-center flex
+          `}
+        >
           <p>mrow</p>
-          <h1 className="shutdown">⏻</h1>
+          <h1
+            className={`
+              text-[4vh] transition-all duration-200 ease-in-out shutdown cursor-pointer
+              text-white hover:text-[#ff0000] hover:scale-130 nonsel
+            `}
+            onClick={() => login(false)}
+          >
+            ⏻
+          </h1>
         </div>
-
-        <div className="mier-dialogue">
-          <h1 className="x">⮈</h1>
+        
+        {/* MIER DIALOGUE */}
+        <div 
+          className={`
+            absolute flex items-center justify-center
+            w-screen h-screen max-w-screen wrap-break-word
+          `}
+        >
+          <h1 
+            className={`
+              text-[10vh] absolute transition-all duration-1000
+              ease-[ease] mr-[25vw] p-1.25 z-20 text-[rgb(181,159,106)]/61  
+              mix-blend-plus-lighter
+            `}
+          >
+            ⮈
+          </h1>
           <div className="opinions">
             <p className="option oc">OC NAMES</p>
           </div>
           <div className="advices">
-            <p className="option advice-option" data-advicetype="faith">faith</p>
-            <p className="option advice-option" data-advicetype="love">love</p>
-            <p className="option advice-option" data-advicetype="purity">purity</p>
-            <p className="option advice-option" data-advicetype="determination">determination</p>
-            <p className="option advice-option" data-advicetype="wisdom">wisdom</p>
-            <p className="option advice-option" data-advicetype="comfort">comfort</p>
-            <p className="option advice-option" data-advicetype="sadness">sadness</p>
-            <p className="option advice-option" data-advicetype="anger">anger</p>
-            <p className="option advice-option" data-advicetype="sloth">sloth</p>
-            <p className="option advice-option" data-advicetype="fear">fear</p>
-            <p className="option advice-option" data-advicetype="shame">shame</p>
-            <p className="option advice-option" data-advicetype="despair">despair</p>
-            <p className="option hug">hug</p>
-            <p className="option advice-now">what should i do right now?</p>
+            {adviceList.map((i, advice) => (
+              <p 
+                className={`
+                  bg-[rgb(246,254,255)]/48 rounded-[5px]
+                  px-3.75 bottom-[10vh] py-2.5 text-[1.75vh]
+                  text-center items-center flex justify-center
+                  min-w-[16vw] transition-all duration-500
+                  ease-[ease]
+                `}
+                key={i}
+              >
+                {advice}
+              </p>
+            ))}
           </div>
           <div className="options">
             <p className="option greet">hi!</p>
@@ -351,24 +497,67 @@ const MierOS = () => {
           </div>
           <p className="mier-talk"></p>
         </div>
-
-        <div className="mier-div">
-          <img draggable="false" src="assets/mier0.png" className="mier" />
+        
+        {/* MIER */}
+        <div className="z-80 h-screen w-screen absolute pointer-events-none">
+          <img 
+            draggable="false"
+            src="/os/mier0.png"
+            className={`
+              absolute pointer-events-auto bottom-0 self-center justify-self-center flex
+              transition-[all_3s_ease-in-out,opacity_.5s_ease,transform_4s_ease-in-out,margin-left_1.6s_ease-in-out]
+              drop-shadow-[0px_0px_4.5px_#e9faff] mier-breathe
+            `}
+          />
+        </div>
+        
+        {/* BG CLOCK */}
+        <h1 
+          className={`
+            absolute text-[40vh] flex h-[60vh] w-screen
+            justify-center items-center text-center z-[-8]
+            mix-blend-difference ${roboto.className} opacity-20
+            text-[rgba(237,201,42,0.42)]
+            text-shadow-[0_0_5px_#ff642a,0_0_12px_#ffffff]
+            blur-[7px]
+          `}
+        >
+          06:30
+        </h1>
+        
+        {/* BACKGROUND */}
+        <div className="absolute w-screen h-screen overflow-hidden origin-center flex items-center justify-center">
+          <img
+            draggable="false"
+            src="/os/0.png"
+            className="absolute scale-120 object-cover nonsel pointer-events-none transition-transform bg0" />
+          {/* <img
+            draggable="false"
+            src="/os/0.png"
+            className="absolute scale-120 object-cover nonsel pointer-events-none transition-transform mix-blend-overlay bgFilter" /> */}
+          <img
+            draggable="false"
+            src="/os/1.png"
+            className="absolute scale-120 object-cover nonsel pointer-events-none transition-transform mix-blend-color-dodge bg1" />
+          <img
+            draggable="false"
+            src="/os/2.png"
+            className="absolute scale-120 object-cover nonsel pointer-events-none transition-transform mix-blend-color-dodge bg2" />
+          <img
+            draggable="false"
+            src="/os/3.png"
+            className="absolute scale-120 object-cover nonsel pointer-events-none transition-transform mix-blend-color-dodge bg3" />
+          <img
+            draggable="false"
+            src="/os/4.png"
+            className="absolute scale-120 object-cover nonsel pointer-events-none transition-transform mix-blend-color-dodge bg4" />
+          <img
+            draggable="false"
+            src="/os/5.png"
+            className="absolute scale-120 object-cover nonsel pointer-events-none transition-transform bg5" />
         </div>
 
-        <h1 className="clock huge-clock"></h1>
-
-        <div className="bgs">
-          <img draggable="false" src="assets/5.png" className="bg bg5" />
-          <img draggable="false" src="assets/4.png" className="bg bg4" />
-          <img draggable="false" src="assets/3.png" className="bg bg3" />
-          <img draggable="false" src="assets/2.png" className="bg bg2" />
-          <img draggable="false" src="assets/1.png" className="bg bg1" />
-          <img draggable="false" src="assets/0.png" className="bg bgFilter" />
-          <img draggable="false" src="assets/0.png" className="bg bg0" />
-        </div>
-
-        <audio id="audioPlayer" controls></audio>
+        <audio className="hidden opacity-0" controls></audio>
       </div>
 
       <canvas 
