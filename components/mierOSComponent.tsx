@@ -38,6 +38,11 @@ const MierOS = () => {
   const login = (login: boolean) => {
     blackScreenRef.current!.style.display = `flex`;
 
+    if (!login) {
+      setMierAmpOpen(false);
+      setNotesOpen(false);
+    }
+
     setTimeout(() => {
       setLogging(true);
     }, login ? 0 : 2000);
@@ -277,14 +282,6 @@ const MierOS = () => {
                 />
                 <p>MierAmp</p>
             </div>
-            <div className="item">
-                <img draggable="false" src="/os/bear.png" className="icon" />
-                <p>bear</p>
-            </div>
-            <div className="item">
-                <img draggable="false" src="/os/bear.png" className="icon" />
-                <p>bear</p>
-            </div>
         </div>  
         
         {/* MIERAMP */}
@@ -322,9 +319,13 @@ const MierOS = () => {
           </div>
           </div>  
           <div className="amp-bot">
-            <ul className="amp-list" id="trackList"></ul>
+            <ul className="amp-list" id="trackList">
+
+            </ul>
           </div>
         </div>
+
+        <audio id="audioPlayer" controls></audio>
         
         {/* NOTES */}
         <div 
@@ -333,29 +334,29 @@ const MierOS = () => {
             ${notesOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
           `}
         >
-            <div className="wrapper3">
-                <p className="note-category note-current">current</p>
-                <p className="note-category note-finished">finished</p>
-                <p className="note-category note-reminders">reminders</p>
-                <p className="notesDate">🗓</p>
-                <p 
-                  className="notesX"
-                  onClick={() => setNotesOpen(false)}
-                >
-                  🞮
-                </p>
+          <div className="wrapper3">
+            <p className="note-category note-current">current</p>
+            <p className="note-category note-finished">finished</p>
+            <p className="note-category note-reminders">reminders</p>
+            <p className="notesDate">🗓</p>
+            <p 
+              className="notesX"
+              onClick={() => setNotesOpen(false)}
+            >
+              🞮
+            </p>
+          </div>
+          <div className="note-inside self-center">
+            <div className="wrapper" data-wrapperid="<%= note.id %>">
+              <p className="note" id="<%= note.id %>">note.note <span className="date">note.date</span></p>
+              <p className="noteFinish note-action" data-noteid="<%= note.id %>">੦</p>
+              <p className="noteDelete note-action" data-noteid="<%= note.id %>">🞩</p>
             </div>
-            <div className="note-inside">
-                <div className="wrapper" data-wrapperid="<%= note.id %>">
-                    <p className="note" id="<%= note.id %>">note.note <span className="date">note.date</span></p>
-                    <p className="noteFinish note-action" data-noteid="<%= note.id %>">੦</p>
-                    <p className="noteDelete note-action" data-noteid="<%= note.id %>">🞩</p>
-                </div>
-            </div>
-            <div className="wrapper2 input-wrapper">
-                <input className="add add-input" type="text" placeholder="add to list..." autoFocus={true} autoComplete="off" />
-                <button className="add add-button">!!</button>
-            </div>
+          </div>
+          <div className="wrapper2 input-wrapper">
+            <input className="add add-input" type="text" placeholder="add to list..." autoFocus={true} autoComplete="off" />
+            <button className="add add-button">!!</button>
+          </div>
         </div>
 
         {/* TASKBAR */}
@@ -391,7 +392,8 @@ const MierOS = () => {
             <p className="-translate-y-0.5 taskbar-date">02/10/11</p>
           </div>
         </div>
-
+        
+        {/* MIERDOWS */}
         <div 
           className={`
             menu
@@ -459,7 +461,6 @@ const MierOS = () => {
             <img draggable="false" src="/os/0.png" className="bg bg0" />
         </div>
 
-        <audio id="audioPlayer" controls></audio>
       </div>
 
       <canvas 
