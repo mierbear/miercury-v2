@@ -4,6 +4,7 @@ import { Roboto_Mono, Inconsolata } from "next/font/google";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import Marquee from "react-fast-marquee";
 import { Type } from "lucide-react";
+import { finished } from "stream";
 
 const roboto = Roboto_Mono({
   weight: "400",
@@ -471,8 +472,40 @@ const MierOS = () => {
   notesUseEffect(notes.finished);
   notesUseEffect(notes.reminder);
 
-
   const [noteTab, setNoteTab] = useState<"current" | "finished" | "reminders">("current");
+  const [notesInput, setNotesInput] = useState("");
+
+  const getNoteDate = (date = new Date()) => {
+    const time = new Date().toLocaleTimeString([], {hour: "numeric", minute: "2-digit",});
+    const yy = String(date.getFullYear()).slice(-2);
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+
+    return `(${time} - ${yy}/${mm}/${dd})`;
+  }
+
+  const submitNote = () => {
+    const note = notesInput;
+    const date = getNoteDate();
+
+    if (noteTab === "current") {
+      setCurrentNotes(prev => [...prev, {
+        note: note,
+        date: date,
+        finished: null
+      }])
+    } else if (noteTab === "reminders") {
+      setReminderNotes(prev => [...prev, {
+        note: note,
+        date: date,
+        finished: null
+      }])
+    } else {
+      undefined;
+    }
+      
+    setNotesInput("");
+  }
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -830,34 +863,53 @@ const MierOS = () => {
           </div>
           <div className="note-inside self-center">
             {noteTab === "current" && (
-              <div className="wrapper">
-                <p className="note">current.note <span className="date">note.date</span></p>
-                <p className="noteFinish note-action">੦</p>
-                <p className="noteDelete note-action">🞩</p>
-              </div>
-            )}
+              currentNotes.map((note) => (
+                <div className="wrapper">
+                  <p className="note">{note.note} <span className="date">{note.date}</span></p>
+                  <p className="noteFinish note-action">੦</p>
+                  <p className="noteDelete note-action">🞩</p>
+                </div>
+              )
+            ))}
             {noteTab === "finished" && (
-              <div className="wrapper">
-                <p className="note">finished.note <span className="date">note.date</span></p>
-                <p className="noteDelete note-action">🞩</p>
-              </div>
-            )}
+              finishedNotes.map((note) => (
+                <div className="wrapper">
+                  <p className="note">{note.note} <span className="date">{note.date}</span></p>
+                  <p className="noteDelete note-action">🞩</p>
+                </div>
+              )
+            ))}
             {noteTab === "reminders" && (
-              <div className="wrapper">
-                <p className="note">reminder <span className="date">note.date</span></p>
-                <p className="noteDelete note-action">🞩</p>
-              </div>
-            )}
+              reminderNotes.map((note) => (
+                <div className="wrapper">
+                  <p className="note">{note.note} <span className="date">{note.date}</span></p>
+                  <p className="noteDelete note-action">🞩</p>
+                </div>
+              )
+            ))}
           </div>
-          <div className="wrapper2 input-wrapper">
+          <div 
+            className={`
+              wrapper2 input-wrapper
+              ${noteTab === "finished" && "opacity-0 pointer-events-none"}
+            `}
+          >
             <input 
               className="add add-input bg-white text-sm"
               type="text"
               placeholder="add to list..."
               autoFocus={true}
               autoComplete="off"
+              value={notesInput}
+              onChange={(e) => setNotesInput(e.currentTarget.value)}
             />
-            <button className="add add-button bg-white">!!</button>
+            
+            <button 
+              className="add add-button bg-white"
+              onClick={submitNote}
+            >
+              !!
+            </button>
           </div>
         </div>
 
