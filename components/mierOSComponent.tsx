@@ -17,6 +17,7 @@ interface Song {
 }
 
 interface Note {
+  id: string;
   note: string;
   date: string;
   finished: string | null;
@@ -472,7 +473,7 @@ const MierOS = () => {
   notesUseEffect(notes.finished);
   notesUseEffect(notes.reminder);
 
-  const [noteTab, setNoteTab] = useState<"current" | "finished" | "reminders">("current");
+  const [noteTab, setNoteTab] = useState("current");
   const [notesInput, setNotesInput] = useState("");
 
   const getNoteDate = (date = new Date()) => {
@@ -484,18 +485,22 @@ const MierOS = () => {
     return `(${time} - ${yy}/${mm}/${dd})`;
   }
 
+  // SUBMIT NOTES
+
   const submitNote = () => {
     const note = notesInput;
     const date = getNoteDate();
 
     if (noteTab === "current") {
       setCurrentNotes(prev => [...prev, {
+        id: crypto.randomUUID(),
         note: note,
         date: date,
         finished: null
       }])
     } else if (noteTab === "reminders") {
       setReminderNotes(prev => [...prev, {
+        id: crypto.randomUUID(),
         note: note,
         date: date,
         finished: null
@@ -505,6 +510,32 @@ const MierOS = () => {
     }
       
     setNotesInput("");
+  }
+
+  // FINISH/DELETE NOTES
+
+  const finishCurrentNote = (id: string) => {
+    const raw = localStorage.getItem("notesCurrent");
+    if (!raw) return;
+
+    const data: Note[] = JSON.parse(raw);
+    const specData = data.find(note => note.id === id);
+    if (!specData) return;
+
+    setCurrentNotes(currentNotes.filter(note => note.id !== id));
+    setFinishedNotes(prev => [...prev, specData]);
+  };
+
+  const deleteCurrentNote = (id: string) => {
+    setCurrentNotes(currentNotes.filter(note => note.id !== id));
+  }
+
+  const deleteFinishedNote = (id: string) => {
+    setFinishedNotes(finishedNotes.filter(note => note.id !== id));
+  }
+
+  const deleteReminderNote = (id: string) => {
+    setReminderNotes(reminderNotes.filter(note => note.id !== id));
   }
 
   return (
@@ -832,27 +863,15 @@ const MierOS = () => {
           `}
         >
           <div className="wrapper3">
-            <p
-              className="note-category note-current"
-              onClick={() => setNoteTab("current")}
-            >
-              current
-            </p>
-
-            <p
-              className="note-category note-finished"
-              onClick={() => setNoteTab("finished")}
-            >
-              finished
-            </p>
-
-            <p
-              className="note-category note-reminders"
-              onClick={() => setNoteTab("reminders")}
-            >
-              reminders
-            </p>
-
+            {["current", "finished", "reminders"].map((type) => (
+              <p
+                className="note-category note-current"
+                onClick={() => setNoteTab(type)}
+                key={type}
+              >
+                {type}
+              </p>
+            ))}
             <p className="notesDate">🗓</p>
             <p 
               className="notesX"
@@ -864,26 +883,35 @@ const MierOS = () => {
           <div className="note-inside self-center">
             {noteTab === "current" && (
               currentNotes.map((note) => (
-                <div className="wrapper">
+                <div 
+                  className="wrapper"
+                  key={note.id}
+                >
                   <p className="note">{note.note} <span className="date">{note.date}</span></p>
-                  <p className="noteFinish note-action">੦</p>
-                  <p className="noteDelete note-action">🞩</p>
+                  <p className="noteFinish note-action" onClick={() => finishCurrentNote(note.id)}>੦</p>
+                  <p className="noteDelete note-action" onClick={() => deleteCurrentNote(note.id)}>🞩</p>
                 </div>
               )
             ))}
             {noteTab === "finished" && (
               finishedNotes.map((note) => (
-                <div className="wrapper">
+                <div 
+                  className="wrapper"
+                  key={note.id}
+                >
                   <p className="note">{note.note} <span className="date">{note.date}</span></p>
-                  <p className="noteDelete note-action">🞩</p>
+                  <p className="noteDelete note-action" onClick={() => deleteFinishedNote(note.id)}>🞩</p>
                 </div>
               )
             ))}
             {noteTab === "reminders" && (
               reminderNotes.map((note) => (
-                <div className="wrapper">
+                <div 
+                  className="wrapper"
+                  key={note.id}
+                >
                   <p className="note">{note.note} <span className="date">{note.date}</span></p>
-                  <p className="noteDelete note-action">🞩</p>
+                  <p className="noteDelete note-action" onClick={() => deleteReminderNote(note.id)}>🞩</p>
                 </div>
               )
             ))}
