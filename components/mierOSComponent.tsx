@@ -367,42 +367,52 @@ const MierOS = () => {
 
   // DRAGGABLES
 
-  const draggables = document.querySelectorAll<HTMLDivElement>('.draggable');
-  
-  let offsetX = 0;
-  let offsetY = 0;
-  let isDragging = false;
-  let activeElement: HTMLElement | null = null;
+  useEffect(() => {
+    const draggables = document.querySelectorAll<HTMLElement>('.draggable');
 
-  const edgeThreshold = 40;
+    let offsetX = 0;
+    let offsetY = 0;
+    let isDragging = false;
+    let activeElement: HTMLElement | null = null;
 
-  draggables.forEach((draggable) => {
-    draggable.addEventListener('mousedown', (e: MouseEvent) => {
-      const rect = draggable.getBoundingClientRect();
-      const y = e.clientY - rect.top;
+    const edgeThreshold = 40;
 
-      const nearEdge = y < edgeThreshold;
+    draggables.forEach((draggable) => {
+      draggable.addEventListener('mousedown', (e: MouseEvent) => {
+        const rect = draggable.getBoundingClientRect();
+        const y = e.clientY - rect.top;
 
-      if (nearEdge) {
-        isDragging = true;
-        activeElement = draggable;
-        offsetX = e.clientX - rect.left;
-        offsetY = e.clientY - rect.top;
-      }
+        const nearEdge = y < edgeThreshold;
+
+        if (nearEdge) {
+          isDragging = true;
+          activeElement = draggable;
+          offsetX = e.clientX - rect.left;
+          offsetY = e.clientY - rect.top;
+        }
+      });
     });
-  });
 
-  document.addEventListener('mousemove', (e: MouseEvent) => {
-    if (isDragging && activeElement) {
-      activeElement.style.left = `${e.clientX - offsetX}px`;
-      activeElement.style.top = `${e.clientY - offsetY}px`;
-    }
-  });
+    const onMove = (e: MouseEvent) => {
+      if (isDragging && activeElement) {
+        activeElement.style.left = `${e.clientX - offsetX}px`;
+        activeElement.style.top = `${e.clientY - offsetY}px`;
+      }
+    };
+    const onUp = () => {
+      isDragging = false;
+      activeElement = null;
+    };
 
-  document.addEventListener('mouseup', () => {
-    isDragging = false;
-    activeElement = null;
-  });
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+
+    return () => {
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+    };
+  }, []);
+
 
 
   return (
@@ -847,13 +857,18 @@ const MierOS = () => {
         <h1 className="clock huge-clock">{bgClock}</h1>
 
         <div className="bgs">
-            <img draggable="false" src="/os/5.png" className="bg bg5" />
-            <img draggable="false" src="/os/4.png" className="bg bg4" />
-            <img draggable="false" src="/os/3.png" className="bg bg3" />
-            <img draggable="false" src="/os/2.png" className="bg bg2" />
-            <img draggable="false" src="/os/1.png" className="bg bg1" />
-            <img draggable="false" src="/os/0.png" className="bg bgFilter" />
-            <img draggable="false" src="/os/0.png" className="bg bg0" />
+          {Array.from({ length: 6 }, (_, i) => (
+            <img 
+              draggable="false"
+              key={i} 
+              src={`/os/${i}.png`}
+              style={{ animationDelay: `${i * 1}s` }}
+              className={`
+                bg bg${i}
+              `}
+            />
+          ))}
+          <img draggable="false" src="/os/0.png" className="bg bgFilter" />
         </div>
 
       </div>

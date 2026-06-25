@@ -1019,7 +1019,7 @@ export default function Ocs() {
             className={`
               xl:w-20 xl:h-20 w-14 h-14 flex items-center justify-center cursor-pointer shadow-2xl
               overflow-hidden border-4 rounded-full duration-300 hover:scale-102
-              -translate-y-[2.5vh] xl:translate-y-0
+              translate-y-[-2.5vh] xl:translate-y-0
               ${selectedMier === mier || hoveredMier === mier ? "scale-102 saturate-100" 
               : selectedMier && selectedMier !== mier ? "scale-98 hover:saturate-100 saturate-20 brightness-75 hover:brightness-100" 
               : "saturate-100"}
@@ -1228,7 +1228,7 @@ export default function Ocs() {
               ` :
               currentBrother ===
               "brutus"   ? `
-                -translate-x-[154vh]
+                translate-x-[-154vh]
                 translate-y-[84vh]
               ` :
               currentBrother ===
@@ -1238,7 +1238,7 @@ export default function Ocs() {
               ` :
               currentBrother ===
               "rufus"    ? `
-                -translate-x-[119vh]
+                translate-x-[-119vh]
                 translate-y-[-10vh]
               ` :
               "translate-y-[13vh]"
