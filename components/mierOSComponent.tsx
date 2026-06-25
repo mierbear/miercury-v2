@@ -287,18 +287,30 @@ const MierOS = () => {
 
   // MIERAMP UI
   useEffect(() => {
+    if (currentSong === null) {
+      resetTime();
+      return;
+    }
+
     const interval = setInterval(() => {
-      if (!playerRef.current || !isPlaying) return;
+      if (!playerRef.current) return;
       const current = playerRef.current.getCurrentTime();
       const total = playerRef.current.getDuration();
-      setCurrentTime(Number.isFinite(current) ? current : 0);
-      setDuration(Number.isFinite(total) ? total : 0);
+
+      setCurrentTime(
+        Number.isFinite(current)
+          ? current
+          : currentTime
+      );
+      setDuration(
+        Number.isFinite(total)
+          ? total
+          : duration
+      );
     }, 250);
-    return () => {
-      resetTime();
-      clearInterval(interval)
-    };
-  }, [isPlaying]);
+
+    return () => clearInterval(interval);
+  }, [currentSong]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
