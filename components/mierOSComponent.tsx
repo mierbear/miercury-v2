@@ -1,11 +1,23 @@
 'use client';
 import { useState, useRef, useEffect } from "react";
-import { Roboto_Mono } from "next/font/google";
+import { Roboto_Mono, Inconsolata } from "next/font/google";
+import YouTube, { YouTubeEvent } from "react-youtube";
+import Marquee from "react-fast-marquee";
 
 const roboto = Roboto_Mono({
   weight: "400",
   subsets: ["latin"],
 })
+
+interface Song {
+  id: string;
+  title?: string;
+}
+
+const inconsolata = Inconsolata({
+  weight: ["200", "300"],
+  subsets: ["latin"],
+});
 
 const MierOS = () => {
   const [passwordContent, setPasswordContent] = useState("");
@@ -113,6 +125,178 @@ const MierOS = () => {
       blockerRef.current!.style.display = "none";
     }, duration);
   }
+
+  // MIERAMP
+  const [playlist, setPlaylist] = useState<Song[]>([]);
+  const [currentSong, setCurrentSong] = useState<number>(9999);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [playerReady, setPlayerReady] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(50);
+  const playerRef = useRef<any>(null);
+
+  // LOAD LOCAL MIERAMP VOLUME
+  useEffect(() => {
+    const saved = localStorage.getItem("mierAmpVolume");
+    if (saved) {
+      setVolume(Number(saved));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "mierAmpVolume",
+      volume.toString()
+    );
+  }, [volume]);
+
+  // LOAD LOCAL MIERAMP PLAYLIST
+  useEffect(() => {
+    const saved = localStorage.getItem("mierAmpPlaylist");
+
+    if (saved) {
+      setPlaylist(JSON.parse(saved));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "mierAmpPlaylist",
+      JSON.stringify(playlist)
+    );
+  }, [playlist]);
+
+  // ADD MIERAMP SONGS
+  const [mierAmpInput, setMierAmpInput] = useState<string>("")
+
+  const getYoutubeId = (url: string) => {
+    const match = url.match(
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&]+)/,
+    );
+
+    return match?.[1] || null;
+  };
+
+  const addSong = async (url: string) => {
+    const id = getYoutubeId(url);
+
+    if (!id || playlist.find((song) => song.id === id)) {
+      setMierAmpInput("");
+      return;      
+    }
+
+    try {
+      const response = await fetch(
+        `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${id}&format=json`
+      );
+
+      const data = await response.json();
+
+      setPlaylist(prev => [
+        ...prev,
+        {
+          id,
+          title: data.title
+        }
+      ]);
+
+    } catch {
+      setPlaylist(prev => [
+        ...prev,
+        {
+          id,
+          title: "Unknown title"
+        }
+      ]);
+    }
+
+    setMierAmpInput("");
+  };
+
+  // DELETE MIERAMP SONGS
+  const deleteSong = (trashed: string) => {
+    setPlaylist(playlist.filter((song) => song.id !== trashed))
+  }
+
+  // MIERAMP CONTROLS
+  const play = () => {
+    if (!playerReady || !playerRef.current) return;
+    playerRef.current?.playVideo();
+    setIsPlaying(true);
+  };
+
+  const pause = () => {
+    if (!playerReady || !playerRef.current) return;
+    playerRef.current?.pauseVideo();
+    setIsPlaying(false);
+  };
+
+  const stop = () => {
+    if (!playerReady || !playerRef.current) return;
+    setIsPlaying(false);
+    setCurrentSong(9999);
+  }
+
+  const next = () => {
+    if (!playerReady || !playerRef.current || !playlist.length) return;
+
+    setCurrentSong(prev =>
+      (prev + 1) % playlist.length
+    );
+  };
+
+  const prev = () => {
+    if (!playerReady || !playerRef.current || !playlist.length) return;
+
+    setCurrentSong(prev =>
+      prev === 0
+        ? playlist.length - 1
+        : prev - 1
+    );
+  };
+
+  useEffect(() => {
+    setPlayerReady(false);
+    if (isPlaying) {
+      playerRef.current?.playVideo();
+    }
+  }, [currentSong]);
+
+  // MIERAMP UI
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!playerRef.current) return;
+
+      const current = playerRef.current.getCurrentTime();
+      const total = playerRef.current.getDuration();
+
+      setCurrentTime(
+        Number.isFinite(current)
+          ? current
+          : 0
+      );
+
+      setDuration(
+        Number.isFinite(total)
+          ? total
+          : 0
+      );
+
+    }, 250);
+
+    return () => clearInterval(interval);
+
+  }, []);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+
+    return `${mins}:${secs
+      .toString()
+      .padStart(2, "0")}`;
+  };
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -289,6 +473,7 @@ const MierOS = () => {
           className={`
             mieramp program draggable
             ${mierAmpOpen ? "opacity-100" : "opacity-0 pointer-events-none"}
+            ${inconsolata.className}
           `}
         >
           <div className="amp-top">
@@ -302,30 +487,176 @@ const MierOS = () => {
               </p>
             </div>
             <div className="amp-player">
-            <p className="current-song-name">now playing: ...</p>
+            <Marquee
+              speed={30}
+            > 
+              <p
+                className="current-song-name"
+              >
+                {isPlaying 
+                ? `\u00A0currently playing: ${playlist[currentSong]?.title + " !!"}`
+                : "currently playing nothing..."
+                }
+              </p>
+            </Marquee>
             <div className="wrapper2">
-              <p className="current-song-time"></p>
+              <p className="current-song-time">
+                {formatTime(currentTime)}
+              </p>
+
               <p className="time-seperate"> | </p>
-              <p className="current-song-duration"></p>
+
+              <p className="current-song-duration">
+                {formatTime(duration)}
+              </p>
             </div>
-            <input type="range" id="progressBar" />
+            <input
+              type="range"
+              min={0}
+              max={duration || 1}
+              value={currentTime || 0}
+              id="progressBar"
+              onChange={(e) => {
+                const time = Number(e.target.value);
+
+                setCurrentTime(time);
+
+                playerRef.current?.seekTo(
+                  time,
+                  true
+                );
+              }}
+            />
             <div className="wrapper2">
-              <p className="player-button mb-0.75" data-action="prev">⏮</p>
-              <p className="player-button" data-action="play">▶</p>
-              <p className="player-button" data-action="pause">❚❚</p>
-              <p className="player-button" data-action="stop">⏹</p>
-              <p className="player-button mb-0.75" data-action="next">⏭</p>
+              <div className="flex items-center justify-center w-[30%] pr-3">
+                <input
+                  type="range"
+                  min={0}
+                  max={100}
+                  value={volume}
+                  id="audioBar"
+                  onInput={(e) => {
+                    const value = Number(e.currentTarget.value);
+
+                    setVolume(value);
+                    playerRef.current?.setVolume(value);
+                  }}
+                />
+              </div>
+              <p className="player-button" onClick={prev}>⏮</p>
+              <p className="player-button" onClick={play}>▶</p>
+              <p className="player-button" onClick={pause}>❚❚</p>
+              <p className="player-button" onClick={stop}>⏹</p>
+              <p className="player-button" onClick={next}>⏭</p>
             </div>
           </div>
           </div>  
           <div className="amp-bot">
-            <ul className="amp-list" id="trackList">
+            {/* <ul className="amp-list" id="trackList">
+              {playlist.map((song, i) => (
+                <li
+                  key={i}
+                  onClick={() => {
+                    setCurrentSong(i);
 
-            </ul>
+                    if (!isPlaying) {
+                      play();
+                    }
+                  }}
+                  className={
+                    currentSong === i
+                      ? "song current-song"
+                      : "song"
+                  }
+                >
+                  {song.title || "..."}
+                </li>
+              ))}
+              <div className="flex w-full gap-1.5">
+                <input 
+                  type="text"
+                  className="w-full"
+                  placeholder="enter youtube link.."
+                  autoComplete="off"
+                  value={mierAmpInput}
+                  onChange={(e) => setMierAmpInput(e.currentTarget.value)}
+                />
+                <p
+                  className="cursor-pointer hover:scale-150 origin-center px-2"
+                  onClick={() => addSong(mierAmpInput)}
+                >
+                  +
+                </p>
+              </div>
+            </ul> */}
+
+            <div className="amp-list" id="trackList">
+              {playlist.map((song, i) => (
+                <div 
+                  className="flex w-full"
+                  key={i}
+                >
+                  <p
+                    onClick={() => {
+                      setCurrentSong(i);
+                      if (!isPlaying) {
+                        play();
+                      }
+                    }}
+                    className={`
+                      ${currentSong === i
+                        ? "song current-song"
+                        : "song"}
+                      ${!playerReady && "pointer-events-none opacity-50"}
+                      truncate w-full
+                    `}
+                  >
+                    {song.title || "..."}
+                  </p>
+                  <span
+                    className="cursor-pointer scale-80 origin-center pr-1 pl-3 ml-auto"
+                    onClick={() => deleteSong(song.id)}
+                  >
+                    ✖
+                  </span>
+                </div>
+              ))}
+              <div className="flex w-full gap-1.5">
+                <input 
+                  type="text"
+                  className="w-full"
+                  placeholder="enter youtube link.."
+                  autoComplete="off"
+                  value={mierAmpInput}
+                  onChange={(e) => setMierAmpInput(e.currentTarget.value)}
+                />
+                <p
+                  className="cursor-pointer hover:scale-150 origin-center px-2"
+                  onClick={() => addSong(mierAmpInput)}
+                >
+                  +
+                </p>
+              </div>
+            </div>
           </div>
         </div>
 
-        <audio id="audioPlayer" controls></audio>
+        <YouTube
+          videoId={playlist[currentSong]?.id}
+          className="hidden"
+          opts={{
+            height: "0",
+            width: "0",
+            playerVars: {
+              autoplay: 1,
+            },
+          }}
+          onReady={(e: YouTubeEvent) => {
+            playerRef.current = e.target;
+            playerRef.current.setVolume(volume);
+            setPlayerReady(true);
+          }}
+        />
         
         {/* NOTES */}
         <div 

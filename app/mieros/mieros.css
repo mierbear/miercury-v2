@@ -376,11 +376,6 @@
     color: rgb(180, 250, 255);
 }
 
-.amp-list .song,
-.mieramp p {
-    font-family: "Zen Kaku Gothic Antique", sans-serif !important;
-}
-
 .amp-top,
 .amp-bot {
     /* border: #00000000 solid 10px; */
@@ -499,6 +494,49 @@
 
 
 #progressBar::-moz-range-thumb {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #ffffff36;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+#audioBar {
+    width: 100%;
+    appearance: none;
+    height: 6px;
+    background: #ccc;
+    border-radius: 4px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 3px;
+    background: #b2e3ee3d;
+    border-radius: 1px;
+    outline: none;
+}
+
+#audioBar:hover {
+    cursor: pointer;
+}
+
+#audioBar::-webkit-slider-thumb {
+    appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background: rgb(180, 250, 255);
+    /* border-radius: 50%; */
+    transition: all .2s ease;
+}
+
+#audioBar::-webkit-slider-thumb:hover {
+    cursor: pointer;
+    background: #ffffff;
+}
+
+#audioBar::-moz-range-thumb {
     appearance: none;
     width: 20px;
     height: 20px;
