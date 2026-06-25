@@ -321,6 +321,51 @@ const MierOS = () => {
       .padStart(2, "0")}`;
   };
 
+  // TIMES AND DATES
+
+  const [bgClock, setBgClock] = useState("");
+  const [taskbarClock, setTaskbarClock] = useState("");
+  
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBgClock(new Date().toLocaleTimeString([], { hour12: false }));
+      setTaskbarClock(new Date().toLocaleTimeString([], {hour: "numeric", minute: "2-digit",}));
+    }, 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
+
+  const getDate = (date = new Date()) => {
+    const yy = String(date.getFullYear()).slice(-2);
+    const mm = String(date.getMonth() + 1).padStart(2, "0");
+    const dd = String(date.getDate()).padStart(2, "0");
+
+    return `${yy}/${mm}/${dd}`;
+  }
+
+  const [taskbarDate, setTaskbarDate] = useState(getDate);
+
+  useEffect(() => {
+    const scheduleMidnightUpdate = () => {
+      const now = new Date();
+      const next = new Date(now);
+      
+      next.setHours(24, 0, 0, 0);
+      const msUntilMidnight = next.getTime() - now.getTime();
+
+      const timeout = setTimeout(() => {
+        setTaskbarDate(getDate());
+        scheduleMidnightUpdate();
+      }, msUntilMidnight);
+
+      return timeout;
+    };
+
+    const timeout = scheduleMidnightUpdate();
+    return () => clearTimeout(timeout);
+  }, []);
+
+
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
 
@@ -699,8 +744,8 @@ const MierOS = () => {
             <p>🔌</p>
           </div>
           <div className="taskbar-wrapper-right">
-            <p className="translate-y-0.5 clock tiny-clock">06:30 PM</p>
-            <p className="-translate-y-0.5 taskbar-date">02/10/11</p>
+            <p className="translate-y-0.5 clock tiny-clock">{taskbarClock}</p>
+            <p className="-translate-y-0.5 taskbar-date">{taskbarDate}</p>
           </div>
         </div>
         
@@ -760,7 +805,7 @@ const MierOS = () => {
             <img draggable="false" src="/os/mier0.png" className="mier" />
         </div>
 
-        <h1 className="clock huge-clock"></h1>
+        <h1 className="clock huge-clock">{bgClock}</h1>
 
         <div className="bgs">
             <img draggable="false" src="/os/5.png" className="bg bg5" />
