@@ -128,43 +128,58 @@ const MierOS = () => {
 
   // MIERAMP
   const [playlist, setPlaylist] = useState<Song[]>([]);
-  const [currentSong, setCurrentSong] = useState<number>(9999);
+  const [currentSong, setCurrentSong] = useState<number | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
-  const [playerReady, setPlayerReady] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(0);
+  const [playerReady, setPlayerReady] = useState(false);
+  const [isBuffering, setIsBuffering] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(50);
+  const [autoplay, setAutoplay] = useState<1 | 0>(0);
   const playerRef = useRef<any>(null);
 
-  // LOAD LOCAL MIERAMP VOLUME
+  useEffect(() => {
+    mierAmpOpen ? setAutoplay(1) : setAutoplay(0)
+  }, [mierAmpOpen])
+
+  // VOLUME
+  const volumeInitialized = useRef(false);
+
   useEffect(() => {
     const saved = localStorage.getItem("mierAmpVolume");
-    if (saved) {
-      setVolume(Number(saved));
-    }
+    if (saved) setVolume(Number(saved));
+    volumeInitialized.current = true;
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(
-      "mierAmpVolume",
-      volume.toString()
-    );
+    if (!volumeInitialized.current) return;
+    localStorage.setItem("mierAmpVolume", volume.toString());
   }, [volume]);
 
-  // LOAD LOCAL MIERAMP PLAYLIST
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      localStorage.setItem("mierAmpVolume", volume.toString());
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [volume]);
+
+  const handleVolume = (value: number) => {
+    setVolume(value);
+    playerRef.current?.setVolume(value);
+  };
+
+  // PLAYLIST
+  const playlistInitialized = useRef(false);
+
   useEffect(() => {
     const saved = localStorage.getItem("mierAmpPlaylist");
-
-    if (saved) {
-      setPlaylist(JSON.parse(saved));
-    }
+    if (saved) setPlaylist(JSON.parse(saved));
+    playlistInitialized.current = true;
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(
-      "mierAmpPlaylist",
-      JSON.stringify(playlist)
-    );
+    if (!playlistInitialized.current) return;
+    localStorage.setItem("mierAmpPlaylist", JSON.stringify(playlist));
   }, [playlist]);
 
   // ADD MIERAMP SONGS
@@ -220,44 +235,51 @@ const MierOS = () => {
   }
 
   // MIERAMP CONTROLS
+  const resetTime = () => {
+    setCurrentTime(0);
+    setDuration(0);
+  }
+
   const play = () => {
-    if (!playerReady || !playerRef.current) return;
+    if (currentSong === null || !playerReady || !playerRef.current) return;
     playerRef.current?.playVideo();
     setIsPlaying(true);
   };
 
   const pause = () => {
-    if (!playerReady || !playerRef.current) return;
+    if (isBuffering || !isPlaying || !playerReady || !playerRef.current) return;
     playerRef.current?.pauseVideo();
     setIsPlaying(false);
   };
 
   const stop = () => {
-    if (!playerReady || !playerRef.current) return;
+    if (isBuffering || !isPlaying || !playerReady || !playerRef.current) return;
+    playerRef.current.stopVideo();
     setIsPlaying(false);
-    setCurrentSong(9999);
-  }
+    setCurrentSong(null);
+  };
 
   const next = () => {
-    if (!playerReady || !playerRef.current || !playlist.length) return;
+    if (currentSong === null || !playlist.length) return;
 
+    setIsBuffering(true);
     setCurrentSong(prev =>
-      (prev + 1) % playlist.length
+      ((prev ?? 0) + 1) % playlist.length
     );
   };
 
   const prev = () => {
-    if (!playerReady || !playerRef.current || !playlist.length) return;
+    if (currentSong === null || !playlist.length) return;
 
+    setIsBuffering(true);
     setCurrentSong(prev =>
       prev === 0
         ? playlist.length - 1
-        : prev - 1
+        : (prev ?? 0) - 1
     );
   };
 
   useEffect(() => {
-    setPlayerReady(false);
     if (isPlaying) {
       playerRef.current?.playVideo();
     }
@@ -266,28 +288,17 @@ const MierOS = () => {
   // MIERAMP UI
   useEffect(() => {
     const interval = setInterval(() => {
-      if (!playerRef.current) return;
-
+      if (!playerRef.current || !isPlaying) return;
       const current = playerRef.current.getCurrentTime();
       const total = playerRef.current.getDuration();
-
-      setCurrentTime(
-        Number.isFinite(current)
-          ? current
-          : 0
-      );
-
-      setDuration(
-        Number.isFinite(total)
-          ? total
-          : 0
-      );
-
+      setCurrentTime(Number.isFinite(current) ? current : 0);
+      setDuration(Number.isFinite(total) ? total : 0);
     }, 250);
-
-    return () => clearInterval(interval);
-
-  }, []);
+    return () => {
+      resetTime();
+      clearInterval(interval)
+    };
+  }, [isPlaying]);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -493,8 +504,8 @@ const MierOS = () => {
               <p
                 className="current-song-name"
               >
-                {isPlaying 
-                ? `\u00A0currently playing: ${playlist[currentSong]?.title + " !!"}`
+                {currentSong || currentSong === 0
+                ? `\u00A0currently playing: ${playlist[currentSong!]?.title + " !!"}`
                 : "currently playing nothing..."
                 }
               </p>
@@ -535,79 +546,33 @@ const MierOS = () => {
                   max={100}
                   value={volume}
                   id="audioBar"
-                  onInput={(e) => {
-                    const value = Number(e.currentTarget.value);
-
-                    setVolume(value);
-                    playerRef.current?.setVolume(value);
-                  }}
+                  onInput={(e) => {handleVolume(Number(e.currentTarget.value))}}
                 />
               </div>
-              <p className="player-button" onClick={prev}>⏮</p>
-              <p className="player-button" onClick={play}>▶</p>
-              <p className="player-button" onClick={pause}>❚❚</p>
-              <p className="player-button" onClick={stop}>⏹</p>
-              <p className="player-button" onClick={next}>⏭</p>
+              <p className={`${isBuffering && "pointer-events-none opacity-50"} player-button`} onClick={prev}>⏮</p>
+              <p className={`${isBuffering && "pointer-events-none opacity-50"} player-button`} onClick={play}>▶</p>
+              <p className={`${isBuffering && "pointer-events-none opacity-50"} player-button`} onClick={pause}>❚❚</p>
+              <p className={`${isBuffering && "pointer-events-none opacity-50"} player-button`} onClick={stop}>⏹</p>
+              <p className={`${isBuffering && "pointer-events-none opacity-50"} player-button`} onClick={next}>⏭</p>
             </div>
           </div>
           </div>  
           <div className="amp-bot">
-            {/* <ul className="amp-list" id="trackList">
-              {playlist.map((song, i) => (
-                <li
-                  key={i}
-                  onClick={() => {
-                    setCurrentSong(i);
-
-                    if (!isPlaying) {
-                      play();
-                    }
-                  }}
-                  className={
-                    currentSong === i
-                      ? "song current-song"
-                      : "song"
-                  }
-                >
-                  {song.title || "..."}
-                </li>
-              ))}
-              <div className="flex w-full gap-1.5">
-                <input 
-                  type="text"
-                  className="w-full"
-                  placeholder="enter youtube link.."
-                  autoComplete="off"
-                  value={mierAmpInput}
-                  onChange={(e) => setMierAmpInput(e.currentTarget.value)}
-                />
-                <p
-                  className="cursor-pointer hover:scale-150 origin-center px-2"
-                  onClick={() => addSong(mierAmpInput)}
-                >
-                  +
-                </p>
-              </div>
-            </ul> */}
-
             <div className="amp-list" id="trackList">
               {playlist.map((song, i) => (
                 <div 
                   className="flex w-full"
-                  key={i}
+                  key={song.id}
                 >
                   <p
                     onClick={() => {
                       setCurrentSong(i);
-                      if (!isPlaying) {
-                        play();
-                      }
+                      currentSong === i || setIsBuffering(true);
+                      setIsPlaying(true);
                     }}
                     className={`
-                      ${currentSong === i
-                        ? "song current-song"
-                        : "song"}
-                      ${!playerReady && "pointer-events-none opacity-50"}
+                      ${currentSong === i ? "song current-song" : "song"}
+                      ${isBuffering && "pointer-events-none opacity-50"}
                       truncate w-full
                     `}
                   >
@@ -642,20 +607,23 @@ const MierOS = () => {
         </div>
 
         <YouTube
-          videoId={playlist[currentSong]?.id}
+          videoId={currentSong !== null ? playlist[currentSong]?.id : undefined}
           className="hidden"
           opts={{
             height: "0",
             width: "0",
-            playerVars: {
-              autoplay: 1,
-            },
+            playerVars: { autoplay: autoplay },
           }}
           onReady={(e: YouTubeEvent) => {
             playerRef.current = e.target;
             playerRef.current.setVolume(volume);
             setPlayerReady(true);
           }}
+          onStateChange={(e: YouTubeEvent<number>) => {
+            setIsPlaying(e.data === 1);
+            setIsBuffering(e.data === 3);
+          }}
+          onEnd={next}
         />
         
         {/* NOTES */}
