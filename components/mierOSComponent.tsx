@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Roboto_Mono, Inconsolata } from "next/font/google";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import Marquee from "react-fast-marquee";
+import { Type } from "lucide-react";
 
 const roboto = Roboto_Mono({
   weight: "400",
@@ -12,6 +13,12 @@ const roboto = Roboto_Mono({
 interface Song {
   id: string;
   title?: string;
+}
+
+interface Note {
+  note: string;
+  date: string;
+  finished: string | null;
 }
 
 const inconsolata = Inconsolata({
@@ -413,7 +420,59 @@ const MierOS = () => {
     };
   }, []);
 
+  // NOTES
 
+  const currentNotesInitialized = useRef(false);
+  const finishedNotesInitialized = useRef(false);
+  const reminderNotesInitialized = useRef(false);
+  const [currentNotes, setCurrentNotes] = useState<Note[]>([])
+  const [finishedNotes, setFinishedNotes] = useState<Note[]>([])
+  const [reminderNotes, setReminderNotes] = useState<Note[]>([])
+
+  const notes = {
+    current: {
+      notes: currentNotes,
+      set: setCurrentNotes,
+      init: currentNotesInitialized,
+      local: "notesCurrent"
+    },
+    finished: {
+      notes: finishedNotes,
+      set: setFinishedNotes,
+      init: finishedNotesInitialized,
+      local: "notesFinished"
+    },
+    reminder: {
+      notes: reminderNotes,
+      set: setReminderNotes,
+      init: reminderNotesInitialized,
+      local: "notesReminder"
+    },
+  }
+
+  useEffect(() => {
+    Object.entries(notes).forEach(([key, type]) => {
+      const saved = localStorage.getItem(type.local);
+      if (saved) type.set(JSON.parse(saved))
+      type.init.current = true;
+    })
+  }, [])
+
+  const notesUseEffect = (type: {
+    notes: Note[], init: React.RefObject<boolean>, local: string,
+  }) => {
+    useEffect(() => {
+      if (!type.init.current) return;
+      localStorage.setItem(type.local, JSON.stringify(type.notes))
+    }, [type.notes])
+  }
+
+  notesUseEffect(notes.current);
+  notesUseEffect(notes.finished);
+  notesUseEffect(notes.reminder);
+
+
+  const [noteTab, setNoteTab] = useState<"current" | "finished" | "reminders">("current");
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -500,7 +559,7 @@ const MierOS = () => {
 
             <input 
               type="password"
-              className="w-[25vh]"
+              className="w-[25vh] bg-white"
               placeholder="enter password here..."
               name="password" 
               autoFocus={true}
@@ -740,9 +799,27 @@ const MierOS = () => {
           `}
         >
           <div className="wrapper3">
-            <p className="note-category note-current">current</p>
-            <p className="note-category note-finished">finished</p>
-            <p className="note-category note-reminders">reminders</p>
+            <p
+              className="note-category note-current"
+              onClick={() => setNoteTab("current")}
+            >
+              current
+            </p>
+
+            <p
+              className="note-category note-finished"
+              onClick={() => setNoteTab("finished")}
+            >
+              finished
+            </p>
+
+            <p
+              className="note-category note-reminders"
+              onClick={() => setNoteTab("reminders")}
+            >
+              reminders
+            </p>
+
             <p className="notesDate">🗓</p>
             <p 
               className="notesX"
@@ -752,15 +829,35 @@ const MierOS = () => {
             </p>
           </div>
           <div className="note-inside self-center">
-            <div className="wrapper" data-wrapperid="<%= note.id %>">
-              <p className="note" id="<%= note.id %>">note.note <span className="date">note.date</span></p>
-              <p className="noteFinish note-action" data-noteid="<%= note.id %>">੦</p>
-              <p className="noteDelete note-action" data-noteid="<%= note.id %>">🞩</p>
-            </div>
+            {noteTab === "current" && (
+              <div className="wrapper">
+                <p className="note">current.note <span className="date">note.date</span></p>
+                <p className="noteFinish note-action">੦</p>
+                <p className="noteDelete note-action">🞩</p>
+              </div>
+            )}
+            {noteTab === "finished" && (
+              <div className="wrapper">
+                <p className="note">finished.note <span className="date">note.date</span></p>
+                <p className="noteDelete note-action">🞩</p>
+              </div>
+            )}
+            {noteTab === "reminders" && (
+              <div className="wrapper">
+                <p className="note">reminder <span className="date">note.date</span></p>
+                <p className="noteDelete note-action">🞩</p>
+              </div>
+            )}
           </div>
           <div className="wrapper2 input-wrapper">
-            <input className="add add-input" type="text" placeholder="add to list..." autoFocus={true} autoComplete="off" />
-            <button className="add add-button">!!</button>
+            <input 
+              className="add add-input bg-white text-sm"
+              type="text"
+              placeholder="add to list..."
+              autoFocus={true}
+              autoComplete="off"
+            />
+            <button className="add add-button bg-white">!!</button>
           </div>
         </div>
 
@@ -855,7 +952,8 @@ const MierOS = () => {
         </div>
 
         <h1 className="clock huge-clock">{bgClock}</h1>
-
+        
+        {/* BGS */}
         <div className="bgs">
           {Array.from({ length: 6 }, (_, i) => (
             <img 
