@@ -349,7 +349,7 @@ const MierOS = () => {
     const scheduleMidnightUpdate = () => {
       const now = new Date();
       const next = new Date(now);
-      
+
       next.setHours(24, 0, 0, 0);
       const msUntilMidnight = next.getTime() - now.getTime();
 
@@ -364,6 +364,45 @@ const MierOS = () => {
     const timeout = scheduleMidnightUpdate();
     return () => clearTimeout(timeout);
   }, []);
+
+  // DRAGGABLES
+
+  const draggables = document.querySelectorAll<HTMLDivElement>('.draggable');
+  
+  let offsetX = 0;
+  let offsetY = 0;
+  let isDragging = false;
+  let activeElement: HTMLElement | null = null;
+
+  const edgeThreshold = 40;
+
+  draggables.forEach((draggable) => {
+    draggable.addEventListener('mousedown', (e: MouseEvent) => {
+      const rect = draggable.getBoundingClientRect();
+      const y = e.clientY - rect.top;
+
+      const nearEdge = y < edgeThreshold;
+
+      if (nearEdge) {
+        isDragging = true;
+        activeElement = draggable;
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+      }
+    });
+  });
+
+  document.addEventListener('mousemove', (e: MouseEvent) => {
+    if (isDragging && activeElement) {
+      activeElement.style.left = `${e.clientX - offsetX}px`;
+      activeElement.style.top = `${e.clientY - offsetY}px`;
+    }
+  });
+
+  document.addEventListener('mouseup', () => {
+    isDragging = false;
+    activeElement = null;
+  });
 
 
   return (
