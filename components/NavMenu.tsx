@@ -564,7 +564,7 @@ const NavMenu = () => {
           nonsel
           bg-black
           opacity-0
-          ${open ? "translate-y-[50vh] h-100 w-100" : "-translate-y-[50vh] h-50 w-50"}
+          ${open ? "translate-y-[50vh] h-100 w-100" : "translate-y-[-50vh] h-50 w-50"}
         `}
         onClick={moonClickHandler}
         ref={moonRef}
@@ -583,7 +583,7 @@ const NavMenu = () => {
           ease-in-out
           pointer-events-none
           nonsel
-          -translate-y-[50vh]
+          translate-y-[-50vh]
         `}
       >
         <img 

@@ -45,7 +45,6 @@ const MierOS = () => {
       console.log(`yeah!!`)
       passwordContentRef.current!.value = "";
       setPasswordContent("");
-      blockHandler(1500)
       login(true);
     } else {
       errorRef.current!.style.opacity = `1`;
@@ -58,10 +57,15 @@ const MierOS = () => {
 
   const login = (login: boolean) => {
     blackScreenRef.current!.style.display = `flex`;
+    blockHandler(login ? 5000 : 4000);
 
     if (!login) {
       setMierAmpOpen(false);
       setNotesOpen(false);
+      setMierAside(false);
+      changeMier("aloha", true);
+      resetTalk();
+      mierTalk("see you next time !!", typeSpeed);
     }
 
     setTimeout(() => {
@@ -78,7 +82,33 @@ const MierOS = () => {
       setTimeout(() => {
         blackScreenRef.current!.style.display = `none`;
       }, 1000);
-    }, login ? 1500 : 3500);
+
+      if (login) {
+        const now = new Date();
+        const hours = now.getHours();
+        let greeting;
+
+        if (hours < 6) {
+            greeting = `greetings! shouldn't you be asleep?`
+        } else if (hours >= 6 && hours < 12) {
+            greeting = `good morning! did you sleep well?`
+        } else if (hours >= 12 && hours < 18) {
+            greeting = `hello! how's your afternoon?`
+        } else {
+            greeting = `good evening! have you done your work today?`
+        }
+
+        resetTalk();
+        changeMier("aloha");
+        mierTalk(greeting, typeSpeed);
+        setTimeout(() => {
+          changeMier("laugh", true);
+          setTimeout(() => {
+            changeMier("neutral", true)
+          }, 2200);
+        }, 1600);
+      }
+    }, login ? 1600 : 3500);
   }
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -538,6 +568,81 @@ const MierOS = () => {
     setReminderNotes(reminderNotes.filter(note => note.id !== id));
   }
 
+  // MIER
+
+  const chatboxRef = useRef<HTMLDivElement | null>(null);
+  const chatboxTextRef = useRef<HTMLParagraphElement | null>(null);
+  const tap = () => {
+    const sound = new Audio(`/audio/tap${Math.floor(Math.random() * 5)}.mp3`);
+    sound.play();
+  }
+
+  const talkTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const typeSpeed = 80;
+
+  const mierTalk = (text: string, speed: number, i: number = 0) => {
+    if (!chatboxTextRef.current) return;
+    if (i >= text.length) return;
+    tap();
+    chatboxTextRef.current.textContent += text.charAt(i);
+    talkTimeoutRef.current = setTimeout(() => mierTalk(text, speed, i + 1), speed);
+  }
+
+  const resetTalk = () => {
+    if (!chatboxTextRef.current) return;
+    if (talkTimeoutRef.current) {
+      clearTimeout(talkTimeoutRef.current);
+      talkTimeoutRef.current = null;
+    }
+    chatboxTextRef.current.textContent = "";
+  } 
+  
+  type mierMoods =
+  | "aloha"
+  | "laugh" 
+  | "neutral" 
+  | "respondhappy" 
+  | "respondneutral" 
+  | "sad" 
+  | "talk" 
+  | "think";
+
+  
+  const [mierAside, setMierAside] = useState<boolean>(false);
+  const [mierMood, setMierMood] = useState<mierMoods>("aloha");
+  const mierRef = useRef<HTMLImageElement | null>(null);
+  
+  const changeMier = (mood: mierMoods, fade?: boolean) => {
+    if (fade) {
+      mierRef.current!.style.opacity = `0`
+      setTimeout(() => {
+        setMierMood(mood);
+      }, 300);
+      setTimeout(() => {
+        mierRef.current!.style.opacity = `1`
+      }, 400);
+    } else {
+      setMierMood(mood);
+    }
+  }
+
+  const handleMier = () => {
+    blockHandler(1500);
+    resetTalk();
+
+    if (mierAside) {
+      mierTalk("...", 400);
+    } else {
+      changeMier("talk")
+      mierTalk("meowmeowmeowmeow", 100);
+      setTimeout(() => {
+        changeMier("neutral")
+      }, 1500);
+    }
+
+    setMierAside(!mierAside);
+  }
+
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
 
@@ -988,13 +1093,13 @@ const MierOS = () => {
               onClick={() => {
                 login(false);
                 setOpenMenu(false);
-                blockHandler(4500);
               }}
             >
               ⏻
             </h1>
         </div>
-
+        
+        {/* MIERTALK */}
         <div className="mier-dialogue">
             <h1 className="x">⮈</h1>
             <div className="opinions">
@@ -1024,13 +1129,28 @@ const MierOS = () => {
                 <p className="option opinion">what do you think about..</p>
                 <p className="option advice">i need advice..</p>
             </div>
-            <p className="mier-talk"></p>
+            <p 
+              className="mier-talk"
+              ref={chatboxTextRef}
+            >
+            </p>
         </div>
-
+        
+        {/* MIER */}
         <div className="mier-div">
-            <img draggable="false" src="/os/mier0.png" className="mier" />
+          <img 
+            draggable="false"
+            src={`/os/mier-${mierMood}.png`}
+            className={`
+              ${mierAside ? "ml-[50vw]" : "ml-0"}
+              mier
+              `}
+            onClick={() => handleMier()}
+            ref={mierRef}
+          />
         </div>
-
+        
+        {/* BG CLOCK */}
         <h1 className="clock huge-clock">{bgClock}</h1>
         
         {/* BGS */}

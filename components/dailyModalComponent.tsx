@@ -33,7 +33,7 @@ export default function DailyModal() {
   return (
     <div className={`fixed left-0 right-0 bottom-12 flex items-center justify-center z-555 transition-opacity duration-3000 ${tiny5.className}`}>
       <div className="bg-white py-4 px-6 rounded-lg flex flex-col relative">
-        <img src="/images/construction.gif" className="nonsel pointer-events-none fixed -translate-x-[140%]"/>
+        <img src="/images/construction.gif" className="nonsel pointer-events-none fixed translate-x-[-140%]"/>
         <img src="/images/construction.gif" className="nonsel pointer-events-none fixed self-end translate-x-[140%]"/>
         <div className="flex justify-between items-center mb-4">
           <p className="font-bold text-xl">Welcome</p>
