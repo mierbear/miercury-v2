@@ -576,7 +576,6 @@ li {
     color: rgba(0, 0, 0, 0.482);
     font-size: .7vw;
     text-align: center;
-    display: flex;
 }
 
 .date-done {

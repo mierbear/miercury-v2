@@ -505,6 +505,7 @@ const MierOS = () => {
 
   const [noteTab, setNoteTab] = useState("current");
   const [notesInput, setNotesInput] = useState("");
+  const [visibleNotesDate, setVisibleNotesDate] = useState(true);
 
   const getNoteDate = (date = new Date()) => {
     const time = new Date().toLocaleTimeString([], {hour: "numeric", minute: "2-digit",});
@@ -545,15 +546,13 @@ const MierOS = () => {
   // FINISH/DELETE NOTES
 
   const finishCurrentNote = (id: string) => {
-    const raw = localStorage.getItem("notesCurrent");
-    if (!raw) return;
-
-    const data: Note[] = JSON.parse(raw);
-    const specData = data.find(note => note.id === id);
+    const specData = currentNotes.find(note => note.id === id);
     if (!specData) return;
 
+    const updated = { ...specData, finished: getNoteDate() };
+
     setCurrentNotes(currentNotes.filter(note => note.id !== id));
-    setFinishedNotes(prev => [...prev, specData]);
+    setFinishedNotes(prev => [...prev, updated]);
   };
 
   const deleteCurrentNote = (id: string) => {
@@ -977,7 +976,7 @@ const MierOS = () => {
                 {type}
               </p>
             ))}
-            <p className="notesDate">🗓</p>
+            <p className="notesDate" onClick={() => setVisibleNotesDate(!visibleNotesDate)}>🗓</p>
             <p 
               className="notesX"
               onClick={() => setNotesOpen(false)}
@@ -992,7 +991,7 @@ const MierOS = () => {
                   className="wrapper"
                   key={note.id}
                 >
-                  <p className="note">{note.note} <span className="date">{note.date}</span></p>
+                  <p className="note">{note.note} <span className={`date ${visibleNotesDate ? "flex" : "hidden"}`}>{note.date}</span></p>
                   <p className="noteFinish note-action" onClick={() => finishCurrentNote(note.id)}>੦</p>
                   <p className="noteDelete note-action" onClick={() => deleteCurrentNote(note.id)}>🞩</p>
                 </div>
@@ -1004,7 +1003,7 @@ const MierOS = () => {
                   className="wrapper"
                   key={note.id}
                 >
-                  <p className="note">{note.note} <span className="date">{note.date}</span></p>
+                  <p className="note">{note.note} <span className={`date ${visibleNotesDate ? "flex" : "hidden"}`}>{note.date}</span><span className={`date date-done ${visibleNotesDate ? "flex" : "hidden"}`}>{note.finished}</span></p>
                   <p className="noteDelete note-action" onClick={() => deleteFinishedNote(note.id)}>🞩</p>
                 </div>
               )
@@ -1015,7 +1014,7 @@ const MierOS = () => {
                   className="wrapper"
                   key={note.id}
                 >
-                  <p className="note">{note.note} <span className="date">{note.date}</span></p>
+                  <p className="note">{note.note} <span className={`date ${visibleNotesDate ? "flex" : "hidden"}`}>{note.date}</span></p>
                   <p className="noteDelete note-action" onClick={() => deleteReminderNote(note.id)}>🞩</p>
                 </div>
               )
@@ -1160,13 +1159,12 @@ const MierOS = () => {
               draggable="false"
               key={i} 
               src={`/os/${i}.png`}
-              style={{ animationDelay: `${i * 1}s` }}
+              style={{ animationDelay: `${i * 1.5}s` }}
               className={`
                 bg bg${i}
               `}
             />
           ))}
-          <img draggable="false" src="/os/0.png" className="bg bgFilter" />
         </div>
 
       </div>
