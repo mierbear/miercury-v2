@@ -605,7 +605,6 @@ const MierOS = () => {
   | "sad" 
   | "talk" 
   | "think";
-
   
   const [mierAside, setMierAside] = useState<boolean>(false);
   const [mierMood, setMierMood] = useState<mierMoods>("aloha");
@@ -640,6 +639,17 @@ const MierOS = () => {
     }
 
     setMierAside(!mierAside);
+  }
+
+  const hiMier = () => {
+    blockHandler(1200);
+    resetTalk();
+
+    changeMier("laugh");
+    mierTalk("hello!", typeSpeed);
+    setTimeout(() => {
+      changeMier("neutral");
+    }, 1200);
   }
 
   return (
@@ -1086,7 +1096,7 @@ const MierOS = () => {
             ${openMenu ? "opacity-100" : "opacity-0 pointer-events-none"}
           `}
         >
-            <p>mrow</p>
+            <p>shut down</p>
             <h1 
               className="shutdown"
               onClick={() => {
@@ -1100,39 +1110,47 @@ const MierOS = () => {
         
         {/* MIERTALK */}
         <div className="mier-dialogue">
-            <h1 className="x">⮈</h1>
-            <div className="opinions">
-              <p className="option oc" id="<%= oc.id %>">oc.name</p>
-            </div>
-            <div className="advices">
-                <p className="option advice-option" data-advicetype="faith">faith</p>
-                <p className="option advice-option" data-advicetype="love">love</p>
-                <p className="option advice-option" data-advicetype="purity">purity</p>
-                <p className="option advice-option" data-advicetype="determination">determination</p>
-                <p className="option advice-option" data-advicetype="wisdom">wisdom</p>
-                <p className="option advice-option" data-advicetype="comfort">comfort</p>
-                <p className="option advice-option" data-advicetype="sadness">sadness</p>
-                <p className="option advice-option" data-advicetype="anger">anger</p>
-                <p className="option advice-option" data-advicetype="sloth">sloth</p>
-                <p className="option advice-option" data-advicetype="fear">fear</p>
-                <p className="option advice-option" data-advicetype="shame">shame</p>
-                <p className="option advice-option" data-advicetype="despair">despair</p>
-                <p className="option hug">hug</p>
-                <p className="option advice-now">what should i do right now?</p>
-            </div>
-            <div className="options">
-                <p className="option greet">hi!</p>
-                <p className="option joke">tell me a joke!</p>
-                <p className="option fact">tell me a fun fact!</p>
-                <p className="option horoscope">daily horoscope!</p>
-                <p className="option opinion">what do you think about..</p>
-                <p className="option advice">i need advice..</p>
-            </div>
-            <p 
-              className="mier-talk"
-              ref={chatboxTextRef}
-            >
-            </p>
+          <h1 className="x">⮈</h1>
+
+          {/* ADVICE */}
+          <div className="advices">
+            <p className="option advice-option" data-advicetype="faith">faith</p>
+            <p className="option advice-option" data-advicetype="love">love</p>
+            <p className="option advice-option" data-advicetype="purity">purity</p>
+            <p className="option advice-option" data-advicetype="determination">determination</p>
+            <p className="option advice-option" data-advicetype="wisdom">wisdom</p>
+            <p className="option advice-option" data-advicetype="comfort">comfort</p>
+            <p className="option advice-option" data-advicetype="sadness">sadness</p>
+            <p className="option advice-option" data-advicetype="anger">anger</p>
+            <p className="option advice-option" data-advicetype="sloth">sloth</p>
+            <p className="option advice-option" data-advicetype="fear">fear</p>
+            <p className="option advice-option" data-advicetype="shame">shame</p>
+            <p className="option advice-option" data-advicetype="despair">despair</p>
+            <p className="option hug">hug</p>
+            <p className="option advice-now">what should i do right now?</p>
+          </div>
+
+          {/* OPTIONS */}
+          <div 
+            className={`
+              ${mierAside ? "opacity-100" : "opacity-0 pointer-events-none"}
+              options  
+            `}
+          >
+            <p className="option" onClick={() => hiMier()}>hi!</p>
+            <p className="option" onClick={() => console.log(`log`)}>tell me a joke!</p>
+            <p className="option" onClick={() => console.log(`log`)}>tell me a fun fact!</p>
+            <p className="option" onClick={() => console.log(`log`)}>daily horoscope!</p>
+            <p className="option" onClick={() => console.log(`log`)}>i need advice..</p>
+          </div>
+          
+          {/* DIALOGUE */}
+          <p 
+            className="mier-talk"
+            ref={chatboxTextRef}
+          >
+          </p>
+
         </div>
         
         {/* MIER */}

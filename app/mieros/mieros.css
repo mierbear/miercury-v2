@@ -1013,7 +1013,6 @@ li {
     z-index: 20;
     gap: 5px;
     transition: all 1s ease;
-    opacity: 0%;
     /* text-shadow: 0 0 .1px #fffdf3, 0 0 .1px #fffdf3; */
     mix-blend-mode: plus-lighter;
     background-color: rgb(223 230 234 / 11%);
