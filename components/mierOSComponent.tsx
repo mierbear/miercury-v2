@@ -62,7 +62,9 @@ const MierOS = () => {
     if (!login) {
       setMierAmpOpen(false);
       setNotesOpen(false);
+      setOpenMenu(false);
       setMierAside(false);
+      stop();
       changeMier("aloha", true);
       resetTalk();
       mierTalk("see you next time !!", typeSpeed);
@@ -625,6 +627,7 @@ const MierOS = () => {
   }
 
   const handleMier = () => {
+    setShowAdvice(false);
     blockHandler(1500);
     resetTalk();
 
@@ -632,7 +635,7 @@ const MierOS = () => {
       mierTalk("...", 400);
     } else {
       changeMier("talk")
-      mierTalk("meowmeowmeowmeow", 100);
+      mierTalk("what can i do for you?", typeSpeed);
       setTimeout(() => {
         changeMier("neutral")
       }, 1500);
@@ -651,6 +654,8 @@ const MierOS = () => {
       changeMier("neutral");
     }, 1200);
   }
+
+  const [showAdvice, setShowAdvice] = useState(false);
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -1101,7 +1106,6 @@ const MierOS = () => {
               className="shutdown"
               onClick={() => {
                 login(false);
-                setOpenMenu(false);
               }}
             >
               ⏻
@@ -1110,10 +1114,20 @@ const MierOS = () => {
         
         {/* MIERTALK */}
         <div className="mier-dialogue">
-          <h1 className="x">⮈</h1>
+          <h1 
+            className={`x ${mierAside && showAdvice ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+            onClick={() => setShowAdvice(false)}
+          >
+            ⮈
+          </h1>
 
           {/* ADVICE */}
-          <div className="advices">
+          <div 
+            className={`
+              ${mierAside && showAdvice ? "opacity-100" : "opacity-0 pointer-events-none"}
+              advices
+            `}
+          >
             <p className="option advice-option" data-advicetype="faith">faith</p>
             <p className="option advice-option" data-advicetype="love">love</p>
             <p className="option advice-option" data-advicetype="purity">purity</p>
@@ -1126,14 +1140,13 @@ const MierOS = () => {
             <p className="option advice-option" data-advicetype="fear">fear</p>
             <p className="option advice-option" data-advicetype="shame">shame</p>
             <p className="option advice-option" data-advicetype="despair">despair</p>
-            <p className="option hug">hug</p>
             <p className="option advice-now">what should i do right now?</p>
           </div>
 
           {/* OPTIONS */}
           <div 
             className={`
-              ${mierAside ? "opacity-100" : "opacity-0 pointer-events-none"}
+              ${mierAside && !showAdvice ? "opacity-100" : "opacity-0 pointer-events-none"}
               options  
             `}
           >
@@ -1141,7 +1154,7 @@ const MierOS = () => {
             <p className="option" onClick={() => console.log(`log`)}>tell me a joke!</p>
             <p className="option" onClick={() => console.log(`log`)}>tell me a fun fact!</p>
             <p className="option" onClick={() => console.log(`log`)}>daily horoscope!</p>
-            <p className="option" onClick={() => console.log(`log`)}>i need advice..</p>
+            <p className="option" onClick={() => setShowAdvice(true)}>i need advice..</p>
           </div>
           
           {/* DIALOGUE */}
@@ -1186,7 +1199,8 @@ const MierOS = () => {
         </div>
 
       </div>
-
+      
+      {/* CRT FILTER */}
       <canvas 
         ref={canvasRef}
         className={`

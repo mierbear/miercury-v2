@@ -989,8 +989,7 @@ li {
     padding: 5px;
     z-index: 20;
     color: rgb(181 159 106 / 61%);
-    transition: all 1s ease;
-    opacity: 0%;
+    transition: all 0.5s ease;
     mix-blend-mode: plus-lighter;
 }
 
@@ -1000,20 +999,16 @@ li {
 }
 
 .options,
-.advices,
-.opinions {
+.advices {
     position: absolute;
-    /* left: 30vw; */
     display: grid;
     grid-template-columns: auto;
     background-color: rgba(240, 248, 255, 0.249);
     padding: 10px;
     border-radius: 5px;
-    /* height: 30vh; */
     z-index: 20;
     gap: 5px;
-    transition: all 1s ease;
-    /* text-shadow: 0 0 .1px #fffdf3, 0 0 .1px #fffdf3; */
+    transition: all 0.5s ease;
     mix-blend-mode: plus-lighter;
     background-color: rgb(223 230 234 / 11%);
 }
@@ -1032,12 +1027,6 @@ li {
     justify-content: center;
     min-width: 16vw;
     transition: all 0.5s ease;
-}
-
-.advices,
-.opinions,
-.x {
-    display: none;
 }
 
 .option:hover {
@@ -1071,12 +1060,8 @@ li {
     filter: drop-shadow(rgb(219, 248, 255));
     white-space: break-spaces;
     word-wrap: break-word;
-    /* text-shadow: 0 0 5px #fffdf3, 0 0 10px #fffdf3, 0 0 15px #fffdf3, 0 0 40px;
-    mix-blend-mode: screen; */
     text-shadow: 0 0 .1px #fffdf3, 0 0 2px #fffdf3;
     mix-blend-mode: plus-lighter;
-    /* color: rgba(237, 201, 42, 0.42);
-    text-shadow: 0 0 10px #ffa000, 0 0 20px #fff787, 0 0 35px #4775c1, 0 0 50px; */
 }
 
 .mier-talk {
