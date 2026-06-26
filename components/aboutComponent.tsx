@@ -480,6 +480,8 @@ export default function Home() {
     "im a sucker for sad/motivational stories/music",
     "im sometimes forgetful lol",
     "i might have dementia",
+    "i have an inner monologue",
+    "i love daydreaming and thinking of storylines for my characters",
     "i like looking into conspiracy theories for fun",
     "i laugh about almost everything",
     "dont take everything i say seriously",
@@ -730,6 +732,7 @@ export default function Home() {
 
                 <div className="flex flex-col text-xs sm:text-sm gap-1">
                   <p>✦ playing piano / guitar</p>
+                  <p>✦ calisthenics / lifting</p>
                   <p className="flex hover:cursor-help">
                     <span className="mr-2.25">
                       ✦
@@ -743,8 +746,6 @@ export default function Home() {
                       spirituality (?)
                     </span>
                   </p>
-                  <p>✦ calisthenics</p>
-                  <p>✦ lifting</p>
                   <p className={`text-yellow-200 flex`}>
                     <span className={`text-yellow-200 mr-2.25 transition-mr transition-scale duration-200 ${activeList === "anime" && "scale-150 mr-4 spin"}`}>
                       {activeList === "anime" ? "★" : "✦"}
@@ -784,6 +785,7 @@ export default function Home() {
                   <p>✦ coding</p>
                   <p>✦ drawing</p>
                   <p>✦ laughing</p>
+                  <p>✦ crying</p>
                 </div>
 
                 <hr className="my-2 border-white/20" />

@@ -3,13 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Roboto_Mono, Inconsolata } from "next/font/google";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import Marquee from "react-fast-marquee";
-import { Type } from "lucide-react";
-import { finished } from "stream";
-
-const roboto = Roboto_Mono({
-  weight: "400",
-  subsets: ["latin"],
-})
+import advice from "@/components/advice";
 
 interface Song {
   id: string;
@@ -22,6 +16,11 @@ interface Note {
   date: string;
   finished: string | null;
 }
+
+const roboto = Roboto_Mono({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 const inconsolata = Inconsolata({
   weight: ["200", "300"],
@@ -137,22 +136,6 @@ const MierOS = () => {
     draw();
   }, []);
 
-  const adviceList = [
-    "faith",
-    "love",
-    "purity",
-    "determination",
-    "wisdom",
-    "comfort",
-    "sadness",
-    "anger",
-    "sloth",
-    "fear",
-    "shame",
-    "despair",
-    "what should i do now?",
-  ]
-
   const [openMenu, setOpenMenu] = useState<boolean>(false);
   const [mierAmpOpen, setMierAmpOpen] = useState<boolean>(false);
   const [notesOpen, setNotesOpen] = useState<boolean>(false);
@@ -168,7 +151,18 @@ const MierOS = () => {
   }
 
   // MIERAMP
-  const [playlist, setPlaylist] = useState<Song[]>([]);
+  const [playlist, setPlaylist] = useState<Song[]>(
+    [
+      {"id": "imoEMmZP7UE", "title": "Dusqk - Angelware_v1.11"},
+      {"id": "7Nl7nFY0ceg", "title": "Station Earth - Cold Green Eyes"},
+      {"id": "6P3MF_nYoFg", "title": "Ginkiha - EOS"},
+      {"id": "PWPgYXqMfBY", "title": "FCJ - All Night"},
+      {"id": "l0Jo-9aqhYc", "title": "Porter Robinson - Mirror"},
+      {"id": "HQnC1UHBvWA", "title": "Porter Robinson & Madeon - Shelter"},
+      {"id": "MUHgTcuCBOk", "title": "Porter Robinson - Musician (33 RPM)"},
+      {"id": "GSWc180az58", "title": "六時のざわめき"}
+    ]
+  );
   const [currentSong, setCurrentSong] = useState<number | null>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -656,6 +650,23 @@ const MierOS = () => {
   }
 
   const [showAdvice, setShowAdvice] = useState(false);
+  const adviceIndex = useRef<Partial<Record<keyof typeof advice, number>>>({});
+
+  const getAdvice = (option: keyof typeof advice) => {
+    const arr = advice[option];
+    const current = adviceIndex.current[option] ?? 0;
+
+    changeMier("talk");
+    resetTalk();
+    mierTalk(arr[current], 40);
+
+    adviceIndex.current[option] = (current + 1) % arr.length;
+
+    setTimeout(() => {
+      changeMier("neutral");
+    }, 2000);
+  };
+  
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -777,6 +788,7 @@ const MierOS = () => {
             className={`
               absolute w-[120vw] h-[120vh] 
               object-cover z-[-1] blur-[10px]
+              nonsel pointer-events-none
             `}
             src="os/snow.mov"
           />
@@ -811,7 +823,7 @@ const MierOS = () => {
                 <img 
                   draggable="false"
                   src="/os/note.png"
-                  className="icon notes-icon"
+                  className="icon nonsel notes-icon"
                   onClick={() => setNotesOpen(!notesOpen)}
                 />
                 <p>notes/reminders</p>
@@ -820,7 +832,7 @@ const MierOS = () => {
                 <img 
                   draggable="false"
                   src="/os/mieramp.png"
-                  className="icon mieramp-icon"
+                  className="icon nonsel mieramp-icon"
                   onClick={() => setMierAmpOpen(!mierAmpOpen)}
                 />
                 <p>MierAmp</p>
@@ -1065,20 +1077,20 @@ const MierOS = () => {
           <div className="taskbar-wrapper-left">
             <img 
               draggable="false" 
-              className="logo"
+              className="logo nonsel"
               src="/os/logo.png"
               onClick={() => setOpenMenu(!openMenu)}
-            />
+            />  
             <div className="tab-wrapper">
-              <img draggable="false" className="tab-icon" src="/os/icon0.png" />
+              <img draggable="false" className="tab-icon nonsel pointer-events-none" src="/os/icon0.png" />
               <p className="tab">Pacific Purgatory</p>
             </div>
             <div className="tab-wrapper">
-              <img draggable="false" className="tab-icon" src="/os/icon1.png" />
+              <img draggable="false" className="tab-icon nonsel pointer-events-none" src="/os/icon1.png" />
               <p className="tab">MLC Media Mlayer</p>
             </div>
             <div className="tab-wrapper">
-              <img draggable="false" className="tab-icon" src="/os/icon2.png" />
+              <img draggable="false" className="tab-icon nonsel pointer-events-none" src="/os/icon2.png" />
               <p className="tab">M:\MierOS\system32...</p>
             </div>
           </div>
@@ -1128,19 +1140,16 @@ const MierOS = () => {
               advices
             `}
           >
-            <p className="option advice-option" data-advicetype="faith">faith</p>
-            <p className="option advice-option" data-advicetype="love">love</p>
-            <p className="option advice-option" data-advicetype="purity">purity</p>
-            <p className="option advice-option" data-advicetype="determination">determination</p>
-            <p className="option advice-option" data-advicetype="wisdom">wisdom</p>
-            <p className="option advice-option" data-advicetype="comfort">comfort</p>
-            <p className="option advice-option" data-advicetype="sadness">sadness</p>
-            <p className="option advice-option" data-advicetype="anger">anger</p>
-            <p className="option advice-option" data-advicetype="sloth">sloth</p>
-            <p className="option advice-option" data-advicetype="fear">fear</p>
-            <p className="option advice-option" data-advicetype="shame">shame</p>
-            <p className="option advice-option" data-advicetype="despair">despair</p>
-            <p className="option advice-now">what should i do right now?</p>
+            <p className="option" onClick={() => getAdvice("faith")}>faith</p>
+            <p className="option" onClick={() => getAdvice("purity")}>purity</p>
+            <p className="option" onClick={() => getAdvice("creation")}>creation</p>
+            <p className="option" onClick={() => getAdvice("wisdom")}>wisdom</p>
+            <p className="option" onClick={() => getAdvice("sadness")}>sadness</p>
+            <p className="option" onClick={() => getAdvice("sloth")}>sloth</p>
+            <p className="option" onClick={() => getAdvice("fear")}>fear</p>
+            <p className="option" onClick={() => getAdvice("shame")}>shame</p>
+            <p className="option" onClick={() => getAdvice("despair")}>despair</p>
+            <p className="option">what should i do right now?</p>
           </div>
 
           {/* OPTIONS */}
@@ -1173,7 +1182,7 @@ const MierOS = () => {
             src={`/os/mier-${mierMood}.png`}
             className={`
               ${mierAside ? "ml-[50vw]" : "ml-0"}
-              mier
+              mier nonsel
               `}
             onClick={() => handleMier()}
             ref={mierRef}
@@ -1192,7 +1201,7 @@ const MierOS = () => {
               src={`/os/${i}.png`}
               style={{ animationDelay: `${i * 1.5}s` }}
               className={`
-                bg bg${i}
+                bg bg${i} nonsel pointer-events-none
               `}
             />
           ))}
