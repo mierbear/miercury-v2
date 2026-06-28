@@ -639,6 +639,8 @@ const MierOS = () => {
     setMierAside(!mierAside);
   }
 
+  // MIER GREET
+
   const hiMier = () => {
     blockHandler(1200);
     resetTalk();
@@ -649,6 +651,8 @@ const MierOS = () => {
       changeMier("neutral");
     }, 1200);
   }
+
+  // MIER ADVICE
 
   const [showAdvice, setShowAdvice] = useState(false);
   const adviceIndex = useRef<Partial<Record<keyof typeof advice, number>>>({});
@@ -668,6 +672,8 @@ const MierOS = () => {
     }, 2000);
   };
 
+  // MIER JOKE
+
   const getJoke = () => {
     resetTalk();
     mierTalk(`hmmm...`, typeSpeed);
@@ -676,16 +682,40 @@ const MierOS = () => {
       try {
       const result = await fetch("https://v2.jokeapi.dev/joke/Pun?blacklistFlags=nsfw,sexist,explicit");
       const data = await result.json();
-      console.log(data);
       if (data.joke && !data.setup) {
-          resetTalk();
-          changeMier("respondhappy");
-          mierTalk(data.joke, typeSpeed);
-        } else {
-          resetTalk();
-          changeMier("respondhappy");
-          mierTalk(`${data.setup}\n${data.delivery}`, typeSpeed);
-        }
+        resetTalk();
+        changeMier("respondhappy");
+        mierTalk(data.joke, typeSpeed);
+      } else {
+        resetTalk();
+        changeMier("respondhappy");
+        mierTalk(`${data.setup}\n${data.delivery}`, typeSpeed);
+      }
+      
+      } catch (err) {
+        resetTalk();
+        changeMier("sad");
+        mierTalk("i cant think of one right now, im sorry.. u_u", typeSpeed);
+        console.error("Fetch failed:", err);
+      }
+    }, 1000);
+  }
+
+  // MIER FUN FACT
+
+  const getFact = () => {
+    resetTalk();
+    mierTalk(`hmmm...`, typeSpeed);
+    changeMier("think");
+    setTimeout(async () => {
+      try {
+        const result = await fetch("https://api.api-ninjas.com/v1/facts", {
+          headers: { "X-Api-Key": process.env.NINJA_API_KEY! }
+        });
+        const data = await result.json(); 
+        resetTalk();
+        changeMier("respondneutral");
+        mierTalk(data[0].fact, typeSpeed);
       } catch (err) {
         resetTalk();
         changeMier("sad");
@@ -1189,7 +1219,7 @@ const MierOS = () => {
           >
             <p className="option" onClick={() => hiMier()}>hi!</p>
             <p className="option" onClick={() => getJoke()}>tell me a joke!</p>
-            <p className="option" onClick={() => console.log(`log`)}>tell me a fun fact!</p>
+            <p className="option" onClick={() => getFact()}>tell me a fun fact!</p>
             <p className="option" onClick={() => console.log(`log`)}>daily horoscope!</p>
             <p className="option" onClick={() => setShowAdvice(true)}>i need advice..</p>
           </div>
