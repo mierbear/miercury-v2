@@ -453,7 +453,7 @@ const MierOS = () => {
   const currentNotesInitialized = useRef(false);
   const finishedNotesInitialized = useRef(false);
   const reminderNotesInitialized = useRef(false);
-  const [currentNotes, setCurrentNotes] = useState<Note[]>([])
+  const [currentNotes, setCurrentNotes] = useState<Note[]>([{"id":"6969698008135","note":"hi :3","date":"(1:34 AM - 26/06/26)","finished":null}])
   const [finishedNotes, setFinishedNotes] = useState<Note[]>([])
   const [reminderNotes, setReminderNotes] = useState<Note[]>([])
 
@@ -626,6 +626,7 @@ const MierOS = () => {
     resetTalk();
 
     if (mierAside) {
+      changeMier("neutral")
       mierTalk("...", 400);
     } else {
       changeMier("talk")
@@ -666,6 +667,33 @@ const MierOS = () => {
       changeMier("neutral");
     }, 2000);
   };
+
+  const getJoke = () => {
+    resetTalk();
+    mierTalk(`hmmm...`, typeSpeed);
+    changeMier("think");
+    setTimeout(async () => {
+      try {
+      const result = await fetch("https://v2.jokeapi.dev/joke/Pun?blacklistFlags=nsfw,sexist,explicit");
+      const data = await result.json();
+      console.log(data);
+      if (data.joke && !data.setup) {
+          resetTalk();
+          changeMier("respondhappy");
+          mierTalk(data.joke, typeSpeed);
+        } else {
+          resetTalk();
+          changeMier("respondhappy");
+          mierTalk(`${data.setup}\n${data.delivery}`, typeSpeed);
+        }
+      } catch (err) {
+        resetTalk();
+        changeMier("sad");
+        mierTalk("i cant think of one right now, im sorry.. u_u", typeSpeed);
+        console.error("Fetch failed:", err);
+      }
+    }, 1000);
+  }
   
 
   return (
@@ -1160,7 +1188,7 @@ const MierOS = () => {
             `}
           >
             <p className="option" onClick={() => hiMier()}>hi!</p>
-            <p className="option" onClick={() => console.log(`log`)}>tell me a joke!</p>
+            <p className="option" onClick={() => getJoke()}>tell me a joke!</p>
             <p className="option" onClick={() => console.log(`log`)}>tell me a fun fact!</p>
             <p className="option" onClick={() => console.log(`log`)}>daily horoscope!</p>
             <p className="option" onClick={() => setShowAdvice(true)}>i need advice..</p>
