@@ -722,6 +722,31 @@ const MierOS = () => {
       }
     }, 1000);
   }
+
+  // MIER HOROSCOPE
+
+  const [zodiac, setZodiac] = useState<string>("libra");
+
+  const getHoroscope = () => {
+    resetTalk();
+    mierTalk(`hmmm...`, typeSpeed); 
+    changeMier("think");
+    setTimeout(async () => {
+      try {
+        const result = await fetch(`/api/horoscope?zodiac=${zodiac}`);
+        const data = await result.json();
+        resetTalk();
+        changeMier("respondneutral");
+        mierTalk(data.horoscope, typeSpeed);
+        console.log(data);
+      } catch (err) {
+        resetTalk();
+        changeMier("sad");
+        mierTalk("im sorry but i cant seem to communicate with the stars right now.. u_u", typeSpeed);
+        console.error("Fetch failed:", err);
+      }
+    }, 1000);
+  }
   
 
   return (
@@ -1218,7 +1243,7 @@ const MierOS = () => {
             <p className="option" onClick={() => hiMier()}>hi!</p>
             <p className="option" onClick={() => getJoke()}>tell me a joke!</p>
             <p className="option" onClick={() => getFact()}>tell me a fun fact!</p>
-            <p className="option" onClick={() => console.log(`log`)}>daily horoscope!</p>
+            <p className="option" onClick={() => getHoroscope()}>daily horoscope!</p>
             <p className="option" onClick={() => setShowAdvice(true)}>i need advice..</p>
           </div>
           
