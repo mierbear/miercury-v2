@@ -29,7 +29,6 @@ const inconsolata = Inconsolata({
 
 const MierOS = () => {
   const [passwordContent, setPasswordContent] = useState("");
-  const [userPassword, setUserPassword] = useState<string>("");
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const errorRef = useRef<HTMLDivElement | null>(null);
   const loginScreenRef = useRef<HTMLDivElement | null>(null);
@@ -739,15 +738,13 @@ const MierOS = () => {
 
   // MIER HOROSCOPE
 
-  const [zodiac, setZodiac] = useState<string>("libra");
-
   const getHoroscope = () => {
     resetTalk();
     mierTalk(`hmmm...`, typeSpeed); 
     changeMier("think");
     setTimeout(async () => {
       try {
-        const result = await fetch(`/api/horoscope?zodiac=${zodiac}`);
+        const result = await fetch(`/api/horoscope?zodiac=${userZodiac}`);
         const data = await result.json();
         resetTalk();
         changeMier("respondneutral");
@@ -761,10 +758,47 @@ const MierOS = () => {
       }
     }, 1000);
   }
+
+  // SET UP
+
+  const [setup, setSetup] = useState(false);
+  const [userZodiac, setUserZodiac] = useState<string>("libra");
+  const [userPassword, setUserPassword] = useState<string>("");
   
+  useEffect(() => {
+    const state = localStorage.getItem("mierOSsetup");
+    if (state) setSetup(true);
+  }, []);
+
+  const setupMierOS = (setup: boolean) => {
+    if (setup) {
+      localStorage.setItem("mierOSsetup", "true");
+      setSetup(true);
+    } else {
+      localStorage.removeItem("mierOSsetup");
+      setSetup(false);
+    }
+  }
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
+
+      {/* SET UP SCREEN */}
+      <div 
+        className={`
+          w-screen h-screen bg-[rgb(206,232,236)]
+          items-center justify-center transition-all
+          duration-1200 ease-[ease] fixed z-2000 nonsel
+          ${setup ? "hidden" : "flex"}
+        `}
+      >
+        <p
+          onClick={() => setupMierOS(true)}
+        >
+          SETUP
+        </p>
+        
+      </div>
 
       {/* LOG IN SCREEN */}
       <div 
@@ -1214,12 +1248,16 @@ const MierOS = () => {
             <p>shut down</p>
             <h1 
               className="shutdown"
-              onClick={() => {
-                login(false);
-              }}
+              onClick={() => setupMierOS(false)}
             >
               ⏻
             </h1>
+            <p
+              onClick={() => setSetup(false)}
+              className="cursor-pointer absolute left-4 bottom-2 text-white/50 hover:text-white transition-color duration-100"
+            >
+              Reformat MierOS
+            </p>
         </div>
         
         {/* MIERTALK */}
