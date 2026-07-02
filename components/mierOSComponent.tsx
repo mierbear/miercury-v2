@@ -775,8 +775,32 @@ const MierOS = () => {
       localStorage.setItem("mierOSsetup", "true");
       setSetup(true);
     } else {
-      localStorage.removeItem("mierOSsetup");
-      setSetup(false);
+      blockHandler(4000);
+      setMierAmpOpen(false);
+      setNotesOpen(false);
+      setOpenMenu(false);
+      setMierAside(false);
+      stop();
+      changeMier("aloha", true);
+      resetTalk();
+      mierTalk("see you another time !!", typeSpeed);
+      blackScreenRef.current!.style.display = `flex`;
+
+      setTimeout(() => {
+        blackScreenRef.current!.style.opacity = "100";
+      }, 2000);
+
+      setTimeout(() => {
+        blackScreenRef.current!.style.opacity = "0";
+        setTimeout(() => {
+          blackScreenRef.current!.style.display = "hidden";
+        }, 1000);
+      }, 4000);
+
+      setTimeout(() => {
+        localStorage.removeItem("mierOSsetup");
+        setSetup(false);
+      }, 4000);
     }
   }
 
@@ -1248,13 +1272,13 @@ const MierOS = () => {
             <p>shut down</p>
             <h1 
               className="shutdown"
-              onClick={() => setupMierOS(false)}
+              onClick={() => login(false)}
             >
               ⏻
             </h1>
             <p
-              onClick={() => setSetup(false)}
               className="cursor-pointer absolute left-4 bottom-2 text-white/50 hover:text-white transition-color duration-100"
+              onClick={() => setupMierOS(false)}
             >
               Reformat MierOS
             </p>
