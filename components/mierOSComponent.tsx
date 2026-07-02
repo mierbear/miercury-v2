@@ -854,6 +854,7 @@ const MierOS = () => {
               autoFocus={true}
               autoComplete="off"
               onChange={(e) => setPasswordContent(e.currentTarget.value)}
+              onKeyDown={(e) => e.key === "Enter" && checkLogin()}
               ref={passwordContentRef}
             />
 
@@ -865,7 +866,8 @@ const MierOS = () => {
               <input 
                 type="checkbox"
                 className="password-remember"
-                name="password-remember" />
+                name="password-remember"
+              />
               <p>remember password?</p>
             </div>
 
@@ -1156,6 +1158,7 @@ const MierOS = () => {
               autoComplete="off"
               value={notesInput}
               onChange={(e) => setNotesInput(e.currentTarget.value)}
+              onKeyDown={(e) => e.key === "Enter" && submitNote()}
             />
             
             <button 
