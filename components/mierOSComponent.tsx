@@ -541,6 +541,12 @@ const MierOS = () => {
 
   // FINISH/DELETE NOTES
 
+  const emoji = [`:3`, `:D`, `:]`, `o(〃＾▽＾〃)o`,];
+  const praise = [`good job!`, `good work!`, `im proud of you!`, `keep it up!`, `you did it!`];
+  const randomizer = (arr: string[]) => {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
   const finishCurrentNote = (id: string) => {
     const specData = currentNotes.find(note => note.id === id);
     if (!specData) return;
@@ -549,6 +555,14 @@ const MierOS = () => {
 
     setCurrentNotes(currentNotes.filter(note => note.id !== id));
     setFinishedNotes(prev => [...prev, updated]);
+
+    resetTalk()
+    mierTalk(`${randomizer(praise)} ${randomizer(emoji)}`, typeSpeed);
+    changeMier("laugh");
+    blockHandler(1500);
+    setTimeout(() => {
+      changeMier("neutral");
+    }, 1500);
   };
 
   const deleteCurrentNote = (id: string) => {
