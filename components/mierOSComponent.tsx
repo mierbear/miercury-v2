@@ -899,9 +899,11 @@ const MierOS = () => {
   }
 
   const whatToDo = () => {
-    const hasAnyData = currentNotes || userWeight || userHeight || userCity || userColor || userCountry || userPolitics || userFear || userCrush || userReligion;
+    const hasAnyData = currentNotes?.length || userWeight || userHeight || userCity || userColor || userCountry || userPolitics || userFear || userCrush || userReligion;
     if (!hasAnyData) {
-      mierTalk(`i don't know anything about you!`, typeSpeed);
+      resetTalk();
+      changeMier("sad");
+      mierTalk(`sorry${userName && ` ${userName}`}, i don't know anything about you at all..`, typeSpeed);
       return;
     }
 
@@ -911,18 +913,25 @@ const MierOS = () => {
       id: string;
       note: string;
     }
-
     const noteRandomizer = (arr: Notes[]) => {
       return arr[Math.floor(Math.random() * arr.length)];
     }
 
     const notesComment = () => {
-      if (!currentNotes) return whatToDo();
       const data = JSON.parse(localStorage.getItem("notesCurrent") ?? "[]");
+      if (!data.length) return whatToDo();
       const specData = noteRandomizer(data);
+
+      const responses = [
+        `maybe you should do your task of "${specData.note}"..`,
+        `have you done your task of "${specData.note}" yet?`,
+        `when will you do your task of "${specData.note}"?`,
+        `don't forget about "${specData.note}"!`,
+      ]
+
       resetTalk();
       changeMier("respondneutral");
-      mierTalk(`maybe you should do your task of "${specData.note}"..`, typeSpeed);
+      mierTalk(randomizer(responses), typeSpeed);
     }
 
     const weightComment = () => {
@@ -988,10 +997,10 @@ const MierOS = () => {
       mierTalk(`you like ${userReligion}!`, typeSpeed);
     }
 
-    const possibleComments = [weightComment, heightComment, cityComment, colorComment, countryComment, politicsComment, fearComment, crushComment, religionComment,];
+    const possibleComments = [notesComment, weightComment, heightComment, cityComment, colorComment, countryComment, politicsComment, fearComment, crushComment, religionComment,];
     const func = possibleComments[Math.floor(Math.random() * possibleComments.length)];
-    // func();
-    notesComment();
+    func();
+    // notesComment();
   }
   
 
