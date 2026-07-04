@@ -763,7 +763,6 @@ const MierOS = () => {
 
   const [setup, setSetup] = useState(false);
   const [userName, setUserName] = useState<string>("");
-  const [userSex, setUserSex] = useState<string>("");
   const [userHeight, setUserHeight] = useState<string>("");
   const [userWeight, setUserWeight] = useState<string>("");
   const [userCity, setUserCity] = useState<string>("");
@@ -834,7 +833,6 @@ const MierOS = () => {
 
   type UserInfo = {
     name: string;
-    sex: string;
     height: string;
     weight: string;
     city: string;
@@ -855,7 +853,6 @@ const MierOS = () => {
     if (saved) {
       const info: UserInfo = JSON.parse(saved);
       setUserName(info.name ?? "");
-      setUserSex(info.sex ?? "");
       setUserHeight(info.height ?? "");
       setUserWeight(info.weight ?? "");
       setUserCity(info.city ?? "");
@@ -875,7 +872,6 @@ const MierOS = () => {
     if (!userInfoInitialized.current) return;
     localStorage.setItem("mierOSUserInfo", JSON.stringify({
       name: userName,
-      sex: userSex,
       height: userHeight,
       weight: userWeight,
       city: userCity,
@@ -888,7 +884,116 @@ const MierOS = () => {
       crush: userCrush,
       religion: userReligion,
     }));
-  }, [userName, userSex, userHeight, userWeight, userCity, userColor, userZodiac, userCountry, userPolitics, userPassword, userFear, userCrush, userReligion]);
+  }, [userName, userHeight, userWeight, userCity, userColor, userZodiac, userCountry, userPolitics, userPassword, userFear, userCrush, userReligion]);
+
+  // GET WHAT TO DO
+
+  const getWhatToDo = () => {
+    resetTalk();
+    mierTalk(`hmmm...`, typeSpeed);
+    changeMier("think");
+    
+    setTimeout(() => {
+      whatToDo();
+    }, 2000);
+  }
+
+  const whatToDo = () => {
+    const hasAnyData = currentNotes || userWeight || userHeight || userCity || userColor || userCountry || userPolitics || userFear || userCrush || userReligion;
+    if (!hasAnyData) {
+      mierTalk(`i don't know anything about you!`, typeSpeed);
+      return;
+    }
+
+    type Notes = {
+      date: string;
+      finished: string | null;
+      id: string;
+      note: string;
+    }
+
+    const noteRandomizer = (arr: Notes[]) => {
+      return arr[Math.floor(Math.random() * arr.length)];
+    }
+
+    const notesComment = () => {
+      if (!currentNotes) return whatToDo();
+      const data = JSON.parse(localStorage.getItem("notesCurrent") ?? "[]");
+      const specData = noteRandomizer(data);
+      resetTalk();
+      changeMier("respondneutral");
+      mierTalk(`maybe you should do your task of "${specData.note}"..`, typeSpeed);
+    }
+
+    const weightComment = () => {
+      if (!userWeight) return whatToDo();
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(`you are ${userWeight} lbs!`, typeSpeed);
+    }
+
+    const heightComment = () => {
+      if (!userHeight) return whatToDo();
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(`you are ${userHeight} cm!`, typeSpeed);
+    }
+
+    const cityComment = () => {
+      if (!userCity) return whatToDo();
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(`you are in ${userCity}!`, typeSpeed);
+    }
+
+    const colorComment = () => {
+      if (!userColor) return whatToDo();
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(`you like ${userColor}!`, typeSpeed);
+    }
+
+    const countryComment = () => {
+      if (!userCountry) return whatToDo();
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(`you like ${userCountry}!`, typeSpeed);
+    }
+
+    const politicsComment = () => {
+      if (!userPolitics) return whatToDo();
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(`you like ${userPolitics}!`, typeSpeed);
+    }
+
+    const fearComment = () => {
+      if (!userFear) return whatToDo();
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(`you like ${userFear}!`, typeSpeed);
+    }
+
+    const crushComment = () => {
+      if (!userCrush) return whatToDo();
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(`you like ${userCrush}!`, typeSpeed);
+    }
+
+    const religionComment = () => {
+      if (!userReligion) return whatToDo();
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(`you like ${userReligion}!`, typeSpeed);
+    }
+
+    const possibleComments = [weightComment, heightComment, cityComment, colorComment, countryComment, politicsComment, fearComment, crushComment, religionComment,];
+    const func = possibleComments[Math.floor(Math.random() * possibleComments.length)];
+    // func();
+    notesComment();
+  }
+  
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -916,7 +1021,7 @@ const MierOS = () => {
 
           {/* INFO */}
           <div
-            className="w-full h-[50%] bg-amber-200 p-4 grid grid-cols-[1fr_3fr] gap-1"
+            className="w-[90%] h-[50%] bg-amber-200 p-4 grid grid-cols-[1.5fr_3fr] gap-1"
           >
             <p>full name:</p>
             <div className="w-full grid grid-cols-3 gap-1">
@@ -941,21 +1046,20 @@ const MierOS = () => {
               />
             </div>
             <p>date of birth:</p>
-           <input 
-            type="date"
-            className="w-full pl-1 bg-white"
-            onChange={(e) => setUserZodiac(getZodiac(e.currentTarget.value.slice(5, 10)))}
-          />
+            <input 
+              type="date"
+              className="w-full pl-1 bg-white"
+              onChange={(e) => setUserZodiac(getZodiac(e.currentTarget.value.slice(5, 10)))}
+            />
             <p>sex:</p>
             <select
               defaultValue=""
               className="w-full pl-0.5 bg-white"
-              onChange={(e) => setUserSex(e.currentTarget.value)}
             >
               <option value="" disabled hidden>sex</option>
               <option value="male">male</option>
               <option value="female">female</option>
-              <option value="none">prefer not to say</option>
+              <option value="">prefer not to say</option>
             </select>
             <p>height in cm:</p>
             <input 
@@ -1337,9 +1441,11 @@ const MierOS = () => {
 
           
         </div>
-        <p className="text-center absolute bottom-4 font-bold text-black/50">
-          NONE OF THIS INFO IS NEITHER KEPT BY ANYONE NOR SENT TO MALICIOUS PARTIES<br/>
-          (you can literally put gibberish on all fields, some are used for personalized user experience lol)
+        <p className="text-center absolute bottom-4 font-bold breathe">
+          THESE ARE JOKES AND ARE NOT RECORDED. ALL NECESSARY (ALL NON-SENSITIVE) INFO FOR UX ARE KEPT PURELY IN YOUR BROWSER'S LOCALSTORAGE<br/>
+          <span className="text-black/50">
+          (just write down gibberish or leave fields blank if you want, some are used for personalized user experience lol)
+          </span>
         </p>
         
       </div>
@@ -1829,7 +1935,6 @@ const MierOS = () => {
             <p className="option" onClick={() => getAdvice("fear")}>fear</p>
             <p className="option" onClick={() => getAdvice("shame")}>shame</p>
             <p className="option" onClick={() => getAdvice("despair")}>despair</p>
-            <p className="option">what should i do right now?</p>
           </div>
 
           {/* OPTIONS */}
@@ -1843,7 +1948,9 @@ const MierOS = () => {
             <p className="option" onClick={() => getJoke()}>tell me a joke!</p>
             <p className="option" onClick={() => getFact()}>tell me a fun fact!</p>
             <p className="option" onClick={() => getHoroscope()}>daily horoscope!</p>
+            <p className="option" onClick={() => getWhatToDo()}>what should i do right now?</p>
             <p className="option" onClick={() => setShowAdvice(true)}>i need advice..</p>
+
           </div>
           
           {/* DIALOGUE */}
