@@ -89,13 +89,13 @@ const MierOS = () => {
         let greeting;
 
         if (hours < 6) {
-            greeting = `greetings! shouldn't you be asleep?`
+            greeting = `greetings ${userName.toLocaleLowerCase()}! shouldn't you be asleep?`
         } else if (hours >= 6 && hours < 12) {
-            greeting = `good morning! did you sleep well?`
+            greeting = `good morning ${userName.toLocaleLowerCase()}! did you sleep well?`
         } else if (hours >= 12 && hours < 18) {
-            greeting = `hello! how's your afternoon?`
+            greeting = `hello ${userName.toLocaleLowerCase()}! how's your afternoon?`
         } else {
-            greeting = `good evening! have you done your work today?`
+            greeting = `good evening ${userName.toLocaleLowerCase()}! have you done your work today?`
         }
 
         resetTalk();
@@ -708,7 +708,7 @@ const MierOS = () => {
       } catch (err) {
         resetTalk();
         changeMier("sad");
-        mierTalk("i cant think of one right now, im sorry.. u_u", typeSpeed);
+        mierTalk(`i cant think of one right now ${userName.toLocaleLowerCase()}, im sorry.. u_u`, typeSpeed);
         console.error("Fetch failed:", err);
       }
     }, 1000);
@@ -730,7 +730,7 @@ const MierOS = () => {
       } catch (err) {
         resetTalk();
         changeMier("sad");
-        mierTalk("i cant think of one right now, im sorry.. u_u", typeSpeed);
+        mierTalk(`i cant think of one right now ${userName.toLocaleLowerCase()}, im sorry.. u_u`, typeSpeed);
         console.error("Fetch failed:", err);
       }
     }, 1000);
@@ -748,12 +748,12 @@ const MierOS = () => {
         const data = await result.json();
         resetTalk();
         changeMier("respondneutral");
-        mierTalk(data.horoscope, typeSpeed);
+        mierTalk(data.horoscope, 40);
         console.log(data);
       } catch (err) {
         resetTalk();
         changeMier("sad");
-        mierTalk("im sorry but i cant seem to communicate with the stars right now.. u_u", typeSpeed);
+        mierTalk(`im sorry ${userName.toLocaleLowerCase()} but i cant seem to communicate with the stars right now.. u_u`, typeSpeed);
         console.error("Fetch failed:", err);
       }
     }, 1000);
@@ -762,8 +762,19 @@ const MierOS = () => {
   // SET UP
 
   const [setup, setSetup] = useState(false);
-  const [userZodiac, setUserZodiac] = useState<string>("libra");
+  const [userName, setUserName] = useState<string>("");
+  const [userSex, setUserSex] = useState<string>("");
+  const [userHeight, setUserHeight] = useState<string>("");
+  const [userWeight, setUserWeight] = useState<string>("");
+  const [userCity, setUserCity] = useState<string>("");
+  const [userColor, setUserColor] = useState<string>("");
+  const [userZodiac, setUserZodiac] = useState<string>("");
+  const [userCountry, setUserCountry] = useState<string>("");
+  const [userPolitics, setUserPolitics] = useState<string>("");
   const [userPassword, setUserPassword] = useState<string>("");
+  const [userFear, setUserFear] = useState<string>("");
+  const [userCrush, setUserCrush] = useState<string>("");
+  const [userReligion, setUserReligion] = useState<string>("");
   
   useEffect(() => {
     const state = localStorage.getItem("mierOSsetup");
@@ -791,18 +802,93 @@ const MierOS = () => {
       }, 2000);
 
       setTimeout(() => {
-        blackScreenRef.current!.style.opacity = "0";
-        setTimeout(() => {
-          blackScreenRef.current!.style.display = "hidden";
-        }, 1000);
-      }, 4000);
-
-      setTimeout(() => {
         localStorage.removeItem("mierOSsetup");
+        localStorage.removeItem("mierOSUserInfo");
+        // localStorage.removeItem("mierAmpPlaylist");
+        // localStorage.removeItem("mierAmpVolume");
+        // localStorage.removeItem("notesCurrent");
+        // localStorage.removeItem("notesFinished");
+        // localStorage.removeItem("notesReminder");
         setSetup(false);
+        window.location.reload()
       }, 4000);
     }
   }
+
+  const getZodiac = (mmdd: string) => {
+    const [month, day] = mmdd.split("-").map(Number);
+
+    if ((month === 12 && day >= 22) || (month === 1 && day <= 19)) return "capricorn";
+    if (month === 1 || (month === 2 && day <= 18)) return "aquarius";
+    if (month === 2 || (month === 3 && day <= 20)) return "pisces";
+    if (month === 3 || (month === 4 && day <= 19)) return "aries";
+    if (month === 4 || (month === 5 && day <= 20)) return "taurus";
+    if (month === 5 || (month === 6 && day <= 20)) return "gemini";
+    if (month === 6 || (month === 7 && day <= 22)) return "cancer";
+    if (month === 7 || (month === 8 && day <= 22)) return "leo";
+    if (month === 8 || (month === 9 && day <= 22)) return "virgo";
+    if (month === 9 || (month === 10 && day <= 22)) return "libra";
+    if (month === 10 || (month === 11 && day <= 21)) return "scorpio";
+    return "sagittarius";
+  };
+
+  type UserInfo = {
+    name: string;
+    sex: string;
+    height: string;
+    weight: string;
+    city: string;
+    color: string;
+    zodiac: string;
+    country: string;
+    politics: string;
+    password: string;
+    fear: string;
+    crush: string;
+    religion: string;
+  }
+
+  const userInfoInitialized = useRef(false);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("mierOSUserInfo");
+    if (saved) {
+      const info: UserInfo = JSON.parse(saved);
+      setUserName(info.name ?? "");
+      setUserSex(info.sex ?? "");
+      setUserHeight(info.height ?? "");
+      setUserWeight(info.weight ?? "");
+      setUserCity(info.city ?? "");
+      setUserColor(info.color ?? "");
+      setUserZodiac(info.zodiac ?? "");
+      setUserCountry(info.country ?? "");
+      setUserPolitics(info.politics ?? "");
+      setUserPassword(info.password ?? "");
+      setUserFear(info.fear ?? "");
+      setUserCrush(info.crush ?? "");
+      setUserReligion(info.religion ?? "");
+    }
+    userInfoInitialized.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!userInfoInitialized.current) return;
+    localStorage.setItem("mierOSUserInfo", JSON.stringify({
+      name: userName,
+      sex: userSex,
+      height: userHeight,
+      weight: userWeight,
+      city: userCity,
+      color: userColor,
+      zodiac: userZodiac,
+      country: userCountry,
+      politics: userPolitics,
+      password: userPassword,
+      fear: userFear,
+      crush: userCrush,
+      religion: userReligion,
+    }));
+  }, [userName, userSex, userHeight, userWeight, userCity, userColor, userZodiac, userCountry, userPolitics, userPassword, userFear, userCrush, userReligion]);
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -810,16 +896,450 @@ const MierOS = () => {
       {/* SET UP SCREEN */}
       <div 
         className={`
-          w-screen h-screen bg-[rgb(206,232,236)]
+          w-screen h-screen bg-[rgb(200,218,220)]
           items-center justify-center transition-all
           duration-1200 ease-[ease] fixed z-2000 nonsel
           ${setup ? "hidden" : "flex"}
         `}
       >
-        <p
-          onClick={() => setupMierOS(true)}
+        <div
+          className={`
+            flex flex-col items-center justify-between relative p-4
+            h-auto w-[40vw] bg-amber-50 gap-4 mb-4
+          `}
         >
-          SETUP
+          {/* TOP */}
+          <div className="flex flex-col items-center justify-center">
+            <p>looks like this is your first time setting up MierOS!</p>
+            <p>please enter your info below!</p>
+          </div>
+
+          {/* INFO */}
+          <div
+            className="w-full h-[50%] bg-amber-200 p-4 grid grid-cols-[1fr_3fr] gap-1"
+          >
+            <p>full name:</p>
+            <div className="w-full grid grid-cols-3 gap-1">
+              <input 
+                type="text"
+                className="pl-1 bg-white"
+                placeholder="first name"
+                autoComplete="off"
+                onChange={(e) => setUserName(e.currentTarget.value)}
+              />
+              <input 
+                type="text"
+                className="pl-1 bg-white"
+                placeholder="middle name"
+                autoComplete="off"
+              />
+              <input 
+                type="text"
+                className="pl-1 bg-white"
+                placeholder="last name"
+                autoComplete="off"
+              />
+            </div>
+            <p>date of birth:</p>
+           <input 
+            type="date"
+            className="w-full pl-1 bg-white"
+            onChange={(e) => setUserZodiac(getZodiac(e.currentTarget.value.slice(5, 10)))}
+          />
+            <p>sex:</p>
+            <select
+              defaultValue=""
+              className="w-full pl-0.5 bg-white"
+              onChange={(e) => setUserSex(e.currentTarget.value)}
+            >
+              <option value="" disabled hidden>sex</option>
+              <option value="male">male</option>
+              <option value="female">female</option>
+              <option value="none">prefer not to say</option>
+            </select>
+            <p>height in cm:</p>
+            <input 
+              type="number"
+              className="w-full pl-1 bg-white"
+              placeholder="180cm"
+              autoComplete="off"
+              onChange={(e) => setUserHeight(e.currentTarget.value)}
+            />
+            <p>weight in pounds:</p>
+            <input 
+              type="number"
+              className="w-full pl-1 bg-white"
+              placeholder="160lbs"
+              autoComplete="off"
+              onChange={(e) => setUserWeight(e.currentTarget.value)}
+            />
+            <p>email address:</p>
+            <input 
+              type="text"
+              className="w-full pl-1 bg-white"
+              placeholder="user@email.com"
+              autoComplete="off"
+            />
+            <p>country:</p>
+            <select
+              defaultValue=""
+              className="w-full pl-0.5 bg-white"
+              
+              onChange={(e) => setUserCountry(e.currentTarget.value)}
+            >
+              <option value="" disabled hidden>country</option>
+              <option value="Afghanistan">Afghanistan</option>
+              <option value="Albania">Albania</option>
+              <option value="Algeria">Algeria</option>
+              <option value="Andorra">Andorra</option>
+              <option value="Angola">Angola</option>
+              <option value="Antigua&Deps">Antigua & Deps</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Armenia">Armenia</option>
+              <option value="Australia">Australia</option>
+              <option value="Austria">Austria</option>
+              <option value="Azerbaijan">Azerbaijan</option>
+              <option value="Bahamas">Bahamas</option>
+              <option value="Bahrain">Bahrain</option>
+              <option value="Bangladesh">Bangladesh</option>
+              <option value="Barbados">Barbados</option>
+              <option value="Belarus">Belarus</option>
+              <option value="Belgium">Belgium</option>
+              <option value="Belize">Belize</option>
+              <option value="Benin">Benin</option>
+              <option value="Bermuda">Bermuda</option>
+              <option value="Bhutan">Bhutan</option>
+              <option value="Bolivia">Bolivia</option>
+              <option value="BosniaHerzegovina">Bosnia & Herzegovina</option>
+              <option value="Botswana">Botswana</option>
+              <option value="Brazil">Brazil</option>
+              <option value="Brunei">Brunei</option>
+              <option value="Bulgaria">Bulgaria</option>
+              <option value="Burkina">Burkina</option>
+              <option value="Burundi">Burundi</option>
+              <option value="Cambodia">Cambodia</option>
+              <option value="Cameroon">Cameroon</option>
+              <option value="Canada">Canada</option>
+              <option value="CapeVerde">Cape Verde</option>
+              <option value="CentralAfricanRep">Central African Rep</option>
+              <option value="Chad">Chad</option>
+              <option value="Chile">Chile</option>
+              <option value="China">China</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Comoros">Comoros</option>
+              <option value="Congo">Congo</option>
+              <option value="Congo(DemocraticRep)">Congo (Democratic Rep)</option>
+              <option value="CostaRica">Costa Rica</option>
+              <option value="Croatia">Croatia</option>
+              <option value="Cuba">Cuba</option>
+              <option value="Cyprus">Cyprus</option>
+              <option value="CzechRepublic">Czech Republic</option>
+              <option value="Denmark">Denmark</option>
+              <option value="Djibouti">Djibouti</option>
+              <option value="Dominica">Dominica</option>
+              <option value="DominicanRepublic">Dominican Republic</option>
+              <option value="EastTimor">East Timor</option>
+              <option value="Ecuador">Ecuador</option>
+              <option value="Egypt">Egypt</option>
+              <option value="ElSalvador">El Salvador</option>
+              <option value="EquatorialGuinea">Equatorial Guinea</option>
+              <option value="Eritrea">Eritrea</option>
+              <option value="Estonia">Estonia</option>
+              <option value="Eswatini">Eswatini</option>
+              <option value="Ethiopia">Ethiopia</option>
+              <option value="Fiji">Fiji</option>
+              <option value="Finland">Finland</option>
+              <option value="France">France</option>
+              <option value="Gabon">Gabon</option>
+              <option value="Gambia">Gambia</option>
+              <option value="Georgia">Georgia</option>
+              <option value="Germany">Germany</option>
+              <option value="Ghana">Ghana</option>
+              <option value="Greece">Greece</option>
+              <option value="Grenada">Grenada</option>
+              <option value="Guatemala">Guatemala</option>
+              <option value="Guinea">Guinea</option>
+              <option value="Guinea-Bissau">Guinea-Bissau</option>
+              <option value="Guyana">Guyana</option>
+              <option value="Haiti">Haiti</option>
+              <option value="Honduras">Honduras</option>
+              <option value="Hungary">Hungary</option>
+              <option value="Iceland">Iceland</option>
+              <option value="India">India</option>
+              <option value="Indonesia">Indonesia</option>
+              <option value="Iran">Iran</option>
+              <option value="Iraq">Iraq</option>
+              <option value="Ireland(Republic)">Ireland (Republic)</option>
+              <option value="Israel">Israel</option>
+              <option value="Italy">Italy</option>
+              <option value="IvoryCoast">Ivory Coast</option>
+              <option value="Jamaica">Jamaica</option>
+              <option value="Japan">Japan</option>
+              <option value="Jordan">Jordan</option>
+              <option value="Kazakhstan">Kazakhstan</option>
+              <option value="Kenya">Kenya</option>
+              <option value="Kiribati">Kiribati</option>
+              <option value="KoreaNorth">Korea North</option>
+              <option value="KoreaSouth">Korea South</option>
+              <option value="Kosovo">Kosovo</option>
+              <option value="Kuwait">Kuwait</option>
+              <option value="Kyrgyzstan">Kyrgyzstan</option>
+              <option value="Laos">Laos</option>
+              <option value="Latvia">Latvia</option>
+              <option value="Lebanon">Lebanon</option>
+              <option value="Lesotho">Lesotho</option>
+              <option value="Liberia">Liberia</option>
+              <option value="Libya">Libya</option>
+              <option value="Liechtenstein">Liechtenstein</option>
+              <option value="Lithuania">Lithuania</option>
+              <option value="Luxembourg">Luxembourg</option>
+              <option value="Macedonia">Macedonia</option>
+              <option value="Madagascar">Madagascar</option>
+              <option value="Malawi">Malawi</option>
+              <option value="Malaysia">Malaysia</option>
+              <option value="Maldives">Maldives</option>
+              <option value="Mali">Mali</option>
+              <option value="Malta">Malta</option>
+              <option value="MarshallIslands">Marshall Islands</option>
+              <option value="Mauritania">Mauritania</option>
+              <option value="Mauritius">Mauritius</option>
+              <option value="Mexico">Mexico</option>
+              <option value="Micronesia">Micronesia</option>
+              <option value="Moldova">Moldova</option>
+              <option value="Monaco">Monaco</option>
+              <option value="Mongolia">Mongolia</option>
+              <option value="Montenegro">Montenegro</option>
+              <option value="Morocco">Morocco</option>
+              <option value="Mozambique">Mozambique</option>
+              <option value="Myanmar">Myanmar</option>
+              <option value="Namibia">Namibia</option>
+              <option value="Nauru">Nauru</option>
+              <option value="Nepal">Nepal</option>
+              <option value="Netherlands">Netherlands</option>
+              <option value="NewZealand">New Zealand</option>
+              <option value="Nicaragua">Nicaragua</option>
+              <option value="Niger">Niger</option>
+              <option value="Nigeria">Nigeria</option>
+              <option value="Norway">Norway</option>
+              <option value="Oman">Oman</option>
+              <option value="Pakistan">Pakistan</option>
+              <option value="Palau">Palau</option>
+              <option value="Palestine">Palestine</option>
+              <option value="Panama">Panama</option>
+              <option value="PapuaNewGuinea">Papua New Guinea</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Peru">Peru</option>
+              <option value="Philippines">Philippines</option>
+              <option value="Poland">Poland</option>
+              <option value="Portugal">Portugal</option>
+              <option value="Qatar">Qatar</option>
+              <option value="Romania">Romania</option>
+              <option value="RussianFederation">Russian Federation</option>
+              <option value="Rwanda">Rwanda</option>
+              <option value="StKitts&Nevis">St Kitts & Nevis</option>
+              <option value="StLucia">St Lucia</option>
+              <option value="SaintVincent&theGrenadines">Saint Vincent & the Grenadines</option>
+              <option value="Samoa">Samoa</option>
+              <option value="SanMarino">San Marino</option>
+              <option value="SaoTome&Principe">Sao Tome & Principe</option>
+              <option value="SaudiArabia">Saudi Arabia</option>
+              <option value="Senegal">Senegal</option>
+              <option value="Serbia">Serbia</option>
+              <option value="Seychelles">Seychelles</option>
+              <option value="SierraLeone">Sierra Leone</option>
+              <option value="Singapore">Singapore</option>
+              <option value="Slovakia">Slovakia</option>
+              <option value="Slovenia">Slovenia</option>
+              <option value="SolomonIslands">Solomon Islands</option>
+              <option value="Somalia">Somalia</option>
+              <option value="SouthAfrica">South Africa</option>
+              <option value="SouthSudan">South Sudan</option>
+              <option value="Spain">Spain</option>
+              <option value="SriLanka">Sri Lanka</option>
+              <option value="Sudan">Sudan</option>
+              <option value="Suriname">Suriname</option>
+              <option value="Sweden">Sweden</option>
+              <option value="Switzerland">Switzerland</option>
+              <option value="Syria">Syria</option>
+              <option value="Taiwan">Taiwan</option>
+              <option value="Tajikistan">Tajikistan</option>
+              <option value="Tanzania">Tanzania</option>
+              <option value="Thailand">Thailand</option>
+              <option value="Togo">Togo</option>
+              <option value="Tonga">Tonga</option>
+              <option value="Trinidad&Tobago">Trinidad & Tobago</option>
+              <option value="Tunisia">Tunisia</option>
+              <option value="Turkey">Turkey</option>
+              <option value="Turkmenistan">Turkmenistan</option>
+              <option value="Tuvalu">Tuvalu</option>
+              <option value="Uganda">Uganda</option>
+              <option value="Ukraine">Ukraine</option>
+              <option value="UnitedArabEmirates">United Arab Emirates</option>
+              <option value="UnitedKingdom">United Kingdom</option>
+              <option value="UnitedStates">United States</option>
+              <option value="Uruguay">Uruguay</option>
+              <option value="Uzbekistan">Uzbekistan</option>
+              <option value="Vanuatu">Vanuatu</option>
+              <option value="VaticanCity">Vatican City</option>
+              <option value="Venezuela">Venezuela</option>
+              <option value="Vietnam">Vietnam</option>
+              <option value="Yemen">Yemen</option>
+              <option value="Zambia">Zambia</option>
+              <option value="Zimbabwe">Zimbabwe</option>
+            </select>
+            <p>phone number:</p>
+            <input 
+              type="text"
+              className="w-full pl-1 bg-white"
+              placeholder="+1 234 567-8910"
+              autoComplete="off"
+            />
+            <p>city:</p>
+            <input 
+              type="text"
+              className="w-full pl-1 bg-white"
+              placeholder="city"
+              autoComplete="off"
+              onChange={(e) => setUserCity(e.currentTarget.value)}
+            />
+            <p>street:</p>
+            <input 
+              type="text"
+              className="w-full pl-1 bg-white"
+              placeholder="street"
+              autoComplete="off"
+            />
+            <p>zip code:</p>
+            <input 
+              type="text"
+              className="w-full pl-1 bg-white"
+              placeholder="1230"
+              autoComplete="off"
+            />
+            <p>credit card:</p>
+            <div className="w-full grid grid-cols-4 gap-1">
+              {Array.from({ length: 4 }).map((_, i) => (
+                <input
+                  key={i}
+                  type="text"
+                  className="pl-1 bg-white text-center"
+                  autoComplete="off"
+                  maxLength={4}
+                  placeholder="0000"
+                />
+              ))}
+            </div>
+            <p>CVV:</p>
+            <input
+              type="text"
+              className="pl-1 bg-white text-center"
+              autoComplete="CVV"
+              maxLength={3}
+              placeholder="000"
+            />
+            <p>SSN:</p>
+            <div className="w-full grid grid-cols-3 gap-1">
+              {[3, 2, 4].map((i) => (
+                <input
+                  key={i}
+                  type="text"
+                  className={`
+                    pl-1 text-center
+                    ${userCountry === "UnitedStates" 
+                      ? "bg-white" 
+                      : "bg-gray-400 pointer-events-none"
+                    }
+                  `}
+                  autoComplete="off"
+                  maxLength={i}
+                  placeholder={"0".repeat(i)}
+                />
+              ))}
+            </div>
+
+            <p>deepest fear:</p>
+            <input 
+              type="text"
+              className="w-full pl-1 bg-white"
+              placeholder="skeletons"
+              autoComplete="off"
+              onChange={(e) => setUserFear(e.currentTarget.value)}
+            />
+            <p>current crush:</p>
+            <input 
+              type="text"
+              className="w-full pl-1 bg-white"
+              placeholder="abri"
+              autoComplete="off"
+              onChange={(e) => setUserCrush(e.currentTarget.value)}
+            />
+            <p>favorite color:</p>
+            <input 
+              type="text"
+              className="w-full pl-1 bg-white"
+              placeholder="blue"
+              autoComplete="off"
+              onChange={(e) => setUserColor(e.currentTarget.value)}
+            />
+            <p>religious beliefs:</p>
+            <select
+              defaultValue=""
+              className="w-full pl-0.5 bg-white"
+              onChange={(e) => setUserReligion(e.currentTarget.value)}
+            >
+              <option value="" disabled hidden>religion</option>
+              <option value="christian">christianity</option>
+              <option value="muslim">islam</option>
+              <option value="judaism">judaism</option>
+              <option value="buddhist">buddhism</option>
+              <option value="hindu">hinduism</option>
+              <option value="shinto">shintoism</option>
+              <option value="taoism">taoism</option>
+              <option value="other">other</option>
+              <option value="agnostic">agnostic</option>
+              <option value="atheist">materialist hedonist determinist atheist</option>
+            </select>
+            <p>political views:</p>
+            <select
+              defaultValue=""
+              className="w-full pl-0.5 bg-white"
+              onChange={(e) => setUserPolitics(e.currentTarget.value)}
+            >
+              <option value="" disabled hidden>views</option>
+              <option value="socialist">socialist</option>
+              <option value="democrat">democrat</option>
+              <option value="liberal">liberal</option>
+              <option value="centrist">boomer centrist</option>
+              <option value="libertarian">libertarian</option>
+              <option value="conservative">conservative</option>
+              <option value="capitalist">capitalist</option>
+              <option value="fashy">chud fashy (none of these words are in the bible)</option>
+              <option value="tankie">cringe tankie (none of these words are in the bible)</option>
+              <option value="none">enlightened non-participant</option>
+            </select>
+            <p>MierOS password:</p>
+            <input 
+              type="password"
+              className="w-full pl-1 bg-white"
+              placeholder="password"
+              autoComplete="off"
+              onChange={(e) => setUserPassword(e.currentTarget.value)}
+            />
+          </div>
+
+          {/* SUBMIT */}
+          <p
+            onClick={() => setupMierOS(true)}
+            className="cursor-pointer py-2 px-4 bg-amber-100 rounded-sm"
+          >
+            Finish Setup
+          </p>
+
+          
+        </div>
+        <p className="text-center absolute bottom-4 font-bold text-black/50">
+          NONE OF THIS INFO IS NEITHER KEPT BY ANYONE NOR SENT TO MALICIOUS PARTIES<br/>
+          (you can literally put gibberish on all fields, some are used for personalized user experience lol)
         </p>
         
       </div>
