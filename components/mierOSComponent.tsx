@@ -586,7 +586,7 @@ const MierOS = () => {
   }
 
   const talkTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const typeSpeed = 80;
+  const typeSpeed = 60;
 
   const mierTalk = (text: string, speed: number, i: number = 0) => {
     if (!chatboxTextRef.current) return;
@@ -765,7 +765,6 @@ const MierOS = () => {
   const [userName, setUserName] = useState<string>("");
   const [userHeight, setUserHeight] = useState<string>("");
   const [userWeight, setUserWeight] = useState<string>("");
-  const [userCity, setUserCity] = useState<string>("");
   const [userColor, setUserColor] = useState<string>("");
   const [userZodiac, setUserZodiac] = useState<string>("");
   const [userCountry, setUserCountry] = useState<string>("");
@@ -835,7 +834,6 @@ const MierOS = () => {
     name: string;
     height: string;
     weight: string;
-    city: string;
     color: string;
     zodiac: string;
     country: string;
@@ -855,7 +853,6 @@ const MierOS = () => {
       setUserName(info.name ?? "");
       setUserHeight(info.height ?? "");
       setUserWeight(info.weight ?? "");
-      setUserCity(info.city ?? "");
       setUserColor(info.color ?? "");
       setUserZodiac(info.zodiac ?? "");
       setUserCountry(info.country ?? "");
@@ -874,7 +871,6 @@ const MierOS = () => {
       name: userName,
       height: userHeight,
       weight: userWeight,
-      city: userCity,
       color: userColor,
       zodiac: userZodiac,
       country: userCountry,
@@ -884,7 +880,7 @@ const MierOS = () => {
       crush: userCrush,
       religion: userReligion,
     }));
-  }, [userName, userHeight, userWeight, userCity, userColor, userZodiac, userCountry, userPolitics, userPassword, userFear, userCrush, userReligion]);
+  }, [userName, userHeight, userWeight, userColor, userZodiac, userCountry, userPolitics, userPassword, userFear, userCrush, userReligion]);
 
   // GET WHAT TO DO
 
@@ -899,7 +895,9 @@ const MierOS = () => {
   }
 
   const whatToDo = () => {
-    const hasAnyData = currentNotes?.length || userWeight || userHeight || userCity || userColor || userCountry || userPolitics || userFear || userCrush || userReligion;
+
+    // DATA CHECKER
+    const hasAnyData = currentNotes?.length || userWeight || userHeight || userColor || userCountry || userPolitics || userFear || userCrush || userReligion;
     if (!hasAnyData) {
       resetTalk();
       changeMier("sad");
@@ -907,6 +905,7 @@ const MierOS = () => {
       return;
     }
 
+    // NOTES
     type Notes = {
       date: string;
       finished: string | null;
@@ -916,7 +915,6 @@ const MierOS = () => {
     const noteRandomizer = (arr: Notes[]) => {
       return arr[Math.floor(Math.random() * arr.length)];
     }
-
     const notesComment = () => {
       const data = JSON.parse(localStorage.getItem("notesCurrent") ?? "[]");
       if (!data.length) return whatToDo();
@@ -934,73 +932,204 @@ const MierOS = () => {
       mierTalk(randomizer(responses), typeSpeed);
     }
 
+    // WEIGHT
     const weightComment = () => {
       if (!userWeight) return whatToDo();
+      const weight = Number(userWeight);
+
+      const responses =
+      weight <= 30 ? [
+        `i was gonna suggest going outside but the wind might take you..`,
+        `you are ${weight} lbs.. maybe go eat something, anything. a crumb. please!`,
+        `at ${weight} lbs you could go float in a pool with very little effort.. just saying!`,
+        `maybe eat a sandwich, a big one. maybe 2.. actually maybe 4!`,
+      ] :
+      weight <= 60 ? [
+        ``,
+        ``,
+      ] :
+      weight <= 100 ? [
+        ``,
+      ] :
+      weight <= 150 ? [
+        ``,
+      ] :
+      weight <= 200 ? [
+        ``,
+      ] :
+      weight <= 300 ? [
+        ``,
+      ] :
+      weight <= 500 ? [
+        `maybe go do something you genuinely enjoy that doesn't involve a screen.`,
+      ] :
+      weight <= 10000 ? [
+        `at ${weight} lbs you have entered elephant territory. you should go find a river to bathe in.`,
+        `maybe don't do cannonballs in any body of water.. you might cause a tsunami..`,
+        `try taking a nap outside. the earth is your mattress now at ${weight} lbs.`,
+      ] : [
+        `go eat the moon as a snack, you've earned it!`,
+        `go cause a small geological event. it's basically cardio at your size of ${weight} lbs!`,
+        `you should go become a mountain. the view up there is probably great!`,
+      ];
+
       resetTalk();
       changeMier("respondhappy");
-      mierTalk(`you are ${userWeight} lbs!`, typeSpeed);
+      mierTalk(randomizer(responses), typeSpeed);
     }
 
+    // HEIGHT
     const heightComment = () => {
       if (!userHeight) return whatToDo();
+      const height = Number(userHeight);
+
+      const responses =
+      height <= 1 ? [
+        `you should probably just.. stay still. and hope nobody accidentally steps on you.`,
+        `i think you could.. hold on... where are you? i can't see you..`,
+        `i.. can't hear you.. i think you need a micro-microphone so i can hear you.`,
+        `i'd suggest finding a grain of rice to use as a bed and calling it a day.`,
+      ] :
+      height <= 15 ? [
+        `i'd be careful if i were you, you'd probably lose against a hamster..`,
+        `you could live inside a shoe and call it a mansion since you're ${height}cm!`,
+        `you could sneak into a mouse hole and see what's going on in there..`,
+        `go explore under the couch. nobody has mapped that territory yet!`,
+      ] :
+      height <= 30 ? [
+        `you could invest in a ladder just to climb onto a chair!`,
+        `you should go on a walk! a really long one. like, to the end of the hallway.`,
+      ] :
+      height <= 60 ? [
+        `since you're like ${height}cm, you could go play hide-and-seek with your friends and win all the time!`,
+      ] :
+      height <= 100 ? [
+        `try finding a rollercoaster you're actually allowed on, it's a fun challenge!`,
+        `you should go take a nap. you've been looking up at people all day and that sounds exhausting!`,
+      ] :
+      height <= 140 ? [
+        `you could audition to be the world's tallest midget!`,
+      ] :
+      height <= 160 ? [
+        `go drink some milk and then drink more milk. maybe you'll gain a centimeter.`,
+      ] :
+      height <= 180 ? [
+        `..honestly i was gonna respond based on your height, but you're average height LOL do what you need to, you know what to do.`,
+      ] :
+      height <= 210 ? [
+        `go grab something off the top shelf for someone. it's basically your calling at ${height}cm.`,
+      ] :
+      height <= 600 ? [
+        `you should go stand outside and let birds land on you. you're basically a tree!`,
+        `why don't you go eat some tree leaves like a giraffe since you're like ${userHeight}cm tall!`,
+        `you could walk to another city in like three steps. maybe go do that!`,
+      ] :
+      height <= 30000 ? [
+        `you could apply as an air traffic controller, all you have to do is to just use your head!`,
+        `have you decided which mountain you're gonna sleep on tonight?`,
+        `which of the 7 seas do you use for your baths??`,
+      ] : 
+      height <= 1200000 ? [
+        `try leaning over and see what's happening in the country next door!`,
+        `you could say hi to the airplanes around your head at ${Math.floor(height * 0.0328084).toLocaleString()} feet above water!`,
+      ] : [
+        `can you clean the firmament around us?? you're like ${Math.floor(height * 0.0328084).toLocaleString()} feet tall!`,
+      ];
+
       resetTalk();
-      changeMier("respondhappy");
-      mierTalk(`you are ${userHeight} cm!`, typeSpeed);
+      changeMier("laugh");
+      mierTalk(randomizer(responses), typeSpeed);
     }
 
-    const cityComment = () => {
-      if (!userCity) return whatToDo();
-      resetTalk();
-      changeMier("respondhappy");
-      mierTalk(`you are in ${userCity}!`, typeSpeed);
-    }
-
+    // COLOR
     const colorComment = () => {
       if (!userColor) return whatToDo();
+
+      const responses = [
+        `you could try painting something in ${userColor}`,
+        `have you tried painting something with minimal ${userColor} to none?`,
+      ]
+
       resetTalk();
-      changeMier("respondhappy");
-      mierTalk(`you like ${userColor}!`, typeSpeed);
+      changeMier("respondneutral");
+      mierTalk(randomizer(responses), typeSpeed);
     }
 
+    // COUNTRY
     const countryComment = () => {
       if (!userCountry) return whatToDo();
+
+      const responses = [
+        `have you explored everything you wanted to in ${userCountry}?`,
+        `what other sights have you not seen in ${userCountry}?`,
+        `you could travel outside of ${userCountry}!`,
+      ]
+
       resetTalk();
       changeMier("respondhappy");
       mierTalk(`you like ${userCountry}!`, typeSpeed);
     }
 
+    // POLITICS
     const politicsComment = () => {
-      if (!userPolitics) return whatToDo();
+      if (!userPolitics || (userPolitics !== "tankie" && userPolitics !== "fashy")) return whatToDo();
+
       resetTalk();
-      changeMier("respondhappy");
-      mierTalk(`you like ${userPolitics}!`, typeSpeed);
+      changeMier("laugh");
+      mierTalk(`dont you have to go argue pointlessly about politics with strangers online?`, typeSpeed);
     }
 
+    // FEAR
     const fearComment = () => {
       if (!userFear) return whatToDo();
+
+      const responses = [
+        `have you gotten over your fear of ${userFear} yet?`,
+        `you could try facing your fear of ${userFear} right now!`,
+        `does your fear of ${userFear} still affect you?`,
+        `you could attempt exposure therapy for your fear of ${userFear}!`,
+      ]
+
       resetTalk();
       changeMier("respondhappy");
-      mierTalk(`you like ${userFear}!`, typeSpeed);
+      mierTalk(randomizer(responses), typeSpeed);
     }
 
+    // CRUSH
     const crushComment = () => {
       if (!userCrush) return whatToDo();
+
+      const responses = [
+        `when will you muster up the courage to ask ${userCrush.toLocaleLowerCase()} out?`,
+        `you could think of ways to get ${userCrush.toLocaleLowerCase()}'s attention!`,
+        `${userCrush.toLocaleLowerCase()} isn't a 2D character right?`,
+        `you could try thinking of something else other than ${userCrush.toLocaleLowerCase()}`,
+      ]
+
       resetTalk();
-      changeMier("respondhappy");
-      mierTalk(`you like ${userCrush}!`, typeSpeed);
+      changeMier("laugh");
+      mierTalk(randomizer(responses), typeSpeed);
     }
 
+    // RELIGION
     const religionComment = () => {
-      if (!userReligion) return whatToDo();
+      if (!userReligion || userReligion === "agnostic" || userReligion === "other" || userReligion === "atheist") return whatToDo();
+
+      const responses = [
+        `have you been fasting lately? it's important to clear your gut and mind!`,
+        `have you meditated today? i hope your attention span isn't that of typical zoomer!`,
+        `have you prayed today? a communion with the creator is crucial!`,
+      ]
+
       resetTalk();
       changeMier("respondhappy");
-      mierTalk(`you like ${userReligion}!`, typeSpeed);
+      mierTalk(randomizer(responses), typeSpeed);
     }
 
-    const possibleComments = [notesComment, weightComment, heightComment, cityComment, colorComment, countryComment, politicsComment, fearComment, crushComment, religionComment,];
+    const possibleComments = [notesComment, weightComment, heightComment, colorComment, countryComment, politicsComment, fearComment, crushComment, religionComment,];
     const func = possibleComments[Math.floor(Math.random() * possibleComments.length)];
-    func();
-    // notesComment();
+    // func();
+    heightComment();
   }
   
 
@@ -1313,7 +1442,6 @@ const MierOS = () => {
               className="w-full pl-1 bg-white"
               placeholder="city"
               autoComplete="off"
-              onChange={(e) => setUserCity(e.currentTarget.value)}
             />
             <p>street:</p>
             <input 
@@ -1403,11 +1531,11 @@ const MierOS = () => {
               <option value="" disabled hidden>religion</option>
               <option value="christian">christianity</option>
               <option value="muslim">islam</option>
-              <option value="judaism">judaism</option>
               <option value="buddhist">buddhism</option>
               <option value="hindu">hinduism</option>
               <option value="shinto">shintoism</option>
               <option value="taoism">taoism</option>
+              <option value="judaism">judaism</option>
               <option value="other">other</option>
               <option value="agnostic">agnostic</option>
               <option value="atheist">materialist hedonist determinist atheist</option>
