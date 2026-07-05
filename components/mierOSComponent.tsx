@@ -452,9 +452,9 @@ const MierOS = () => {
   const currentNotesInitialized = useRef(false);
   const finishedNotesInitialized = useRef(false);
   const reminderNotesInitialized = useRef(false);
-  const [currentNotes, setCurrentNotes] = useState<Note[]>([{"id":"6969698008135","note":"hi :3","date":"(1:34 AM - 26/06/26)","finished":null}])
+  const [currentNotes, setCurrentNotes] = useState<Note[]>([])
   const [finishedNotes, setFinishedNotes] = useState<Note[]>([])
-  const [reminderNotes, setReminderNotes] = useState<Note[]>([])
+  const [reminderNotes, setReminderNotes] = useState<Note[]>([{"id":"6969698008135","note":"hi :3","date":"(4:56 AM - 26/07/05)","finished":null}])
 
   const notes = {
     current: {
@@ -896,15 +896,6 @@ const MierOS = () => {
 
   const whatToDo = () => {
 
-    // DATA CHECKER
-    const hasAnyData = currentNotes?.length || userWeight || userHeight || userColor || userCountry || userPolitics || userFear || userCrush || userReligion;
-    if (!hasAnyData) {
-      resetTalk();
-      changeMier("sad");
-      mierTalk(`sorry${userName && ` ${userName}`}, i don't know anything about you at all..`, typeSpeed);
-      return;
-    }
-
     // NOTES
     type Notes = {
       date: string;
@@ -917,7 +908,6 @@ const MierOS = () => {
     }
     const notesComment = () => {
       const data = JSON.parse(localStorage.getItem("notesCurrent") ?? "[]");
-      if (!data.length) return whatToDo();
       const specData = noteRandomizer(data);
 
       const responses = [
@@ -934,53 +924,30 @@ const MierOS = () => {
 
     // WEIGHT
     const weightComment = () => {
-      if (!userWeight) return whatToDo();
       const weight = Number(userWeight);
 
       const responses =
-      weight <= 30 ? [
+      weight <= 60 ? [
         `i was gonna suggest going outside but the wind might take you..`,
         `you are ${weight} lbs.. maybe go eat something, anything. a crumb. please!`,
         `at ${weight} lbs you could go float in a pool with very little effort.. just saying!`,
         `maybe eat a sandwich, a big one. maybe 2.. actually maybe 4!`,
-      ] :
-      weight <= 60 ? [
-        ``,
-        ``,
-      ] :
-      weight <= 100 ? [
-        ``,
-      ] :
-      weight <= 150 ? [
-        ``,
-      ] :
-      weight <= 200 ? [
-        ``,
-      ] :
-      weight <= 300 ? [
-        ``,
-      ] :
-      weight <= 500 ? [
-        `maybe go do something you genuinely enjoy that doesn't involve a screen.`,
-      ] :
-      weight <= 10000 ? [
-        `at ${weight} lbs you have entered elephant territory. you should go find a river to bathe in.`,
+      ] : [
+        `at ${weight} lbs you are entering elephant territory. you should go find a river to bathe in.`,
         `maybe don't do cannonballs in any body of water.. you might cause a tsunami..`,
         `try taking a nap outside. the earth is your mattress now at ${weight} lbs.`,
-      ] : [
         `go eat the moon as a snack, you've earned it!`,
         `go cause a small geological event. it's basically cardio at your size of ${weight} lbs!`,
-        `you should go become a mountain. the view up there is probably great!`,
+        `at ${weight} lbs, you should go become a mountain. the view up there is probably great!`,
       ];
 
       resetTalk();
-      changeMier("respondhappy");
+      changeMier("laugh");
       mierTalk(randomizer(responses), typeSpeed);
     }
 
     // HEIGHT
     const heightComment = () => {
-      if (!userHeight) return whatToDo();
       const height = Number(userHeight);
 
       const responses =
@@ -1005,10 +972,10 @@ const MierOS = () => {
       ] :
       height <= 100 ? [
         `try finding a rollercoaster you're actually allowed on, it's a fun challenge!`,
-        `you should go take a nap. you've been looking up at people all day and that sounds exhausting!`,
+        `you should go take a nap. at your height (${height}cm) you've been looking up at people all day and that's exhausting!`,
       ] :
       height <= 140 ? [
-        `you could audition to be the world's tallest midget!`,
+        `at ${height}cm, you could audition to be the world's tallest midget!`,
       ] :
       height <= 160 ? [
         `go drink some milk and then drink more milk. maybe you'll gain a centimeter.`,
@@ -1021,7 +988,7 @@ const MierOS = () => {
       ] :
       height <= 600 ? [
         `you should go stand outside and let birds land on you. you're basically a tree!`,
-        `why don't you go eat some tree leaves like a giraffe since you're like ${userHeight}cm tall!`,
+        `why don't you go eat some tree leaves like a giraffe? you're like ${height}cm tall!`,
         `you could walk to another city in like three steps. maybe go do that!`,
       ] :
       height <= 30000 ? [
@@ -1043,11 +1010,22 @@ const MierOS = () => {
 
     // COLOR
     const colorComment = () => {
-      if (!userColor) return whatToDo();
-
       const responses = [
-        `you could try painting something in ${userColor}`,
+        `you could try painting something in ${userColor}!`,
         `have you tried painting something with minimal ${userColor} to none?`,
+      ]
+
+      resetTalk();
+      changeMier("respondhappy");
+      mierTalk(randomizer(responses), typeSpeed);
+    }
+
+    // COUNTRY
+    const countryComment = () => {
+      const responses = [
+        `have you explored everything you wanted to in ${userCountry}?`,
+        `what other sights have you not seen in ${userCountry}? you could explore them`,
+        `have you ever thought of traveling outside of ${userCountry}?`,
       ]
 
       resetTalk();
@@ -1055,25 +1033,8 @@ const MierOS = () => {
       mierTalk(randomizer(responses), typeSpeed);
     }
 
-    // COUNTRY
-    const countryComment = () => {
-      if (!userCountry) return whatToDo();
-
-      const responses = [
-        `have you explored everything you wanted to in ${userCountry}?`,
-        `what other sights have you not seen in ${userCountry}?`,
-        `you could travel outside of ${userCountry}!`,
-      ]
-
-      resetTalk();
-      changeMier("respondhappy");
-      mierTalk(`you like ${userCountry}!`, typeSpeed);
-    }
-
     // POLITICS
     const politicsComment = () => {
-      if (!userPolitics || (userPolitics !== "tankie" && userPolitics !== "fashy")) return whatToDo();
-
       resetTalk();
       changeMier("laugh");
       mierTalk(`dont you have to go argue pointlessly about politics with strangers online?`, typeSpeed);
@@ -1081,8 +1042,6 @@ const MierOS = () => {
 
     // FEAR
     const fearComment = () => {
-      if (!userFear) return whatToDo();
-
       const responses = [
         `have you gotten over your fear of ${userFear} yet?`,
         `you could try facing your fear of ${userFear} right now!`,
@@ -1091,19 +1050,17 @@ const MierOS = () => {
       ]
 
       resetTalk();
-      changeMier("respondhappy");
+      changeMier("laugh");
       mierTalk(randomizer(responses), typeSpeed);
     }
 
     // CRUSH
     const crushComment = () => {
-      if (!userCrush) return whatToDo();
-
       const responses = [
         `when will you muster up the courage to ask ${userCrush.toLocaleLowerCase()} out?`,
         `you could think of ways to get ${userCrush.toLocaleLowerCase()}'s attention!`,
-        `${userCrush.toLocaleLowerCase()} isn't a 2D character right?`,
-        `you could try thinking of something else other than ${userCrush.toLocaleLowerCase()}`,
+        `ask them out! ${userCrush.toLocaleLowerCase()} isn't a 2D character right?`,
+        `you could try thinking of something else other than ${userCrush.toLocaleLowerCase()}!`,
       ]
 
       resetTalk();
@@ -1113,23 +1070,37 @@ const MierOS = () => {
 
     // RELIGION
     const religionComment = () => {
-      if (!userReligion || userReligion === "agnostic" || userReligion === "other" || userReligion === "atheist") return whatToDo();
-
       const responses = [
         `have you been fasting lately? it's important to clear your gut and mind!`,
-        `have you meditated today? i hope your attention span isn't that of typical zoomer!`,
+        `have you meditated today? i hope your attention span isn't that of a zoomer's`,
         `have you prayed today? a communion with the creator is crucial!`,
       ]
 
       resetTalk();
-      changeMier("respondhappy");
+      changeMier("respondneutral");
       mierTalk(randomizer(responses), typeSpeed);
     }
 
-    const possibleComments = [notesComment, weightComment, heightComment, colorComment, countryComment, politicsComment, fearComment, crushComment, religionComment,];
+    const possibleComments: (() => void)[] = [];
+    if (currentNotes?.length) possibleComments.push(notesComment);
+    if (userCountry) possibleComments.push(countryComment);
+    if (userColor) possibleComments.push(colorComment);
+    if (userFear) possibleComments.push(fearComment);
+    if (userCrush) possibleComments.push(crushComment);
+    if (userHeight) possibleComments.push(heightComment);
+    if (userWeight && (Number(userWeight) <= 60 || Number(userWeight) >= 5000)) possibleComments.push(weightComment);
+    if (userPolitics && (userPolitics === "fashy" || userPolitics === "tankie")) possibleComments.push(politicsComment);
+    if (userReligion && (userReligion !== "agnostic" && userReligion !== "other" && userReligion !== "atheist")) possibleComments.push(religionComment);
+
+    if (!possibleComments.length) {
+      resetTalk();
+      changeMier("sad");
+      mierTalk(`sorry${userName && ` ${userName}`}, i don't know anything about you at all..`, typeSpeed);
+      return;
+    }
+
     const func = possibleComments[Math.floor(Math.random() * possibleComments.length)];
-    // func();
-    heightComment();
+    func();
   }
   
 
@@ -1235,6 +1206,7 @@ const MierOS = () => {
               <option value="Algeria">Algeria</option>
               <option value="Andorra">Andorra</option>
               <option value="Angola">Angola</option>
+              <option value="Antarctica">Antarctica</option>
               <option value="Antigua&Deps">Antigua & Deps</option>
               <option value="Argentina">Argentina</option>
               <option value="Armenia">Armenia</option>
@@ -2082,11 +2054,11 @@ const MierOS = () => {
             `}
           >
             <p className="option" onClick={() => hiMier()}>hi!</p>
+            <p className="option" onClick={() => getWhatToDo()}>what should i do?</p>
+            <p className="option" onClick={() => setShowAdvice(true)}>i need advice..</p>
             <p className="option" onClick={() => getJoke()}>tell me a joke!</p>
             <p className="option" onClick={() => getFact()}>tell me a fun fact!</p>
             <p className="option" onClick={() => getHoroscope()}>daily horoscope!</p>
-            <p className="option" onClick={() => getWhatToDo()}>what should i do right now?</p>
-            <p className="option" onClick={() => setShowAdvice(true)}>i need advice..</p>
 
           </div>
           
