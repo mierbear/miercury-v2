@@ -1001,7 +1001,6 @@ const MierOS = () => {
         `go drink some milk and then drink more milk. maybe you'll gain a centimeter.`,
       ] :
       height <= 180 ? [
-        `..honestly i was gonna respond based on your height, but you're average height LOL do what you need to, you know what to do.`,
       ] :
       height <= 210 ? [
         `go grab something off the top shelf for someone. it's basically your calling at ${height}cm.`,
@@ -1107,7 +1106,7 @@ const MierOS = () => {
     if (userColor) possibleComments.push(colorComment);
     if (userFear) possibleComments.push(fearComment);
     if (userCrush) possibleComments.push(crushComment);
-    if (userHeight) possibleComments.push(heightComment);
+    if (userHeight && (Number(userHeight) <= 160 || Number(userHeight) >= 180)) possibleComments.push(heightComment);
     if (userWeight && (Number(userWeight) <= 60 || Number(userWeight) >= 5000)) possibleComments.push(weightComment);
     if (userPolitics && (userPolitics === "fashy" || userPolitics === "tankie")) possibleComments.push(politicsComment);
     if (userReligion && (userReligion !== "agnostic" && userReligion !== "other" && userReligion !== "atheist")) possibleComments.push(religionComment);
@@ -1123,6 +1122,34 @@ const MierOS = () => {
     func();
   }
   
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    const preload = [
+      "/os/0.png",
+      "/os/1.png",
+      "/os/2.png",
+      "/os/3.png",
+      "/os/4.png",
+      "/os/5.png",
+      "/os/mier-aloha.png",
+      "/os/mier-laugh.png",
+      "/os/mier-neutral.png",
+      "/os/mier-respondneutral.png",
+      "/os/mier-respondhappy.png",
+      "/os/mier-sad.png",
+      "/os/mier-talk.png",
+      "/os/mier-think.png",
+    ];
+
+    const promises = preload.map(src => new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    }));
+
+    Promise.all(promises).then(() => setReady(true));
+  }, []);
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -2139,6 +2166,22 @@ const MierOS = () => {
         className="fixed w-full h-full bg-[#00000000] z-9999 hidden"
         ref={blockerRef}
       />
+
+      {/* LOADING SCREEN */}
+      <div 
+        className={`
+          fixed w-full h-full z-9000 py-8 px-12 nonsel
+          transition-opacity duration-500 monospace
+          flex flex-col text-2xl text-green-500 bg-black
+          ${ready ? "opacity-0 pointer-events-none" : "opacity-100"}
+        `}
+      >
+        <p>dsfsdfeergrhffhrhr</p>
+        <p>dsfsdfeergrhffhrhr</p>
+        <p>dsfsdfeergrhffhrhr</p>
+        <p>dsfsdfeergrhffhrhr</p>
+        <p>dsfsdfeergrhffhrhr</p>
+      </div>
 
     </div>
   )
