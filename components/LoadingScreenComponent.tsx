@@ -13,7 +13,7 @@ type props = {
 };
 
 const Loading = ({ loadingRef, ready }: props) => {
-const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(true);
 
   return (
     <div 

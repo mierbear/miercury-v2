@@ -1,6 +1,6 @@
 'use client';
 import { useState, useRef, useEffect } from "react";
-import { Roboto_Mono, Inconsolata } from "next/font/google";
+import { Roboto_Mono, Inconsolata, VT323 } from "next/font/google";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import Marquee from "react-fast-marquee";
 import advice from "@/components/advice";
@@ -16,6 +16,11 @@ interface Note {
   date: string;
   finished: string | null;
 }
+
+const vt = VT323({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 const roboto = Roboto_Mono({
   weight: "400",
@@ -1123,33 +1128,67 @@ const MierOS = () => {
   }
   
   const [ready, setReady] = useState(false);
-  useEffect(() => {
-    const preload = [
-      "/os/0.png",
-      "/os/1.png",
-      "/os/2.png",
-      "/os/3.png",
-      "/os/4.png",
-      "/os/5.png",
-      "/os/mier-aloha.png",
-      "/os/mier-laugh.png",
-      "/os/mier-neutral.png",
-      "/os/mier-respondneutral.png",
-      "/os/mier-respondhappy.png",
-      "/os/mier-sad.png",
-      "/os/mier-talk.png",
-      "/os/mier-think.png",
-    ];
+  const [progress, setProgress] = useState(0);
+  const [biosVisible, setBiosVisible] = useState(true);
+  const biosRef = useRef<HTMLDivElement | null>(null);
+  const currentYear = new Date().getFullYear();
 
+  const preload = [
+    "/os/note.png",
+    "/os/mieramp.png",
+    "/os/mier-aloha.png",
+    "/os/mier-laugh.png",
+    "/os/mier-neutral.png",
+    "/os/mier-respondneutral.png",
+    "/os/mier-respondhappy.png",
+    "/os/mier-sad.png",
+    "/os/mier-talk.png",
+    "/os/mier-think.png",
+    "/os/0.png",
+    "/os/1.png",
+    "/os/2.png",
+    "/os/3.png",
+    "/os/4.png",
+    "/os/5.png",
+    "/os/bear.png",
+  ];
+
+  useEffect(() => {
     const promises = preload.map(src => new Promise<void>((resolve) => {
       const img = new Image();
-      img.onload = () => resolve();
-      img.onerror = () => resolve();
+      img.onload = () => {
+        setProgress(prev => prev + 1);
+        resolve();
+      };
+      img.onerror = () => {
+        setProgress(prev => prev + 1);
+        resolve();
+      };
       img.src = src;
     }));
 
     Promise.all(promises).then(() => setReady(true));
   }, []);
+
+  const bootLines = [
+    "MierOS v2.0 — BIOS initialization..",
+    "checking memory integrity..",
+    "loading system assets..",
+    "mounting filesystem..",
+    "building terrain..",
+    "initializing display driver..",
+    "loading character sprites..",
+    "calibrating audio subsystem..",
+    "you feel an evil presence watching you..",
+    "restoring user environment..",
+    "applying user preferences..",
+    "leaving with everything but your humanity..",
+    "starting desktop shell..",
+    "verifying system integrity..",
+    "eating without a table..",
+    "loading the most unoptimized OS..",
+    "MierOS ready !! click anywhere to continue !!",
+  ];
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -1671,7 +1710,7 @@ const MierOS = () => {
                   className="w-[10vh] h-[10vh] rounded-full" 
                   src="/os/bear.png" 
                 />
-                <p>Admin</p>
+                <p>{userName ? userName : "Admin"}</p>
               </div>
             </div>
           </div>
@@ -1737,7 +1776,7 @@ const MierOS = () => {
       {/* BLACK SCREEN */}
       <div 
         className={`
-          w-screen h-screen bg-black hidden
+          w-screen h-screen bg-[#0f0f10] hidden
           transition-opacity duration-1000
           ease-in-out z-2000 fixed nonsel pointer-events-none
           ${logging ? "opacity-100" : "opacity-0"}
@@ -2169,18 +2208,64 @@ const MierOS = () => {
 
       {/* LOADING SCREEN */}
       <div 
+        ref={biosRef}
         className={`
           fixed w-full h-full z-9000 py-8 px-12 nonsel
-          transition-opacity duration-500 monospace
-          flex flex-col text-2xl text-green-500 bg-black
-          ${ready ? "opacity-0 pointer-events-none" : "opacity-100"}
+          transition-opacity duration-500 nonsel ease-in
+          flex flex-col text-xl text-[rgb(183,244,255)] bg-[#0f0f10]
+          ${ready ? "pointer-events-auto cursor-pointer" : "pointer-events-none"}
+          ${biosVisible ? "opacity-100" : "opacity-0"}
         `}
+        onTransitionEnd={() => {
+          if (ready && !biosVisible) biosRef.current!.style.display = "none";
+        }}
+        onClick={() => {setBiosVisible(false)}}
       >
-        <p>dsfsdfeergrhffhrhr</p>
-        <p>dsfsdfeergrhffhrhr</p>
-        <p>dsfsdfeergrhffhrhr</p>
-        <p>dsfsdfeergrhffhrhr</p>
-        <p>dsfsdfeergrhffhrhr</p>
+        {/* HEADER */}
+        <div className="text-white mb-6">
+          <p className="font-bold">MierOS BIOS v7.7.7</p>
+          <p className="text-gray-500 text-base">Copyright © 2025 - {currentYear} Miercury. All Rights Reserved.</p>
+          <hr className="my-3 border-gray-500/50 block" />
+        </div>
+
+        {/* LINES */}
+        <div className="flex flex-col gap-1">
+          {bootLines.slice(0, progress).map((line, i) => (
+            <div key={i} className="flex gap-3">
+
+              <span className="text-gray-600 select-none">
+                [{String(i + 1).padStart(2, "0")}/{preload.length}]
+              </span>
+
+              <span
+                className={`
+                ${i === progress - 1 && "font-bold"}  
+                `}
+              >
+                {line}
+              </span>
+              
+              {i === progress - 1 && (
+                <span className="blinking">█</span>
+              )}
+
+            </div>
+          ))}
+        </div>
+
+        {/* PROGRESS BAR */}
+        <div className="mt-auto">
+          <div className="flex justify-between text-gray-500 text-base mb-1">
+            <span>{progress === preload.length ? "system assets loaded" : "loading system assets"}</span>
+            <span>{Math.round((progress / preload.length) * 100)}%</span>
+          </div>
+          <div className="w-full bg-gray-900 border border-gray-700 h-2">
+            <div
+              className="h-full bg-[rgb(183,244,255)] transition-all duration-1000"
+              style={{ width: `${(progress / preload.length) * 100}%` }}
+            />
+          </div>
+        </div>
       </div>
 
     </div>
