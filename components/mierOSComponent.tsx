@@ -796,7 +796,22 @@ const MierOS = () => {
   const setupMierOS = (setup: boolean) => {
     if (setup) {
       localStorage.setItem("mierOSsetup", "true");
-      setSetup(true);
+      blockHandler(3000);
+      blackScreenRef.current!.style.display = `flex`;
+
+      setTimeout(() => {
+        blackScreenRef.current!.style.opacity = "100";
+      }, 0);
+
+      setTimeout(() => {
+        blackScreenRef.current!.style.opacity = "0";
+        setSetup(true);
+      }, 2000);
+      
+      setTimeout(() => {
+        blackScreenRef.current!.style.display = `none`;
+      }, 3000);
+
     } else {
       blockHandler(4000);
       setMierAmpOpen(false);
