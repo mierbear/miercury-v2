@@ -800,17 +800,13 @@ const MierOS = () => {
       blackScreenRef.current!.style.display = `flex`;
 
       setTimeout(() => {
-        blackScreenRef.current!.style.opacity = "100";
+        setLogging(true);
       }, 0);
 
       setTimeout(() => {
-        blackScreenRef.current!.style.opacity = "0";
+        setLogging(false);
         setSetup(true);
       }, 2000);
-      
-      setTimeout(() => {
-        blackScreenRef.current!.style.display = `none`;
-      }, 3000);
 
     } else {
       blockHandler(4000);
