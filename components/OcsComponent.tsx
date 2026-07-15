@@ -211,7 +211,7 @@ export default function Ocs() {
   }
 
   const tooltipText = `
-    Pacific Purgatory / PP (the community I host) has no connection or relation to Pacific Purgatory (the musician, Ethan Silva).*
+    Pax Pacifica / PP (the community I host) has no connection or relation to Pacific Purgatory (the musician, Ethan Silva).*
     It was a session title I chose on a whim because I liked their music and it just stuck there overtime for everybody.*
     Ever since then, I've met a lot of friends and artists that I love and look up to. :D (one of them is the reason why I became a webdev, whom I'm deeply grateful for)
     `
@@ -393,7 +393,7 @@ export default function Ocs() {
               ${currentOc === "mier" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
-            {desktop ? "why are there multiple miers ?? this makes no sense !!" : "miers!?"}
+            {desktop ? "why are there multiple miers ?? this makes no sense !!" : "multiple miers!?"}
           </p>
         </div>
 
@@ -935,7 +935,7 @@ export default function Ocs() {
                     <span className="line-through">
                       Little
                     </span>
-                    &nbsp;Tyrant of Pacific Purgatory
+                    &nbsp;Tyrant of Pax Pacifica
                   </p>
 
                   <hr className="w-full mx-auto border-white/30" />
@@ -950,7 +950,7 @@ export default function Ocs() {
                       onMouseEnter={() => setTooltipVisible(true)}
                       onMouseLeave={() => setTooltipVisible(false)}
                     >
-                    Pacific Purgatory (?)
+                    Pax Pacifica (?)
                     </span>
                     , an art community I grew in Drawpile since the May of 2023.
                     <br />

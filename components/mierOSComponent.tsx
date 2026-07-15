@@ -4,18 +4,7 @@ import { Roboto_Mono, Inconsolata, VT323 } from "next/font/google";
 import YouTube, { YouTubeEvent } from "react-youtube";
 import Marquee from "react-fast-marquee";
 import advice from "@/components/advice";
-
-interface Song {
-  id: string;
-  title?: string;
-}
-
-interface Note {
-  id: string;
-  note: string;
-  date: string;
-  finished: string | null;
-}
+import countries from "@/components/countries";
 
 const vt = VT323({
   weight: "400",
@@ -31,6 +20,18 @@ const inconsolata = Inconsolata({
   weight: ["200", "300"],
   subsets: ["latin"],
 });
+
+interface Song {
+  id: string;
+  title?: string;
+}
+
+interface Note {
+  id: string;
+  note: string;
+  date: string;
+  finished: string | null;
+}
 
 const MierOS = () => {
   const [passwordContent, setPasswordContent] = useState("");
@@ -805,7 +806,7 @@ const MierOS = () => {
       stop();
       changeMier("aloha", true);
       resetTalk();
-      mierTalk("see you another time !!", typeSpeed);
+      mierTalk("see you in another life !!", typeSpeed);
       blackScreenRef.current!.style.display = `flex`;
 
       setTimeout(() => {
@@ -1175,18 +1176,18 @@ const MierOS = () => {
     "checking memory integrity..",
     "loading system assets..",
     "mounting filesystem..",
-    "building terrain..",
-    "initializing display driver..",
+    "you feel an evil presence watching you..",
+    "removing herobrine..",
     "loading character sprites..",
     "calibrating audio subsystem..",
-    "you feel an evil presence watching you..",
     "restoring user environment..",
-    "applying user preferences..",
     "leaving with everything but your humanity..",
+    "loading the most unoptimized OS..",
     "starting desktop shell..",
+    "applying user preferences..",
     "verifying system integrity..",
     "eating without a table..",
-    "loading the most unoptimized OS..",
+    "initializing display driver..",
     "MierOS ready !! click anywhere to continue !!",
   ];
 
@@ -1196,7 +1197,7 @@ const MierOS = () => {
       {/* SET UP SCREEN */}
       <div 
         className={`
-          w-screen h-screen bg-[rgb(200,218,220)]
+          w-screen h-screen bg-[#0f0f10]
           items-center justify-center transition-all
           duration-1200 ease-[ease] fixed z-2000 nonsel
           ${setup ? "hidden" : "flex"}
@@ -1205,69 +1206,69 @@ const MierOS = () => {
         <div
           className={`
             flex flex-col items-center justify-between relative p-4
-            h-auto w-[40vw] bg-amber-50 gap-4 mb-4
+            h-auto w-full bg-[#dee7e9] gap-4 mb-4
           `}
         >
           {/* TOP */}
-          <div className="flex flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center font-bold">
             <p>looks like this is your first time setting up MierOS!</p>
             <p>please enter your info below!</p>
           </div>
 
           {/* INFO */}
           <div
-            className="w-[90%] h-[50%] bg-amber-200 p-4 grid grid-cols-[1.5fr_3fr] gap-1"
+            className="w-160 max-w-screen h-auto grid grid-cols-[3fr_7fr] gap-1"
           >
-            <p>full name:</p>
+            <p>full name <span className="font-bold text-[#0062ff]">*</span>:</p>
             <div className="w-full grid grid-cols-3 gap-1">
               <input 
                 type="text"
-                className="pl-1 bg-white"
+                className="pl-1 bg-white rounded-xs"
                 placeholder="first name"
                 autoComplete="off"
                 onChange={(e) => setUserName(e.currentTarget.value)}
               />
               <input 
                 type="text"
-                className="pl-1 bg-white"
+                className="pl-1 bg-white rounded-xs"
                 placeholder="middle name"
                 autoComplete="off"
               />
               <input 
                 type="text"
-                className="pl-1 bg-white"
+                className="pl-1 bg-white rounded-xs"
                 placeholder="last name"
                 autoComplete="off"
               />
             </div>
-            <p>date of birth:</p>
+            <p>date of birth <span className="font-bold text-[#0062ff]">*</span>:</p>
             <input 
               type="date"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               onChange={(e) => setUserZodiac(getZodiac(e.currentTarget.value.slice(5, 10)))}
             />
             <p>sex:</p>
             <select
               defaultValue=""
-              className="w-full pl-0.5 bg-white"
+              className="w-full pl-0.5 bg-white rounded-xs"
             >
               <option value="" disabled hidden>sex</option>
               <option value="male">male</option>
               <option value="female">female</option>
               <option value="">prefer not to say</option>
             </select>
-            <p>height in cm:</p>
+            <p>height in cm <span className="font-bold text-[#0062ff]">*</span>:</p>
             <input 
               type="number"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="180cm"
               autoComplete="off"
               onChange={(e) => setUserHeight(e.currentTarget.value)}
             />
-            <p>weight in pounds:</p>
+            <p>weight in pounds <span className="font-bold text-[#0062ff]">*</span>:</p>
             <input 
               type="number"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="160lbs"
               autoComplete="off"
               onChange={(e) => setUserWeight(e.currentTarget.value)}
@@ -1275,243 +1276,54 @@ const MierOS = () => {
             <p>email address:</p>
             <input 
               type="text"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="user@email.com"
               autoComplete="off"
             />
-            <p>country:</p>
+            <p>country <span className="font-bold text-[#0062ff]">*</span>:</p>
             <select
               defaultValue=""
-              className="w-full pl-0.5 bg-white"
+              className="w-full pl-0.5 bg-white rounded-xs"
               
               onChange={(e) => setUserCountry(e.currentTarget.value)}
             >
               <option value="" disabled hidden>country</option>
               <option value="Afghanistan">Afghanistan</option>
-              <option value="Albania">Albania</option>
-              <option value="Algeria">Algeria</option>
-              <option value="Andorra">Andorra</option>
-              <option value="Angola">Angola</option>
-              <option value="Antarctica">Antarctica</option>
-              <option value="Antigua&Deps">Antigua & Deps</option>
-              <option value="Argentina">Argentina</option>
-              <option value="Armenia">Armenia</option>
-              <option value="Australia">Australia</option>
-              <option value="Austria">Austria</option>
-              <option value="Azerbaijan">Azerbaijan</option>
-              <option value="Bahamas">Bahamas</option>
-              <option value="Bahrain">Bahrain</option>
-              <option value="Bangladesh">Bangladesh</option>
-              <option value="Barbados">Barbados</option>
-              <option value="Belarus">Belarus</option>
-              <option value="Belgium">Belgium</option>
-              <option value="Belize">Belize</option>
-              <option value="Benin">Benin</option>
-              <option value="Bermuda">Bermuda</option>
-              <option value="Bhutan">Bhutan</option>
-              <option value="Bolivia">Bolivia</option>
-              <option value="BosniaHerzegovina">Bosnia & Herzegovina</option>
-              <option value="Botswana">Botswana</option>
-              <option value="Brazil">Brazil</option>
-              <option value="Brunei">Brunei</option>
-              <option value="Bulgaria">Bulgaria</option>
-              <option value="Burkina">Burkina</option>
-              <option value="Burundi">Burundi</option>
-              <option value="Cambodia">Cambodia</option>
-              <option value="Cameroon">Cameroon</option>
-              <option value="Canada">Canada</option>
-              <option value="CapeVerde">Cape Verde</option>
-              <option value="CentralAfricanRep">Central African Rep</option>
-              <option value="Chad">Chad</option>
-              <option value="Chile">Chile</option>
-              <option value="China">China</option>
-              <option value="Colombia">Colombia</option>
-              <option value="Comoros">Comoros</option>
-              <option value="Congo">Congo</option>
-              <option value="Congo(DemocraticRep)">Congo (Democratic Rep)</option>
-              <option value="CostaRica">Costa Rica</option>
-              <option value="Croatia">Croatia</option>
-              <option value="Cuba">Cuba</option>
-              <option value="Cyprus">Cyprus</option>
-              <option value="CzechRepublic">Czech Republic</option>
-              <option value="Denmark">Denmark</option>
-              <option value="Djibouti">Djibouti</option>
-              <option value="Dominica">Dominica</option>
-              <option value="DominicanRepublic">Dominican Republic</option>
-              <option value="EastTimor">East Timor</option>
-              <option value="Ecuador">Ecuador</option>
-              <option value="Egypt">Egypt</option>
-              <option value="ElSalvador">El Salvador</option>
-              <option value="EquatorialGuinea">Equatorial Guinea</option>
-              <option value="Eritrea">Eritrea</option>
-              <option value="Estonia">Estonia</option>
-              <option value="Eswatini">Eswatini</option>
-              <option value="Ethiopia">Ethiopia</option>
-              <option value="Fiji">Fiji</option>
-              <option value="Finland">Finland</option>
-              <option value="France">France</option>
-              <option value="Gabon">Gabon</option>
-              <option value="Gambia">Gambia</option>
-              <option value="Georgia">Georgia</option>
-              <option value="Germany">Germany</option>
-              <option value="Ghana">Ghana</option>
-              <option value="Greece">Greece</option>
-              <option value="Grenada">Grenada</option>
-              <option value="Guatemala">Guatemala</option>
-              <option value="Guinea">Guinea</option>
-              <option value="Guinea-Bissau">Guinea-Bissau</option>
-              <option value="Guyana">Guyana</option>
-              <option value="Haiti">Haiti</option>
-              <option value="Honduras">Honduras</option>
-              <option value="Hungary">Hungary</option>
-              <option value="Iceland">Iceland</option>
-              <option value="India">India</option>
-              <option value="Indonesia">Indonesia</option>
-              <option value="Iran">Iran</option>
-              <option value="Iraq">Iraq</option>
-              <option value="Ireland(Republic)">Ireland (Republic)</option>
-              <option value="Israel">Israel</option>
-              <option value="Italy">Italy</option>
-              <option value="IvoryCoast">Ivory Coast</option>
-              <option value="Jamaica">Jamaica</option>
-              <option value="Japan">Japan</option>
-              <option value="Jordan">Jordan</option>
-              <option value="Kazakhstan">Kazakhstan</option>
-              <option value="Kenya">Kenya</option>
-              <option value="Kiribati">Kiribati</option>
-              <option value="KoreaNorth">Korea North</option>
-              <option value="KoreaSouth">Korea South</option>
-              <option value="Kosovo">Kosovo</option>
-              <option value="Kuwait">Kuwait</option>
-              <option value="Kyrgyzstan">Kyrgyzstan</option>
-              <option value="Laos">Laos</option>
-              <option value="Latvia">Latvia</option>
-              <option value="Lebanon">Lebanon</option>
-              <option value="Lesotho">Lesotho</option>
-              <option value="Liberia">Liberia</option>
-              <option value="Libya">Libya</option>
-              <option value="Liechtenstein">Liechtenstein</option>
-              <option value="Lithuania">Lithuania</option>
-              <option value="Luxembourg">Luxembourg</option>
-              <option value="Macedonia">Macedonia</option>
-              <option value="Madagascar">Madagascar</option>
-              <option value="Malawi">Malawi</option>
-              <option value="Malaysia">Malaysia</option>
-              <option value="Maldives">Maldives</option>
-              <option value="Mali">Mali</option>
-              <option value="Malta">Malta</option>
-              <option value="MarshallIslands">Marshall Islands</option>
-              <option value="Mauritania">Mauritania</option>
-              <option value="Mauritius">Mauritius</option>
-              <option value="Mexico">Mexico</option>
-              <option value="Micronesia">Micronesia</option>
-              <option value="Moldova">Moldova</option>
-              <option value="Monaco">Monaco</option>
-              <option value="Mongolia">Mongolia</option>
-              <option value="Montenegro">Montenegro</option>
-              <option value="Morocco">Morocco</option>
-              <option value="Mozambique">Mozambique</option>
-              <option value="Myanmar">Myanmar</option>
-              <option value="Namibia">Namibia</option>
-              <option value="Nauru">Nauru</option>
-              <option value="Nepal">Nepal</option>
-              <option value="Netherlands">Netherlands</option>
-              <option value="NewZealand">New Zealand</option>
-              <option value="Nicaragua">Nicaragua</option>
-              <option value="Niger">Niger</option>
-              <option value="Nigeria">Nigeria</option>
-              <option value="Norway">Norway</option>
-              <option value="Oman">Oman</option>
-              <option value="Pakistan">Pakistan</option>
-              <option value="Palau">Palau</option>
-              <option value="Palestine">Palestine</option>
-              <option value="Panama">Panama</option>
-              <option value="PapuaNewGuinea">Papua New Guinea</option>
-              <option value="Paraguay">Paraguay</option>
-              <option value="Peru">Peru</option>
-              <option value="Philippines">Philippines</option>
-              <option value="Poland">Poland</option>
-              <option value="Portugal">Portugal</option>
-              <option value="Qatar">Qatar</option>
-              <option value="Romania">Romania</option>
-              <option value="RussianFederation">Russian Federation</option>
-              <option value="Rwanda">Rwanda</option>
-              <option value="StKitts&Nevis">St Kitts & Nevis</option>
-              <option value="StLucia">St Lucia</option>
-              <option value="SaintVincent&theGrenadines">Saint Vincent & the Grenadines</option>
-              <option value="Samoa">Samoa</option>
-              <option value="SanMarino">San Marino</option>
-              <option value="SaoTome&Principe">Sao Tome & Principe</option>
-              <option value="SaudiArabia">Saudi Arabia</option>
-              <option value="Senegal">Senegal</option>
-              <option value="Serbia">Serbia</option>
-              <option value="Seychelles">Seychelles</option>
-              <option value="SierraLeone">Sierra Leone</option>
-              <option value="Singapore">Singapore</option>
-              <option value="Slovakia">Slovakia</option>
-              <option value="Slovenia">Slovenia</option>
-              <option value="SolomonIslands">Solomon Islands</option>
-              <option value="Somalia">Somalia</option>
-              <option value="SouthAfrica">South Africa</option>
-              <option value="SouthSudan">South Sudan</option>
-              <option value="Spain">Spain</option>
-              <option value="SriLanka">Sri Lanka</option>
-              <option value="Sudan">Sudan</option>
-              <option value="Suriname">Suriname</option>
-              <option value="Sweden">Sweden</option>
-              <option value="Switzerland">Switzerland</option>
-              <option value="Syria">Syria</option>
-              <option value="Taiwan">Taiwan</option>
-              <option value="Tajikistan">Tajikistan</option>
-              <option value="Tanzania">Tanzania</option>
-              <option value="Thailand">Thailand</option>
-              <option value="Togo">Togo</option>
-              <option value="Tonga">Tonga</option>
-              <option value="Trinidad&Tobago">Trinidad & Tobago</option>
-              <option value="Tunisia">Tunisia</option>
-              <option value="Turkey">Turkey</option>
-              <option value="Turkmenistan">Turkmenistan</option>
-              <option value="Tuvalu">Tuvalu</option>
-              <option value="Uganda">Uganda</option>
-              <option value="Ukraine">Ukraine</option>
-              <option value="UnitedArabEmirates">United Arab Emirates</option>
-              <option value="UnitedKingdom">United Kingdom</option>
-              <option value="UnitedStates">United States</option>
-              <option value="Uruguay">Uruguay</option>
-              <option value="Uzbekistan">Uzbekistan</option>
-              <option value="Vanuatu">Vanuatu</option>
-              <option value="VaticanCity">Vatican City</option>
-              <option value="Venezuela">Venezuela</option>
-              <option value="Vietnam">Vietnam</option>
-              <option value="Yemen">Yemen</option>
-              <option value="Zambia">Zambia</option>
-              <option value="Zimbabwe">Zimbabwe</option>
+              {countries.map(country => (
+                <option 
+                  value={country}
+                  key={country}
+                >
+                  {country}
+                </option>
+              ))}
+
             </select>
             <p>phone number:</p>
             <input 
               type="text"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="+1 234 567-8910"
               autoComplete="off"
             />
             <p>city:</p>
             <input 
               type="text"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="city"
               autoComplete="off"
             />
             <p>street:</p>
             <input 
               type="text"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="street"
               autoComplete="off"
             />
             <p>zip code:</p>
             <input 
               type="text"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="1230"
               autoComplete="off"
             />
@@ -1521,7 +1333,7 @@ const MierOS = () => {
                 <input
                   key={i}
                   type="text"
-                  className="pl-1 bg-white text-center"
+                  className="pl-1 text-center bg-white rounded-xs"
                   autoComplete="off"
                   maxLength={4}
                   placeholder="0000"
@@ -1531,7 +1343,7 @@ const MierOS = () => {
             <p>CVV:</p>
             <input
               type="text"
-              className="pl-1 bg-white text-center"
+              className="pl-1 text-center bg-white rounded-xs"
               autoComplete="CVV"
               maxLength={3}
               placeholder="000"
@@ -1543,7 +1355,7 @@ const MierOS = () => {
                   key={i}
                   type="text"
                   className={`
-                    pl-1 text-center
+                    pl-1 text-center rounded-xs
                     ${userCountry === "UnitedStates" 
                       ? "bg-white" 
                       : "bg-gray-400 pointer-events-none"
@@ -1555,35 +1367,34 @@ const MierOS = () => {
                 />
               ))}
             </div>
-
-            <p>deepest fear:</p>
+            <p>deepest fear <span className="font-bold text-[#0062ff]">*</span>:</p>
             <input 
               type="text"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="skeletons"
               autoComplete="off"
               onChange={(e) => setUserFear(e.currentTarget.value)}
             />
-            <p>current crush:</p>
+            <p>current crush <span className="font-bold text-[#0062ff]">*</span>:</p>
             <input 
               type="text"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="abri"
               autoComplete="off"
               onChange={(e) => setUserCrush(e.currentTarget.value)}
             />
-            <p>favorite color:</p>
+            <p>favorite color <span className="font-bold text-[#0062ff]">*</span>:</p>
             <input 
               type="text"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="blue"
               autoComplete="off"
               onChange={(e) => setUserColor(e.currentTarget.value)}
             />
-            <p>religious beliefs:</p>
+            <p>religious beliefs <span className="font-bold text-[#0062ff]">*</span>:</p>
             <select
               defaultValue=""
-              className="w-full pl-0.5 bg-white"
+              className="w-full pl-0.5 bg-white rounded-xs"
               onChange={(e) => setUserReligion(e.currentTarget.value)}
             >
               <option value="" disabled hidden>religion</option>
@@ -1598,10 +1409,10 @@ const MierOS = () => {
               <option value="agnostic">agnostic</option>
               <option value="atheist">materialist hedonist determinist atheist</option>
             </select>
-            <p>political views:</p>
+            <p>political views <span className="font-bold text-[#0062ff]">*</span>:</p>
             <select
               defaultValue=""
-              className="w-full pl-0.5 bg-white"
+              className="w-full pl-0.5 bg-white rounded-xs"
               onChange={(e) => setUserPolitics(e.currentTarget.value)}
             >
               <option value="" disabled hidden>views</option>
@@ -1616,10 +1427,10 @@ const MierOS = () => {
               <option value="tankie">cringe tankie (none of these words are in the bible)</option>
               <option value="none">enlightened non-participant</option>
             </select>
-            <p>MierOS password:</p>
+            <p>MierOS password <span className="font-bold text-[#0062ff]">*</span>:</p>
             <input 
               type="password"
-              className="w-full pl-1 bg-white"
+              className="w-full pl-1 bg-white rounded-xs"
               placeholder="password"
               autoComplete="off"
               onChange={(e) => setUserPassword(e.currentTarget.value)}
@@ -1629,17 +1440,18 @@ const MierOS = () => {
           {/* SUBMIT */}
           <p
             onClick={() => setupMierOS(true)}
-            className="cursor-pointer py-2 px-4 bg-amber-100 rounded-sm"
+            className="cursor-pointer py-2 px-4 bg-[#ecf0f1] hover:bg-white duration-300 rounded-sm"
           >
             Finish Setup
           </p>
 
           
         </div>
-        <p className="text-center absolute bottom-4 font-bold breathe">
-          THESE ARE JOKES AND ARE NOT RECORDED. ALL NECESSARY (ALL NON-SENSITIVE) INFO FOR UX ARE KEPT PURELY IN YOUR BROWSER'S LOCALSTORAGE<br/>
-          <span className="text-black/50">
-          (just write down gibberish or leave fields blank if you want, some are used for personalized user experience lol)
+        
+        <p className="text-center text-[#dee7e9] absolute bottom-6 font-bold breathe">
+          THESE ARE JOKES AND ARE NOT SENT/SAVED/RECORDED. ALL NECESSARY INFO FOR USER EXPERIENCE (ONES MARKED WITH A <span className="text-[#0062ff]">*</span>) ARE KEPT PURELY IN YOUR BROWSER'S LOCALSTORAGE<br/>
+          <span className="text-[#dee7e9]/50">
+          (you could literally just write down gibberish or leave fields blank if you wish lol)
           </span>
         </p>
         
@@ -2211,7 +2023,7 @@ const MierOS = () => {
         ref={biosRef}
         className={`
           fixed w-full h-full z-9000 py-8 px-12 nonsel
-          transition-opacity duration-500 nonsel ease-in
+          transition-opacity duration-200 nonsel
           flex flex-col text-xl text-[rgb(183,244,255)] bg-[#0f0f10]
           ${ready ? "pointer-events-auto cursor-pointer" : "pointer-events-none"}
           ${biosVisible ? "opacity-100" : "opacity-0"}
@@ -2239,7 +2051,7 @@ const MierOS = () => {
 
               <span
                 className={`
-                ${i === progress - 1 && "font-bold"}  
+                ${i === progress - 1 && "font-bold"}
                 `}
               >
                 {line}
