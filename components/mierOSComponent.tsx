@@ -96,13 +96,13 @@ const MierOS = () => {
         let greeting;
 
         if (hours < 6) {
-            greeting = `greetings ${userName.toLocaleLowerCase()}! shouldn't you be asleep?`
+            greeting = `greetings${userName && ` ${userName.toLocaleLowerCase()}`}! shouldn't you be asleep?`
         } else if (hours >= 6 && hours < 12) {
-            greeting = `good morning ${userName.toLocaleLowerCase()}! did you sleep well?`
+            greeting = `good morning${userName && ` ${userName.toLocaleLowerCase()}`}! did you sleep well?`
         } else if (hours >= 12 && hours < 18) {
-            greeting = `hello ${userName.toLocaleLowerCase()}! how's your afternoon?`
+            greeting = `hello${userName && ` ${userName.toLocaleLowerCase()}`}! how's your afternoon?`
         } else {
-            greeting = `good evening ${userName.toLocaleLowerCase()}! have you done your work today?`
+            greeting = `good evening${userName && ` ${userName.toLocaleLowerCase()}`}! have you done your work today?`
         }
 
         resetTalk();
@@ -166,7 +166,8 @@ const MierOS = () => {
       {"id": "l0Jo-9aqhYc", "title": "Porter Robinson - Mirror"},
       {"id": "HQnC1UHBvWA", "title": "Porter Robinson & Madeon - Shelter"},
       {"id": "MUHgTcuCBOk", "title": "Porter Robinson - Musician (33 RPM)"},
-      {"id": "GSWc180az58", "title": "六時のざわめき"}
+      {"id": "GSWc180az58", "title": "六時のざわめき"},
+      {"id": "TSmUBltWVTc", "title": "The Veil of Night (Live Recording Version)"},
     ]
   );
   const [currentSong, setCurrentSong] = useState<number | null>(null);
@@ -722,7 +723,7 @@ const MierOS = () => {
       } catch (err) {
         resetTalk();
         changeMier("sad");
-        mierTalk(`i cant think of one right now ${userName.toLocaleLowerCase()}, im sorry.. u_u`, typeSpeed);
+        mierTalk(`i cant think of one right now${userName && ` ${userName.toLocaleLowerCase()}`}, im sorry.. u_u`, typeSpeed);
         console.error("Fetch failed:", err);
       }
     }, 1000);
@@ -744,7 +745,7 @@ const MierOS = () => {
       } catch (err) {
         resetTalk();
         changeMier("sad");
-        mierTalk(`i cant think of one right now ${userName.toLocaleLowerCase()}, im sorry.. u_u`, typeSpeed);
+        mierTalk(`i cant think of one right now${userName && ` ${userName.toLocaleLowerCase()}`}, im sorry.. u_u`, typeSpeed);
         console.error("Fetch failed:", err);
       }
     }, 1000);
@@ -756,21 +757,30 @@ const MierOS = () => {
     resetTalk();
     mierTalk(`hmmm...`, typeSpeed); 
     changeMier("think");
-    setTimeout(async () => {
-      try {
-        const result = await fetch(`/api/horoscope?zodiac=${userZodiac}`);
-        const data = await result.json();
-        resetTalk();
-        changeMier("respondneutral");
-        mierTalk(data.horoscope, 40);
-        console.log(data);
-      } catch (err) {
+    if (userZodiac) {
+      setTimeout(async () => {
+        try {
+          const result = await fetch(`/api/horoscope?zodiac=${userZodiac}`);
+          const data = await result.json();
+          resetTalk();
+          changeMier("respondneutral");
+          mierTalk(data.horoscope, 40);
+          console.log(data);
+        } catch (err) {
+          resetTalk();
+          changeMier("sad");
+          mierTalk(`im sorry${userName && ` ${userName.toLocaleLowerCase()}`}, but i cant seem to communicate with the stars right now.. u_u`, typeSpeed);
+          console.error("Fetch failed:", err);
+        }
+      }, 1000);
+    } else {
+      setTimeout(() => {
         resetTalk();
         changeMier("sad");
-        mierTalk(`im sorry ${userName.toLocaleLowerCase()} but i cant seem to communicate with the stars right now.. u_u`, typeSpeed);
-        console.error("Fetch failed:", err);
-      }
-    }, 1000);
+        mierTalk(`im sorry${userName && ` ${userName.toLocaleLowerCase()}`}, but you didn't really tell me your birthday..`, typeSpeed);
+      }, 2000);
+    }
+
   }
 
   // SET UP
@@ -827,7 +837,7 @@ const MierOS = () => {
       setTimeout(() => {
         localStorage.removeItem("mierOSsetup");
         localStorage.removeItem("mierOSUserInfo");
-        localStorage.removeItem("mierAmpPlaylist");
+        // localStorage.removeItem("mierAmpPlaylist");
         localStorage.removeItem("mierAmpVolume");
         localStorage.removeItem("notesCurrent");
         localStorage.removeItem("notesFinished");
@@ -1131,7 +1141,7 @@ const MierOS = () => {
     if (!possibleComments.length) {
       resetTalk();
       changeMier("sad");
-      mierTalk(`sorry${userName && ` ${userName}`}, i don't know anything about you at all..`, typeSpeed);
+      mierTalk(`sorry${userName && ` ${userName.toLocaleLowerCase()}`}, i don't know anything about you at all..`, typeSpeed);
       return;
     }
 

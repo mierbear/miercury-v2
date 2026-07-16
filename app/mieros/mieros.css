@@ -1098,7 +1098,7 @@ li {
 .mier {
     position: absolute;
     pointer-events: all;
-    bottom: 0;
+    bottom: -5vh;
     transition: all 3s ease-in-out, opacity .3s ease, transform 4s ease-in-out, margin-left 1.6s ease-in-out;
     user-select: none;
     animation: breathe 5s ease-in-out infinite;
