@@ -1025,10 +1025,10 @@ const MierOS = () => {
       height <= 600 ? [
         `you should go stand outside and let birds land on you. you're basically a tree!`,
         `why don't you go eat some tree leaves like a giraffe? you're like ${height}cm tall!`,
-        `you could walk to another city in like three steps. maybe go do that!`,
       ] :
       height <= 30000 ? [
         `you could apply as an air traffic controller, all you have to do is to just use your head!`,
+        `you could walk to another city in like three steps. maybe go do that!`,
         `have you decided which mountain you're gonna sleep on tonight?`,
         `which of the 7 seas do you use for your baths??`,
       ] : 
@@ -1201,6 +1201,8 @@ const MierOS = () => {
     "initializing display driver..",
     "MierOS ready !! click anywhere to continue !!",
   ];
+
+  const [reformatting, setReformatting] = useState(false);
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -1451,7 +1453,7 @@ const MierOS = () => {
           {/* SUBMIT */}
           <p
             onClick={() => setupMierOS(true)}
-            className="cursor-pointer py-2 px-4 bg-[#ecf0f1] hover:bg-white duration-300 rounded-sm"
+            className="cursor-pointer py-2 px-4 font-bold bg-[#ecf0f1] hover:bg-white duration-300 rounded-sm"
           >
             Finish Setup
           </p>
@@ -1459,7 +1461,7 @@ const MierOS = () => {
           
         </div>
         
-        <p className="text-center text-[#dee7e9] absolute bottom-6 font-bold breathe">
+        <p className="text-center text-[#dee7e9] absolute bottom-4 font-bold breathe">
           THESE ARE JOKES AND ARE NOT SENT/SAVED/RECORDED. ALL NECESSARY INFO FOR USER EXPERIENCE (ONES MARKED WITH A <span className="text-[#0062ff]">*</span>) ARE KEPT PURELY IN YOUR BROWSER'S LOCALSTORAGE<br/>
           <span className="text-[#dee7e9]/50">
           (you could literally just write down gibberish or leave fields blank if you wish lol)
@@ -1879,7 +1881,10 @@ const MierOS = () => {
               draggable="false" 
               className="logo nonsel"
               src="/os/logo.png"
-              onClick={() => setOpenMenu(!openMenu)}
+              onClick={() => {
+                setReformatting(false)
+                setOpenMenu(!openMenu)
+              }}
             />  
             <div className="tab-wrapper">
               <img draggable="false" className="tab-icon nonsel pointer-events-none" src="/os/icon0.png" />
@@ -1922,9 +1927,15 @@ const MierOS = () => {
             </h1>
             <p
               className="cursor-pointer absolute left-4 bottom-2 text-white/50 hover:text-white transition-color duration-100"
-              onClick={() => setupMierOS(false)}
+              onClick={() => {
+                if (reformatting) {
+                  setupMierOS(false)
+                } else {
+                  setReformatting(true)
+                }
+              }}
             >
-              Reformat MierOS
+              {reformatting ? "Are you sure?" : "Reformat MierOS"}
             </p>
         </div>
         
