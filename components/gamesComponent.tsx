@@ -85,11 +85,11 @@ const GamesComponent = () => {
             <p className="rounded-md text-xl sm:text-2xl text-center font-bold">welcome to my games page !</p>
             <p>i'll be making more eventually as time passes, it will be simple ones for now though! if you'd like to see updates or know more about my 'serious' projects, check out <NextLink href="./blog/page/1" target="_blank" className="underline">my blog.</NextLink> or check out <NextLink href="./characters" target="_blank" className="underline">my characters</NextLink> to know more about their lore, which i will portray in my future games.</p>
             <br />
-            <p>currently, i don't have much to show off except for these two games lol</p>
+            <p>currently, i don't have much to show off except for these games lol</p>
             <p>(this page will be polished and updated once i become a 'proper' game dev)</p>
           </div>
           <div className="md:w-[30%] w-[70%] self-center flex flex-col rounded-md bg-red-500 text-white p-4 text-center text-xs sm:text-sm">
-            <p className="font-bold">it should be noted that these two games are not optimized for phones.</p>
+            <p className="font-bold">it should be noted that these games are not optimized for phones.</p>
             <br />
             <p>the fishing game will not work especially,
             unless you have those keyboards for phones like a weirdo lol</p>
@@ -100,18 +100,26 @@ const GamesComponent = () => {
         <div className="flex flex-col gap-2 bg-white flex-auto p-4">
 
           <Game 
+            src="/videos/games/mieros.mov" 
+            link="/mieros" 
+            title="MierOS" 
+            date="2025-07-25"
+            description="Interact with Mier in this overglorified notes app/youtube player disguised as a personalized operating system! Originally made in EJS/JS to practice working with databases using PostgreSQL, using public APIs, and reading local files in my PC, now all translated and ported to Miercury!"
+          />
+          
+          <Game 
             src="/videos/games/fish.mov" 
             link="/mierfishing/index.html" 
             title="Mier Fishing" 
-            date="04/05/2025"
-            description="A fishing typing game I made for fun purely in vanilla HTML/CSS/JS." 
+            date="2025-04-05"
+            description="Catch every fish in this typing game I made for fun purely in vanilla HTML/CSS/JS!"
           />
           
           <Game 
             src="/videos/games/match.mov" 
             link="/match/index.html"
             title="Match Game" 
-            date="03/18/2025"
+            date="2025-03-18"
             description="My first attempt in making a game 3-4 months into learning web development." 
           /> 
 

@@ -114,7 +114,7 @@ const Project = ({ src, link, title, date, description }: Props) => {
         <hr className="my-2 border-gray-500/30 w-full" />
 
         {/* DESCRIPTION */}
-        <p className="text-xs sm:text-sm md:text-base px-4">
+        <p className="text-xs sm:text-sm md:text-base px-4 text-justify">
           {description} 
         </p>
 

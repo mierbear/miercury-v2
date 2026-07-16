@@ -1010,23 +1010,20 @@ export default function Home() {
                 {/* DISCORD STATUS */}
                 <div className="border-t border-b border-[#d8e0e3]/40 border-dotted w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80 nonsel">
                     <p className={`
-                      ${status === "online" ? "text-[#8fffff] online-glow" : ""}
-                      ${status === "idle" ? "text-[#fff671] idle-glow" : ""}
+                      ${status === "online" || status === "idle" ? "text-[#8fffff] online-glow" : ""}
                       ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
                       ${status === "offline" ? "text-gray-400" : ""}
                       ${righteous.className}
                       text-5xl
                       `}>
-                      {status === "online" ? "ONLINE" : ""}
-                      {status === "idle" ? "AWAY" : ""}
+                      {status === "online" || status === "idle" ? "ONLINE" : ""}
                       {status === "dnd" ? "BUSY" : ""}
                       {status === "offline" ? "OFFLINE" : ""}
                     </p>
                   
                   {currentGame !== null && (
                     <p className={`
-                      ${status === "online" ? "text-[#8fffff] online-glow" : ""}
-                      ${status === "idle" ? "text-[#fff671] idle-glow" : ""}
+                      ${status === "online" || status === "idle" ? "text-[#8fffff] online-glow" : ""}
                       ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
                       ${status === "offline" ? "text-gray-400" : ""}
                       ${sono.className}
