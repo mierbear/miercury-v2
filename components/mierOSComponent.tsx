@@ -35,6 +35,7 @@ interface Note {
 
 const MierOS = () => {
   const [passwordContent, setPasswordContent] = useState("");
+  const [rememberPassword, setRememberPassword] = useState(false);
   const [openLogin, setOpenLogin] = useState<boolean>(false);
   const errorRef = useRef<HTMLDivElement | null>(null);
   const loginScreenRef = useRef<HTMLDivElement | null>(null);
@@ -584,7 +585,6 @@ const MierOS = () => {
 
   // MIER
 
-  const chatboxRef = useRef<HTMLDivElement | null>(null);
   const chatboxTextRef = useRef<HTMLParagraphElement | null>(null);
   const tap = () => {
     const sound = new Audio(`/audio/tap${Math.floor(Math.random() * 5)}.mp3`);
@@ -827,11 +827,11 @@ const MierOS = () => {
       setTimeout(() => {
         localStorage.removeItem("mierOSsetup");
         localStorage.removeItem("mierOSUserInfo");
-        // localStorage.removeItem("mierAmpPlaylist");
-        // localStorage.removeItem("mierAmpVolume");
-        // localStorage.removeItem("notesCurrent");
-        // localStorage.removeItem("notesFinished");
-        // localStorage.removeItem("notesReminder");
+        localStorage.removeItem("mierAmpPlaylist");
+        localStorage.removeItem("mierAmpVolume");
+        localStorage.removeItem("notesCurrent");
+        localStorage.removeItem("notesFinished");
+        localStorage.removeItem("notesReminder");
         setSetup(false);
         window.location.reload()
       }, 4000);
@@ -1203,6 +1203,31 @@ const MierOS = () => {
   ];
 
   const [reformatting, setReformatting] = useState(false);
+  let [forgot, setForgot] = useState(0);
+
+  const passwordHints = [
+    "enter password here",
+    "vro how did you forget..",
+    `it starts with "${userPassword.slice(0, 1)}"`,
+    "do you want to just log in LOL",
+  ]
+
+  const forgotText = [
+    "forgot password?",
+    "idk u_u",
+    "i still dont rememeber..",
+    "yes",
+  ]
+
+  const forgotHandler = () => {
+    if (forgot < 3) {
+      setForgot(forgot + 1);
+    } else {
+      setForgot(0);
+      setOpenLogin(false);
+      login(true);
+    }
+  }
 
   return (
     <div className="min-w-screen min-h-screen flex flex-col items-center justify-center">
@@ -1553,7 +1578,7 @@ const MierOS = () => {
             <input 
               type="password"
               className="w-[25vh] bg-white"
-              placeholder="enter password here..."
+              placeholder={passwordHints[forgot]}
               name="password" 
               autoFocus={true}
               autoComplete="off"
@@ -1562,18 +1587,16 @@ const MierOS = () => {
               ref={passwordContentRef}
             />
 
-            <div
+            <p
               className={`
-                flex items-center gap-[0.5vh] flex-row
+              decoration-black/25 transition-colors duration-100 
+              hover:decoration-black underline underline-offset-2
+              cursor-pointer w-full text-center
               `}
+              onClick={() => forgotHandler()}
             >
-              <input 
-                type="checkbox"
-                className="password-remember"
-                name="password-remember"
-              />
-              <p>remember password?</p>
-            </div>
+              {forgotText[forgot]}
+            </p>
 
             <button 
               className="mt-[0.5vh] cursor-pointer py-1 px-2 border border-black/50 rounded-[1px]" 
