@@ -6,21 +6,37 @@
 https://www.miercury.com/
 
 ## Features
+
 - Responsive, interactive interface with custom animations.
+
 - [***Artwork gallery***](https://www.miercury.com/gallery) with tag filtering and lightbox viewing.
+  
 ![gallery](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/gallery.gif)
+
 - [***Character showcase***](https://www.miercury.com/characters) with interactive animations.
+
 ![characters](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/characters.gif)
+
 -  **Admin dashboard** for managing artworks, blog posts, and dev logs with full CRUD functionality.
+
 ![blog](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/blog.gif)
+
 - Collection of games I've made for fun and learning game logic/interactivity:
+
 ***[Match Game](https://www.miercury.com/match/index.html)*** 🃏
+  
 ![match](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/match.gif)
+
 ***[Mierfishing](https://www.miercury.com/mierfishing/index.html)*** 🎣
+
 ![fishish](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/fish.gif)
+
 ***[MierOS](https://www.miercury.com/mieros)*** 🖥️
+
 ![mieros](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/mieros.gif)
+
 - Dynamic content stored and managed through Supabase.
+
 ## Tech Stack
 
 **Frontend**
