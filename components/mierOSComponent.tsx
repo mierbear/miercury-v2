@@ -166,8 +166,10 @@ const MierOS = () => {
       {"id": "l0Jo-9aqhYc", "title": "Porter Robinson - Mirror"},
       {"id": "HQnC1UHBvWA", "title": "Porter Robinson & Madeon - Shelter"},
       {"id": "MUHgTcuCBOk", "title": "Porter Robinson - Musician (33 RPM)"},
-      {"id": "GSWc180az58", "title": "六時のざわめき"},
+      {"id": "vFpTmgmxKQc", "title": "The Toy Car"},
+      {"id": "lPtZrpC-8k0", "title": "The Picture Book"},
       {"id": "TSmUBltWVTc", "title": "The Veil of Night (Live Recording Version)"},
+      {"id": "GSWc180az58", "title": "六時のざわめき"},
     ]
   );
   const [currentSong, setCurrentSong] = useState<number | null>(null);
@@ -979,7 +981,9 @@ const MierOS = () => {
         `you are ${weight} lbs.. maybe go eat something, anything. a crumb. please!`,
         `at ${weight} lbs you could go float in a pool with very little effort.. just saying!`,
         `maybe eat a sandwich, a big one. maybe 2.. actually maybe 4!`,
-      ] : [
+      ]
+      // WEIGHT > 5000 
+      : [
         `at ${weight} lbs you are entering elephant territory. you should go find a river to bathe in.`,
         `maybe don't do cannonballs in any body of water.. you might cause a tsunami..`,
         `try taking a nap outside. the earth is your mattress now at ${weight} lbs.`,

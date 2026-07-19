@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Miercury
 
-## Getting Started
+[***Miercury***](https://www.miercury.com/) is my personal website and portfolio, built with Next.js, React, TypeScript, and Supabase. It showcases my artwork, projects, and web development skills while serving as a full-stack application with an interactive user experience and a custom admin dashboard for managing site content.
 
-First, run the development server:
+## Live Demo
+https://www.miercury.com/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
+- Responsive, interactive interface with custom animations.
+- [***Artwork gallery***](https://www.miercury.com/gallery) with tag filtering and lightbox viewing.
+![gallery](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/gallery.gif)
+- [***Character showcase***](https://www.miercury.com/characters) with interactive animations.
+![characters](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/characters.gif)
+-  **Admin dashboard** for managing artworks, blog posts, and dev logs with full CRUD functionality.
+![blog](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/blog.gif)
+- Collection of games I've made for fun and learning game logic/interactivity:
+***[Match Game](https://www.miercury.com/match/index.html)*** 🃏
+![match](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/match.gif)
+***[Mierfishing](https://www.miercury.com/mierfishing/index.html)*** 🎣
+![fishish](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/fish.gif)
+***[MierOS](https://www.miercury.com/mieros)*** 🖥️
+![mieros](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/mieros.gif)
+- Dynamic content stored and managed through Supabase.
+## Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**Frontend**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Next.js
+- React
+- TypeScript
+- Tailwind CSS
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Backend**
 
-## Learn More
+- Supabase
 
-To learn more about Next.js, take a look at the following resources:
+**Libraries**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- GSAP
+- Tiptap
+- Yet Another React Lightbox
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Technical Highlights
+Building Miercury taught me how to:
 
-## Deploy on Vercel
+- Deploy and maintain a production application using Vercel.
+- Implement and work with authentication and protected admin routes with Supabase.
+- Create reusable components with TypeScript.
+- Debugging and integrating third-party APIs and libraries through documentation and experimentation.
+- Implement CRUD operations with Supabase Database and Storage.
+- Design responsive layouts for desktop and mobile with Tailwind CSS.
+- Improve UX through image/video/audio preloading and loading states.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Miercury was built over the course of several months, and it has given me a lot of confidence in my webdev abilities. If you'd like to read more into the challenges I've had to deal with as I worked on this project, I go more in-depth into them on my [***personal blog,***](https://www.miercury.com/blog/page/1) especially on [***this post***](https://www.miercury.com/blog/post/miercury-finished-26-06-19).
