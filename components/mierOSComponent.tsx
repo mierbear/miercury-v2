@@ -1249,7 +1249,7 @@ const MierOS = () => {
       {/* SET UP SCREEN */}
       <div 
         className={`
-          w-screen h-screen bg-[#0f0f10]
+          w-screen h-screen bg-[#0f0f10] text-[15px]
           items-center justify-center transition-all
           duration-1200 ease-[ease] fixed z-2000 nonsel
           ${setup ? "hidden" : "flex"}
@@ -1258,7 +1258,7 @@ const MierOS = () => {
         <div
           className={`
             flex flex-col items-center justify-between relative p-4
-            h-auto w-full bg-[#dee7e9] gap-4 mb-4
+            h-auto max-[80vh] w-full bg-[#dee7e9] gap-4 mb-4
           `}
         >
           {/* TOP */}
@@ -1500,7 +1500,7 @@ const MierOS = () => {
           
         </div>
         
-        <p className="text-center text-[#dee7e9] absolute bottom-4 font-bold breathe">
+        <p className="text-center text-[#dee7e9] absolute bottom-4 font-bold breathe nonsel pointer-events-none">
           THESE ARE JOKES AND ARE NOT SENT/SAVED/RECORDED. ALL NECESSARY INFO FOR USER EXPERIENCE (ONES MARKED WITH A <span className="text-[#0062ff]">*</span>) ARE KEPT PURELY IN YOUR BROWSER'S LOCALSTORAGE<br/>
           <span className="text-[#dee7e9]/50">
           (you could literally just write down gibberish or leave fields blank if you wish lol)
