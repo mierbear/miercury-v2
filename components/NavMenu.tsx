@@ -547,7 +547,7 @@ const NavMenu = () => {
           transition-opacity duration-1000
           ${open ? "opacity-100" : "opacity-0"}`}
         >
-          you're currently {currentRoute?.desc}. where do you wish to go?
+          you're currently {currentRoute?.desc || "lost"}. where do you wish to go?
         </p>
         
       </div>
@@ -593,7 +593,7 @@ const NavMenu = () => {
             transition-transform origin-center
             ease-in-out nonsel pointer-events-none
           `}
-          src={`/images/navmenu/${currentRoute?.img}`} 
+          src={`/images/navmenu/${currentRoute?.img || "star.png"}`} 
         />
       </div>
       

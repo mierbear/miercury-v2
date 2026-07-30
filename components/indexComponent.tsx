@@ -1136,7 +1136,7 @@ export default function Home() {
 
       <img src="/images/index/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
 
-      <Stars />
+      <Stars lost={false} />
 
       <Tooltip info="check out gallery?" status={toolTipStatus} />
 
