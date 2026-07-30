@@ -91,13 +91,13 @@ export default function Home() {
       tag: "",
     },
     {  
-      name: "From Bureaucrat to Villainess: Dad's Been Reincarnated!",
+      name: "From Bureaucrat to Villainess",
       img: "villainess.jpg",
       comment: "",
       tag: "",
     },
     {  
-      name: "Welcome to Demon School! Iruma-kun",
+      name: "Welcome to Demon School!",
       img: "iruma.jpg",
       comment: "",
       tag: "love",
@@ -205,7 +205,7 @@ export default function Home() {
       tag: "",
     },
     {  
-      name: "Frieren: Beyond Journey's End",
+      name: "Frieren",
       img: "frieren.jpg",
       comment: "",
       tag: "",
@@ -236,7 +236,7 @@ export default function Home() {
       tag: "best",
     },
     {  
-      name: "Gankutsuou: The Count of Monte Cristo",
+      name: "Gankutsuou",
       img: "gankutsuou.jpg",
       comment: "",
       tag: "best",
@@ -660,7 +660,7 @@ export default function Home() {
           {/* TOP ROW */}
           <div 
             className={`
-            bg-[rgb(30,34,36)]/70 flex flex-col text-white justify-between
+            bg-[rgb(30,34,36)]/90 flex flex-col text-white justify-between
             transition-all duration-500 min-h-0
             py-6
             px-2
@@ -845,7 +845,7 @@ export default function Home() {
           >
 
             {/* CAROUSEL */}
-            <div className={`w-screen h-[24vh] z-100 self-end bg-[rgb(30,34,36)]/20 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
+            <div className={`w-screen h-[24vh] z-100 self-end bg-[rgb(30,34,36)]/50 py-4 absolute left-0 right-0 transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}
               ref={carouselContainerRef}
             >
               <div className={`overflow-hidden flex items-center justify-center h-full w-full transition-opacity duration-400 ${activeList ? "opacity-100" : "opacity-0"}`}>
@@ -891,7 +891,7 @@ export default function Home() {
                             "
                           />
 
-                          <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${anime.tag}`}>
+                          <p className={`text-center absolute bottom-2 left-2 right-2 text-xs text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${anime.tag}`}>
                             {anime.name}
                           </p>
                         </div>
@@ -935,7 +935,7 @@ export default function Home() {
                             "
                           />
 
-                          <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${music.tag}`}>
+                          <p className={`text-center absolute bottom-2 left-2 right-2 text-xs text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${music.tag}`}>
                             {music.name}
                           </p>
                         </div>
@@ -980,7 +980,7 @@ export default function Home() {
                             "
                           />
 
-                          <p className={`text-center absolute bottom-2 left-2 right-2 text-xs sm:text-sm text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${games.tag}`}>
+                          <p className={`text-center absolute bottom-2 left-2 right-2 text-xs text-white bg-black/70 p-1 border border-white pointer-events-none nonsel font-bold rounded-md z-250 ${games.tag}`}>
                             {games.name}
                           </p>
                         </div>

@@ -48,7 +48,7 @@ export default function NotFound() {
   }, []);
 
   return (
-    <div className="w-screen h-screen flex items-end justify-center relative">
+    <div className="w-screen h-screen flex items-end justify-center relative bg-[#17191a]">
 
       <div className="z-5000 flex origin-bottom scale-50 nonsel pointer-events-none opacity-90 w-screen items-center justify-center px-8">
         <img src="/images/kaninfigure.png" className="figure-breathe-medium" />

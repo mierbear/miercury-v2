@@ -262,7 +262,7 @@ export default function Blog(props: BlogComponentProps) {
 
       <div className={`pb-4 w-5xl bg-black/50 hidden md:flex justify-center`}>
         <NextLink href="/quotes" target="_blank" rel="noopener noreferrer">
-          <p className="text-xs">{getQuote(quotes)}</p>
+          <p className="text-xs text-center px-8">{getQuote(quotes)}</p>
         </NextLink>
       </div>
 

@@ -272,7 +272,7 @@ const putMonologue = (fish) => {
     } else if (fish === `gigaegg`) {
         return `am i in minecraft?`;
     } else if (fish === `nico`) {
-        return `woah!<br>there a bunnies in the sea?`;
+        return `woah!<br>there are bunnies in the sea?`;
     } else if (fish === `phrog`) {
         return `what a silly looking fish lol`;
     } else if (fish === `yobu`) {

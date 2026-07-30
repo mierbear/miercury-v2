@@ -254,7 +254,7 @@ const NavMenu = () => {
   }, [])
 
   const onComic = pathname.startsWith("/worlds/read");
-  const onOS = pathname.startsWith("/mieros");
+  const hidden = pathname.startsWith("/mieros") || pathname.startsWith("/portfolio");
 
   // PRELOAD
   useEffect(() => {
@@ -333,7 +333,7 @@ const NavMenu = () => {
       duration-1000 transition-colors
       ${open ? "from-[rgb(11,12,13)]/70 via-[rgb(11,12,13)]/40" : "via-transparent from-transparent"}
       ${anonymous.className}
-      ${onComic || onOS && "hidden"}
+      ${onComic || hidden && "hidden"}
     `}>
       
       {/* HOME LINK */}
