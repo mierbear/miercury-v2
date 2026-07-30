@@ -1,5 +1,4 @@
 "use client";
-import gsap from "gsap";
 import { useEffect, useRef, useState } from "react";
 import ShootingStars from "./shootingStars";
 

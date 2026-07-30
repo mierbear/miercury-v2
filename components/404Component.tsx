@@ -1,6 +1,13 @@
 'use client';
 import Stars from "@/components/indexStars";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import Loading from "@/components/LoadingScreenComponent";
+import { Boldonse } from "next/font/google";
+
+const boldonse = Boldonse({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 export default function NotFound() {
 
@@ -20,6 +27,26 @@ export default function NotFound() {
     setLostMessage(randomizer(lostMessages));
   }, [])
 
+  const loadingScreenRef = useRef<HTMLDivElement | null>(null);
+  const [ready, setReady] = useState(false);
+
+  // PRELOAD
+  useEffect(() => {
+    const preload = [
+      "/images/index/mierfigure.png",
+      "/images/index/kaninfigure.png",
+    ];
+
+    const promises = preload.map(src => new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    }));
+
+    Promise.all(promises).then(() => setReady(true));
+  }, []);
+
   return (
     <div className="w-screen h-screen flex items-end justify-center relative">
 
@@ -38,7 +65,19 @@ export default function NotFound() {
         {lostMessage}
       </p>
 
+      <p className={`
+        absolute text-white w-screen h-screen
+        flex items-center justify-center z-5001
+        nonsel pointer-events-none monospace p-4
+        lg:items-end lg:justify-start text-8xl opacity-20
+        ${boldonse.className}
+        `}
+      >
+        404
+      </p>
+
       <Stars lost={true} />
+      <Loading loadingRef={loadingScreenRef} ready={ready} />
     </div>
   );
 }
