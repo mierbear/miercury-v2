@@ -99,7 +99,7 @@ export default function Home() {
   const router = useRouter();
 
   const handleDiscordLink = () => {
-  navigator.clipboard.writeText("miermiermiermier");
+  navigator.clipboard.writeText("mierursa");
 
   gsap.killTweensOf(discordUsernameRef.current);
 
@@ -1047,7 +1047,7 @@ export default function Home() {
                     <img src="/images/index/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
                   </NextLink>
                     <img onClick={handleDiscordLink} src="/images/index/discord.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
-                  <NextLink href="https://www.youtube.com/@miermiermiermier" target="_blank" rel="noopener noreferrer">
+                  <NextLink href="https://www.youtube.com/@mierursa" target="_blank" rel="noopener noreferrer">
                     <img src="/images/index/youtube.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
                   </NextLink>
                   <p
@@ -1055,7 +1055,7 @@ export default function Home() {
                     style={{ visibility: "hidden" }}
                     className="absolute -translate-y-10 bg-[#535961]/90 py-1 px-1.5 rounded text-white text-center"
                   >
-                    copied! (miermiermiermier)
+                    copied! (mierursa)
                   </p>
                 </div>
               </div> 

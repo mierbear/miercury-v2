@@ -13,44 +13,51 @@ export default function QuotesComponent() {
   }
 
   return (
-    <div className="text-white bg-[#17191a] w-screen min-h-screen flex flex-col items-center justify-center relative">
+    <div className="text-black bg-[#17191a] w-screen min-h-screen flex flex-col items-center justify-center relative">
 
       {/* INTRO */}
       <div
-        className="flex items-center justify-center w-screen h-screen bg-amber-300"
+        className="flex items-center justify-center w-screen h-screen bg-[#dadfe1]"
         ref={introRef}
       >
+
+        {/* TEXT */}
         <div
           className="flex items-center justify-center w-[40%] flex-col"
         >
           <p className="text-6xl">HELLO, IM</p>
           <p className="text-9xl">KYLE!</p>
         </div>
+
+        {/* PFP */}
         <div
           className="flex items-center justify-center w-[40%]"
         >
-
-          <img 
-            src="/images/index/pfp.png"
-            className={`
-              w-[60vh] h-[60vh] rounded-full
-            `}
-          />
-          
+          <div
+            className="w-[60vh] h-[60vh] rounded-full bg-blue-500 flex items-center justify-center"
+          >
+            <img 
+              src="/images/index/pfp.png"
+              className={`
+                w-[96%] h-[96%] rounded-full
+              `}
+              />
+          </div>
         </div>
+
       </div>
       
       {/* INFO */}
       <div
-        className="flex items-center justify-center w-screen h-screen bg-amber-400"
+        className="flex items-center justify-center w-screen h-screen bg-[#dadfe1]"
         ref={infoRef}
       >
-        INFO
+        
       </div>
 
       {/* PROJECTS */}
       <div
-        className="flex items-center justify-center w-screen h-screen bg-amber-500"
+        className="flex items-center justify-center w-screen h-screen bg-[#dadfe1]"
         ref={projectsRef}
       >
         PROJECTS
@@ -58,7 +65,7 @@ export default function QuotesComponent() {
 
       {/* EXPERIENCE */}
       <div
-        className="flex items-center justify-center w-screen h-screen bg-amber-600"
+        className="flex items-center justify-center w-screen h-screen bg-[#dadfe1]"
         ref={experienceRef}
       >
         EXPERIENCE
@@ -67,13 +74,13 @@ export default function QuotesComponent() {
       {/* NAVIGATION */}
       <div
         className={`
-          fixed bottom-4 text-xl px-4 py-2 bg-amber-900/50 rounded-3xl
+          fixed bottom-4 text-xl px-4 py-2 bg-white/80 rounded-3xl
           flex gap-4 nonsel
         `}
       >
         <p className="cursor-pointer" onClick={() => scrollToHandler(introRef)}>Intro</p>
         <p>✦</p>
-        <p className="cursor-pointer" onClick={() => scrollToHandler(infoRef)}>Info</p>
+        <p className="cursor-pointer" onClick={() => scrollToHandler(infoRef)}>Info/Stack</p>
         <p>✦</p>
         <p className="cursor-pointer" onClick={() => scrollToHandler(projectsRef)}>Projects</p>
         <p>✦</p>

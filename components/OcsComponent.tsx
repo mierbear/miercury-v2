@@ -711,7 +711,7 @@ export default function Ocs() {
           </div>
 
           <img 
-            className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover"
+            className="absolute opacity-20 min-h-full min-w-full w-auto max-w-none bg-cover nonsel pointer-events-none"
             src="/images/ocs/mier-alt.png"
           />
         </div>
