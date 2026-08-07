@@ -5,7 +5,7 @@ import NextLink from "next/link";
 import { useRouter } from "next/navigation";
 
 // FONTS
-import { Micro_5, Righteous, Coral_Pixels, Sono, Bodoni_Moda, Gowun_Batang, Noto_Serif_JP, Kosugi_Maru, Boldonse } from "next/font/google";
+import { Righteous, Sono, Bodoni_Moda, Noto_Serif_JP, Kosugi_Maru, Boldonse, Instrument_Serif, Modak, Nova_Mono } from "next/font/google";
 
 // 3RD PARTY
 import gsap from "gsap";
@@ -37,16 +37,6 @@ import { read } from "fs";
 
 gsap.registerPlugin(TextPlugin);
 
-const micro = Micro_5({
-  weight: "400",
-  subsets: ["latin"],
-})
-
-const coral = Coral_Pixels({
-  weight: "400",
-  subsets: ["latin"],
-})
-
 const righteous = Righteous({
   weight: "400",
   subsets: ["latin"],
@@ -67,13 +57,23 @@ const kosugi = Kosugi_Maru({
   subsets: ["latin"],
 })
 
-const gowun = Gowun_Batang({
-  weight: "400",
+const sono = Sono({
+  weight: ["400", "600"],
   subsets: ["latin"],
 })
 
-const sono = Sono({
-  weight: ["400", "600"],
+const modak = Modak({
+  weight: ["400"],
+  subsets: ["latin"],
+})
+
+const nova = Nova_Mono({
+  weight: ["400"],
+  subsets: ["latin"],
+})
+
+const castoro = Instrument_Serif({
+  weight: ["400"],
   subsets: ["latin"],
 })
 
@@ -247,50 +247,6 @@ export default function Home() {
   //   return arr[Math.floor(Math.random() * arr.length)];
   // }
 
-  const leftPupilRef = useRef<HTMLImageElement | null>(null);
-  const rightPupilRef = useRef<HTMLImageElement | null>(null);
-
-  const movePupil = (
-    pupil: HTMLImageElement,
-    mouseX: number,
-    mouseY: number,
-    maxDistance = 20,
-    radius = 1000
-  ) => {
-    const rect = pupil.getBoundingClientRect();
-
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-
-    const dx = mouseX - centerX;
-    const dy = mouseY - centerY;
-
-    const distance = Math.hypot(dx, dy);
-    if (distance === 0) return;
-
-    const normalized = Math.min(distance / radius, 1);
-    const scaled = normalized * maxDistance;
-
-    const nx = dx / distance;
-    const ny = dy / distance;
-
-    pupil.style.transform = `translate(${nx * scaled}px, ${ny * scaled}px)`;
-  }
-
-  useEffect(() => {
-    if (!ready) return;
-
-    const move = (e: MouseEvent) => {
-      if (!leftPupilRef.current || !rightPupilRef.current) return;
-
-      movePupil(leftPupilRef.current, e.clientX, e.clientY);
-      movePupil(rightPupilRef.current, e.clientX, e.clientY);
-    };
-
-    window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
-  }, [ready]);
-
   const linksDivRef = useRef<HTMLDivElement | null>(null);
 
   type LinkKey =
@@ -346,7 +302,7 @@ export default function Home() {
 
   const featArtMiniRef = useRef<HTMLImageElement | null>(null);
   const loadingScreenRef = useRef<HTMLDivElement | null>(null);
-  const [adVertHover, setAdVertHover] = useState(false);
+  const [advertHover, setAdvertHover] = useState(false);
   const [artwork, setArtwork] = useState<ArtType | null>(null);
   
   const fetchArt = async () => {
@@ -889,29 +845,6 @@ export default function Home() {
                   >
                     <div className={`flex ${ready ? "opacity-100" : "opacity-0"}`}>
                       
-                      {/* VERT */}
-                      <div className="aspect-25/9 flex-[0_0_100%] overflow-hidden relative">
-                        <div
-                        className="relative block w-full h-full"
-                        onMouseEnter={() => {setAdVertHover(true)}}
-                        onMouseLeave={() => {setAdVertHover(false)}}
-                        >
-                          <NextLink 
-                          href="https://x.com/daruezio"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="absolute text-white z-100 w-full h-full items-center justify-center flex flex-col">
-                            <p className={`${adVertHover ? `${micro.className} text-7xl translate-y-1` : `${coral.className} text-5xl`} text-center px-8 text-nowrap`}>DARUEZIO</p>
-                            <p className={`${adVertHover ? `${micro.className} text-2xl -translate-y-3` : `${coral.className} text-base`} text-center px-8`}>see what the art of a top ~5% deadlock player looks like</p>
-                          </NextLink>
-
-                          <video autoPlay muted loop className={`object-cover h-full w-full nonsel pointer-events-none ${ready ? "block" : "hidden"}`}>
-                            <source src="/videos/vert.webm" type="video/webm" />
-                          </video>
-                          
-                        </div>
-                      </div>
-
                       {/* FISHING */}
                       {isPhone || (
                         <div className="aspect-25/9 flex-[0_0_100%]">
@@ -921,27 +854,86 @@ export default function Home() {
                         </div>
                       )}
 
-                      {/* EYE */}
-                      <div className="relative aspect-25/9 flex-[0_0_100%] flex flex-col items-center justify-center bg-[#17191a] nonsel pointer-events-none overflow-x-hidden">
+                      {/* VERT */}
+                      <div className="aspect-25/9 flex-[0_0_100%] overflow-hidden relative">
+                        <div
+                        className="relative w-full h-full bg-[rgb(188,6,47)]"
+                        onMouseEnter={() => {setAdvertHover(true)}}
+                        onMouseLeave={() => {setAdvertHover(false)}}
+                        >
+                          <NextLink 
+                          href="https://www.tiktok.com/@daruezio"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`
+                            text-8xl w-full h-full absolute wings translate-y-[3.5px]
+                            z-100 pl-[4%] nonsel flex items-center text-[#700707]
+                            ${nova.className}
+                            `}
+                          >
+                            DARU<br/>
+                            EZIO
+                          </NextLink>
 
-                        {/* LEFT */}
-                        <div className="absolute -translate-x-full flex items-center justify-center">
-                          <div className="bg-white rounded-full w-full h-full absolute" />
-                          <img className="scale-x-[-1] nonsel pointer-events-none relative z-20" src="/images/index/lid.png" />
-                          <img className="nonsel pointer-events-none pupil absolute z-25" src="/images/index/pupil.png" ref={leftPupilRef} />
+                          <img className="w-full h-full absolute nonsel pointer-events-none object-cover z-101" src="/images/index/daru.png" />
                         </div>
+                      </div>
 
-                        {/* RIGHT */}
-                        <div className="absolute translate-x-full flex items-center justify-center">
-                          <div className="bg-white rounded-full w-full h-full absolute" />
-                          <img className="nonsel pointer-events-none relative z-20" src="/images/index/lid.png" />
-                          <img className="nonsel pointer-events-none pupil absolute z-25" src="/images/index/pupil.png" ref={rightPupilRef} />
+                      {/* TRUILT */}
+                      <div className="aspect-25/9 flex-[0_0_100%] overflow-hidden relative">
+                        <div
+                        className="relative block w-full h-full"
+                        onMouseEnter={() => {setAdvertHover(true)}}
+                        onMouseLeave={() => {setAdvertHover(false)}}
+                        >
+                          <NextLink 
+                            href="https://x.com/truiltce"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`
+                            ${castoro.className} ${advertHover ? "scale-100" : "scale-95"}
+                            absolute text-white z-100 w-full h-full items-center justify-center 
+                            flex flex-col transition-[scale] duration-1000 nonsel origin-center
+                            `}
+                          >
+                            <p className="text-6xl text-center px-8 text-nowrap">TRUILT</p>
+                            <p className="text-xl text-center px-8">Every thought better than the last.</p>
+                          </NextLink>
+
+                          <img className="w-full h-full nonsel pointer-events-none object-cover" src="/images/index/truilt.png" />
+                          
                         </div>
-                        
-                        <div className="absolute bottom-2 left-0 w-full h-15 z-30 flex items-center overflow-hidden">
-                          <p className={`text-white text-sm text-center w-full ${gowun.className}`}>
-                            I know what you're up to.
-                          </p>
+                      </div>
+
+                      {/* BONBLI */}
+                      <div className="aspect-25/9 flex-[0_0_100%] overflow-hidden relative">
+                        <div
+                        className="relative block w-full h-full"
+                        onMouseEnter={() => {setAdvertHover(true)}}
+                        onMouseLeave={() => {setAdvertHover(false)}}
+                        >
+                          <NextLink 
+                            href="https://x.com/BonbliStar"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={`
+                            ${modak.className}
+                            absolute text-[#000000] z-100 w-full h-full items-center justify-end 
+                            flex flex-col nonsel
+                            `}
+                          >
+                            {/* <p className="text-5xl text-center px-8 text-nowrap">BONBLI</p> */}
+                            <Marquee
+                              speed={100}
+                              autoFill={true}
+                              className="text-3xl text-white flex meow nonsel pb-4 overflow-hidden scale-99"
+                            >
+                              &nbsp;BONBLI&nbsp;<span className="text-[#ff7d7d]">★</span>&nbsp;BONBLI&nbsp;<span className="text-[#7d7dff]">★</span>
+                            </Marquee>
+                          </NextLink>
+
+                          <img className="w-full h-full nonsel pointer-events-none object-cover" src="/images/index/bonbli.png" />
+                          
                         </div>
                       </div>
 

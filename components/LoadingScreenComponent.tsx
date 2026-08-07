@@ -29,7 +29,15 @@ const Loading = ({ loadingRef, ready }: props) => {
         if (ready) setVisible(false);
       }}
     >
-      <div className="md:bottom-20 bottom-10 md:right-20 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 h-40 w-40 absolute text-black text-6xl loading-spin rotate-45">
+      <div 
+        className={`
+        top-1/2 -translate-y-1/2 md:top-auto md:translate-y-0
+        md:bottom-20 md:right-20 left-1/2 -translate-x-1/2
+        md:left-auto md:translate-x-0 h-40 w-40
+        absolute text-black text-6xl loading-spin rotate-45
+        `}
+      >
+
         <p className="bg-white rounded-full w-20 h-20 flex items-center justify-center -rotate-45 loading-spin-counter absolute top-0 left-0">M</p>
         <p className="bg-white rounded-full w-20 h-20 flex items-center justify-center -rotate-45 loading-spin-counter absolute top-0 right-0">I</p>
         <p className="bg-white rounded-full w-20 h-20 flex items-center justify-center -rotate-45 loading-spin-counter absolute bottom-0 left-0">R</p>
