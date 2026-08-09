@@ -87,7 +87,7 @@ export default function QuotesComponent() {
         {/* NAVIGATION */}
         <div
           className={`
-            fixed bottom-[2.5vh] text-xl px-4 py-2 bg-white/80 rounded-3xl
+            fixed bottom-[2.5vh] text-xl px-4 py-2 bg-white rounded-3xl
             flex gap-4 nonsel
           `}
         >

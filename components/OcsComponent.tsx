@@ -198,6 +198,12 @@ export default function Ocs() {
     setOpenWhy(false);
   }, [currentOc, selectedMier]);
 
+  useEffect(() => {
+    if (currentOc !== "calvarius") {
+      setOpenVote(false);
+    }
+  }, [currentOc]);
+
   const clearTyrantDeco = () => {
     setShot(false);
     bulletHoleRef.current!.style.opacity = "0"
@@ -256,6 +262,8 @@ export default function Ocs() {
     Promise.all(promises).then(() => setReady(true));
   }, []);
 
+  const [openVote, setOpenVote] = useState(false);
+
   return (
     <div className="w-screen max-w-screen align-center flex flex-col bg-[#17191a] relative">
       
@@ -265,20 +273,33 @@ export default function Ocs() {
         ref={blockerRef}
       />
 
-      {/* OC INFO */}
+      {/* VOTE */}
       <div 
         className={`
-          fixed w-2xl h-70 z-544 items-center justify-center bottom-4 left-1/2 -translate-x-1/2 bg-gray-200
-          ${openInfo ? "flex" : "hidden"}
+          fixed w-full h-full z-544 items-center justify-center
+          backdrop-blur-[2px]
+          ${openVote ? "flex" : "hidden"}
         `}
+        onClick={() => setOpenVote(false)}
       >
-        {/* X */}
-        <p 
-          className="cursor-pointer hover:text-red-500 text-5xl absolute top-2 right-6"
-          onClick={() => setOpenInfo(false)}
-        >
-          x
-        </p>
+        <div className="flex flex-col w-2xl text-center justify-center nonsel relative overflow-hidden">
+
+          {/* IFRAME */}
+          <iframe
+              title="StrawPoll Embed"
+              src="https://strawpoll.com/embed/X3nkP3l4KgE"
+              style={{ height: "480px", border: "none", width: "100%" }}
+            >
+              loading...
+            </iframe>
+          <p
+            className="cursor-pointer absolute top-3 right-3 hover:text-red-400 transition-colors duration-200 text-2xl"
+            onClick={() => setOpenVote(false)}
+          >
+            🞮
+          </p>
+
+        </div>
       </div>
 
       {/* WHY?? */}
@@ -295,7 +316,7 @@ export default function Ocs() {
 
           {/* X */}
           <p 
-            className="cursor-pointer hover:text-red-500 text-4xl absolute top-3 right-3"
+            className="cursor-pointer absolute top-3 right-3 hover:text-red-400 transition-colors duration-200 text-2xl"
             onClick={() => setOpenWhy(false)}
           >
             🞮
@@ -358,21 +379,17 @@ export default function Ocs() {
             />
           </div>
         ))}
-        {/* <p 
-          className="w-10 h-10 mt-4 bg-black rounded-full flex items-center justify-center cursor-pointer"
-          onClick={() => setOpenInfo(true)}
-        >
-          ?
-        </p> */}
       </div>
 
-      {/* TYRANT DECO - WHY */}
+      {/* TYRANT DECO / BOTTOM TEXT */}
       <div
         className={`
           fixed h-full w-screen z-1000 transition-opacity nonsel pointer-events-none text-xl min-[1600px]:text-2xl
           ${barlow.className}
         `}
         >
+
+        {/* DECO */}
         <img 
           src={`/images/ocs/mier-tyrant-deco.png`}
           className={`
@@ -381,11 +398,9 @@ export default function Ocs() {
           `}
           ref={bulletHoleRef}
         />
-        <div
-          className={`
-            absolute bottom-4 left-4 font-bold nonsel flex gap-4
-          `}
-        >
+
+        {/* WHY */}
+        <div className={`absolute bottom-4 left-4 font-bold nonsel flex gap-4`}>
           <p
             onClick={() => setOpenWhy(true)} 
             className={`
@@ -397,6 +412,7 @@ export default function Ocs() {
           </p>
         </div>
 
+        {/* DECO OPTIONS */}
         <div
           className={`
             absolute bottom-4 right-4 font-bold nonsel gap-4
@@ -434,6 +450,20 @@ export default function Ocs() {
           </p>
 
         </div>
+        
+        {/* VOTE */}
+        <div className={`absolute bottom-4 left-4 font-bold nonsel flex gap-4`}>
+          <p
+            onClick={() => setOpenVote(true)} 
+            className={`
+              transition-opacity duration-300 cursor-pointer text-white/50 hover:text-white
+              ${currentOc === "calvarius" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
+            `}
+          >
+            vote for your favorite brother!
+          </p>
+        </div>
+
       </div>
 
       {/* MIER PC ANGEL SELECT */}
