@@ -293,7 +293,7 @@ export default function Home() {
 
   const [artHover, setArtHover] = useState(false);
   const pfpRef = useRef<HTMLImageElement | null>(null);
-  const pfpColors = ['[#ff3535]', '[#146eff]', '[#ffe957]',]
+  const pfpColors = ['bg-[#ff3535]', 'bg-[#146eff]', 'bg-[#ffe957]',]
   const [pfpColor, setPfpColor] = useState<number>(0)
 
   const boing = () => {
@@ -845,10 +845,6 @@ export default function Home() {
                 <p className="text-white absolute top-0 left-0 py-1 px-2 z-100 text-xs bg-black/30 rounded-br-md ml-px mt-px nonsel">brought to you by...</p>
                 <div className="flex flex-col justify-center items-center relative w-full aspect-25/9 mx-auto border-x-0 md:border-x text-white border-[#d8e0e3]/70 border">
 
-                  <div className="w-full h-full absolute bg-[#17191a] mix-blend-lighten z-100 pointer-events-none">
-
-                  </div>
-
                   <div
                     className="overflow-hidden flex items-center justify-center h-full"
                     onMouseEnter={() => autoplay.current.stop()}
@@ -996,7 +992,7 @@ export default function Home() {
                   >
                     <div 
                       className={`
-                        bg-${pfpColors[pfpColor]} absolute w-full h-full rounded-full
+                        ${pfpColors[pfpColor]} absolute w-full h-full rounded-full
                         transition-[scale] duration-600 ease-in-out
                         scale-0 group-hover:scale-120
                       `} 
