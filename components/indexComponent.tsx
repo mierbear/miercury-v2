@@ -291,13 +291,21 @@ export default function Home() {
     setLogs(data);
   }
 
-  const pfpRef = useRef<HTMLImageElement | null>(null);
   const [artHover, setArtHover] = useState(false);
+  const pfpRef = useRef<HTMLImageElement | null>(null);
+  const pfpColors = ['[#ff3535]', '[#146eff]', '[#ffe957]',]
+  const [pfpColor, setPfpColor] = useState<number>(0)
 
   const boing = () => {
     pfpRef.current?.classList.remove("jelly");
     void pfpRef.current?.offsetWidth;
     pfpRef.current?.classList.add("jelly");
+
+    if (pfpColor === 2) {
+      setPfpColor(0)
+    } else {
+      setPfpColor(pfpColor + 1)
+    }
   }
 
   const featArtMiniRef = useRef<HTMLImageElement | null>(null);
@@ -421,9 +429,9 @@ export default function Home() {
 
     gsap.set(titleRef.current, { autoAlpha: 1 });
 
-    const split = new SplitText(titleRef.current, { type: "words" });
+    const split = new SplitText(titleRef.current, { type: "chars" });
 
-    gsap.to(split.words, {
+    gsap.to(split.chars, {
       keyframes:{
         "50%":{yPercent: 120},
         "100%":{yPercent: 0},
@@ -438,8 +446,12 @@ export default function Home() {
 
     bellFX();
 
+    titleRef.current.style.pointerEvents = "none";
+    setTimeout(() => {
+      titleRef.current!.style.pointerEvents = "all";
+    }, 1200);
+
     return () => {
-      // tl.kill();
       split.revert();
     };
   }
@@ -815,7 +827,7 @@ export default function Home() {
                           return (
                             <div key={log.id} className={`pl-4 pr-4.75 py-2 ${index === logs.length - 1 && "pb-4"}`}>
                               <p className={`${sono.className} text-gray-400`}><span className="text-orange-400 text-[9px]">●</span> {log.date}</p>
-                              <p className="text-justify">{log.log}</p>
+                              <p>{log.log}</p>
                             </div>
                           )
                         })}
@@ -978,13 +990,20 @@ export default function Home() {
 
                 <div className="p-4 flex flex-col gap-4 text-sm">
                   <div
-                    className="w-60 max-w-full md:w-full md:max-w-[70%] self-center rounded-full overflow-hidden group cursor-pointer"
+                    className="w-60 max-w-full md:w-full md:max-w-[70%] self-center rounded-full overflow-hidden relative group cursor-pointer"
                     onMouseEnter={() => boing()}
                     onClick={() => boing()}
                   >
+                    <div 
+                      className={`
+                        bg-${pfpColors[pfpColor]} absolute w-full h-full rounded-full
+                        transition-[scale] duration-600 ease-in-out
+                        scale-0 group-hover:scale-120
+                      `} 
+                    />
                     <img 
                       src="/images/index/pfp.png"
-                      className="scale-140 group-hover:scale-160 transition-scale duration-300 nonsel pointer-events-none"
+                      className="scale-125 group-hover:scale-160 transition-scale duration-300 ease-in-out nonsel pointer-events-none"
                       ref={pfpRef}
                     />
                   </div>
@@ -1047,7 +1066,7 @@ export default function Home() {
                     style={{ visibility: "hidden" }}
                     className="absolute -translate-y-10 bg-[#535961]/90 py-1 px-1.5 rounded text-white text-center"
                   >
-                    copied! (mierursa)
+                    username copied! (mierursa)
                   </p>
                 </div>
               </div> 

@@ -474,18 +474,16 @@ export default function Home() {
   }, [])
 
   const aboutMe = [
-    "i have hyperphantasia (1)",
+    "i have hyperphantasia (1) and an inner monologue",
+    "i absolutely love story cliches/tropes and character archetypes",
     "you could call me a christian/buddhist",
-    "i love cliche tropes and messages",
-    "im a sucker for sad/motivational stories/music",
-    "im sometimes forgetful lol",
-    "i might have dementia",
-    "i have an inner monologue",
-    "i love daydreaming and thinking of storylines for my characters",
+    "im a sucker for sad/inspirational stories/music",
+    "im sometimes forgetful, i might have dementia lol",
+    "i love daydreaming and thinking of ideas/storylines for my characters (and my friend's characters as well, lets brainstorm together!)",
     "i like looking into conspiracy theories for fun",
     "i laugh about almost everything",
     "dont take everything i say seriously",
-    "if i've pissed you off before, i love you",
+    "if i've upset you or pissed you off before, i love you",
     "i might have dementia",
   ]
 
@@ -677,7 +675,7 @@ export default function Home() {
             {meActive && (
               <div 
                 className={`
-                flex flex-col h-full min-h-0 nonsel  px-2
+                flex flex-col h-full min-h-0 nonsel px-2
                 items-center justify-center
                 `} 
                 ref={factsRef}
@@ -785,7 +783,6 @@ export default function Home() {
                   <p>✦ coding</p>
                   <p>✦ drawing</p>
                   <p>✦ laughing</p>
-                  <p>✦ crying</p>
                 </div>
 
                 <hr className="my-2 border-white/20" />
@@ -805,7 +802,6 @@ export default function Home() {
               text-yellow-200 flex flex-col
               gap-2 pt-6 self-center text-center
               transition-mb duration-530 nonsel
-              ${meActive && "white-glow [@media(min-height:768px)]:mb-32"}
               `}
             >
               <p className="flex text-base sm:text-lg lg:text-xl font-bold mx-3">

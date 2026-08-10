@@ -460,7 +460,7 @@ export default function Ocs() {
               ${currentOc === "calvarius" ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}
             `}
           >
-            vote for your favorite brother!
+            vote for your favorite brother !!
           </p>
         </div>
 
