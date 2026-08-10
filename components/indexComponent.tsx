@@ -293,15 +293,19 @@ export default function Home() {
 
   const [artHover, setArtHover] = useState(false);
   const pfpRef = useRef<HTMLImageElement | null>(null);
-  const pfpColors = ['bg-[#ff3535]', 'bg-[#146eff]', 'bg-[#ffe957]',]
-  const [pfpColor, setPfpColor] = useState<number>(0)
+  const onlineColors = ['bg-[#8fffff]', 'bg-[#5bc3ff]', 'bg-[#2889ff]', 'bg-[#4b51ff]']
+  const idleColors = ['bg-yellow-300', 'bg-[#ffb732]', 'bg-[#ff962d]', 'bg-[#ff7a14]']
+  const dndColors = ['bg-red-600', 'bg-[#9d3e3e]', 'bg-red-600', 'bg-[#9d3e3e]',]
+  const [pfpColor, setPfpColor] = useState<number>(3)
 
   const boing = () => {
     pfpRef.current?.classList.remove("jelly");
     void pfpRef.current?.offsetWidth;
     pfpRef.current?.classList.add("jelly");
 
-    if (pfpColor === 2) {
+    if (status === "offline") return;
+    
+    if (pfpColor === 3) {
       setPfpColor(0)
     } else {
       setPfpColor(pfpColor + 1)
@@ -992,9 +996,13 @@ export default function Home() {
                   >
                     <div 
                       className={`
-                        ${pfpColors[pfpColor]} absolute w-full h-full rounded-full
+                        absolute w-full h-full rounded-full
                         transition-[scale] duration-600 ease-in-out
                         scale-0 group-hover:scale-120
+                        ${status === "online" && onlineColors[pfpColor]}
+                        ${status === "idle" && idleColors[pfpColor]}
+                        ${status === "dnd" && dndColors[pfpColor]}
+                        ${status === "offline" && "bg-gray-400"}
                       `} 
                     />
                     <img 
@@ -1017,22 +1025,25 @@ export default function Home() {
                 {/* DISCORD STATUS */}
                 <div className="border-t border-b border-[#d8e0e3]/40 border-dotted w-full mb-2 p-2 text-center flex flex-col items-center justify-center bg-[#17191a]/80 nonsel">
                     <p className={`
-                      ${status === "online" || status === "idle" ? "text-[#8fffff] online-glow" : ""}
-                      ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
-                      ${status === "offline" ? "text-gray-400" : ""}
+                      ${status === "online" && "text-[#8fffff] online-glow"}
+                      ${status === "idle" && "text-yellow-300 idle-glow"}
+                      ${status === "dnd" && "text-red-600 dnd-glow"}
+                      ${status === "offline" && "text-gray-400"}
                       ${righteous.className}
                       text-5xl
                       `}>
-                      {status === "online" || status === "idle" ? "ONLINE" : ""}
-                      {status === "dnd" ? "BUSY" : ""}
-                      {status === "offline" ? "OFFLINE" : ""}
+                      {status === "online" && "ONLINE"}
+                      {status === "idle" && "IDLE"}
+                      {status === "dnd" && "BUSY"}
+                      {status === "offline" && "OFFLINE"}
                     </p>
                   
                   {currentGame !== null && (
                     <p className={`
-                      ${status === "online" || status === "idle" ? "text-[#8fffff] online-glow" : ""}
-                      ${status === "dnd" ? "text-red-600 dnd-glow" : ""}
-                      ${status === "offline" ? "text-gray-400" : ""}
+                      ${status === "online" && "text-[#8fffff] online-glow"}
+                      ${status === "idle" && "text-yellow-300 idle-glow"}
+                      ${status === "dnd" && "text-red-600 dnd-glow"}
+                      ${status === "offline" && "text-gray-400"}
                       ${sono.className}
                       text-xs
                       pb-1
