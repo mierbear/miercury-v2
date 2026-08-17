@@ -331,6 +331,19 @@ export default function page() {
     setArtTags(art!.tags);
   }
 
+  const handleNewArt = () => {
+    setEditingArt(null);
+    addArtRef.current!.value = "";
+    artTitleRef.current!.value = "";
+    artDescRef.current!.value = "";
+    artDateRef.current!.value = "";
+    setArtUrl("");
+    setArtTitle("");
+    setArtDescription("");
+    setArtCreatedAt("");
+    setArtTags([]);
+  }
+
   const artSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -838,6 +851,15 @@ export default function page() {
                 >
                   {editingArt ? "edit artwork details.." : "post artwork to gallery.."}
                 </button>
+
+                {editingArt && (
+                  <div
+                    className="cursor-pointer px-8 py-2 text-xs monospace border border-white/30 rounded-md"
+                    onClick={handleNewArt}
+                  >
+                    post new drawing instead!
+                  </div>
+                )}
               </form>
             </div>
             
