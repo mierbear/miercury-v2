@@ -355,10 +355,7 @@ export default function page() {
       return `${yy}.${mm}.${dd}`;
     }
 
-    if (editingArt) {
-    // INSERT EDIT LOGIC
-
-    } else {
+    if (!editingArt) {
       const { error } = await supabase.from("art").insert({
         title: artTitle,
         description: artDescription,
@@ -373,22 +370,29 @@ export default function page() {
         console.error("post failed: ", error.message);
         return;
       }
+
+      console.log(`submitted art`);
+
+    } else {
+      const { error } = await supabase.from("art").update({
+        title: artTitle,
+        description: artDescription,
+        tags: artTags,
+        url: artUrl,
+        ...(artCreatedAt 
+          ? { created_at: artCreatedAt, date: artCreatedAt?.slice(2, 10).replace(/-/g, ".") } 
+          : { date: getDate() }),
+      }).eq("id", editingArt);
+
+      if (error) {
+        console.error("update failed: ", error.message);
+        return;
+      }
+
+      console.log(`updated art`);
     }
 
-    // console.log(`submitted art`);
-
-    setEditingArt(null);
-
-    addArtRef.current!.value = "";
-    artTitleRef.current!.value = "";
-    artDescRef.current!.value = "";
-    artDateRef.current!.value = "";
-    setArtUrl("");
-    setArtTitle("");
-    setArtDescription("");
-    setArtCreatedAt("");
-    setArtTags([]);
-
+    handleNewArt();
     fetchArtworks();
   }
 
@@ -417,6 +421,7 @@ export default function page() {
       return;
     }
 
+    handleNewArt();
     fetchArtworks();
   }
 
@@ -761,7 +766,6 @@ export default function page() {
                   className="hidden"
                   ref={addArtRef}
                   onChange={async (e) => {
-                    if (editingArt) return;
 
                     const file = e.target.files?.[0];
                     if (!file) return;
@@ -857,7 +861,7 @@ export default function page() {
                     className="cursor-pointer px-8 py-2 text-xs monospace border border-white/30 rounded-md"
                     onClick={handleNewArt}
                   >
-                    post new drawing instead!
+                    post a new drawing instead!
                   </div>
                 )}
               </form>
