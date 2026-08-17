@@ -414,16 +414,42 @@ export default function page() {
   }
 
   const handleArtDelete = async (id: number) => {
-    const {error} = await supabase.from("art").delete().eq("id", id);
+    const art = artworks.find((art) => art.id === id);
 
-    if (error) {
-      console.error("delete failed: ", error.message);
+    if (!art) {
+      console.error("art not found");
+      return;
+    }
+
+    const filePath = art.url.split("/storage/v1/object/public/art/")[1];
+
+    if (!filePath) {
+      console.error("file path not found");
+      return;
+    }
+
+    const {error: storageError} = await supabase.storage
+      .from("art")
+      .remove([filePath]);
+
+    if (storageError) {
+      console.error("image deletion failed: ", storageError.message);
+      return;
+    }
+
+    const {error: dbError} = await supabase
+      .from("art")
+      .delete()
+      .eq("id", id);
+
+    if (dbError) {
+      console.error("deletion failed: ", dbError.message);
       return;
     }
 
     handleNewArt();
     fetchArtworks();
-  }
+  };
 
   const handleArtFeature = async (id: number) => {
     
