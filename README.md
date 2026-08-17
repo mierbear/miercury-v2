@@ -9,6 +9,8 @@ https://www.miercury.com/
 
 - Responsive, interactive interface with custom animations.
 
+- Dynamic content stored and managed through Supabase.
+
 - [***Artwork gallery***](https://www.miercury.com/gallery) with tag filtering and lightbox viewing.
   
 ![gallery](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/gallery.gif)
@@ -34,8 +36,6 @@ https://www.miercury.com/
 ***[MierOS](https://www.miercury.com/mieros)*** 🖥️
 
 ![mieros](https://htjnxevlizypxpescfmh.supabase.co/storage/v1/object/public/post-images/posts/mieros.gif)
-
-- Dynamic content stored and managed through Supabase.
 
 ## Tech Stack
 
@@ -67,4 +67,4 @@ Building Miercury taught me how to:
 - Design responsive layouts for desktop and mobile with Tailwind CSS.
 - Improve UX through image/video/audio preloading and loading states.
 
-Miercury was built over the course of several months, and it has given me a lot of confidence in my webdev abilities. If you'd like to read more into the challenges I've had to deal with as I worked on this project, I go more in-depth into them on my [***personal blog,***](https://www.miercury.com/blog/page/1) especially on [***this post***](https://www.miercury.com/blog/post/miercury-finished-26-06-19).
+Miercury was built over the course of several months, and it has given me a lot of confidence in my webdev abilities. If you'd like to read more into the challenges I've had to deal with as I worked on this project, I go more in-depth into them in [***this post***](https://www.miercury.com/blog/post/miercury-finished-26-06-19) on my personal blog.

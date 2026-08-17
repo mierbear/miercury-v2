@@ -170,7 +170,7 @@ export default function page() {
   const onChange = (content: string) => {
     setNewPost((prev) => ({ ...prev, content: content }));
     setPostContent(content);
-    console.log(content);
+    // console.log(content);
   };
 
   const [editingPost, setEditingPost] = useState<number | null>(null);
@@ -179,7 +179,7 @@ export default function page() {
   
   const handleNewPost = () => {
     setEditingPost(null);
-    console.log(editingPost);
+    // console.log(editingPost);
     setNewPost({
       title: "",
       content: "",
@@ -191,7 +191,7 @@ export default function page() {
   }
 
   const handlePostListClick = (id: number) => {
-    console.log(id)
+    // console.log(id)
     setEditingPost(id);
     const post = posts.find((post) => post.id === id);
     if (post) {
@@ -221,7 +221,7 @@ export default function page() {
       return;
     }
     
-    console.log(data);
+    // console.log(data);
     setLogs(data);
   }
 
@@ -248,7 +248,7 @@ export default function page() {
       return;
     }
 
-    console.log(`submitted log`);
+    // console.log(`submitted log`);
     fetchLogs();
 
     setLogContent("");
@@ -290,9 +290,9 @@ export default function page() {
   const artDescRef = useRef<HTMLTextAreaElement | null>(null);
   const artDateRef = useRef<HTMLInputElement | null>(null);
   const [artUrl, setArtUrl] = useState<string | null>(null);
-  const [artTitle, setArtTitle] = useState<string | null>(null);
-  const [artDescription, setArtDescription] = useState<string | null>(null);
-  const [artCreatedAt, setArtCreatedAt] = useState<string | null>(null);
+  const [artTitle, setArtTitle] = useState<string>("");
+  const [artDescription, setArtDescription] = useState<string>("");
+  const [artCreatedAt, setArtCreatedAt] = useState<string>("");
   const [artTags, setArtTags] = useState<string[]>([]);
   const [showTagDropdown, setShowTagDropdown] = useState(false);
 
@@ -317,6 +317,20 @@ export default function page() {
     "miercury"
   ];
 
+  const [editingArt, setEditingArt] = useState<number | null>(null);
+
+  const handleArtClick = (id: number) => {
+    setEditingArt(id);
+
+    const art = artworks.find((art) => art.id === id);
+    
+    setArtUrl(art!.url);
+    setArtTitle(art!.title);
+    art!.description ? setArtDescription(art!.description) : setArtDescription("")
+    setArtCreatedAt(art!.created_at.slice(0, 16));
+    setArtTags(art!.tags);
+  }
+
   const artSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -328,22 +342,29 @@ export default function page() {
       return `${yy}.${mm}.${dd}`;
     }
 
-    const { error } = await supabase.from("art").insert({
-      title: artTitle,
-      description: artDescription,
-      tags: artTags,
-      url: artUrl,
-      ...(artCreatedAt 
-        ? { created_at: artCreatedAt, date: artCreatedAt?.slice(2, 10).replace(/-/g, ".") } 
-        : { date: getDate() }),
-    })
+    if (editingArt) {
+    // INSERT EDIT LOGIC
 
-    if (error) {
-      console.error("post failed: ", error.message);
-      return;
+    } else {
+      const { error } = await supabase.from("art").insert({
+        title: artTitle,
+        description: artDescription,
+        tags: artTags,
+        url: artUrl,
+        ...(artCreatedAt 
+          ? { created_at: artCreatedAt, date: artCreatedAt?.slice(2, 10).replace(/-/g, ".") } 
+          : { date: getDate() }),
+      })
+
+      if (error) {
+        console.error("post failed: ", error.message);
+        return;
+      }
     }
 
-    console.log(`submitted art`);
+    // console.log(`submitted art`);
+
+    setEditingArt(null);
 
     addArtRef.current!.value = "";
     artTitleRef.current!.value = "";
@@ -358,7 +379,7 @@ export default function page() {
     fetchArtworks();
   }
 
-  const [artworks, setArtworks] = useState<ArtType[] | null>(null);
+  const [artworks, setArtworks] = useState<ArtType[]>([]);
 
   const fetchArtworks = async () => {
     const { error, data } = await supabase
@@ -371,7 +392,7 @@ export default function page() {
       return;
     }
     
-    console.log(data);
+    // console.log(data);
     setArtworks(data);
   }
 
@@ -651,8 +672,9 @@ export default function page() {
                 {pagedArt?.map((art) => {
                   return (
                     <div
-                      className="flex flex-col relative"
+                      className="flex flex-col relative cursor-pointer"
                       key={art.id}
+                      onClick={() => handleArtClick(art.id)}
                     >
                       <p
                       className={`text-2xl ${art.featured ? "text-yellow-300" : "text-white"} cursor-pointer absolute top-0.5 right-1`}
@@ -726,6 +748,8 @@ export default function page() {
                   className="hidden"
                   ref={addArtRef}
                   onChange={async (e) => {
+                    if (editingArt) return;
+
                     const file = e.target.files?.[0];
                     if (!file) return;
 
@@ -740,6 +764,7 @@ export default function page() {
                   type="text"
                   placeholder="input title.."
                   className="w-full my-2 monospace text-xl bg-[#17191a]"
+                  value={artTitle}
                   onChange={(e) => {
                     setArtTitle(e.target.value);
                   }}
@@ -750,6 +775,7 @@ export default function page() {
                 <textarea 
                   placeholder="input description.."
                   className="w-full monospace text-xs h-36 bg-[#17191a]"
+                  value={artDescription}
                   onChange={(e) => {
                     setArtDescription(e.target.value);
                   }}
@@ -782,6 +808,7 @@ export default function page() {
                   <input
                     type="datetime-local"
                     className="w-full p-2 my-2 monospace text-sm bg-gray-400"
+                    value={artCreatedAt}
                     onChange={(e) => setArtCreatedAt(e.target.value)}
                     ref={artDateRef}
                   />
@@ -809,7 +836,7 @@ export default function page() {
                 type="submit"
                 className="cursor-pointer px-8 py-4 text-xs monospace border border-white/30 rounded-md"
                 >
-                  post artwork to gallery..
+                  {editingArt ? "edit artwork details.." : "post artwork to gallery.."}
                 </button>
               </form>
             </div>
