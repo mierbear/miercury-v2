@@ -425,6 +425,7 @@ export default function Home() {
   const titleRef = useRef<HTMLHeadingElement | null>(null);
 
   const bellFX = () => {
+    if (isPhone) return;
     new Audio("/audio/bells.mp3").play();
   }
 

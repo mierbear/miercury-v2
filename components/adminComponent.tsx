@@ -738,9 +738,8 @@ export default function page() {
                 {pagedArt?.map((art) => {
                   return (
                     <div
-                      className="flex flex-col relative cursor-pointer"
+                      className="flex flex-col relative"
                       key={art.id}
-                      onClick={() => handleArtClick(art.id)}
                     >
                       <p
                       className={`text-2xl ${art.featured ? "text-yellow-300" : "text-white"} cursor-pointer absolute top-0.5 right-1`}
@@ -748,7 +747,11 @@ export default function page() {
                       >
                         {art.featured ? "★" : "✦"}
                       </p>
-                      <img src={art.url} className="w-full h-48 object-cover" />
+                      <img 
+                        src={art.url} 
+                        className="w-full h-48 object-cover cursor-pointer" 
+                        onClick={() => handleArtClick(art.id)}
+                      />
                       <div className="flex justify-between items-center w-full">
                         <p className="font-bold text-lg truncate">{art.title}</p>
                         <p

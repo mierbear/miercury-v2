@@ -35,8 +35,7 @@ export default function Ocs() {
     }, duration);
   }
 
-  // SKULLBOUND
-  const [hoveredBrother, setHoveredBrother] = useState("");
+  // CALVARIUS
   const [currentBrother, setCurrentBrother] = useState("");
 
   // SCROLL FUNCTIONS
