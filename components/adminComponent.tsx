@@ -374,6 +374,28 @@ export default function page() {
       console.log(`submitted art`);
 
     } else {
+      const oldArt = artworks.find((art) => art.id === editingArt);
+
+      if (!oldArt) {
+        console.error("could not find existing art");
+        return;
+      }
+
+      if (oldArt.url !== artUrl) {
+        const oldFilePath = oldArt.url.split("/storage/v1/object/public/art/")[1];
+
+        if (oldFilePath) {
+          const { error: storageError } = await supabase.storage
+            .from("art")
+            .remove([oldFilePath]);
+
+          if (storageError) {
+            console.error("old image deletion failed: ", storageError.message);
+            return;
+          }
+        }
+      }
+
       const { error } = await supabase.from("art").update({
         title: artTitle,
         description: artDescription,
