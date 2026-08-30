@@ -26,7 +26,7 @@ import Stars from "@/components/indexStars";
 import NavLink from "@/components/indexNavLink";
 import Tooltip from "@/components/tooltipComponent";
 import Footer from "@/components/footerComponent";
-import quotes from "@/components/quotes";
+import { adviceArray } from "@/components/advice";
 import Loading from "@/components/LoadingScreenComponent";
 
 // TYPES
@@ -1131,13 +1131,13 @@ export default function Home() {
               </p>
               <Marquee
                 gradient={false}
-                speed={getQuote(quotes).length}
+                speed={getQuote(adviceArray).length}
                 autoFill={true}
                 className="text-xs sm:text-sm md:text-md flex text-white nonsel"
               >
                 <p className={`${sono.className}`}>
                   <span className="inline-flex backwards-spin items-center justify-center">✦</span>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{getQuote(quotes)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{getQuote(adviceArray)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </p>
               </Marquee>
             </div>

@@ -679,7 +679,7 @@ export default function Ocs() {
           <div className="flex flex-col items-center justify-center w-full gap-0 xl:gap-4"> 
             <p>
               {selectedMier === "icemage" ? "Despite being orphaned and losing everything, he strives to be the strongest mage (physically) after being taken under the tutelage of Frank, The Ice Cannon." :
-              selectedMier === "angel"   ? `Created as a magician character back in 2018. Many revisions were made and now finalized as a sort of messenger that can travel between worlds. He acts as my artist 'mascot' which I draw frequently.` :
+              selectedMier === "angel"   ? `Created as a magician character back in 2018, now finalized as a sort of messenger that can travel between realms. He acts as my artist 'mascot' which I draw frequently.` :
               selectedMier === "tyrant"  ? "Made as the pirate captain of PP, an art community I grew in Drawpile since the May of 2023." :
               ""
               }
@@ -734,7 +734,7 @@ export default function Ocs() {
           {/* INFO */}
           <div className="flex flex-col items-center justify-center w-full gap-4"> 
             <p>
-              Created as a magician character back in 2018. Many revisions were made and now finalized as a sort of messenger that can travel between worlds.
+              Created as a magician character back in 2018. Many revisions were made and now finalized as a sort of messenger that can travel between realms.
               He acts as my artist 'mascot' which I draw frequently.
             </p>
           </div>
@@ -1380,7 +1380,7 @@ export default function Ocs() {
                   hidebg={true}
                   info="
                   The heart of the group. Despite the overwhelmingly distressing situation they are in (and being the first to cry), he always sees the bright side of things and always relays it to his brothers
-                  *Primarily fights with a giant hammer that is counter-balanced with the heavy skull on his right shoulder, while being the most effective with using magic attacks (mage / heavy-hitter)
+                  *Primarily fights with a giant hammer that is counter-balanced with the heavy skull on his right shoulder, while being the most skilled with magic (mage / heavy-hitter)
                   *He is forgiving of wrongdoers and can be a bit naive, which his brothers have to tell him off from time to time. In his free time, he is often seen exploring on his own in the woods inspecting insects/creatures.
                   *In the end, he stands up and faces his fears head on even if he’s crying.
                   "

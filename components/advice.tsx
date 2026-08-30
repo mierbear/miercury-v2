@@ -8,7 +8,7 @@ const advice = {
   purity: [
     "Protect your inner child and you'll realize that it was him who was protecting you.",
     "How can you put forth your best fruit if you are not put forth within yourself first?",
-    "Unless you turn and become like children, you will never enter the kingdom of heaven.",
+    "Truly I tell you, unless you turn and become like children, you will never enter the kingdom of heaven.",
     "The only thing there is in this life is to purify your soul, so that you're not afraid of death.",
     "Love and nurture the reflection in every thought and in everything you see.",
   ],
@@ -16,15 +16,18 @@ const advice = {
     "Trauma propels us to not only create a new personal and collective mythology, but demands we connect more deeply with our mythologizing, dreaming, and imaginative powers themselves.",
     "Unrealized creativity is one of the most destructive things in the human psyche.",
     "From thought, to emotion, to action, to reality.",
+    "Be lucid. Live with intent.",
   ],
   wisdom: [
     "No prophet is welcome on his home turf. Doctors don't cure those who know him.",
+    "Forgive them for they know not what they do.",
     "Those who unravel the cube are nailed to the cross.",
     "There is no free will in the world, unless you get less of the world.",
     "You're better off fishing in your own mind.",
+    "There are no coincidences. Nothing is random.",
     "For we wrestle not against flesh and blood, but against principalities, against powers, against the rulers of the darkness of this world, against spiritual wickedness in high places.",
     "Men are second only to God, which is something that the forgetting of is the end of your life prematurely. Which is usually at the beginning.",
-    "Just as a man whose head is underwater cannot inhale pure air, so a man whose thoughts are plugged into the cares of this world cannot absorb the sensation of the world to come",
+    "Just as a man whose head is underwater cannot inhale pure air, so a man whose thoughts are plugged into the cares of this world cannot absorb the sensation of the world to come.",
   ],
   sadness: [
     "When we experience tears, our souls become like babies.",
@@ -47,12 +50,17 @@ const advice = {
     "The angels weep for men and women failing to accept the challenge of integrity.",
     "I do not understand what I do. For what I want to do I do not do, but what I hate I do. And if I do what I do not want to do, I agree that the law is good. As it is, it is no longer I myself who do it, but it is sin living in me.",
     "For though the righteous fall seven times, they rise again, but the wicked stumble when calamity strikes.",
+    "It takes control to be addicted. It takes more control to keep it in you than to push it all out.",
   ],
   despair: [
     "The only thing the devil wants is for you to suffer like it is.",
     "You do have power to quiet the mind, because you have to.",
+    "Make your mind a place you'd vacation in for eternity.",
     "There's not enough room in your mind for some other entity's thoughts.",
   ],
 }
 
+const adviceArray = [...advice.faith, ...advice.purity, ...advice.creation, ...advice.wisdom, ...advice.sadness, ...advice.sloth, ...advice.fear, ...advice.shame, ...advice.despair]
+
 export default advice;
+export {adviceArray};

@@ -1,41 +1,96 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Stars from "./indexStars";
+import { Kosugi_Maru, Gaegu } from "next/font/google"
+
+const kosugi = Kosugi_Maru({
+  weight: "400",
+  subsets: ["latin"],
+})
+
+const sono = Gaegu({
+  weight: "400",
+  subsets: ["latin"],
+})
 
 export default function QuotesComponent() {
   
   const introRef = useRef<HTMLDivElement | null>(null);
   const infoRef = useRef<HTMLDivElement | null>(null);
   const projectsRef = useRef<HTMLDivElement | null>(null);
-  const experienceRef = useRef<HTMLDivElement | null>(null);
+  const contactRef = useRef<HTMLDivElement | null>(null);
 
   const scrollToHandler = (ref: React.RefObject<HTMLDivElement | null>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }
 
+  const getTime = () => {
+    const start = new Date(2024, 8, 12);
+    const today = new Date();
+
+    let years = today.getFullYear() - start.getFullYear();
+    let months = today.getMonth() - start.getMonth();
+
+    if (today.getDate() < start.getDate()) {
+      months--;
+    }
+
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+
+    if (months === 0) {
+      return  `${years} years!`
+    } else {
+      return `${years}y ${months}m!`;
+    }
+  };
+
   return (
-    <div className="relative">
+    <div className="flex items-center justify-center">
 
       {/* CONTENT */}
-      <div className="text-black w-screen min-h-screen flex flex-col items-center justify-center relative z-20">
+      <div className="text-black w-7xl min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#dadfe1] gap-4">
       
         {/* INTRO */}
         <div
-          className="flex items-center justify-center w-screen h-screen bg-[#dadfe1]"
+          className="flex items-center justify-center h-screen w-5xl"
           ref={introRef}
         >
 
           {/* TEXT */}
           <div
-            className="flex items-center justify-center w-[40%] flex-col"
+            className="flex items-center justify-center w-full flex-col text-center"
           >
-            <p className="text-6xl">HELLO, IM</p>
-            <p className="text-9xl">KYLE!</p>
+            <div className="nonsel pointer-events-none">
+              <p className={`text-4xl opacity-50 ${sono.className}`}>HELLO, I'M</p>
+              <p className={`text-9xl ${kosugi.className} translate-x-6`}>KYLE<span className="text-blue-500">.</span></p>
+              <p className="text-sm">Coding since September 2024 <span className="opacity-40">✦</span> <span className="underline">{getTime()}</span></p>
+              <p className="text-sm">I love solving problems and making creative ideas come to life.</p>
+            </div>
+
+            <div className="pt-4 gap-4 flex">
+              <button
+                onClick={() => scrollToHandler(projectsRef)}
+                className="rounded-full nonsel bg-black px-5 py-3 text-sm text-white cursor-pointer transition-transform hover:-translate-y-0.5"
+              >
+                See my work →
+              </button>
+
+              <button
+                onClick={() => scrollToHandler(contactRef)}
+                className="rounded-full nonsel border-2 border-black/20 px-5 py-3 text-sm cursor-pointer transition-transform hover:-translate-y-0.5"
+              >
+                Get in touch
+              </button>
+            </div>
+
           </div>
 
           {/* PFP */}
           <div
-            className="flex items-center justify-center w-[40%] nonsel pointer-events-none"
+            className="flex items-center justify-center w-full nonsel pointer-events-none"
           >
             <div
               className="w-[60vh] h-[60vh] rounded-full bg-blue-500 flex items-center justify-center"
@@ -51,53 +106,103 @@ export default function QuotesComponent() {
 
         </div>
 
-        <div className="h-px w-screen bg-white" />
-        <div className="h-[10vh] w-px bg-white" />
-        <div className="h-[10vh] w-px bg-white" ref={infoRef} />
-        
         {/* INFO */}
         <div
-          className="flex items-center justify-center w-[80vw] h-[80vh] border border-black bg-[#dadfe1]"
+          className="flex items-center justify-center h-screen flex-col"
+          ref={infoRef}
         >
-          INFO
-        </div>
+          <p className="text-xl">A little bit about me:</p>
+          <p className="text-sm">A little bit about me:</p>
+          Languages:
+          TypeScript 
+          JavaScript 
+          HTML5 
+          CSS3 
+          SQL
+          Frontend:
+          React 
+          Next.js 
+          Tailwind CSS
+          Backend:
+          Supabase 
+          PostgreSQL
+          Tools:
+          Git 
+          GitHub 
+          Vercel
+          Libraries
+          GSAP 
+          Tiptap 
+          YARL
 
-        <div className="h-[10vh] w-px bg-white" />
-        <div className="h-[10vh] w-px bg-white" ref={projectsRef} />
+        </div>
 
         {/* PROJECTS */}
         <div
-          className="flex items-center justify-center w-[80vw] h-[80vh] border border-black bg-[#dadfe1]"
+          className="flex p-4 items-center min-h-screen w-full flex-col"
+          ref={projectsRef}
         >
-          PROJECTS
+          <p className="text-5xl">Projects</p>
+          
+          <div className="p-4 bg-amber-100 rounded-lg h-60 w-140 flex flex-col items-center">
+            <div className="bg-amber-200 w-60 h-30" />
+            <p>Miercury</p>
+            <p>the website you're on right now!</p>
+          </div>
+
+          <hr className="my-4 border-gray-500/30 w-[90%] md:w-[80%] mx-auto" />
+
+          <p className="text-3xl">Inside Miercury...</p>
+          
+          <p className="text-xl">GALLERY</p>
+          <p className="text-xl">CHARACTER SHOWCASE</p>
+          <p className="text-xl">BLOG</p>
+
+          <p className="text-xl">GAMES</p>
+          <div className="grid grid-cols-3 gap-4">
+            <div>
+              MierOS
+            </div>
+            <div>
+              Mier Fishing
+            </div>
+            <div>
+              Match Game
+            </div>
+          </div>
+
         </div>
 
-        <div className="h-[10vh] w-px bg-white" />
-        <div className="h-[10vh] w-px bg-white" ref={experienceRef} />
-
-        {/* EXPERIENCE */}
+        {/* CONTACT */}
         <div
-          className="flex items-center justify-center w-[80vw] h-[80vh] border border-black bg-[#dadfe1]"
+          className="flex items-center justify-center h-screen w-full flex-col"
+          ref={contactRef} 
         >
-          EXPERIENCE
+          <div className="h-[80%] bg-black/20 w-full flex flex-col items-center justify-center">
+            <p>
+              Reach out!
+            </p>
+            <p>
+              kylemarshall.dev@protonmail.com
+            </p>
+          </div>
         </div>
 
-        <div className="h-[10vh]" />
 
         {/* NAVIGATION */}
         <div
           className={`
-            fixed bottom-[2.5vh] text-xl px-4 py-2 bg-white rounded-3xl
+            fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl
             flex gap-4 nonsel
           `}
         >
           <p className="cursor-pointer" onClick={() => scrollToHandler(introRef)}>Intro</p>
-          <p>✦</p>
+          <span className="opacity-40">✦</span>
           <p className="cursor-pointer" onClick={() => scrollToHandler(infoRef)}>Info</p>
-          <p>✦</p>
+          <span className="opacity-40">✦</span>
           <p className="cursor-pointer" onClick={() => scrollToHandler(projectsRef)}>Projects</p>
-          <p>✦</p>
-          <p className="cursor-pointer" onClick={() => scrollToHandler(experienceRef)}>Experience</p>
+          <span className="opacity-40">✦</span>
+          <p className="cursor-pointer" onClick={() => scrollToHandler(contactRef)}>Contact</p>
         </div>
 
       </div>
