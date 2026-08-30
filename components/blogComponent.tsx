@@ -4,7 +4,7 @@ import PostType from "@/types/postType";
 import NextLink from "next/link";
 import { Sono } from "next/font/google";
 import Footer from "@/components/footerComponent";
-import quotes from "./quotes";
+import { adviceArray } from "./advice";
 import Loading from "./LoadingScreenComponent";
 
 const sono = Sono({
@@ -262,7 +262,7 @@ export default function Blog(props: BlogComponentProps) {
 
       <div className={`pb-4 w-5xl bg-black/50 hidden md:flex justify-center`}>
         <NextLink href="/quotes" target="_blank" rel="noopener noreferrer">
-          <p className="text-xs text-center px-8">{getQuote(quotes)}</p>
+          <p className="text-xs text-center px-8">{getQuote(adviceArray)}</p>
         </NextLink>
       </div>
 
