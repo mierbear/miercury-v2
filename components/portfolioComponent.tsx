@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from "react";
 import { Kosugi_Maru, Gaegu, Jua } from "next/font/google"
 import Link from "next/link";
 import Project from "@/components/portfolioProject";
+import Game from "@/components/portfolioGame";
 
 const kosugi = Kosugi_Maru({
   weight: "400",
@@ -79,7 +80,7 @@ export default function QuotesComponent() {
     <div className="flex items-center justify-center">
 
       {/* CONTENT */}
-      <div className="text-black w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#dadfe1] gap-4">
+      <div className="text-black w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#dadfe1]">
       
         {/* INTRO */}
         <div
@@ -134,6 +135,8 @@ export default function QuotesComponent() {
 
         </div>
 
+        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
+
         {/* INFO */}
         <div
           className="flex items-center justify-center h-screen flex-col"
@@ -164,6 +167,8 @@ export default function QuotesComponent() {
 
         </div>
 
+        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
+
         {/* PROJECTS */}
         <div
           className="flex p-4 items-center min-h-screen w-full flex-col"
@@ -188,6 +193,7 @@ export default function QuotesComponent() {
             src="/images/gallery.png"
             link="/gallery"
           />
+
           <hr className="border-gray-500/40 my-4 w-full" />
 
           {/* BLOG */}
@@ -197,6 +203,7 @@ export default function QuotesComponent() {
             src="/images/blog.png"
             link="/blog/page/1"
           />
+
           <hr className="border-gray-500/40 my-4 w-full" />
 
           {/* CHARACTERS */}
@@ -206,38 +213,45 @@ export default function QuotesComponent() {
             src="/images/ocs.png"
             link="/characters"
           />
+
           <hr className="border-gray-500/40 my-4 w-full" />
           
           {/* GAMES */}
-          <p className={`text-4xl text-gray-400 ${kosugi.className}`}>GAMES</p>
+          <p className={`text-4xl text-gray-400 flex gap-4 items-center nonsel ${kosugi.className}`}>
+            <span className="text-xl">✦</span> 
+            GAMES
+            <span className="text-xl">✦</span> 
+          </p>
           
           <div className="w-[80%] flex flex-col pt-4">
             <div className="grid grid-cols-3 gap-8">
-
-              <div>
-                <video className="rounded-lg" loop muted autoPlay src="/videos/games/mieros.mov" />
-                <p className={`text-3xl pt-2 text-gray-500 ${jua.className}`}>MierOS</p>
-                <p className="text-sm text-justify">A notes app and YouTube player disguised as a personalized operating system. Originally built with EJS to explore PostgreSQL, public APIs, and local file handling, later rebuilt and ported to Miercury.</p>
-              </div>
-
-              <div>
-                <video className="rounded-lg" loop muted autoPlay src="/videos/games/fish.mov" />
-                <p className={`text-3xl pt-2 text-gray-500 ${jua.className}`}>Mier Fishing</p>
-                <p className="text-sm text-justify">A fishing-themed typing game I made purely for fun, built entirely with vanilla HTML, CSS, and JavaScript.</p>
-              </div>
               
-              <div>
-                <video className="rounded-lg" loop muted autoPlay src="/videos/games/match.mov" />
-                <p className={`text-3xl pt-2 text-gray-500 ${jua.className}`}>Match Game</p>
-                <p className="text-sm text-justify">My first attempt at making a game, built around 3–4 months into learning web development.</p>
-              </div>
+              <Game 
+                title="MierOS"
+                info="A notes app and YouTube player disguised as a personalized operating system. Originally built with EJS to explore PostgreSQL, public APIs, and local file handling, later rebuilt and ported to Miercury." 
+                src="/videos/games/mieros.mov"
+                link="/mieros"
+              />
+
+              <Game 
+                title="Mier Fishing"
+                info="A fishing-themed typing game I made purely for fun, built entirely with vanilla HTML, CSS, and JavaScript." 
+                src="/videos/games/fish.mov"
+                link="/mierfishing/index.html"
+              />
+
+              <Game 
+                title="Match Game"
+                info="My first attempt at making a game, built around 3–4 months into learning web development." 
+                src="/videos/games/match.mov"
+                link="/match/index.html"
+              />
               
             </div>
-
           </div>
-
-
         </div>
+        
+        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
 
         {/* CONTACT */}
         <div
@@ -262,13 +276,13 @@ export default function QuotesComponent() {
             flex gap-4 nonsel ${gaegu.className} text-lg
           `}
         >
-          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "intro"    ? "opacity-100 font-bold" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(introRef)}>INTRO</p>
+          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "intro"    ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(introRef)}>INTRO</p>
           <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "info"     ? "opacity-100 font-bold" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(infoRef)}>INFO</p>
+          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "info"     ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(infoRef)}>INFO</p>
           <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "projects" ? "opacity-100 font-bold" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(projectsRef)}>PROJECTS</p>
+          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "projects" ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(projectsRef)}>PROJECTS</p>
           <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "contact"  ? "opacity-100 font-bold" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(contactRef)}>CONTACT</p>
+          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "contact"  ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(contactRef)}>CONTACT</p>
         </div>
 
       </div>
