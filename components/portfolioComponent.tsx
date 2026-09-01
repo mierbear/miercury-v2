@@ -1,6 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Kosugi_Maru, Gaegu } from "next/font/google"
+import { Kosugi_Maru, Gaegu, Jua } from "next/font/google"
 import Link from "next/link";
 import Project from "@/components/portfolioProject";
 
@@ -10,6 +10,11 @@ const kosugi = Kosugi_Maru({
 })
 
 const gaegu = Gaegu({
+  weight: "400",
+  subsets: ["latin"],
+})
+
+const jua = Jua({
   weight: "400",
   subsets: ["latin"],
 })
@@ -174,47 +179,63 @@ export default function QuotesComponent() {
 
           <p className="text-3xl">Inside Miercury...</p>
 
-          <hr className="border-gray-500/30 my-4 w-full" />
-          
+          <hr className="border-gray-500/40 my-4 w-full" />
+
           {/* GALLERY */}
           <Project 
             title="GALLERY"
-            info="a responsive artwork gallery with tag filtering, lightbox viewing, and Supabase content storage integration." 
+            info="A responsive art gallery built for browsing, filtering, and viewing my artworks, with Supabase-powered image storage and dynamic content management." 
             src="/images/gallery.png"
             link="/gallery"
           />
-          <hr className="border-gray-500/30 my-4 w-full" />
+          <hr className="border-gray-500/40 my-4 w-full" />
 
           {/* BLOG */}
           <Project 
             title="BLOG"
-            info="a blog" 
+            info="A personal blog for documenting projects, ideas, and things I've learned along the way. Of course, with full CRUD operations powered by Supabase." 
             src="/images/blog.png"
             link="/blog/page/1"
           />
-          <hr className="border-gray-500/30 my-4 w-full" />
+          <hr className="border-gray-500/40 my-4 w-full" />
 
           {/* CHARACTERS */}
            <Project 
             title="CHARACTER SHOWCASE"
-            info="a character showcase page" 
+            info="An interactive character showcase for my original characters, combining artwork, lore, and playful interface interactions." 
             src="/images/ocs.png"
             link="/characters"
           />
-          <hr className="border-gray-500/30 my-4 w-full" />
+          <hr className="border-gray-500/40 my-4 w-full" />
+          
+          {/* GAMES */}
+          <p className={`text-4xl text-gray-400 ${kosugi.className}`}>GAMES</p>
+          
+          <div className="w-[80%] flex flex-col pt-4">
+            <div className="grid grid-cols-3 gap-8">
 
-          <p className="text-xl">GAMES</p>
-          <div className="grid grid-cols-3 gap-4">
-            <div>
-              MierOS
+              <div>
+                <video className="rounded-lg" loop muted autoPlay src="/videos/games/mieros.mov" />
+                <p className={`text-3xl pt-2 text-gray-500 ${jua.className}`}>MierOS</p>
+                <p className="text-sm text-justify">A notes app and YouTube player disguised as a personalized operating system. Originally built with EJS to explore PostgreSQL, public APIs, and local file handling, later rebuilt and ported to Miercury.</p>
+              </div>
+
+              <div>
+                <video className="rounded-lg" loop muted autoPlay src="/videos/games/fish.mov" />
+                <p className={`text-3xl pt-2 text-gray-500 ${jua.className}`}>Mier Fishing</p>
+                <p className="text-sm text-justify">A fishing-themed typing game I made purely for fun, built entirely with vanilla HTML, CSS, and JavaScript.</p>
+              </div>
+              
+              <div>
+                <video className="rounded-lg" loop muted autoPlay src="/videos/games/match.mov" />
+                <p className={`text-3xl pt-2 text-gray-500 ${jua.className}`}>Match Game</p>
+                <p className="text-sm text-justify">My first attempt at making a game, built around 3–4 months into learning web development.</p>
+              </div>
+              
             </div>
-            <div>
-              Mier Fishing
-            </div>
-            <div>
-              Match Game
-            </div>
+
           </div>
+
 
         </div>
 
@@ -223,7 +244,7 @@ export default function QuotesComponent() {
           className="flex items-center justify-center h-screen w-full flex-col"
           ref={contactRef} 
         >
-          <div className="h-[80%] bg-black/20 w-full flex flex-col items-center justify-center">
+          <div className="h-[80%] bg-white w-full flex flex-col items-center justify-center">
             <p>
               Reach out!
             </p>
@@ -238,16 +259,16 @@ export default function QuotesComponent() {
         <div
           className={`
             fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl
-            flex gap-4 nonsel ${kosugi.className}
+            flex gap-4 nonsel ${gaegu.className} text-lg
           `}
         >
-          <p className={`cursor-pointer ${currentSection === "intro"    && "underline"}`} onClick={() => scrollToHandler(introRef)}>INTRO</p>
+          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "intro"    ? "opacity-100 font-bold" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(introRef)}>INTRO</p>
           <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer ${currentSection === "info"     && "underline"}`} onClick={() => scrollToHandler(infoRef)}>INFO</p>
+          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "info"     ? "opacity-100 font-bold" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(infoRef)}>INFO</p>
           <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer ${currentSection === "projects" && "underline"}`} onClick={() => scrollToHandler(projectsRef)}>PROJECTS</p>
+          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "projects" ? "opacity-100 font-bold" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(projectsRef)}>PROJECTS</p>
           <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer ${currentSection === "contact"  && "underline"}`} onClick={() => scrollToHandler(contactRef)}>CONTACT</p>
+          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "contact"  ? "opacity-100 font-bold" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(contactRef)}>CONTACT</p>
         </div>
 
       </div>

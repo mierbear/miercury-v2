@@ -34,7 +34,7 @@ export default function Project({ title, info, src, link }: ProjectProps) {
         </div>
       </div>
 
-      <p className="text-sm">{info}</p>
+      <p className="text-base w-[60%] text-justify">{info}</p>
     </div>
   )
 }
