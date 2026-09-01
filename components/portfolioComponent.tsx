@@ -2,6 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Kosugi_Maru, Gaegu } from "next/font/google"
 import Link from "next/link";
+import Project from "@/components/portfolioProject";
 
 const kosugi = Kosugi_Maru({
   weight: "400",
@@ -175,63 +176,31 @@ export default function QuotesComponent() {
 
           <hr className="border-gray-500/30 my-4 w-full" />
           
-          <div className="flex flex-col w-[80%] gap-4">
-            <Link href={`/gallery`} target="_blank">
-              <img className="rounded-2xl" src="/images/gallery.png"/>
-            </Link>
-            <div>
-              <Link 
-                href={`/gallery`} 
-                target="_blank" 
-                className={`text-7xl ${kosugi.className} text-gray-500 hover:text-blue-500 transition-colors duration-200`}
-              >
-                GALLERY
-              </Link>
-              <p className={`text-sm`}>
-                a responsive artwork gallery with tag filtering, lightbox viewing, and Supabase content storage integration.
-              </p>
-            </div>
-          </div>
-
-          <hr className="border-gray-500/30 my-4 w-full" />
-          
-          <div className="flex flex-col w-[80%] gap-4">
-                
-            <Link href={`/blog/page/1`} target="_blank">
-              <img className="rounded-2xl" src="/images/blog.png"/>
-            </Link>
-            <div>
-              <Link 
-                href={`/blog/page/1`} 
-                className={`text-7xl ${kosugi.className} text-gray-500 hover:text-blue-500 transition-colors duration-200`}
-              >
-                BLOG
-              </Link>
-              <p className={`text-sm`}>
-                a blog
-              </p>
-            </div>
-          </div>
-          
+          {/* GALLERY */}
+          <Project 
+            title="GALLERY"
+            info="a responsive artwork gallery with tag filtering, lightbox viewing, and Supabase content storage integration." 
+            src="/images/gallery.png"
+            link="/gallery"
+          />
           <hr className="border-gray-500/30 my-4 w-full" />
 
-          <div className="flex flex-col w-[80%] gap-4">
-            <Link href={`/characters`} target="_blank">
-              <img className="rounded-2xl" src="/images/ocs.png"/>
-            </Link>
-            <div>
-              <Link 
-                href={`/characters`} 
-                className={`text-7xl ${kosugi.className} text-gray-500 hover:text-blue-500 transition-colors duration-200`}
-              >
-                CHARACTER SHOWCASE
-              </Link>
-              <p className={`text-sm`}>
-                a character showcase page
-              </p>
-            </div>
-          </div>
+          {/* BLOG */}
+          <Project 
+            title="BLOG"
+            info="a blog" 
+            src="/images/blog.png"
+            link="/blog/page/1"
+          />
+          <hr className="border-gray-500/30 my-4 w-full" />
 
+          {/* CHARACTERS */}
+           <Project 
+            title="CHARACTER SHOWCASE"
+            info="a character showcase page" 
+            src="/images/ocs.png"
+            link="/characters"
+          />
           <hr className="border-gray-500/30 my-4 w-full" />
 
           <p className="text-xl">GAMES</p>
