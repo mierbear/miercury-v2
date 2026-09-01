@@ -20,6 +20,28 @@ export default function QuotesComponent() {
   const projectsRef = useRef<HTMLDivElement | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
 
+  const [currentSection, setCurrentSection] = useState<string>("intro");
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY + window.innerHeight / 2;
+
+      if (contactRef.current && scrollY >= contactRef.current.offsetTop) {
+        setCurrentSection("contact");
+      } else if (projectsRef.current && scrollY >= projectsRef.current.offsetTop) {
+        setCurrentSection("projects");
+      } else if (infoRef.current && scrollY >= infoRef.current.offsetTop) {
+        setCurrentSection("info");
+      } else {
+        setCurrentSection("intro");
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   const scrollToHandler = (ref: React.RefObject<HTMLDivElement | null>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }
@@ -193,16 +215,16 @@ export default function QuotesComponent() {
         <div
           className={`
             fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl
-            flex gap-4 nonsel
+            flex gap-4 nonsel ${kosugi.className}
           `}
         >
-          <p className="cursor-pointer" onClick={() => scrollToHandler(introRef)}>Intro</p>
+          <p className={`cursor-pointer ${currentSection === "intro"    && "underline"}`} onClick={() => scrollToHandler(introRef)}>Intro</p>
           <span className="opacity-40">✦</span>
-          <p className="cursor-pointer" onClick={() => scrollToHandler(infoRef)}>Info</p>
+          <p className={`cursor-pointer ${currentSection === "info"     && "underline"}`} onClick={() => scrollToHandler(infoRef)}>Info</p>
           <span className="opacity-40">✦</span>
-          <p className="cursor-pointer" onClick={() => scrollToHandler(projectsRef)}>Projects</p>
+          <p className={`cursor-pointer ${currentSection === "projects" && "underline"}`} onClick={() => scrollToHandler(projectsRef)}>Projects</p>
           <span className="opacity-40">✦</span>
-          <p className="cursor-pointer" onClick={() => scrollToHandler(contactRef)}>Contact</p>
+          <p className={`cursor-pointer ${currentSection === "contact"  && "underline"}`} onClick={() => scrollToHandler(contactRef)}>Contact</p>
         </div>
 
       </div>
