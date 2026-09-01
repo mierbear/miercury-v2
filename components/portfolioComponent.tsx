@@ -1,14 +1,14 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import Stars from "./indexStars";
 import { Kosugi_Maru, Gaegu } from "next/font/google"
+import Link from "next/link";
 
 const kosugi = Kosugi_Maru({
   weight: "400",
   subsets: ["latin"],
 })
 
-const sono = Gaegu({
+const gaegu = Gaegu({
   weight: "400",
   subsets: ["latin"],
 })
@@ -73,7 +73,7 @@ export default function QuotesComponent() {
     <div className="flex items-center justify-center">
 
       {/* CONTENT */}
-      <div className="text-black w-7xl min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#dadfe1] gap-4">
+      <div className="text-black w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#dadfe1] gap-4">
       
         {/* INTRO */}
         <div
@@ -86,7 +86,7 @@ export default function QuotesComponent() {
             className="flex items-center justify-center w-full flex-col text-center"
           >
             <div className="nonsel pointer-events-none">
-              <p className={`text-4xl opacity-50 ${sono.className}`}>HELLO, I'M</p>
+              <p className={`text-4xl opacity-50 ${gaegu.className}`}>HELLO, I'M</p>
               <p className={`text-9xl ${kosugi.className} translate-x-6`}>KYLE<span className="text-blue-500">.</span></p>
               <p className="text-sm">Coding since September 2024 <span className="opacity-40">✦</span> <span className="underline">{getTime()}</span></p>
               <p className="text-sm">I love solving problems and making creative ideas come to life.</p>
@@ -134,7 +134,6 @@ export default function QuotesComponent() {
           ref={infoRef}
         >
           <p className="text-xl">A little bit about me:</p>
-          <p className="text-sm">A little bit about me:</p>
           Languages:
           TypeScript 
           JavaScript 
@@ -172,13 +171,68 @@ export default function QuotesComponent() {
             <p>the website you're on right now!</p>
           </div>
 
-          <hr className="my-4 border-gray-500/30 w-[90%] md:w-[80%] mx-auto" />
-
           <p className="text-3xl">Inside Miercury...</p>
+
+          <hr className="border-gray-500/30 my-4 w-full" />
           
-          <p className="text-xl">GALLERY</p>
-          <p className="text-xl">CHARACTER SHOWCASE</p>
-          <p className="text-xl">BLOG</p>
+          <div className="flex flex-col w-[80%] gap-4">
+            <Link href={`/gallery`} target="_blank">
+              <img className="rounded-2xl" src="/images/gallery.png"/>
+            </Link>
+            <div>
+              <Link 
+                href={`/gallery`} 
+                target="_blank" 
+                className={`text-7xl ${kosugi.className} text-gray-500 hover:text-blue-500 transition-colors duration-200`}
+              >
+                GALLERY
+              </Link>
+              <p className={`text-sm`}>
+                a responsive artwork gallery with tag filtering, lightbox viewing, and Supabase content storage integration.
+              </p>
+            </div>
+          </div>
+
+          <hr className="border-gray-500/30 my-4 w-full" />
+          
+          <div className="flex flex-col w-[80%] gap-4">
+                
+            <Link href={`/blog/page/1`} target="_blank">
+              <img className="rounded-2xl" src="/images/blog.png"/>
+            </Link>
+            <div>
+              <Link 
+                href={`/blog/page/1`} 
+                className={`text-7xl ${kosugi.className} text-gray-500 hover:text-blue-500 transition-colors duration-200`}
+              >
+                BLOG
+              </Link>
+              <p className={`text-sm`}>
+                a blog
+              </p>
+            </div>
+          </div>
+          
+          <hr className="border-gray-500/30 my-4 w-full" />
+
+          <div className="flex flex-col w-[80%] gap-4">
+            <Link href={`/characters`} target="_blank">
+              <img className="rounded-2xl" src="/images/ocs.png"/>
+            </Link>
+            <div>
+              <Link 
+                href={`/characters`} 
+                className={`text-7xl ${kosugi.className} text-gray-500 hover:text-blue-500 transition-colors duration-200`}
+              >
+                CHARACTER SHOWCASE
+              </Link>
+              <p className={`text-sm`}>
+                a character showcase page
+              </p>
+            </div>
+          </div>
+
+          <hr className="border-gray-500/30 my-4 w-full" />
 
           <p className="text-xl">GAMES</p>
           <div className="grid grid-cols-3 gap-4">
@@ -218,18 +272,16 @@ export default function QuotesComponent() {
             flex gap-4 nonsel ${kosugi.className}
           `}
         >
-          <p className={`cursor-pointer ${currentSection === "intro"    && "underline"}`} onClick={() => scrollToHandler(introRef)}>Intro</p>
+          <p className={`cursor-pointer ${currentSection === "intro"    && "underline"}`} onClick={() => scrollToHandler(introRef)}>INTRO</p>
           <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer ${currentSection === "info"     && "underline"}`} onClick={() => scrollToHandler(infoRef)}>Info</p>
+          <p className={`cursor-pointer ${currentSection === "info"     && "underline"}`} onClick={() => scrollToHandler(infoRef)}>INFO</p>
           <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer ${currentSection === "projects" && "underline"}`} onClick={() => scrollToHandler(projectsRef)}>Projects</p>
+          <p className={`cursor-pointer ${currentSection === "projects" && "underline"}`} onClick={() => scrollToHandler(projectsRef)}>PROJECTS</p>
           <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer ${currentSection === "contact"  && "underline"}`} onClick={() => scrollToHandler(contactRef)}>Contact</p>
+          <p className={`cursor-pointer ${currentSection === "contact"  && "underline"}`} onClick={() => scrollToHandler(contactRef)}>CONTACT</p>
         </div>
 
       </div>
-
-      <Stars lost={true} />
 
     </div>
   );
