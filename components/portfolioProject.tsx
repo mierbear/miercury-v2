@@ -19,8 +19,8 @@ export default function Project({ title, info, src, link }: ProjectProps) {
   return (
     <div className="flex flex-col w-[80%]">
       
-      <div className="flex flex-col group gap-4">
-        <Link href={link} target="_blank">
+      <div className="flex flex-col group gap-2">
+        <Link href={link} target="_blank" className="group-hover:scale-100 scale-99 transition-scale duration-1000">
           <img className="rounded-2xl nonsel" src={src} />
         </Link>
 
@@ -33,8 +33,11 @@ export default function Project({ title, info, src, link }: ProjectProps) {
           </Link>
         </div>
       </div>
-
-      <p className="text-base w-[60%] text-justify">{info}</p>
+      
+      <div className="text-sm flex justify-between relative">
+        <p className="w-[50%] text-justify">{info}</p>
+        <img className="self-end absolute right-8 h-90 nonsel pointer-events-none" src={`/images/gallery/gallery-me.png`} />
+      </div>
     </div>
   )
 }

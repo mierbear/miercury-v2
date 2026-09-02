@@ -1,7 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-import { Kosugi_Maru, Gaegu, Jua } from "next/font/google"
-import Link from "next/link";
+import { Kosugi_Maru, Gaegu, Sono } from "next/font/google"
+import Marquee from "react-fast-marquee";
 import Project from "@/components/portfolioProject";
 import Game from "@/components/portfolioGame";
 
@@ -15,7 +15,7 @@ const gaegu = Gaegu({
   subsets: ["latin"],
 })
 
-const jua = Jua({
+const sono = Sono({
   weight: "400",
   subsets: ["latin"],
 })
@@ -171,20 +171,25 @@ export default function QuotesComponent() {
 
         {/* PROJECTS */}
         <div
-          className="flex p-4 items-center min-h-screen w-full flex-col"
+          className="flex py-4 items-center min-h-screen w-full flex-col"
           ref={projectsRef}
         >
-          <p className="text-5xl">Projects</p>
+          <p className={`text-4xl pb-4 text-gray-400 flex gap-4 items-center nonsel ${kosugi.className}`}>
+            <span className="text-xl">★</span> 
+            PROJECTS
+            <span className="text-xl">★</span> 
+          </p>
           
-          <div className="p-4 bg-amber-100 rounded-lg h-60 w-140 flex flex-col items-center">
-            <div className="bg-amber-200 w-60 h-30" />
-            <p>Miercury</p>
-            <p>the website you're on right now!</p>
+          <div className="rounded-lg h-auto w-140 flex flex-col">
+            <img src="/images/miercury.png" className="rounded-lg mb-2" />
+            <p className={`text-4xl ${kosugi.className}`}>MIERCURY</p>
+            <p className="text-sm">the website you're on right now!</p>
           </div>
 
-          <p className="text-3xl">Inside Miercury...</p>
+          <p className={`text-xl pt-8 translate-y-2 nonsel text-gray-500`}>Inside Miercury...</p>
+          <p className={`nonsel text-gray-500 panic`}>▼</p>
 
-          <hr className="border-gray-500/40 my-4 w-full" />
+          <hr className="border-gray-500/40 mb-8 mt-0.5 w-[96%]" />
 
           {/* GALLERY */}
           <Project 
@@ -194,7 +199,7 @@ export default function QuotesComponent() {
             link="/gallery"
           />
 
-          <hr className="border-gray-500/40 my-4 w-full" />
+          <hr className="border-gray-500/40 my-8 w-[96%]" />
 
           {/* BLOG */}
           <Project 
@@ -204,7 +209,7 @@ export default function QuotesComponent() {
             link="/blog/page/1"
           />
 
-          <hr className="border-gray-500/40 my-4 w-full" />
+          <hr className="border-gray-500/40 my-8 w-[96%]" />
 
           {/* CHARACTERS */}
            <Project 
@@ -214,10 +219,10 @@ export default function QuotesComponent() {
             link="/characters"
           />
 
-          <hr className="border-gray-500/40 my-4 w-full" />
+          <hr className="border-gray-500/40 mt-8 w-[96%]" />
           
           {/* GAMES */}
-          <p className={`text-4xl text-gray-400 flex gap-4 items-center nonsel ${kosugi.className}`}>
+          <p className={`text-4xl text-gray-400 flex gap-4 pt-4 items-center nonsel ${kosugi.className}`}>
             <span className="text-xl">✦</span> 
             GAMES
             <span className="text-xl">✦</span> 
@@ -242,7 +247,7 @@ export default function QuotesComponent() {
 
               <Game 
                 title="Match Game"
-                info="My first attempt at making a game, built around 3–4 months into learning web development." 
+                info="My first attempt at making a game, made around 3–4 months into learning web development." 
                 src="/videos/games/match.mov"
                 link="/match/index.html"
               />
