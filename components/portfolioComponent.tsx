@@ -180,10 +180,10 @@ export default function QuotesComponent() {
             <span className="text-xl">★</span> 
           </p>
           
-          <div className="rounded-lg h-auto w-140 flex flex-col">
+          <div className="rounded-lg h-auto w-140 flex flex-col max-w-[80%]">
             <img src="/images/miercury.png" className="rounded-lg mb-2" />
-            <p className={`text-4xl ${kosugi.className}`}>MIERCURY</p>
-            <p className="text-sm">the website you're on right now!</p>
+            <p className={`text-3xl ${kosugi.className}`}>MIERCURY</p>
+            <p className="text-sm text-justify">Miercury is my personal website and portfolio, built with Next.js, React, TypeScript, and Supabase. It showcases my artwork, projects, and web development skills while serving as a full-stack application with an interactive user experience and a custom admin dashboard for managing site content.</p>
           </div>
 
           <p className={`text-xl pt-8 translate-y-2 nonsel text-gray-500`}>Inside Miercury...</p>
@@ -256,13 +256,22 @@ export default function QuotesComponent() {
           </div>
         </div>
         
-        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
+        {/* <hr className="border-8 border-gray-500/60 my-20 w-full" /> */}
+        <p className="my-8 nonsel pointer-events-none loading-spin flex items-center justify-center monospace text-center text-9xl text-gray-400/50">✦</p>
 
         {/* CONTACT */}
         <div
           className="flex items-center justify-center h-screen w-full flex-col"
           ref={contactRef} 
         >
+          <Marquee
+            className="h-[10%] text-5xl nonsel pointer-events-none top-0"
+            autoFill
+            speed={20}
+          >
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTACT
+          </Marquee>
+
           <div className="h-[80%] bg-white w-full flex flex-col items-center justify-center">
             <p>
               Reach out!
@@ -271,14 +280,23 @@ export default function QuotesComponent() {
               kylemarshall.dev@protonmail.com
             </p>
           </div>
-        </div>
 
+          <Marquee
+            className="h-[10%] text-5xl nonsel pointer-events-none bottom-0"
+            autoFill
+            speed={20}
+            direction="right"
+          >
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTACT
+          </Marquee>
+        </div>
 
         {/* NAVIGATION */}
         <div
           className={`
             fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl
-            flex gap-4 nonsel ${gaegu.className} text-lg
+            flex gap-4 nonsel ${gaegu.className} text-lg z-50 transition-opacity duration-300
+            ${currentSection === "contact" ? "opacity-0 pointer-events-none" : "opacity-100"}
           `}
         >
           <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "intro"    ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(introRef)}>INTRO</p>
