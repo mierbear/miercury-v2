@@ -481,6 +481,7 @@ export default function Home() {
     "im sometimes forgetful, i might have dementia lol",
     "i love daydreaming and thinking of ideas/storylines for my characters (and my friend's characters as well, lets brainstorm together!)",
     "i like looking into conspiracy theories for fun",
+    "i love being stupid and ragebaiting my friends",
     "i laugh about almost everything",
     "dont take everything i say seriously",
     "if i've upset you or pissed you off before, i love you",
@@ -605,7 +606,7 @@ export default function Home() {
   const infoRef = useRef<HTMLDivElement | null>(null);
 
   const sadFaces = ["u_u", "T_T", "ヽ(*。>Д<)o゜",];
-  const happyFaces = [":3", ":D", "(•ˋ _ ˊ•)", "o(〃◕ ヮ ◕〃)o", "6w6", "ojo", "6⩊6"];
+  const happyFaces = [":3", ":D", "(•ˋ _ ˊ•)", "o(〃◕ ヮ ◕〃)o", "6w6", "^_^", "6⩊6"];
 
   const randomizer = (arr: string[]) => {
     return arr[Math.trunc((Math.random() * arr.length))];
@@ -707,7 +708,7 @@ export default function Home() {
                 </div>
 
                 <p className="text-xs sm:text-base text-center italic font-bold">
-                  if you think we can be good friends, then reach out brotha
+                  if you think we can be good friends, then dont hesitate to reach out. ^_^
                 </p>
               </div>
             )}

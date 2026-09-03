@@ -1,6 +1,12 @@
 "use client"
 import { Kosugi_Maru } from "next/font/google"
 import Link from "next/link";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import ScrollTrigger from "gsap/ScrollTrigger";
+import { SplitText } from "gsap/SplitText";
+
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const kosugi = Kosugi_Maru({
   weight: "400",
@@ -15,6 +21,36 @@ type ProjectProps = {
 }
 
 export default function Project({ title, info, src, link }: ProjectProps) {
+  const textRef = useRef<HTMLAnchorElement>(null);
+
+  useEffect(() => {
+    if (!textRef.current) return;
+
+    const split = new SplitText(textRef.current, {
+      type: "chars",
+    });
+
+    const animation = gsap.from(split.chars, {
+      opacity: 0,
+      y: 20,
+      stagger: 0.1,
+      duration: 0.6,
+      ease: "power2.out",
+
+      scrollTrigger: {
+        trigger: textRef.current,
+        start: "top 100%",
+        toggleActions: "restart none restart none",
+      },
+    });
+
+    return () => {
+      animation.scrollTrigger?.kill();
+      animation.kill();
+      split.revert();
+    };
+  }, []);
+
 
   return (
     <div className="flex flex-col w-[80%]">
@@ -27,6 +63,7 @@ export default function Project({ title, info, src, link }: ProjectProps) {
         <div>
           <Link 
             href={link}
+            ref={textRef}
             className={`text-7xl ${kosugi.className} text-gray-500 group-hover:text-blue-500 transition-colors duration-500`}
           >
             {title}

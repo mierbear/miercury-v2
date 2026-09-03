@@ -9,7 +9,6 @@ import { Righteous, Sono, Bodoni_Moda, Noto_Serif_JP, Kosugi_Maru, Boldonse, Ins
 
 // 3RD PARTY
 import gsap from "gsap";
-import { TextPlugin } from "gsap/TextPlugin";
 import { SplitText } from "gsap/SplitText";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -35,7 +34,7 @@ import LogType from "@/types/logType";
 import ArtType from "@/types/artType";
 import { read } from "fs";
 
-gsap.registerPlugin(TextPlugin);
+gsap.registerPlugin(SplitText);
 
 const righteous = Righteous({
   weight: "400",
@@ -423,6 +422,7 @@ export default function Home() {
   };
 
   const titleRef = useRef<HTMLHeadingElement | null>(null);
+  const splitRef = useRef<SplitText | null>(null);
 
   const bellFX = () => {
     if (isPhone) return;
@@ -430,43 +430,31 @@ export default function Home() {
   }
 
   const titleAnim = () => {
-    if (!titleRef.current) return;
+    if (!splitRef.current) return;
 
-    gsap.set(titleRef.current, { autoAlpha: 1 });
-
-    const split = new SplitText(titleRef.current, { type: "chars" });
-
-    gsap.to(split.chars, {
-      keyframes:{
-        "50%":{yPercent: 120},
-        "100%":{yPercent: 0},
+    gsap.to(splitRef.current.chars, {
+      keyframes: {
+        "50%": { yPercent: 120 },
+        "100%": { yPercent: 0 },
       },
-      duration: 2,
-      opacity: 1,
-      stagger: {
-          each: 0.04,
-        },
+      duration: 1.75,
+      stagger: 0.04,
       ease: "power4.out",
-    })
+    });
 
     bellFX();
-
-    titleRef.current.style.pointerEvents = "none";
-    setTimeout(() => {
-      titleRef.current!.style.pointerEvents = "all";
-    }, 1200);
-
-    return () => {
-      split.revert();
-    };
-  }
+  };
 
   useEffect(() => {
     if (!titleRef.current) return;
 
     gsap.set(titleRef.current, { autoAlpha: 1 });
 
-    const split = new SplitText(titleRef.current, { type: "chars" });
+    const split = new SplitText(titleRef.current, {
+      type: "chars",
+    });
+
+    splitRef.current = split;
 
     const tl = gsap.timeline();
 
@@ -477,11 +465,12 @@ export default function Home() {
       stagger: 0.05,
       ease: "power4.out",
       delay: 1.3,
-    })
+    });
 
     return () => {
       tl.kill();
       split.revert();
+      splitRef.current = null;
     };
   }, []);
 
@@ -576,7 +565,7 @@ export default function Home() {
               nonsel
               ${ready ? "text-[#d8e0e3] miercury-glow" : "text-[#17191a]"}
               
-              transition-color duration-2000
+              transition-colors duration-2000
               text-5xl
               min-[512px]:text-6xl
               min-[640px]:text-7xl
@@ -596,10 +585,26 @@ export default function Home() {
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="content w-5xl max-w-screen bg-transparent text-black z-10 grid grid-rows-[1.2em_1fr] relative">
+      <div className="content w-5xl max-w-screen bg-transparent text-black z-10 flex flex-col relative">
 
-        <div ref={divRef} className={`${ready ? "bg-[#d8e0e3] miercury-platform-glow" : "bg-[#17191a]"} transition-color duration-2000 rounded-t-xl flex flex-col justify-center items-center z-11 nonsel text-nowrap`}>
-          <p ref={textRef} style={{ visibility: "hidden" }} className={`text-[10px] min-[375px]:text-xs ${sono.className} text-[#17191a] translate-y-px min-[375px]:translate-y-0`}>welcome to the firmament, keep it mirthful</p>
+        <div 
+          ref={divRef}
+          className={`
+            ${ready ? "bg-[#d8e0e3] miercury-platform-glow" : "bg-[#17191a]"}
+            transition-color duration-2000 rounded-t-xl
+            flex flex-col justify-center items-center
+            h-5 z-11 nonsel text-nowrap`}
+          >
+          <p 
+            ref={textRef}
+            style={{ visibility: "hidden" }}
+            className={`
+              text-[10px] min-[375px]:text-xs
+              ${sono.className} floating text-[#17191a]
+            `}
+          >
+            welcome to the firmament, keep it mirthful
+          </p>
         </div>
 
         <div className={`${ready ? "bg-[#586474]/50" : "bg-[#17191a] pointer-events-none"} backdrop-blur-[2px] w-full flex flex-col items-center transition-colors duration-4000`}>

@@ -4,6 +4,7 @@ import { Kosugi_Maru, Gaegu, Sono } from "next/font/google"
 import Marquee from "react-fast-marquee";
 import Project from "@/components/portfolioProject";
 import Game from "@/components/portfolioGame";
+import Link from "next/link";
 import Loading from "@/components/LoadingScreenComponent";
 
 const kosugi = Kosugi_Maru({
@@ -167,7 +168,7 @@ export default function QuotesComponent() {
           className="flex items-center justify-center h-screen flex-col"
           ref={infoRef}
         >
-          <p className="text-xl">A little bit about me:</p>
+          <p className={`text-xl ${kosugi.className}`}>A LITTLE BIT ABOUT ME:</p>
           Languages:
           TypeScript 
           JavaScript 
@@ -206,8 +207,19 @@ export default function QuotesComponent() {
           </p>
           
           <div className="rounded-lg h-auto w-140 flex flex-col max-w-[80%]">
-            <img src="/images/miercury.png" className="rounded-lg mb-2" />
-            <p className={`text-3xl ${kosugi.className}`}>MIERCURY</p>
+            <div className="group flex flex-col">
+              <Link href="/" target="_blank">
+                <img className="rounded-lg mb-2 nonsel" src="/images/miercury.png" />
+              </Link>
+              <div>
+                <Link 
+                  href="/"
+                  className={`text-3xl ${kosugi.className} text-gray-500 group-hover:text-blue-500 transition-colors duration-500`}
+                  >
+                  MIERCURY
+                </Link>
+                </div>
+              </div>
             <p className="text-sm text-justify">Miercury is my personal website and portfolio, built with Next.js, React, TypeScript, and Supabase. It showcases my artwork, projects, and web development skills while serving as a full-stack application with an interactive user experience and a custom admin dashboard for managing site content.</p>
           </div>
 
