@@ -22,21 +22,17 @@ type ProjectProps = {
 
 export default function Project({ title, info, src, link }: ProjectProps) {
   const textRef = useRef<HTMLAnchorElement>(null);
+  const infoRef = useRef<HTMLParagraphElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
 
   useEffect(() => {
-    if (!textRef.current) return;
+    if (!textRef.current || !infoRef.current || !imgRef.current) return;
 
     const split = new SplitText(textRef.current, {
       type: "chars",
     });
 
-    const animation = gsap.from(split.chars, {
-      opacity: 0,
-      y: 20,
-      stagger: 0.1,
-      duration: 0.6,
-      ease: "power2.out",
-
+    const tl = gsap.timeline({
       scrollTrigger: {
         trigger: textRef.current,
         start: "top 100%",
@@ -44,9 +40,28 @@ export default function Project({ title, info, src, link }: ProjectProps) {
       },
     });
 
+    tl.from(split.chars, {
+      opacity: 0,
+      y: 20,
+      stagger: 0.1,
+      duration: 0.6,
+      ease: "power2.out",
+    })
+    .from(infoRef.current, {
+      opacity: 0,
+      duration: 2,
+      ease: "power2.out",
+    }, "-=0.7")
+    .from(imgRef.current, {
+      opacity: 0,
+      xPercent: 30,
+      duration: 2,
+      ease: "power2.out"
+    }, "-=1.5")
+
     return () => {
-      animation.scrollTrigger?.kill();
-      animation.kill();
+      tl.scrollTrigger?.kill();
+      tl.kill();
       split.revert();
     };
   }, []);
@@ -72,8 +87,8 @@ export default function Project({ title, info, src, link }: ProjectProps) {
       </div>
       
       <div className="text-sm flex justify-between relative">
-        <p className="w-[50%] text-justify">{info}</p>
-        <img className="self-end absolute right-8 h-90 nonsel pointer-events-none" src={`/images/gallery/gallery-me.png`} />
+        <p className="w-[50%] text-justify" ref={infoRef}>{info}</p>
+        <img className="self-end absolute right-8 h-90 nonsel pointer-events-none" src={`/images/gallery/gallery-me.png`} ref={imgRef} />
       </div>
     </div>
   )

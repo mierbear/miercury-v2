@@ -128,14 +128,14 @@ export default function QuotesComponent() {
             <div className="pt-4 gap-4 flex">
               <button
                 onClick={() => scrollToHandler(projectsRef)}
-                className="rounded-full nonsel bg-black px-5 py-3 text-sm text-white cursor-pointer transition-transform hover:-translate-y-0.5"
+                className="rounded-full nonsel bg-black px-5 py-3 text-sm text-white cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
               >
                 See my work →
               </button>
 
               <button
                 onClick={() => scrollToHandler(contactRef)}
-                className="rounded-full nonsel border-2 border-black/20 px-5 py-3 text-sm cursor-pointer transition-transform hover:-translate-y-0.5"
+                className="rounded-full nonsel border-2 border-black/20 px-5 py-3 text-sm cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
               >
                 Get in touch
               </button>
@@ -169,26 +169,34 @@ export default function QuotesComponent() {
           ref={infoRef}
         >
           <p className={`text-xl ${kosugi.className}`}>A LITTLE BIT ABOUT ME:</p>
+          
+          <div className="grid grid-rows-2">
+
+          </div>
           Languages:
-          TypeScript 
-          JavaScript 
-          HTML5 
-          CSS3 
+          TypeScript
+          JavaScript
+          HTML
+          CSS
           SQL
+
           Frontend:
-          React 
-          Next.js 
+          React
+          Next.js
           Tailwind CSS
+
           Backend:
-          Supabase 
+          Supabase
           PostgreSQL
+
           Tools:
-          Git 
-          GitHub 
+          Git
+          GitHub
           Vercel
-          Libraries
-          GSAP 
-          Tiptap 
+
+          Libraries:
+          GSAP
+          Tiptap
           YARL
 
         </div>
@@ -250,7 +258,7 @@ export default function QuotesComponent() {
 
           {/* CHARACTERS */}
            <Project 
-            title="CHARACTER SHOWCASE"
+            title="CHARACTERS"
             info="An interactive character showcase for my original characters, combining artwork, lore, and playful interface interactions." 
             src="/images/ocs.png"
             link="/characters"
