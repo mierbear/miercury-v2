@@ -20,6 +20,7 @@ const Loading = ({ loadingRef, ready }: props) => {
       className={`
       bg-black z-55555 min-w-screen min-h-screen
       transition-opacity duration-1000 fixed nonsel
+      top-0 left-0
       ${ready ? "opacity-0" : "opacity-100"}
       ${visible ? "" : "hidden"}
       ${kanit.className}

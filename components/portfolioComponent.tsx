@@ -4,6 +4,7 @@ import { Kosugi_Maru, Gaegu, Sono } from "next/font/google"
 import Marquee from "react-fast-marquee";
 import Project from "@/components/portfolioProject";
 import Game from "@/components/portfolioGame";
+import Loading from "@/components/LoadingScreenComponent";
 
 const kosugi = Kosugi_Maru({
   weight: "400",
@@ -75,6 +76,30 @@ export default function QuotesComponent() {
       return `${years}y ${months}m!`;
     }
   };
+
+  const loadingScreenRef = useRef<HTMLDivElement | null>(null);
+  const [ready, setReady] = useState(false);
+  
+  // PRELOAD
+  useEffect(() => {
+    const preload = [
+      "/images/index/pfp.png",
+      "/images/miercury.png",
+      "/images/blog.png",
+      "/images/ocs.png",
+      "/images/gallery.png",
+    ];
+
+    const promises = preload.map(src => new Promise<void>((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve();
+      img.onerror = () => resolve();
+      img.src = src;
+    }));
+
+    Promise.all(promises).then(() => setReady(true));
+  }, []);
+
 
   return (
     <div className="flex items-center justify-center">
@@ -309,6 +334,9 @@ export default function QuotesComponent() {
         </div>
 
       </div>
+      
+      {/* LOADING SCREEN */}
+      <Loading ready={ready} loadingRef={loadingScreenRef} />
 
     </div>
   );
