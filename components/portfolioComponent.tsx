@@ -101,6 +101,38 @@ export default function QuotesComponent() {
     Promise.all(promises).then(() => setReady(true));
   }, []);
 
+  const stack = {
+    languages: [
+    "TypeScript",
+    "JavaScript",
+    "HTML",
+    "CSS",
+    "SQL",
+    ],
+
+    Frontend: [
+    "React",
+    "Next.js",
+    "Tailwind CSS",
+    ],
+    
+    Backend: [
+    "Supabase",
+    "PostgreSQL",
+    ],
+    
+    Tools: [
+    "Git",
+    "GitHub",
+    "Vercel",
+    ],
+    
+    Libraries: [
+    "GSAP",
+    "Tiptap",
+    "YARL",
+    ]
+  }
 
   return (
     <div className="flex items-center justify-center">
@@ -161,57 +193,49 @@ export default function QuotesComponent() {
 
         </div>
 
-        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
+        <hr className="border-2 border-gray-500/60 my-4 w-full" />
 
         {/* INFO */}
         <div
-          className="flex items-center justify-center h-screen flex-col"
+          className="flex items-center h-screen flex-col"
           ref={infoRef}
         >
-          <p className={`text-xl ${kosugi.className}`}>A LITTLE BIT ABOUT ME:</p>
+          <p className={`text-4xl pb-4 text-gray-400 flex gap-4 items-center nonsel tracking-widest`}>
+            <span className="text-xl">★</span> 
+            A LITTLE BIT ABOUT ME
+            <span className="text-xl">★</span> 
+          </p>
           
-          <div className="grid grid-rows-2">
+          <div className="grid grid-cols-3 gap-4">
+            
+            {Object.entries(stack).map(([category, technologies]) => (
+              <div 
+                key={category}
+                className="bg-gray-400/10 p-4 flex flex-col items-center"
+              >
+                <p className={`text-2xl ${kosugi.className}`}>{category.toLocaleUpperCase()}</p>
 
+                {technologies.map((tech) => (
+                  <p key={tech} className="text-sm">{tech}</p>
+                ))}
+              </div>
+            ))}
+            
           </div>
-          Languages:
-          TypeScript
-          JavaScript
-          HTML
-          CSS
-          SQL
-
-          Frontend:
-          React
-          Next.js
-          Tailwind CSS
-
-          Backend:
-          Supabase
-          PostgreSQL
-
-          Tools:
-          Git
-          GitHub
-          Vercel
-
-          Libraries:
-          GSAP
-          Tiptap
-          YARL
 
         </div>
 
-        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
+        <hr className="border-2 border-gray-500/60 my-4 w-full" />
 
         {/* PROJECTS */}
         <div
-          className="flex py-4 items-center min-h-screen w-full flex-col"
+          className="flex items-center min-h-screen w-full flex-col"
           ref={projectsRef}
         >
-          <p className={`text-4xl pb-4 text-gray-400 flex gap-4 items-center nonsel ${kosugi.className}`}>
-            <span className="text-xl">★</span> 
+          <p className={`text-4xl pb-4 text-gray-400 flex gap-4 items-center nonsel tracking-widest`}>
+            <span className="text-xl">✦</span> 
             PROJECTS
-            <span className="text-xl">★</span> 
+            <span className="text-xl">✦</span> 
           </p>
           
           <div className="rounded-lg h-auto w-140 flex flex-col max-w-[80%]">
@@ -231,8 +255,8 @@ export default function QuotesComponent() {
             <p className="text-sm text-justify">Miercury is my personal website and portfolio, built with Next.js, React, TypeScript, and Supabase. It showcases my artwork, projects, and web development skills while serving as a full-stack application with an interactive user experience and a custom admin dashboard for managing site content.</p>
           </div>
 
-          <p className={`text-xl pt-8 translate-y-2 nonsel text-gray-500`}>Inside Miercury...</p>
-          <p className={`nonsel text-gray-500 panic`}>▼</p>
+          <p className={`text-xl pt-8 translate-y-2 nonsel text-gray-500 tracking-widest`}>Inside Miercury...</p>
+          <p className={`nonsel text-gray-500 panic pb-0.5`}>▼</p>
 
           <hr className="border-gray-500/40 mb-8 mt-0.5 w-[96%]" />
 
@@ -267,7 +291,7 @@ export default function QuotesComponent() {
           <hr className="border-gray-500/40 mt-8 w-[96%]" />
           
           {/* GAMES */}
-          <p className={`text-4xl text-gray-400 flex gap-4 pt-4 items-center nonsel ${kosugi.className}`}>
+          <p className={`text-4xl text-gray-400 flex gap-4 pt-4 items-center nonsel tracking-widest`}>
             <span className="text-xl">✦</span> 
             GAMES
             <span className="text-xl">✦</span> 
@@ -310,11 +334,11 @@ export default function QuotesComponent() {
           ref={contactRef} 
         >
           <Marquee
-            className="h-[10%] text-5xl nonsel pointer-events-none top-0"
+            className="h-[10%] text-5xl nonsel pointer-events-none top-0 tracking-[0.2em]"
             autoFill
             speed={20}
           >
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTACT
+            &nbsp;&nbsp;&nbsp;&nbsp;CONTACT
           </Marquee>
 
           <div className="h-[80%] bg-white w-full flex flex-col items-center justify-center">
@@ -327,12 +351,12 @@ export default function QuotesComponent() {
           </div>
 
           <Marquee
-            className="h-[10%] text-5xl nonsel pointer-events-none bottom-0"
+            className="h-[10%] text-5xl nonsel pointer-events-none bottom-0 tracking-[0.2em]"
             autoFill
             speed={20}
             direction="right"
           >
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTACT
+            &nbsp;&nbsp;&nbsp;&nbsp;CONTACT
           </Marquee>
         </div>
 
