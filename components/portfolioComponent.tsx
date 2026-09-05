@@ -193,14 +193,14 @@ export default function QuotesComponent() {
 
         </div>
 
-        <hr className="border-2 border-gray-500/60 my-4 w-full" />
+        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
 
         {/* INFO */}
         <div
-          className="flex items-center h-screen flex-col"
+          className="flex items-center h-screen pt-4 flex-col"
           ref={infoRef}
         >
-          <p className={`text-4xl pb-4 text-gray-400 flex gap-4 items-center nonsel tracking-widest`}>
+          <p className={`text-3xl pb-4 text-gray-400 flex gap-4 items-center nonsel tracking-widest`}>
             <span className="text-xl">★</span> 
             A LITTLE BIT ABOUT ME
             <span className="text-xl">★</span> 
@@ -225,14 +225,14 @@ export default function QuotesComponent() {
 
         </div>
 
-        <hr className="border-2 border-gray-500/60 my-4 w-full" />
+        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
 
         {/* PROJECTS */}
         <div
-          className="flex items-center min-h-screen w-full flex-col"
+          className="flex items-center min-h-screen w-full pt-4 flex-col"
           ref={projectsRef}
         >
-          <p className={`text-4xl pb-4 text-gray-400 flex gap-4 items-center nonsel tracking-widest`}>
+          <p className={`text-3xl pb-4 text-gray-400 flex gap-4 items-center nonsel tracking-widest`}>
             <span className="text-xl">✦</span> 
             PROJECTS
             <span className="text-xl">✦</span> 
@@ -246,7 +246,7 @@ export default function QuotesComponent() {
               <div>
                 <Link 
                   href="/"
-                  className={`text-3xl ${kosugi.className} text-gray-500 group-hover:text-blue-500 transition-colors duration-500`}
+                  className={`text-4xl ${kosugi.className} text-gray-500 group-hover:text-blue-500 transition-colors duration-500`}
                   >
                   MIERCURY
                 </Link>
@@ -255,7 +255,7 @@ export default function QuotesComponent() {
             <p className="text-sm text-justify">Miercury is my personal website and portfolio, built with Next.js, React, TypeScript, and Supabase. It showcases my artwork, projects, and web development skills while serving as a full-stack application with an interactive user experience and a custom admin dashboard for managing site content.</p>
           </div>
 
-          <p className={`text-xl pt-8 translate-y-2 nonsel text-gray-500 tracking-widest`}>Inside Miercury...</p>
+          <p className={`pt-12 translate-y-2 nonsel text-gray-500 tracking-[0.2em]`}>INSIDE MIERCURY...</p>
           <p className={`nonsel text-gray-500 panic pb-0.5`}>▼</p>
 
           <hr className="border-gray-500/40 mb-8 mt-0.5 w-[96%]" />
@@ -291,7 +291,7 @@ export default function QuotesComponent() {
           <hr className="border-gray-500/40 mt-8 w-[96%]" />
           
           {/* GAMES */}
-          <p className={`text-4xl text-gray-400 flex gap-4 pt-4 items-center nonsel tracking-widest`}>
+          <p className={`text-3xl text-gray-400 flex gap-4 pt-4 items-center nonsel tracking-widest`}>
             <span className="text-xl">✦</span> 
             GAMES
             <span className="text-xl">✦</span> 
@@ -363,7 +363,7 @@ export default function QuotesComponent() {
         {/* NAVIGATION */}
         <div
           className={`
-            fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl
+            fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl 
             flex gap-4 nonsel ${gaegu.className} text-lg z-50 transition-opacity duration-300
             ${currentSection === "contact" ? "opacity-0 pointer-events-none" : "opacity-100"}
           `}

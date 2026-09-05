@@ -24,7 +24,12 @@ export default function Project({ title, info, src, link }: ProjectProps) {
   const textRef = useRef<HTMLAnchorElement>(null);
   const infoRef = useRef<HTMLParagraphElement>(null);
   const imgRef = useRef<HTMLImageElement>(null);
-
+  const ignatiusRef = useRef<HTMLImageElement>(null);
+  const rufusRef = useRef<HTMLImageElement>(null);
+  const aureliusRef = useRef<HTMLImageElement>(null);
+  const brutusRef = useRef<HTMLImageElement>(null);
+  
+  // DEFAULT TL
   useEffect(() => {
     if (!textRef.current || !infoRef.current || !imgRef.current) return;
 
@@ -36,7 +41,7 @@ export default function Project({ title, info, src, link }: ProjectProps) {
       scrollTrigger: {
         trigger: textRef.current,
         start: "top 100%",
-        toggleActions: "restart none restart none",
+        toggleActions: "play none none none",
       },
     });
 
@@ -55,7 +60,7 @@ export default function Project({ title, info, src, link }: ProjectProps) {
     .from(imgRef.current, {
       opacity: 0,
       xPercent: 30,
-      duration: 2,
+      duration: 1.5,
       ease: "power2.out"
     }, "-=1.5")
 
@@ -66,6 +71,65 @@ export default function Project({ title, info, src, link }: ProjectProps) {
     };
   }, []);
 
+  // CALVARIUS TL
+  useEffect(() => {
+    if (!textRef.current || !infoRef.current || !ignatiusRef.current || !rufusRef.current || !aureliusRef.current || !brutusRef.current) return;
+
+    const split = new SplitText(textRef.current, {
+      type: "chars",
+    });
+
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: textRef.current,
+        start: "top 100%",
+        toggleActions: "play none none none",
+      },
+    });
+
+    tl.from(split.chars, {
+      opacity: 0,
+      y: 20,
+      stagger: 0.06,
+      duration: 0.8,
+      ease: "power2.out",
+    })
+    .from(infoRef.current, {
+      opacity: 0,
+      duration: 2,
+      ease: "power2.out",
+    }, "-=0.7")
+    .from(ignatiusRef.current, {
+      opacity: 0,
+      xPercent: 30,
+      duration: 1.4,
+      ease: "power2.out"
+    }, "<+0.4")
+    .from(rufusRef.current, {
+      opacity: 0,
+      xPercent: 30,
+      duration: 1.4,
+      ease: "power2.out"
+    }, "<+0.4")
+    .from(aureliusRef.current, {
+      opacity: 0,
+      xPercent: 30,
+      duration: 1.4,
+      ease: "power2.out"
+    }, "<+0.4")
+    .from(brutusRef.current, {
+      opacity: 0,
+      xPercent: 30,
+      duration: 1.4,
+      ease: "power2.out"
+    }, "<+0.4");
+
+    return () => {
+      tl.scrollTrigger?.kill();
+      tl.kill();
+      split.revert();
+    };
+  }, []);
 
   return (
     <div className="flex flex-col w-[80%]">
@@ -87,8 +151,21 @@ export default function Project({ title, info, src, link }: ProjectProps) {
       </div>
       
       <div className="text-sm flex justify-between relative">
-        <p className="w-[50%] text-justify" ref={infoRef}>{info}</p>
-        <img className="self-end absolute right-8 h-90 nonsel pointer-events-none" src={`/images/gallery/gallery-me.png`} ref={imgRef} />
+        <p className={`${title === "CHARACTERS" ? "w-[40%]" : "w-[50%]"} text-justify`} ref={infoRef}>{info}</p>
+        {title !== "CHARACTERS" ? (
+          <img 
+            className={`self-end absolute right-8 h-90 nonsel pointer-events-none`}
+            src={title === "GALLERY" ? `/images/gallery/gallery-me.png` : `/images/mier.png`}
+            ref={imgRef} 
+          />
+        ) : (
+          <div className={`self-end absolute right-4 h-80 w-full nonsel pointer-events-none`}>
+            <img className="absolute h-full right-0" ref={ignatiusRef} src={`/images/ignatius.png`} />
+            <img className="absolute h-full right-0" ref={rufusRef} src={`/images/rufus.png`} />
+            <img className="absolute h-full right-0" ref={aureliusRef} src={`/images/aurelius.png`} />
+            <img className="absolute h-full right-0" ref={brutusRef} src={`/images/brutus.png`} />
+          </div>
+        )}
       </div>
     </div>
   )
