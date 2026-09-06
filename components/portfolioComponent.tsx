@@ -150,7 +150,7 @@ export default function QuotesComponent() {
     <div className="flex items-center justify-center min-w-screen min-h-screen">
       
       {/* CONTENT */}
-      <div className="text-[#17191a] w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#dadfe1]">
+      <div className="text-[#17191a] w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#e3ebed]">
       
         {/* INTRO */}
         <div
@@ -164,7 +164,7 @@ export default function QuotesComponent() {
           >
             <div className="nonsel pointer-events-none">
               <p className={`text-4xl opacity-50 ${gaegu.className}`}>HELLO, I'M</p>
-              <p className={`text-9xl ${kosugi.className} translate-x-6`}>KYLE<span className="text-blue-500">.</span></p>
+              <p className={`text-9xl ${kosugi.className} translate-x-6`}>KYLE<span className="text-yellow-500">.</span></p>
               <p className="text-sm">Coding since September 2024 <span className="opacity-40">✦</span> <span className="underline">{getTime()}</span></p>
               <p className="text-sm">I love solving problems and making creative ideas come to life.</p>
             </div>
@@ -192,14 +192,20 @@ export default function QuotesComponent() {
             className="flex items-center justify-center w-full nonsel pointer-events-none"
           >
             <div
-              className="w-120 h-120 rounded-full bg-blue-500 flex items-center justify-center"
+              className="w-120 h-120 rounded-full flex items-center justify-center relative overflow-hidden"
             >
+
+              <img className="absolute w-full h-auto" src="/images/bg2.png" />
+
               <img 
                 src="/images/index/pfp.png"
                 className={`
-                  w-[96%] h-[96%] rounded-full
+                  w-full h-full rounded-full absolute
+                  transition-[translate]
+                  ${currentSection === "intro" ? "translate-y-0 duration-1000" : "translate-y-full duration-800"}
                 `}
-                />
+              />
+
             </div>
           </div>
 
@@ -207,8 +213,8 @@ export default function QuotesComponent() {
 
         <hr 
           className={`
-            border-0 border-b border-gray-500/40 w-full pt-4
-            ${currentSection === "intro" ? "opacity-0 duration-1500" : "opacity-100 duration-500"} 
+            border-0 border-b border-gray-500/40 w-full pt-6
+            ${currentSection === "intro" ? "opacity-0 duration-1000" : "opacity-100 duration-300"} 
             transition-opacity
           `} 
           ref={projectsRef}
@@ -218,23 +224,31 @@ export default function QuotesComponent() {
         <div
           className={`
             flex w-full flex-col overflow-hidden
-            transition-all duration-1000
+            transition-all duration-1000 relative
             ${currentSection === "intro" ? "h-0 opacity-0" : "h-50 opacity-100"}
           `}
-          
         >
 
-          <div className="flex pl-20 gap-2">
+          <img className="absolute nonsel pointer-events-none w-full h-auto" src="/images/bg3.png" />
+          <img 
+            className={`
+              absolute nonsel pointer-events-none w-[30%] h-auto right-12 transition-[bottom]
+              ${currentSection === "intro" ? "bottom-30 duration-500" : "bottom-3 duration-1000"}
+            `} 
+            src="/images/mier2.png" 
+          />
+
+          <div className="flex absolute pl-20 gap-2 text-white">
 
             {Object.entries(stack).map(([category, technologies]) => (
               <div
                 key={category}
-                className="bg-gray-500/40 pt-4 px-4 flex flex-col w-auto h-50"
+                className="bg-yellow-950/80 pt-4 px-4 flex flex-col w-auto h-50"
               >
                 <p className={`text-2xl ${kosugi.className} self-center`}>{category.toLocaleUpperCase()}</p>
 
                 {technologies.map(({ name, icon: Icon }) => (
-                  <div key={name} className="flex items-center gap-2">
+                  <div key={name} className="flex items-center gap-2 text-white/80">
                     <Icon size={16} />
                     <span className="text-[8px] nonsel">●</span>
                     <span key={name} className="text-sm">{name}</span>
@@ -242,7 +256,7 @@ export default function QuotesComponent() {
                 ))}
               </div>
             ))}
-            <p className={`text-2xl ${gaegu.className} p-2 self-end justify-between`}>Currently I'm learning: Socket.IO</p>
+            <p className={`text-sm ${kosugi.className} text-yellow-950 p-2 self-end justify-between`}>Currently I'm learning: Socket.IO</p>
               
           </div>
 
