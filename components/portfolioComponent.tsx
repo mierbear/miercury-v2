@@ -25,8 +25,7 @@ const sono = Sono({
 export default function QuotesComponent() {
   
   const introRef = useRef<HTMLDivElement | null>(null);
-  const infoRef = useRef<HTMLDivElement | null>(null);
-  const projectsRef = useRef<HTMLDivElement | null>(null);
+  const projectsRef = useRef<HTMLHRElement  | null>(null);
   const contactRef = useRef<HTMLDivElement | null>(null);
 
   const [currentSection, setCurrentSection] = useState<string>("intro");
@@ -39,8 +38,6 @@ export default function QuotesComponent() {
         setCurrentSection("contact");
       } else if (projectsRef.current && scrollY >= projectsRef.current.offsetTop) {
         setCurrentSection("projects");
-      } else if (infoRef.current && scrollY >= infoRef.current.offsetTop) {
-        setCurrentSection("info");
       } else {
         setCurrentSection("intro");
       }
@@ -125,9 +122,6 @@ export default function QuotesComponent() {
     "Git",
     "GitHub",
     "Vercel",
-    ],
-    
-    Libraries: [
     "GSAP",
     "Tiptap",
     "YARL",
@@ -135,10 +129,10 @@ export default function QuotesComponent() {
   }
 
   return (
-    <div className="flex items-center justify-center">
-
+    <div className="flex items-center justify-center min-w-screen min-h-screen">
+      
       {/* CONTENT */}
-      <div className="text-black w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#dadfe1]">
+      <div className="text-[#17191a] w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#dadfe1]">
       
         {/* INTRO */}
         <div
@@ -160,14 +154,14 @@ export default function QuotesComponent() {
             <div className="pt-4 gap-4 flex">
               <button
                 onClick={() => scrollToHandler(projectsRef)}
-                className="rounded-full nonsel bg-black px-5 py-3 text-sm text-white cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
+                className="rounded-full nonsel bg-[#17191a] px-5 py-3 text-sm text-white cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
               >
                 See my work →
               </button>
 
               <button
                 onClick={() => scrollToHandler(contactRef)}
-                className="rounded-full nonsel border-2 border-black/20 px-5 py-3 text-sm cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
+                className="rounded-full nonsel border-2 border-[#17191a]/20 px-5 py-3 text-sm cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
               >
                 Get in touch
               </button>
@@ -180,7 +174,7 @@ export default function QuotesComponent() {
             className="flex items-center justify-center w-full nonsel pointer-events-none"
           >
             <div
-              className="w-[60vh] h-[60vh] rounded-full bg-blue-500 flex items-center justify-center"
+              className="w-120 h-120 rounded-full bg-blue-500 flex items-center justify-center"
             >
               <img 
                 src="/images/index/pfp.png"
@@ -193,46 +187,43 @@ export default function QuotesComponent() {
 
         </div>
 
-        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
+        <hr className="border border-gray-500/40 w-full" ref={projectsRef} />
 
         {/* INFO */}
         <div
-          className="flex items-center h-screen pt-4 flex-col"
-          ref={infoRef}
-        >
-          <p className={`text-3xl pb-4 text-gray-400 flex gap-4 items-center nonsel tracking-widest`}>
-            <span className="text-xl">★</span> 
-            A LITTLE BIT ABOUT ME
-            <span className="text-xl">★</span> 
-          </p>
+          className={`
+            flex w-full flex-col overflow-hidden
+            transition-[height] duration-1000
+            ${currentSection === "intro" ? "h-0" : "h-48"}
+          `}
           
-          <div className="grid grid-cols-3 gap-4">
-            
+        >
+
+          <div className="flex pl-20 gap-2">
+
             {Object.entries(stack).map(([category, technologies]) => (
               <div 
                 key={category}
-                className="bg-gray-400/10 p-4 flex flex-col items-center"
+                className="bg-gray-500/40 pt-4 px-4 flex flex-col w-auto h-48"
               >
                 <p className={`text-2xl ${kosugi.className}`}>{category.toLocaleUpperCase()}</p>
-
                 {technologies.map((tech) => (
-                  <p key={tech} className="text-sm">{tech}</p>
+                  <p key={tech} className="text-sm">- {tech}</p>
                 ))}
               </div>
             ))}
-            
+              
           </div>
 
         </div>
 
-        <hr className="border-2 border-gray-500/60 mt-4 w-full" />
+        <hr className="border border-gray-500/40 w-full" />
 
         {/* PROJECTS */}
         <div
           className="flex items-center min-h-screen w-full pt-4 flex-col"
-          ref={projectsRef}
         >
-          <p className={`text-3xl pb-4 text-gray-400 flex gap-4 items-center nonsel tracking-widest`}>
+          <p className={`text-3xl text-gray-400 pb-4 flex gap-4 items-center nonsel tracking-widest`}>
             <span className="text-xl">✦</span> 
             PROJECTS
             <span className="text-xl">✦</span> 
@@ -256,7 +247,7 @@ export default function QuotesComponent() {
           </div>
 
           <p className={`pt-12 translate-y-2 nonsel text-gray-500 tracking-[0.2em]`}>INSIDE MIERCURY...</p>
-          <p className={`nonsel text-gray-500 panic pb-0.5`}>▼</p>
+          <p className={`nonsel text-gray-400 panic pb-0.5`}>▼</p>
 
           <hr className="border-gray-500/40 mb-8 mt-0.5 w-[96%]" />
 
@@ -273,7 +264,7 @@ export default function QuotesComponent() {
           {/* BLOG */}
           <Project 
             title="BLOG"
-            info="A personal blog for documenting projects, ideas, and things I've learned along the way. Of course, with full CRUD operations powered by Supabase." 
+            info="A personal blog for documenting my own thoughts, projects and things I've learned along the way, with full CRUD operations powered by Supabase." 
             src="/images/blog.png"
             link="/blog/page/1"
           />
@@ -291,7 +282,7 @@ export default function QuotesComponent() {
           <hr className="border-gray-500/40 mt-8 w-[96%]" />
           
           {/* GAMES */}
-          <p className={`text-3xl text-gray-400 flex gap-4 pt-4 items-center nonsel tracking-widest`}>
+          <p className={`text-3xl flex gap-4 pt-4 text-gray-400 items-center nonsel tracking-widest`}>
             <span className="text-xl">✦</span> 
             GAMES
             <span className="text-xl">✦</span> 
@@ -325,7 +316,6 @@ export default function QuotesComponent() {
           </div>
         </div>
         
-        {/* <hr className="border-8 border-gray-500/60 my-20 w-full" /> */}
         <p className="my-8 nonsel pointer-events-none loading-spin flex items-center justify-center monospace text-center text-9xl text-gray-400/50">✦</p>
 
         {/* CONTACT */}
@@ -341,9 +331,9 @@ export default function QuotesComponent() {
             &nbsp;&nbsp;&nbsp;&nbsp;CONTACT
           </Marquee>
 
-          <div className="h-[80%] bg-white w-full flex flex-col items-center justify-center">
+          <div className="h-[80%] w-full bg-white/40 flex flex-col items-center justify-center">
             <p>
-              Reach out!
+              Let's create something gaze-worthy together ^_^
             </p>
             <p>
               kylemarshall.dev@protonmail.com
@@ -363,14 +353,12 @@ export default function QuotesComponent() {
         {/* NAVIGATION */}
         <div
           className={`
-            fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl 
+            fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl shadow-2xl
             flex gap-4 nonsel ${gaegu.className} text-lg z-50 transition-opacity duration-300
             ${currentSection === "contact" ? "opacity-0 pointer-events-none" : "opacity-100"}
           `}
         >
           <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "intro"    ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(introRef)}>INTRO</p>
-          <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "info"     ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(infoRef)}>INFO</p>
           <span className="opacity-40">✦</span>
           <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "projects" ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(projectsRef)}>PROJECTS</p>
           <span className="opacity-40">✦</span>
