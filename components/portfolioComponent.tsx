@@ -6,6 +6,23 @@ import Project from "@/components/portfolioProject";
 import Game from "@/components/portfolioGame";
 import Link from "next/link";
 import Loading from "@/components/LoadingScreenComponent";
+import {
+  SiTypescript,
+  SiJavascript,
+  SiHtml5,
+  SiCss,
+  SiPostgresql,
+  SiReact,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiSupabase,
+  SiGit,
+  SiGithub,
+  SiVercel,
+  SiGsap,
+} from "react-icons/si";
+import { MdFormatColorText } from "react-icons/md";
+
 
 const kosugi = Kosugi_Maru({
   weight: "400",
@@ -99,34 +116,33 @@ export default function QuotesComponent() {
   }, []);
 
   const stack = {
-    languages: [
-    "TypeScript",
-    "JavaScript",
-    "HTML",
-    "CSS",
-    "SQL",
+    Languages: [
+      { name: "TypeScript", icon: SiTypescript },
+      { name: "JavaScript", icon: SiJavascript },
+      { name: "HTML", icon: SiHtml5 },
+      { name: "CSS", icon: SiCss },
+      { name: "SQL", icon: SiPostgresql },
     ],
 
     Frontend: [
-    "React",
-    "Next.js",
-    "Tailwind CSS",
+      { name: "React", icon: SiReact },
+      { name: "Next.js", icon: SiNextdotjs },
+      { name: "Tailwind CSS", icon: SiTailwindcss },
     ],
-    
+
     Backend: [
-    "Supabase",
-    "PostgreSQL",
+      { name: "Supabase", icon: SiSupabase },
+      { name: "PostgreSQL", icon: SiPostgresql },
     ],
-    
+
     Tools: [
-    "Git",
-    "GitHub",
-    "Vercel",
-    "GSAP",
-    "Tiptap",
-    "YARL",
-    ]
-  }
+      { name: "Git", icon: SiGit },
+      { name: "GitHub", icon: SiGithub },
+      { name: "Vercel", icon: SiVercel },
+      { name: "GSAP", icon: SiGsap },
+      { name: "Tiptap", icon: MdFormatColorText },
+    ],
+  };
 
   return (
     <div className="flex items-center justify-center min-w-screen min-h-screen">
@@ -194,7 +210,7 @@ export default function QuotesComponent() {
           className={`
             flex w-full flex-col overflow-hidden
             transition-[height] duration-1000
-            ${currentSection === "intro" ? "h-0" : "h-48"}
+            ${currentSection === "intro" ? "h-0" : "h-42"}
           `}
           
         >
@@ -202,15 +218,21 @@ export default function QuotesComponent() {
           <div className="flex pl-20 gap-2">
 
             {Object.entries(stack).map(([category, technologies]) => (
-              <div 
+              <div
                 key={category}
-                className="bg-gray-500/40 pt-4 px-4 flex flex-col w-auto h-48"
+                className="bg-gray-500/40 pt-4 px-4 flex flex-col w-auto h-42"
               >
-                <p className={`text-2xl ${kosugi.className}`}>{category.toLocaleUpperCase()}</p>
-                {technologies.map((tech) => (
-                  <p key={tech} className="text-sm">- {tech}</p>
+                <p className={`text-2xl ${kosugi.className} self-center`}>{category.toLocaleUpperCase()}</p>
+
+                {technologies.map(({ name, icon: Icon }) => (
+                  <div key={name} className="flex items-center gap-2">
+                    <Icon size={16} />
+                    <span className="text-[8px] nonsel">●</span>
+                    <span key={name} className="text-sm">{name}</span>
+                  </div>
                 ))}
               </div>
+              
             ))}
               
           </div>
