@@ -9,6 +9,7 @@ import { Righteous, Sono, Bodoni_Moda, Noto_Serif_JP, Kosugi_Maru, Boldonse, Ins
 
 // 3RD PARTY
 import gsap from "gsap";
+import { TextPlugin } from "gsap/TextPlugin";
 import { SplitText } from "gsap/SplitText";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
@@ -35,6 +36,7 @@ import ArtType from "@/types/artType";
 import { read } from "fs";
 
 gsap.registerPlugin(SplitText);
+gsap.registerPlugin(TextPlugin);
 
 const righteous = Righteous({
   weight: "400",

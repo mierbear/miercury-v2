@@ -22,6 +22,7 @@ import {
   SiGsap,
 } from "react-icons/si";
 import { MdFormatColorText } from "react-icons/md";
+import { IoImagesSharp } from "react-icons/io5";
 
 
 const kosugi = Kosugi_Maru({
@@ -141,6 +142,7 @@ export default function QuotesComponent() {
       { name: "Vercel", icon: SiVercel },
       { name: "GSAP", icon: SiGsap },
       { name: "Tiptap", icon: MdFormatColorText },
+      { name: "YARL", icon: IoImagesSharp },
     ],
   };
 
@@ -203,14 +205,21 @@ export default function QuotesComponent() {
 
         </div>
 
-        <hr className="border border-gray-500/40 w-full" ref={projectsRef} />
+        <hr 
+          className={`
+            border-0 border-b border-gray-500/40 w-full pt-4
+            ${currentSection === "intro" ? "opacity-0 duration-1500" : "opacity-100 duration-500"} 
+            transition-opacity
+          `} 
+          ref={projectsRef}
+        />
 
         {/* INFO */}
         <div
           className={`
             flex w-full flex-col overflow-hidden
-            transition-[height] duration-1000
-            ${currentSection === "intro" ? "h-0" : "h-42"}
+            transition-all duration-1000
+            ${currentSection === "intro" ? "h-0 opacity-0" : "h-50 opacity-100"}
           `}
           
         >
@@ -220,7 +229,7 @@ export default function QuotesComponent() {
             {Object.entries(stack).map(([category, technologies]) => (
               <div
                 key={category}
-                className="bg-gray-500/40 pt-4 px-4 flex flex-col w-auto h-42"
+                className="bg-gray-500/40 pt-4 px-4 flex flex-col w-auto h-50"
               >
                 <p className={`text-2xl ${kosugi.className} self-center`}>{category.toLocaleUpperCase()}</p>
 
@@ -232,14 +241,14 @@ export default function QuotesComponent() {
                   </div>
                 ))}
               </div>
-              
             ))}
+            <p className={`text-2xl ${gaegu.className} p-2 self-end justify-between`}>Currently I'm learning: Socket.IO</p>
               
           </div>
 
         </div>
 
-        <hr className="border border-gray-500/40 w-full" />
+        <hr className="border-0 border-t border-gray-500/40 w-full" />
 
         {/* PROJECTS */}
         <div
