@@ -33,102 +33,63 @@ export default function Project({ title, info, src, link }: ProjectProps) {
   useEffect(() => {
     if (!textRef.current || !infoRef.current || !imgRef.current) return;
 
-    const split = new SplitText(textRef.current, {
-      type: "chars",
+    const ctx = gsap.context(() => {
+      const split = new SplitText(textRef.current!, { type: "chars" });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: "top 100%",
+          toggleActions: "restart none none none",
+        },
+      });
+
+      tl.from(split.chars, {
+        opacity: 0,
+        y: 20,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: "power2.out",
+      })
+      .from(infoRef.current, { opacity: 0, duration: 2, ease: "power2.out" }, "-=0.7")
+      .from(imgRef.current,  { opacity: 0, xPercent: 30, duration: 1.5, ease: "power2.out" }, "-=1.5");
     });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: textRef.current,
-        start: "top 100%",
-        toggleActions: "play none none none",
-      },
-    });
-
-    tl.from(split.chars, {
-      opacity: 0,
-      y: 20,
-      stagger: 0.1,
-      duration: 0.6,
-      ease: "power2.out",
-    })
-    .from(infoRef.current, {
-      opacity: 0,
-      duration: 2,
-      ease: "power2.out",
-    }, "-=0.7")
-    .from(imgRef.current, {
-      opacity: 0,
-      xPercent: 30,
-      duration: 1.5,
-      ease: "power2.out"
-    }, "-=1.5")
-
-    return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
-      split.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   // CALVARIUS TL
   useEffect(() => {
     if (!textRef.current || !infoRef.current || !ignatiusRef.current || !rufusRef.current || !aureliusRef.current || !brutusRef.current) return;
 
-    const split = new SplitText(textRef.current, {
-      type: "chars",
+    const ctx = gsap.context(() => {
+      const split = new SplitText(textRef.current, {
+        type: "chars",
+      });
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: textRef.current,
+          start: "top 100%",
+          toggleActions: "restart none none none",
+        },
+      });
+
+      tl.from(split.chars, { 
+        opacity: 0, 
+        y: 20, 
+        stagger: 0.06, 
+        duration: 0.8, 
+        ease: "power2.out" 
+      })
+      .from(infoRef.current,     { opacity: 0, duration: 2, ease: "power2.out" }, "-=0.7")
+      .from(ignatiusRef.current, { opacity: 0, xPercent: 30, duration: 1.4, ease: "power2.out" }, "<+0.4")
+      .from(rufusRef.current,    { opacity: 0, xPercent: 30, duration: 1.4, ease: "power2.out" }, "<+0.4")
+      .from(aureliusRef.current, { opacity: 0, xPercent: 30, duration: 1.4, ease: "power2.out" }, "<+0.4")
+      .from(brutusRef.current,   { opacity: 0, xPercent: 30, duration: 1.4, ease: "power2.out" }, "<+0.4");
     });
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: textRef.current,
-        start: "top 100%",
-        toggleActions: "play none none none",
-      },
-    });
-
-    tl.from(split.chars, {
-      opacity: 0,
-      y: 20,
-      stagger: 0.06,
-      duration: 0.8,
-      ease: "power2.out",
-    })
-    .from(infoRef.current, {
-      opacity: 0,
-      duration: 2,
-      ease: "power2.out",
-    }, "-=0.7")
-    .from(ignatiusRef.current, {
-      opacity: 0,
-      xPercent: 30,
-      duration: 1.4,
-      ease: "power2.out"
-    }, "<+0.4")
-    .from(rufusRef.current, {
-      opacity: 0,
-      xPercent: 30,
-      duration: 1.4,
-      ease: "power2.out"
-    }, "<+0.4")
-    .from(aureliusRef.current, {
-      opacity: 0,
-      xPercent: 30,
-      duration: 1.4,
-      ease: "power2.out"
-    }, "<+0.4")
-    .from(brutusRef.current, {
-      opacity: 0,
-      xPercent: 30,
-      duration: 1.4,
-      ease: "power2.out"
-    }, "<+0.4");
-
-    return () => {
-      tl.scrollTrigger?.kill();
-      tl.kill();
-      split.revert();
-    };
+    return () => ctx.revert();
   }, []);
 
   return (
