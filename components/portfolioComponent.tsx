@@ -20,6 +20,7 @@ import {
   SiGithub,
   SiVercel,
   SiGsap,
+  SiSocketdotio,
 } from "react-icons/si";
 import { MdFormatColorText } from "react-icons/md";
 import { IoImagesSharp } from "react-icons/io5";
@@ -134,6 +135,7 @@ export default function QuotesComponent() {
     Backend: [
       { name: "Supabase", icon: SiSupabase },
       { name: "PostgreSQL", icon: SiPostgresql },
+      { name: "Socket.IO", icon: SiSocketdotio },
     ],
 
     Tools: [
@@ -154,7 +156,7 @@ export default function QuotesComponent() {
       
         {/* INTRO */}
         <div
-          className="flex items-center justify-center h-screen w-5xl"
+          className="items-center justify-center h-screen w-5xl flex flex-col-reverse lg:flex-row -translate-y-4 lg:translate-y-0"
           ref={introRef}
         >
 
@@ -163,7 +165,7 @@ export default function QuotesComponent() {
             className="flex items-center justify-center w-full flex-col text-center"
           >
             <div className="nonsel pointer-events-none">
-              <p className={`text-4xl opacity-50 ${gaegu.className}`}>HELLO, I'M</p>
+              <p className={`text-4xl opacity-50 ${gaegu.className} translate-y-2 lg:translate-y-0`}>HELLO, I'M</p>
               <p className={`text-9xl ${kosugi.className} translate-x-6`}>KYLE<span className="text-yellow-500">.</span></p>
               <p className="text-sm">Coding since September 2024 <span className="opacity-40">✦</span> <span className="underline">{getTime()}</span></p>
               <p className="text-sm">I love solving problems and making creative ideas come to life.</p>
@@ -202,7 +204,7 @@ export default function QuotesComponent() {
                 className={`
                   w-full h-full rounded-full absolute
                   transition-[translate]
-                  ${currentSection === "intro" ? "translate-y-0 duration-1000" : "translate-y-full duration-800"}
+                  ${currentSection === "intro" ? "translate-y-0 duration-1000" : "lg:translate-y-full translate-y-0 duration-800"}
                 `}
               />
 
@@ -229,26 +231,27 @@ export default function QuotesComponent() {
           `}
         >
 
-          <img className="absolute nonsel pointer-events-none w-full h-auto" src="/images/bg3.png" />
+          <img className="absolute nonsel pointer-events-none w-full h-50 object-cover" src="/images/bg3.png" />
           <img 
             className={`
               absolute nonsel pointer-events-none w-[30%] h-auto right-12 transition-[bottom]
-              ${currentSection === "intro" ? "bottom-30 duration-500" : "bottom-3 duration-1000"}
+              ${currentSection === "intro" ? "bottom-30 duration-500" : "bottom-8 xl:bottom-3 duration-1000"}
+              lg:block hidden
             `} 
             src="/images/mier2.png" 
           />
 
-          <div className="flex absolute pl-20 gap-2 text-white">
+          <div className="flex absolute pl-0 lg:pl-20 gap-2 text-white w-full lg:justify-normal items-center justify-center">
 
             {Object.entries(stack).map(([category, technologies]) => (
               <div
                 key={category}
                 className="bg-yellow-950/80 pt-4 px-4 flex flex-col w-auto h-50"
               >
-                <p className={`text-2xl ${kosugi.className} self-center`}>{category.toLocaleUpperCase()}</p>
+                <p className={`text-2xl ${kosugi.className} self-center text-yellow-50`}>{category.toLocaleUpperCase()}</p>
 
                 {technologies.map(({ name, icon: Icon }) => (
-                  <div key={name} className="flex items-center gap-2 text-white/80">
+                  <div key={name} className={`flex items-center gap-2 ${name === "Socket.IO" && "text-yellow-500"}`}>
                     <Icon size={16} />
                     <span className="text-[8px] nonsel">●</span>
                     <span key={name} className="text-sm">{name}</span>
@@ -256,7 +259,7 @@ export default function QuotesComponent() {
                 ))}
               </div>
             ))}
-            <p className={`text-sm ${kosugi.className} text-yellow-950 p-2 self-end justify-between`}>Currently I'm learning: Socket.IO</p>
+            <p className={`text-sm ${kosugi.className} text-yellow-950 p-2 self-end justify-between lg:flex hidden`}>Currently I'm learning: Socket.IO</p>
               
           </div>
 
@@ -380,9 +383,13 @@ export default function QuotesComponent() {
             <p>
               Let's create something gaze-worthy together ^_^
             </p>
-            <p>
+            <p className="text-[8px] nonsel">●</p>
+            <Link
+              href="mailto:admin@miercury.com"
+              className={`hover:underline p-4 bg-amber-200 monospace text-3xl`}
+            >
               kylemarshall.dev@protonmail.com
-            </p>
+            </Link>
           </div>
 
           <Marquee
