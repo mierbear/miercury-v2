@@ -352,8 +352,8 @@ export default function QuotesComponent() {
             <span className="text-xl">✦</span> 
           </p>
           
-          <div className={`w-[80%] flex flex-col pt-4 ${isPhone && "nonsel pointer-events-none"}`}>
-            <div className="grid grid-cols-3 gap-8">
+          <div className={`w-[90%] md:w-[80%] flex flex-col pt-4 ${isPhone && "nonsel pointer-events-none"}`}>
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 md:gap-6">
               
               <Game 
                 title="MierOS"

@@ -20,19 +20,22 @@ export default function Project({ title, info, src, link }: ProjectProps) {
     <div>
       <div className="flex flex-col group gap-2">
         <Link href={link} target="_blank">
-          <video className="rounded-lg nonsel" loop muted autoPlay src={`${src}`} />
+          <video className="rounded-sm sm:rounded-xl md:rounded-2xl nonsel" loop muted autoPlay src={`${src}`} />
         </Link>
 
-        <div>
+        <div className="self-center md:self-start">
           <Link 
             href={link}
-            className={`text-2xl ${jua.className} text-gray-500 group-hover:text-blue-500 transition-colors duration-500`}
+            className={`
+              text-lg sm:text-xl md:text-2xl ${jua.className}
+              text-gray-500 group-hover:text-blue-500 transition-colors duration-500
+            `}
           >
             {title}
           </Link>
         </div>
       </div>
-      <p className="text-sm text-justify">{info}</p>
+      <p className="text-sm text-center md:text-justify">{info}</p>
     </div>
   )
 }
