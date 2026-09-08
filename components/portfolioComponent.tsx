@@ -148,6 +148,12 @@ export default function QuotesComponent() {
     ],
   };
 
+  const [isPhone, setIsPhone] = useState(false);
+
+  useEffect(() => {
+    setIsPhone(window.matchMedia("(pointer: coarse)").matches);
+  }, []);
+
   return (
     <div className="flex items-center justify-center min-w-screen min-h-screen">
       
@@ -346,7 +352,7 @@ export default function QuotesComponent() {
             <span className="text-xl">✦</span> 
           </p>
           
-          <div className="w-[80%] flex flex-col pt-4">
+          <div className={`w-[80%] flex flex-col pt-4 ${isPhone && "nonsel pointer-events-none"}`}>
             <div className="grid grid-cols-3 gap-8">
               
               <Game 

@@ -97,7 +97,7 @@ export default function Project({ title, info, src, link }: ProjectProps) {
       
       <div className="flex flex-col group gap-2">
         <Link href={link} target="_blank" className="group-hover:scale-100 scale-99 transition-scale duration-1000">
-          <img className="rounded-2xl nonsel" src={src} />
+          <img className="rounded-sm sm:rounded-xl md:rounded-2xl nonsel" src={src} />
         </Link>
 
         <div className="self-center md:self-start">
