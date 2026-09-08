@@ -165,23 +165,23 @@ export default function QuotesComponent() {
             className="flex items-center justify-center w-full flex-col text-center"
           >
             <div className="nonsel pointer-events-none">
-              <p className={`text-4xl opacity-50 ${gaegu.className} translate-y-2 lg:translate-y-0`}>HELLO, I'M</p>
-              <p className={`text-9xl ${kosugi.className} translate-x-6`}>KYLE<span className="text-yellow-500">.</span></p>
-              <p className="text-sm">Coding since September 2024 <span className="opacity-40">✦</span> <span className="underline">{getTime()}</span></p>
-              <p className="text-sm">I love solving problems and making creative ideas come to life.</p>
+              <p className={`text-2xl sm:text-4xl opacity-50 ${gaegu.className} translate-y-2 lg:translate-y-0`}>HELLO, I'M</p>
+              <p className={`text-8xl sm:text-9xl ${kosugi.className} translate-x-6`}>KYLE<span className="text-yellow-500">.</span></p>
+              <p className="text-xs sm:text-sm">Coding since September 2024 <span className="opacity-40">✦</span> <span className="underline">{getTime()}</span></p>
+              <p className="text-xs sm:text-sm">I love solving problems and making creative ideas come to life.</p>
             </div>
 
-            <div className="pt-4 gap-4 flex">
+            <div className="pt-4 gap-4 flex text-xs sm:text-sm">
               <button
                 onClick={() => scrollToHandler(projectsRef)}
-                className="rounded-full nonsel bg-[#17191a] px-5 py-3 text-sm text-white cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
+                className="rounded-full nonsel bg-[#17191a] px-5 py-3 text-white cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
               >
                 See my work →
               </button>
 
               <button
                 onClick={() => scrollToHandler(contactRef)}
-                className="rounded-full nonsel border-2 border-[#17191a]/20 px-5 py-3 text-sm cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
+                className="rounded-full nonsel border-2 border-[#17191a]/20 px-5 py-3 cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
               >
                 Get in touch
               </button>
@@ -194,7 +194,7 @@ export default function QuotesComponent() {
             className="flex items-center justify-center w-full nonsel pointer-events-none"
           >
             <div
-              className="w-120 h-120 rounded-full flex items-center justify-center relative overflow-hidden"
+              className="w-120 h-120 max-w-[80vw] max-h-[80vw] rounded-full flex items-center justify-center relative overflow-hidden"
             >
 
               <img className="absolute w-full h-auto" src="/images/bg2.png" />
@@ -227,11 +227,11 @@ export default function QuotesComponent() {
           className={`
             flex w-full flex-col overflow-hidden
             transition-all duration-1000 relative
-            ${currentSection === "intro" ? "h-0 opacity-0" : "h-44 sm:h-50 opacity-100"}
+            ${currentSection === "intro" ? "h-0 opacity-0" : "h-88 sm:h-50 opacity-100"}
           `}
         >
 
-          <img className="absolute nonsel pointer-events-none w-full h-50 object-cover" src="/images/bg3.png" />
+          <img className="absolute nonsel pointer-events-none w-full h-88 sm:h-50 object-cover" src="/images/bg3.png" />
           <img 
             className={`
               absolute nonsel pointer-events-none w-[30%] h-auto right-12 transition-[bottom]
@@ -241,14 +241,21 @@ export default function QuotesComponent() {
             src="/images/mier2.png" 
           />
 
-          <div className="flex absolute pl-0 lg:pl-20 gap-1 sm:gap-2 text-white w-full lg:justify-normal items-center justify-center">
+          <div 
+            className={`
+              absolute pl-0 lg:pl-20 sm:gap-2 text-white
+              w-full lg:justify-normal items-center justify-center
+              sm:flex grid grid-rows-2 grid-cols-2
+            `}
+          >
 
             {Object.entries(stack).map(([category, technologies]) => (
               <div
                 key={category}
-                className="bg-yellow-950/80 sm:pt-4 pt-4 sm:px-4 px-2 flex flex-col w-auto h-44 sm:h-50"
+                className="bg-yellow-950/80 sm:pt-4 pt-4 px-4 flex flex-col w-auto h-44 sm:h-50"
               >
-                <p className={`text-lg sm:text-2xl ${kosugi.className} self-center text-yellow-50`}>{category.toLocaleUpperCase()}</p>
+                <p className={`text-2xl ${kosugi.className} self-center text-yellow-50`}>{category.toLocaleUpperCase()}</p>
+                <hr className="border-orange-200/40 pt-2 w-[96%]" />
 
                 {technologies.map(({ name, icon: Icon }) => (
                   <div key={name} className={`flex items-center gap-2 ${name === "Socket.IO" && "text-yellow-500"}`}>
