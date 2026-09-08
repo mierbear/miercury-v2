@@ -100,27 +100,47 @@ export default function Project({ title, info, src, link }: ProjectProps) {
           <img className="rounded-2xl nonsel" src={src} />
         </Link>
 
-        <div>
+        <div className="self-center md:self-start">
           <Link 
             href={link}
             ref={textRef}
-            className={`text-7xl ${kosugi.className} text-gray-500 group-hover:text-blue-500 transition-colors duration-500`}
+            className={`
+              ${kosugi.className} text-gray-500
+              group-hover:text-blue-500 transition-colors duration-500
+              xl:text-7xl lg:text-6xl md:text-[54px] text-5xl
+            `}
           >
             {title}
           </Link>
         </div>
       </div>
       
-      <div className="text-sm flex justify-between relative">
-        <p className={`${title === "CHARACTERS" ? "w-[40%]" : "w-[50%]"} text-justify`} ref={infoRef}>{info}</p>
+      <div className="text-xs sm:text-sm flex md:justify-between justify-center relative">
+        <p className={`w-full sm:w-[90%] ${title === "CHARACTERS" ? "md:w-[40%]" : "md:w-[50%]"} text-center md:text-justify`} ref={infoRef}>{info}</p>
         {title !== "CHARACTERS" ? (
           <img 
-            className={`self-end absolute right-8 h-90 nonsel pointer-events-none`}
+            className={`
+              self-end absolute right-8 nonsel pointer-events-none
+              min-[1280px]:h-90
+              min-[1024px]:h-80
+              min-[768px]:h-70
+              min-[768px]:block
+              hidden
+              `}
             src={title === "GALLERY" ? `/images/gallery/gallery-me.png` : `/images/mier.png`}
             ref={imgRef} 
           />
         ) : (
-          <div className={`self-end absolute right-4 h-80 w-full nonsel pointer-events-none`}>
+          <div 
+            className={`
+              h-20 self-end absolute right-2 w-full nonsel pointer-events-none
+              min-[1280px]:h-80
+              min-[1024px]:h-70
+              min-[768px]:h-50
+              min-[768px]:block
+              hidden
+              `}
+            >
             <img className="absolute h-full right-0" ref={ignatiusRef} src={`/images/ignatius.png`} />
             <img className="absolute h-full right-0" ref={rufusRef} src={`/images/rufus.png`} />
             <img className="absolute h-full right-0" ref={aureliusRef} src={`/images/aurelius.png`} />

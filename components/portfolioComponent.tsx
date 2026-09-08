@@ -227,7 +227,7 @@ export default function QuotesComponent() {
           className={`
             flex w-full flex-col overflow-hidden
             transition-all duration-1000 relative
-            ${currentSection === "intro" ? "h-0 opacity-0" : "h-50 opacity-100"}
+            ${currentSection === "intro" ? "h-0 opacity-0" : "h-44 sm:h-50 opacity-100"}
           `}
         >
 
@@ -241,20 +241,20 @@ export default function QuotesComponent() {
             src="/images/mier2.png" 
           />
 
-          <div className="flex absolute pl-0 lg:pl-20 gap-2 text-white w-full lg:justify-normal items-center justify-center">
+          <div className="flex absolute pl-0 lg:pl-20 gap-1 sm:gap-2 text-white w-full lg:justify-normal items-center justify-center">
 
             {Object.entries(stack).map(([category, technologies]) => (
               <div
                 key={category}
-                className="bg-yellow-950/80 pt-4 px-4 flex flex-col w-auto h-50"
+                className="bg-yellow-950/80 sm:pt-4 pt-4 sm:px-4 px-2 flex flex-col w-auto h-44 sm:h-50"
               >
-                <p className={`text-2xl ${kosugi.className} self-center text-yellow-50`}>{category.toLocaleUpperCase()}</p>
+                <p className={`text-lg sm:text-2xl ${kosugi.className} self-center text-yellow-50`}>{category.toLocaleUpperCase()}</p>
 
                 {technologies.map(({ name, icon: Icon }) => (
                   <div key={name} className={`flex items-center gap-2 ${name === "Socket.IO" && "text-yellow-500"}`}>
                     <Icon size={16} />
-                    <span className="text-[8px] nonsel">●</span>
-                    <span key={name} className="text-sm">{name}</span>
+                    <span className="text-[4px] sm:text-[8px] nonsel">●</span>
+                    <span key={name} className="text-xs sm:text-sm">{name}</span>
                   </div>
                 ))}
               </div>
@@ -277,21 +277,24 @@ export default function QuotesComponent() {
             <span className="text-xl">✦</span> 
           </p>
           
-          <div className="rounded-lg h-auto w-140 flex flex-col max-w-[80%]">
+          <div className="rounded-lg h-auto w-[80%] md:w-140 flex flex-col md:max-w-[80%]">
             <div className="group flex flex-col">
               <Link href="/" target="_blank">
                 <img className="rounded-lg mb-2 nonsel" src="/images/miercury.png" />
               </Link>
-              <div>
+              <div className="self-center md:self-start">
                 <Link 
                   href="/"
-                  className={`text-4xl ${kosugi.className} text-gray-500 group-hover:text-blue-500 transition-colors duration-500`}
+                  className={`
+                    ${kosugi.className} text-gray-500 group-hover:text-blue-500 transition-colors duration-500
+                    xl:text-7xl lg:text-6xl md:text-[54px] text-5xl
+                    `}
                   >
                   MIERCURY
                 </Link>
-                </div>
               </div>
-            <p className="text-sm text-justify">Miercury is my personal website and portfolio, built with Next.js, React, TypeScript, and Supabase. It showcases my artwork, projects, and web development skills while serving as a full-stack application with an interactive user experience and a custom admin dashboard for managing site content.</p>
+            </div>
+            <p className="md:w-full sm:w-[90%] w-full text-xs sm:text-sm self-center text-center md:text-justify">Miercury is my personal website and portfolio, built with Next.js, React, TypeScript, and Supabase. It showcases my artwork, projects, and web development skills while serving as a full-stack application with an interactive user experience and a custom admin dashboard for managing site content.</p>
           </div>
 
           <p className={`pt-12 translate-y-2 nonsel text-gray-500 tracking-[0.2em]`}>INSIDE MIERCURY...</p>
