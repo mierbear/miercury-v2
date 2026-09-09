@@ -155,7 +155,7 @@ export default function QuotesComponent() {
   }, []);
 
   return (
-    <div className="flex items-center justify-center min-w-screen min-h-screen">
+    <div className={`flex flex-col items-center justify-center min-w-screen min-h-screen ${currentSection === "contact" ? "bg-[#000000] duration-1500" : "bg-[#00000000] duration-500"} transition-colors `}>
       
       {/* CONTENT */}
       <div className="text-[#17191a] w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#e3ebed]">
@@ -282,7 +282,7 @@ export default function QuotesComponent() {
 
         {/* PROJECTS */}
         <div
-          className="flex items-center min-h-screen w-full pt-4 flex-col"
+          className="flex items-center min-h-screen w-full pt-4 pb-16 flex-col"
         >
           <p className={`text-3xl text-gray-400 pb-4 flex gap-4 items-center nonsel tracking-widest`}>
             <span className="text-xl">✦</span> 
@@ -380,42 +380,41 @@ export default function QuotesComponent() {
           </div>
         </div>
         
-        <p className="my-8 nonsel pointer-events-none loading-spin flex items-center justify-center monospace text-center text-9xl text-gray-400/50">✦</p>
+        <hr className="border-0 border-t border-gray-500/40 w-full" />
 
         {/* CONTACT */}
-        <div
-          className="flex items-center justify-center h-screen w-full flex-col"
+        <div 
           ref={contactRef} 
+          className={`
+            w-full h-screen text-5xl flex items-center justify-center transition-[height] duration-1000 relative
+            ${currentSection === "contact" ? "" : ""}
+          `}
         >
-          <Marquee
-            className="h-[10%] text-5xl nonsel pointer-events-none top-0 tracking-[0.2em]"
-            autoFill
-            speed={20}
-          >
-            &nbsp;&nbsp;&nbsp;&nbsp;CONTACT
-          </Marquee>
+          <img className="absolute nonsel pointer-events-none w-full h-full object-cover" src="/images/bg4.png" />
+          <div className={`z-60 absolute w-full ${currentSection === "contact" ? "h-0 duration-1500" : "h-[50%] duration-1000"} transition-[height] bg-[#e3ebed] self-start`} />
+          <div className={`z-60 absolute w-full ${currentSection === "contact" ? "h-0 duration-1500" : "h-[50%] duration-1000"} transition-[height] bg-[#e3ebed] self-end`} />
+          <div className={`z-80 h-[10%] w-full text-5xl nonsel ${currentSection === "contact" ? "text-white" : ""} transition-colors duration-1500 pointer-events-none absolute top-0 flex items-center`} >
+            <Marquee
+              className="tracking-[0.2em]"
+              autoFill
+              speed={20}
+            >
+              &nbsp;&nbsp;&nbsp;&nbsp;CONTACT
+            </Marquee>
+          </div>
 
-          <div className="h-[80%] w-full bg-white/40 flex flex-col items-center justify-center">
+          <div className={`absolute text-white bottom-8 left-8 flex flex-col z-40 text-sm ${sono.className}`}>
             <p>
               Let's create something gaze-worthy together ^_^
             </p>
-            <p className="text-[8px] nonsel">●</p>
             <Link
               href="mailto:admin@miercury.com"
-              className={`hover:underline p-4 bg-amber-200 monospace text-3xl`}
+              className={`hover:underline`}
             >
               kylemarshall.dev@protonmail.com
             </Link>
           </div>
 
-          <Marquee
-            className="h-[10%] text-5xl nonsel pointer-events-none bottom-0 tracking-[0.2em]"
-            autoFill
-            speed={20}
-            direction="right"
-          >
-            &nbsp;&nbsp;&nbsp;&nbsp;CONTACT
-          </Marquee>
         </div>
 
         {/* NAVIGATION */}
