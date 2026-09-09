@@ -206,7 +206,7 @@ export default function QuotesComponent() {
               <img className="absolute w-full h-auto" src="/images/bg2.png" />
 
               <img 
-                src="/images/index/pfp.png"
+                src="/images/pfp.png"
                 className={`
                   w-full h-full rounded-full absolute
                   transition-[translate]
@@ -387,13 +387,29 @@ export default function QuotesComponent() {
           ref={contactRef} 
           className={`
             w-full h-screen text-5xl flex items-center justify-center transition-[height] duration-1000 relative
-            ${currentSection === "contact" ? "" : ""}
+            ${currentSection === "contact" ? "" : ""} overflow-hidden
           `}
         >
+
+          {/* bg */}
           <img className="absolute nonsel pointer-events-none w-full h-full object-cover" src="/images/bg4.png" />
-          <div className={`z-60 absolute w-full ${currentSection === "contact" ? "h-0 duration-1500" : "h-[50%] duration-1000"} transition-[height] bg-[#e3ebed] self-start`} />
-          <div className={`z-60 absolute w-full ${currentSection === "contact" ? "h-0 duration-1500" : "h-[50%] duration-1000"} transition-[height] bg-[#e3ebed] self-end`} />
-          <div className={`z-80 h-[10%] w-full text-5xl nonsel ${currentSection === "contact" ? "text-white" : ""} transition-colors duration-1500 pointer-events-none absolute top-0 flex items-center`} >
+          
+          {/* cover */}
+          <div 
+            className={`
+            z-60 absolute w-full transition-[height] bg-[#e3ebed] self-end
+            ${currentSection === "contact" ? "h-0 duration-1200" : "h-full duration-800"}
+            `} 
+          />
+
+          {/* contact text */}
+          <div 
+            className={`
+            z-80 h-[10%] w-full text-5xl nonsel pointer-events-none
+            ${currentSection === "contact" ? "text-yellow-950" : ""} 
+            transition-colors duration-1500 absolute top-0 flex items-center
+            `}
+          >
             <Marquee
               className="tracking-[0.2em]"
               autoFill
@@ -402,36 +418,48 @@ export default function QuotesComponent() {
               &nbsp;&nbsp;&nbsp;&nbsp;CONTACT
             </Marquee>
           </div>
-
-          <div className={`absolute text-white bottom-8 left-8 flex flex-col z-40 text-sm ${sono.className}`}>
+          
+          {/* text */}
+          <div className={`absolute text-yellow-950 items-center flex flex-col z-40 text-sm ${sono.className}`}>
             <p>
               Let's create something gaze-worthy together ^_^
             </p>
             <Link
               href="mailto:admin@miercury.com"
-              className={`hover:underline`}
+              className={`hover:underline text-4xl monospace`}
             >
               kylemarshall.dev@protonmail.com
             </Link>
           </div>
 
+          {/* illustration */}
+          <img
+            className={`
+              ${currentSection === "contact" ? "right-[-10%]" : "-right-full"}  
+              absolute transition-[right] nonsel pointer-events-none bottom-[10%] duration-3000
+            `}
+            src="/images/mier3.png" 
+          />
+
         </div>
 
-        {/* NAVIGATION */}
-        <div
-          className={`
-            fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl shadow-2xl
-            flex gap-4 nonsel ${gaegu.className} text-lg z-50 transition-opacity duration-300
-            ${currentSection === "contact" ? "opacity-0 pointer-events-none" : "opacity-100"}
-          `}
-        >
-          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "intro"    ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(introRef)}>INTRO</p>
-          <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "projects" ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(projectsRef)}>PROJECTS</p>
-          <span className="opacity-40">✦</span>
-          <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "contact"  ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(contactRef)}>CONTACT</p>
-        </div>
+        
 
+      </div>
+
+      {/* NAVIGATION */}
+      <div
+        className={`
+          fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl shadow-2xl
+          flex gap-4 nonsel ${gaegu.className} text-lg z-50 transition-opacity duration-300
+          ${currentSection === "contact" ? "opacity-0 pointer-events-none" : "opacity-100"}
+        `}
+      >
+        <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "intro"    ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(introRef)}>INTRO</p>
+        <span className="opacity-40">✦</span>
+        <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "projects" ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(projectsRef)}>PROJECTS</p>
+        <span className="opacity-40">✦</span>
+        <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "contact"  ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(contactRef)}>CONTACT</p>
       </div>
       
       {/* LOADING SCREEN */}
