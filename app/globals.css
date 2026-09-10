@@ -661,6 +661,10 @@ div[data-youtube-video] iframe {
   animation-play-state: paused !important;
 }
 
+.clickEmail {
+  animation: subtle-breathe 0.3s;
+}
+
 @keyframes breathe {
   0% {
     transform: scale(1);

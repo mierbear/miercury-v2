@@ -23,7 +23,7 @@ import {
   SiSocketdotio,
 } from "react-icons/si";
 import { MdFormatColorText } from "react-icons/md";
-import { IoImagesSharp } from "react-icons/io5";
+import { IoImagesSharp, IoMail } from "react-icons/io5";
 
 
 const kosugi = Kosugi_Maru({
@@ -156,6 +156,14 @@ export default function QuotesComponent() {
 
   const copyEmail = () => {
     navigator.clipboard.writeText("kylemarshall.dev@protonmail.com");
+    clickEmail();
+  }
+
+  const emailRef = useRef<HTMLParagraphElement | null>(null);
+  const clickEmail = () => {
+    emailRef.current?.classList.remove("clickEmail");
+    void emailRef.current?.offsetWidth;
+    emailRef.current?.classList.add("clickEmail");
   }
 
   return (
@@ -438,14 +446,15 @@ export default function QuotesComponent() {
 
             <Link
               href="mailto:kylemarshall.dev@protonmail.com"
-              className="group mt-6 text-lg md:text-2xl text-yellow-300"
+              className="group mt-6 text-lg md:text-2xl text-yellow-300 flex items-center justify-center"
             >
-              <span className="transition-colors decoration-yellow-300/25 duration-600 group-hover:decoration-yellow-300/70 underline underline-offset-4
-              ">
+              <IoMail />
+              <p className="pl-px ">:</p>
+              <span className="mx-2 transition-colors decoration-yellow-300/25 duration-600 group-hover:decoration-yellow-300/70 underline underline-offset-4">
                 kylemarshall.dev@protonmail.com
               </span>
 
-              <span className="ml-3 text-xs inline-block transition-transform -translate-y-px group-hover:translate-x-1 nonsel">
+              <span className="text-xs inline-block transition-transform duration-500 group-hover:translate-x-1 nonsel">
               ►
               </span>
             </Link>
@@ -457,7 +466,7 @@ export default function QuotesComponent() {
 
               <span>✦</span>
 
-              <p className="cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300" onClick={copyEmail}>
+              <p ref={emailRef} className="cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300" onClick={copyEmail}>
                 Copy Email
               </p>
             </div>
