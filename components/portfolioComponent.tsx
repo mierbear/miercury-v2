@@ -166,11 +166,13 @@ export default function QuotesComponent() {
     emailRef.current?.classList.add("clickEmail");
   }
 
+  const top = useRef<HTMLDivElement | null>(null);
+
   return (
     <div className={`flex flex-col items-center justify-center min-w-screen min-h-screen ${currentSection === "contact" ? "bg-[#000000] duration-1500" : "bg-[#00000000] duration-500"} transition-colors `}>
       
       {/* CONTENT */}
-      <div className="text-[#17191a] w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#e3ebed]">
+      <div ref={top} className="text-[#17191a] w-7xl max-w-screen min-h-screen flex flex-col items-center justify-center relative z-20 bg-[#e3ebed]">
       
         {/* INTRO */}
         <div
@@ -432,9 +434,9 @@ export default function QuotesComponent() {
           </div>
           
           {/* text */}
-          <div className="relative z-40 w-full flex flex-col items-center justify-center px-8 py-4 text-center backdrop-blur-[2px] bg-linear-to-b from-black/40 via-black/60 to-black/40 text-yellow-50">
+          <div className="relative z-40 w-full flex flex-col items-center justify-center px-8 py-8 text-center backdrop-blur-[2px] bg-linear-to-b from-black/40 via-black/60 to-black/40 text-yellow-50">
 
-            <p className={`${sono.className} text-sm mb-2 tracking-[0.3em] nonsel pointer-events-none opacity-90`}>
+            <p className={`${sono.className} mb-1 text-sm tracking-[0.3em] nonsel pointer-events-none opacity-90`}>
               WANT TO MAKE SOMETHING?
             </p>
 
@@ -446,7 +448,7 @@ export default function QuotesComponent() {
 
             <Link
               href="mailto:kylemarshall.dev@protonmail.com"
-              className="group mt-6 text-lg md:text-2xl text-yellow-300 flex items-center justify-center"
+              className="group mt-12 text-lg md:text-2xl text-yellow-300 flex items-center justify-center"
             >
               <IoMail />
               <p className="pl-px ">:</p>
@@ -459,7 +461,7 @@ export default function QuotesComponent() {
               </span>
             </Link>
 
-            <div className={`${sono.className} mt-2 flex gap-6 text-sm nonsel`}>
+            <div className={`${sono.className} mt-1 flex gap-6 text-sm nonsel`}>
               <Link className="opacity-80 hover:opacity-100 transition-opacity duration-300" href="https://github.com/mierbear" target="_blank" rel="noopener noreferrer">
                 GitHub
               </Link>
@@ -491,7 +493,7 @@ export default function QuotesComponent() {
       {/* NAVIGATION */}
       <div
         className={`
-          fixed bottom-[2.5vh] px-6 py-2 bg-[#eef3f4] rounded-3xl shadow-2xl
+          fixed bottom-4 px-6 py-2 bg-[#eef3f4] rounded-3xl shadow-2xl
           flex gap-4 nonsel ${gaegu.className} text-lg z-50 transition-opacity duration-300
           ${currentSection === "contact" ? "opacity-0 pointer-events-none" : "opacity-100"}
         `}
@@ -501,6 +503,24 @@ export default function QuotesComponent() {
         <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "projects" ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(projectsRef)}>PROJECTS</p>
         <span className="opacity-40">✦</span>
         <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "contact"  ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(contactRef)}>CONTACT</p>
+      </div>
+
+      <div
+        className={`
+          fixed bottom-4 text-4xl
+          nonsel z-50 transition-opacity duration-300
+          ${currentSection === "contact" ? "opacity-100" : "opacity-0 pointer-events-none"}
+        `}
+      >
+        <p 
+          className={`
+            hover:opacity-100 opacity-60 duration-1000 cursor-pointer
+            ${currentSection === "contact" ? "text-yellow-950" : "text-black"}
+          `}
+          onClick={() => {scrollToHandler(top)}}
+        >
+          ▲
+        </p>
       </div>
       
       {/* LOADING SCREEN */}
