@@ -35,7 +35,7 @@ export default function Project({ title, info, src, link }: ProjectProps) {
           </Link>
         </div>
       </div>
-      <p className="text-sm text-center md:text-justify">{info}</p>
+      <p className="text-xs sm:text-sm text-center md:text-justify">{info}</p>
     </div>
   )
 }
