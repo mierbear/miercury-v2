@@ -272,13 +272,13 @@ export default function QuotesComponent() {
             {Object.entries(stack).map(([category, technologies]) => (
               <div
                 key={category}
-                className="bg-yellow-950/90 sm:bg-yellow-950/80 sm:pt-4 pt-4 px-4 flex flex-col w-auto h-44 sm:h-50"
+                className="bg-gray-600 sm:bg-yellow-950/80 sm:pt-4 pt-4 px-4 flex flex-col w-auto h-44 sm:h-50"
               >
-                <p className={`text-2xl ${kosugi.className} self-center text-yellow-50`}>{category.toLocaleUpperCase()}</p>
-                <hr className="border-orange-200/40 pt-2 w-[96%]" />
+                <p className={`text-2xl ${kosugi.className} self-center text-white sm:text-yellow-50`}>{category.toLocaleUpperCase()}</p>
+                <hr className="border-white/40 sm:border-orange-200/40 pt-2 w-[96%]" />
 
                 {technologies.map(({ name, icon: Icon }) => (
-                  <div key={name} className={`flex items-center gap-2 ${name === "Socket.IO" && "text-yellow-500"}`}>
+                  <div key={name} className={`flex items-center gap-2 ${name === "Socket.IO" && "text-yellow-200 sm:text-yellow-500"}`}>
                     <Icon size={16} />
                     <span className="text-[4px] sm:text-[8px] nonsel">●</span>
                     <span key={name} className="text-xs sm:text-sm">{name}</span>
@@ -451,7 +451,7 @@ export default function QuotesComponent() {
               className="group mt-6 md:mt-12 text-base sm:text-2xl xl:text-3xl text-yellow-300 flex items-center justify-center"
             >
               <IoMail />
-              <p className="pl-px ">:</p>
+              <p className="pl-px nonsel">:</p>
               <span className="mx-2 transition-colors decoration-yellow-300/25 duration-600 group-hover:decoration-yellow-300/70 underline underline-offset-4">
                 kylemarshall.dev@protonmail.com
               </span>
@@ -478,8 +478,8 @@ export default function QuotesComponent() {
           {/* illustration */}
           <img
             className={`
-              ${currentSection === "contact" ? "right-[-14%] bottom-[4%]" : "-right-full bottom-[20%]"}  
-              absolute nonsel pointer-events-none duration-3000
+              ${currentSection === "contact" ? "right-[-30%] md:right-[-20%] lg:right-[-14%] bottom-[4%]" : "-right-full bottom-[20%]"}  
+              absolute nonsel pointer-events-none duration-3000 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl hidden sm:block
             `}
             src="/images/mier3.png" 
           />
