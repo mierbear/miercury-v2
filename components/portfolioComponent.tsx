@@ -196,7 +196,7 @@ export default function QuotesComponent() {
                 onClick={() => scrollToHandler(projectsRef)}
                 className="rounded-full nonsel bg-[#17191a] px-5 py-3 text-white cursor-pointer transition-transform duration-300 hover:-translate-y-0.5"
               >
-                See my work →
+                See my work &nbsp;&nbsp;►
               </button>
 
               <button
@@ -272,7 +272,7 @@ export default function QuotesComponent() {
             {Object.entries(stack).map(([category, technologies]) => (
               <div
                 key={category}
-                className="bg-yellow-950/80 sm:pt-4 pt-4 px-4 flex flex-col w-auto h-44 sm:h-50"
+                className="bg-yellow-950/90 sm:bg-yellow-950/80 sm:pt-4 pt-4 px-4 flex flex-col w-auto h-44 sm:h-50"
               >
                 <p className={`text-2xl ${kosugi.className} self-center text-yellow-50`}>{category.toLocaleUpperCase()}</p>
                 <hr className="border-orange-200/40 pt-2 w-[96%]" />
@@ -436,19 +436,19 @@ export default function QuotesComponent() {
           {/* text */}
           <div className="relative z-40 w-full flex flex-col items-center justify-center px-8 py-8 text-center backdrop-blur-[2px] bg-linear-to-b from-black/40 via-black/60 to-black/40 text-yellow-50">
 
-            <p className={`${sono.className} mb-1 text-sm tracking-[0.3em] nonsel pointer-events-none opacity-90`}>
+            <p className={`${sono.className} mb-1 text-xs sm:text-sm tracking-[0.3em] nonsel pointer-events-none opacity-90`}>
               WANT TO MAKE SOMETHING?
             </p>
 
-            <h2 className={`${kosugi.className} text-4xl md:text-6xl lg:text-7xl nonsel pointer-events-none`}>
-              LET'S CREATE SOMETHING
+            <h2 className={`${kosugi.className} text-4xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl nonsel pointer-events-none`}>
+              LET'S CREATE <br className="block md:hidden" />SOMETHING
               <br />
-              GAZE-WORTHY TOGETHER.
+              GAZE-WORTHY <br className="block md:hidden" />TOGETHER.
             </h2>
 
             <Link
               href="mailto:kylemarshall.dev@protonmail.com"
-              className="group mt-12 text-lg md:text-2xl text-yellow-300 flex items-center justify-center"
+              className="group mt-6 md:mt-12 text-base sm:text-2xl xl:text-3xl text-yellow-300 flex items-center justify-center"
             >
               <IoMail />
               <p className="pl-px ">:</p>
@@ -456,7 +456,7 @@ export default function QuotesComponent() {
                 kylemarshall.dev@protonmail.com
               </span>
 
-              <span className="text-xs inline-block transition-transform duration-500 group-hover:translate-x-1 nonsel">
+              <span className="text-sm inline-block transition-transform duration-500 group-hover:translate-x-1 nonsel">
               ►
               </span>
             </Link>
@@ -504,7 +504,8 @@ export default function QuotesComponent() {
         <span className="opacity-40">✦</span>
         <p className={`cursor-pointer transition-opacity duration-500 ${currentSection === "contact"  ? "opacity-100 font-bold pointer-events-none" : "opacity-50 hover:opacity-80"}`} onClick={() => scrollToHandler(contactRef)}>CONTACT</p>
       </div>
-
+      
+      {/* BACK TO TOP */}
       <div
         className={`
           fixed bottom-4 text-4xl
