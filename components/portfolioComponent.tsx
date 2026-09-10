@@ -406,7 +406,14 @@ export default function QuotesComponent() {
         >
 
           {/* bg */}
-          <img className="absolute nonsel pointer-events-none w-full h-full object-cover" src="/images/bg4.png" />
+          <img 
+            className={`
+              absolute nonsel pointer-events-none w-full h-full object-cover
+              transition-scale duration-6000 
+              ${currentSection === "contact" ? "scale-100" : "scale-105"}
+            `} 
+            src="/images/bg4.png"
+          />
           
           {/* cover */}
           <div 
@@ -448,7 +455,7 @@ export default function QuotesComponent() {
 
             <Link
               href="mailto:kylemarshall.dev@protonmail.com"
-              className="group mt-6 md:mt-12 text-base sm:text-2xl xl:text-3xl text-yellow-300 flex items-center justify-center"
+              className="group mt-6 md:mt-10 text-base sm:text-2xl xl:text-3xl text-yellow-300 flex items-center justify-center"
             >
               <IoMail />
               <p className="pl-px nonsel">:</p>
