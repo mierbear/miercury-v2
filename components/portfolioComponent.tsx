@@ -68,7 +68,11 @@ export default function QuotesComponent() {
   }, []);
 
   const scrollToHandler = (ref: React.RefObject<HTMLDivElement | null>) => {
-    ref.current?.scrollIntoView({ behavior: "smooth" });
+    if (currentSection === "intro" && ref === contactRef) {
+      ref.current?.scrollIntoView({ behavior: "instant" });
+    } else {
+      ref.current?.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
   const getTime = () => {
