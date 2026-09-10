@@ -154,6 +154,10 @@ export default function QuotesComponent() {
     setIsPhone(window.matchMedia("(pointer: coarse)").matches);
   }, []);
 
+  const copyEmail = () => {
+    navigator.clipboard.writeText("kylemarshall.dev@protonmail.com");
+  }
+
   return (
     <div className={`flex flex-col items-center justify-center min-w-screen min-h-screen ${currentSection === "contact" ? "bg-[#000000] duration-1500" : "bg-[#00000000] duration-500"} transition-colors `}>
       
@@ -282,7 +286,7 @@ export default function QuotesComponent() {
 
         {/* PROJECTS */}
         <div
-          className="flex items-center min-h-screen w-full pt-4 pb-16 flex-col"
+          className="flex items-center min-h-screen w-full pt-4 pb-20 flex-col"
         >
           <p className={`text-3xl text-gray-400 pb-4 flex gap-4 items-center nonsel tracking-widest`}>
             <span className="text-xl">✦</span> 
@@ -380,7 +384,7 @@ export default function QuotesComponent() {
           </div>
         </div>
         
-        <hr className="border-0 border-t border-gray-500/40 w-full" />
+        <hr className={`border-2 border-t w-full duration-1500 transition-colors ${currentSection === "contact" ? "border-yellow-950" : "border-gray-500/40"}`} />
 
         {/* CONTACT */}
         <div 
@@ -406,8 +410,8 @@ export default function QuotesComponent() {
           <div 
             className={`
             z-80 h-[10%] w-full text-5xl nonsel pointer-events-none
-            ${currentSection === "contact" ? "text-yellow-950" : ""} 
-            transition-colors duration-1500 absolute top-0 flex items-center
+            ${currentSection === "contact" ? "text-yellow-950 opacity-30" : "opacity-100"} 
+            duration-1500 absolute top-0 flex items-center
             `}
           >
             <Marquee
@@ -420,23 +424,51 @@ export default function QuotesComponent() {
           </div>
           
           {/* text */}
-          <div className={`absolute text-yellow-950 items-center flex flex-col z-40 text-sm ${sono.className}`}>
-            <p>
-              Let's create something gaze-worthy together ^_^
+          <div className="relative z-40 w-full flex flex-col items-center justify-center px-8 py-4 text-center backdrop-blur-[2px] bg-linear-to-b from-black/40 via-black/60 to-black/40 text-yellow-50">
+
+            <p className={`${sono.className} text-sm mb-2 tracking-[0.3em] nonsel pointer-events-none opacity-90`}>
+              WANT TO MAKE SOMETHING?
             </p>
+
+            <h2 className={`${kosugi.className} text-4xl md:text-6xl lg:text-7xl nonsel pointer-events-none`}>
+              LET'S CREATE SOMETHING
+              <br />
+              GAZE-WORTHY TOGETHER.
+            </h2>
+
             <Link
-              href="mailto:admin@miercury.com"
-              className={`hover:underline text-4xl monospace`}
+              href="mailto:kylemarshall.dev@protonmail.com"
+              className="group mt-6 text-lg md:text-2xl text-yellow-300"
             >
-              kylemarshall.dev@protonmail.com
+              <span className="transition-colors decoration-yellow-300/25 duration-600 group-hover:decoration-yellow-300/70 underline underline-offset-4
+              ">
+                kylemarshall.dev@protonmail.com
+              </span>
+
+              <span className="ml-3 text-xs inline-block transition-transform -translate-y-px group-hover:translate-x-1 nonsel">
+              ►
+              </span>
             </Link>
+
+            <div className={`${sono.className} mt-2 flex gap-6 text-sm nonsel`}>
+              <Link className="opacity-80 hover:opacity-100 transition-opacity duration-300" href="https://github.com/mierbear" target="_blank" rel="noopener noreferrer">
+                GitHub
+              </Link>
+
+              <span>✦</span>
+
+              <p className="cursor-pointer opacity-80 hover:opacity-100 transition-opacity duration-300" onClick={copyEmail}>
+                Copy Email
+              </p>
+            </div>
+
           </div>
 
           {/* illustration */}
           <img
             className={`
-              ${currentSection === "contact" ? "right-[-10%]" : "-right-full"}  
-              absolute transition-[right] nonsel pointer-events-none bottom-[10%] duration-3000
+              ${currentSection === "contact" ? "right-[-14%] bottom-[4%]" : "-right-full bottom-[20%]"}  
+              absolute nonsel pointer-events-none duration-3000
             `}
             src="/images/mier3.png" 
           />
@@ -450,7 +482,7 @@ export default function QuotesComponent() {
       {/* NAVIGATION */}
       <div
         className={`
-          fixed bottom-[2.5vh] px-6 py-2 bg-white rounded-3xl shadow-2xl
+          fixed bottom-[2.5vh] px-6 py-2 bg-[#eef3f4] rounded-3xl shadow-2xl
           flex gap-4 nonsel ${gaegu.className} text-lg z-50 transition-opacity duration-300
           ${currentSection === "contact" ? "opacity-0 pointer-events-none" : "opacity-100"}
         `}
