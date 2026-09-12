@@ -40,19 +40,19 @@ const Stars = ({ lost }: { lost: boolean }) => {
     <div className={`min-w-screen min-h-screen bg-[#17191a] flex justify-end align-center items-center flex-col fixed top-0 translate-y-[-30vh] transition-opacity duration-3000 ${ready ? "opacity-100" : "opacity-0"}`}>
 
       <div className="fixed scale-180 -z-50 origin-center overflow-hidden twinkle2" style={{ transform: `rotate(${rotation.current}deg)` }}>
-        <img src="/images/stars.png" className="spin spin-slow nonsel pointer-events-none stars" />
+        <img src="/images/stars.png" alt="stars" className="spin spin-slow nonsel pointer-events-none stars" />
       </div>
 
       <div className="fixed scale-180 -z-50 origin-center overflow-hidden twinkle" style={{ transform: `rotate(${rotation.current}deg)` }}>
-        <img src="/images/stars2.png" className="spin spin-medium nonsel pointer-events-none stars" />
+        <img src="/images/stars2.png" alt="stars" className="spin spin-medium nonsel pointer-events-none stars" />
       </div>
 
       <div className="fixed scale-180 -z-50 origin-center overflow-hidden" style={{ transform: `rotate(${rotation.current}deg)` }}>
-        <img src="/images/stars3.png" className={`spin spin-fast nonsel pointer-events-none stars ${lost && "hidden"}`} />
+        <img src="/images/stars3.png" alt="stars" className={`spin spin-fast nonsel pointer-events-none stars ${lost && "hidden"}`} />
       </div>
 
       <div style={{ pointerEvents: "none" }} className="nonsel glow translate-y-[30vh]"></div>
-      <img src={"/images/bg.png"} className="fixed bg-[#17191a] -z-60 translate-y-[30vh] min-w-screen min-h-screen object-cover nonsel" style={{ pointerEvents: "none" }} />
+      <img src={"/images/bg.png"} alt="bg" className="fixed bg-[#17191a] -z-60 translate-y-[30vh] min-w-screen min-h-screen object-cover nonsel" style={{ pointerEvents: "none" }} />
 
       <div className={`${lost && "hidden"}`}>
         <ShootingStars count={12} />

@@ -97,7 +97,7 @@ export default function LinkItem({ desc, active, type, pos, link, onHover }: Lin
         href={`/${link === "blog" ? "blog/page/1" : link}`}
         >
           {type === "img" ? (
-            <img src={`/images/index/nav/${link}.png`} className="h-47.5 w-full pointer-events-none nonsel object-cover" />
+            <img src={`/images/index/nav/${link}.png`} alt={`${link} img`} className="h-47.5 w-full pointer-events-none nonsel object-cover" />
           ) : ( 
             <Marquee>
               <div className="-mr-px">

@@ -646,7 +646,9 @@ export default function Home() {
               >
                 
                 {/* ART */}
-                <img src={artwork?.url}
+                <img 
+                  src={artwork?.url}
+                  alt="featured art"
                   onLoad={handleImageLoad}
                   className={`
                     cursor-pointer
@@ -659,7 +661,7 @@ export default function Home() {
                     min-[768px]:max-h-160
                     min-[768px]:min-w-full
                     `}
-                    onClick={() => setFeaturedLightBoxOpen(true)}
+                  onClick={() => setFeaturedLightBoxOpen(true)}
                 />
 
                 {/* ART DESCRIPTION */}
@@ -719,8 +721,9 @@ export default function Home() {
               {/* MIER DRAWING */}
               <div className="relative w-full h-0 z-100 overflow-visible order-3 md:order-4">
                 <img 
-                  ref={featArtMiniRef} 
-                  src={artwork?.url} 
+                  ref={featArtMiniRef}
+                  src={artwork?.url}
+                  alt="mini featured art"
                   className={`
                   z-10 nonsel pointer-events-none border border-[#d8e0e3]
                   absolute right-0 bottom-0 w-32 origin-bottom-right
@@ -730,6 +733,7 @@ export default function Home() {
                 <img 
                   ref={mierDrawingRef} 
                   src={mierDrawing ? "/images/index/miersit.png" : "/images/index/mierhover.png"} 
+                  alt="mier drawing"
                   onClick={() => mierDrawingClickHandler()}
                   onMouseEnter={!isPhone ? () => mierDrawingHoverHandler() : undefined} 
                   onMouseLeave={() => mierDrawingUnhoverHandler()}
@@ -741,6 +745,7 @@ export default function Home() {
                 />
                 <img 
                   src={mierDrawing ? "/images/index/miersit-leftwing.png" : "/images/index/mierhover-leftwing.png"} 
+                  alt="mier's left wing"
                   className={`
                     nonsel pointer-events-none absolute 
                     bottom-0 right-0 h-60 wings origin-bottom-right
@@ -749,6 +754,7 @@ export default function Home() {
                 />
                 <img 
                   src={mierDrawing ? "/images/index/miersit-rightwing.png" : "/images/index/mierhover-rightwing.png"} 
+                  alt="mier's right wing"
                   className={`
                     nonsel pointer-events-none absolute 
                     bottom-0 right-0 h-60 wings origin-bottom-right
@@ -895,7 +901,7 @@ export default function Home() {
                             EZIO
                           </NextLink>
 
-                          <img className="w-full h-full absolute nonsel pointer-events-none object-cover z-101" src="/images/index/daru.png" />
+                          <img className="w-full h-full absolute nonsel pointer-events-none object-cover z-101" alt="daruezio" src="/images/index/daru.png" />
                         </div>
                       </div>
 
@@ -920,7 +926,7 @@ export default function Home() {
                             <p className="text-xl text-center px-8">Every thought better than the last.</p>
                           </NextLink>
 
-                          <img className="w-full h-full nonsel pointer-events-none object-cover" src="/images/index/truilt.png" />
+                          <img className="w-full h-full nonsel pointer-events-none object-cover" alt="truilt" src="/images/index/truilt.png" />
                           
                         </div>
                       </div>
@@ -952,7 +958,7 @@ export default function Home() {
                             </Marquee>
                           </NextLink>
 
-                          <img className="w-full h-full nonsel pointer-events-none object-cover" src="/images/index/bonbli.png" />
+                          <img className="w-full h-full nonsel pointer-events-none object-cover" alt="bonbli" src="/images/index/bonbli.png" />
                           
                         </div>
                       </div>
@@ -961,14 +967,16 @@ export default function Home() {
                   </div>
                   
                   <img 
-                    src="/images/index/arrow-left.svg"  
-                    onClick={scrollPrev} 
+                    src="/images/index/arrow-left.svg"
+                    alt="leftarrow"
+                    onClick={scrollPrev}
                     className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 opacity-30 hover:opacity-100 hover:bg-black/20 left-0" 
                   />
                   
                   <img 
-                    src="/images/index/arrow-right.svg" 
-                    onClick={scrollNext} 
+                    src="/images/index/arrow-right.svg"
+                    alt="rightarrow"
+                    onClick={scrollNext}
                     className="absolute cursor-pointer nonsel text-xl h-10 w-10 mx-2 p-2 rounded-full transition-bg duration-400 opacity-30 hover:opacity-100 hover:bg-black/20 right-0" 
                   />
 
@@ -1015,6 +1023,7 @@ export default function Home() {
                     />
                     <img 
                       src="/images/index/pfp.png"
+                      alt="pfp img"
                       className="scale-125 group-hover:scale-160 transition-scale duration-300 ease-in-out nonsel pointer-events-none"
                       ref={pfpRef}
                     />
@@ -1070,11 +1079,11 @@ export default function Home() {
                 {/* SOCIALS */}
                 <div className="flex flex-row justify-center items-center gap-3 absolute bottom-0 right-0 pb-2 px-4">
                   <NextLink href="https://x.com/mierursa" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/index/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
+                    <img alt="x" src="/images/index/x.svg" className="max-h-[2.1em] nonsel linkButton transition-all duration-300" draggable="false" />
                   </NextLink>
-                    <img onClick={handleDiscordLink} src="/images/index/discord.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
+                    <img alt="discord" onClick={handleDiscordLink} src="/images/index/discord.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
                   <NextLink href="https://www.youtube.com/@mierursa" target="_blank" rel="noopener noreferrer">
-                    <img src="/images/index/youtube.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
+                    <img alt="youtube" src="/images/index/youtube.svg" className="max-h-[3em] nonsel linkButton transition-all duration-300" draggable="false" />
                   </NextLink>
                   <p
                     ref={discordUsernameRef} 
@@ -1160,7 +1169,7 @@ export default function Home() {
       {/* FOOTER */}
       <Footer />
 
-      <img src="/images/index/mierwalk.gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
+      <img src="/images/index/mierwalk.gif" alt="mierwalk gif" className="fixed z-1 bottom-0 right-0 nonsel scale-80 origin-bottom-right" draggable="false" style={{ pointerEvents: "none" }} />
 
       <Stars lost={false} />
 
