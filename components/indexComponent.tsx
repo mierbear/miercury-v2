@@ -875,7 +875,7 @@ export default function Home() {
                       {isPhone || (
                         <div className="aspect-25/9 flex-[0_0_100%]">
                           <NextLink href="/mierfishing/index.html" target="_blank" rel="noopener noreferrer">
-                            <img src="/images/index/indexbanner.png" className="w-full h-full bg-[#17191a]/40 nonsel pointer-events-none object-cover" />
+                            <img alt="fishing ad" src="/images/index/indexbanner.png" className="w-full h-full bg-[#17191a]/40 nonsel pointer-events-none object-cover" />
                           </NextLink>
                         </div>
                       )}
@@ -1114,6 +1114,7 @@ export default function Home() {
               <div className="w-full h-full relative md:block hidden nonsel pointer-events-none">
                 <img 
                   className="absolute bottom-0 w-full h-auto max-h-none"
+                  alt={`${people}`}
                   src={`/images/index/index-${people}.png`}
                 />
               </div>

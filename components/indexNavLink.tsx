@@ -101,7 +101,7 @@ export default function LinkItem({ desc, active, type, pos, link, onHover }: Lin
           ) : ( 
             <Marquee>
               <div className="-mr-px">
-                <img src={`/images/index/nav/${link}.png`} className="h-47.5 pointer-events-none nonsel" />
+                <img alt={`${link} img`} src={`/images/index/nav/${link}.png`} className="h-47.5 pointer-events-none nonsel" />
               </div>
             </Marquee>
           )}
