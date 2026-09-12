@@ -104,11 +104,11 @@ export default function QuotesComponent() {
   // PRELOAD
   useEffect(() => {
     const preload = [
-      "/images/index/pfp.png",
-      "/images/miercury.png",
-      "/images/blog.png",
-      "/images/ocs.png",
-      "/images/gallery.png",
+      "/images/index/pfp.jpg",
+      "/images/miercury.jpg",
+      "/images/blog.jpg",
+      "/images/ocs.jpg",
+      "/images/gallery.jpg",
     ];
 
     const promises = preload.map(src => new Promise<void>((resolve) => {
@@ -221,9 +221,10 @@ export default function QuotesComponent() {
               className="w-120 h-120 max-w-[80vw] max-h-[80vw] rounded-full flex items-center justify-center relative overflow-hidden"
             >
 
-              <img className="absolute w-full h-auto" src="/images/bg2.png" />
+              <img alt="bg" className="absolute w-full h-auto" src="/images/bg2.png" />
 
               <img 
+                alt="pfp"
                 src="/images/pfp.png"
                 className={`
                   w-full h-full rounded-full absolute
@@ -255,8 +256,9 @@ export default function QuotesComponent() {
           `}
         >
 
-          <img className="absolute nonsel pointer-events-none w-full h-88 sm:h-50 object-cover" src="/images/bg3.png" />
-          <img 
+          <img alt="bg" className="absolute nonsel pointer-events-none w-full h-88 sm:h-50 object-cover" src="/images/bg3.png" />
+          <img
+            alt="mier falling"
             className={`
               absolute nonsel pointer-events-none w-[30%] h-auto right-12 transition-[bottom]
               ${currentSection === "intro" ? "bottom-30 duration-500" : "bottom-8 xl:bottom-3 duration-1000"}
@@ -311,7 +313,7 @@ export default function QuotesComponent() {
           <div className="rounded-lg h-auto w-[80%] md:w-140 flex flex-col md:max-w-[80%]">
             <div className="group flex flex-col">
               <Link href="/" target="_blank">
-                <img className="rounded-lg mb-2 nonsel" src="/images/miercury.png" />
+                <img alt="miercury" className="rounded-lg mb-2 nonsel" src="/images/miercury.jpg" />
               </Link>
               <div className="self-center md:self-start">
                 <Link 
@@ -337,7 +339,7 @@ export default function QuotesComponent() {
           <Project 
             title="GALLERY"
             info="A responsive art gallery built for browsing, filtering, and viewing my artworks, with Supabase-powered image storage and dynamic content management." 
-            src="/images/gallery.png"
+            src="/images/gallery.jpg"
             link="/gallery"
           />
 
@@ -347,7 +349,7 @@ export default function QuotesComponent() {
           <Project 
             title="BLOG"
             info="A personal blog for documenting my own thoughts, projects and things I've learned along the way, with full CRUD operations powered by Supabase." 
-            src="/images/blog.png"
+            src="/images/blog.jpg"
             link="/blog/page/1"
           />
 
@@ -357,7 +359,7 @@ export default function QuotesComponent() {
            <Project 
             title="CHARACTERS"
             info="An interactive character showcase for my original characters, combining artwork, lore, and playful interface interactions." 
-            src="/images/ocs.png"
+            src="/images/ocs.jpg"
             link="/characters"
           />
 
@@ -411,6 +413,7 @@ export default function QuotesComponent() {
 
           {/* bg */}
           <img 
+            alt="bg"
             className={`
               absolute nonsel pointer-events-none w-full h-full object-cover
               transition-scale duration-6000 
@@ -488,6 +491,7 @@ export default function QuotesComponent() {
 
           {/* illustration */}
           <img
+            alt="mier flying"
             className={`
               ${currentSection === "contact" ? "right-[-30%] md:right-[-20%] lg:right-[-14%] bottom-[4%]" : "-right-full bottom-[20%]"}  
               absolute nonsel pointer-events-none duration-3000 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl hidden sm:block

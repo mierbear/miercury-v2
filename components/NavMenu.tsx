@@ -598,7 +598,7 @@ const NavMenu = () => {
         <img 
           className={`
             slow-spin 
-            ${open ? "translate-y-[100vh] scale-90 md:scale-74 lg:scale-60 xl:scale-40 duration-700" : "scale-45 md:scale-37 lg:scale-30 xl:scale-20 duration-1100"}
+            ${open ? "translate-y-[100vh] scale-100 duration-700" : "scale-50 duration-1100"}
             transition-transform origin-center
             ease-in-out nonsel pointer-events-none
           `}

@@ -582,8 +582,7 @@ export default function Home() {
             MIERCURY
           </h1>
         </div>
-
-        <p className="absolute text-white/4 nonsel left-0 z-50">meow</p>
+        {/* <p className="absolute text-white/4 nonsel left-0 z-50">meow</p> */}
       </div>
 
       {/* MAIN CONTENT */}
@@ -595,8 +594,9 @@ export default function Home() {
             ${ready ? "bg-[#d8e0e3] miercury-platform-glow" : "bg-[#17191a]"}
             transition-color duration-2000 rounded-t-xl
             flex flex-col justify-center items-center
-            h-5 z-11 nonsel text-nowrap`}
-          >
+            h-5 z-11 nonsel text-nowrap
+          `}
+        >
           <p 
             ref={textRef}
             style={{ visibility: "hidden" }}
@@ -892,7 +892,11 @@ export default function Home() {
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`
-                            text-8xl w-full h-full absolute wings translate-y-[3.5px]
+                            text-5xl
+                            min-[425px]:text-6xl
+                            min-[500px]:text-8xl
+                            min-[768px]:text-8xl
+                            w-full h-full absolute wings translate-y-[3.5px]
                             z-100 pl-[4%] nonsel flex items-center text-[#700707]
                             ${nova.className}
                             `}
@@ -922,8 +926,8 @@ export default function Home() {
                             flex flex-col transition-[scale] duration-1000 nonsel origin-center
                             `}
                           >
-                            <p className="text-6xl text-center px-8 text-nowrap">TRUILT</p>
-                            <p className="text-xl text-center px-8">Every thought better than the last.</p>
+                            <p className="text-5xl sm:text-6xl text-center px-8 text-nowrap">TRUILT</p>
+                            <p className="text-lg sm:text-xl text-center px-8">Every thought better than the last.</p>
                           </NextLink>
 
                           <img className="w-full h-full nonsel pointer-events-none object-cover" alt="truilt" src="/images/index/truilt.png" />
@@ -952,7 +956,7 @@ export default function Home() {
                             <Marquee
                               speed={100}
                               autoFill={true}
-                              className="text-3xl text-white flex meow nonsel pb-4 overflow-hidden scale-99"
+                              className="text-2xl sm:text-3xl text-white flex meow nonsel pb-4 overflow-hidden scale-99"
                             >
                               &nbsp;BONBLI&nbsp;<span className="text-[#ff7d7d]">★</span>&nbsp;BONBLI&nbsp;<span className="text-[#7d7dff]">★</span>
                             </Marquee>
@@ -982,7 +986,7 @@ export default function Home() {
 
                   <div className="flex gap-2 justify-center absolute bottom-2">
                     {slides.map((_, i) => (
-                      <button
+                      <div
                         key={i}
                         onClick={() => emblaApi?.scrollTo(i)}
                         className={`w-2 h-2 rounded-full transition cursor-pointer

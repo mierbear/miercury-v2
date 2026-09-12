@@ -97,7 +97,7 @@ export default function Project({ title, info, src, link }: ProjectProps) {
       
       <div className="flex flex-col group gap-2">
         <Link href={link} target="_blank" className="group-hover:scale-100 scale-99 transition-scale duration-1000">
-          <img className="rounded-sm sm:rounded-xl md:rounded-2xl nonsel" src={src} />
+          <img alt={src} className="rounded-sm sm:rounded-xl md:rounded-2xl nonsel" src={src} />
         </Link>
 
         <div className="self-center md:self-start">
@@ -119,6 +119,7 @@ export default function Project({ title, info, src, link }: ProjectProps) {
         <p className={`w-full sm:w-[90%] ${title === "CHARACTERS" ? "md:w-[40%]" : "md:w-[50%]"} text-center md:text-justify`} ref={infoRef}>{info}</p>
         {title !== "CHARACTERS" ? (
           <img 
+            alt={title}
             className={`
               self-end absolute right-8 nonsel pointer-events-none
               min-[1280px]:h-90
@@ -141,10 +142,10 @@ export default function Project({ title, info, src, link }: ProjectProps) {
               hidden
               `}
             >
-            <img className="absolute h-full right-0" ref={ignatiusRef} src={`/images/ignatius.png`} />
-            <img className="absolute h-full right-0" ref={rufusRef} src={`/images/rufus.png`} />
-            <img className="absolute h-full right-0" ref={aureliusRef} src={`/images/aurelius.png`} />
-            <img className="absolute h-full right-0" ref={brutusRef} src={`/images/brutus.png`} />
+            <img alt="ignatius" className="absolute h-full right-0" ref={ignatiusRef} src={`/images/ignatius.png`} />
+            <img alt="rufus" className="absolute h-full right-0" ref={rufusRef} src={`/images/rufus.png`} />
+            <img alt="aurelius" className="absolute h-full right-0" ref={aureliusRef} src={`/images/aurelius.png`} />
+            <img alt="brutus" className="absolute h-full right-0" ref={brutusRef} src={`/images/brutus.png`} />
           </div>
         )}
       </div>
